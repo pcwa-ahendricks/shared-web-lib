@@ -1,14 +1,14 @@
 import React from 'react'
 import FlexButton, {FlexButtonProps} from '@components/FlexButton/FlexButton'
-import {alpha, useTheme} from '@mui/material'
-import {Theme} from '@lib/material-theme'
+import {alpha} from '@mui/material'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   children: React.ReactNode
 } & FlexButtonProps
 
 const MMNavLink = ({children, href, as, isNextLink = true}: Props) => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
 
   return (
     <FlexButton

@@ -1,11 +1,10 @@
 import React, {useState} from 'react'
-import {Box, Theme, Typography as Type, BoxProps} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import {Box, Typography as Type, BoxProps} from '@mui/material'
 import Link from 'next/link'
 import {stringify} from 'querystringify'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   imgSrc: string
@@ -19,13 +18,22 @@ type Props = {
   imgixParams?: any
 } & BoxProps
 
-type UseStylesProps = {
-  isHovering: boolean
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    dimmer: ({isHovering}: UseStylesProps) => ({
+const ImageDimmerLink = ({
+  imgAlt: alt,
+  caption,
+  description,
+  descriptionSubtitle = 'Click for more info...',
+  height = 300,
+  width = 400,
+  imgSrc,
+  href,
+  imgixParams = {},
+  ...rest
+}: Props) => {
+  const [isHovering, setIsHovering] = useState<boolean>(false)
+  const theme = useTheme()
+  const style = {
+    dimmer: {
       transition: 'background-color 300ms cubic-bezier(0.4, 0.0, 0.2, 1)',
       backgroundColor: isHovering ? 'rgba(0, 0, 0, .6)' : 'rgba(0,0,0, 0.0)',
       position: 'absolute',
@@ -33,11 +41,11 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: 0,
       left: 0,
       right: 0
-    }),
+    },
     container: {
       cursor: 'pointer'
     },
-    imgCaption: ({isHovering}: UseStylesProps) => ({
+    imgCaption: {
       color: theme.palette.common.white,
       position: 'absolute',
       lineHeight: '1.5em',
@@ -51,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
       transition: 'opacity 400ms ease',
       opacity: isHovering ? 0 : 1
-    }),
+    },
     hoverCaptionContainer: {
       position: 'absolute',
       top: 0,
@@ -68,42 +76,26 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center'
       // lineHeight: '1.5rem',
     },
-    description: ({isHovering}: UseStylesProps) => ({
+    description: {
       color: theme.palette.common.white,
       fontWeight: 500,
       transition: 'opacity 400ms ease',
       opacity: isHovering ? 1 : 0
-    }),
-    descriptionSubtitle: ({isHovering}: UseStylesProps) => ({
+    },
+    descriptionSubtitle: {
       marginTop: '1rem',
       color: theme.palette.common.white,
       fontStyle: 'italic',
       fontWeight: 400,
       transition: 'opacity 400ms ease',
       opacity: isHovering ? 1 : 0
-    })
-  })
-)
-
-const ImageDimmerLink = ({
-  imgAlt: alt,
-  caption,
-  description,
-  descriptionSubtitle = 'Click for more info...',
-  height = 300,
-  width = 400,
-  imgSrc,
-  href,
-  imgixParams = {},
-  ...rest
-}: Props) => {
-  const [isHovering, setIsHovering] = useState<boolean>(false)
-  const classes = useStyles({isHovering})
+    }
+  }
 
   return (
     <Link href={href} passHref legacyBehavior>
       <Box
-        className={classes.container}
+        sx={{...style.container}}
         position="relative"
         onMouseLeave={() => setIsHovering(false)}
         onMouseEnter={() => setIsHovering(true)}
@@ -127,17 +119,17 @@ const ImageDimmerLink = ({
           height={height}
           alt={alt}
         />
-        <Box className={classes.dimmer} />
+        <Box sx={{...style.dimmer}} />
         <Box>
-          <Type variant="h2" className={classes.imgCaption}>
+          <Type variant="h2" sx={{...style.imgCaption}}>
             {caption}
           </Type>
         </Box>
-        <Box className={classes.hoverCaptionContainer}>
-          <Type variant="h4" className={classes.description}>
+        <Box sx={{...style.hoverCaptionContainer}}>
+          <Type variant="h4" sx={{...style.description}}>
             {description}
           </Type>
-          <Type variant="h6" className={classes.descriptionSubtitle}>
+          <Type variant="h6" sx={{...style.descriptionSubtitle}}>
             {descriptionSubtitle}
           </Type>
         </Box>

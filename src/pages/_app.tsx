@@ -52,6 +52,7 @@ LicenseInfo.setLicenseKey(MUI_LICENSE_KEY)
 const isDev = process.env.NODE_ENV === 'development'
 export const mmCrossFadeDuration = 250
 export const forecastCrossFadeDuration = 850
+export const galleryCrossFadeDuration = 1000 * 0.2 // 200 milliseconds
 
 export default function MyApp(props: MyAppProps) {
   const {Component, emotionCache = clientSideEmotionCache, pageProps} = props
@@ -231,6 +232,7 @@ export default function MyApp(props: MyAppProps) {
             '.mm-cross-fade-height': {
               transition: `height ${mmCrossFadeDuration}ms ease-in-out`
             },
+            // Forecast in header bar
             '.forecast-cross-fade-leave': {
               opacity: 1,
               transition: `opacity ${forecastCrossFadeDuration}ms linear`
@@ -247,6 +249,25 @@ export default function MyApp(props: MyAppProps) {
             },
             '.forecast-cross-fade-height': {
               transition: `height ${forecastCrossFadeDuration}ms ease-in-out`
+            },
+            // Multimedia Gallery
+            '.gallery-cross-fade-leave': {
+              opacity: 1,
+              transition: `opacity ${galleryCrossFadeDuration}ms linear`
+            },
+            '.gallery-cross-fade-leave.gallery-cross-fade-leave-active': {
+              opacity: 0
+            },
+            '.gallery-cross-fade-enter': {
+              opacity: 0,
+              transition: `opacity ${galleryCrossFadeDuration}ms linear`
+            },
+            '.gallery-cross-fade-enter.gallery-cross-fade-enter-active': {
+              opacity: 1
+            },
+            '.gallery-cross-fade-height': {
+              height: '100% !important', // Fix SSR height. Setting minHeight property won't suffice.
+              transition: `height ${galleryCrossFadeDuration}ms ease-in-out`
             }
             // With most backgrounds the secondary color will be un-usable as a text color unless the darker version is used.
             // '.MuiTypography-colorSecondary, .MuiButton-textSecondary': {
