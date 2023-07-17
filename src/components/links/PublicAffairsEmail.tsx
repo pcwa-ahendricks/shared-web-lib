@@ -1,12 +1,10 @@
-// cspell:ignore rbranch
-
 import React from 'react'
 import Link, {LinkProps} from '@material-ui/core/Link'
 
 const PublicAffairsEmail = ({...rest}: LinkProps) => {
   return (
-    <Link href="mailto:rbranch@pcwa.net" {...rest}>
-      rbranch@pcwa.net
+    <Link href="mailto:bcoleman@pcwa.net" {...rest}>
+      bcoleman@pcwa.net
     </Link>
   )
 }
