@@ -327,12 +327,21 @@ const GeneralInfoPage = () => {
               </ListItem>
               <ListItem>
                 <Type>
-                  Public Affairs Manager, Ross Branch - <PublicAffairsEmail />
+                  Communications and Multimedia, Brie Coleman -{' '}
+                  <PublicAffairsEmail />
                 </Type>
                 <Type>
                   , <PublicAffairsPhone />
                 </Type>
               </ListItem>
+              {/* <ListItem>
+                <Type>
+                  Public Affairs Manager, Ross Branch - <PublicAffairsEmail />
+                </Type>
+                <Type>
+                  , <PublicAffairsPhone />
+                </Type>
+              </ListItem> */}
             </List>
           </Box>
         </WideContainer>
