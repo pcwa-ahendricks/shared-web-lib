@@ -1,7 +1,5 @@
 import React from 'react'
 import {Box, Typography as Type} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -12,19 +10,7 @@ import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    greenColor: {
-      color: '#468949'
-    },
-    blueColor: {
-      color: '#0f7fb4'
-    }
-  })
-)
-
 const WaterSensePage = () => {
-  const classes = useStyles()
   return (
     <PageLayout title="WaterSense" waterSurface>
       <MainBox>
@@ -37,14 +23,18 @@ const WaterSensePage = () => {
                 <Type
                   component="strong"
                   variant="inherit"
-                  className={classes.blueColor}
+                  sx={{
+                    color: '#0f7fb4'
+                  }}
                 >
                   Water
                 </Type>
                 <Type
                   component="strong"
                   variant="inherit"
-                  className={classes.greenColor}
+                  sx={{
+                    color: '#468949'
+                  }}
                 >
                   Sense
                 </Type>{' '}

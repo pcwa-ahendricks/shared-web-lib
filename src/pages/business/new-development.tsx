@@ -6,8 +6,6 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {FlexBox, RowBox} from '@components/MuiSleazebox'
 import {
-  useTheme,
-  Theme,
   Box,
   Typography as Type,
   Link,
@@ -15,8 +13,6 @@ import {
   LinkProps,
   TypographyProps
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import Image from 'next/legacy/image'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import AssignmentLateOutlinedIcon from '@mui/icons-material/AssignmentLateOutlined'
@@ -26,9 +22,11 @@ import EngineeringEmail from '@components/links/EngineeringEmail'
 import GisDeptEmail from '@components/links/GisDeptEmail'
 import MuiNextLink from '@components/NextLink/NextLink'
 import imgixLoader from '@lib/imageLoader'
+import useTheme from '@hooks/useTheme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const NewDevelopmentPage = () => {
+  const theme = useTheme()
+  const style = {
     tightBulletLi: {
       listStyleType: 'none',
       marginBottom: theme.spacing(1)
@@ -48,22 +46,17 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(1 / 2), // Margin will not shrink icon
       verticalAlign: 'middle'
     }
-  })
-)
-
-const NewDevelopmentPage = () => {
-  const theme = useTheme()
-  const classes = useStyles()
+  }
 
   const Disc = ({...rest}: BoxProps) => (
-    <Box className={classes.disc} {...rest}>
+    <Box sx={{...style.disc}} {...rest}>
       •
     </Box>
   )
 
   const TightBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
-      <Type component="li" className={classes.tightBulletLi} {...rest}>
+      <Type component="li" sx={{...style.tightBulletLi}} {...rest}>
         <Disc />
         {children}
       </Type>
@@ -77,7 +70,7 @@ const NewDevelopmentPage = () => {
         target="_blank"
         color="primary"
         href={href}
-        className={classes.linkItem}
+        sx={{...style.linkItem}}
         underline="hover"
         {...rest}
       >
@@ -100,7 +93,7 @@ const NewDevelopmentPage = () => {
         <LinkItem noWrap href={url}>
           {title}
           <Box component="span">
-            <DescriptionOutlinedIcon className={classes.linkItemIcon} />
+            <DescriptionOutlinedIcon sx={{...style.linkItemIcon}} />
           </Box>
         </LinkItem>
         <Type component="span" color="textPrimary">
@@ -175,7 +168,7 @@ const NewDevelopmentPage = () => {
             <Type component="span">
               <LinkItem href="https://cdn.cosmicjs.com/a73534d0-064a-11ea-95fe-01afbd7f5f3b-Facilities-Agreement-Process.pdf">
                 Facilities Agreement Process
-                <DescriptionOutlinedIcon className={classes.linkItemIcon} />
+                <DescriptionOutlinedIcon sx={{...style.linkItemIcon}} />
               </LinkItem>{' '}
               - Describes the current development agreement process.
             </Type>
@@ -184,7 +177,7 @@ const NewDevelopmentPage = () => {
             <Type component="span">
               <LinkItem href="https://cdn.cosmicjs.com/557ac2f0-fff1-11e8-909e-b5d93bc6be8f-_PCWA-Project-Plans-Checklist.pdf">
                 Project Plans Checklist
-                <DescriptionOutlinedIcon className={classes.linkItemIcon} />
+                <DescriptionOutlinedIcon sx={{...style.linkItemIcon}} />
               </LinkItem>{' '}
               - Basic checklist highlighting expectations of development plan
               sets.
@@ -286,7 +279,7 @@ const NewDevelopmentPage = () => {
               <LinkItem href="https://cdn.cosmicjs.com/9ada4ec0-0675-11ea-944c-cfd32d7bf8a6-PCWA-Supplemental-Res-Service-Form.pdf">
                 Supplemental Information for Residential Services Form
                 <Box component="span">
-                  <DescriptionOutlinedIcon className={classes.linkItemIcon} />
+                  <DescriptionOutlinedIcon sx={{...style.linkItemIcon}} />
                 </Box>
               </LinkItem>
               <Type component="span" color="textPrimary">
@@ -297,7 +290,7 @@ const NewDevelopmentPage = () => {
               <LinkItem href="https://cdn.cosmicjs.com/9ae10580-0675-11ea-95fe-01afbd7f5f3b-PCWA-Supplemental-Non-Res-Service-Form.pdf">
                 Supplemental Information for Non-residential Services Form
                 <Box component="span">
-                  <DescriptionOutlinedIcon className={classes.linkItemIcon} />
+                  <DescriptionOutlinedIcon sx={{...style.linkItemIcon}} />
                 </Box>
               </LinkItem>
               <Type component="span" color="textPrimary">
@@ -340,7 +333,7 @@ const NewDevelopmentPage = () => {
             access, maintain, repair, and replace those facilities. The{' '}
             <LinkItem href="https://cdn.cosmicjs.com/389aa5d0-0679-11ea-944c-cfd32d7bf8a6-PCWA-Checklist---Right-of-Way-Requirements.pdf">
               Right-of-Way Requirements Checklist
-              <DescriptionOutlinedIcon className={classes.linkItemIcon} />
+              <DescriptionOutlinedIcon sx={{...style.linkItemIcon}} />
             </LinkItem>{' '}
             provides information on what you will be required to submit so that
             staff may ensure all facilities are in an acceptable right-of-way
@@ -351,7 +344,7 @@ const NewDevelopmentPage = () => {
             When a grant of easement or fee title is necessary, the{' '}
             <LinkItem href="https://cdn.cosmicjs.com/0d075ed0-0701-11ea-944c-cfd32d7bf8a6-PCWA-Checklist---Signing-Authority.pdf">
               Signing Authority Checklist
-              <DescriptionOutlinedIcon className={classes.linkItemIcon} />
+              <DescriptionOutlinedIcon sx={{...style.linkItemIcon}} />
             </LinkItem>{' '}
             provides helpful guidance on the documentation required for
             submission so staff can verify the person or persons signing the
@@ -382,7 +375,7 @@ const NewDevelopmentPage = () => {
             Fill out the{' '}
             <LinkItem href="https://docs.pcwa.net/fire-flow-request-form.pdf">
               Fire Flow Data Request
-              <DescriptionOutlinedIcon className={classes.linkItemIcon} />
+              <DescriptionOutlinedIcon sx={{...style.linkItemIcon}} />
             </LinkItem>{' '}
             to obtain fire flow data. For more information, please contact the
             Engineering Division at <EngineeringPhone /> during business hours.

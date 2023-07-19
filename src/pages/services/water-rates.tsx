@@ -9,7 +9,6 @@ import {
   TableBody,
   TableCell,
   TableRow,
-  useTheme,
   BoxProps
 } from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -19,8 +18,9 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import FancyButton from '@components/FancyButton/FancyButton'
 import Image from 'next/legacy/image'
+import Spacing from '@components/boxes/Spacing'
+import useTheme from '@hooks/useTheme'
 import imgixLoader from '@lib/imageLoader'
-import {Theme} from '@lib/material-theme'
 
 function createData(tier: string, cost: number) {
   return {tier, cost}
@@ -74,7 +74,7 @@ const commodityDeprivedRows = [
 ]
 
 const WaterRatesPage = () => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const style = {
     tableWrapper: {
       overflowX: 'auto'
@@ -130,9 +130,24 @@ const WaterRatesPage = () => {
     <PageLayout title="Water Rates" waterSurface>
       <MainBox>
         <WideContainer>
-          <PageTitle title="Water Rates" subtitle="Services" />
+          <PageTitle
+            title="Water Rates & Rules and Regulations"
+            subtitle="Services"
+          />
           <RowBox responsive flexSpacing={8}>
             <ChildBox flex="70%">
+              <Spacing size="small" />
+              <FancyButton
+                variant="contained"
+                hoverText="View PDF"
+                target="_blank"
+                color="secondary"
+                rel="noopener noreferrer"
+                href="https://docs.pcwa.net/pcwa-rules-and-regs.pdf"
+              >
+                2023 Rules and Regulations
+              </FancyButton>
+              <Spacing size="large" />
               <Type variant="h3" gutterBottom>
                 Overview of Treated Water Billing Components
               </Type>
@@ -235,17 +250,11 @@ const WaterRatesPage = () => {
                     <Type
                       variant="h6"
                       id="fixedChargeTableTitle"
-                      sx={{
-                        ...style.tableTitle
-                      }}
+                      sx={{...style.tableTitle}}
                     >
                       Fixed Charge
                     </Type>
-                    <Box
-                      sx={{
-                        ...style.tableWrapper
-                      }}
-                    >
+                    <Box sx={{...style.tableWrapper}}>
                       <Table
                         aria-label="Fixed Rates Fixed Charges Table"
                         aria-labelledby="fixedChargeTableTitle"
@@ -280,17 +289,11 @@ const WaterRatesPage = () => {
                     <Type
                       variant="h6"
                       id="renewAndReplacementChargeTableTitle"
-                      sx={{
-                        ...style.tableTitle
-                      }}
+                      sx={{...style.tableTitle}}
                     >
                       Renewal and Replacement Charge
                     </Type>
-                    <Box
-                      sx={{
-                        ...style.tableWrapper
-                      }}
-                    >
+                    <Box sx={{...style.tableWrapper}}>
                       <Table
                         aria-label="Fixed Rates Renewal and Replacement Charges Table"
                         aria-labelledby="renewAndReplacementChargeTableTitle"
@@ -362,17 +365,11 @@ const WaterRatesPage = () => {
                     <Type
                       variant="h6"
                       id="commodityResidentialChargeTableTitle"
-                      sx={{
-                        ...style.tableTitle
-                      }}
+                      sx={{...style.tableTitle}}
                     >
                       Metered Residential Service
                     </Type>
-                    <Box
-                      sx={{
-                        ...style.tableWrapper
-                      }}
-                    >
+                    <Box sx={{...style.tableWrapper}}>
                       <Table
                         aria-label="Commodity Rates - Metered Residential Service Charges Table"
                         aria-labelledby="commodityResidentialChargeTableTitle"
@@ -406,17 +403,11 @@ const WaterRatesPage = () => {
                     <Type
                       variant="h6"
                       id="commodityNonResidentialChargeTableTitle"
-                      sx={{
-                        ...style.tableTitle
-                      }}
+                      sx={{...style.tableTitle}}
                     >
                       Metered Non-Residential Service
                     </Type>
-                    <Box
-                      sx={{
-                        ...style.tableWrapper
-                      }}
-                    >
+                    <Box sx={{...style.tableWrapper}}>
                       <Table
                         aria-label="Commodity Rates - Metered Non-Residential Service Charges Table"
                         aria-labelledby="commodityNonResidentialChargeTableTitle"
@@ -450,9 +441,7 @@ const WaterRatesPage = () => {
                     <Type
                       variant="h6"
                       id="commodityDeprivedChargeTableTitle"
-                      sx={{
-                        ...style.tableTitle
-                      }}
+                      sx={{...style.tableTitle}}
                     >
                       Customers Involuntarily Deprived of Untreated Water
                       Service
@@ -487,19 +476,6 @@ const WaterRatesPage = () => {
                   </TableContainer>
                 </TableLayoutBox>
               </TableLayoutRow>
-
-              <Box mt={6}>
-                <FancyButton
-                  variant="contained"
-                  hoverText="View PDF"
-                  target="_blank"
-                  color="secondary"
-                  rel="noopener noreferrer"
-                  href="https://docs.pcwa.net/pcwa-rules-and-regs.pdf"
-                >
-                  2023 Rules and Regulations
-                </FancyButton>
-              </Box>
             </Box>
           </Box>
         </WideContainer>
