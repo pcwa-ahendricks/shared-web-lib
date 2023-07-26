@@ -5,16 +5,11 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import ImageDimmerLink from '@components/ImageDimmerLink/ImageDimmerLink'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
-import {
-  Box,
-  Typography as Type,
-  useMediaQuery,
-  Theme,
-  useTheme
-} from '@mui/material'
+import {Box, Typography as Type, useMediaQuery} from '@mui/material'
+import useTheme from '@hooks/useTheme'
 
 const DoingBusinessPage = () => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const isSmDown = useMediaQuery(theme.breakpoints.down('md'))
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
