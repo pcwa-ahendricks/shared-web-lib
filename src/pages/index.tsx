@@ -7,7 +7,8 @@ import {
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden
+  Hidden,
+  Link
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
@@ -72,7 +73,8 @@ const Index = ({
 
   const tileWidth = isLGUp ? 176 : 160
 
-  const coverStoryImageRatio = '8/5' // Summer Strong Image
+  const coverStoryImageRatio = '3/2' // State Water Resources Control Board
+  // const coverStoryImageRatio = '8/5' // Summer Strong Image
   // const coverStoryImageRatio = '5/3' // hibernating bear image
   // const coverStoryImageRatio = '2/1'
   // const coverStoryImageRatio = '9/4.6' // summer of savings image
@@ -114,6 +116,43 @@ const Index = ({
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
+              title="Sites Reservoir Project"
+              readMore="Visit California Water Boards"
+              linkHref="https://www.waterboards.ca.gov/waterrights/water_issues/programs/applications/notices/"
+              imgixURL="https://imgix.cosmicjs.com/baae1840-2c0e-11ee-9b7c-69a4789b503a-waterboardslogohighres.jpg"
+              alt="Sites Reservoir Project Notice"
+              flexLinkProps={{isNextLink: false}}
+              body={
+                <Type variant="inherit">
+                  PCWA is currently participating in the Sites Reservoir
+                  Project, a planned off-stream reservoir in Northern
+                  California. The Sites Project Authority is pursuing a water
+                  right permit from the State Water Resources Control Board.
+                  Additional information on the water right application and the
+                  Sites Reservoir Project can be found at{' '}
+                  <Link
+                    href="https://www.waterboards.ca.gov/waterrights/water_issues/programs/applications/notices/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    www.waterboards.ca.gov
+                  </Link>{' '}
+                  and{' '}
+                  <Link
+                    href="https://sitesproject.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    www.sitesproject.org
+                  </Link>
+                  .
+                </Type>
+              }
+            />
+          </ChildBox>
+          <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
               title="Resilient and Beautiful"
               readMore="Learn more"
               linkHref="/smart-water-use/summer-strong"
@@ -122,6 +161,9 @@ const Index = ({
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
           </ChildBox>
+        </RowBox>
+        <Spacing />
+        <RowBox responsive flexSpacing={4}>
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -134,9 +176,6 @@ const Index = ({
               body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
             />
           </ChildBox>
-        </RowBox>
-        <Spacing />
-        <RowBox responsive flexSpacing={4}>
           <ChildBox flex="50%" minWidth="50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -151,6 +190,7 @@ const Index = ({
               body="The recording is now posted for PCWA’s webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
             />
           </ChildBox>
+          {/*
           <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -165,6 +205,7 @@ const Index = ({
               // }}
             />
           </ChildBox>
+          */}
         </RowBox>
 
         <Spacing size="large">
