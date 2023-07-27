@@ -34,7 +34,7 @@ const FETCHER_TIMEOUT = 2000
 const imgixImages = [
   'cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
   'f7f84d40-50d3-11ed-86fb-49bee3bbe632-Limit-Landscape-Watering-graphic-2-days.png',
-  'ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg',
+  // 'ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg',
   '038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg',
   'a86375b0-6340-11ec-a8a3-53f360c99be6-PCWA-2022-Adopted-Budget-for-Website.pdf',
   '68c5af10-afb5-11ec-97bc-19d12908cbbe-hazardtreeportal.jpg',
@@ -46,7 +46,8 @@ const imgixImages = [
   '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
   '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
   'aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg',
-  '35beb0f0-1c13-11ee-8805-5d9e4358a1d4-De-La-Mina8x5V2.jpg'
+  '35beb0f0-1c13-11ee-8805-5d9e4358a1d4-De-La-Mina8x5V2.jpg',
+  'baae1840-2c0e-11ee-9b7c-69a4789b503a-waterboardslogohighres.jpg'
 ]
 
 type Props = {
