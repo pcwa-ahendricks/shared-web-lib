@@ -233,7 +233,7 @@ export default function SummerStrongPage({placeholders}: Props) {
           </Type>
           <Type paragraph>This plant is an Arboretum All Star.</Type>
           <Type paragraph>
-            <StrongGrey>Bloom</StrongGrey>:Pink, lavender, red and white
+            <StrongGrey>Bloom</StrongGrey>: Pink, lavender, red and white
             cultivars available. Peak bloom is during the hottest months of July
             and August.
           </Type>
@@ -257,7 +257,7 @@ export default function SummerStrongPage({placeholders}: Props) {
             available year-round.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bonus plants</StrongGrey>: : Supporting cast includes
+            <StrongGrey>Bonus plants</StrongGrey>: Supporting cast includes
             Lantanas <em>(Lantana montevidensis. L. sellowiana, L. hybrids)</em>{' '}
             which bloom profusely throughout the summer and fall. The flower
             colors often overlaps Crape Myrtle as well, for example ‘Muskogee’
