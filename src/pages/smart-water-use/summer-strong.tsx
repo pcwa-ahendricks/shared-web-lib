@@ -17,7 +17,8 @@ import {
 } from '@material-ui/core'
 // import LeafIcon from 'mdi-material-ui/Leaf'
 // import BirdIcon from 'mdi-material-ui/Bird'
-import StarsIcon from 'mdi-material-ui/Creation'
+// import StarsIcon from 'mdi-material-ui/Creation'
+import SunIcon from 'mdi-material-ui/WhiteBalanceSunny'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import imgixLoader from '@lib/imageLoader'
@@ -41,7 +42,8 @@ const imgixImages = [
   '297bb290-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-8-23.JPG',
   '296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG',
   'c12deaa0-0199-11ee-9c26-15fefb4eeda0-FL-Erigeron.JPG',
-  '6d0cb510-1c1e-11ee-8805-5d9e4358a1d4-IMG6411.JPG'
+  '6d0cb510-1c1e-11ee-8805-5d9e4358a1d4-IMG6411.JPG',
+  '98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG'
 ]
 
 const StrongGrey = ({children, ...props}: TypographyProps) => {
@@ -143,17 +145,18 @@ export default function SummerStrongPage({placeholders}: Props) {
                 {/* <BirdIcon
                   style={{marginRight: 8, color: blueGrey[500], fontSize: 32}}
                 /> */}
-                <StarsIcon
+                <SunIcon
                   style={{marginRight: 8, color: orange[400], fontSize: 32}}
                 />
-                <Type variant="h3" gutterBottom>
+                {/* <Type variant="h3" gutterBottom>
                   A Butterfly Buffet!
+                </Type>*/}
+                <Type variant="h3" gutterBottom>
+                  Queen of Summer
                 </Type>
               </RowBox>
               {/* <Type variant="h3">Cleveland Sage (and other Salvias)</Type> */}
-              <Type variant="h3">
-                De La Mina Verbena or Cedros Island Verbena
-              </Type>
+              <Type variant="h3">Crape Myrtle hybrids and cultivars</Type>
             </ChildBox>
             <ChildBox
               flex="15%"
@@ -170,16 +173,16 @@ export default function SummerStrongPage({placeholders}: Props) {
             <RowBox flexSpacing={6} responsive>
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
-                  mediaUrl="https://imgix.cosmicjs.com/6d0cb510-1c1e-11ee-8805-5d9e4358a1d4-IMG6411.JPG"
-                  mediaName="De La Mina Verbena or Cedros Island Verbena"
+                  mediaUrl="https://imgix.cosmicjs.com/98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG"
+                  mediaName="Crape Myrtle"
                   mediaPreviewDialogProps={{
-                    width: 3024,
-                    height: 4032
+                    width: 3648,
+                    height: 2736
                   }}
                 >
                   <ImageFancier
-                    alt="De La Mina Verbena or Cedros Island Verbena"
-                    src={`https://imgix.cosmicjs.com/6d0cb510-1c1e-11ee-8805-5d9e4358a1d4-IMG6411.JPG${imgixArParams}`}
+                    alt="Crape Myrtle"
+                    src={`https://imgix.cosmicjs.com/98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG${imgixArParams}`}
                     // 5/4 image aspect ration
                     width={1975}
                     height={1580}
@@ -192,73 +195,76 @@ export default function SummerStrongPage({placeholders}: Props) {
             </RowBox>
           </Box>
           <Spacing size="x-large" />
-          <Type variant="h4">De La Mina Verbena or Cedros Island Verbena</Type>
+          <Type variant="h4">Crape Myrtle</Type>
           <Type variant="subtitle1" gutterBottom>
-            <em>Verbena lilacina ‘De La Mina’, Glandularia lilacina. </em>
+            {/* <em>Verbena lilacina ‘De La Mina’, Glandularia lilacina. </em> */}
+            <em>Lagerstoemia</em> hybrids and cultivars
           </Type>
           <Spacing size="small" />
           <Type variant="subtitle1" gutterBottom>
             <em>By Laurie Meyerpeter, Master Gardener</em>
           </Type>
           <Type paragraph>
-            Just say it. <em>Verbena lilacina 'De La Mina'</em>. Fun, fun, fun!
-            It just skips off the tongue like a nursery rhyme. Or if you're
-            short on time, De La Mina Verbena is almost as fun to say. Either
-            one is so rhyme-y and joyful. <em>Glandularia lilacina</em> is a
-            newer name but many nurseries continue to use to the older name for
-            this plant.
+            Nothing says “Summer Strong” more than crape myrtle. Crape myrtle is
+            one tough tree. When conditions get rough, crape myrtle is there,
+            shouting its hot pink, red, white or lavender blooms while the rest
+            of the region melts during our hot summers. When other plants wilt
+            in the heat and the drought, crape myrtle growls, “Here, hold my
+            beer,” steps up, and then knocks our socks off with its brilliantly
+            colored flowers, throwing a party every summer with its
+            crepe-paper-like blooms that just cover the tree for weeks. It
+            doesn’t matter how you take care of them, whether you painstakingly
+            prune them or ignore them, whether you water them weekly or forget
+            most of the time, whether they you coddle them or give them tough
+            love, Crape Myrtles bloom.
           </Type>
           <Type paragraph>
-            Everything about this plant is joyful. This charming perennial or
-            small shrub has lovely fern-like green foliage and tiny purple
-            flowers in profuse numbers. Its heaviest bloom is in the spring but
-            it has profuse flowers in the summer and fall as well. In some
-            climates, it can bloom nearly year round, although in this region,
-            it seems to take a slight break during the cold season. It’s a
-            selection from Cedros Island off Baja California and is hardy to
-            about 25 degrees (similar to citrus). Butterflies love it.{' '}
+            And if summer blooms aren’t enough, it goes on to have an autumn
+            encore with brilliant fall color. Mature trees have gorgeous
+            ornamental bark.
           </Type>
           <Type paragraph>
-            This plant is a favorite of master gardeners and is a staff favorite
-            at the UC Arboretum in Davis.
+            Crape myrtle cultivars come in many sizes, from trees to small
+            shrubs. Choose cultivars that best fit your location, space, and
+            color choice.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bloom</StrongGrey>: ‘De La Mina’ Verbena blooms in
-            spring, summer, and fall, and sometimes into winter during warmer
-            years. The diminutive purple flowers are shades of purple and
-            although small, the plant is usually covered in the tiny blooms. The
-            flowers are butterfly favorites and have a light, spicy fragrance.
+            The hybrids are more resistant to powdery mildew.
+          </Type>
+          <Type paragraph>This plant is an Arboretum All Star.</Type>
+          <Type paragraph>
+            <StrongGrey>Bloom</StrongGrey>:Pink, lavender, red and white
+            cultivars available. Peak bloom is during the hottest months of July
+            and August.
           </Type>
           <Type paragraph>
-            <StrongGrey>Water needs</StrongGrey>: Low, once established.
+            <StrongGrey>Water needs</StrongGrey>: Low once established.
           </Type>
           <Type paragraph>
-            <StrongGrey>Sun</StrongGrey>: Full sun, part shade.
+            <StrongGrey>Sun</StrongGrey>: Full sun. Without full sun, it may
+            flower slightly less and some flower colors like red will be muted.
           </Type>
           <Type paragraph>
-            <StrongGrey>Size</StrongGrey>: This plant is 2-3’ tall, and 3-4’
-            wide with a rounded form.
+            <StrongGrey>Size</StrongGrey>: Size varies depending on the
+            cultivar.
           </Type>
           <Type paragraph>
-            <StrongGrey>Care</StrongGrey>: Low water requirements. Lightly prune
-            in late fall to maintain compact form.
+            <StrongGrey>Care</StrongGrey>: Low water requirements. Needs little
+            pruning or care. Excessive pruning is discouraged.
           </Type>
           <Type paragraph>
-            <StrongGrey>Availability</StrongGrey>: ‘De La Mina’ Verbena is
-            available during the warmer months at local nurseries, sometimes
-            sporadically. If not in stock, it’s worth asking when it will be
-            re-stocked or check back in a few weeks.
+            <StrongGrey>Availability</StrongGrey>: Crape Myrtles are widely
+            available year-round.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bonus plants</StrongGrey>: Many other low and very low
-            water plants are butterfly favorites as well. Besides De La Mina
-            Verbena, consider yarrows like ‘Island Pink’ Yarrow (Achillea
-            millefolium ‘Island Pink’, an Arboretum All-Star) and other yarrows,
-            Santa Barbara Daisy (Erigeron karvinsianus, an Arboretum All-Star),
-            and Catmint (Nepeta x faassenii, an Arboretum All-Star). All bloom
-            profusely in early and mid-summer with repeated blooms throughout
-            summer, and make a nice combination. Yarrows, Santa Barbara Daisy,
-            and Catmint are all readily available in local nurseries.
+            <StrongGrey>Bonus plants</StrongGrey>: : Supporting cast includes
+            Lantanas <em>(Lantana montevidensis. L. sellowiana, L. hybrids)</em>{' '}
+            which bloom profusely throughout the summer and fall. The flower
+            colors often overlaps Crape Myrtle as well, for example ‘Muskogee’
+            Crape Myrtle shares a similar lavender color as{' '}
+            <em>Lantana montevidensis</em> for a soft lavender effect, and
+            ‘Natchez’ Crape Myrtle can be matched with white lantana hybrids for
+            a “full moon” garden of “summer whites in the night”
           </Type>
 
           <Spacing size="large" />
@@ -281,52 +287,9 @@ export default function SummerStrongPage({placeholders}: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="body1"
-                href="https://calscape.org/Verbena-lilacina-'De-La-Mina'-(De-La-Mina-Verbena)?srchcr=sc5e4b2b6ca32ac"
+                href="https://arboretum.ucdavis.edu/plant/crape-myrtle"
               >
-                CalScape, De La Mina (https://calscape.org)
-              </Link>
-            </Type>
-            <Type>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="body1"
-                href="https://calscape.org/Achillea-millefolium-%27Island-Pink%27-(Island-Pink-Yarrow)"
-              >
-                CalScape, Island Pink Yarrow (https://calscape.org)
-              </Link>
-            </Type>
-            <Type>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="body1"
-                href="https://arboretum.ucdavis.edu/plant/island-pink-yarrow"
-              >
-                UC Davis Arboretum All Stars, Island Pink Yarrow:
-                (https://arboretum.ucdavis.edu)
-              </Link>
-            </Type>
-            <Type>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="body1"
-                href="https://arboretum.ucdavis.edu/plant/Santa-Barbara-daisy"
-              >
-                UC Davis Arboretum All Stars, Santa Barbara Daisy:
-                (https://arboretum.ucdavis.edu)
-              </Link>
-            </Type>
-            <Type>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="body1"
-                href="https://arboretum.ucdavis.edu/plant/hybrid-catmint"
-              >
-                UC Davis Arboretum All Stars, Hybrid Catmint:
-                (https://arboretum.ucdavis.edu)
+                UC Davis Arboretum All Stars: (https://arboretum.ucdavis.edu)
               </Link>
             </Type>
           </Box>
@@ -349,6 +312,203 @@ export default function SummerStrongPage({placeholders}: Props) {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1-content"
                 id="panel1-header"
+              >
+                <RowBox justifyContent="space-between" width="100%">
+                  <ChildBox flex="grow">
+                    {/* <AcctCancelIcon
+                    style={{
+                      fontSize: '32px',
+                      color: red[400],
+                      paddingRight: 8
+                    }}
+                  /> */}
+                    <Type variant="h4">
+                      De La Mina Verbena or Cedros Island Verbena
+                    </Type>
+                  </ChildBox>
+                </RowBox>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box>
+                  <RowBox flexSpacing={6} responsive>
+                    <ChildBox flex="0 1 33%">
+                      <MediaDialogOnClick
+                        mediaUrl="https://imgix.cosmicjs.com/6d0cb510-1c1e-11ee-8805-5d9e4358a1d4-IMG6411.JPG"
+                        mediaName="De La Mina Verbena or Cedros Island Verbena"
+                        mediaPreviewDialogProps={{
+                          width: 3024,
+                          height: 4032
+                        }}
+                      >
+                        <ImageFancier
+                          alt="De La Mina Verbena or Cedros Island Verbena"
+                          src={`https://imgix.cosmicjs.com/6d0cb510-1c1e-11ee-8805-5d9e4358a1d4-IMG6411.JPG${imgixArParams}`}
+                          // 5/4 image aspect ration
+                          width={1975}
+                          height={1580}
+                          defaultGrey
+                          sizes="(max-width: 600px) 100vw, 33vw"
+                          objectFit="contain"
+                        />
+                      </MediaDialogOnClick>
+                    </ChildBox>
+                  </RowBox>
+                  <Spacing size="x-large" />
+                  <Type variant="h4">
+                    De La Mina Verbena or Cedros Island Verbena
+                  </Type>
+                  <Type variant="subtitle1" gutterBottom color="textSecondary">
+                    <em>
+                      Verbena lilacina ‘De La Mina’, Glandularia lilacina.
+                    </em>
+                  </Type>
+                  <Type variant="subtitle1" gutterBottom>
+                    <em>By Laurie Meyerpeter, Master Gardener</em>
+                  </Type>
+                  <Type paragraph>
+                    Just say it. <em>Verbena lilacina 'De La Mina'</em>. Fun,
+                    fun, fun! It just skips off the tongue like a nursery rhyme.
+                    Or if you're short on time, De La Mina Verbena is almost as
+                    fun to say. Either one is so rhyme-y and joyful.{' '}
+                    <em>Glandularia lilacina</em> is a newer name but many
+                    nurseries continue to use to the older name for this plant.
+                  </Type>
+                  <Type paragraph>
+                    Everything about this plant is joyful. This charming
+                    perennial or small shrub has lovely fern-like green foliage
+                    and tiny purple flowers in profuse numbers. Its heaviest
+                    bloom is in the spring but it has profuse flowers in the
+                    summer and fall as well. In some climates, it can bloom
+                    nearly year round, although in this region, it seems to take
+                    a slight break during the cold season. It’s a selection from
+                    Cedros Island off Baja California and is hardy to about 25
+                    degrees (similar to citrus). Butterflies love it.{' '}
+                  </Type>
+                  <Type paragraph>
+                    This plant is a favorite of master gardeners and is a staff
+                    favorite at the UC Arboretum in Davis.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Bloom</StrongGrey>: ‘De La Mina’ Verbena blooms
+                    in spring, summer, and fall, and sometimes into winter
+                    during warmer years. The diminutive purple flowers are
+                    shades of purple and although small, the plant is usually
+                    covered in the tiny blooms. The flowers are butterfly
+                    favorites and have a light, spicy fragrance.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Water needs</StrongGrey>: Low, once established.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Sun</StrongGrey>: Full sun, part shade.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Size</StrongGrey>: This plant is 2-3’ tall, and
+                    3-4’ wide with a rounded form.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Care</StrongGrey>: Low water requirements.
+                    Lightly prune in late fall to maintain compact form.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Availability</StrongGrey>: ‘De La Mina’ Verbena
+                    is available during the warmer months at local nurseries,
+                    sometimes sporadically. If not in stock, it’s worth asking
+                    when it will be re-stocked or check back in a few weeks.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Bonus plants</StrongGrey>: Many other low and
+                    very low water plants are butterfly favorites as well.
+                    Besides De La Mina Verbena, consider yarrows like ‘Island
+                    Pink’ Yarrow (Achillea millefolium ‘Island Pink’, an
+                    Arboretum All-Star) and other yarrows, Santa Barbara Daisy
+                    (Erigeron karvinsianus, an Arboretum All-Star), and Catmint
+                    (Nepeta x faassenii, an Arboretum All-Star). All bloom
+                    profusely in early and mid-summer with repeated blooms
+                    throughout summer, and make a nice combination. Yarrows,
+                    Santa Barbara Daisy, and Catmint are all readily available
+                    in local nurseries.
+                  </Type>
+                  <Spacing size="large" />
+                  <Box>
+                    <Type variant="subtitle1" gutterBottom>
+                      Information:
+                    </Type>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://ucanr.edu/sites/WUCOLS/files/183488.pdf"
+                      >
+                        WUCOLS (https://ucanr.edu)
+                      </Link>
+                    </Type>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://calscape.org/Verbena-lilacina-'De-La-Mina'-(De-La-Mina-Verbena)?srchcr=sc5e4b2b6ca32ac"
+                      >
+                        CalScape, De La Mina (https://calscape.org)
+                      </Link>
+                    </Type>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://calscape.org/Achillea-millefolium-%27Island-Pink%27-(Island-Pink-Yarrow)"
+                      >
+                        CalScape, Island Pink Yarrow (https://calscape.org)
+                      </Link>
+                    </Type>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://arboretum.ucdavis.edu/plant/island-pink-yarrow"
+                      >
+                        UC Davis Arboretum All Stars, Island Pink Yarrow:
+                        (https://arboretum.ucdavis.edu)
+                      </Link>
+                    </Type>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://arboretum.ucdavis.edu/plant/Santa-Barbara-daisy"
+                      >
+                        UC Davis Arboretum All Stars, Santa Barbara Daisy:
+                        (https://arboretum.ucdavis.edu)
+                      </Link>
+                    </Type>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://arboretum.ucdavis.edu/plant/hybrid-catmint"
+                      >
+                        UC Davis Arboretum All Stars, Hybrid Catmint:
+                        (https://arboretum.ucdavis.edu)
+                      </Link>
+                    </Type>
+                  </Box>
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === 'panel2'}
+              onChange={handleChange('panel2')}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2-content"
+                id="panel2-header"
               >
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
@@ -498,13 +658,13 @@ export default function SummerStrongPage({placeholders}: Props) {
               </AccordionDetails>
             </Accordion>
             <Accordion
-              expanded={expanded === 'panel2'}
-              onChange={handleChange('panel2')}
+              expanded={expanded === 'panel3'}
+              onChange={handleChange('panel3')}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2-content"
-                id="panel2-header"
+                aria-controls="panel3-content"
+                id="panel3-header"
               >
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">

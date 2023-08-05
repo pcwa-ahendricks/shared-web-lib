@@ -46,8 +46,9 @@ const imgixImages = [
   '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
   '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
   'aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg',
-  '35beb0f0-1c13-11ee-8805-5d9e4358a1d4-De-La-Mina8x5V2.jpg',
-  'baae1840-2c0e-11ee-9b7c-69a4789b503a-waterboardslogohighres.jpg'
+  // '35beb0f0-1c13-11ee-8805-5d9e4358a1d4-De-La-Mina8x5V2.jpg',
+  'e9d52af0-33b6-11ee-9ab5-815d9b73ff1f-waterboardslogohighresedit.png',
+  '95abf060-33b3-11ee-9ab5-815d9b73ff1f-CrapeMyrtle8x5V3.jpg'
 ]
 
 type Props = {
@@ -74,8 +75,8 @@ const Index = ({
 
   const tileWidth = isLGUp ? 176 : 160
 
-  const coverStoryImageRatio = '3/2' // State Water Resources Control Board
-  // const coverStoryImageRatio = '8/5' // Summer Strong Image
+  // const coverStoryImageRatio = '3/2' // State Water Resources Control Board
+  const coverStoryImageRatio = '8/5' // Summer Strong Image
   // const coverStoryImageRatio = '5/3' // hibernating bear image
   // const coverStoryImageRatio = '2/1'
   // const coverStoryImageRatio = '9/4.6' // summer of savings image
@@ -120,7 +121,7 @@ const Index = ({
               title="Sites Reservoir Project"
               readMore="Visit California Water Boards"
               linkHref="https://www.waterboards.ca.gov/waterrights/water_issues/programs/applications/notices/"
-              imgixURL="https://imgix.cosmicjs.com/baae1840-2c0e-11ee-9b7c-69a4789b503a-waterboardslogohighres.jpg"
+              imgixURL="https://imgix.cosmicjs.com/e9d52af0-33b6-11ee-9ab5-815d9b73ff1f-waterboardslogohighresedit.png"
               alt="Sites Reservoir Project Notice"
               flexLinkProps={{isNextLink: false}}
               body={
@@ -157,7 +158,7 @@ const Index = ({
               title="Resilient and Beautiful"
               readMore="Learn more"
               linkHref="/smart-water-use/summer-strong"
-              imgixURL="https://imgix.cosmicjs.com/35beb0f0-1c13-11ee-8805-5d9e4358a1d4-De-La-Mina8x5V2.jpg"
+              imgixURL="https://imgix.cosmicjs.com/95abf060-33b3-11ee-9ab5-815d9b73ff1f-CrapeMyrtle8x5V3.jpg"
               alt="Verbena lilacina 'De La Mina'"
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
