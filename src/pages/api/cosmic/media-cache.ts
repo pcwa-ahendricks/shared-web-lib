@@ -5,7 +5,7 @@ import {stringify} from 'querystringify'
 import {CosmicGetMediaResponse} from '../../../lib/api/cosmic'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import jsonStringify from 'fast-json-stable-stringify'
-import {get, set} from '@lib/api/upstash'
+import {kv} from '@vercel/kv'
 import pTimeout from 'p-timeout'
 
 const COSMIC_BUCKET = 'pcwa'
@@ -30,11 +30,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const hash = jsonStringify(query) || 'empty-query'
     try {
-      const cacheData = await pTimeout(get(hash), {milliseconds: TIMEOUT})
-      const result = typeof cacheData === 'object' ? cacheData.result : ''
-      if (result && typeof result === 'string') {
-        const data = JSON.parse(result)
-        res.status(200).json(data)
+      const cache = await pTimeout(kv.get(hash), {milliseconds: TIMEOUT})
+
+      if (cache && typeof cache === 'object') {
+        res.status(200).json(cache)
         return
       }
     } catch (error) {
@@ -54,8 +53,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     if (!cosmicId) {
       try {
-        const params = {EX: 60 * 5} // 5 minutes
-        await pTimeout(set(hash, media, {params}), {milliseconds: TIMEOUT})
+        const params = {ex: 60 * 5} // 5 minutes
+        await pTimeout(kv.set(hash, media, {...params}), {
+          milliseconds: TIMEOUT
+        })
       } catch (error) {
         console.log(error)
       }
@@ -71,8 +72,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
 
     try {
-      const params = {EX: 60 * 5} // 5 minutes
-      await pTimeout(set(hash, filteredMedia, {params}), {
+      const params = {ex: 60 * 5} // 5 minutes
+      await pTimeout(kv.set(hash, filteredMedia, {...params}), {
         milliseconds: TIMEOUT
       })
     } catch (error) {

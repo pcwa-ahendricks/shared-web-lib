@@ -1,7 +1,7 @@
-// cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid upstash
+// cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
-import {get, set} from '@lib/api/upstash'
+import {kv} from '@vercel/kv'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -54,15 +54,26 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather${qs}`
 
     const hash = `openweathermap-${latLngStr}${isDev ? '-dev' : ''}`
-    const upstashData = await get(hash)
-    const result = typeof upstashData === 'object' ? upstashData.result : ''
+    const cache = await kv.get<{
+      temperature: number
+      longitude: number
+      latitude: number
+      sunrise: number
+      sunset: number
+      dateTime: number
+      id: number
+      weatherId: number
+      name: string
+      weatherMain: string
+      description: string
+      icon: string
+    }>(hash)
 
-    // console.log('hash: ', hash)
-    // console.log('result: ', JSON.stringify(result, null, 2))
+    console.log('hash: ', hash)
+    console.log('cache: ', cache)
     // console.log('error: ', error)
 
-    if (result && typeof result === 'string') {
-      const cache = JSON.parse(result)
+    if (cache && typeof cache === 'object') {
       const {
         temperature,
         longitude,
@@ -124,9 +135,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       id, // id
       weatherId // weather id
     }
-    // Pass Redis options via url params. See https://redis.io/commands/set and https://docs.upstash.com/features/restapi#json-or-binary-value.
-    const params = {EX: threeMinInSec}
-    await set(hash, forecast, {params})
+    // Pass Redis options via url params. See https://redis.io/commands/set
+    const params = {ex: threeMinInSec}
+    await kv.set(hash, forecast, {...params})
 
     /*
       There is 60 minutes in an hour, 24 hours in a day, 1,440 minutes in a day.

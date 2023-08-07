@@ -1,7 +1,7 @@
 // cspell:ignore promisify weathercode OPENWEATHERMAP ondigitalocean appid maxmissing mcnt
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {dLog} from '@lib/api/shared'
-import {get, set} from '@lib/api/upstash'
+import {kv} from '@vercel/kv'
 
 const mainHandler = async (_req: VercelRequest, res: VercelResponse) => {
   try {
@@ -13,11 +13,10 @@ const mainHandler = async (_req: VercelRequest, res: VercelResponse) => {
     const apiUrl = 'https://data.rcc-acis.org/General/county'
 
     const hash = `acis-county`
-    const cacheData = await get(hash)
-    const result = typeof cacheData === 'object' ? cacheData.result : ''
 
-    if (result && typeof result === 'string') {
-      const cache = JSON.parse(result)
+    const cache = await kv.get(hash)
+
+    if (cache && typeof cache === 'object') {
       dLog('returning cache copy...')
       res.status(200).json(cache)
       return
@@ -35,10 +34,11 @@ const mainHandler = async (_req: VercelRequest, res: VercelResponse) => {
     }
 
     const data = await response.json()
-    const params = {EX: 60 * 60 * 24 * 30.44} // 1 month
-    await set(hash, data, {params})
+
+    await kv.set(hash, data, {ex: 60 * 60 * 24 * 30.44}) // 1 month
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+
     dLog('returning fresh copy...')
     res.status(200).json(data)
   } catch (error) {
