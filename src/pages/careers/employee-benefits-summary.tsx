@@ -60,7 +60,7 @@ const EmployeeBenefitsSummaryPage = () => {
   const tlsOpts = {style: 'currency', currency: 'USD'}
 
   return (
-    <PageLayout title="Employee Benefits Summary" waterSurface>
+    <PageLayout title="Employee Benefits Summary" waterSurface={false}>
       <MainBox>
         <NarrowContainer>
           <PageTitle

@@ -54,20 +54,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather${qs}`
 
     const hash = `openweathermap-${latLngStr}${isDev ? '-dev' : ''}`
-    const cache = await kv.get<{
-      temperature: number
-      longitude: number
-      latitude: number
-      sunrise: number
-      sunset: number
-      dateTime: number
-      id: number
-      weatherId: number
-      name: string
-      weatherMain: string
-      description: string
-      icon: string
-    }>(hash)
+    const cache = await kv.get<Cache>(hash)
 
     console.log('hash: ', hash)
     console.log('cache: ', cache)
@@ -230,4 +217,19 @@ interface Weather {
 interface Coord {
   lon: number
   lat: number
+}
+
+interface Cache {
+  temperature: number
+  longitude: number
+  latitude: number
+  sunrise: number
+  sunset: number
+  dateTime: number
+  id: number
+  weatherId: number
+  name: string
+  weatherMain: string
+  description: string
+  icon: string
 }
