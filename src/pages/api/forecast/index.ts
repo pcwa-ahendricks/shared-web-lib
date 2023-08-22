@@ -56,8 +56,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const hash = `openweathermap-${latLngStr}${isDev ? '-dev' : ''}`
     const cache = await kv.get<Cache>(hash)
 
-    console.log('hash: ', hash)
-    console.log('cache: ', cache)
+    // console.log('hash: ', hash)
+    // console.log('cache: ', cache)
     // console.log('error: ', error)
 
     if (cache && typeof cache === 'object') {
