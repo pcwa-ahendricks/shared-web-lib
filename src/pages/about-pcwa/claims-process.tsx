@@ -20,13 +20,13 @@ export default function BasicTemplatePage() {
           <Box component="ul">
             <Type component="li">
               Property damage resulting from a leak from PCWA infrastructure or
-              from certain PCWA work or construction activities
+              from certain PCWA work or construction activities.
             </Type>
             <Type component="li">
-              A motor vehicle accident involving a PCWA vehicle or equipment
+              A motor vehicle accident involving a PCWA vehicle or equipment.
             </Type>
             <Type component="li">
-              Bodily injury you believe was caused by PCWA
+              Bodily injury you believe was caused by PCWA.
             </Type>
           </Box>
           <Type paragraph>
