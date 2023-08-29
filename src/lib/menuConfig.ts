@@ -79,6 +79,10 @@ const menuConfig: MenuConfig[] = [
             nextLink: '/about-pcwa/financial-report'
           },
           {
+            title: 'Claims Process',
+            nextLink: '/about-pcwa/claims-process'
+          },
+          {
             title: 'Unclaimed Property',
             nextLink: '/about-pcwa/unclaimed-property'
           },
