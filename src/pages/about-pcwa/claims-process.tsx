@@ -50,7 +50,7 @@ export default function BasicTemplatePage() {
           </Type>
           <Spacing />
           <Type variant="h3" gutterBottom>
-            Time Limits For Filing a Claim
+            Time Limits for Filing a Claim
           </Type>
           <Type paragraph>
             Submit your claim as soon as possible. The California Tort Claims
@@ -85,14 +85,16 @@ export default function BasicTemplatePage() {
             if any.
           </Type>
           <Spacing />
-          <Type paragraph>Filing a Claim Directly With PCWA</Type>
+          <Type variant="h3" gutterBottom>
+            Filing a Claim Directly With PCWA
+          </Type>
           <Type>
             Call PCWA at <MainPhone /> Monday-Friday during business hours to
             discuss your loss and request a claim form.
           </Type>
           <Spacing />
           <Type variant="h3" gutterBottom>
-            Information Required To File a Claim
+            Information Required to File a Claim
           </Type>
           <Type paragraph>
             Your claim form will need to include as much of the following
