@@ -86,7 +86,7 @@ export default function BasicTemplatePage() {
           </Type>
           <Spacing />
           <Type variant="h3" gutterBottom>
-            Filing a Claim Directly With PCWA
+            Filing a Claim Directly with PCWA
           </Type>
           <Type>
             Call PCWA at <MainPhone /> Monday-Friday during business hours to
