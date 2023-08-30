@@ -160,6 +160,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/about-pcwa/claims-process</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/newsroom/water-spots-2020</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -6925,14 +6929,6 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/education-center/videos/informational</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/education-center/videos/historical</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/education-center/videos/construction</loc>
     <changefreq>daily</changefreq>
   </url>
 </urlset>
