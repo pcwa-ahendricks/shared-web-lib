@@ -1,6 +1,5 @@
 // cspell:ignore Lightbox
 import React, {useCallback, useContext, useEffect, useState} from 'react'
-
 import {format, parse} from 'date-fns'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -539,7 +538,8 @@ const ResourceLibraryPage = ({
                     <CardActions>
                       <Button
                         size="small"
-                        startIcon={<MovieIcon color="action" />}
+                        // startIcon={<MovieIcon color="action" />}
+                        startIcon={<YouTubeIcon color="action" />}
                         href="https://www.youtube.com/watch?v=dSXMOGczI1o"
                         target="_blank"
                         rel="noopener noreferrer"
