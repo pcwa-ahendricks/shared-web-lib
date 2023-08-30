@@ -10,7 +10,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const qs = stringify({read_key: COSMIC_READ_ACCESS_KEY, ...req.query}, true)
     const response = await fetch(
-      `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/object-types${qs}`
+      `${COSMIC_API_ENDPOINT}/v3/buckets/${COSMIC_BUCKET}/object-types${qs}`
     )
     if (!response.ok) {
       res.status(400).send('Response not ok')

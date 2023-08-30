@@ -21,10 +21,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     )
     isDev &&
       console.log(
-        `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
+        `${COSMIC_API_ENDPOINT}/v3/buckets/${COSMIC_BUCKET}/objects${qs}`
       )
     const response = await fetch(
-      `${COSMIC_API_ENDPOINT}/v2/buckets/${COSMIC_BUCKET}/objects${qs}`
+      `${COSMIC_API_ENDPOINT}/v3/buckets/${COSMIC_BUCKET}/objects${qs}`
     )
 
     if (!response.ok) {

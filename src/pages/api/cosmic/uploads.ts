@@ -85,7 +85,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       formData.append('folder', COSMIC_UPLOAD_DIR)
       formData.append('metadata', JSON.stringify(metadata))
       const response = await fetch(
-        `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/media`,
+        `${COSMIC_API_ENDPOINT}/v3/${COSMIC_BUCKET}/media`,
         {
           method: 'POST',
           body: formData as any // [TODO] remove any type

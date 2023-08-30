@@ -4,7 +4,7 @@ import {VercelRequest, VercelResponse} from '@vercel/node'
 
 const COSMIC_BUCKET = 'pcwa'
 const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
-const COSMIC_VER = 'v2'
+const COSMIC_VER = 'v3'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
