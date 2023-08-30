@@ -220,7 +220,13 @@ async function generateSitemap() {
       filteredVideoMultimedia,
       (a) => a.metadata?.gallery
     )
-  ].map(([gallery]) => `/education-center/videos/${gallery}`)
+  ]
+    .map(([gallery]) => `/education-center/videos/${gallery}`)
+    // manually added routes, due to solely added YouTube Multimedia files
+    .concat([
+      '/education-center/videos/historical',
+      '/education-center/videos/construction'
+    ])
 
   const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
