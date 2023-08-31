@@ -1,37 +1,52 @@
-import {stringify} from 'querystringify'
 import {VercelRequest, VercelResponse} from '@vercel/node'
-const isDev = process.env.NODE_ENV === 'development'
+import {createBucketClient} from '@cosmicjs/sdk'
+import {paramToStr} from '@lib/api/shared'
+import {getObjectMethodDefaults} from '@lib/api/cosmic'
 
-const COSMIC_BUCKET = 'pcwa'
-const COSMIC_API_ENDPOINT = 'https://api.cosmicjs.com'
+// const isDev = process.env.NODE_ENV === 'development'
+
+const COSMIC_BUCKET = 'pcwa-net'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
+    const cosmic = createBucketClient({
+      bucketSlug: COSMIC_BUCKET,
+      readKey: COSMIC_READ_ACCESS_KEY
+    })
     // res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const {query: reqQuery} = req
-    const {query, ...restQuery} = reqQuery
-    const qs = stringify(
-      {
-        read_key: COSMIC_READ_ACCESS_KEY,
-        ...restQuery,
-        query
-      },
-      true
-    )
-    isDev &&
-      console.log(
-        `${COSMIC_API_ENDPOINT}/v3/buckets/${COSMIC_BUCKET}/objects${qs}`
-      )
-    const response = await fetch(
-      `${COSMIC_API_ENDPOINT}/v3/buckets/${COSMIC_BUCKET}/objects${qs}`
-    )
+    let {query, status, limit, props, sort, skip, depth} = reqQuery
+    query = paramToStr(query)
+    status = paramToStr(status) || getObjectMethodDefaults.status
 
-    if (!response.ok) {
-      res.status(400).send('Response not ok')
-      return
-    }
-    const data = await response.json()
+    props = paramToStr(props) || getObjectMethodDefaults.props
+    sort = paramToStr(sort) || getObjectMethodDefaults.sort
+    const skipInt =
+      parseInt(paramToStr(skip), 10) === 0
+        ? 0
+        : parseInt(paramToStr(skip), 10) || getObjectMethodDefaults.skip
+    const depthInt =
+      parseInt(paramToStr(depth), 10) === 0
+        ? 0
+        : parseInt(paramToStr(depth), 10) || getObjectMethodDefaults.depth
+    const limitInt =
+      parseInt(paramToStr(limit), 10) === 0
+        ? 0
+        : parseInt(paramToStr(limit), 10) || getObjectMethodDefaults.limit
+    const queryObj = JSON.parse(query || '{}') // default to empty object
+
+    const data = await cosmic.objects
+      .find(queryObj)
+      .props(props)
+      // .pretty() // typescript definition may be off on this one
+      // .useCache(true) // typescript definition may be off on this one, says it takes no arguments
+      .status(status)
+      .depth(depthInt)
+      .skip(skipInt)
+      .limit(limitInt)
+      .sort(sort)
+
     res.status(200).json(data)
   } catch (error) {
     console.log(error)
