@@ -18,7 +18,7 @@ import {
 // import LeafIcon from 'mdi-material-ui/Leaf'
 // import BirdIcon from 'mdi-material-ui/Bird'
 // import StarsIcon from 'mdi-material-ui/Creation'
-import SunIcon from 'mdi-material-ui/WhiteBalanceSunny'
+// import SunIcon from 'mdi-material-ui/WhiteBalanceSunny'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import imgixLoader from '@lib/imageLoader'
@@ -145,18 +145,20 @@ export default function SummerStrongPage({placeholders}: Props) {
                 {/* <BirdIcon
                   style={{marginRight: 8, color: blueGrey[500], fontSize: 32}}
                 /> */}
-                <SunIcon
+                {/* <SunIcon
                   style={{marginRight: 8, color: orange[400], fontSize: 32}}
-                />
+                /> */}
                 {/* <Type variant="h3" gutterBottom>
                   A Butterfly Buffet!
                 </Type>*/}
                 <Type variant="h3" gutterBottom>
-                  Queen of Summer
+                  The "Mane" Event
                 </Type>
               </RowBox>
               {/* <Type variant="h3">Cleveland Sage (and other Salvias)</Type> */}
-              <Type variant="h3">Crape Myrtle hybrids and cultivars</Type>
+              <Type variant="h3">
+                Lion’s Tail <em>Leonotis leonurus</em>
+              </Type>
             </ChildBox>
             <ChildBox
               flex="15%"
@@ -173,16 +175,37 @@ export default function SummerStrongPage({placeholders}: Props) {
             <RowBox flexSpacing={6} responsive>
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
-                  mediaUrl="https://imgix.cosmicjs.com/98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG"
-                  mediaName="Crape Myrtle"
+                  mediaUrl="https://imgix.cosmicjs.com/e27e0eb0-491f-11ee-89ab-17371fc03105-FL-Lionstail-2391.JPG"
+                  mediaName="Lion's Tail, a hummingbird magnet"
                   mediaPreviewDialogProps={{
-                    width: 3648,
-                    height: 2736
+                    width: 2448,
+                    height: 3264
                   }}
                 >
                   <ImageFancier
-                    alt="Crape Myrtle"
-                    src={`https://imgix.cosmicjs.com/98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG${imgixArParams}`}
+                    alt="Lion's Tail, a hummingbird magnet"
+                    src={`https://imgix.cosmicjs.com/e27e0eb0-491f-11ee-89ab-17371fc03105-FL-Lionstail-2391.JPG${imgixArParams}`}
+                    // 5/4 image aspect ration
+                    width={1975}
+                    height={1580}
+                    defaultGrey
+                    sizes="(max-width: 600px) 100vw, 33vw"
+                    objectFit="contain"
+                  />
+                </MediaDialogOnClick>
+              </ChildBox>
+              <ChildBox flex="0 1 33%">
+                <MediaDialogOnClick
+                  mediaUrl="https://imgix.cosmicjs.com/e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG"
+                  mediaName="Lion's Tail flower closeup"
+                  mediaPreviewDialogProps={{
+                    width: 3456,
+                    height: 5184
+                  }}
+                >
+                  <ImageFancier
+                    alt="Lion's Tail flower closeup"
+                    src={`https://imgix.cosmicjs.com/e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG${imgixArParams}`}
                     // 5/4 image aspect ration
                     width={1975}
                     height={1580}
@@ -195,76 +218,53 @@ export default function SummerStrongPage({placeholders}: Props) {
             </RowBox>
           </Box>
           <Spacing size="x-large" />
-          <Type variant="h4">Crape Myrtle</Type>
+          <Type variant="h4">Lion’s Tail</Type>
           <Type variant="subtitle1" gutterBottom>
             {/* <em>Verbena lilacina ‘De La Mina’, Glandularia lilacina. </em> */}
-            <em>Lagerstoemia</em> hybrids and cultivars
+            <em>Leonotis leonurus</em>
           </Type>
           <Spacing size="small" />
-          <Type variant="subtitle1" gutterBottom>
+          {/* <Type variant="subtitle1" gutterBottom>
             <em>By Laurie Meyerpeter, Master Gardener</em>
+          </Type> */}
+          <Type paragraph>
+            Lion’s Tail blooms throughout the summer and fall. The orange
+            flowers bloom in whorls up the stem. This plant is a hummingbird
+            magnet! The leaves are a surprisingly lush green for such a low
+            water plant. The blooms make good cut flowers.
           </Type>
           <Type paragraph>
-            Nothing says “Summer Strong” more than crape myrtle. Crape myrtle is
-            one tough tree. When conditions get rough, crape myrtle is there,
-            shouting its hot pink, red, white or lavender blooms while the rest
-            of the region melts during our hot summers. When other plants wilt
-            in the heat and the drought, crape myrtle growls, “Here, hold my
-            beer,” steps up, and then knocks our socks off with its brilliantly
-            colored flowers, throwing a party every summer with its
-            crepe-paper-like blooms that just cover the tree for weeks. It
-            doesn’t matter how you take care of them, whether you painstakingly
-            prune them or ignore them, whether you water them weekly or forget
-            most of the time, whether they you coddle them or give them tough
-            love, Crape Myrtles bloom.
+            Its common name is Lion’s Tail but the scientific name Leonotis
+            translates to “Lion’s Ear” and leonurus “lion-colored”.
           </Type>
           <Type paragraph>
-            And if summer blooms aren’t enough, it goes on to have an autumn
-            encore with brilliant fall color. Mature trees have gorgeous
-            ornamental bark.
-          </Type>
-          <Type paragraph>
-            Crape myrtle cultivars come in many sizes, from trees to small
-            shrubs. Choose cultivars that best fit your location, space, and
-            color choice.
-          </Type>
-          <Type paragraph>
-            The hybrids are more resistant to powdery mildew.
-          </Type>
-          <Type paragraph>This plant is an Arboretum All Star.</Type>
-          <Type paragraph>
-            <StrongGrey>Bloom</StrongGrey>: Pink, lavender, red and white
-            cultivars available. Peak bloom is during the hottest months of July
-            and August.
+            <StrongGrey>Bloom</StrongGrey>: Orange tubular flowers arranged in
+            whorls up the stem of the plant, it blooms throughout the summer and
+            fall.
           </Type>
           <Type paragraph>
             <StrongGrey>Water needs</StrongGrey>: Low once established.
           </Type>
           <Type paragraph>
-            <StrongGrey>Sun</StrongGrey>: Full sun. Without full sun, it may
-            flower slightly less and some flower colors like red will be muted.
+            <StrongGrey>Sun</StrongGrey>: Full sun.
           </Type>
           <Type paragraph>
-            <StrongGrey>Size</StrongGrey>: Size varies depending on the
-            cultivar.
+            <StrongGrey>Size</StrongGrey>: 4-6’ tall and wide.
           </Type>
           <Type paragraph>
-            <StrongGrey>Care</StrongGrey>: Low water requirements. Needs little
-            pruning or care. Excessive pruning is discouraged.
+            <StrongGrey>Care</StrongGrey>: Low water requirements. Can be cut
+            back in late fall after bloom for best appearance next season.
           </Type>
           <Type paragraph>
-            <StrongGrey>Availability</StrongGrey>: Crape Myrtles are widely
-            available year-round.
+            <StrongGrey>Availability</StrongGrey>: Lion’s Tail is readily
+            available seasonally.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bonus plants</StrongGrey>: Supporting cast includes
-            Lantanas <em>(Lantana montevidensis. L. sellowiana, L. hybrids)</em>{' '}
-            which bloom profusely throughout the summer and fall. The flower
-            colors often overlaps Crape Myrtle as well, for example ‘Muskogee’
-            Crape Myrtle shares a similar lavender color as{' '}
-            <em>Lantana montevidensis</em> for a soft lavender effect, and
-            ‘Natchez’ Crape Myrtle can be matched with white lantana hybrids for
-            a “full moon” garden of “summer whites in the night”
+            <StrongGrey>Bonus plants</StrongGrey>: Nice companion plants include
+            many of the low water, ornamental grasses that shine in late summer
+            and fall. Here are two: Karl Foerster Reed Grass (Calamagrostis x
+            acutiflora ‘Karl Foerster’) and our native Deer Grass (Muhlenbergia
+            rigens). Both are Arboretum All Stars.
           </Type>
 
           <Spacing size="large" />
@@ -287,9 +287,41 @@ export default function SummerStrongPage({placeholders}: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="body1"
-                href="https://arboretum.ucdavis.edu/plant/crape-myrtle"
+                href="https://arboretum.ucdavis.edu/plant/Karl-Foerster-feather-reed-grass"
               >
-                UC Davis Arboretum All Stars: (https://arboretum.ucdavis.edu)
+                UC Davis Arboretum All Star, Karl Foerster Feather Reed Grasss:
+                (https://arboretum.ucdavis.edu)
+              </Link>
+            </Type>
+            <Type>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="body1"
+                href="https://arboretum.ucdavis.edu/plant/deergrass"
+              >
+                UC Davis Arboretum All Stars, Deergrass:
+                (https://arboretum.ucdavis.edu)
+              </Link>
+            </Type>
+            <Type>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="body1"
+                href="https://calscape.org/Muhlenbergia-rigens-(Deergrass)"
+              >
+                CalScape: (https://calscape.org)
+              </Link>
+            </Type>
+            <Type>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="body1"
+                href="https://ucanr.edu/blogs/blogcore/postdetail.cfm?postnum=44250 "
+              >
+                UCANR: (https://ucanr.edu)
               </Link>
             </Type>
           </Box>
@@ -312,6 +344,150 @@ export default function SummerStrongPage({placeholders}: Props) {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1-content"
                 id="panel1-header"
+              >
+                <RowBox justifyContent="space-between" width="100%">
+                  <ChildBox flex="grow">
+                    <Type variant="h4">Crape Myrtle hybrids and cultivars</Type>
+                  </ChildBox>
+                </RowBox>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box>
+                  <RowBox flexSpacing={6} responsive>
+                    <ChildBox flex="0 1 33%">
+                      <MediaDialogOnClick
+                        mediaUrl="https://imgix.cosmicjs.com/98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG"
+                        mediaName="Crape Myrtle"
+                        mediaPreviewDialogProps={{
+                          width: 3648,
+                          height: 2736
+                        }}
+                      >
+                        <ImageFancier
+                          alt="Crape Myrtle"
+                          src={`https://imgix.cosmicjs.com/98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG${imgixArParams}`}
+                          // 5/4 image aspect ration
+                          width={1975}
+                          height={1580}
+                          defaultGrey
+                          sizes="(max-width: 600px) 100vw, 33vw"
+                          objectFit="contain"
+                        />
+                      </MediaDialogOnClick>
+                    </ChildBox>
+                  </RowBox>
+                  <Spacing size="x-large" />
+                  <Type variant="h4">Crape Myrtle</Type>
+                  <Type variant="subtitle1" gutterBottom color="textSecondary">
+                    <em>Lagerstoemia</em> hybrids and cultivars
+                  </Type>
+                  <Type variant="subtitle1" gutterBottom>
+                    <em>By Laurie Meyerpeter, Master Gardener</em>
+                  </Type>
+                  <Type paragraph>
+                    Nothing says “Summer Strong” more than crape myrtle. Crape
+                    myrtle is one tough tree. When conditions get rough, crape
+                    myrtle is there, shouting its hot pink, red, white or
+                    lavender blooms while the rest of the region melts during
+                    our hot summers. When other plants wilt in the heat and the
+                    drought, crape myrtle growls, “Here, hold my beer,” steps
+                    up, and then knocks our socks off with its brilliantly
+                    colored flowers, throwing a party every summer with its
+                    crepe-paper-like blooms that just cover the tree for weeks.
+                    It doesn’t matter how you take care of them, whether you
+                    painstakingly prune them or ignore them, whether you water
+                    them weekly or forget most of the time, whether they you
+                    coddle them or give them tough love, Crape Myrtles bloom.
+                  </Type>
+                  <Type paragraph>
+                    And if summer blooms aren’t enough, it goes on to have an
+                    autumn encore with brilliant fall color. Mature trees have
+                    gorgeous ornamental bark.
+                  </Type>
+                  <Type paragraph>
+                    Crape myrtle cultivars come in many sizes, from trees to
+                    small shrubs. Choose cultivars that best fit your location,
+                    space, and color choice.
+                  </Type>
+                  <Type paragraph>
+                    The hybrids are more resistant to powdery mildew.
+                  </Type>
+                  <Type paragraph>This plant is an Arboretum All Star.</Type>
+                  <Type paragraph>
+                    <StrongGrey>Bloom</StrongGrey>: Pink, lavender, red and
+                    white cultivars available. Peak bloom is during the hottest
+                    months of July and August.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Water needs</StrongGrey>: Low once established.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Sun</StrongGrey>: Full sun. Without full sun, it
+                    may flower slightly less and some flower colors like red
+                    will be muted.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Size</StrongGrey>: Size varies depending on the
+                    cultivar.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Care</StrongGrey>: Low water requirements. Needs
+                    little pruning or care. Excessive pruning is discouraged.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Availability</StrongGrey>: Crape Myrtles are
+                    widely available year-round.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Bonus plants</StrongGrey>: Supporting cast
+                    includes Lantanas{' '}
+                    <em>(Lantana montevidensis. L. sellowiana, L. hybrids)</em>{' '}
+                    which bloom profusely throughout the summer and fall. The
+                    flower colors often overlaps Crape Myrtle as well, for
+                    example ‘Muskogee’ Crape Myrtle shares a similar lavender
+                    color as <em>Lantana montevidensis</em> for a soft lavender
+                    effect, and ‘Natchez’ Crape Myrtle can be matched with white
+                    lantana hybrids for a “full moon” garden of “summer whites
+                    in the night”
+                  </Type>
+                  <Spacing size="large" />
+                  <Box>
+                    <Type variant="subtitle1" gutterBottom>
+                      Information:
+                    </Type>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://ucanr.edu/sites/WUCOLS/files/183488.pdf"
+                      >
+                        WUCOLS (https://ucanr.edu)
+                      </Link>
+                    </Type>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://arboretum.ucdavis.edu/plant/crape-myrtle"
+                      >
+                        UC Davis Arboretum All Stars:
+                        (https://arboretum.ucdavis.edu)
+                      </Link>
+                    </Type>
+                  </Box>
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === 'panel2'}
+              onChange={handleChange('panel2')}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2-content"
+                id="panel2-header"
               >
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
@@ -502,13 +678,13 @@ export default function SummerStrongPage({placeholders}: Props) {
               </AccordionDetails>
             </Accordion>
             <Accordion
-              expanded={expanded === 'panel2'}
-              onChange={handleChange('panel2')}
+              expanded={expanded === 'panel3'}
+              onChange={handleChange('panel3')}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2-content"
-                id="panel2-header"
+                aria-controls="panel3-content"
+                id="panel3-header"
               >
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
@@ -658,13 +834,13 @@ export default function SummerStrongPage({placeholders}: Props) {
               </AccordionDetails>
             </Accordion>
             <Accordion
-              expanded={expanded === 'panel3'}
-              onChange={handleChange('panel3')}
+              expanded={expanded === 'panel4'}
+              onChange={handleChange('panel4')}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel3-content"
-                id="panel3-header"
+                aria-controls="panel4-content"
+                id="panel4-header"
               >
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
