@@ -269,7 +269,7 @@ export default function SummerStrongPage({placeholders}: Props) {
 
           <Spacing size="large" />
           <Box>
-            <Type variant="subtitle1" gutterBottom>
+            {/* <Type variant="subtitle1" gutterBottom>
               Information:
             </Type>
             <Type>
@@ -313,7 +313,7 @@ export default function SummerStrongPage({placeholders}: Props) {
               >
                 CalScape: (https://calscape.org)
               </Link>
-            </Type>
+            </Type> */}
             <Type>
               <Link
                 target="_blank"
