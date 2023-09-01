@@ -269,7 +269,7 @@ export default function SummerStrongPage({placeholders}: Props) {
 
           <Spacing size="large" />
           <Box>
-            {/* <Type variant="subtitle1" gutterBottom>
+            <Type variant="subtitle1" gutterBottom>
               Information:
             </Type>
             <Type>
@@ -282,7 +282,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                 WUCOLS (https://ucanr.edu)
               </Link>
             </Type>
-            <Type>
+            {/*<Type>
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
