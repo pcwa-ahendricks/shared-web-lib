@@ -30,7 +30,7 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import WideContainer from '@components/containers/WideContainer'
-import {grey, orange} from '@material-ui/core/colors'
+import {grey} from '@material-ui/core/colors'
 
 type Props = {
   placeholders: Placeholders
