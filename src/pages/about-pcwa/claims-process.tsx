@@ -13,9 +13,9 @@ export default function BasicTemplatePage() {
         <NarrowContainer>
           <PageTitle title="Claims Process" subtitle="Risk Management" />
           <Type paragraph>
-            Risk Management is responsible for investigating and settling all
+            Risk Management is responsible for investigating and processing all
             liability claims against the Agency. The information below will help
-            you if you believe you have experienced one of the following:
+            if you believe you have experienced one of the following:
           </Type>
           <Box component="ul">
             <Type component="li">
@@ -33,8 +33,8 @@ export default function BasicTemplatePage() {
             <strong>
               Please note that the person making a claim and/or the owner has a
               duty to mitigate their damages. It is the owner’s responsibility
-              to keep damages from getting any worse than they already are (for
-              example, removing your personal belongings from an area
+              to keep damages from getting any worse once they are discovered
+              (for example, removing your personal belongings from an area
               experiencing a water intrusion).
             </strong>
           </Type>
@@ -53,10 +53,13 @@ export default function BasicTemplatePage() {
             Time Limits for Filing a Claim
           </Type>
           <Type paragraph>
-            Submit your claim as soon as possible. The California Tort Claims
-            Act puts forth strict timelines that you must follow when filing a
-            claim against PCWA.
+            Submit a detailed claim as soon as possible. The California Tort
+            Claims Act puts forth strict timelines that you must follow when
+            filing a claim against PCWA. Claims received after the deadlines
+            will automatically be rejected. PCWA has 45 days to respond after
+            you file your claim.
           </Type>
+          {/*
           <Box component="ul">
             <Type component="li">
               You have 12 months after an occurrence to file a claim for damage
@@ -71,6 +74,7 @@ export default function BasicTemplatePage() {
             Claims received after these deadlines will be rejected. PCWA has 45
             days to respond after you file your claim.
           </Type>
+          */}
           <Spacing />
           <Type variant="h3" gutterBottom>
             Submitting a Claim
@@ -177,22 +181,27 @@ export default function BasicTemplatePage() {
           <Spacing />
           <Type variant="h3">Claim Review Process</Type>
           <Type paragraph>
-            Once you have submitted your claim, Risk Management will start the
-            claim review process based on the information you have provided.
-            This process typically includes the following:
+            Once you have submitted your claim to PCWA, Risk Management will
+            start the claim review process based on the information you have
+            provided. This process typically includes the following:
           </Type>
           <Box component="ul">
             <Type component="li">
-              PCWA will determine if there is clear evidence of liability based
-              on the information provided (e.g., reviewing records, interviewing
-              employees, or witnesses, and completing a technical/expert
-              evaluation).
+              Review claimant information to determine if there is clear
+              evidence of liability based on the information provided (e.g.,
+              reviewing records, interviewing employees, or witnesses, and
+              completing a technical/expert evaluation).
+            </Type>
+            <Type component="li">Determine responsible party.</Type>
+            <Type component="li">
+              If PCWA appears to be liable, PCWA will determine the percentage
+              of the damage or cost that is directly related to PCWA’s actions
+              or inactions. The value of the damages or loss will be based on
+              insurance industry standards, using actual cash value
+              (depreciation applies).
             </Type>
             <Type component="li">
-              If PCWA is liable, PCWA will determine the percentage of the
-              damage or cost that is directly related to PCWA’s actions. The
-              value of the damages or loss will be based on insurance industry
-              standards, using actual cash value (depreciation applies).
+              Notification to claimant on PCWA’s determination.
             </Type>
           </Box>
           <Type paragraph>
@@ -211,13 +220,13 @@ export default function BasicTemplatePage() {
           <Spacing />
           <Type variant="h3">Time Limits on Filing Court Action</Type>
           <Type paragraph>
-            If PCWA rejects your claim in whole or in part, you have six months
-            from the date the notification is mailed to file a lawsuit (see
-            Government Code sections 913, 945.6(a)(2)).
+            All claims are fairly evaluated. If your claim is rejected, you will
+            be notified by mail, and PCWA will attempt to contact you by
+            telephone to explain the reason for the rejection.
           </Type>
           <Type paragraph>
             Note: Risk Management does not process complaints about employees,
-            customer bill adjustments or emergency dispatchings.
+            customer bill adjustments or emergency dispatching.
           </Type>
         </NarrowContainer>
       </MainBox>
