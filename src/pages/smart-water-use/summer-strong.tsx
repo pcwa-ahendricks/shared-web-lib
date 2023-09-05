@@ -43,7 +43,9 @@ const imgixImages = [
   '296878b0-f4d4-11ed-bb44-790a83f99a24-N-Salvia-clevelandii-5-16-3.JPG',
   'c12deaa0-0199-11ee-9c26-15fefb4eeda0-FL-Erigeron.JPG',
   '6d0cb510-1c1e-11ee-8805-5d9e4358a1d4-IMG6411.JPG',
-  '98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG'
+  '98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG',
+  'e27e0eb0-491f-11ee-89ab-17371fc03105-FL-Lionstail-2391.JPG',
+  'e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG'
 ]
 
 const StrongGrey = ({children, ...props}: TypographyProps) => {
