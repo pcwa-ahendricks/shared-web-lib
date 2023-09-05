@@ -224,9 +224,9 @@ export default function SummerStrongPage({placeholders}: Props) {
             <em>Leonotis leonurus</em>
           </Type>
           <Spacing size="small" />
-          {/* <Type variant="subtitle1" gutterBottom>
+          <Type variant="subtitle1" gutterBottom>
             <em>By Laurie Meyerpeter, Master Gardener</em>
-          </Type> */}
+          </Type>
           <Type paragraph>
             Lion’s Tail blooms throughout the summer and fall. The orange
             flowers bloom in whorls up the stem. This plant is a hummingbird
