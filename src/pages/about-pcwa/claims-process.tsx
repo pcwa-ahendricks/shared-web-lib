@@ -222,7 +222,7 @@ export default function BasicTemplatePage() {
           <Type paragraph>
             If PCWA rejects your claim in whole or in part, you have six months
             from the date the notification is mailed to file a lawsuit (see
-            Government Code sections 913, 945.6(a)(2)).
+            Government Code sections 913, 945.6(a)(1)).
           </Type>
           <Type paragraph>
             Note: Risk Management does not process complaints about employees,
