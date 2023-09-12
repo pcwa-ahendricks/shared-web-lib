@@ -220,9 +220,9 @@ export default function BasicTemplatePage() {
           <Spacing />
           <Type variant="h3">Time Limits on Filing Court Action</Type>
           <Type paragraph>
-            All claims are fairly evaluated. If your claim is rejected, you will
-            be notified by mail, and PCWA will attempt to contact you by
-            telephone to explain the reason for the rejection.
+            If PCWA rejects your claim in whole or in part, you have six months
+            from the date the notification is mailed to file a lawsuit (see
+            Government Code sections 913, 945.6(a)(2)).
           </Type>
           <Type paragraph>
             Note: Risk Management does not process complaints about employees,
