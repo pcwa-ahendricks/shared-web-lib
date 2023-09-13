@@ -37,7 +37,7 @@ type Props = {
 }
 
 interface OutageMetadata {
-  hide_on_website: {key: string; value: boolean}
+  hide_on_website: {key: string; value: string}
   last_updated: string
   type: string
 }
@@ -112,8 +112,8 @@ const OutageInformationPage = ({fallbackData}: Props) => {
           ? outages.objects
               .filter(
                 (outage) =>
-                  outage?.metadata.hide_on_website.value === false &&
-                  re.test(outage?.metadata.type)
+                  outage?.metadata.hide_on_website.value?.toLowerCase() !==
+                    'yes' && re.test(outage?.metadata.type)
               )
               .map((outage) => outage?.content)
               .shift() // [0]
