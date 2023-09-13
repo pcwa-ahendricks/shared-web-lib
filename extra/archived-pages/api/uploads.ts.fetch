@@ -1,15 +1,17 @@
 import prettyBytes from 'pretty-bytes'
 import busboy from 'busboy'
-import BusboyError, {BusboyErrorCode} from '../../../lib/api/busboy-error'
+import FormData from 'form-data'
+import BusboyError, {BusboyErrorCode} from '../../../src/lib/api/busboy-error'
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import {createBucketClient} from '@cosmicjs/sdk'
 import {dLog} from '@lib/api/shared'
 const isDev = process.env.NODE_ENV === 'development'
 
 const COSMIC_UPLOAD_DIR = 'image-uploads'
 const COSMIC_BUCKET = 'pcwa-net'
-const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
+const COSMIC_API_ENDPOINT = 'https://workers.cosmicjs.com'
+// const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
 const COSMIC_WRITE_ACCESS_KEY = process.env.NODE_COSMIC_WRITE_ACCESS_KEY || ''
+
 
 // There is currently no reasonable way to resize pdfs. So don't accept them for upload since Now will not accept anything over 4-5 MB.
 // const ACCEPTING_MIME_TYPES_RE = /^image\/.*/i
@@ -17,15 +19,9 @@ const ACCEPTING_MIME_TYPES_RE =
   /^image\/.*|^application\/pdf$|^application\/msword$|^application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document$/i
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
-  const cosmic = createBucketClient({
-    bucketSlug: COSMIC_BUCKET,
-    writeKey: COSMIC_WRITE_ACCESS_KEY,
-    readKey: COSMIC_READ_ACCESS_KEY
-  })
-  // res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate')
-  // res.setHeader('Expires', '-1')
-  // res.setHeader('Pragma', 'no-cache')
-
+  res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+  res.setHeader('Expires', '-1')
+  res.setHeader('Pragma', 'no-cache')
   const {headers, socket} = req
   // Fix type error
   const customHeaders = {
@@ -78,21 +74,34 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     // }
 
     try {
+      const formData = new FormData()
       const metadata = {
         environment: isDev ? 'development' : 'production',
         formFieldName: fieldName,
         ip,
         uploadRoute
       }
+      formData.append('media', buffer, fileName)
+      // formData.append('write_key', COSMIC_WRITE_ACCESS_KEY)
+      formData.append('folder', COSMIC_UPLOAD_DIR)
+      formData.append('metadata', JSON.stringify(metadata))
+      const response = await fetch(
+        `${COSMIC_API_ENDPOINT}/v3/buckets/${COSMIC_BUCKET}/media`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${COSMIC_WRITE_ACCESS_KEY}`
+          },
+          body: formData as any // [TODO] remove any type
+        }
+      )
 
-      const media = {originalname: fileName, buffer: buffer}
-      const response = await cosmic.media.insertOne({
-        media: media,
-        folder: COSMIC_UPLOAD_DIR,
-        metadata: metadata
-      })
+      if (!response.ok) {
+        return abortWithCode('UPLOAD_ERROR')
+      }
+      const data = await response.json()
 
-      res.status(200).json(response)
+      res.status(200).json(data)
     } catch (error) {
       console.log(error)
       return abortWithCode('UPLOAD_ERROR')

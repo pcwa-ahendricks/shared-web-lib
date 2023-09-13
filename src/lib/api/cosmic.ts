@@ -1,3 +1,15 @@
+// https://www.cosmicjs.com/docs/api/objects#get-objects
+export const getObjectMethodDefaults = {
+  status: 'published',
+  limit: 1000,
+  skip: 0,
+  useCache: true,
+  pretty: false,
+  depth: 0,
+  sort: 'order',
+  props: [] as string[]
+} as const
+
 export interface CosmicGetMediaResponse {
   media: GetMedia[]
 }

@@ -41,7 +41,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     }
 
     const response = await fetch(
-      `${COSMIC_API_ENDPOINT}/v1/${COSMIC_BUCKET}/media${qs}`
+      `${COSMIC_API_ENDPOINT}/v3/${COSMIC_BUCKET}/media${qs}`
     )
     if (!response.ok) {
       res.status(400).end('Response not ok')
