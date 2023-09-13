@@ -60,6 +60,7 @@
     "typescript": "<4.4.0"
   },
   "dependencies": {
+    "@cosmicjs/sdk": "^1.0.10",
     "@date-io/date-fns": "<2",
     "@kevinmoe/nivo-fork-calendar": "^0.63.0",
     "@material-ui/core": "4.12.4",
@@ -129,7 +130,7 @@
     "url-parse": "^1.5.10",
     "use-debounce": "^8.0.4",
     "valid-url": "^1.0.9",
-    "vercel": "^28.20.0",
+    "vercel": "^32.2.0",
     "yup": "^0.32.11"
   }
 }
