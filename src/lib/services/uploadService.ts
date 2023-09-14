@@ -41,6 +41,7 @@ const uploadFile = async (
 ): Promise<UploadResponse> => {
   const fieldName = 'upload-image'
   const formData = new FormData()
+
   formData.append(fieldName, file, file.name)
   try {
     // Don't set headers manually. See https://stackoverflow.com/questions/39280438/fetch-missing-boundary-in-multipart-form-data-post for more info.

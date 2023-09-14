@@ -43,7 +43,6 @@ const WtrWasteSelectField = ({
   const fieldHasError = Boolean(currentError)
   const fieldWasTouched = Boolean(touched[name])
   const fieldIsTouchedWithError = fieldHasError && fieldWasTouched
-  console.log(value)
 
   const changeHandler = useCallback(
     (

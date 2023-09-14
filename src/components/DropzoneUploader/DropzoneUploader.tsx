@@ -424,6 +424,7 @@ const DropzoneUploader: React.RefForwardingComponent<
     disabled,
     ...rest
   })
+
   // <PageLayout title="Irrigation Canal Information">
   return (
     <div>
