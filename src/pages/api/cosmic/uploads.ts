@@ -73,7 +73,7 @@ const mainHandler = async (req: any, res: any) => {
 
 export default mainHandler
 
-// Don't use body parsing with Busboy. It will break upload functionality!
+// Don't use body parsing with Multer. It will break upload functionality!
 export const config = {
   api: {
     bodyParser: false
