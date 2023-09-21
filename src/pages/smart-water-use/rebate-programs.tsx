@@ -673,12 +673,13 @@ const RebateProgramsPage = () => {
                   <Link
                     align="center"
                     display="block"
-                    href="https://docs.pcwa.net/water-smart-plant-list-sac-region"
+                    // href="https://docs.pcwa.net/water-smart-plant-list-sac-region"
+                    href="https://roseville.ca.us/plantlist"
                     rel="noopener noreferrer"
                     target="_blank"
-                    title="Water Smart Plant List"
+                    title="City of Roseville Water Smart Plant List"
                   >
-                    Water Smart Plant List
+                    Water Smart Plant List (City of Roseville)
                   </Link>
                 </ChildBox>
               </ColumnBox>
