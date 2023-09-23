@@ -4,13 +4,11 @@ import {Box, Typography as Type, useTheme} from '@material-ui/core'
 import {blue, brown, deepOrange} from '@material-ui/core/colors'
 import SquareIcon from 'mdi-material-ui/Square'
 import React from 'react'
-import dynamic from 'next/dynamic'
-import {CalendarDatum, TimeRangeSvgProps} from '@nivo/calendar'
-
-const ResponsiveTimeRange = dynamic(
-  () => import('@nivo/calendar').then((m) => m.ResponsiveTimeRange),
-  {ssr: false}
-)
+import {
+  CalendarDatum,
+  TimeRangeSvgProps,
+  ResponsiveTimeRange
+} from '@nivo/calendar'
 
 type Props = {
   waterYear: number
