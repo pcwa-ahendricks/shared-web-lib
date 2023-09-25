@@ -266,7 +266,7 @@ const Index = ({
               alt="Irrigation Service Agreement QR Code"
             />
           </ChildBox>
-          <ChildBox width={tileWidth}>
+          {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
               title="Fire-Wise, Water-Wise Makeover Debuts at Auburn Fire Station"
@@ -275,6 +275,17 @@ const Index = ({
               flexLinkProps={{isNextLink: true}}
               alt="Fire-Wise, Water-Wise Makeover Debuts at Auburn Fire Station link"
               typeProps={{style: {fontSize: '1rem'}}}
+            />
+          </ChildBox> */}
+          <ChildBox width={tileWidth}>
+            <CoverTile
+              width={tileWidth}
+              title="Educational Outreach Program"
+              imgixURL="https://imgix.cosmicjs.com/b58d6f70-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach06.jpg"
+              linkHref="education-center/go-to-school-on-leaks"
+              flexLinkProps={{isNextLink: true}}
+              alt="Go to School on Leaks link"
+              // typeProps={{style: {fontSize: '1rem'}}}
             />
           </ChildBox>
           <ChildBox width={tileWidth}>
