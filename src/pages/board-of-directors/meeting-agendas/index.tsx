@@ -56,10 +56,9 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ics, google, yahoo, outlook} from '@lib/calendar-link'
 import slugify from 'slugify'
-// import fetcher from '@lib/fetcher'
-// import {GetStaticProps} from 'next'
+import fetcher from '@lib/fetcher'
+import {GetStaticProps} from 'next'
 import Empty from '@components/boxes/Empty'
-// const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
   agendaFallbackData?: CosmicObjectResponse<AgendaMetadata>
@@ -76,12 +75,12 @@ interface MeetingDatesMetadata {
 }
 
 const meetingDatesParams = {
-  hide_metafields: true,
-  props: 'id,metadata,status',
+  props: 'id,metadata,status,title',
   query: JSON.stringify({
     type: 'board-meeting-dates'
   })
 }
+
 const meetingDatesQs = stringify({...meetingDatesParams}, true)
 const meetingDatesUrl = `/api/cosmic/objects${meetingDatesQs}`
 
@@ -100,7 +99,6 @@ interface AgendaMetadata {
   hidden: boolean
 }
 const agendasParams = {
-  hide_metafields: true,
   props: 'id,metadata,status,title',
   query: JSON.stringify({
     type: 'agendas'
@@ -588,29 +586,26 @@ const MeetingAgendasPage = ({
 }
 
 // Called at build time.
-// export const getStaticProps: GetStaticProps = async () => {
-//   try {
-//     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-//     const agendaFallbackData = await fetcher<
-//       CosmicObjectResponse<AgendaMetadata>
-//     >(`${baseUrl}${agendasUrl}`)
-//     const meetingDatesFallbackData = await fetcher<
-//       CosmicObjectResponse<MeetingDatesMetadata>
-//     >(`${baseUrl}${meetingDatesUrl}`)
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const agendaFallbackData = await fetcher<
+      CosmicObjectResponse<AgendaMetadata>
+    >(`${baseUrl}${agendasUrl}`)
+    const meetingDatesFallbackData = await fetcher<
+      CosmicObjectResponse<MeetingDatesMetadata>
+    >(`${baseUrl}${meetingDatesUrl}`)
 
-//     return {
-//       props: {meetingDatesFallbackData, agendaFallbackData},
-//       revalidate: 5
-//     }
-//   } catch (error) {
-//     console.log('There was an error fetching outages.', error)
-//     return {
-//       props: {
-//         meetingDatesFallbackData: {objects: []},
-//         agendaFallbackData: {objects: []}
-//       }
-//     }
-//   }
-// }
+    return {
+      props: {meetingDatesFallbackData, agendaFallbackData},
+      revalidate: 5
+    }
+  } catch (error) {
+    console.log('There was an error fetching outages.', error)
+    return {
+      props: {}
+    }
+  }
+}
 
 export default MeetingAgendasPage
