@@ -5,7 +5,6 @@ import {
   useTheme
 } from '@material-ui/core'
 import {format} from 'date-fns'
-import {ChildBox, ColumnBox, FlexBox, RowBox} from 'mui-sleazebox'
 import InboxRoundedIcon from '@material-ui/icons/InboxRounded'
 import {MappedAgenda} from '@pages/board-of-directors/meeting-agendas'
 import slugify from 'slugify'
@@ -23,11 +22,11 @@ export default function UpcomingCommitteeMeetings({
 
   if (!agendas) {
     return (
-      <FlexBox height={75}>
+      <Box display="flex" height={75}>
         <Box m="auto">
           <CircularProgress color="secondary" variant="indeterminate" />
         </Box>
-      </FlexBox>
+      </Box>
     )
   }
 
@@ -86,14 +85,19 @@ export default function UpcomingCommitteeMeetings({
             )
           })
         ) : (
-          <RowBox fontStyle="italic" alignItems="center">
-            <ColumnBox child justifyContent="center">
+          <Box
+            display="flex"
+            flexDirection="row"
+            fontStyle="italic"
+            alignItems="center"
+          >
+            <Box justifyContent="center">
               <InboxRoundedIcon fontSize="large" color="disabled" />
-            </ColumnBox>
-            <ChildBox ml={4}>
+            </Box>
+            <Box ml={4}>
               <Type color="textSecondary">None at this time.</Type>
-            </ChildBox>
-          </RowBox>
+            </Box>
+          </Box>
         )}
       </Box>
       {/* <Spacing factor={2} />
