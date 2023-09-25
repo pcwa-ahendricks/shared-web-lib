@@ -53,8 +53,8 @@ export default function UpcomingCommitteeMeetings({
               slugify(format(item.dateTime, DATE_FNS_FORMAT) + '-' + item.title)
             }`
             return (
-              <RowBox key={idx}>
-                <ChildBox>
+              <Box key={idx} display="flex" flexDirection="row">
+                <Box>
                   <ImageThumbLink
                     isNextLink
                     imgixUrl={item.metadata.agenda_pdf.imgix_url}
@@ -63,8 +63,8 @@ export default function UpcomingCommitteeMeetings({
                     href="/board-of-directors/meeting-agendas/[agenda-slug]"
                     sizes="(max-width: 600px) 33vw, 15vw"
                   />
-                </ChildBox>
-                <ChildBox ml={4}>
+                </Box>
+                <Box marginLeft={4}>
                   <OpenInNewLink
                     pdf
                     isNextLink
@@ -81,8 +81,8 @@ export default function UpcomingCommitteeMeetings({
                     the agenda, and for additional information including the
                     time and location of this meeting.
                   </Type>
-                </ChildBox>
-              </RowBox>
+                </Box>
+              </Box>
             )
           })
         ) : (
