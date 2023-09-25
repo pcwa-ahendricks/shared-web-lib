@@ -3,7 +3,6 @@ import React, {useMemo, useCallback, Fragment, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
-import InboxRoundedIcon from '@material-ui/icons/InboxRounded'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
   Box,
@@ -20,7 +19,6 @@ import {
   ListItemText,
   Link,
   useMediaQuery,
-  CircularProgress,
   makeStyles,
   createStyles,
   Theme,
@@ -50,15 +48,13 @@ import {saveAs} from 'file-saver'
 import {FlexBox, ChildBox, RowBox, ColumnBox} from 'mui-sleazebox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {green} from '@material-ui/core/colors'
-import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
-import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ics, google, yahoo, outlook} from '@lib/calendar-link'
-import slugify from 'slugify'
 import fetcher from '@lib/fetcher'
 import {GetStaticProps} from 'next'
 import Empty from '@components/boxes/Empty'
+import UpcomingCommitteeMeetings from '@components/UpcomingCommitteeMeetings/UpcomingCommitteeMeetings'
 
 type Props = {
   agendaFallbackData?: CosmicObjectResponse<AgendaMetadata>
@@ -84,7 +80,7 @@ const meetingDatesParams = {
 const meetingDatesQs = stringify({...meetingDatesParams}, true)
 const meetingDatesUrl = `/api/cosmic/objects${meetingDatesQs}`
 
-type MappedAgenda = {
+export type MappedAgenda = {
   dateTime: Date
 } & CosmicObjectResponse<AgendaMetadata>['objects'][0]
 
@@ -106,8 +102,6 @@ const agendasParams = {
 }
 const agendasQs = stringify({...agendasParams}, true)
 const agendasUrl = `/api/cosmic/objects${agendasQs}`
-
-const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -477,94 +471,7 @@ const MeetingAgendasPage = ({
           </section>
           <Spacing size="x-large" factor={2} />
           <section>
-            {/* <CommitteeAgendas title="Upcoming Committee Meetings" /> */}
-
-            <Type gutterBottom variant="h4">
-              {/* {title}: */}
-              Upcoming Committee Meetings:
-            </Type>
-            <Box
-              p={3}
-              bgcolor={theme.palette.common.white}
-              boxShadow={1}
-              borderRadius={2}
-            >
-              {!agendas ? (
-                <FlexBox height={75}>
-                  <Box m="auto">
-                    <CircularProgress
-                      color="secondary"
-                      variant="indeterminate"
-                    />
-                  </Box>
-                </FlexBox>
-              ) : agendas.length > 0 ? (
-                agendas.map((item, idx) => {
-                  // Don't slugify route (ie "/")
-                  const linkAs = `/board-of-directors/meeting-agendas/${
-                    // item.derivedFilenameAttr?.date + '-' + item.metadata?.type
-                    slugify(
-                      format(item.dateTime, DATE_FNS_FORMAT) + '-' + item.title
-                    )
-                  }`
-                  return (
-                    <RowBox key={idx}>
-                      <ChildBox>
-                        <ImageThumbLink
-                          isNextLink
-                          imgixUrl={item.metadata.agenda_pdf.imgix_url}
-                          alt={`Thumbnail and link for ${item.title}`}
-                          as={linkAs}
-                          href="/board-of-directors/meeting-agendas/[agenda-slug]"
-                          sizes="(max-width: 600px) 33vw, 15vw"
-                        />
-                      </ChildBox>
-                      <ChildBox ml={4}>
-                        <OpenInNewLink
-                          pdf
-                          isNextLink
-                          as={linkAs}
-                          href="/board-of-directors/meeting-agendas/[agenda-slug]"
-                        >
-                          <Type variant="subtitle1">{item.title}</Type>
-                        </OpenInNewLink>
-                        <Type
-                          variant="subtitle2"
-                          color="textSecondary"
-                          gutterBottom
-                        >
-                          {format(item.dateTime, "eeee',' MMMM do, yyyy")}
-                        </Type>
-                        <Type variant="body2" paragraph>
-                          Click the title link (or thumbnail image on left) to
-                          view the agenda, and for additional information
-                          including the time and location of this meeting.
-                        </Type>
-                      </ChildBox>
-                    </RowBox>
-                  )
-                })
-              ) : (
-                <RowBox fontStyle="italic" alignItems="center">
-                  <ColumnBox child justifyContent="center">
-                    <InboxRoundedIcon fontSize="large" color="disabled" />
-                  </ColumnBox>
-                  <ChildBox ml={4}>
-                    <Type color="textSecondary">None at this time.</Type>
-                  </ChildBox>
-                </RowBox>
-              )}
-            </Box>
-            {/* <Spacing factor={2} />
-            <OtherAgenda
-              list={auditCommitteeAgendas}
-              title="Upcoming Board of Directors' Audit Committee Meetings"
-            />
-            <Spacing factor={2} />
-            <OtherAgenda
-              list={otherCommitteeAgendas}
-              title="Other Upcoming Board of Directors' Committee Meetings"
-            /> */}
+            <UpcomingCommitteeMeetings data={agendas} />
           </section>
 
           <Spacing size="x-large" factor={2} />
@@ -585,6 +492,9 @@ const MeetingAgendasPage = ({
   )
 }
 
+/*
+TODO - Not sure why this breaks the page layout under the Upcoming Committee Meetings on a page refresh, ie. loading page directly. Just started noticing this shortly after Cosmic 2 upgrade.
+*/
 // Called at build time.
 export const getStaticProps: GetStaticProps = async () => {
   try {
