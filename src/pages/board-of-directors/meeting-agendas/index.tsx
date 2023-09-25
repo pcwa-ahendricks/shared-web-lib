@@ -588,29 +588,29 @@ const MeetingAgendasPage = ({
 }
 
 // Called at build time.
-export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const agendaFallbackData = await fetcher<
-      CosmicObjectResponse<AgendaMetadata>
-    >(`${baseUrl}${agendasUrl}`)
-    const meetingDatesFallbackData = await fetcher<
-      CosmicObjectResponse<MeetingDatesMetadata>
-    >(`${baseUrl}${meetingDatesUrl}`)
+// export const getStaticProps: GetStaticProps = async () => {
+//   try {
+//     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+//     const agendaFallbackData = await fetcher<
+//       CosmicObjectResponse<AgendaMetadata>
+//     >(`${baseUrl}${agendasUrl}`)
+//     const meetingDatesFallbackData = await fetcher<
+//       CosmicObjectResponse<MeetingDatesMetadata>
+//     >(`${baseUrl}${meetingDatesUrl}`)
 
-    return {
-      props: {meetingDatesFallbackData, agendaFallbackData},
-      revalidate: 5
-    }
-  } catch (error) {
-    console.log('There was an error fetching outages.', error)
-    return {
-      props: {
-        meetingDatesFallbackData: {objects: []},
-        agendaFallbackData: {objects: []}
-      }
-    }
-  }
-}
+//     return {
+//       props: {meetingDatesFallbackData, agendaFallbackData},
+//       revalidate: 5
+//     }
+//   } catch (error) {
+//     console.log('There was an error fetching outages.', error)
+//     return {
+//       props: {
+//         meetingDatesFallbackData: {objects: []},
+//         agendaFallbackData: {objects: []}
+//       }
+//     }
+//   }
+// }
 
 export default MeetingAgendasPage
