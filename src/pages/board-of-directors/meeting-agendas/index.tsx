@@ -51,8 +51,8 @@ import {green} from '@material-ui/core/colors'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {ics, google, yahoo, outlook} from '@lib/calendar-link'
-import fetcher from '@lib/fetcher'
-import {GetStaticProps} from 'next'
+// import fetcher from '@lib/fetcher'
+// import {GetStaticProps} from 'next'
 import Empty from '@components/boxes/Empty'
 import UpcomingCommitteeMeetings from '@components/UpcomingCommitteeMeetings/UpcomingCommitteeMeetings'
 
@@ -496,26 +496,26 @@ const MeetingAgendasPage = ({
 TODO - Not sure why this breaks the page layout under the Upcoming Committee Meetings on a page refresh, ie. loading page directly. Just started noticing this shortly after Cosmic 2 upgrade.
 */
 // Called at build time.
-export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const agendaFallbackData = await fetcher<
-      CosmicObjectResponse<AgendaMetadata>
-    >(`${baseUrl}${agendasUrl}`)
-    const meetingDatesFallbackData = await fetcher<
-      CosmicObjectResponse<MeetingDatesMetadata>
-    >(`${baseUrl}${meetingDatesUrl}`)
+// export const getStaticProps: GetStaticProps = async () => {
+//   try {
+//     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+//     const agendaFallbackData = await fetcher<
+//       CosmicObjectResponse<AgendaMetadata>
+//     >(`${baseUrl}${agendasUrl}`)
+//     const meetingDatesFallbackData = await fetcher<
+//       CosmicObjectResponse<MeetingDatesMetadata>
+//     >(`${baseUrl}${meetingDatesUrl}`)
 
-    return {
-      props: {meetingDatesFallbackData, agendaFallbackData},
-      revalidate: 5
-    }
-  } catch (error) {
-    console.log('There was an error fetching outages.', error)
-    return {
-      props: {}
-    }
-  }
-}
+//     return {
+//       props: {meetingDatesFallbackData, agendaFallbackData},
+//       revalidate: 5
+//     }
+//   } catch (error) {
+//     console.log('There was an error fetching outages.', error)
+//     return {
+//       props: {}
+//     }
+//   }
+// }
 
 export default MeetingAgendasPage
