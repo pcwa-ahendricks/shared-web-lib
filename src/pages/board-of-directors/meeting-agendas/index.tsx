@@ -58,6 +58,7 @@ import {ics, google, yahoo, outlook} from '@lib/calendar-link'
 import slugify from 'slugify'
 import fetcher from '@lib/fetcher'
 import {GetStaticProps} from 'next'
+import Empty from '@components/boxes/Empty'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -350,9 +351,9 @@ const MeetingAgendasPage = ({
                   justifyContent="space-around"
                   alignItems="center"
                 >
-                  <ChildBox flex="0 1 100%">
+                  <ChildBox flex="70%">
                     {nextBoardMeeting?.date ? (
-                      <>
+                      <Box>
                         <CardContent>
                           {/* <Type
                     className={classes.title}
@@ -427,9 +428,9 @@ const MeetingAgendasPage = ({
                             </Menu>
                           </Box>
                         </CardActions>
-                      </>
+                      </Box>
                     ) : (
-                      <>
+                      <Box>
                         <CardContent>
                           <ColumnBox justifyContent="center" minHeight={50}>
                             <Type variant="h4" color="textSecondary">
@@ -437,7 +438,7 @@ const MeetingAgendasPage = ({
                             </Type>
                           </ColumnBox>
                         </CardContent>
-                      </>
+                      </Box>
                     )}
                   </ChildBox>
                   {followingFourBoardMeetings.length > 0 ? (
@@ -459,13 +460,19 @@ const MeetingAgendasPage = ({
                                   primary={format(bm, "MMM'.' do',' h:mm aaaa")}
                                 />
                               </ListItem>
-                              {arry.length !== idx + 1 ? <Divider /> : null}
+                              {arry.length !== idx + 1 ? (
+                                <Divider />
+                              ) : (
+                                <Empty />
+                              )}
                             </Fragment>
                           ))}
                         </List>
                       </Box>
                     </ChildBox>
-                  ) : null}
+                  ) : (
+                    <Empty />
+                  )}
                 </RowBox>
               </Card>
             </Box>
@@ -597,7 +604,12 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   } catch (error) {
     console.log('There was an error fetching outages.', error)
-    return {props: {}}
+    return {
+      props: {
+        meetingDatesFallbackData: {objects: []},
+        agendaFallbackData: {objects: []}
+      }
+    }
   }
 }
 
