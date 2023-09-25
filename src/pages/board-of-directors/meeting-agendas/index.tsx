@@ -350,7 +350,7 @@ const MeetingAgendasPage = ({
                   justifyContent="space-around"
                   alignItems="center"
                 >
-                  <ChildBox>
+                  <ChildBox flex="0 1 100%">
                     {nextBoardMeeting?.date ? (
                       <>
                         <CardContent>
@@ -441,7 +441,7 @@ const MeetingAgendasPage = ({
                     )}
                   </ChildBox>
                   {followingFourBoardMeetings.length > 0 ? (
-                    <ChildBox>
+                    <ChildBox flex>
                       <Box
                         p={3}
                         // bgcolor={theme.palette.common.white}
