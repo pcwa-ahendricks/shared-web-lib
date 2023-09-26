@@ -100,11 +100,12 @@ const fileNameUtil = (
   const extensionRe = /^.*\./
   // const f = str.replace(/^.*\//g, ''); // captures everything up to the last "/"
   // Convert underscores in date part of file to dashes. ex.) YYYY_MM_DD -> YYYY-MM-DD
-  let fCorrected = str.replace(
+  const fCorrected = str.replace(
     /(^\d{4})(_|-)(\d{2})(_|-)(\d{2}_.*)/,
     '$1-$3-$5'
   )
-  fCorrected = fCorrected.replace(/(^.*)(\d)([A-Z])(.*$)/, '$1$2_$3$4') // Cosmic 2 is stripping "_" (underscores), add them back in when a number is followed by a capital letter.
+  // This isn't needed anymore, Cosmic fixed this bug.
+  // fCorrected = fCorrected.replace(/(^.*)(\d)([A-Z])(.*$)/, '$1$2_$3$4') // Cosmic 2 is stripping "_" (underscores), add them back in when a number is followed by a capital letter.
   const fSplit = fCorrected.split(/(_(.+)?)|(\.(.+)?)/) // using greedy operator, split on "_" (underscore) or "." decimal characters.
   const title =
     fSplit[0] && !fSplit[1]
