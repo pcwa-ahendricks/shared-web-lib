@@ -45,7 +45,9 @@ const imgixImages = [
   '6d0cb510-1c1e-11ee-8805-5d9e4358a1d4-IMG6411.JPG',
   '98712ae0-33b3-11ee-9ab5-815d9b73ff1f-T-Lagerstroemia-Tuscarora-8-26.JPG',
   'e27e0eb0-491f-11ee-89ab-17371fc03105-FL-Lionstail-2391.JPG',
-  'e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG'
+  'e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG',
+  '4b4381a0-5e1a-11ee-b975-cb0cfadd93ad-N-Zaushneria-0856-Test-Garden.JPG',
+  'dfdbf900-5e1a-11ee-b975-cb0cfadd93ad-3093a-Credit-Garden-Soft.jpg'
 ]
 
 const StrongGrey = ({children, ...props}: TypographyProps) => {
@@ -154,12 +156,12 @@ export default function SummerStrongPage({placeholders}: Props) {
                   A Butterfly Buffet!
                 </Type>*/}
                 <Type variant="h3" gutterBottom>
-                  The "Mane" Event
+                  GO NATIVE!
                 </Type>
               </RowBox>
               {/* <Type variant="h3">Cleveland Sage (and other Salvias)</Type> */}
               <Type variant="h3">
-                Lion’s Tail <em>Leonotis leonurus</em>
+                California Fuchsia <em>Epilobium canum</em>
               </Type>
             </ChildBox>
             <ChildBox
@@ -177,16 +179,16 @@ export default function SummerStrongPage({placeholders}: Props) {
             <RowBox flexSpacing={6} responsive>
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
-                  mediaUrl="https://imgix.cosmicjs.com/e27e0eb0-491f-11ee-89ab-17371fc03105-FL-Lionstail-2391.JPG"
-                  mediaName="Lion's Tail, a hummingbird magnet"
+                  mediaUrl="https://imgix.cosmicjs.com/4b4381a0-5e1a-11ee-b975-cb0cfadd93ad-N-Zaushneria-0856-Test-Garden.JPG"
+                  mediaName="California Fuchsia wide angle"
                   mediaPreviewDialogProps={{
-                    width: 2448,
-                    height: 3264
+                    width: 2262,
+                    height: 2472
                   }}
                 >
                   <ImageFancier
-                    alt="Lion's Tail, a hummingbird magnet"
-                    src={`https://imgix.cosmicjs.com/e27e0eb0-491f-11ee-89ab-17371fc03105-FL-Lionstail-2391.JPG${imgixArParams}`}
+                    alt="California Fuchsia wide angle"
+                    src={`https://imgix.cosmicjs.com/4b4381a0-5e1a-11ee-b975-cb0cfadd93ad-N-Zaushneria-0856-Test-Garden.JPG${imgixArParams}`}
                     // 5/4 image aspect ration
                     width={1975}
                     height={1580}
@@ -198,16 +200,16 @@ export default function SummerStrongPage({placeholders}: Props) {
               </ChildBox>
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
-                  mediaUrl="https://imgix.cosmicjs.com/e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG"
-                  mediaName="Lion's Tail flower closeup"
+                  mediaUrl="https://imgix.cosmicjs.com/dfdbf900-5e1a-11ee-b975-cb0cfadd93ad-3093a-Credit-Garden-Soft.jpg"
+                  mediaName="California Fuchsia close-up"
                   mediaPreviewDialogProps={{
-                    width: 3456,
-                    height: 5184
+                    width: 2100,
+                    height: 1389
                   }}
                 >
                   <ImageFancier
-                    alt="Lion's Tail flower closeup"
-                    src={`https://imgix.cosmicjs.com/e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG${imgixArParams}`}
+                    alt="California Fuchsia close-up"
+                    src={`https://imgix.cosmicjs.com/dfdbf900-5e1a-11ee-b975-cb0cfadd93ad-3093a-Credit-Garden-Soft.jpg${imgixArParams}`}
                     // 5/4 image aspect ration
                     width={1975}
                     height={1580}
@@ -220,53 +222,53 @@ export default function SummerStrongPage({placeholders}: Props) {
             </RowBox>
           </Box>
           <Spacing size="x-large" />
-          <Type variant="h4">Lion’s Tail</Type>
+          <Type variant="h4">California Fuchsia</Type>
           <Type variant="subtitle1" gutterBottom>
             {/* <em>Verbena lilacina ‘De La Mina’, Glandularia lilacina. </em> */}
-            <em>Leonotis leonurus</em>
+            <em>Epilobium canum </em>(Old name which is still used is{' '}
+            <em>Zauschneria cana</em>.)
           </Type>
           <Spacing size="small" />
           <Type variant="subtitle1" gutterBottom>
             <em>By Laurie Meyerpeter, Master Gardener</em>
           </Type>
           <Type paragraph>
-            Lion’s Tail blooms throughout the summer and fall. The orange
-            flowers bloom in whorls up the stem. This plant is a hummingbird
-            magnet! The leaves are a surprisingly lush green for such a low
-            water plant. The blooms make good cut flowers.
+            This plant is one of our California natives and one of the few
+            natives that blooms in late summer and fall. It looks good as a
+            foliage plant throughout the summer and then after Labor Day, it’s
+            SHOWTIME! Hummingbirds love this plant! A tough, low maintenance
+            plant that looks good throughout our hot summers.
           </Type>
           <Type paragraph>
-            Its common name is Lion’s Tail but the scientific name Leonotis
-            translates to “Lion’s Ear” and leonurus “lion-colored”.
+            <StrongGrey>Bloom</StrongGrey>: Red to red-orange blooms resemble
+            fuchsia flowers in late summer and fall.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bloom</StrongGrey>: Orange tubular flowers arranged in
-            whorls up the stem of the plant, it blooms throughout the summer and
-            fall.
+            <StrongGrey>Water needs</StrongGrey>: Low to very low, once
+            established.
           </Type>
           <Type paragraph>
-            <StrongGrey>Water needs</StrongGrey>: Low once established.
+            <StrongGrey>Sun</StrongGrey>: Full sun, part shade.
           </Type>
           <Type paragraph>
-            <StrongGrey>Sun</StrongGrey>: Full sun.
+            <StrongGrey>Size</StrongGrey>: Different cultivars have different
+            heights from low ground cover to 1.5’ high and to 2-3’ wide. Low
+            varieties spread more than others.
           </Type>
           <Type paragraph>
-            <StrongGrey>Size</StrongGrey>: 4-6’ tall and wide.
+            <StrongGrey>Care</StrongGrey>: Low to very low water requirements.
+            After bloom, it should be cut back to the ground every year for best
+            looks. Easy, once a year maintenance; low varieties are so forgiving
+            that they can be mowed once a year after bloom.
           </Type>
           <Type paragraph>
-            <StrongGrey>Care</StrongGrey>: Low water requirements. Can be cut
-            back in late fall after bloom for best appearance next season.
-          </Type>
-          <Type paragraph>
-            <StrongGrey>Availability</StrongGrey>: Lion’s Tail is readily
+            <StrongGrey>Availability</StrongGrey>: Various cultivars are
             available seasonally.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bonus plants</StrongGrey>: Nice companion plants include
-            many of the low water, ornamental grasses that shine in late summer
-            and fall. Here are two: Karl Foerster Reed Grass (Calamagrostis x
-            acutiflora ‘Karl Foerster’) and our native Deer Grass (Muhlenbergia
-            rigens). Both are Arboretum All Stars.
+            <StrongGrey>Bonus plants</StrongGrey>: : De La Mina Verbena (Verbena
+            lilacina ‘De La Mina’ or Glandularia lilacina. This plant often has
+            fall flowers.
           </Type>
 
           <Spacing size="large" />
@@ -284,7 +286,177 @@ export default function SummerStrongPage({placeholders}: Props) {
                 WUCOLS (https://ucanr.edu)
               </Link>
             </Type>
-            {/*<Type>
+            <Type>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="body1"
+                href="https://arboretum.ucdavis.edu/plant/California-fuchsia"
+              >
+                UC Davis Arboretum All Star, California-fuchsia:
+                (https://arboretum.ucdavis.edu)
+              </Link>
+            </Type>
+            <Type>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="body1"
+                href="https://calscape.org/Epilobium-canum-(California-Fuchsia)"
+              >
+                CalScape, California Fuchsia: (https://calscape.org)
+              </Link>
+            </Type>
+            <Type>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="body1"
+                href="https://calscape.org/Verbena-lilacina-'De-La-Mina'-(De-La-Mina-Verbena)?srchcr=sc5e4b2b6ca32ac"
+              >
+                CalScape, De La Mina Verbena: (https://calscape.org)
+              </Link>
+            </Type>
+          </Box>
+          <Spacing size="x-large" />
+          <Type variant="h2" color="primary">
+            Previously Featured Plants
+          </Type>
+          <Spacing />
+          <Type paragraph>
+            Click on any of the dropdown(s) below to see previously featured
+            Summer Strong plants.
+          </Type>
+          <Spacing />
+          <Box>
+            <Accordion
+              expanded={expanded === 'panel1'}
+              onChange={handleChange('panel1')}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                <RowBox justifyContent="space-between" width="100%">
+                  <ChildBox flex="grow">
+                    <Type variant="h4">Lion's Tail</Type>
+                  </ChildBox>
+                </RowBox>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box>
+                  <RowBox flexSpacing={6} responsive>
+                    <ChildBox flex="0 1 33%">
+                      <MediaDialogOnClick
+                        mediaUrl="https://imgix.cosmicjs.com/e27e0eb0-491f-11ee-89ab-17371fc03105-FL-Lionstail-2391.JPG"
+                        mediaName="Lion's Tail, a hummingbird magnet"
+                        mediaPreviewDialogProps={{
+                          width: 2448,
+                          height: 3264
+                        }}
+                      >
+                        <ImageFancier
+                          alt="Lion's Tail, a hummingbird magnet"
+                          src={`https://imgix.cosmicjs.com/e27e0eb0-491f-11ee-89ab-17371fc03105-FL-Lionstail-2391.JPG${imgixArParams}`}
+                          // 5/4 image aspect ration
+                          width={1975}
+                          height={1580}
+                          defaultGrey
+                          sizes="(max-width: 600px) 100vw, 33vw"
+                          objectFit="contain"
+                        />
+                      </MediaDialogOnClick>
+                    </ChildBox>
+                    <ChildBox flex="0 1 33%">
+                      <MediaDialogOnClick
+                        mediaUrl="https://imgix.cosmicjs.com/e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG"
+                        mediaName="Lion's Tail flower closeup"
+                        mediaPreviewDialogProps={{
+                          width: 3456,
+                          height: 5184
+                        }}
+                      >
+                        <ImageFancier
+                          alt="Lion's Tail flower closeup"
+                          src={`https://imgix.cosmicjs.com/e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG${imgixArParams}`}
+                          // 5/4 image aspect ration
+                          width={1975}
+                          height={1580}
+                          defaultGrey
+                          sizes="(max-width: 600px) 100vw, 33vw"
+                          objectFit="contain"
+                        />
+                      </MediaDialogOnClick>
+                    </ChildBox>
+                  </RowBox>
+                  <Spacing size="x-large" />
+                  <Type variant="h4">Lion's Tail</Type>
+                  <Type variant="subtitle1" gutterBottom color="textSecondary">
+                    <em>Leonotis leonurus</em>
+                  </Type>
+                  <Type variant="subtitle1" gutterBottom>
+                    <em>By Laurie Meyerpeter, Master Gardener</em>
+                  </Type>
+                  <Type paragraph>
+                    Lion's Tail blooms throughout the summer and fall. The
+                    orange flowers bloom in whorls up the stem. This plant is a
+                    hummingbird magnet! The leaves are a surprisingly lush green
+                    for such a low water plant. The blooms make good cut
+                    flowers.
+                  </Type>
+                  <Type paragraph>
+                    Its common name is Lion’s Tail but the scientific name
+                    Leonotis translates to “Lion’s Ear” and leonurus
+                    “lion-colored”.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Bloom</StrongGrey>: Orange tubular flowers
+                    arranged in whorls up the stem of the plant, it blooms
+                    throughout the summer and fall.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Water needs</StrongGrey>: Low once established.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Sun</StrongGrey>: Full sun.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Size</StrongGrey>: 4-6’ tall and wide.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Care</StrongGrey>: Low water requirements. Can
+                    be cut back in late fall after bloom for best appearance
+                    next season.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Availability</StrongGrey>: Lion’s Tail is
+                    readily available seasonally.
+                  </Type>
+                  <Type paragraph>
+                    <StrongGrey>Bonus plants</StrongGrey>: Nice companion plants
+                    include many of the low water, ornamental grasses that shine
+                    in late summer and fall. Here are two: Karl Foerster Reed
+                    Grass (Calamagrostis x acutiflora ‘Karl Foerster’) and our
+                    native Deer Grass (Muhlenbergia rigens). Both are Arboretum
+                    All Stars.
+                  </Type>
+                  <Spacing size="large" />
+                  <Box>
+                    <Type variant="subtitle1" gutterBottom>
+                      Information:
+                    </Type>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://ucanr.edu/sites/WUCOLS/files/183488.pdf"
+                      >
+                        WUCOLS (https://ucanr.edu)
+                      </Link>
+                    </Type>
+                    {/*<Type>
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
@@ -316,36 +488,28 @@ export default function SummerStrongPage({placeholders}: Props) {
                 CalScape: (https://calscape.org)
               </Link>
             </Type> */}
-            <Type>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="body1"
-                href="https://ucanr.edu/blogs/blogcore/postdetail.cfm?postnum=44250 "
-              >
-                UCANR: (https://ucanr.edu)
-              </Link>
-            </Type>
-          </Box>
-          <Spacing size="x-large" />
-          <Type variant="h2" color="primary">
-            Previously Featured Plants
-          </Type>
-          <Spacing />
-          <Type paragraph>
-            Click on any of the dropdown(s) below to see previously featured
-            Summer Strong plants.
-          </Type>
-          <Spacing />
-          <Box>
+                    <Type>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="body1"
+                        href="https://ucanr.edu/blogs/blogcore/postdetail.cfm?postnum=44250 "
+                      >
+                        UCANR: (https://ucanr.edu)
+                      </Link>
+                    </Type>
+                  </Box>
+                </Box>
+              </AccordionDetails>
+            </Accordion>
             <Accordion
-              expanded={expanded === 'panel1'}
-              onChange={handleChange('panel1')}
+              expanded={expanded === 'panel2'}
+              onChange={handleChange('panel2')}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
+                aria-controls="panel2-content"
+                id="panel2-header"
               >
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
@@ -483,13 +647,13 @@ export default function SummerStrongPage({placeholders}: Props) {
               </AccordionDetails>
             </Accordion>
             <Accordion
-              expanded={expanded === 'panel2'}
-              onChange={handleChange('panel2')}
+              expanded={expanded === 'panel3'}
+              onChange={handleChange('panel3')}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2-content"
-                id="panel2-header"
+                aria-controls="panel3-content"
+                id="panel3-header"
               >
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
@@ -680,13 +844,13 @@ export default function SummerStrongPage({placeholders}: Props) {
               </AccordionDetails>
             </Accordion>
             <Accordion
-              expanded={expanded === 'panel3'}
-              onChange={handleChange('panel3')}
+              expanded={expanded === 'panel4'}
+              onChange={handleChange('panel4')}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel3-content"
-                id="panel3-header"
+                aria-controls="panel4-content"
+                id="panel4-header"
               >
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
@@ -836,13 +1000,13 @@ export default function SummerStrongPage({placeholders}: Props) {
               </AccordionDetails>
             </Accordion>
             <Accordion
-              expanded={expanded === 'panel4'}
-              onChange={handleChange('panel4')}
+              expanded={expanded === 'panel5'}
+              onChange={handleChange('panel5')}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel4-content"
-                id="panel4-header"
+                aria-controls="panel5-content"
+                id="panel5-header"
               >
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">

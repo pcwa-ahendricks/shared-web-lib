@@ -275,10 +275,10 @@ const SmartWaterUsePage = () => {
                       <Image
                         layout="responsive"
                         loader={imgixUrlLoader}
-                        src="https://imgix.cosmicjs.com/51dbee60-f4d6-11ed-bb44-790a83f99a24-PCWA-Summer-Strong-Cleveland-Sage-CROP-for-Home.jpg"
-                        width={1080}
-                        height={755}
-                        alt="'Winnifred Gilman' Cleveland Sage, Salvia clevelandii 'Winnifred Gilman'"
+                        src="https://imgix.cosmicjs.com/5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg"
+                        width={1280}
+                        height={800}
+                        alt="California Fuchsia, Summer Strong Low-Water Use Plant of the Month"
                         sizes="(max-width: 600px) 100vw, 70vw"
                       />
                       <Box padding={2}>

@@ -48,7 +48,8 @@ const imgixImages = [
   'aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg',
   // '35beb0f0-1c13-11ee-8805-5d9e4358a1d4-De-La-Mina8x5V2.jpg',
   'e9d52af0-33b6-11ee-9ab5-815d9b73ff1f-waterboardslogohighresedit.png',
-  'd7b43770-491f-11ee-bfb7-cfc5e4366a0b-LionsTail8x5V3.jpg'
+  // 'd7b43770-491f-11ee-bfb7-cfc5e4366a0b-LionsTail8x5V3.jpg',
+  '5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg'
 ]
 
 type Props = {
@@ -158,8 +159,8 @@ const Index = ({
               title="Resilient and Beautiful"
               readMore="Learn more"
               linkHref="/smart-water-use/summer-strong"
-              imgixURL="https://imgix.cosmicjs.com/d7b43770-491f-11ee-bfb7-cfc5e4366a0b-LionsTail8x5V3.jpg"
-              alt="Lion's Tail, a hummingbird magnet"
+              imgixURL="https://imgix.cosmicjs.com/5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg"
+              alt="California Fuchsia, Summer Strong Low-Water Use Plant of the Month"
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
           </ChildBox>
