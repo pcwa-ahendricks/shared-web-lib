@@ -302,6 +302,10 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Improvement Standards',
             nextLink: '/business/standards'
+          },
+          {
+            title: 'Utility Map Request',
+            nextLink: '/business/new-development#UtilityMapRequest'
           }
         ]
       },
