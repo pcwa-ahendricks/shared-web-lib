@@ -169,18 +169,7 @@ const Index = ({
                   The Wildland Fire Mitigation and Management Commission's
                   second and final report (PDF) was submitted to Congress on
                   September 27, 2023 and reflects one of the most sweeping and
-                  comprehensive reviews of the wildfire system to date. The
-                  final PDF report can be viewed and downloaded online using the
-                  following direct link{' '}
-                  <Link
-                    href="https://www.usda.gov/sites/default/files/documents/wfmmc-final-report-09-2023.pdf"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    underline="always"
-                  >
-                    WFMMC Final Report 9/2023
-                  </Link>{' '}
-                  .
+                  comprehensive reviews of the wildfire system to date.
                 </Type>
               }
             />
