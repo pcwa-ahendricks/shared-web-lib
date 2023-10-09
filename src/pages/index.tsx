@@ -47,9 +47,10 @@ const imgixImages = [
   '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
   'aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg',
   // '35beb0f0-1c13-11ee-8805-5d9e4358a1d4-De-La-Mina8x5V2.jpg',
-  'e9d52af0-33b6-11ee-9ab5-815d9b73ff1f-waterboardslogohighresedit.png',
+  // 'e9d52af0-33b6-11ee-9ab5-815d9b73ff1f-waterboardslogohighresedit.png',
   // 'd7b43770-491f-11ee-bfb7-cfc5e4366a0b-LionsTail8x5V3.jpg',
-  '5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg'
+  '5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg',
+  'c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png'
 ]
 
 type Props = {
@@ -116,7 +117,7 @@ const Index = ({
       </Hidden>
       <WideContainer>
         <RowBox responsive flexSpacing={4}>
-          <ChildBox flex="0 0 50%">
+          {/* <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Sites Reservoir Project"
@@ -148,6 +149,37 @@ const Index = ({
                   >
                     www.sitesproject.org
                   </Link>
+                  .
+                </Type>
+              }
+            />
+          </ChildBox> */}
+          <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="ON FIRE: The Report of the Wildland Fire Mitigation and Management Commission"
+              readMore="Visit Wildland Fire Mitigation and Management Commission"
+              linkHref="https://www.usda.gov/topics/disaster-resource-center/wildland-fire/commission"
+              imgixURL="https://imgix.cosmicjs.com/c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png"
+              alt="Wildland Fire Mitigation and Management Commission Final Report Available"
+              flexLinkProps={{isNextLink: false}}
+              imgixParams={{fit: 'crop', crop: 'bottom'}}
+              body={
+                <Type variant="inherit">
+                  The Wildland Fire Mitigation and Management Commission's
+                  second and final report (PDF) was submitted to Congress on
+                  September 27, 2023 and reflects one of the most sweeping and
+                  comprehensive reviews of the wildfire system to date. The
+                  final PDF report can be viewed and downloaded online using the
+                  following direct link{' '}
+                  <Link
+                    href="https://www.usda.gov/sites/default/files/documents/wfmmc-final-report-09-2023.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    underline="always"
+                  >
+                    WFMMC Final Report 9/2023
+                  </Link>{' '}
                   .
                 </Type>
               }
