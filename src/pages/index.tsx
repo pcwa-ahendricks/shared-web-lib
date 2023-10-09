@@ -7,8 +7,7 @@ import {
   useMediaQuery,
   Divider,
   useTheme,
-  Hidden,
-  Link
+  Hidden
 } from '@material-ui/core'
 import {RowBox, ChildBox} from 'mui-sleazebox'
 import Spacing from '@components/boxes/Spacing'
