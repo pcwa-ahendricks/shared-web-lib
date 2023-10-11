@@ -184,7 +184,7 @@ const IrrigationCanalPage = () => {
                   .
                 </Type>
               </Box>
-              {/* <Box
+              {<Box
                 // bgcolor={paletteType(theme.palette.warning.main, 0.92)}
                 bgcolor={theme.palette.common.white}
                 p={2}
@@ -201,7 +201,7 @@ const IrrigationCanalPage = () => {
                     }}
                   />
                   <Type gutterBottom variant="subtitle2" color="textPrimary">
-                    2022 Annual PG&E Fall Canal Outage Schedule
+                    2023 Annual PG&E Fall Canal Outage Schedule
                   </Type>
                 </RowBox>
                 <Type paragraph variant="body2" color="inherit">
@@ -211,17 +211,17 @@ const IrrigationCanalPage = () => {
                   turnouts (CTO) along the canals. To see start and end dates
                   for the PG&E outage and the PCWA CTO maintenance schedule{' '}
                   <Link
-                    href="https://cdn.cosmicjs.com/b42ced10-4f29-11ed-a2c4-b5a49b133277-2022-Orifice-changing-chart.pdf"
+                    href="https://cdn.cosmicjs.com/47234430-6850-11ee-b27c-e13e14dddc51-2023-Orifice-Changing-Chart.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="Link to 2022 Annual PG&E Fall Canal Outage Schedule"
+                    title="Link to 2023 Annual PG&E Fall Canal Outage Schedule"
                     underline="always"
                   >
-                    <ClickOrTap /> here to view the 2022 Schedule
+                    <ClickOrTap /> here to view the 2023 Schedule
                   </Link>
                   .
                 </Type>
-              </Box> */}
+              </Box>
             </ChildBox>
           </RowBox>
           <Spacing size="large" />
