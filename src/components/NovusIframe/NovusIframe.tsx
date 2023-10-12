@@ -1,26 +1,15 @@
 // cspell:ignore novus mfpfa
 import React, {useCallback, useState} from 'react'
 import {Typography as Type, Box, BoxProps} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import IeOnly from '@components/boxes/IeOnly'
 import IeNever from '@components/boxes/IeNever'
 import JackinBox from 'mui-jackinbox'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    loadingCaption: {
-      userSelect: 'none',
-      pointerEvents: 'none' // This is important when using z-index. Certain web browsers will require this in order to select any elements beneath.
-    }
-  })
-)
 type Props = {
   mfpfa?: boolean
 } & BoxProps
 
 const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
-  const classes = useStyles()
   const [iframeIsLoading, setIframeIsLoading] = useState(true)
 
   const novusIframeLoadedHandler = useCallback(() => {
@@ -56,7 +45,10 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
         top={0}
         left={0}
         zIndex={1}
-        className={classes.loadingCaption}
+        sx={{
+          userSelect: 'none',
+          pointerEvents: 'none' // This is important when using z-index. Certain web browsers will require this in order to select any elements beneath.
+        }}
       >
         <Type>Novus Agenda is loading...</Type>
       </JackinBox>

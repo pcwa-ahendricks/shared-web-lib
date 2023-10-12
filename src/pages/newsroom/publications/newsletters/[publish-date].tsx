@@ -16,17 +16,13 @@ import {
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
-  Theme,
   useMediaQuery,
   Box,
   Typography as Type,
   Divider,
   Breadcrumbs,
-  LinearProgress,
-  useTheme
+  LinearProgress
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import {format, parseJSON, addMonths, getYear} from 'date-fns'
 import ErrorPage from '@pages/_error'
@@ -45,6 +41,7 @@ import {
 } from '@lib/types/newsletters'
 import {useRouter} from 'next/router'
 import {setCenterProgress, UiContext} from '@components/ui/UiStore'
+import useTheme from '@hooks/useTheme'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -52,15 +49,16 @@ type Props = {
   media?: NewsletterMediaResponse
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const DynamicNewslettersPage = ({media, err}: Props) => {
+  const theme = useTheme()
+  const style = {
     pageNo: {
       cursor: 'default'
     },
     pageNoType: {
       borderRadius: 8,
-      paddingLeft: 4,
-      paddingRight: 4,
+      paddingLeft: '4px',
+      paddingRight: '4px',
       backgroundColor: theme.palette.common.white,
       lineHeight: 1.2
     },
@@ -73,14 +71,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 20,
       height: 20
     }
-  })
-)
-
-const DynamicNewslettersPage = ({media, err}: Props) => {
-  const theme = useTheme<Theme>()
+  }
   const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
   const isXS = useMediaQuery(theme.breakpoints.down('sm'))
-  const classes = useStyles()
   const router = useRouter()
   const uiContext = useContext(UiContext)
   const {dispatch: uiDispatch} = uiContext
@@ -182,13 +175,13 @@ const DynamicNewslettersPage = ({media, err}: Props) => {
                 color="inherit"
                 href="/newsroom/publications/[publication]"
                 as="/newsroom/publications/newsletters"
-                className={classes.bcLink}
+                sx={{...style.bcLink}}
               >
-                <MinutesIcon className={classes.bcIcon} />
+                <MinutesIcon sx={{...style.bcIcon}} />
                 Newsletters
               </MuiNextLink>
               <Type color="textPrimary" style={{display: 'flex'}}>
-                <DocIcon className={classes.bcIcon} />
+                <DocIcon sx={{...style.bcIcon}} />
                 {newsletterDateFormatted}
               </Type>
             </Breadcrumbs>
@@ -224,12 +217,12 @@ const DynamicNewslettersPage = ({media, err}: Props) => {
                 justifyContent="center"
                 width="100%"
                 fontStyle="italic"
-                className={classes.pageNo}
+                sx={{...style.pageNo}}
               >
                 <Type
                   color="primary"
                   variant={isSMDown ? 'body2' : 'body1'}
-                  className={classes.pageNoType}
+                  sx={{...style.pageNoType}}
                 >{`Page ${number}`}</Type>
               </RowBox>
             ) : null}

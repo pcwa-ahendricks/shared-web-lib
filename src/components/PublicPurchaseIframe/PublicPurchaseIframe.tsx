@@ -1,22 +1,11 @@
 //cspell:ignore publicpurchase
 import React, {useCallback, useState} from 'react'
-import {Typography as Type, Box, BoxProps, useTheme} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import {Typography as Type, Box, BoxProps} from '@mui/material'
 import JackinBox from 'mui-jackinbox'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    loadingCaption: {
-      userSelect: 'none',
-      pointerEvents: 'none' // This is important when using z-index. Certain web browsers will require this in order to select any elements beneath.
-    }
-  })
-)
+import useTheme from '@hooks/useTheme'
 
 const PublicPurchaseIframe = ({...rest}: BoxProps) => {
   const theme = useTheme()
-  const classes = useStyles()
   const [iframeIsLoading, setIframeIsLoading] = useState(true)
 
   const publicPurchaseIframeLoadedHandler = useCallback(() => {
@@ -33,7 +22,10 @@ const PublicPurchaseIframe = ({...rest}: BoxProps) => {
         top={0}
         left={0}
         zIndex={1}
-        className={classes.loadingCaption}
+        sx={{
+          userSelect: 'none',
+          pointerEvents: 'none' // This is important when using z-index. Certain web browsers will require this in order to select any elements beneath.
+        }}
       >
         <Type>Public Purchase is loading...</Type>
       </JackinBox>
@@ -47,14 +39,16 @@ const PublicPurchaseIframe = ({...rest}: BoxProps) => {
         height={250}
         {...rest}
       >
-        <iframe
+        <Box
+          component="iframe"
           title="Public Purchase Iframe"
           onLoad={publicPurchaseIframeLoadedHandler}
           src="https://www.publicpurchase.com/gems/pcwa,ca/buyer/public/publicInfo"
-          frameBorder="0"
           width="100%"
           height="100%"
-          scrolling="auto"
+          sx={{
+            border: 'none'
+          }}
         />
       </JackinBox>
     </Box>

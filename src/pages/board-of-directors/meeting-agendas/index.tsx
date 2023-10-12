@@ -20,12 +20,8 @@ import {
   ListItemText,
   Link,
   useMediaQuery,
-  CircularProgress,
-  Theme,
-  useTheme
+  CircularProgress
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import GavelRoundedIcon from '@mui/icons-material/GavelRounded'
 import ClerkToBoardEmail from '@components/links/ClerkToBoardEmail'
 import NovusIframe from '@components/NovusIframe/NovusIframe'
@@ -58,6 +54,7 @@ import {ics, google, yahoo, outlook} from '@lib/calendar-link'
 import slugify from 'slugify'
 import fetcher from '@lib/fetcher'
 import {GetStaticProps} from 'next'
+import useTheme from '@hooks/useTheme'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -110,8 +107,12 @@ const agendasUrl = `/api/cosmic/objects${agendasQs}`
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const MeetingAgendasPage = ({
+  agendaFallbackData,
+  meetingDatesFallbackData
+}: Props) => {
+  const theme = useTheme()
+  const style = {
     card: {
       minWidth: 275,
       backgroundColor: theme.palette.common.white,
@@ -120,17 +121,9 @@ const useStyles = makeStyles((theme: Theme) =>
       borderColor: green['500']
     },
     pos: {
-      marginBottom: 12
+      marginBottom: '12px'
     }
-  })
-)
-
-const MeetingAgendasPage = ({
-  agendaFallbackData,
-  meetingDatesFallbackData
-}: Props) => {
-  const classes = useStyles()
-  const theme = useTheme()
+  }
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
 
   const {data: agendasData} = useSWR<CosmicObjectResponse<AgendaMetadata>>(
@@ -343,7 +336,7 @@ const MeetingAgendasPage = ({
                 , unless otherwise noted.
               </Type>
               <Spacing />
-              <Card className={classes.card}>
+              <Card sx={{...style.card}}>
                 <RowBox
                   responsive
                   flexSpacing={isSMUp ? 4 : 1}
@@ -356,7 +349,7 @@ const MeetingAgendasPage = ({
                       <>
                         <CardContent>
                           {/* <Type
-                    className={classes.title}
+                   sx={{...style.title}}
                     color="textSecondary"
                     gutterBottom
                   >
@@ -369,7 +362,7 @@ const MeetingAgendasPage = ({
                               "eeee',' MMMM do '@' h':'mm aaaa"
                             )}
                           </Type>
-                          <Type className={classes.pos} color="textSecondary">
+                          <Type sx={{...style.pos}} color="textSecondary">
                             In {formatDistanceToNow(nextBoardMeeting.date)}
                           </Type>
                           <Type variant="body2" component="p">
@@ -518,7 +511,6 @@ const MeetingAgendasPage = ({
                       <ChildBox ml={4}>
                         <OpenInNewLink
                           pdf
-                          isNextLink
                           as={linkAs}
                           href="/board-of-directors/meeting-agendas/[agenda-slug]"
                         >
