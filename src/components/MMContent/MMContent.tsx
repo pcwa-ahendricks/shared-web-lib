@@ -34,7 +34,7 @@ const MMContent = ({contentKey = 1}: Props) => {
                 sx={{
                   color: theme.palette.primary.dark,
                   // color: theme.palette.grey[100]
-                  paddingLeft: 8 // Match NavLink buttonText class and this divider class.
+                  paddingLeft: 1 // Match NavLink buttonText class and this divider class.
                 }}
               >
                 {menuGroup.groupName}
@@ -47,7 +47,7 @@ const MMContent = ({contentKey = 1}: Props) => {
                   opacity: 0.3,
                   marginTop: theme.spacing(1),
                   marginBottom: theme.spacing(1),
-                  marginLeft: 8 // Match NavLink buttonText class and this groupName class.
+                  marginLeft: 1 // Match NavLink buttonText class and this groupName class.
                 }}
               />
               {menuGroup.items.map((item, itemIdx) => (

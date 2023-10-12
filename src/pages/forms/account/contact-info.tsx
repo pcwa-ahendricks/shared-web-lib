@@ -1,8 +1,6 @@
 // cspell:ignore cust
 import React, {useState, useCallback, useMemo} from 'react'
-import {Box, Divider, Grid, Theme, Typography as Type} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, Divider, Grid, Typography as Type} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
@@ -28,6 +26,7 @@ import FormValidate from '@components/forms/FormValidate/FormValidate'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
+import useTheme from '@hooks/useTheme'
 
 const SERVICE_URI_PATH = 'account-contact-info'
 
@@ -98,29 +97,29 @@ const initialFormValues: FormData = {
   captcha: ''
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      margin: 'auto',
-      // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
-      width: '100%'
-    },
-    formGroupTitle: {
-      marginBottom: theme.spacing(3)
-    },
-    // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
-    ieFixFlexColumnDirection: {
-      flexBasis: 'auto',
-      flexGrow: 0,
-      flexShrink: 0
-    }
-  })
-)
-
 const ContactInfo = () => {
-  const classes = useStyles()
+  const theme = useTheme()
+  const style = useMemo(
+    () => ({
+      form: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: 'auto',
+        // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
+        width: '100%'
+      },
+      formGroupTitle: {
+        marginBottom: theme.spacing(3)
+      },
+      // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
+      ieFixFlexColumnDirection: {
+        flexBasis: 'auto',
+        flexGrow: 0,
+        flexShrink: 0
+      }
+    }),
+    [theme]
+  )
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
     useState<boolean>(false)
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
@@ -174,13 +173,13 @@ const ContactInfo = () => {
             >
               <ProtectRouteChange>
                 <FormValidate>
-                  <FormBox className={classes.form}>
+                  <FormBox sx={{...style.form}}>
                     <Box flex="0 0 auto" mt={5} mb={5}>
                       <Type
                         color="textSecondary"
                         variant="h4"
                         gutterBottom
-                        className={classes.formGroupTitle}
+                        sx={{...style.formGroupTitle}}
                       >
                         Updated Contact Information
                       </Type>
@@ -319,7 +318,7 @@ const ContactInfo = () => {
                         color="textSecondary"
                         variant="h4"
                         gutterBottom
-                        className={classes.formGroupTitle}
+                        sx={{...style.formGroupTitle}}
                       >
                         E-Signature
                       </Type>
@@ -328,7 +327,7 @@ const ContactInfo = () => {
                         <Grid
                           item
                           xs={12}
-                          className={classes.ieFixFlexColumnDirection}
+                          sx={{...style.ieFixFlexColumnDirection}}
                         >
                           <Type variant="caption">
                             You must sign this form by typing your name
@@ -339,7 +338,7 @@ const ContactInfo = () => {
                         <Grid
                           item
                           xs={12}
-                          className={classes.ieFixFlexColumnDirection}
+                          sx={{...style.ieFixFlexColumnDirection}}
                         >
                           <Field name="captcha" component={RecaptchaField} />
                         </Grid>
@@ -370,7 +369,7 @@ const ContactInfo = () => {
         </MainBox>
       </>
     ),
-    [classes]
+    [style]
   )
 
   return (

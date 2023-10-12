@@ -4,7 +4,6 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   FormControlProps,
   SelectChangeEvent
@@ -65,22 +64,21 @@ const HowDidYouHearSelectField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel htmlFor="how-did-you-hear-select">
+      <InputLabel id="how-did-you-hear-select-label">
         How Did You Hear About this Rebate Program?
       </InputLabel>
       <Select
+        labelId="how-did-you-hear-select-label"
+        label="How Did You Hear About this Rebate Program?"
+        id="how-did-you-hear-select"
         required={required}
         value={value}
-        autoWidth={true}
+        autoWidth
         variant="outlined"
-        input={
-          <OutlinedInput
-            id="how-did-you-hear-select"
-            name={name}
-            // labelWidth={359}
-            error={fieldIsTouchedWithError}
-          />
-        }
+        inputProps={{
+          name,
+          error: fieldIsTouchedWithError
+        }}
         onChange={changeHandler}
         onBlur={handleBlur}
         SelectDisplayProps={{style: {minWidth: 50}}}
@@ -95,9 +93,13 @@ const HowDidYouHearSelectField = ({
         ))}
       </Select>
       <WaitToGrow isIn={fieldIsTouchedWithError}>
-        <FormHelperText error={fieldIsTouchedWithError}>
-          {fieldIsTouchedWithError ? currentError : null}
-        </FormHelperText>
+        {fieldIsTouchedWithError ? (
+          <FormHelperText error={fieldIsTouchedWithError}>
+            <>{currentError}</>
+          </FormHelperText>
+        ) : (
+          <></>
+        )}
       </WaitToGrow>
     </FormControl>
   )

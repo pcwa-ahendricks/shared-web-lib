@@ -32,7 +32,7 @@ const SignatureField = ({
       // autoFocus
       variant="filled"
       margin="normal"
-      helperText={fieldIsTouchedWithError ? currentError : null}
+      helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
       error={fieldIsTouchedWithError}
       onChange={handleChange}
       onBlur={handleBlur}

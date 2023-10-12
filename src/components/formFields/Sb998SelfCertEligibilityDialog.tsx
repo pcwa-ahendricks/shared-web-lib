@@ -27,16 +27,20 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableBody
+  TableBody,
+  ListItemButton
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
-import {connect, FormikProps, useFormikContext, useField} from 'formik'
-import clsx from 'clsx'
+import {
+  connect,
+  FormikProps,
+  useFormikContext,
+  useField,
+  FormikTouched
+} from 'formik'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
 import {
@@ -60,36 +64,24 @@ type Props = {
   formik?: FormikProps<any>
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
+  const theme = useTheme()
+  const style = {
     qualifyMsg: {
       marginTop: theme.spacing(3)
     },
     stepLabelLabel: {
       marginLeft: theme.spacing(1),
-      cursor: 'pointer',
-      '& .stepLabelActive': {
-        color: theme.palette.primary.main
-      },
-      '& .stepLabelError': {
-        color: theme.palette.error.main
-      }
+      cursor: 'pointer'
     },
-    stepLabelError: {},
-    stepLabelActive: {},
     stepLabelIcon: {
       cursor: 'pointer'
     }
-  })
-)
-
-const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
-  const classes = useStyles()
-  const theme = useTheme<Theme>()
+  }
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const [debouncedLastTouchedIndex] = useDebounce(lastTouchedIndex, 800)
-  const prevTouched = useRef<Record<string, unknown>>()
+  const prevTouched = useRef<FormikTouched<any>>()
   const prevLastTouchedIndex = useRef<number>()
 
   const {touched, errors, values} = useFormikContext<Sb998SelfCertFormData>()
@@ -129,8 +121,8 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 
   const getStepIndex = useCallback(
-    (fieldName: string) => {
-      const found = steps.find((step) => step.name === fieldName)
+    (name: string) => {
+      const found = steps.find((step) => step.name === name)
       return found ? found.index : null
     },
     [steps]
@@ -170,7 +162,7 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 
   const touchedChangedHandler = useCallback(
-    (prev, curr) => {
+    (prev: FormikTouched<any>, curr: FormikTouched<any>) => {
       const diff = addedDiff(prev, curr) || {}
       const newProp = Object.keys({...diff})[0]
       const stepIndex = newProp && getStepIndex(newProp)
@@ -232,8 +224,8 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 
   const stepHasError = useCallback(
-    (fieldName: Sb998SelfCertFormDataProp) => {
-      const error = errors[fieldName]
+    (name: Sb998SelfCertFormDataProp) => {
+      const error = errors[name]
       return (
         Boolean(error) &&
         typeof error === 'string' &&
@@ -244,8 +236,8 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
   )
 
   const stepCompleted = useCallback(
-    (fieldName: Sb998SelfCertFormDataProp) => {
-      const fieldTouched = Boolean(touched[fieldName])
+    (name: Sb998SelfCertFormDataProp) => {
+      const fieldTouched = Boolean(touched[name])
       if (fieldTouched) {
         return true
       }
@@ -274,18 +266,27 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
                 {/* <StepLabel>{label}</StepLabel> */}
                 <StepLabel
                   error={stepHasError(name)}
-                  classes={{
-                    iconContainer: classes.stepLabelIcon,
-                    labelContainer: classes.stepLabelLabel
+                  sx={{
+                    '.MuiStepLabel-iconContainer': {
+                      ...style.stepLabelIcon
+                    },
+                    '.MuiStepLabel-labelContainer': {
+                      ...style.stepLabelLabel
+                    }
                   }}
                   optional={
                     <DialogContentText
                       variant="h4"
                       color="textSecondary"
-                      className={clsx({
-                        [classes.stepLabelError]: stepHasError(name),
-                        [classes.stepLabelActive]: activeStep === index
-                      })}
+                      sx={{
+                        ...(stepHasError(name) && {
+                          color: theme.palette.error.main
+                        }),
+                        ...(activeStep === index &&
+                          !stepHasError(name) && {
+                            color: theme.palette.primary.main
+                          })
+                      }}
                     >
                       {label}
                     </DialogContentText>
@@ -302,7 +303,7 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
             <DialogContentText
               variant="body1"
               color="textPrimary"
-              className={classes.qualifyMsg}
+              sx={{...style.qualifyMsg}}
             >
               <Box bgcolor={blueGrey[50]} paddingY={2} paddingX={4}>
                 {reducedCnctChrgCondition ? (
@@ -406,42 +407,42 @@ const Sb998SelfCertEligibilityDialog = ({open = false, onClose}: Props) => {
 
 export default connect(Sb998SelfCertEligibilityDialog)
 
-const useQuestionStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    }
-  })
-)
-
-const useIntroStyles = makeStyles((theme) => ({
-  listItemBullet: {
-    minWidth: theme.spacing(5)
-  },
-  tightListItem: {
-    paddingTop: 2,
-    paddingBottom: 2
-  },
-  tightListItemText: {
-    paddingTop: 2,
-    paddingBottom: 2,
-    marginTop: 0,
-    marginBottom: 0
+const useQuestionStyles = (theme: Theme) => ({
+  qualifyMsg: {
+    marginTop: theme.spacing(3)
   }
-}))
+})
 
 const Intro = () => {
-  // const classes = useQuestionStyles()
-  const classes = useIntroStyles()
+  const theme = useTheme()
+  const style = useMemo(
+    () => ({
+      listItemBullet: {
+        minWidth: theme.spacing(5)
+      },
+      tightListItem: {
+        paddingTop: 2,
+        paddingBottom: 2
+      },
+      tightListItemText: {
+        paddingTop: 2,
+        paddingBottom: 2,
+        marginTop: 0,
+        marginBottom: 0
+      }
+    }),
+    [theme]
+  )
+
   const ListItemBullet = useCallback(
     ({children, ...rest}: ListItemIconProps) => {
       return (
-        <ListItemIcon classes={{root: classes.listItemBullet}} {...rest}>
+        <ListItemIcon sx={{...style.listItemBullet}} {...rest}>
           {children}
         </ListItemIcon>
       )
     },
-    [classes]
+    [style]
   )
   // const theme = useTheme()
 
@@ -466,30 +467,30 @@ const Intro = () => {
         water service if <em>all</em> the following conditions are met:
       </Type>
       <List disablePadding>
-        <ListItem classes={{root: classes.tightListItem}}>
+        <ListItem sx={{...style.tightListItem}}>
           <ListItemBullet>
             <BulletIcon fontSize="large" />
           </ListItemBullet>
           <ListItemText
-            classes={{root: classes.tightListItemText}}
+            sx={{...style.tightListItemText}}
             primary="A primary care provider certifies that discontinuation will be life-threatening or poses a serious threat to the health and safety of a resident on the premises where service is provided; and"
           />
         </ListItem>
-        <ListItem classes={{root: classes.tightListItem}}>
+        <ListItem sx={{...style.tightListItem}}>
           <ListItemBullet>
             <BulletIcon fontSize="large" />
           </ListItemBullet>
           <ListItemText
-            classes={{root: classes.tightListItemText}}
+            sx={{...style.tightListItemText}}
             primary="A customer demonstrates he or she is financially unable to pay; and"
           />
         </ListItem>
-        <ListItem classes={{root: classes.tightListItem}}>
+        <ListItem sx={{...style.tightListItem}}>
           <ListItemBullet>
             <BulletIcon fontSize="large" />
           </ListItemBullet>
           <ListItemText
-            classes={{root: classes.tightListItemText}}
+            sx={{...style.tightListItemText}}
             primary="A customer is willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment."
           />
         </ListItem>
@@ -510,7 +511,8 @@ const Intro = () => {
 }
 
 const QuestionOne = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
 
   const {setFieldValue, errors, setFieldTouched, touched} =
     useFormikContext<any>()
@@ -542,23 +544,22 @@ const QuestionOne = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
         }
       >
         {yesNoAnswers.map((answer) => (
-          <ListItem
+          <ListItemButton
             key={answer}
-            button
             divider
             selected={answer === value}
             // disabled={fieldTouched}
             onClick={clickHandler(answer)}
           >
             <ListItemText primary={answer} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
       <WaitToGrow isIn={hasApplicableError && fieldTouched}>
         <DialogContentText
           variant="body1"
           color="textPrimary"
-          className={classes.qualifyMsg}
+          sx={{...style.qualifyMsg}}
         >
           <Box bgcolor={alpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
             You must be a current PCWA treated water customer, WSPA does not
@@ -581,7 +582,8 @@ const AssisType = ({children, ...rest}: TypographyProps) => {
 }
 
 const QuestionTwo = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
 
   const {setFieldValue, errors, setFieldTouched, touched} =
     useFormikContext<any>()
@@ -620,23 +622,22 @@ const QuestionTwo = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
         }
       >
         {yesNoAnswers.map((answer) => (
-          <ListItem
+          <ListItemButton
             key={answer}
-            button
             divider
             selected={answer === value}
             // disabled={fieldTouched}
             onClick={clickHandler(answer)}
           >
             <ListItemText primary={answer} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
       <WaitToGrow isIn={hasApplicableError && fieldTouched}>
         <DialogContentText
           variant="body1"
           color="textPrimary"
-          className={classes.qualifyMsg}
+          sx={{...style.qualifyMsg}}
         >
           An error has occurred
         </DialogContentText>
@@ -646,7 +647,8 @@ const QuestionTwo = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
 }
 
 const QuestionThree = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
 
   const {setFieldValue, errors, setFieldTouched, touched} =
     useFormikContext<any>()
@@ -680,23 +682,22 @@ const QuestionThree = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
         }
       >
         {yesNoAnswers.map((answer) => (
-          <ListItem
+          <ListItemButton
             key={answer}
-            button
             divider
             selected={answer === value}
             // disabled={fieldTouched}
             onClick={clickHandler(answer)}
           >
             <ListItemText primary={answer} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
       <WaitToGrow isIn={hasApplicableError && fieldTouched}>
         <DialogContentText
           variant="body1"
           color="textPrimary"
-          className={classes.qualifyMsg}
+          sx={{...style.qualifyMsg}}
         >
           <Box bgcolor={alpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
             Specific income conditions must be met to avoid service interruption
@@ -713,7 +714,8 @@ const QuestionThree = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
 }
 
 const QuestionFour = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
 
   const {setFieldValue, errors, setFieldTouched, touched} =
     useFormikContext<any>()
@@ -745,23 +747,22 @@ const QuestionFour = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
         }
       >
         {yesNoAnswers.map((answer) => (
-          <ListItem
+          <ListItemButton
             key={answer}
-            button
             divider
             selected={answer === value}
             // disabled={fieldTouched}
             onClick={clickHandler(answer)}
           >
             <ListItemText primary={answer} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
       <WaitToGrow isIn={hasApplicableError && fieldTouched}>
         <DialogContentText
           variant="body1"
           color="textPrimary"
-          className={classes.qualifyMsg}
+          sx={{...style.qualifyMsg}}
         >
           An error has occurred.
         </DialogContentText>
@@ -771,7 +772,8 @@ const QuestionFour = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
 }
 
 const QuestionFive = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
 
   const {setFieldValue, errors, setFieldTouched, touched} =
     useFormikContext<any>()
@@ -803,23 +805,22 @@ const QuestionFive = ({fieldName}: {fieldName: Sb998SelfCertFormDataProp}) => {
         }
       >
         {yesNoAnswers.map((answer) => (
-          <ListItem
+          <ListItemButton
             key={answer}
-            button
             divider
             selected={answer === value}
             // disabled={fieldTouched}
             onClick={clickHandler(answer)}
           >
             <ListItemText primary={answer} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
       <WaitToGrow isIn={hasApplicableError && fieldTouched}>
         <DialogContentText
           variant="body1"
           color="textPrimary"
-          className={classes.qualifyMsg}
+          sx={{...style.qualifyMsg}}
         >
           <Box bgcolor={alpha(yellow[50], 0.5)} paddingY={2} paddingX={4}>
             WSPA requires a customer be willing to enter an amortization

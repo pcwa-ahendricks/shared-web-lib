@@ -1,8 +1,6 @@
 // cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useCallback, useEffect} from 'react'
-import {Divider, Grid, Theme, Typography as Type} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import {Box, Divider, Grid, Typography as Type} from '@mui/material'
 import {useFormikContext, Field, FieldProps} from 'formik'
 import {SmartControllerRebateFormData} from '@lib/services/formService'
 import EmailField from '@components/formFields/EmailField'
@@ -31,14 +29,19 @@ import {ColumnBox} from '@components/MuiSleazebox'
 // import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   onIneligibleChange?: (eligible: boolean) => any
   ineligible?: boolean
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const SmartControllerForm = ({
+  ineligible = false,
+  onIneligibleChange
+}: Props) => {
+  const theme = useTheme()
+  const style = {
     // formikContainer: {
     //   height: '100%',
     //   display: 'flex',
@@ -61,26 +64,23 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 0,
       flexShrink: 0
     }
-  })
-)
-const SmartControllerForm = ({
-  ineligible = false,
-  onIneligibleChange
-}: Props) => {
-  const classes = useStyles()
+  }
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
   const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
   const [installPhotosIsUploading, setInstallPhotosIsUploading] =
     useState<boolean>(false)
 
-  const receiptIsUploadingHandler = useCallback((isUploading) => {
+  const receiptIsUploadingHandler = useCallback((isUploading: boolean) => {
     setReceiptIsUploading(isUploading)
   }, [])
 
-  const installPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setInstallPhotosIsUploading(isUploading)
-  }, [])
+  const installPhotosIsUploadingHandler = useCallback(
+    (isUploading: boolean) => {
+      setInstallPhotosIsUploading(isUploading)
+    },
+    []
+  )
 
   const {
     setFieldValue,
@@ -155,7 +155,7 @@ const SmartControllerForm = ({
     <>
       {/* width: 'fit-content' // Doesn't seem to fit responsively in XS media layout. */}
       <FormBox display="flex" flexDirection="column" margin="auto" width="100%">
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type color="textSecondary" variant="h4" gutterBottom>
             Contact Information
           </Type>
@@ -263,11 +263,11 @@ const SmartControllerForm = ({
               </Grid>
             </Grid>
           </WaitToGrow>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type variant="h4" color="textSecondary" gutterBottom>
             Rebate Information
           </Type>
@@ -310,7 +310,6 @@ const SmartControllerForm = ({
                 name="treatedCustomer"
                 inputLabel="PCWA Treated Customer"
                 inputId="treated-water-select"
-                labelWidth={200}
                 component={YesNoSelectField}
               />
             </Grid>
@@ -327,11 +326,11 @@ const SmartControllerForm = ({
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type variant="h4" color="textSecondary" gutterBottom>
             Provide Attachments
           </Type>
@@ -358,7 +357,7 @@ const SmartControllerForm = ({
             disabled={ineligible}
           />
           <Spacing />
-          <ColumnBox className={classes.dropzoneContainer}>
+          <ColumnBox sx={{...style.dropzoneContainer}}>
             <Field
               disabled={ineligible || emailAttachments}
               name="receipts"
@@ -370,7 +369,7 @@ const SmartControllerForm = ({
           </ColumnBox>
 
           <Spacing />
-          <ColumnBox className={classes.dropzoneContainer}>
+          <ColumnBox sx={{...style.dropzoneContainer}}>
             <Field
               disabled={ineligible || emailAttachments}
               name="installPhotos"
@@ -380,17 +379,17 @@ const SmartControllerForm = ({
               component={AttachmentField}
             />
           </ColumnBox>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type color="textSecondary" variant="h4" gutterBottom>
             Acknowledge Terms & Conditions
           </Type>
           <Spacing />
           <Grid container direction="column" spacing={1}>
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Smart-Controller-Terms-and-Conditions.pdf"
@@ -420,18 +419,18 @@ const SmartControllerForm = ({
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type color="textSecondary" variant="h4" gutterBottom>
             Release of Liability & Signature
           </Type>
           <Spacing />
 
           <Grid container direction="column" spacing={1}>
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <Type variant="body1" paragraph color="primary">
                 Placer County Water Agency (PCWA) reserves the right to deny an
                 application of any participant who does not meet all
@@ -445,7 +444,7 @@ const SmartControllerForm = ({
               </Type>
             </Grid>
 
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <Type variant="caption">
                 You must sign this form by typing your name
               </Type>
@@ -456,7 +455,7 @@ const SmartControllerForm = ({
               />
             </Grid>
 
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <Field
                 disabled={ineligible}
                 name="captcha"
@@ -464,7 +463,7 @@ const SmartControllerForm = ({
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Spacing />
         <SubmitFormButton

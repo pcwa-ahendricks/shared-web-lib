@@ -5,7 +5,7 @@ import {
   Box,
   InputAdornment,
   IconButton,
-  Hidden
+  useMediaQuery
 } from '@mui/material'
 import EditLocIcon from '@mui/icons-material/Spellcheck'
 import {Formik, Field} from 'formik'
@@ -39,6 +39,7 @@ import CalendarIcon from '@mui/icons-material/Event'
 import WtrWasteSelectField from '@components/formFields/WtrWasteSelectField'
 import WaterWasteGeolocator from '@components/WaterWasteGeolocator/WaterWasteGeolocator'
 import {Alert} from '@mui/material'
+import useTheme from '@hooks/useTheme'
 
 const SERVICE_URI_PATH = 'water-waste'
 
@@ -97,10 +98,12 @@ const initialFormValues: FormData = {
 }
 
 const ReportWaterWastePage = () => {
-  // const theme = useTheme()
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  const isSm = useMediaQuery(theme.breakpoints.down('md'))
 
   const [photosAreUploading, setPhotosAreUploading] = useState<boolean>(false)
-  const photosAreUploadingHandler = useCallback((isUploading) => {
+  const photosAreUploadingHandler = useCallback((isUploading: boolean) => {
     setPhotosAreUploading(isUploading)
   }, [])
 
@@ -247,8 +250,7 @@ const ReportWaterWastePage = () => {
                         required
                         disableFuture
                         margin="none"
-                        showTodayButton
-                        inputVariant="outlined"
+                        variant="outlined"
                         format="M/dd/yyyy',' h:mm aaa"
                         // show icon
                         InputProps={{
@@ -262,48 +264,50 @@ const ReportWaterWastePage = () => {
                         }}
                       />
                     </ChildBox>
-                    {/* SM mobile & non-mobile address inputs   */}
-                    <Hidden only="xs">
-                      {showAddressConfirmAlert ? (
-                        <ChildBox mb={-3}>
-                          <Alert severity="info" icon={<EditLocIcon />}>
-                            Please verify that the address below is correct
-                            before submitting
-                          </Alert>
-                        </ChildBox>
-                      ) : null}
-                      <RowBox child flexSpacing={3} alignItems="center">
-                        <ChildBox flex="60%">
-                          <FormTextField
-                            name="incidentAddress"
-                            label="Street Address"
-                            placeholder="Street address of water waste incident"
-                            required
-                            margin="none"
-                          />
-                        </ChildBox>
-                        <ChildBox flex="40%">
-                          <FormTextField
-                            name="incidentCity"
-                            label="City"
-                            placeholder="City where incident occurred"
-                            required
-                            margin="none"
-                          />
-                        </ChildBox>
-                        {/* just show on sm devices (tablets) */}
-                        <Hidden mdUp>
-                          <ChildBox>
-                            <WaterWasteGeolocator
-                              onSuccess={useMyLocationSuccessHandler}
+                    {/* SM mobile & non-mobile address inputs */}
+                    {isXs ? null : (
+                      <>
+                        {showAddressConfirmAlert ? (
+                          <ChildBox mb={-3}>
+                            <Alert severity="info" icon={<EditLocIcon />}>
+                              Please verify that the address below is correct
+                              before submitting
+                            </Alert>
+                          </ChildBox>
+                        ) : null}
+                        <RowBox child flexSpacing={3} alignItems="center">
+                          <ChildBox flex="60%">
+                            <FormTextField
+                              name="incidentAddress"
+                              label="Street Address"
+                              placeholder="Street address of water waste incident"
+                              required
+                              margin="none"
                             />
                           </ChildBox>
-                        </Hidden>
-                      </RowBox>
-                    </Hidden>
+                          <ChildBox flex="40%">
+                            <FormTextField
+                              name="incidentCity"
+                              label="City"
+                              placeholder="City where incident occurred"
+                              required
+                              margin="none"
+                            />
+                          </ChildBox>
+                          {/* just show geolocator on sm devices (tablets) (not md and up) */}
+                          {isSm ? (
+                            <ChildBox>
+                              <WaterWasteGeolocator
+                                onSuccess={useMyLocationSuccessHandler}
+                              />
+                            </ChildBox>
+                          ) : null}
+                        </RowBox>
+                      </>
+                    )}
                     {/* XS mobile address inputs   */}
-                    <Hidden smUp>
-                      {/* [todo] - Need to figure out why flexSpacing is adding a top margin to the first item with <ColumBox/>. The workaround here is to use mt with 2nd element below. */}
+                    {isXs ? (
+                      /* [todo] - Need to figure out why flexSpacing is adding a top margin to the first item with <ColumBox/>. The workaround here is to use mt with 2nd element below. */
                       <ColumnBox
                         child
                         // flexSpacing={5}
@@ -343,7 +347,7 @@ const ReportWaterWastePage = () => {
                           />
                         </ChildBox>
                       </ColumnBox>
-                    </Hidden>
+                    ) : null}
                     <ChildBox>
                       <Field
                         name="incidentReason"
@@ -460,6 +464,8 @@ const ReportWaterWastePage = () => {
       </MainBox>
     ),
     [
+      isSm,
+      isXs,
       photosAreUploading,
       photosAreUploadingHandler,
       useMyLocationSuccessHandler,

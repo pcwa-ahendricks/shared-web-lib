@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "New PCWA website",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "repository": "https://github.com/placercountywater/neu-web",
   "author": "abe hendricks <ahendricks@pcwa.net>",
@@ -30,10 +30,10 @@
     "@types/debounce": "^1.2.1",
     "@types/file-saver": "^2.0.5",
     "@types/is-number": "^7.0.3",
-    "@types/node": "^18.15.11",
+    "@types/node": "^20.8.4",
     "@types/papaparse": "^5.3.5",
     "@types/querystringify": "^2.0.0",
-    "@types/react": "18.0.37",
+    "@types/react": "18.2.28",
     "@types/react-css-transition-replace": "^2.1.4",
     "@types/react-dom": "^18.0.11",
     "@types/react-google-recaptcha": "^2.1.5",
@@ -45,8 +45,8 @@
     "@types/smoothscroll-polyfill": "^0.3.1",
     "@types/url-parse": "^1.4.8",
     "@types/valid-url": "^1.0.3",
-    "@vercel/ncc": "^0.36.1",
-    "@vercel/node": "^2.12.0",
+    "@vercel/ncc": "^0.38.0",
+    "@vercel/node": "^3.0.7",
     "ava": "^4.3.3",
     "cross-env": "^7.0.2",
     "eslint": "8.38.0",

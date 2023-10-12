@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react'
-import {useField, useFormikContext} from 'formik'
-import {DatePicker, DatePickerProps} from '@material-ui/pickers'
-import {useMediaQuery, useTheme} from '@material-ui/core'
+import {FieldProps, useField, useFormikContext} from 'formik'
+import {DatePicker, DatePickerProps} from '@mui/x-date-pickers-pro'
+import {TextFieldProps, useMediaQuery, useTheme} from '@mui/material'
 
-type Props = Omit<DatePickerProps, 'onChange' | 'value'>
-
-/*
-See https://material-ui-pickers.dev/guides/form-integration for more info on Formik integration
-*/
-
-const FormDateField = ({disabled, ...other}: Props) => {
+const FormDateField = ({
+  disabled,
+  placeholder,
+  ...other
+}: Partial<DatePickerProps<any>> &
+  Partial<FieldProps<any>> &
+  Partial<TextFieldProps>) => {
   const {isSubmitting, setFieldValue} = useFormikContext<any>()
   const [field, meta] = useField(other as any) // [HACK] Fix type.
   // const {name, value, onBlur, onChange} = field
@@ -38,17 +38,22 @@ const FormDateField = ({disabled, ...other}: Props) => {
 
   return (
     <DatePicker
-      fullWidth={isXs}
+      slotProps={{
+        textField: {
+          fullWidth: isXs,
+          name,
+          helperText: fieldIsTouchedWithError ? error : null,
+          error: fieldIsTouchedWithError,
+          onBlur,
+          placeholder
+        }
+      }}
       // type={type}
       // variant={variant}
       disabled={disabled || isSubmitting}
       // fullWidth={fullWidth}
-      name={name}
       value={value || null}
-      helperText={fieldIsTouchedWithError ? error : null}
-      error={fieldIsTouchedWithError}
       onChange={(date) => setFieldValue(name, date, false)}
-      onBlur={onBlur}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       {...other}

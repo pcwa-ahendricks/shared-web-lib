@@ -1,6 +1,5 @@
 // cspell:ignore subheader USBR
 import React, {useState, useMemo, useCallback, useRef, useEffect} from 'react'
-
 import {
   Button,
   DialogActions,
@@ -8,23 +7,18 @@ import {
   DialogContentText,
   DialogTitle,
   List,
-  ListItem,
   ListItemText,
   ListSubheader,
   Step,
   StepLabel,
   StepContent,
-  Theme,
-  useTheme
+  ListItemButton
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps} from 'formik'
-import clsx from 'clsx'
+import {Field, connect, FormikProps, FieldProps, FormikTouched} from 'formik'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
 import {
@@ -32,6 +26,8 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
+import useTheme from '@hooks/useTheme'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   open: boolean
@@ -40,38 +36,26 @@ type Props = {
   formik?: FormikProps<any>
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
+  const theme = useTheme()
+  const style = {
     qualifyMsg: {
       marginTop: theme.spacing(3)
     },
     stepLabelLabel: {
       marginLeft: theme.spacing(1),
-      cursor: 'pointer',
-      '& .stepLabelActive': {
-        color: theme.palette.primary.main
-      },
-      '& .stepLabelError': {
-        color: theme.palette.error.main
-      }
+      cursor: 'pointer'
     },
-    stepLabelError: {},
-    stepLabelActive: {},
     stepLabelIcon: {
       cursor: 'pointer'
     }
-  })
-)
-
-const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
-  const classes = useStyles()
-  const theme = useTheme<Theme>()
+  }
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const [debouncedLastTouchedIndex] = useDebounce(lastTouchedIndex, 800)
   const steps = useMemo(() => getSteps(), [])
   const maxSteps = useMemo(() => getSteps().length, [])
-  const prevTouched = useRef<Record<string, unknown>>()
+  const prevTouched = useRef<FormikTouched<any>>()
   const prevLastTouchedIndex = useRef<number>()
 
   const {touched = {}, errors = {}} = formik || {}
@@ -99,16 +83,19 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
     [errors]
   )
 
-  const touchedChangedHandler = useCallback((prev, curr) => {
-    const diff = addedDiff(prev, curr) || {}
-    const newProp = Object.keys({...diff})[0]
-    const stepIndex = newProp && getStepIndex(newProp)
-    // Don't use Boolean(nextStepIndex) cause 0 is false.
-    const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
-    if (nextStepIndex) {
-      setLastTouchedIndex(nextStepIndex)
-    }
-  }, [])
+  const touchedChangedHandler = useCallback(
+    (prev: FormikTouched<any>, curr: FormikTouched<any>) => {
+      const diff = addedDiff(prev, curr) || {}
+      const newProp = Object.keys({...diff})[0]
+      const stepIndex = newProp && getStepIndex(newProp)
+      // Don't use Boolean(nextStepIndex) cause 0 is false.
+      const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
+      if (nextStepIndex) {
+        setLastTouchedIndex(nextStepIndex)
+      }
+    },
+    []
+  )
 
   useEffect(() => {
     touchedChangedHandler({...prevTouched.current}, {...touched})
@@ -160,8 +147,8 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 
   const stepHasError = useCallback(
-    (fieldName: string) => {
-      const error = errors[fieldName]
+    (name: string) => {
+      const error = errors[name]
       return (
         Boolean(error) &&
         typeof error === 'string' &&
@@ -172,8 +159,8 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 
   const stepCompleted = useCallback(
-    (fieldName: string) => {
-      const fieldTouched = Boolean(touched[fieldName])
+    (name: string) => {
+      const fieldTouched = Boolean(touched[name])
       if (fieldTouched) {
         return true
       }
@@ -191,23 +178,32 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
       <DialogContent>
         <div>
           <EligibilityStepper activeStep={activeStep}>
-            {steps.map(({label, index, fieldName}) => (
-              <Step key={label} completed={stepCompleted(fieldName)}>
+            {steps.map(({label, index, name}) => (
+              <Step key={label} completed={stepCompleted(name)}>
                 {/* <StepLabel>{label}</StepLabel> */}
                 <StepLabel
-                  error={stepHasError(fieldName)}
-                  classes={{
-                    iconContainer: classes.stepLabelIcon,
-                    labelContainer: classes.stepLabelLabel
+                  error={stepHasError(name)}
+                  sx={{
+                    '.MuiStepLabel-iconContainer': {
+                      ...style.stepLabelIcon
+                    },
+                    '.MuiStepLabel-labelContainer': {
+                      ...style.stepLabelLabel
+                    }
                   }}
                   optional={
                     <DialogContentText
                       variant="h4"
                       color="textSecondary"
-                      className={clsx({
-                        [classes.stepLabelError]: stepHasError(fieldName),
-                        [classes.stepLabelActive]: activeStep === index
-                      })}
+                      sx={{
+                        ...(stepHasError(name) && {
+                          color: theme.palette.error.main
+                        }),
+                        ...(activeStep === index &&
+                          !stepHasError(name) && {
+                            color: theme.palette.primary.main
+                          })
+                      }}
                     >
                       {label}
                     </DialogContentText>
@@ -224,7 +220,7 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
             <DialogContentText
               variant="body1"
               color="textPrimary"
-              className={classes.qualifyMsg}
+              sx={{...style.qualifyMsg}}
             >
               Excellent, you may continue to apply for the rebate. Please close
               this message to continue to the rebate application.
@@ -286,21 +282,20 @@ function getStepContent(stepNo: number) {
   return found ? found.content : null
 }
 
-function getStepIndex(fieldName: string) {
-  const found = getSteps().find((step) => step.fieldName === fieldName)
+function getStepIndex(name: string) {
+  const found = getSteps().find((step) => step.name === name)
   return found ? found.index : null
 }
 
-const useQuestionStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    }
-  })
-)
+const useQuestionStyles = (theme: Theme) => ({
+  qualifyMsg: {
+    marginTop: theme.spacing(3)
+  }
+})
 
 const QuestionOne = () => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   return (
     <Field name="treatedCustomer">
       {({field, form}: FieldProps<any>) => {
@@ -330,23 +325,22 @@ const QuestionOne = () => {
               }
             >
               {yesNoAnswers.map((answer) => (
-                <ListItem
+                <ListItemButton
                   key={answer}
-                  button
                   divider
                   selected={answer === value}
                   // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
-                </ListItem>
+                </ListItemButton>
               ))}
             </List>
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
-                className={classes.qualifyMsg}
+                sx={{...style.qualifyMsg}}
               >
                 Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
                 Residential/Multi Family Water-Efficient Clothes Washing Machine
@@ -362,7 +356,8 @@ const QuestionOne = () => {
 }
 
 const QuestionTwo = () => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   return (
     <Field name="existingHigh">
       {({field, form}: FieldProps<any>) => {
@@ -392,23 +387,22 @@ const QuestionTwo = () => {
               }
             >
               {yesNoAnswers.map((answer) => (
-                <ListItem
+                <ListItemButton
                   key={answer}
-                  button
                   divider
                   selected={answer === value}
                   // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
-                </ListItem>
+                </ListItemButton>
               ))}
             </List>
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
-                className={classes.qualifyMsg}
+                sx={{...style.qualifyMsg}}
               >
                 Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
                 Residential/Multi Family Water-Efficient Clothes Washing Machine
@@ -425,7 +419,8 @@ const QuestionTwo = () => {
 }
 
 const QuestionThree = () => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   return (
     <Field name="newConstruction">
       {({field, form}: FieldProps<any>) => {
@@ -456,23 +451,22 @@ const QuestionThree = () => {
               }
             >
               {yesNoAnswers.map((answer) => (
-                <ListItem
+                <ListItemButton
                   key={answer}
-                  button
                   divider
                   selected={answer === value}
                   // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
-                </ListItem>
+                </ListItemButton>
               ))}
             </List>
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
-                className={classes.qualifyMsg}
+                sx={{...style.qualifyMsg}}
               >
                 Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
                 Residential/Multi Family Water-Efficient Clothes Washing Machine
@@ -492,20 +486,20 @@ function getSteps() {
     {
       index: 0,
       label: 'Are you a Placer County Water Agency treated water customer?',
-      fieldName: 'treatedCustomer',
+      name: 'treatedCustomer',
       content: <QuestionOne />
     },
     {
       index: 1,
       label:
         'Are you replacing an existing high efficiency clothes washing machine with another new high efficiency clothes washing machine?',
-      fieldName: 'existingHigh',
+      name: 'existingHigh',
       content: <QuestionTwo />
     },
     {
       index: 2,
       label: 'Is your house New Construction?',
-      fieldName: 'newConstruction',
+      name: 'newConstruction',
       content: <QuestionThree />
     }
   ]

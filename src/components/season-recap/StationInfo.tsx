@@ -1,7 +1,5 @@
 import React from 'react'
 import {Box, Typography as Type, alpha} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {blueGrey} from '@mui/material/colors'
 import {StationMeta} from '@pages/water-year-dashboard'
 import JackinBox from 'mui-jackinbox'
@@ -11,8 +9,8 @@ type Props = {
   stationInfo?: StationMeta | null
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
+export default function StationInfo({stationInfo}: Props) {
+  const style = {
     infoBoxPanel: {
       pointerEvents: 'none',
       backgroundColor: alpha(blueGrey[50], 0.7),
@@ -22,10 +20,7 @@ const useStyles = makeStyles(() =>
     blurry: {
       // filter: 'blur(8px)'
     }
-  })
-)
-export default function StationInfo({stationInfo}: Props) {
-  const classes = useStyles()
+  }
   const hasItems = stationInfo && Object.keys(stationInfo).length > 0
   const {name, elev, county, state} = stationInfo ?? {}
 
@@ -40,10 +35,10 @@ export default function StationInfo({stationInfo}: Props) {
         position="absolute"
         height="100%"
         width="100%"
-        className={classes.blurry}
+        sx={{...style.blurry}}
       />
 
-      <Box className={classes.infoBoxPanel} borderRadius="4px" p={2}>
+      <Box sx={{...style.infoBoxPanel}} borderRadius="4px" p={2}>
         <Type variant="subtitle1" color="primary">
           {name}
         </Type>

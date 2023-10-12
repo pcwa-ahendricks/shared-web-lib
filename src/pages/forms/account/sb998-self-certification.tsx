@@ -1,8 +1,6 @@
 // cspell:ignore addtl assis
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
-import {Divider, Grid, Theme, Typography as Type, Button} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, Divider, Grid, Typography as Type, Button} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {string, object, StringSchema} from 'yup'
 import {
@@ -35,6 +33,7 @@ import Sb998SelfCertEligibilityDialog from '@components/formFields/Sb998SelfCert
 import OwnerTenantRadioField from '@components/formFields/OwnerTenantRadioField'
 import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import Sb998FormSubDialog from '@components/FormSubmissionDialog/Sb998FormSubDialog'
+import useTheme from '@hooks/useTheme'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -115,42 +114,43 @@ const initialFormValues: Sb998SelfCertFormData = {
   captcha: ''
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    // formikContainer: {
-    //   height: '100%',
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   width: '100%'
-    // },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      margin: 'auto',
-      // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
-      width: '100%'
-    },
-    formGroup: {
-      flex: '0 0 auto', // IE fix
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5)
-    },
-    formGroupTitle: {
-      marginBottom: theme.spacing(3)
-    },
-    // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
-    ieFixFlexColumnDirection: {
-      flexBasis: 'auto',
-      flexGrow: 0,
-      flexShrink: 0
-    },
-    reserveRight: {
-      marginTop: theme.spacing(3)
-    }
-  })
-)
 export default function Sb998SelfCertification() {
-  const classes = useStyles()
+  const theme = useTheme()
+  const style = useMemo(
+    () => ({
+      // formikContainer: {
+      //   height: '100%',
+      //   display: 'flex',
+      //   flexDirection: 'column',
+      //   width: '100%'
+      // },
+      form: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: 'auto',
+        // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
+        width: '100%'
+      },
+      formGroup: {
+        flex: '0 0 auto', // IE fix
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5)
+      },
+      formGroupTitle: {
+        marginBottom: theme.spacing(3)
+      },
+      // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
+      ieFixFlexColumnDirection: {
+        flexBasis: 'auto',
+        flexGrow: 0,
+        flexShrink: 0
+      },
+      reserveRight: {
+        marginTop: theme.spacing(3)
+      }
+    }),
+    [theme]
+  )
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] =
     useState<Sb998SelfCertFormData>(initialFormValues)
@@ -289,13 +289,13 @@ export default function Sb998SelfCertification() {
                 return (
                   <ProtectRouteChange>
                     <FormValidate>
-                      <FormBox className={classes.form}>
-                        <div className={classes.formGroup}>
+                      <FormBox sx={{...style.form}}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Customer Account Information
                           </Type>
@@ -380,16 +380,16 @@ export default function Sb998SelfCertification() {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Qualification Information
                           </Type>
@@ -405,7 +405,6 @@ export default function Sb998SelfCertification() {
                                 name="treatedCustomer"
                                 inputLabel="PCWA Treated Customer"
                                 inputId="treated-water-select"
-                                labelWidth={200}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -415,7 +414,6 @@ export default function Sb998SelfCertification() {
                                 name="householdAssist"
                                 inputLabel="Household Assistance"
                                 inputId="household-assistance-select"
-                                labelWidth={180}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -429,7 +427,6 @@ export default function Sb998SelfCertification() {
                                   name="householdIncome"
                                   inputLabel="Household Income Requirement"
                                   inputId="household-income-requirement-select"
-                                  labelWidth={255}
                                   component={OptYesNoSelectField}
                                 />
                               </Grid>
@@ -440,7 +437,6 @@ export default function Sb998SelfCertification() {
                                 name="primaryCareCert"
                                 inputLabel="Primary Care Certification"
                                 inputId="primary-care-certification-select"
-                                labelWidth={215}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -454,22 +450,21 @@ export default function Sb998SelfCertification() {
                                   name="paymentPlan"
                                   inputLabel="Payment Plan Agreement"
                                   inputId="payment-plan-agreement-select"
-                                  labelWidth={205}
                                   component={OptYesNoSelectField}
                                 />
                               </Grid>
                             )}
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Policy on Discontinuation of Residential Water
                             Service for Nonpayment
@@ -478,12 +473,12 @@ export default function Sb998SelfCertification() {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               {/* <Type
                                 variant="body1"
                                 paragraph
-                                className={classes.reserveRight}
+                                sx={{...style.reserveRight}}
                               >
                                 <em>
                                   Review Policy on Discontinuation of
@@ -514,7 +509,7 @@ export default function Sb998SelfCertification() {
                               {/* <Type
                                 variant="body1"
                                 paragraph
-                                className={classes.reserveRight}
+                                sx={{...style.reserveRight}}
                               >
                                 <em>
                                   I understand that PCWA reserves the right to
@@ -531,16 +526,16 @@ export default function Sb998SelfCertification() {
                               /> */}
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Declare Understanding & Agreement for{' '}
                             {applicationTitle}
@@ -550,7 +545,7 @@ export default function Sb998SelfCertification() {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               {reducedCnctChrgCondition ? (
                                 <>
@@ -628,7 +623,7 @@ export default function Sb998SelfCertification() {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Type variant="caption">
                                 You must sign this form by typing your name
@@ -643,7 +638,7 @@ export default function Sb998SelfCertification() {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Field
                                 disabled={ineligible}
@@ -652,7 +647,7 @@ export default function Sb998SelfCertification() {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Spacing />
                         <SubmitFormButton
@@ -687,7 +682,7 @@ export default function Sb998SelfCertification() {
       </>
     ),
     [
-      classes,
+      style,
       formIsDirty,
       formValues,
       formIsTouched,

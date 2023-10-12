@@ -6,12 +6,10 @@ import {
   FormHelperText,
   FormGroup,
   FormLabel,
-  Theme,
-  makeStyles
-} from '@material-ui/core'
+  FormControlProps,
+  FormLabelProps
+} from '@mui/material'
 import {FieldProps} from 'formik'
-import {FormControlProps} from '@material-ui/core/FormControl'
-import {FormLabelProps} from '@material-ui/core/FormLabel'
 
 /**
  * This is used to correct Types so "legend" and "fieldset" can be used.
@@ -30,17 +28,6 @@ type Props = {
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any>
-
-const useStyles = makeStyles((_theme: Theme) => ({
-  fcLabel: {
-    marginBottom: 2,
-    marginTop: 2
-    // [theme.breakpoints.down('xs')]: {
-    //   marginBottom: 2,
-    //   marginTop: 2
-    // }
-  }
-}))
 
 export const formControlItems = {
   'I certify that I am a Placer County Water Agency treated water customer.':
@@ -61,7 +48,15 @@ const WaterLeakRequireCheckboxes = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
+  const style = useMemo(
+    () => ({
+      fcLabel: {
+        marginBottom: '2px',
+        marginTop: '2px'
+      }
+    }),
+    []
+  )
   const {name, value = formControlItems} = field
   const {
     errors,
@@ -79,7 +74,7 @@ const WaterLeakRequireCheckboxes = ({
 
   // Checkbox is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched for entire formGroup (not individual check boxes).
   const handleChange = useCallback(
-    (cbVal) => (event: React.ChangeEvent<any>) => {
+    (cbVal: string) => (event: React.ChangeEvent<any>) => {
       const newValue = {...value, [cbVal]: event.target.checked}
       setFieldTouched(name, true)
       setFieldValue(name, newValue, true)
@@ -99,14 +94,14 @@ const WaterLeakRequireCheckboxes = ({
               checked={value[val]}
               onChange={handleChange(val)}
               value={val}
-              // color="primary"
+              color="secondary"
               onBlur={handleBlur}
             />
           }
-          classes={{root: classes.fcLabel}}
+          sx={{...style.fcLabel}}
         />
       )),
-    [handleBlur, handleChange, value, classes]
+    [handleBlur, handleChange, value, style]
   )
 
   return (
@@ -126,9 +121,12 @@ const WaterLeakRequireCheckboxes = ({
       <FormGroup>
         <>{formControlItemsEl}</>
       </FormGroup>
-      <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText>
+
+      {fieldIsTouchedWithError ? (
+        <FormHelperText error={fieldIsTouchedWithError}>
+          <>{currentError}</>
+        </FormHelperText>
+      ) : null}
     </MyFormControl>
   )
 }

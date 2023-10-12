@@ -1,13 +1,5 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
-import {
-  Divider,
-  Grid,
-  Theme,
-  Typography as Type,
-  makeStyles,
-  createStyles,
-  Box
-} from '@material-ui/core'
+import {Divider, Grid, Typography as Type, Box, useTheme} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {string, object, StringSchema, ArraySchema, SchemaOf, array} from 'yup'
 import {
@@ -48,6 +40,7 @@ import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitc
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import AttachmentField from '@components/formFields/AttachmentField'
 import PostConvLawnReplEligibilityDialog from '@components/formFields/PostConvLawnReplEligibilityDialog'
+import {Theme} from '@lib/material-theme'
 
 const SERVICE_URI_PATH = 'lawn-replacement-post-conversion-app'
 
@@ -248,44 +241,45 @@ const initialFormValues: RebateFormData = {
   itemizedReceipts: []
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      margin: 'auto',
-      // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
-      width: '100%'
-    },
-    formGroup: {
-      flex: '0 0 auto', // IE fix
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5)
-    },
-    formGroupTitle: {
-      marginBottom: theme.spacing(3)
-    },
-    // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
-    ieFixFlexColumnDirection: {
-      flexBasis: 'auto',
-      flexGrow: 0,
-      flexShrink: 0
-    },
-    dropzoneContainer: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3)
-    },
-    liItem: {
-      listStyleType: 'disc',
-      marginBottom: 2
-    }
-  })
-)
 const LawnReplacementPostConversion = () => {
-  const classes = useStyles()
+  const theme = useTheme<Theme>()
+  const style = useMemo(
+    () => ({
+      form: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: 'auto',
+        // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
+        width: '100%'
+      },
+      formGroup: {
+        flex: '0 0 auto', // IE fix
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5)
+      },
+      formGroupTitle: {
+        marginBottom: theme.spacing(3)
+      },
+      // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
+      ieFixFlexColumnDirection: {
+        flexBasis: 'auto',
+        flexGrow: 0,
+        flexShrink: 0
+      },
+      dropzoneContainer: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        marginBottom: theme.spacing(3),
+        marginTop: theme.spacing(3)
+      },
+      liItem: {
+        listStyleType: 'disc',
+        marginBottom: 2
+      }
+    }),
+    [theme]
+  )
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] =
     useState<RebateFormData>(initialFormValues)
@@ -301,7 +295,7 @@ const LawnReplacementPostConversion = () => {
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
 
-  const photoIsUploadingHandler = useCallback((isUploading) => {
+  const photoIsUploadingHandler = useCallback((isUploading: boolean) => {
     setPhotoIsUploading(isUploading)
   }, [])
 
@@ -422,13 +416,13 @@ const LawnReplacementPostConversion = () => {
                 return (
                   <ProtectRouteChange>
                     <FormValidate>
-                      <FormBox className={classes.form}>
-                        <div className={classes.formGroup}>
+                      <FormBox sx={{...style.form}}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Contact Information
                           </Type>
@@ -516,16 +510,16 @@ const LawnReplacementPostConversion = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Rebate Information
                           </Type>
@@ -535,7 +529,6 @@ const LawnReplacementPostConversion = () => {
                                 name="artTurfInstalled"
                                 inputLabel="Artificial Turf Installed?"
                                 inputId="art-turf-installed-select"
-                                labelWidth={190}
                                 component={YesNoSelectField}
                                 disabled={ineligible}
                                 onChange={artTurfHandler}
@@ -559,7 +552,6 @@ const LawnReplacementPostConversion = () => {
                                 name="partsReceipts"
                                 inputLabel="Have receipts for Irrigation Efficiencies Rebate?"
                                 inputId="parts-receipts-select"
-                                labelWidth={365}
                                 component={YesNoSelectField}
                                 // onChange={partsReceipts}
                               />
@@ -573,7 +565,6 @@ const LawnReplacementPostConversion = () => {
                                 name="rebateCustomer"
                                 inputLabel="Participating in Lawn Replacement Rebate Program"
                                 inputId="rebate-customer-select"
-                                labelWidth={315}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -583,7 +574,6 @@ const LawnReplacementPostConversion = () => {
                                 name="projectCompleted"
                                 inputLabel="Lawn Conversion Project Completed"
                                 inputId="project-completed-select"
-                                labelWidth={280}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -596,7 +586,6 @@ const LawnReplacementPostConversion = () => {
                                 name="worksheetCompleted"
                                 inputLabel="Plant Coverage Worksheet Completed"
                                 inputId="plant-coverage-completed-select"
-                                labelWidth={290}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -606,21 +595,20 @@ const LawnReplacementPostConversion = () => {
                                 name="photosTaken"
                                 inputLabel="Have Taken Photos"
                                 inputId="have-taken-photos-select"
-                                labelWidth={155}
                                 component={YesNoSelectField}
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Post-Conversion Attachments
                           </Type>
@@ -629,28 +617,28 @@ const LawnReplacementPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Submit <strong>Five</strong> photographs
                             </Type>
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               All photographs must be in color.
                             </Type>
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               No up-close photographs of grass.
                             </Type>
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Stand far back enough to include your home,
                               street, driveway, or fence as a reference point.
@@ -658,7 +646,7 @@ const LawnReplacementPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Street number or address must be visible in{' '}
                               <strong>at least one</strong> photograph.
@@ -666,7 +654,7 @@ const LawnReplacementPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Photographs cannot be online images{' '}
                               <em>(i.e Google, Bing, etc.)</em>.
@@ -674,7 +662,7 @@ const LawnReplacementPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Photographs must be current representation of the
                               conversion areas current state.
@@ -682,7 +670,7 @@ const LawnReplacementPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Altered photographs will result in application
                               being ineligible for rebate{' '}
@@ -691,7 +679,7 @@ const LawnReplacementPostConversion = () => {
                             {/* <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Conversation area must{' '}
                               <strong>include at least</strong> one picture of
@@ -725,7 +713,7 @@ const LawnReplacementPostConversion = () => {
                             disabled={ineligible}
                           />
 
-                          <div className={classes.dropzoneContainer}>
+                          <Box sx={{...style.dropzoneContainer}}>
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="postConvPhotos"
@@ -734,9 +722,9 @@ const LawnReplacementPostConversion = () => {
                               onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
-                          </div>
+                          </Box>
 
-                          <div className={classes.dropzoneContainer}>
+                          <Box sx={{...style.dropzoneContainer}}>
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="worksheetUploads"
@@ -745,9 +733,9 @@ const LawnReplacementPostConversion = () => {
                               onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
-                          </div>
+                          </Box>
 
-                          <div className={classes.dropzoneContainer}>
+                          <Box sx={{...style.dropzoneContainer}}>
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="checklistUploads"
@@ -756,10 +744,10 @@ const LawnReplacementPostConversion = () => {
                               onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
-                          </div>
+                          </Box>
 
                           <WaitToGrow isIn={shouldUploadReceipts}>
-                            <div className={classes.dropzoneContainer}>
+                            <Box sx={{...style.dropzoneContainer}}>
                               <Field
                                 disabled={ineligible || emailAttachments}
                                 name="itemizedReceipts"
@@ -768,18 +756,18 @@ const LawnReplacementPostConversion = () => {
                                 onIsUploadingChange={photoIsUploadingHandler}
                                 component={AttachmentField}
                               />
-                            </div>
+                            </Box>
                           </WaitToGrow>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Acknowledge Terms & Conditions
                           </Type>
@@ -787,13 +775,13 @@ const LawnReplacementPostConversion = () => {
                             {/* <Grid
                             item
                             xs={12}
-                            className={classes.ieFixFlexColumnDirection}
+                            sx={{...style.ieFixFlexColumnDirection}}
                           >
                           </Grid> */}
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <ReviewTermsConditions
                                 pageCount={3}
@@ -820,16 +808,16 @@ const LawnReplacementPostConversion = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Release of Liability & Signature
                           </Type>
@@ -838,7 +826,7 @@ const LawnReplacementPostConversion = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               {/* [TODO] Need new wording from Cassandra. */}
                               <Type variant="body1" paragraph color="primary">
@@ -863,7 +851,7 @@ const LawnReplacementPostConversion = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Type variant="caption">
                                 You must sign this form by typing your name
@@ -878,7 +866,7 @@ const LawnReplacementPostConversion = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Field
                                 name="captcha"
@@ -887,7 +875,7 @@ const LawnReplacementPostConversion = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         {/* For debugging form reset */}
                         {/* <Button
@@ -943,7 +931,7 @@ const LawnReplacementPostConversion = () => {
       </>
     ),
     [
-      classes,
+      style,
       formIsDirty,
       formValues,
       formIsTouched,

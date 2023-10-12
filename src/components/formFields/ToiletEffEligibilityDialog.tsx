@@ -7,23 +7,18 @@ import {
   DialogContentText,
   DialogTitle,
   List,
-  ListItem,
   ListItemText,
   ListSubheader,
   Step,
   StepLabel,
   StepContent,
-  Theme,
-  useTheme
+  ListItemButton
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
-import {useFormikContext, useField} from 'formik'
-import clsx from 'clsx'
+import {useFormikContext, useField, FormikTouched} from 'formik'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
 import {
@@ -32,6 +27,8 @@ import {
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
 import {ToiletRebateFormData} from '@lib/services/formService'
+import useTheme from '@hooks/useTheme'
+import {Theme} from '@lib/material-theme'
 
 type ToiletRebateFormDataProp = keyof ToiletRebateFormData
 
@@ -41,41 +38,29 @@ type Props = {
   fullWidth?: boolean
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    },
-    stepLabelLabel: {
-      marginLeft: theme.spacing(1),
-      cursor: 'pointer',
-      '& .stepLabelActive': {
-        color: theme.palette.primary.main
-      },
-      '& .stepLabelError': {
-        color: theme.palette.error.main
-      }
-    },
-    stepLabelError: {},
-    stepLabelActive: {},
-    stepLabelIcon: {
-      cursor: 'pointer'
-    }
-  })
-)
-
 const ToiletEffEligibilityDialog = ({
   open = false,
   onClose,
   ...rest
 }: Props) => {
-  const classes = useStyles()
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
+  const style = {
+    qualifyMsg: {
+      marginTop: theme.spacing(3)
+    },
+    stepLabelLabel: {
+      marginLeft: theme.spacing(1),
+      cursor: 'pointer'
+    },
+    stepLabelIcon: {
+      cursor: 'pointer'
+    }
+  }
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const [debouncedLastTouchedIndex] = useDebounce(lastTouchedIndex, 800)
   const steps = useMemo(() => getSteps({...rest}), [rest])
-  const prevTouched = useRef<Record<string, unknown>>()
+  const prevTouched = useRef<FormikTouched<any>>()
   const prevLastTouchedIndex = useRef<number>()
   const maxSteps = useMemo(() => getSteps({...rest}).length, [rest])
 
@@ -100,7 +85,7 @@ const ToiletEffEligibilityDialog = ({
   )
 
   const touchedChangedHandler = useCallback(
-    (prev, curr) => {
+    (prev: FormikTouched<any>, curr: FormikTouched<any>) => {
       const diff = addedDiff(prev, curr) || {}
       const newProp = Object.keys({...diff})[0]
       const stepIndex = newProp && getStepIndex(newProp, rest)
@@ -163,8 +148,8 @@ const ToiletEffEligibilityDialog = ({
   )
 
   const stepHasError = useCallback(
-    (fieldName: ToiletRebateFormDataProp) => {
-      const error = errors[fieldName]
+    (name: ToiletRebateFormDataProp) => {
+      const error = errors[name]
       return (
         Boolean(error) &&
         typeof error === 'string' &&
@@ -175,8 +160,8 @@ const ToiletEffEligibilityDialog = ({
   )
 
   const stepCompleted = useCallback(
-    (fieldName: ToiletRebateFormDataProp) => {
-      const fieldTouched = Boolean(touched[fieldName])
+    (name: ToiletRebateFormDataProp) => {
+      const fieldTouched = Boolean(touched[name])
       if (fieldTouched) {
         return true
       }
@@ -199,18 +184,27 @@ const ToiletEffEligibilityDialog = ({
                 {/* <StepLabel>{label}</StepLabel> */}
                 <StepLabel
                   error={stepHasError(name)}
-                  classes={{
-                    iconContainer: classes.stepLabelIcon,
-                    labelContainer: classes.stepLabelLabel
+                  sx={{
+                    '.MuiStepLabel-iconContainer': {
+                      ...style.stepLabelIcon
+                    },
+                    '.MuiStepLabel-labelContainer': {
+                      ...style.stepLabelLabel
+                    }
                   }}
                   optional={
                     <DialogContentText
                       variant="h4"
                       color="textSecondary"
-                      className={clsx({
-                        [classes.stepLabelError]: stepHasError(name),
-                        [classes.stepLabelActive]: activeStep === index
-                      })}
+                      sx={{
+                        ...(stepHasError(name) && {
+                          color: theme.palette.error.main
+                        }),
+                        ...(activeStep === index &&
+                          !stepHasError(name) && {
+                            color: theme.palette.primary.main
+                          })
+                      }}
                     >
                       {label}
                     </DialogContentText>
@@ -229,7 +223,7 @@ const ToiletEffEligibilityDialog = ({
             <DialogContentText
               variant="body1"
               color="textPrimary"
-              className={classes.qualifyMsg}
+              sx={{...style.qualifyMsg}}
             >
               Excellent, you may continue to apply for the rebate. Please close
               this message to continue to the rebate application.
@@ -291,21 +285,20 @@ function getStepContent(stepNo: number, props: any) {
   return found ? found.content : null
 }
 
-function getStepIndex(fieldName: string, props: any) {
-  const found = getSteps({...props}).find((step) => step.name === fieldName)
+function getStepIndex(name: string, props: any) {
+  const found = getSteps({...props}).find((step) => step.name === name)
   return found ? found.index : null
 }
 
-const useQuestionStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    }
-  })
-)
+const useQuestionStyles = (theme: Theme) => ({
+  qualifyMsg: {
+    marginTop: theme.spacing(3)
+  }
+})
 
-const QuestionOneField = (props: any) => {
-  const classes = useQuestionStyles()
+const QuestionOne = (props: any) => {
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   const [field, meta, helpers] = useField(props)
   const {error, touched} = meta
   const {value} = field
@@ -336,23 +329,22 @@ const QuestionOneField = (props: any) => {
         }
       >
         {yesNoAnswers.map((answer) => (
-          <ListItem
+          <ListItemButton
             key={answer}
-            button
             divider
             selected={answer === value}
             // disabled={fieldTouched}
             onClick={clickHandler(answer)}
           >
             <ListItemText primary={answer} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
       <WaitToGrow isIn={hasApplicableError && touched}>
         <DialogContentText
           variant="body1"
           color="textPrimary"
-          className={classes.qualifyMsg}
+          sx={{...style.qualifyMsg}}
         >
           Unfortunately, you do not qualify for the High Efficiency
           Toilet/Urinal Rebate. You must be a current Placer County Water Agency
@@ -363,8 +355,9 @@ const QuestionOneField = (props: any) => {
   )
 }
 
-const QuestionTwoField = (props: any) => {
-  const classes = useQuestionStyles()
+const QuestionTwo = (props: any) => {
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   const [field, meta, helpers] = useField(props)
   const {error, touched} = meta
   const {value} = field
@@ -395,23 +388,22 @@ const QuestionTwoField = (props: any) => {
         }
       >
         {yesNoAnswers.map((answer) => (
-          <ListItem
+          <ListItemButton
             key={answer}
-            button
             divider
             selected={answer === value}
             // disabled={fieldTouched}
             onClick={clickHandler(answer)}
           >
             <ListItemText primary={answer} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
       <WaitToGrow isIn={hasApplicableError && touched}>
         <DialogContentText
           variant="body1"
           color="textPrimary"
-          className={classes.qualifyMsg}
+          sx={{...style.qualifyMsg}}
         >
           Unfortunately, you do not qualify for the High Efficiency Toilet
           Rebate. Old toilets replaced must be rated at 3.0 (GPF) or more. Most
@@ -428,13 +420,13 @@ function getSteps(props: any) {
       index: 0,
       label: 'Are you a Placer County Water Agency treated water customer?',
       name: 'treatedCustomer' as ToiletRebateFormDataProp,
-      content: <QuestionOneField type="hidden" {...props} />
+      content: <QuestionOne type="hidden" {...props} />
     },
     {
       index: 1,
       label: 'Was your building(s) built prior to 1994?',
       name: 'builtPriorCutoff' as ToiletRebateFormDataProp,
-      content: <QuestionTwoField type="hidden" {...props} />
+      content: <QuestionTwo type="hidden" {...props} />
     }
   ]
 }

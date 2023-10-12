@@ -110,7 +110,7 @@ const ArtTurfSelect = ({
       <WaitToGrow isIn={fieldIsTouchedWithError}>
         {fieldIsTouchedWithError ? (
           <FormHelperText error={fieldIsTouchedWithError}>
-            currentError
+            <>{currentError}</>
           </FormHelperText>
         ) : (
           <></>

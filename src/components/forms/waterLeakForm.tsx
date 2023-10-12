@@ -1,15 +1,13 @@
 // cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useCallback, useEffect} from 'react'
 import {
+  Box,
   Divider,
   Grid,
-  Theme,
   Typography as Type,
-  createStyles,
-  makeStyles,
   InputAdornment,
   IconButton
-} from '@material-ui/core'
+} from '@mui/material'
 import {useFormikContext, Field} from 'formik'
 import {WaterLeakFormData} from '@lib/services/formService'
 import EmailField from '@components/formFields/EmailField'
@@ -31,21 +29,23 @@ import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitc
 import RebatesEmail from '@components/links/RebatesEmail'
 import SubmitFormButton from './SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
-import {ColumnBox} from 'mui-sleazebox'
 // import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
 import FormDateField from '@components/formFields/FormDateField'
-import CalendarIcon from '@material-ui/icons/Event'
+import CalendarIcon from '@mui/icons-material/Event'
 import WaterLeakRequireCheckboxes from '@components/formFields/WaterLeakRequireCheckboxes'
+import useTheme from '@hooks/useTheme'
+import {ColumnBox} from '@components/MuiSleazebox'
 
 type Props = {
   onIneligibleChange?: (eligible: boolean) => any
   ineligible?: boolean
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
+  const theme = useTheme()
+  const style = {
     // formikContainer: {
     //   height: '100%',
     //   display: 'flex',
@@ -68,23 +68,23 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 0,
       flexShrink: 0
     }
-  })
-)
-const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
-  const classes = useStyles()
+  }
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
   const [receiptIsUploading, setReceiptIsUploading] = useState<boolean>(false)
   const [installPhotosIsUploading, setInstallPhotosIsUploading] =
     useState<boolean>(false)
 
-  const receiptIsUploadingHandler = useCallback((isUploading) => {
+  const receiptIsUploadingHandler = useCallback((isUploading: boolean) => {
     setReceiptIsUploading(isUploading)
   }, [])
 
-  const installPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setInstallPhotosIsUploading(isUploading)
-  }, [])
+  const installPhotosIsUploadingHandler = useCallback(
+    (isUploading: boolean) => {
+      setInstallPhotosIsUploading(isUploading)
+    },
+    []
+  )
 
   const {
     setFieldValue,
@@ -147,7 +147,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
     <>
       {/* width: 'fit-content' // Doesn't seem to fit responsively in XS media layout. */}
       <FormBox display="flex" flexDirection="column" margin="auto" width="100%">
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type color="textSecondary" variant="h4" gutterBottom>
             Contact Information
           </Type>
@@ -255,11 +255,11 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               </Grid>
             </Grid>
           </WaitToGrow>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type variant="h4" color="textSecondary" gutterBottom>
             Rebate Information
           </Type>
@@ -282,8 +282,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 fullWidth
                 disableFuture
                 margin="normal"
-                showTodayButton
-                inputVariant="outlined"
+                variant="outlined"
                 format="M/dd/yyyy"
                 // show Calendar icon
                 InputProps={{
@@ -306,8 +305,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 fullWidth
                 disableFuture
                 margin="normal"
-                showTodayButton
-                inputVariant="outlined"
+                variant="outlined"
                 format="M/dd/yyyy"
                 // show Calendar icon
                 InputProps={{
@@ -332,8 +330,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 fullWidth
                 disableFuture
                 margin="normal"
-                showTodayButton
-                inputVariant="outlined"
+                variant="outlined"
                 format="M/dd/yyyy"
                 // show Calendar icon
                 InputProps={{
@@ -360,11 +357,11 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type variant="h4" color="textSecondary" gutterBottom>
             Rebate Eligibility Requirements
           </Type>
@@ -377,11 +374,11 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type variant="h4" color="textSecondary" gutterBottom>
             Provide Attachments
           </Type>
@@ -409,7 +406,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
             disabled={ineligible}
           />
           <Spacing />
-          <ColumnBox className={classes.dropzoneContainer}>
+          <ColumnBox sx={{...style.dropzoneContainer}}>
             <Field
               disabled={ineligible || emailAttachments}
               name="receipts"
@@ -421,7 +418,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
           </ColumnBox>
 
           <Spacing />
-          <ColumnBox className={classes.dropzoneContainer}>
+          <ColumnBox sx={{...style.dropzoneContainer}}>
             <Field
               disabled={ineligible || emailAttachments}
               name="leakPhotos"
@@ -433,7 +430,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
           </ColumnBox>
 
           <Spacing />
-          <ColumnBox className={classes.dropzoneContainer}>
+          <ColumnBox sx={{...style.dropzoneContainer}}>
             <Field
               disabled={ineligible || emailAttachments}
               name="repairPhotos"
@@ -443,17 +440,17 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               component={AttachmentField}
             />
           </ColumnBox>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type color="textSecondary" variant="h4" gutterBottom>
             Acknowledge Terms & Conditions
           </Type>
           <Spacing />
           <Grid container direction="column" spacing={1}>
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Water-Leak-Terms-and-Conditions.pdf"
@@ -483,18 +480,18 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type color="textSecondary" variant="h4" gutterBottom>
             Release of Liability & Signature
           </Type>
           <Spacing />
 
           <Grid container direction="column" spacing={1}>
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <Type variant="body1" paragraph color="primary">
                 Placer County Water Agency (PCWA) reserves the right to deny an
                 application of any participant who does not meet all
@@ -508,7 +505,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               </Type>
             </Grid>
 
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <Type variant="caption">
                 You must sign this form by typing your name
               </Type>
@@ -519,7 +516,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               />
             </Grid>
 
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <Field
                 disabled={ineligible}
                 name="captcha"
@@ -527,7 +524,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Spacing />
         <SubmitFormButton

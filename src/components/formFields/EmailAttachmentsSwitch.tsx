@@ -75,10 +75,6 @@ const EmailAttachmentsSwitch = ({
           />
         }
       />
-      {/* The following just provides and empty blank space which is not needed. */}
-      {/* <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText> */}
     </FormControl>
   )
 }

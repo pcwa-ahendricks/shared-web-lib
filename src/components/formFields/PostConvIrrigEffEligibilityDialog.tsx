@@ -7,21 +7,16 @@ import {
   DialogContentText,
   DialogTitle,
   List,
-  ListItem,
   ListItemText,
   Step,
   StepLabel,
   StepContent,
-  Theme,
-  makeStyles,
-  createStyles,
-  useTheme
-} from '@material-ui/core'
+  ListItemButton
+} from '@mui/material'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {Field, connect, FormikProps, FieldProps} from 'formik'
-import clsx from 'clsx'
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
+import {Field, connect, FormikProps, FieldProps, FormikTouched} from 'formik'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
@@ -30,6 +25,8 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
+import useTheme from '@hooks/useTheme'
+import {Theme} from '@lib/material-theme'
 
 type Props = {
   open: boolean
@@ -38,42 +35,30 @@ type Props = {
   formik?: FormikProps<any>
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    },
-    stepLabelLabel: {
-      marginLeft: theme.spacing(1),
-      cursor: 'pointer',
-      '& $stepLabelActive': {
-        color: theme.palette.primary.main
-      },
-      '& $stepLabelError': {
-        color: theme.palette.error.main
-      }
-    },
-    stepLabelError: {},
-    stepLabelActive: {},
-    stepLabelIcon: {
-      cursor: 'pointer'
-    }
-  })
-)
-
 const PostConvIrrigEffEligibilityDialog = ({
   open = false,
   onClose,
   formik
 }: Props) => {
-  const classes = useStyles()
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
+  const style = {
+    qualifyMsg: {
+      marginTop: theme.spacing(3)
+    },
+    stepLabelLabel: {
+      marginLeft: theme.spacing(1),
+      cursor: 'pointer'
+    },
+    stepLabelIcon: {
+      cursor: 'pointer'
+    }
+  }
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const [debouncedLastTouchedIndex] = useDebounce(lastTouchedIndex, 800)
   const steps = useMemo(() => getSteps(), [])
   const maxSteps = useMemo(() => getSteps().length, [])
-  const prevTouched = useRef<Record<string, unknown>>()
+  const prevTouched = useRef<FormikTouched<any>>()
   const prevLastTouchedIndex = useRef<number>()
 
   const {touched = {}, errors = {}} = formik || {}
@@ -107,16 +92,19 @@ const PostConvIrrigEffEligibilityDialog = ({
     [errors]
   )
 
-  const touchedChangedHandler = useCallback((prev, curr) => {
-    const diff = addedDiff(prev, curr) || {}
-    const newProp = Object.keys({...diff})[0]
-    const stepIndex = newProp && getStepIndex(newProp)
-    // Don't use Boolean(nextStepIndex) cause 0 is false.
-    const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
-    if (nextStepIndex) {
-      setLastTouchedIndex(nextStepIndex)
-    }
-  }, [])
+  const touchedChangedHandler = useCallback(
+    (prev: FormikTouched<any>, curr: FormikTouched<any>) => {
+      const diff = addedDiff(prev, curr) || {}
+      const newProp = Object.keys({...diff})[0]
+      const stepIndex = newProp && getStepIndex(newProp)
+      // Don't use Boolean(nextStepIndex) cause 0 is false.
+      const nextStepIndex = typeof stepIndex === 'number' && stepIndex + 1
+      if (nextStepIndex) {
+        setLastTouchedIndex(nextStepIndex)
+      }
+    },
+    []
+  )
 
   useEffect(() => {
     touchedChangedHandler({...prevTouched.current}, {...touched})
@@ -168,8 +156,8 @@ const PostConvIrrigEffEligibilityDialog = ({
   )
 
   const stepHasError = useCallback(
-    (fieldName: string) => {
-      const error = errors[fieldName]
+    (name: string) => {
+      const error = errors[name]
       const hasError =
         Boolean(error) &&
         typeof error === 'string' &&
@@ -180,8 +168,8 @@ const PostConvIrrigEffEligibilityDialog = ({
   )
 
   const stepCompleted = useCallback(
-    (fieldName: string) => {
-      const fieldTouched = Boolean(touched[fieldName])
+    (name: string) => {
+      const fieldTouched = Boolean(touched[name])
       if (fieldTouched) {
         return true
       }
@@ -200,25 +188,33 @@ const PostConvIrrigEffEligibilityDialog = ({
       <DialogContent>
         <div>
           <EligibilityStepper activeStep={activeStep}>
-            {steps.map(({label, index, fieldName}) => {
-              const hasError = stepHasError(fieldName)
+            {steps.map(({label, index, name}) => {
               return (
-                <Step key={label} completed={stepCompleted(fieldName)}>
+                <Step key={label} completed={stepCompleted(name)}>
                   {/* <StepLabel>{label}</StepLabel> */}
                   <StepLabel
-                    error={hasError}
-                    classes={{
-                      iconContainer: classes.stepLabelIcon,
-                      labelContainer: classes.stepLabelLabel
+                    error={stepHasError(name)}
+                    sx={{
+                      '.MuiStepLabel-iconContainer': {
+                        ...style.stepLabelIcon
+                      },
+                      '.MuiStepLabel-labelContainer': {
+                        ...style.stepLabelLabel
+                      }
                     }}
                     optional={
                       <DialogContentText
                         variant="h4"
                         color="textSecondary"
-                        className={clsx({
-                          [classes.stepLabelError]: hasError,
-                          [classes.stepLabelActive]: activeStep === index
-                        })}
+                        sx={{
+                          ...(stepHasError(name) && {
+                            color: theme.palette.error.main
+                          }),
+                          ...(activeStep === index &&
+                            !stepHasError(name) && {
+                              color: theme.palette.primary.main
+                            })
+                        }}
                       >
                         {label}
                       </DialogContentText>
@@ -236,7 +232,7 @@ const PostConvIrrigEffEligibilityDialog = ({
             <DialogContentText
               variant="body1"
               color="textPrimary"
-              className={classes.qualifyMsg}
+              sx={{...style.qualifyMsg}}
             >
               Excellent. You meet the requirements for submitting this
               application. Please close this message now to continue the
@@ -299,21 +295,20 @@ function getStepContent(stepNo: number) {
   return found ? found.content : null
 }
 
-function getStepIndex(fieldName: string) {
-  const found = getSteps().find((step) => step.fieldName === fieldName)
+function getStepIndex(name: string) {
+  const found = getSteps().find((step) => step.name === name)
   return found ? found.index : null
 }
 
-const useQuestionStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    }
-  })
-)
+const useQuestionStyles = (theme: Theme) => ({
+  qualifyMsg: {
+    marginTop: theme.spacing(3)
+  }
+})
 
 const QuestionOne = () => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   return (
     <Field name="rebateCustomer">
       {({field, form}: FieldProps<any>) => {
@@ -343,23 +338,22 @@ const QuestionOne = () => {
             // }
             >
               {yesNoAnswers.map((answer) => (
-                <ListItem
+                <ListItemButton
                   key={answer}
-                  button
                   divider
                   selected={answer === value}
                   // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
-                </ListItem>
+                </ListItemButton>
               ))}
             </List>
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
-                className={classes.qualifyMsg}
+                sx={{...style.qualifyMsg}}
               >
                 This application is only to be submitted by customers that are
                 currently participating in the Irrigation Efficiencies Rebate
@@ -374,7 +368,8 @@ const QuestionOne = () => {
 }
 
 const QuestionTwo = () => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   return (
     <Field name="projectCompleted">
       {({field, form}: FieldProps<any>) => {
@@ -404,23 +399,22 @@ const QuestionTwo = () => {
             // }
             >
               {yesNoAnswers.map((answer) => (
-                <ListItem
+                <ListItemButton
                   key={answer}
-                  button
                   divider
                   selected={answer === value}
                   // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
-                </ListItem>
+                </ListItemButton>
               ))}
             </List>
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
-                className={classes.qualifyMsg}
+                sx={{...style.qualifyMsg}}
               >
                 Project must be completed in order to submit application.
               </DialogContentText>
@@ -433,7 +427,8 @@ const QuestionTwo = () => {
 }
 
 const QuestionThree = () => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   return (
     <Field name="partsReceipts">
       {({field, form}: FieldProps<any>) => {
@@ -463,23 +458,22 @@ const QuestionThree = () => {
             // }
             >
               {yesNoAnswers.map((answer) => (
-                <ListItem
+                <ListItemButton
                   key={answer}
-                  button
                   divider
                   selected={answer === value}
                   // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
-                </ListItem>
+                </ListItemButton>
               ))}
             </List>
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
-                className={classes.qualifyMsg}
+                sx={{...style.qualifyMsg}}
               >
                 To receive a rebate for irrigation efficiencies you must have
                 itemized receipts or invoices.
@@ -493,7 +487,8 @@ const QuestionThree = () => {
 }
 
 const QuestionFour = () => {
-  const classes = useQuestionStyles()
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   return (
     <Field name="photosTaken">
       {({field, form}: FieldProps<any>) => {
@@ -523,23 +518,22 @@ const QuestionFour = () => {
             // }
             >
               {yesNoAnswers.map((answer) => (
-                <ListItem
+                <ListItemButton
                   key={answer}
-                  button
                   divider
                   selected={answer === value}
                   // disabled={fieldTouched}
                   onClick={clickHandler(answer)}
                 >
                   <ListItemText primary={answer} />
-                </ListItem>
+                </ListItemButton>
               ))}
             </List>
             <WaitToGrow isIn={hasApplicableError && fieldTouched}>
               <DialogContentText
                 variant="body1"
                 color="textPrimary"
-                className={classes.qualifyMsg}
+                sx={{...style.qualifyMsg}}
               >
                 Post Conversion photographs (5) are required. Please refer to
                 Irrigation Efficiencies terms and conditions, section, VII.
@@ -558,27 +552,27 @@ function getSteps() {
       index: 0,
       label:
         'Are you currently participating in the PCWA Irrigation Efficiencies Rebate Program?',
-      fieldName: 'rebateCustomer',
+      name: 'rebateCustomer',
       content: <QuestionOne />
     },
     {
       index: 1,
       label: 'Is your project completed?',
-      fieldName: 'projectCompleted',
+      name: 'projectCompleted',
       content: <QuestionTwo />
     },
     {
       index: 2,
       label:
         'Do you have itemized receipts or invoices for irrigation parts installed?',
-      fieldName: 'partsReceipts',
+      name: 'partsReceipts',
       content: <QuestionThree />
     },
     {
       index: 3,
       label:
         'Have you taken 5 post conversion photographs following requirements stated in terms and conditions?',
-      fieldName: 'photosTaken',
+      name: 'photosTaken',
       content: <QuestionFour />
     }
   ]

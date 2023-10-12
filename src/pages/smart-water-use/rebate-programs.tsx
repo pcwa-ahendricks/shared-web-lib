@@ -13,7 +13,6 @@ import MainPhone from '@components/links/MainPhone'
 import NextLink from 'next/link'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
-// import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 import RebatesEmail from '@components/links/RebatesEmail'
 import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 
@@ -231,41 +230,53 @@ const RebateProgramsPage = () => {
               <Spacing />
               <ColumnBox flexSpacing={3}>
                 <ChildBox position="relative">
-                  <RibbonContainer minHeight={theme.spacing(3)}>
+                  <RibbonContainer>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
-                      color="#f0f0f0"
-                      fontFamily="Arial"
-                      zIndex={3}
+                      sx={{
+                        color: '#f0f0f0',
+                        fontFamily: 'Arial',
+                        zIndex: 3,
+                        top: '-25px !important'
+                      }}
                     >
-                      <span style={{verticalAlign: 'top', lineHeight: '1.2em'}}>
+                      <Box
+                        component="span"
+                        sx={{
+                          verticalAlign: 'top',
+                          lineHeight: '1.2em',
+                          fontSize: '.9em'
+                        }}
+                      >
                         New
-                      </span>
+                      </Box>
                     </LeftLargeRibbon>
-                  </RibbonContainer>
-                  <RebateCard pt={4}>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        Water Leak -
-                      </Type>{' '}
-                      Receive up to a $500 rebate for repairing an indoor or
-                      outdoor treated water leak. For additional information see{' '}
-                      <Type component="em" variant="inherit">
-                        Water Leak Rebate Requirements
+
+                    <RebateCard pt={4}>
+                      <Type paragraph>
+                        <Type variant="h6" component="span">
+                          Water Leak -
+                        </Type>{' '}
+                        Receive up to a $500 rebate for repairing an indoor or
+                        outdoor treated water leak. For additional information
+                        see{' '}
+                        <Type component="em" variant="inherit">
+                          Water Leak Rebate Requirements
+                        </Type>
+                        . Rebate for treated water customers only.
                       </Type>
-                      . Rebate for treated water customers only.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/water-leak-rebate-requirements.pdf"
-                        caption="Water Leak Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/water-leak"
-                        label="Apply Now"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
+                      <ColumnBox>
+                        <TermsAndConditionsButton
+                          href="https://docs.pcwa.net/water-leak-rebate-requirements.pdf"
+                          caption="Water Leak Rebate Requirements"
+                        />
+                        <ApplyNowButton
+                          href="/forms/rebates/water-leak"
+                          label="Apply Now"
+                        />
+                      </ColumnBox>
+                    </RebateCard>
+                  </RibbonContainer>
                 </ChildBox>
                 <ChildBox position="relative">
                   <RebateCard pt={4}>

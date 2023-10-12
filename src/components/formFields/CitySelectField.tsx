@@ -4,20 +4,15 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
-  Select
+  Select,
+  SelectChangeEvent
 } from '@mui/material'
 import {FormControlProps} from '@mui/material/FormControl'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
 type Props = {
-  onChange?: (
-    e: React.ChangeEvent<{
-      name?: string | undefined
-      value: unknown
-    }>
-  ) => void
+  onChange?: (e: SelectChangeEvent) => void
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any> &
@@ -60,12 +55,7 @@ const CitySelectField = ({
   const fieldIsTouchedWithError = fieldHasError && fieldWasTouched
 
   const changeHandler = useCallback(
-    (
-      e: React.ChangeEvent<{
-        name?: string | undefined
-        value: unknown
-      }>
-    ) => {
+    (e: SelectChangeEvent) => {
       handleChange(e)
       onChange?.(e)
     },
@@ -82,21 +72,20 @@ const CitySelectField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel htmlFor="city-select">City</InputLabel>
+      <InputLabel id="city-select-label">City</InputLabel>
       <Select
+        labelId="city-select-label"
+        label="City"
+        id="city-select"
         required={required}
         value={value}
-        autoWidth={true}
+        autoWidth
         variant="outlined"
-        input={
-          <OutlinedInput
-            id="city-select"
-            name={name}
-            autoComplete="billing address-level2"
-            labelWidth={39}
-            error={fieldIsTouchedWithError}
-          />
-        }
+        inputProps={{
+          name,
+          autoComplete: 'billing address-level2',
+          error: fieldIsTouchedWithError
+        }}
         onChange={changeHandler}
         onBlur={handleBlur}
         SelectDisplayProps={{style: {minWidth: 50}}}
@@ -111,9 +100,13 @@ const CitySelectField = ({
         ))}
       </Select>
       <WaitToGrow isIn={fieldIsTouchedWithError}>
-        <FormHelperText error={fieldIsTouchedWithError}>
-          {fieldIsTouchedWithError ? currentError : null}
-        </FormHelperText>
+        {fieldIsTouchedWithError ? (
+          <FormHelperText error={fieldIsTouchedWithError}>
+            <>{currentError}</>
+          </FormHelperText>
+        ) : (
+          <></>
+        )}
       </WaitToGrow>
     </FormControl>
   )

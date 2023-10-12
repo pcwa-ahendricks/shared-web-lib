@@ -75,9 +75,11 @@ const AgreeInspectionCheckbox = ({
           />
         }
       />
-      <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText>
+      {fieldIsTouchedWithError ? (
+        <FormHelperText error={fieldIsTouchedWithError}>
+          <>{currentError}</>
+        </FormHelperText>
+      ) : null}
     </FormControl>
   )
 }

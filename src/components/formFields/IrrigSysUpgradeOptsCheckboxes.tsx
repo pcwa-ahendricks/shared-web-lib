@@ -60,8 +60,8 @@ const IrrigSysUpgradeOptsCheckboxes = ({
     () => ({
       fcLabel: {
         [theme.breakpoints.down('sm')]: {
-          marginBottom: 2,
-          marginTop: 2
+          marginBottom: '2px',
+          marginTop: '2px'
         }
       }
     }),
@@ -104,7 +104,7 @@ const IrrigSysUpgradeOptsCheckboxes = ({
               checked={value[val]}
               onChange={handleChange(val)}
               value={val}
-              // color="primary"
+              color="secondary"
               onBlur={handleBlur}
             />
           }
@@ -131,9 +131,10 @@ const IrrigSysUpgradeOptsCheckboxes = ({
       <FormGroup>
         <>{formControlItemsEl}</>
       </FormGroup>
+
       {fieldIsTouchedWithError ? (
         <FormHelperText error={fieldIsTouchedWithError}>
-          currentError
+          <>{currentError}</>
         </FormHelperText>
       ) : null}
     </MyFormControl>

@@ -8,17 +8,12 @@ import {
   DialogTitle,
   Step,
   StepLabel,
-  StepContent,
-  Theme,
-  makeStyles,
-  createStyles,
-  useTheme
-} from '@material-ui/core'
+  StepContent
+} from '@mui/material'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import {useFormikContext, useField, Field} from 'formik'
-import clsx from 'clsx'
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
+import {useFormikContext, useField, Field, FormikTouched} from 'formik'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
 import {
@@ -28,6 +23,8 @@ import {
 } from '@components/formFields/EligibilityDialog'
 import {WaterLeakFormData} from '@lib/services/formService'
 import WaterLeakRequireCheckboxes from './WaterLeakRequireCheckboxes'
+import {Theme} from '@lib/material-theme'
+import useTheme from '@hooks/useTheme'
 
 type WaterLeakFormDataProp = keyof WaterLeakFormData
 
@@ -37,41 +34,29 @@ type Props = {
   fullWidth?: boolean
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    },
-    stepLabelLabel: {
-      marginLeft: theme.spacing(1),
-      cursor: 'pointer',
-      '& $stepLabelActive': {
-        color: theme.palette.primary.main
-      },
-      '& $stepLabelError': {
-        color: theme.palette.error.main
-      }
-    },
-    stepLabelError: {},
-    stepLabelActive: {},
-    stepLabelIcon: {
-      cursor: 'pointer'
-    }
-  })
-)
-
 const LeakFixEffEligibilityDialog = ({
   open = false,
   onClose,
   ...rest
 }: Props) => {
-  const classes = useStyles()
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
+  const style = {
+    qualifyMsg: {
+      marginTop: theme.spacing(3)
+    },
+    stepLabelLabel: {
+      marginLeft: theme.spacing(1),
+      cursor: 'pointer'
+    },
+    stepLabelIcon: {
+      cursor: 'pointer'
+    }
+  }
   const [activeStep, setActiveStep] = useState<number>(0)
   const [lastTouchedIndex, setLastTouchedIndex] = useState<number>(0)
   const [debouncedLastTouchedIndex] = useDebounce(lastTouchedIndex, 800)
   const steps = useMemo(() => getSteps({...rest}), [rest])
-  const prevTouched = useRef<Record<string, unknown>>()
+  const prevTouched = useRef<FormikTouched<any>>()
   const prevLastTouchedIndex = useRef<number>()
   const maxSteps = useMemo(() => getSteps({...rest}).length, [rest])
 
@@ -98,7 +83,7 @@ const LeakFixEffEligibilityDialog = ({
   )
 
   const touchedChangedHandler = useCallback(
-    (prev, curr) => {
+    (prev: FormikTouched<any>, curr: FormikTouched<any>) => {
       const diff = addedDiff(prev, curr) || {}
       const newProp = Object.keys({...diff})[0]
       const stepIndex = newProp && getStepIndex(newProp, rest)
@@ -161,8 +146,8 @@ const LeakFixEffEligibilityDialog = ({
   )
 
   const stepHasError = useCallback(
-    (fieldName: WaterLeakFormDataProp) => {
-      const error = errors[fieldName]
+    (name: WaterLeakFormDataProp) => {
+      const error = errors[name]
       return (
         submitBtnClicked &&
         Boolean(error) &&
@@ -193,18 +178,27 @@ const LeakFixEffEligibilityDialog = ({
                 {/* <StepLabel>{label}</StepLabel> */}
                 <StepLabel
                   error={stepHasError(name)}
-                  classes={{
-                    iconContainer: classes.stepLabelIcon,
-                    labelContainer: classes.stepLabelLabel
+                  sx={{
+                    '.MuiStepLabel-iconContainer': {
+                      ...style.stepLabelIcon
+                    },
+                    '.MuiStepLabel-labelContainer': {
+                      ...style.stepLabelLabel
+                    }
                   }}
                   optional={
                     <DialogContentText
                       variant="h4"
                       color="textSecondary"
-                      className={clsx({
-                        [classes.stepLabelError]: stepHasError(name),
-                        [classes.stepLabelActive]: activeStep === index
-                      })}
+                      sx={{
+                        ...(stepHasError(name) && {
+                          color: theme.palette.error.main
+                        }),
+                        ...(activeStep === index &&
+                          !stepHasError(name) && {
+                            color: theme.palette.primary.main
+                          })
+                      }}
                     >
                       {label}
                     </DialogContentText>
@@ -228,7 +222,7 @@ const LeakFixEffEligibilityDialog = ({
             <DialogContentText
               variant="body1"
               color="textPrimary"
-              className={classes.qualifyMsg}
+              sx={{...style.qualifyMsg}}
             >
               Excellent, you may continue to apply for the rebate. Please close
               this message to continue to the rebate application.
@@ -290,21 +284,20 @@ function getStepContent(stepNo: number, props: any) {
   return found ? found.content : null
 }
 
-function getStepIndex(fieldName: string, props: any) {
-  const found = getSteps({...props}).find((step) => step.name === fieldName)
+function getStepIndex(name: string, props: any) {
+  const found = getSteps({...props}).find((step) => step.name === name)
   return found ? found.index : null
 }
 
-const useQuestionStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    qualifyMsg: {
-      marginTop: theme.spacing(3)
-    }
-  })
-)
+const useQuestionStyles = (theme: Theme) => ({
+  qualifyMsg: {
+    marginTop: theme.spacing(3)
+  }
+})
 
-const QuestionOneField = ({submitBtnClicked, ...props}: any) => {
-  const classes = useQuestionStyles()
+const QuestionOne = ({submitBtnClicked, ...props}: any) => {
+  const theme = useTheme()
+  const style = useQuestionStyles(theme)
   const [field, meta, _helpers] = useField(props)
   const {error, touched} = meta
   // const {value} = field
@@ -329,7 +322,7 @@ const QuestionOneField = ({submitBtnClicked, ...props}: any) => {
         <DialogContentText
           variant="body1"
           color="textPrimary"
-          className={classes.qualifyMsg}
+          sx={{...style.qualifyMsg}}
         >
           Unfortunately, you do not qualify for the Treated Leak Rebate.
         </DialogContentText>
@@ -345,7 +338,7 @@ function getSteps(props: any) {
       label:
         'In order to apply for the Treated Water Leak Rebate you will need to meet the following requirements.',
       name: 'eligibilityRequirements' as WaterLeakFormDataProp,
-      content: <QuestionOneField type="hidden" {...props} />
+      content: <QuestionOne type="hidden" {...props} />
     }
   ]
 }

@@ -1,8 +1,6 @@
 // cspell:ignore addtl mnfg
 import React, {useState, useCallback, useMemo} from 'react'
-import {Divider, Grid, Theme, Typography as Type} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, Divider, Grid, Typography as Type} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {
   string,
@@ -49,6 +47,7 @@ import {BooleanAsString} from '@lib/safeCastBoolean'
 import WaterEfficiencyEmail from '@components/links/WaterEfficiencyEmail'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import Spacing from '@components/boxes/Spacing'
+import useTheme from '@hooks/useTheme'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -185,92 +184,93 @@ const initialFormValues: RebateFormData = {
   addtlSensorPhotos: []
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    // formikContainer: {
-    //   height: '100%',
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   width: '100%'
-    // },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      margin: 'auto',
-      // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
-      width: '100%'
-    },
-    // textField: {
-    //   marginTop: theme.spacing(1),
-    //   marginBottom: theme.spacing(4),
-    //   '&:not(:first-child)': {
-    //     marginLeft: theme.spacing(4)
-    //   }
-    // },
-    // formControl: {
-    //   marginTop: theme.spacing(1),
-    //   marginBottom: theme.spacing(4),
-    //   minWidth: 150,
-    //   '&:not(:first-child)': {
-    //     marginLeft: theme.spacing(4)
-    //   }
-    // },
-    // formControlRow: {
-    //   display: 'flex',
-    //   flexDirection: 'row',
-    //   width: '100%',
-    //   margin: {
-    //     bottom: theme.spacing(1),
-    //     top: theme.spacing(1)
-    //   },
-    //   '&.dropzoneContainer': {
-    //     flexDirection: 'column',
-    //     justifyContent: 'flex-start',
-    //     alignItems: 'flex-start',
-    //     marginBottom: theme.spacing(3)
-    //   }
-    // },
-    dropzoneContainer: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3)
-    },
-    // formControlsContainer: {
-    //   margin: theme.spacing( 8),
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   justifyContent: 'flex-start',
-    //   alignItems: 'flex-start'
-    // },
-    formGroup: {
-      flex: '0 0 auto', // IE fix
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5)
-    },
-    formGroupTitle: {
-      marginBottom: theme.spacing(3)
-    },
-    // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
-    ieFixFlexColumnDirection: {
-      flexBasis: 'auto',
-      flexGrow: 0,
-      flexShrink: 0
-    },
-    reserveRight: {
-      marginTop: theme.spacing(3)
-    }
-    // grow: {
-    //   flexGrow: 1
-    // }
-    // dropzoneUploader: {
-    //   marginBottom: theme.spacing(2)
-    // }
-  })
-)
 const IrrigationController = () => {
-  const classes = useStyles()
+  const theme = useTheme()
+  const style = useMemo(
+    () => ({
+      // formikContainer: {
+      //   height: '100%',
+      //   display: 'flex',
+      //   flexDirection: 'column',
+      //   width: '100%'
+      // },
+      form: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: 'auto',
+        // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
+        width: '100%'
+      },
+      // textField: {
+      //   marginTop: theme.spacing(1),
+      //   marginBottom: theme.spacing(4),
+      //   '&:not(:first-child)': {
+      //     marginLeft: theme.spacing(4)
+      //   }
+      // },
+      // formControl: {
+      //   marginTop: theme.spacing(1),
+      //   marginBottom: theme.spacing(4),
+      //   minWidth: 150,
+      //   '&:not(:first-child)': {
+      //     marginLeft: theme.spacing(4)
+      //   }
+      // },
+      // formControlRow: {
+      //   display: 'flex',
+      //   flexDirection: 'row',
+      //   width: '100%',
+      //   margin: {
+      //     bottom: theme.spacing(1),
+      //     top: theme.spacing(1)
+      //   },
+      //   '&.dropzoneContainer': {
+      //     flexDirection: 'column',
+      //     justifyContent: 'flex-start',
+      //     alignItems: 'flex-start',
+      //     marginBottom: theme.spacing(3)
+      //   }
+      // },
+      dropzoneContainer: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        marginBottom: theme.spacing(3),
+        marginTop: theme.spacing(3)
+      },
+      // formControlsContainer: {
+      //   margin: theme.spacing( 8),
+      //   display: 'flex',
+      //   flexDirection: 'column',
+      //   justifyContent: 'flex-start',
+      //   alignItems: 'flex-start'
+      // },
+      formGroup: {
+        flex: '0 0 auto', // IE fix
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5)
+      },
+      formGroupTitle: {
+        marginBottom: theme.spacing(3)
+      },
+      // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
+      ieFixFlexColumnDirection: {
+        flexBasis: 'auto',
+        flexGrow: 0,
+        flexShrink: 0
+      },
+      reserveRight: {
+        marginTop: theme.spacing(3)
+      }
+      // grow: {
+      //   flexGrow: 1
+      // }
+      // dropzoneUploader: {
+      //   marginBottom: theme.spacing(2)
+      // }
+    }),
+    [theme]
+  )
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] =
     useState<RebateFormData>(initialFormValues)
@@ -287,17 +287,20 @@ const IrrigationController = () => {
   const [providedEmail, setProvidedEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
 
-  const receiptIsUploadingHandler = useCallback((isUploading) => {
+  const receiptIsUploadingHandler = useCallback((isUploading: boolean) => {
     setReceiptIsUploading(isUploading)
   }, [])
 
-  const cntrlPhotosIsUploadingHandler = useCallback((isUploading) => {
+  const cntrlPhotosIsUploadingHandler = useCallback((isUploading: boolean) => {
     setCntrlPhotosIsUploading(isUploading)
   }, [])
 
-  const addtlSensorPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setAddtlSensorPhotosIsUploading(isUploading)
-  }, [])
+  const addtlSensorPhotosIsUploadingHandler = useCallback(
+    (isUploading: boolean) => {
+      setAddtlSensorPhotosIsUploading(isUploading)
+    },
+    []
+  )
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -398,17 +401,17 @@ const IrrigationController = () => {
                 return (
                   <ProtectRouteChange>
                     <FormValidate>
-                      <FormBox className={classes.form}>
+                      <FormBox sx={{...style.form}}>
                         {/* <Type variant="h3" color="primary" gutterBottom>
                         Weather Based Irrigation Controller Rebate Form
                       </Type> */}
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Contact Information
                           </Type>
@@ -480,16 +483,16 @@ const IrrigationController = () => {
                               <Field name="email" component={EmailField} />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Rebate Information
                           </Type>
@@ -540,16 +543,16 @@ const IrrigationController = () => {
                               </Hidden> */}
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Provide Attachments
                           </Type>
@@ -577,7 +580,7 @@ const IrrigationController = () => {
                             }
                           />
 
-                          <div className={classes.dropzoneContainer}>
+                          <Box sx={{...style.dropzoneContainer}}>
                             <Field
                               name="receipts"
                               attachmentTitle="Receipt(s)"
@@ -586,9 +589,9 @@ const IrrigationController = () => {
                               component={AttachmentField}
                               disabled={emailAttachments}
                             />
-                          </div>
+                          </Box>
 
-                          <div className={classes.dropzoneContainer}>
+                          <Box sx={{...style.dropzoneContainer}}>
                             <Field
                               name="cntrlPhotos"
                               attachmentTitle="Installed Irrigation Controller Photo(s)"
@@ -599,10 +602,10 @@ const IrrigationController = () => {
                               component={AttachmentField}
                               disabled={emailAttachments}
                             />
-                          </div>
+                          </Box>
 
                           <WaitToGrow isIn={hasAddtlSensor}>
-                            <div className={classes.dropzoneContainer}>
+                            <Box sx={{...style.dropzoneContainer}}>
                               <Field
                                 name="addtlSensorPhotos"
                                 attachmentTitle="Additional Sensor/Outdoor Cover Photo(s)"
@@ -613,18 +616,18 @@ const IrrigationController = () => {
                                 component={AttachmentField}
                                 disabled={emailAttachments}
                               />
-                            </div>
+                            </Box>
                           </WaitToGrow>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Acknowledge Terms & Conditions
                           </Type>
@@ -632,7 +635,7 @@ const IrrigationController = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <ReviewTermsConditions
                                 pageCount={3}
@@ -642,7 +645,7 @@ const IrrigationController = () => {
                               <Type
                                 variant="body1"
                                 paragraph
-                                className={classes.reserveRight}
+                                sx={{...style.reserveRight}}
                               >
                                 <em>
                                   PCWA reserves the right to verify the
@@ -660,16 +663,16 @@ const IrrigationController = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Release of Liability & Signature
                           </Type>
@@ -678,7 +681,7 @@ const IrrigationController = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Type variant="body1" paragraph color="primary">
                                 PCWA may deny any application that does not meet
@@ -703,7 +706,7 @@ const IrrigationController = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Type variant="caption">
                                 You must sign this form by typing your name
@@ -717,7 +720,7 @@ const IrrigationController = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Field
                                 name="captcha"
@@ -725,7 +728,7 @@ const IrrigationController = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         {/* For debugging form reset */}
                         {/* <Button
@@ -776,7 +779,7 @@ const IrrigationController = () => {
       </>
     ),
     [
-      classes,
+      style,
       formIsDirty,
       formValues,
       formIsTouched,

@@ -62,7 +62,7 @@ const IrrigUpgradeLocationCheckboxes = ({
 
   // Checkbox is not setting touched on handleChange or setFieldValue. Touched will be triggered explicitly using this custom change handler which additionally calls setFieldTouched for entire formGroup (not individual check boxes).
   const handleChange = useCallback(
-    (cbVal) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    (cbVal: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = {...value, [cbVal]: event.target.checked}
       setFieldTouched(name, true)
       setFieldValue(name, newValue, true)
@@ -82,6 +82,7 @@ const IrrigUpgradeLocationCheckboxes = ({
               checked={value[val]}
               onChange={handleChange(val)}
               value={val}
+              color="secondary"
               onBlur={handleBlur}
             />
           }
@@ -105,9 +106,11 @@ const IrrigUpgradeLocationCheckboxes = ({
       <FormGroup>
         <>{formControlItemsEl}</>
       </FormGroup>
-      <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText>
+      {fieldIsTouchedWithError ? (
+        <FormHelperText error={fieldIsTouchedWithError}>
+          <>{currentError}</>
+        </FormHelperText>
+      ) : null}
     </MyFormControl>
   )
 }

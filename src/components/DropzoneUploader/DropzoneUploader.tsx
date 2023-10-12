@@ -363,9 +363,9 @@ const DropzoneUploader: React.ForwardRefRenderFunction<
   const style = useMemo(
     () => ({
       dropzone: {
-        padding: 20,
+        padding: 3,
         backgroundColor: '#eee',
-        borderRadius: 10,
+        borderRadius: '10px',
         borderWidth: 2,
         borderStyle: 'dashed',
         borderColor: 'grey',
@@ -379,7 +379,7 @@ const DropzoneUploader: React.ForwardRefRenderFunction<
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginTop: 16
+        marginTop: 2
       },
       captionContainer: {
         display: 'flex',

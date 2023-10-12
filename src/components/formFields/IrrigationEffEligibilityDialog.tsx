@@ -12,15 +12,13 @@ import {
   ListSubheader,
   Step,
   StepLabel,
-  StepContent,
-  useTheme
+  StepContent
 } from '@mui/material'
 import {ANSWERS as yesNoAnswers} from '@components/formFields/YesNoSelectField'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import {Field, connect, FormikProps, FieldProps, FormikTouched} from 'formik'
-import clsx from 'clsx'
 import {addedDiff} from 'deep-object-diff'
 import {useDebounce} from 'use-debounce'
 import {IRRIGATION_METHODS} from '@components/formFields/IrrigationMethodSelect'
@@ -29,6 +27,7 @@ import {
   EligibilityMobileStepper,
   EligibilityStepper
 } from '@components/formFields/EligibilityDialog'
+import useTheme from '@hooks/useTheme'
 import {Theme} from '@lib/material-theme'
 
 type Props = {
@@ -43,7 +42,7 @@ const IrrigationEffEligibilityDialog = ({
   onClose,
   formik
 }: Props) => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const style = {
     qualifyMsg: {
       marginTop: theme.spacing(3)
@@ -148,8 +147,8 @@ const IrrigationEffEligibilityDialog = ({
   )
 
   const stepHasError = useCallback(
-    (fieldName: string) => {
-      const error = errors[fieldName]
+    (name: string) => {
+      const error = errors[name]
       return (
         Boolean(error) &&
         typeof error === 'string' &&
@@ -160,8 +159,8 @@ const IrrigationEffEligibilityDialog = ({
   )
 
   const stepCompleted = useCallback(
-    (fieldName: string) => {
-      const fieldTouched = Boolean(touched[fieldName])
+    (name: string) => {
+      const fieldTouched = Boolean(touched[name])
       if (fieldTouched) {
         return true
       }
@@ -179,11 +178,11 @@ const IrrigationEffEligibilityDialog = ({
       <DialogContent>
         <div>
           <EligibilityStepper activeStep={activeStep}>
-            {steps.map(({label, index, fieldName}) => (
-              <Step key={label} completed={stepCompleted(fieldName)}>
+            {steps.map(({label, index, name}) => (
+              <Step key={label} completed={stepCompleted(name)}>
                 {/* <StepLabel>{label}</StepLabel> */}
                 <StepLabel
-                  error={stepHasError(fieldName)}
+                  error={stepHasError(name)}
                   sx={{
                     '.MuiStepLabel-iconContainer': {
                       ...style.stepLabelIcon
@@ -197,11 +196,11 @@ const IrrigationEffEligibilityDialog = ({
                       variant="h4"
                       color="textSecondary"
                       sx={{
-                        ...(stepHasError(fieldName) && {
+                        ...(stepHasError(name) && {
                           color: theme.palette.error.main
                         }),
                         ...(activeStep === index &&
-                          !stepHasError(fieldName) && {
+                          !stepHasError(name) && {
                             color: theme.palette.primary.main
                           })
                       }}
@@ -286,7 +285,7 @@ const useQuestionStyles = (theme: Theme) => ({
 })
 
 const QuestionOne = () => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const style = useQuestionStyles(theme)
   return (
     <Field name="treatedCustomer">
@@ -347,7 +346,7 @@ const QuestionOne = () => {
 }
 
 const QuestionTwo = () => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const style = useQuestionStyles(theme)
   return (
     <Field name="irrigMethod">
@@ -415,13 +414,13 @@ function getSteps() {
     {
       index: 0,
       label: 'Are you a Placer County Water Agency treated water customer? ',
-      fieldName: 'treatedCustomer',
+      name: 'treatedCustomer',
       content: <QuestionOne />
     },
     {
       index: 1,
       label: 'How is your landscape currently irrigated?',
-      fieldName: 'irrigMethod',
+      name: 'irrigMethod',
       content: <QuestionTwo />
     }
   ]
@@ -432,7 +431,7 @@ function getStepContent(stepNo: number) {
   return found ? found.content : null
 }
 
-function getStepIndex(fieldName: string) {
-  const found = getSteps().find((step) => step.fieldName === fieldName)
+function getStepIndex(name: string) {
+  const found = getSteps().find((step) => step.name === name)
   return found ? found.index : null
 }

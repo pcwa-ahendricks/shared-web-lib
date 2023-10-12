@@ -166,8 +166,8 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 
   const stepHasError = useCallback(
-    (fieldName: string) => {
-      const error = errors[fieldName]
+    (name: string) => {
+      const error = errors[name]
       return (
         Boolean(error) &&
         typeof error === 'string' &&
@@ -178,8 +178,8 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
   )
 
   const stepCompleted = useCallback(
-    (fieldName: string) => {
-      const fieldTouched = Boolean(touched[fieldName])
+    (name: string) => {
+      const fieldTouched = Boolean(touched[name])
       if (fieldTouched) {
         return true
       }
@@ -197,11 +197,11 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
       <DialogContent>
         <div>
           <EligibilityStepper activeStep={activeStep}>
-            {steps.map(({label, index, fieldName}) => (
-              <Step key={label} completed={stepCompleted(fieldName)}>
+            {steps.map(({label, index, name}) => (
+              <Step key={label} completed={stepCompleted(name)}>
                 {/* <StepLabel>{label}</StepLabel> */}
                 <StepLabel
-                  error={stepHasError(fieldName)}
+                  error={stepHasError(name)}
                   sx={{
                     '.MuiStepLabel-iconContainer': {
                       ...style.stepLabelIcon
@@ -215,11 +215,11 @@ const LawnReplEligibilityDialog = ({open = false, onClose, formik}: Props) => {
                       variant="h4"
                       color="textSecondary"
                       sx={{
-                        ...(stepHasError(fieldName) && {
+                        ...(stepHasError(name) && {
                           color: theme.palette.error.main
                         }),
                         ...(activeStep === index &&
-                          !stepHasError(fieldName) && {
+                          !stepHasError(name) && {
                             color: theme.palette.primary.main
                           })
                       }}
@@ -302,8 +302,8 @@ function getStepContent(stepNo: number) {
   return found ? found.content : null
 }
 
-function getStepIndex(fieldName: string) {
-  const found = getSteps().find((step) => step.fieldName === fieldName)
+function getStepIndex(name: string) {
+  const found = getSteps().find((step) => step.name === name)
   return found ? found.index : null
 }
 
@@ -502,8 +502,8 @@ const QuestionThree = () => {
   const theme = useTheme<Theme>()
   const style = useQuestionStyles(theme)
   const {touched, errors} = useFormikContext<LawnReplacementRebateFormData>()
-  const fieldName = 'approxSqFeet'
-  const fieldError = errors[fieldName]
+  const name = 'approxSqFeet'
+  const fieldError = errors[name]
 
   // Field Required Error will cause a quick jump/flash in height of <WaitToGrow/> once a value is selected unless we filter out those errors.
   const hasApplicableError =
@@ -511,10 +511,10 @@ const QuestionThree = () => {
     typeof fieldError === 'string' &&
     !/is a required field/i.test(fieldError)
 
-  const fieldTouched = Boolean(touched[fieldName])
+  const fieldTouched = Boolean(touched[name])
   return (
     <Box>
-      <LawnApproxSqFootField name={fieldName} />
+      <LawnApproxSqFootField name={name} />
       <WaitToGrow isIn={hasApplicableError && fieldTouched}>
         <DialogContentText
           variant="body1"
@@ -595,32 +595,32 @@ function getSteps() {
     {
       index: 0,
       label: 'Are you a Placer County Water Agency treated water customer? ',
-      fieldName: 'treatedCustomer',
+      name: 'treatedCustomer',
       content: <QuestionOne />
     },
     // {
     //   index: 1,
     //   label: 'Have you already started the Lawn Replacement project?',
-    //   fieldName: 'alreadyStarted',
+    //   name: 'alreadyStarted',
     //   content: <QuestionTwo />
     // },
     {
       index: 1,
       label: 'Do you plan on replacing your ENTIRE lawn with artificial turf?',
-      fieldName: 'useArtTurf',
+      name: 'useArtTurf',
       content: <QuestionTwo />
     },
     {
       index: 2,
       label:
         'What is the approximate square footage of existing lawn being replaced? Please note that any area that will be replaced with artificial turf does not qualify towards the rebate.',
-      fieldName: 'approxSqFeet',
+      name: 'approxSqFeet',
       content: <QuestionThree />
     },
     {
       index: 3,
       label: 'How is the existing lawn currently irrigated?',
-      fieldName: 'irrigMethod',
+      name: 'irrigMethod',
       content: <QuestionFour />
     }
   ]

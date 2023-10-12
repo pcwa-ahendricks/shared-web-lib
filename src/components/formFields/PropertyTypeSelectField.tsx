@@ -4,7 +4,6 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select
 } from '@mui/material'
 import {FieldProps} from 'formik'
@@ -50,19 +49,16 @@ const PropertyTypeSelectField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel htmlFor="property-type-select">Property Type</InputLabel>
+      <InputLabel id="property-type-select-label">Property Type</InputLabel>
       <Select
+        labelId="property-type-select-label"
+        label="Property Type"
+        id="property-type-select"
         value={value}
-        autoWidth={true}
+        required
+        autoWidth
         variant="outlined"
-        input={
-          <OutlinedInput
-            id="property-type-select"
-            name={name}
-            labelWidth={114}
-            error={fieldIsTouchedWithError}
-          />
-        }
+        inputProps={{name, error: fieldIsTouchedWithError}}
         onChange={handleChange}
         onBlur={handleBlur}
         SelectDisplayProps={{style: {minWidth: 120}}}
@@ -77,9 +73,13 @@ const PropertyTypeSelectField = ({
         ))}
       </Select>
       <WaitToGrow isIn={fieldIsTouchedWithError}>
-        <FormHelperText error={fieldIsTouchedWithError}>
-          {fieldIsTouchedWithError ? currentError : null}
-        </FormHelperText>
+        {fieldIsTouchedWithError ? (
+          <FormHelperText error={fieldIsTouchedWithError}>
+            <>{currentError}</>
+          </FormHelperText>
+        ) : (
+          <></>
+        )}
       </WaitToGrow>
     </FormControl>
   )

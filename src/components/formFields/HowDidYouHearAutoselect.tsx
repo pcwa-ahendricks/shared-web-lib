@@ -55,7 +55,7 @@ export default function HowDidYouHearAutocomplete({
             label="How Did You Hear About this Rebate Program"
             margin="normal"
             variant="outlined"
-            helperText={fieldIsTouchedWithError ? currentError : null}
+            helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
             error={fieldIsTouchedWithError}
             onBlur={handleBlur}
             disabled={disabled || isSubmitting}

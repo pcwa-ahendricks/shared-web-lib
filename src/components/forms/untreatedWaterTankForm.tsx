@@ -1,8 +1,6 @@
 // cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useEffect} from 'react'
-import {Divider, Grid, Theme, Typography as Type} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import {Box, Divider, Grid, Typography as Type} from '@mui/material'
 import {useFormikContext, Field} from 'formik'
 import {UntreatedWaterTankRebateFormData} from '@lib/services/formService'
 import EmailField from '@components/formFields/EmailField'
@@ -25,14 +23,19 @@ import Spacing from '@components/boxes/Spacing'
 // import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   onIneligibleChange?: (eligible: boolean) => any
   ineligible?: boolean
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const UntreatedWaterTankForm = ({
+  ineligible = false,
+  onIneligibleChange
+}: Props) => {
+  const theme = useTheme()
+  const style = {
     // formikContainer: {
     //   height: '100%',
     //   display: 'flex',
@@ -55,13 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 0,
       flexShrink: 0
     }
-  })
-)
-const UntreatedWaterTankForm = ({
-  ineligible = false,
-  onIneligibleChange
-}: Props) => {
-  const classes = useStyles()
+  }
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
 
@@ -122,7 +119,7 @@ const UntreatedWaterTankForm = ({
     <>
       {/* width: 'fit-content' // Doesn't seem to fit responsively in XS media layout. */}
       <FormBox display="flex" flexDirection="column" margin="auto" width="100%">
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type color="textSecondary" variant="h4" gutterBottom>
             Contact Information
           </Type>
@@ -230,11 +227,11 @@ const UntreatedWaterTankForm = ({
               </Grid>
             </Grid>
           </WaitToGrow>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type variant="h4" color="textSecondary" gutterBottom>
             Rebate Information
           </Type>
@@ -247,7 +244,6 @@ const UntreatedWaterTankForm = ({
                 name="untreatedCustomer"
                 inputLabel="PCWA Untreated Customer"
                 inputId="untreated-water-select"
-                labelWidth={200}
                 component={YesNoSelectField}
               />
             </Grid>
@@ -264,17 +260,17 @@ const UntreatedWaterTankForm = ({
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type color="textSecondary" variant="h4" gutterBottom>
             Acknowledge Terms & Conditions
           </Type>
           <Spacing />
           <Grid container direction="column" spacing={1}>
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Untreated-Water-Tank-Terms-and-Conditions.pdf"
@@ -304,18 +300,18 @@ const UntreatedWaterTankForm = ({
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Divider variant="middle" />
 
-        <div className={classes.formGroup}>
+        <Box sx={{...style.formGroup}}>
           <Type color="textSecondary" variant="h4" gutterBottom>
             Release of Liability & Signature
           </Type>
           <Spacing />
 
           <Grid container direction="column" spacing={1}>
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <Type variant="body1" paragraph color="primary">
                 Placer County Water Agency (PCWA) reserves the right to deny an
                 application of any participant who does not meet all
@@ -329,7 +325,7 @@ const UntreatedWaterTankForm = ({
               </Type>
             </Grid>
 
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <Type variant="caption">
                 You must sign this form by typing your name
               </Type>
@@ -340,7 +336,7 @@ const UntreatedWaterTankForm = ({
               />
             </Grid>
 
-            <Grid item xs={12} className={classes.ieFixFlexColumnDirection}>
+            <Grid item xs={12} sx={{...style.ieFixFlexColumnDirection}}>
               <Field
                 disabled={ineligible}
                 name="captcha"
@@ -348,7 +344,7 @@ const UntreatedWaterTankForm = ({
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
 
         <Spacing />
         <SubmitFormButton

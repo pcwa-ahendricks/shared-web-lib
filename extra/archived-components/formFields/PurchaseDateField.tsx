@@ -72,7 +72,7 @@ const PurchaseDateField = ({
             placeholder="mm/dd/yyyy"
             required={required}
             name={name}
-            helperText={fieldIsTouchedWithError ? currentError : null}
+            helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
             error={fieldIsTouchedWithError}
             onBlur={handleBlur}
             {...props}
@@ -89,9 +89,6 @@ const PurchaseDateField = ({
         // Deprecated - mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
         {...other}
       />
-      {/* <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText> */}
     </FormControl>
   )
 }

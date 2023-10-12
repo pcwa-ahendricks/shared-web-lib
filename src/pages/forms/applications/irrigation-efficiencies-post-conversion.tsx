@@ -1,14 +1,6 @@
 // cspell:ignore conv
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
-import {
-  Divider,
-  Grid,
-  Theme,
-  Typography as Type,
-  makeStyles,
-  createStyles,
-  Box
-} from '@material-ui/core'
+import {Divider, Grid, Typography as Type, Box} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {string, object, StringSchema, ArraySchema, SchemaOf, array} from 'yup'
 import {
@@ -49,6 +41,7 @@ import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitc
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import AttachmentField from '@components/formFields/AttachmentField'
 import PostConvIrrigEffEligibilityDialog from '@components/formFields/PostConvIrrigEffEligibilityDialog'
+import useTheme from '@hooks/useTheme'
 
 const SERVICE_URI_PATH = 'irrigation-efficiencies-post-conversion-app'
 
@@ -193,44 +186,45 @@ const initialFormValues: RebateFormData = {
   itemizedReceipts: []
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      margin: 'auto',
-      // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
-      width: '100%'
-    },
-    formGroup: {
-      flex: '0 0 auto', // IE fix
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5)
-    },
-    formGroupTitle: {
-      marginBottom: theme.spacing(3)
-    },
-    // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
-    ieFixFlexColumnDirection: {
-      flexBasis: 'auto',
-      flexGrow: 0,
-      flexShrink: 0
-    },
-    dropzoneContainer: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3)
-    },
-    liItem: {
-      listStyleType: 'disc',
-      marginBottom: 2
-    }
-  })
-)
 const IrrigationEfficienciesPostConversion = () => {
-  const classes = useStyles()
+  const theme = useTheme()
+  const style = useMemo(
+    () => ({
+      form: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: 'auto',
+        // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
+        width: '100%'
+      },
+      formGroup: {
+        flex: '0 0 auto', // IE fix
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5)
+      },
+      formGroupTitle: {
+        marginBottom: theme.spacing(3)
+      },
+      // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
+      ieFixFlexColumnDirection: {
+        flexBasis: 'auto',
+        flexGrow: 0,
+        flexShrink: 0
+      },
+      dropzoneContainer: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        marginBottom: theme.spacing(3),
+        marginTop: theme.spacing(3)
+      },
+      liItem: {
+        listStyleType: 'disc',
+        marginBottom: 2
+      }
+    }),
+    [theme]
+  )
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] =
     useState<RebateFormData>(initialFormValues)
@@ -246,7 +240,7 @@ const IrrigationEfficienciesPostConversion = () => {
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
 
-  const photoIsUploadingHandler = useCallback((isUploading) => {
+  const photoIsUploadingHandler = useCallback((isUploading: boolean) => {
     setPhotoIsUploading(isUploading)
   }, [])
 
@@ -356,13 +350,13 @@ const IrrigationEfficienciesPostConversion = () => {
                 return (
                   <ProtectRouteChange>
                     <FormValidate>
-                      <FormBox className={classes.form}>
-                        <div className={classes.formGroup}>
+                      <FormBox sx={{...style.form}}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Contact Information
                           </Type>
@@ -450,16 +444,16 @@ const IrrigationEfficienciesPostConversion = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Rebate Information
                           </Type>
@@ -484,7 +478,6 @@ const IrrigationEfficienciesPostConversion = () => {
                                 name="partsReceipts"
                                 inputLabel="Have receipts for Irrigation Efficiencies Rebate?"
                                 inputId="parts-receipts-select"
-                                labelWidth={365}
                                 component={YesNoSelectField}
                                 // onChange={partsReceipts}
                               />
@@ -498,7 +491,6 @@ const IrrigationEfficienciesPostConversion = () => {
                                 name="rebateCustomer"
                                 inputLabel="Participating in Irrigation Efficiencies Rebate Program"
                                 inputId="rebate-customer-select"
-                                labelWidth={285}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -508,7 +500,6 @@ const IrrigationEfficienciesPostConversion = () => {
                                 name="projectCompleted"
                                 inputLabel="Irrigation Efficiencies Project Completed"
                                 inputId="project-completed-select"
-                                labelWidth={311}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -521,21 +512,20 @@ const IrrigationEfficienciesPostConversion = () => {
                                 name="photosTaken"
                                 inputLabel="Have Taken Photos"
                                 inputId="have-taken-photos-select"
-                                labelWidth={155}
                                 component={YesNoSelectField}
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Post-Conversion Attachments
                           </Type>
@@ -544,21 +534,21 @@ const IrrigationEfficienciesPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Submit <strong>Five</strong> photographs
                             </Type>
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               All photographs must be in color.
                             </Type>
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Irrigation system must be photographed while
                               operating.
@@ -566,7 +556,7 @@ const IrrigationEfficienciesPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Stand far back enough to include your home,
                               street, driveway, or fence as a reference point.
@@ -574,7 +564,7 @@ const IrrigationEfficienciesPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Street number or address must be visible in{' '}
                               <strong>at least one</strong> photograph.
@@ -582,7 +572,7 @@ const IrrigationEfficienciesPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Photographs cannot be online images{' '}
                               <em>(i.e Google, Bing, etc.)</em>.
@@ -590,7 +580,7 @@ const IrrigationEfficienciesPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Altered photographs will result in application
                               being ineligible for rebate{' '}
@@ -599,7 +589,7 @@ const IrrigationEfficienciesPostConversion = () => {
                             <Type
                               component="li"
                               variant="body1"
-                              className={classes.liItem}
+                              sx={{...style.liItem}}
                             >
                               Auto irrigation control valves{' '}
                               <em>(i.e. manifolds)</em> must be included in{' '}
@@ -633,7 +623,7 @@ const IrrigationEfficienciesPostConversion = () => {
                             disabled={ineligible}
                           />
 
-                          <div className={classes.dropzoneContainer}>
+                          <Box sx={{...style.dropzoneContainer}}>
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="postConvPhotos"
@@ -642,9 +632,9 @@ const IrrigationEfficienciesPostConversion = () => {
                               onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
-                          </div>
+                          </Box>
 
-                          <div className={classes.dropzoneContainer}>
+                          <Box sx={{...style.dropzoneContainer}}>
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="itemizedReceipts"
@@ -653,17 +643,17 @@ const IrrigationEfficienciesPostConversion = () => {
                               onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
-                          </div>
-                        </div>
+                          </Box>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Acknowledge Terms & Conditions
                           </Type>
@@ -671,13 +661,13 @@ const IrrigationEfficienciesPostConversion = () => {
                             {/* <Grid
                             item
                             xs={12}
-                            className={classes.ieFixFlexColumnDirection}
+                            sx={{...style.ieFixFlexColumnDirection}}
                           >
                           </Grid> */}
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <ReviewTermsConditions
                                 pageCount={3}
@@ -704,16 +694,16 @@ const IrrigationEfficienciesPostConversion = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Release of Liability & Signature
                           </Type>
@@ -722,7 +712,7 @@ const IrrigationEfficienciesPostConversion = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               {/* [TODO] Need new wording from Cassandra. */}
                               <Type variant="body1" paragraph color="primary">
@@ -747,7 +737,7 @@ const IrrigationEfficienciesPostConversion = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Type variant="caption">
                                 You must sign this form by typing your name
@@ -762,7 +752,7 @@ const IrrigationEfficienciesPostConversion = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Field
                                 name="captcha"
@@ -771,7 +761,7 @@ const IrrigationEfficienciesPostConversion = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         {/* For debugging form reset */}
                         {/* <Button
@@ -827,7 +817,7 @@ const IrrigationEfficienciesPostConversion = () => {
       </>
     ),
     [
-      classes,
+      style,
       formIsDirty,
       formValues,
       formIsTouched,

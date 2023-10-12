@@ -1,8 +1,6 @@
 // cspell:ignore addtl mnfg USBR
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
-import {Divider, Grid, Theme, Typography as Type} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, Divider, Grid, Typography as Type} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
 import {
@@ -43,6 +41,7 @@ import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButto
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
+import useTheme from '@hooks/useTheme'
 // Loading Recaptcha with Next dynamic isn't necessary.
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
@@ -187,49 +186,50 @@ const initialFormValues: RebateFormData = {
   installPhotos: []
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    // formikContainer: {
-    //   height: '100%',
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   width: '100%'
-    // },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      margin: 'auto',
-      // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
-      width: '100%'
-    },
-    dropzoneContainer: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3)
-    },
-    formGroup: {
-      flex: '0 0 auto', // IE fix
-      marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(5)
-    },
-    formGroupTitle: {
-      marginBottom: theme.spacing(3)
-    },
-    // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
-    ieFixFlexColumnDirection: {
-      flexBasis: 'auto',
-      flexGrow: 0,
-      flexShrink: 0
-    },
-    reserveRight: {
-      marginTop: theme.spacing(3)
-    }
-  })
-)
 const WashingMachine = () => {
-  const classes = useStyles()
+  const theme = useTheme()
+  const style = useMemo(
+    () => ({
+      // formikContainer: {
+      //   height: '100%',
+      //   display: 'flex',
+      //   flexDirection: 'column',
+      //   width: '100%'
+      // },
+      form: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: 'auto',
+        // width: 'fit-content' // Doesn't seem to fit responsively in XS media layout.
+        width: '100%'
+      },
+      dropzoneContainer: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        marginBottom: theme.spacing(3),
+        marginTop: theme.spacing(3)
+      },
+      formGroup: {
+        flex: '0 0 auto', // IE fix
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5)
+      },
+      formGroupTitle: {
+        marginBottom: theme.spacing(3)
+      },
+      // IE fix - IE will shrink Flex Column layouts. Need to override any defaults.
+      ieFixFlexColumnDirection: {
+        flexBasis: 'auto',
+        flexGrow: 0,
+        flexShrink: 0
+      },
+      reserveRight: {
+        marginTop: theme.spacing(3)
+      }
+    }),
+    [theme]
+  )
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formValues, setFormValues] =
     useState<RebateFormData>(initialFormValues)
@@ -247,13 +247,16 @@ const WashingMachine = () => {
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [ineligible, setIneligible] = useState<boolean>(false)
 
-  const receiptIsUploadingHandler = useCallback((isUploading) => {
+  const receiptIsUploadingHandler = useCallback((isUploading: boolean) => {
     setReceiptIsUploading(isUploading)
   }, [])
 
-  const installPhotosIsUploadingHandler = useCallback((isUploading) => {
-    setInstallPhotosIsUploading(isUploading)
-  }, [])
+  const installPhotosIsUploadingHandler = useCallback(
+    (isUploading: boolean) => {
+      setInstallPhotosIsUploading(isUploading)
+    },
+    []
+  )
 
   const dialogCloseHandler = useCallback(() => {
     setFormSubmitDialogOpen(false)
@@ -378,13 +381,13 @@ const WashingMachine = () => {
                 return (
                   <ProtectRouteChange>
                     <FormValidate>
-                      <FormBox className={classes.form}>
-                        <div className={classes.formGroup}>
+                      <FormBox sx={{...style.form}}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Contact Information
                           </Type>
@@ -501,16 +504,16 @@ const WashingMachine = () => {
                               </Grid>
                             </Grid>
                           </WaitToGrow>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Rebate Information
                           </Type>
@@ -557,7 +560,6 @@ const WashingMachine = () => {
                                 name="treatedCustomer"
                                 inputLabel="PCWA Treated Customer"
                                 inputId="treated-water-select"
-                                labelWidth={200}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -567,7 +569,6 @@ const WashingMachine = () => {
                                 name="existingHigh"
                                 inputLabel="Existing High Efficiency Washer"
                                 inputId="existing-high-efficiency-washer-select"
-                                labelWidth={255}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -584,7 +585,6 @@ const WashingMachine = () => {
                                 name="newConstruction"
                                 inputLabel="For New Construction"
                                 inputId="for-new-construction-select"
-                                labelWidth={178}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -601,16 +601,16 @@ const WashingMachine = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Provide Attachments
                           </Type>
@@ -638,7 +638,7 @@ const WashingMachine = () => {
                             disabled={ineligible}
                           />
 
-                          <div className={classes.dropzoneContainer}>
+                          <Box sx={{...style.dropzoneContainer}}>
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="receipts"
@@ -647,9 +647,9 @@ const WashingMachine = () => {
                               onIsUploadingChange={receiptIsUploadingHandler}
                               component={AttachmentField}
                             />
-                          </div>
+                          </Box>
 
-                          <div className={classes.dropzoneContainer}>
+                          <Box sx={{...style.dropzoneContainer}}>
                             <Field
                               disabled={ineligible || emailAttachments}
                               name="installPhotos"
@@ -660,17 +660,17 @@ const WashingMachine = () => {
                               }
                               component={AttachmentField}
                             />
-                          </div>
-                        </div>
+                          </Box>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Acknowledge Terms & Conditions
                           </Type>
@@ -678,7 +678,7 @@ const WashingMachine = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <ReviewTermsConditions
                                 pageCount={2}
@@ -688,7 +688,7 @@ const WashingMachine = () => {
                               <Type
                                 variant="body1"
                                 paragraph
-                                className={classes.reserveRight}
+                                sx={{...style.reserveRight}}
                               >
                                 <em>
                                   I have read, understand, and agree to the{' '}
@@ -709,7 +709,7 @@ const WashingMachine = () => {
                               <Type
                                 variant="body1"
                                 paragraph
-                                className={classes.reserveRight}
+                                sx={{...style.reserveRight}}
                               >
                                 <em>
                                   I understand that PCWA reserves the right to
@@ -726,16 +726,16 @@ const WashingMachine = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Divider variant="middle" />
 
-                        <div className={classes.formGroup}>
+                        <Box sx={{...style.formGroup}}>
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            className={classes.formGroupTitle}
+                            sx={{...style.formGroupTitle}}
                           >
                             Release of Liability & Signature
                           </Type>
@@ -744,7 +744,7 @@ const WashingMachine = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Type variant="body1" paragraph color="primary">
                                 Placer County Water Agency (PCWA) reserves the
@@ -765,7 +765,7 @@ const WashingMachine = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Type variant="caption">
                                 You must sign this form by typing your name
@@ -780,7 +780,7 @@ const WashingMachine = () => {
                             <Grid
                               item
                               xs={12}
-                              className={classes.ieFixFlexColumnDirection}
+                              sx={{...style.ieFixFlexColumnDirection}}
                             >
                               <Field
                                 disabled={ineligible}
@@ -789,7 +789,7 @@ const WashingMachine = () => {
                               />
                             </Grid>
                           </Grid>
-                        </div>
+                        </Box>
 
                         <Spacing />
                         <SubmitFormButton
@@ -825,7 +825,7 @@ const WashingMachine = () => {
       </>
     ),
     [
-      classes,
+      style,
       formIsDirty,
       formValues,
       formIsTouched,

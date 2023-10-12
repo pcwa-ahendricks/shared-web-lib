@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {Box, BoxProps} from '@mui/material'
 import styles from './Ribbons.module.css'
 
@@ -11,16 +10,17 @@ export const RibbonContainer = ({children, className, ...rest}: BoxProps) => {
   )
 }
 
-type Props = {backgroundColor: BoxProps['bgcolor']} & Partial<BoxProps>
+type Props = {backgroundColor?: string} & Partial<BoxProps>
 
 export const RightCornerRibbon = ({
   children,
   backgroundColor,
   color,
-  fontFamily
+  fontFamily,
+  sx
 }: Props) => {
   return (
-    <Box className={styles.rightCornerRibbon}>
+    <Box className={styles.rightCornerRibbon} sx={{...sx}}>
       <svg height="70" width="70">
         <polygon
           points="0 0, 0 10, 10 10"
@@ -38,35 +38,26 @@ export const RightCornerRibbon = ({
           strokeWidth="0"
         />
       </svg>
-      <span
-        style={{color, fontFamily}}
+      <Box
+        component="span"
+        sx={{color, fontFamily}}
         className={styles.rightCornerRibbonText}
       >
         {children}
-      </span>
+      </Box>
     </Box>
   )
-}
-
-RightCornerRibbon.propTypes = {
-  children: PropTypes.any.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  fontFamily: PropTypes.string
-}
-
-RightCornerRibbon.defaultProps = {
-  fontFamily: 'Arial'
 }
 
 export const RightCornerLargeRibbon = ({
   children,
   backgroundColor,
   color,
-  fontFamily
+  fontFamily,
+  sx
 }: Props) => {
   return (
-    <Box className={styles.rightCornerLargeRibbon}>
+    <Box className={styles.rightCornerLargeRibbon} sx={{...sx}}>
       <svg height="84" width="84">
         <polygon
           points="0 0, 0 12, 12 12"
@@ -84,35 +75,26 @@ export const RightCornerLargeRibbon = ({
           strokeWidth="0"
         />
       </svg>
-      <span
-        style={{color, fontFamily}}
+      <Box
+        component="span"
+        sx={{color, fontFamily}}
         className={styles.rightCornerLargeRibbonText}
       >
         {children}
-      </span>
+      </Box>
     </Box>
   )
-}
-
-RightCornerLargeRibbon.propTypes = {
-  children: PropTypes.any.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  fontFamily: PropTypes.string
-}
-
-RightCornerLargeRibbon.defaultProps = {
-  fontFamily: 'Arial'
 }
 
 export const LeftCornerRibbon = ({
   children,
   backgroundColor,
   color,
-  fontFamily
+  fontFamily,
+  sx
 }: Props) => {
   return (
-    <Box className={styles.leftCornerRibbon}>
+    <Box className={styles.leftCornerRibbon} sx={{...sx}}>
       <svg height="70" width="70">
         <g transform="rotate(-90, 35, 35)">
           <polygon
@@ -132,32 +114,26 @@ export const LeftCornerRibbon = ({
           />
         </g>
       </svg>
-      <span style={{color, fontFamily}} className={styles.leftCornerRibbonText}>
+      <Box
+        component="span"
+        sx={{color, fontFamily}}
+        className={styles.leftCornerRibbonText}
+      >
         {children}
-      </span>
+      </Box>
     </Box>
   )
-}
-
-LeftCornerRibbon.propTypes = {
-  children: PropTypes.any.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  fontFamily: PropTypes.string
-}
-
-LeftCornerRibbon.defaultProps = {
-  fontFamily: 'Arial'
 }
 
 export const LeftCornerLargeRibbon = ({
   children,
   backgroundColor,
   color,
-  fontFamily
+  fontFamily,
+  sx
 }: Props) => {
   return (
-    <Box className={styles.leftCornerLargeRibbon}>
+    <Box className={styles.leftCornerLargeRibbon} sx={{...sx}}>
       <svg height="84" width="84">
         <g transform="rotate(-90, 42, 42)">
           <polygon
@@ -177,25 +153,15 @@ export const LeftCornerLargeRibbon = ({
           />
         </g>
       </svg>
-      <span
-        style={{color, fontFamily}}
+      <Box
+        component="span"
+        sx={{color, fontFamily}}
         className={styles.leftCornerLargeRibbonText}
       >
         {children}
-      </span>
+      </Box>
     </Box>
   )
-}
-
-LeftCornerLargeRibbon.propTypes = {
-  children: PropTypes.any.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  fontFamily: PropTypes.string
-}
-
-LeftCornerLargeRibbon.defaultProps = {
-  fontFamily: 'Arial'
 }
 
 export const RightRibbon = ({
@@ -203,10 +169,10 @@ export const RightRibbon = ({
   backgroundColor,
   color,
   fontFamily,
-  ...rest
+  sx
 }: Props) => {
   return (
-    <Box className={styles.rightRibbon} {...rest}>
+    <Box className={styles.rightRibbon} sx={{...sx}}>
       <svg height="40" width="70">
         <polygon
           points="0 10, 10 20, 0 30, 70 30, 70 10"
@@ -219,32 +185,26 @@ export const RightRibbon = ({
           strokeWidth="0"
         />
       </svg>
-      <span style={{color, fontFamily}} className={styles.rightRibbonText}>
+      <Box
+        component="span"
+        sx={{color, fontFamily}}
+        className={styles.rightRibbonText}
+      >
         {children}
-      </span>
+      </Box>
     </Box>
   )
-}
-
-RightRibbon.propTypes = {
-  children: PropTypes.any.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  fontFamily: PropTypes.string
-}
-
-RightRibbon.defaultProps = {
-  fontFamily: 'Arial'
 }
 
 export const RightLargeRibbon = ({
   children,
   backgroundColor,
   color,
-  fontFamily
+  fontFamily,
+  sx
 }: Props) => {
   return (
-    <Box className={styles.rightLargeRibbon}>
+    <Box className={styles.rightLargeRibbon} sx={{...sx}}>
       <svg height="60" width="90">
         <polygon
           points="0 15, 15 30, 0 45, 90 45, 90 15"
@@ -257,32 +217,26 @@ export const RightLargeRibbon = ({
           strokeWidth="0"
         />
       </svg>
-      <span style={{color, fontFamily}} className={styles.rightLargeRibbonText}>
+      <Box
+        component="span"
+        sx={{color, fontFamily}}
+        className={styles.rightLargeRibbonText}
+      >
         {children}
-      </span>
+      </Box>
     </Box>
   )
-}
-
-RightLargeRibbon.propTypes = {
-  children: PropTypes.any.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  fontFamily: PropTypes.string
-}
-
-RightLargeRibbon.defaultProps = {
-  fontFamily: 'Arial'
 }
 
 export const LeftRibbon = ({
   children,
   backgroundColor,
   color,
-  fontFamily
+  fontFamily,
+  sx
 }: Props) => {
   return (
-    <Box className={styles.leftRibbon}>
+    <Box className={styles.leftRibbon} sx={{...sx}}>
       <svg height="40" width="70">
         <g transform="scale(-1,1) translate(-70, 0)">
           <polygon
@@ -297,32 +251,26 @@ export const LeftRibbon = ({
           />
         </g>
       </svg>
-      <span style={{color, fontFamily}} className={styles.leftRibbonText}>
+      <Box
+        component="span"
+        sx={{color, fontFamily}}
+        className={styles.leftRibbonText}
+      >
         {children}
-      </span>
+      </Box>
     </Box>
   )
-}
-
-LeftRibbon.propTypes = {
-  children: PropTypes.any.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  fontFamily: PropTypes.string
-}
-
-LeftRibbon.defaultProps = {
-  fontFamily: 'Arial'
 }
 
 export const LeftLargeRibbon = ({
   children,
   backgroundColor,
   color,
-  fontFamily
+  fontFamily,
+  sx
 }: Props) => {
   return (
-    <Box className={styles.leftLargeRibbon}>
+    <Box className={styles.leftLargeRibbon} sx={{...sx}}>
       <svg height="60" width="90">
         <g transform="scale(-1,1) translate(-90, 0)">
           <polygon
@@ -337,20 +285,13 @@ export const LeftLargeRibbon = ({
           />
         </g>
       </svg>
-      <span style={{color, fontFamily}} className={styles.leftLargeRibbonText}>
+      <Box
+        component="span"
+        sx={{color, fontFamily}}
+        className={styles.leftLargeRibbonText}
+      >
         {children}
-      </span>
+      </Box>
     </Box>
   )
-}
-
-LeftLargeRibbon.propTypes = {
-  children: PropTypes.any.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  fontFamily: PropTypes.string
-}
-
-LeftLargeRibbon.defaultProps = {
-  fontFamily: 'Arial'
 }

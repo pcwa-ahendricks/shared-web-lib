@@ -15,21 +15,18 @@ import {
   Link as MuiLink,
   MenuItem,
   Divider,
-  useTheme,
-  Theme,
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  SelectChangeEvent
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
 import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
-import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import MainPhone from '@components/links/MainPhone'
 import CollectionsPhone from '@components/links/CollectionsPhone'
+import useTheme from '@hooks/useTheme'
 
 type Languages =
   | 'english'
@@ -39,51 +36,20 @@ type Languages =
   | 'vietnamese'
   | 'tagalog'
 
-const crossFadeDuration = 1000 * 0.3 // 300 milliseconds
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const ShutoffProtectionPage = () => {
+  const theme = useTheme()
+  const style = {
     formControl: {
       margin: theme.spacing(1),
       minWidth: 200
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2)
-    },
-    trans: {
-      '& .cross-fade-leave': {
-        opacity: 1,
-        transition: `opacity ${crossFadeDuration}ms linear`
-      },
-      '& .cross-fade-leave.cross-fade-leave-active': {
-        opacity: 0
-      },
-      '& .cross-fade-enter': {
-        opacity: 0,
-        transition: `opacity ${crossFadeDuration}ms linear`
-      },
-      '& .cross-fade-enter.cross-fade-enter-active': {
-        opacity: 1
-      },
-      '&.cross-fade-height': {
-        transition: `height ${crossFadeDuration}ms ease-in-out`
-      }
     }
-  })
-)
-
-const ShutoffProtectionPage = () => {
-  const theme = useTheme()
-  const classes = useStyles()
+  }
   const [language, setLanguage] = useState<Languages>('english')
 
-  const languageChangeHandler = useCallback(
-    ({target}: React.ChangeEvent<{value: unknown}>) => {
-      const {value} = target
-      setLanguage(value as Languages)
-    },
-    []
-  )
+  const languageChangeHandler = useCallback(({target}: SelectChangeEvent) => {
+    const {value} = target
+    setLanguage(value as Languages)
+  }, [])
 
   const documents: {language: Languages; Component: JSX.Element}[] = useMemo(
     () => [
@@ -1130,7 +1096,7 @@ const ShutoffProtectionPage = () => {
             <Divider />
           </Spacing> */}
 
-          <FormControl variant="standard" className={classes.formControl}>
+          <FormControl variant="standard" sx={{...style.formControl}}>
             <InputLabel id="language-select-label">
               Select your Language
             </InputLabel>
@@ -1152,16 +1118,9 @@ const ShutoffProtectionPage = () => {
 
           <Spacing size="x-large" />
 
-          <ReactCSSTransitionReplace
-            className={classes.trans}
-            transitionName="cross-fade"
-            transitionEnterTimeout={crossFadeDuration}
-            transitionLeaveTimeout={crossFadeDuration}
-          >
-            <Box key={selectedDocuments?.language}>
-              {selectedDocuments?.Component}
-            </Box>
-          </ReactCSSTransitionReplace>
+          <Box key={selectedDocuments?.language}>
+            {selectedDocuments?.Component}
+          </Box>
 
           <Spacing factor={2} />
           <Type variant="h3">Treated Water Shutoffs</Type>

@@ -1,50 +1,49 @@
 import React from 'react'
-import {
-  Box,
-  Typography as Type,
-  BoxProps,
-  TypographyProps,
-  useTheme
-} from '@mui/material'
-
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    type: {
-      fontSize: 'inherit'
-    }
-  })
-)
+import {Box, Typography as Type, BoxProps, TypographyProps} from '@mui/material'
+import useTheme from '@hooks/useTheme'
 
 const Blockquote = ({
   children,
   italic = true,
   spacing,
   boxProps,
+  sx,
   ...rest
 }: {
   children: React.ReactNode
   italic?: boolean
   spacing?: number
   boxProps?: BoxProps
-  rest?: TypographyProps
-}) => {
+} & TypographyProps) => {
   const theme = useTheme()
-  const classes = useStyles()
+
   return (
     <Box
-      fontSize="1.2em"
       paddingLeft={8}
-      borderLeft={theme.spacing(1)}
-      borderColor={theme.palette.grey['200']}
       mt={spacing ?? 4}
       mb={spacing ?? 4}
+      sx={{
+        borderWidth: 0,
+        borderLeftWidth: theme.spacing(1),
+        borderRadius: 0,
+        borderColor: theme.palette.grey['200'],
+        borderStyle: 'solid'
+      }}
       {...boxProps}
     >
-      <Type component="blockquote" paragraph className={classes.type} {...rest}>
-        {italic ? <em>{children}</em> : {children}}
+      <Type
+        component="blockquote"
+        paragraph
+        sx={{fontSize: '1.3rem', ...sx}}
+        {...rest}
+      >
+        {italic ? (
+          <Box component="em" sx={{fontSize: '1.3rem'}}>
+            {children}
+          </Box>
+        ) : (
+          children
+        )}
       </Type>
     </Box>
   )

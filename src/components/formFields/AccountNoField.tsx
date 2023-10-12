@@ -22,8 +22,8 @@ const AccountNoField = ({
 
   // Trim whitespace.
   const changeHandler = useCallback(
-    (evt) => {
-      const {value = ''} = evt.target ?? {}
+    (evt?: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const {value = ''} = evt?.target ?? {}
       setValue(value.trim())
     },
     [setValue]
@@ -40,7 +40,7 @@ const AccountNoField = ({
       // placeholder="XXXX-XXXXX"
       variant="outlined"
       margin="normal"
-      helperText={fieldIsTouchedWithError ? error : null}
+      helperText={fieldIsTouchedWithError ? <>{error}</> : null}
       error={fieldIsTouchedWithError}
       onChange={changeHandler}
       onBlur={onBlur}

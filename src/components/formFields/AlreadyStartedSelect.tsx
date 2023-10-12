@@ -108,7 +108,7 @@ const AlreadyStartedSelect = ({
         <WaitToGrow isIn={fieldIsTouchedWithError}>
           {fieldIsTouchedWithError ? (
             <FormHelperText error={fieldIsTouchedWithError}>
-              currentError
+              <>{currentError}</>
             </FormHelperText>
           ) : (
             <></>

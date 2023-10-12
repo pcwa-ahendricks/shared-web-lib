@@ -564,7 +564,6 @@ const LawnReplacement = () => {
                                 name="treatedCustomer"
                                 inputLabel="PCWA Treated Customer"
                                 inputId="treated-water-select"
-                                labelWidth={200}
                                 component={YesNoSelectField}
                               />
                             </Grid>

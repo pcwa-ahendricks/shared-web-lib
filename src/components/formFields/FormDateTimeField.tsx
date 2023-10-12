@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {useField, useFormikContext} from 'formik'
-import {DateTimePicker} from '@mui/x-date-pickers-pro'
-import {TextField, TextFieldProps, useMediaQuery, useTheme} from '@mui/material'
+import {FieldProps, useField, useFormikContext} from 'formik'
+import {DateTimePicker, DateTimePickerProps} from '@mui/x-date-pickers-pro'
+import {TextFieldProps, useMediaQuery, useTheme} from '@mui/material'
 
-type Props = Partial<React.ComponentProps<typeof DateTimePicker>>
+type Props = Partial<DateTimePickerProps<any>> &
+  Partial<TextFieldProps> &
+  Partial<FieldProps<any>>
 
 const FormDateTimeField = ({disabled, ...other}: Props) => {
   const {isSubmitting, setFieldValue} = useFormikContext<any>()
@@ -34,16 +36,15 @@ const FormDateTimeField = ({disabled, ...other}: Props) => {
 
   return (
     <DateTimePicker
-      renderInput={(props: TextFieldProps) => (
-        <TextField
-          fullWidth={isXs}
-          name={name}
-          helperText={fieldIsTouchedWithError ? error : null}
-          error={fieldIsTouchedWithError}
-          onBlur={onBlur}
-          {...props}
-        />
-      )}
+      slotProps={{
+        textField: {
+          fullWidth: isXs,
+          helperText: fieldIsTouchedWithError ? error : null,
+          error: fieldIsTouchedWithError,
+          onBlur,
+          name
+        }
+      }}
       disabled={disabled || isSubmitting}
       value={value || null}
       onChange={(date) => setFieldValue(name, date, false)}

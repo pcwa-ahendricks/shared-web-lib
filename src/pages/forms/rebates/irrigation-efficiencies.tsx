@@ -565,7 +565,6 @@ const IrrigationEfficiencies = () => {
                                 name="treatedCustomer"
                                 inputLabel="PCWA Treated Customer"
                                 inputId="treated-water-select"
-                                labelWidth={200}
                                 component={YesNoSelectField}
                               />
                             </Grid>
@@ -710,7 +709,7 @@ const IrrigationEfficiencies = () => {
                             {/* <Grid
                             item
                             xs={12}
-                            className={classes.ieFixFlexColumnDirection}
+                            sx={{...style.ieFixFlexColumnDirection}}
                           >
                           </Grid> */}
                             <Grid

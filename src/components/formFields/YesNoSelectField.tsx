@@ -4,11 +4,10 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select
 } from '@mui/material'
 import {OutlinedInputProps} from '@mui/material/OutlinedInput'
-import {SelectProps} from '@mui/material/Select'
+import {SelectChangeEvent, SelectProps} from '@mui/material/Select'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
@@ -17,15 +16,9 @@ type Props = {
   fullWidth?: boolean
   disabled?: boolean
   inputId?: OutlinedInputProps['id']
-  labelWidth?: number
   SelectDisplayProps?: SelectProps['SelectDisplayProps']
   required?: boolean
-  onChange?: (
-    e: React.ChangeEvent<{
-      name?: string | undefined
-      value: unknown
-    }>
-  ) => void
+  onChange?: (e: SelectChangeEvent) => void
 } & FieldProps<any>
 export type {Props as YesNoSelectFieldProps}
 
@@ -39,7 +32,6 @@ const YesNoSelectField = ({
   fullWidth = true,
   disabled = false,
   inputId = 'form-select-id',
-  labelWidth = 0, // Material-UI default.
   SelectDisplayProps = {style: {minWidth: 50}}, // Adequate minimum.
   onChange,
   ...other
@@ -60,7 +52,7 @@ const YesNoSelectField = ({
 
   // Don't wait for onBlur event to trigger touched/validation errors. Using setFieldTouched() to immediately show validation errors if invalid option is selected.
   const changeHandler = useCallback(
-    (evt: React.ChangeEvent<any>) => {
+    (evt: SelectChangeEvent) => {
       handleChange(evt)
       setFieldTouched(name, true, true)
       onChange?.(evt)
@@ -78,19 +70,16 @@ const YesNoSelectField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel htmlFor={inputId}>{inputLabel}</InputLabel>
+      <InputLabel id={`${inputId}-label`}>{inputLabel}</InputLabel>
       <Select
+        labelId={`${inputId}-label`}
+        label={inputLabel}
+        id={inputId}
         value={value}
-        autoWidth={true}
+        required={required}
+        autoWidth
         variant="outlined"
-        input={
-          <OutlinedInput
-            id={inputId}
-            name={name}
-            labelWidth={labelWidth}
-            error={fieldIsTouchedWithError}
-          />
-        }
+        inputProps={{name, error: fieldIsTouchedWithError}}
         onChange={changeHandler}
         onBlur={handleBlur}
         SelectDisplayProps={SelectDisplayProps}
@@ -102,9 +91,13 @@ const YesNoSelectField = ({
         ))}
       </Select>
       <WaitToGrow isIn={fieldIsTouchedWithError}>
-        <FormHelperText error={fieldIsTouchedWithError}>
-          {fieldIsTouchedWithError ? currentError : null}
-        </FormHelperText>
+        {fieldIsTouchedWithError ? (
+          <FormHelperText error={fieldIsTouchedWithError}>
+            <>{currentError}</>
+          </FormHelperText>
+        ) : (
+          <></>
+        )}
       </WaitToGrow>
     </FormControl>
   )

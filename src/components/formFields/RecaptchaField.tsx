@@ -50,7 +50,7 @@ const RecaptchaField = ({
   }, [value, resetCaptcha])
 
   const recaptchaChangeHandler = useCallback(
-    (response) => {
+    (response: string | null) => {
       setFieldValue(name, response)
     },
     [name, setFieldValue]
@@ -85,7 +85,7 @@ const RecaptchaField = ({
           />
 
           <FormHelperText error={fieldHasError}>
-            {fieldHasError ? currentError : ''}
+            {fieldHasError ? <>{currentError}</> : ''}
           </FormHelperText>
         </FormControl>
       ),

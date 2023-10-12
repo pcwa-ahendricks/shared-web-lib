@@ -5,7 +5,8 @@ import {
   InputLabel,
   MenuItem,
   OutlinedInput,
-  Select
+  Select,
+  SelectChangeEvent
 } from '@mui/material'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
@@ -44,7 +45,7 @@ const IrrigationTypesSelect = ({
 
   // Don't wait for onBlur event to trigger touched/validation errors. Using setFieldTouched() to immediately show validation errors if invalid option is selected.
   const changeHandler = useCallback(
-    (evt: React.ChangeEvent<any>) => {
+    (evt: SelectChangeEvent) => {
       handleChange(evt)
       setFieldTouched(name, true, true)
     },
@@ -72,7 +73,6 @@ const IrrigationTypesSelect = ({
           <OutlinedInput
             id="irrigation-method-select"
             name={name}
-            labelWidth={147}
             error={fieldIsTouchedWithError}
           />
         }
@@ -90,9 +90,13 @@ const IrrigationTypesSelect = ({
         ))}
       </Select>
       <WaitToGrow isIn={fieldIsTouchedWithError}>
-        <FormHelperText error={fieldIsTouchedWithError}>
-          {fieldIsTouchedWithError ? currentError : null}
-        </FormHelperText>
+        {fieldIsTouchedWithError ? (
+          <FormHelperText error={fieldIsTouchedWithError}>
+            <>{currentError}</>
+          </FormHelperText>
+        ) : (
+          <></>
+        )}
       </WaitToGrow>
     </FormControl>
   )

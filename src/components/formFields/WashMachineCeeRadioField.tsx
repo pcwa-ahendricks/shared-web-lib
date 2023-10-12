@@ -7,31 +7,17 @@ import {
   Link,
   Radio,
   RadioGroup,
-  Theme,
   Typography as Type
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+
 import {FieldProps} from 'formik'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   // onChange?: (Array<any>) => void,
   fullWidth?: boolean
   disabled?: boolean
 } & FieldProps<any>
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    group: {
-      marginTop: theme.spacing(2),
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2)
-    },
-    formLabel: {
-      lineHeight: 1.25 // Default is 1 and it appears to cramped.
-    }
-  })
-)
 
 const WashMachineCeeRadioField = ({
   field,
@@ -40,7 +26,17 @@ const WashMachineCeeRadioField = ({
   disabled = false,
   ...other
 }: Props) => {
-  const classes = useStyles()
+  const theme = useTheme()
+  const style = {
+    group: {
+      marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2)
+    },
+    formLabel: {
+      lineHeight: 1.25 // Default is 1 and it appears to cramped.
+    }
+  }
   const {name, value} = field
   const {
     errors,
@@ -94,7 +90,7 @@ const WashMachineCeeRadioField = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <FormLabel component="span" classes={{root: classes.formLabel}}>
+      <FormLabel component="span" sx={{...style.formLabel}}>
         <Type variant="body1" component="span">
           Does the new Washing Machine have a CEE Advanced tier, tier 1 or tier
           2 water factor? Check here:{' '}
@@ -111,7 +107,7 @@ const WashMachineCeeRadioField = ({
       <RadioGroup
         aria-label="CEE Tier 3 Water Factor"
         name={name}
-        className={classes.group}
+        sx={{...style.group}}
         value={value}
         onChange={changeHandler}
       >
@@ -125,9 +121,11 @@ const WashMachineCeeRadioField = ({
         ))}
       </RadioGroup>
 
-      <FormHelperText error={fieldIsTouchedWithError}>
-        {fieldIsTouchedWithError ? currentError : null}
-      </FormHelperText>
+      {fieldIsTouchedWithError ? (
+        <FormHelperText error={fieldIsTouchedWithError}>
+          <>{currentError}</>
+        </FormHelperText>
+      ) : null}
     </FormControl>
   )
 }
