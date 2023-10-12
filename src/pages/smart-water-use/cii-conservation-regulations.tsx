@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -11,11 +11,8 @@ import {
   ListItemTextProps,
   Link,
   Divider,
-  useMediaQuery,
-  useTheme
+  useMediaQuery
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import ListBulletItem, {
   ListBulletItemProps
 } from '@components/lists/ListBulletItem'
@@ -26,6 +23,7 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, RowBox} from '@components/MuiSleazebox'
+import useTheme from '@hooks/useTheme'
 
 const imgixImages = [
   'f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg',
@@ -34,47 +32,46 @@ const imgixImages = [
   'f44a4c90-0207-11ed-b7be-d956591ad437-Soccer-field-grass.jpg'
 ]
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    listItemBullet: {
-      minWidth: theme.spacing(5)
-    },
-    noTopBottomMargin: {
-      marginBottom: 0,
-      marginTop: 0
-    },
-    noBottomPadding: {
-      paddingBottom: 0
-    }
-  })
-)
-
 export default function CiiConservationRegulationsPage({
   placeholders
 }: {
   placeholders?: Placeholders
 }) {
-  const classes = useStyles()
+  const theme = useTheme()
+  const style = useMemo(
+    () => ({
+      listItemBullet: {
+        minWidth: theme.spacing(5)
+      },
+      noTopBottomMargin: {
+        marginBottom: 0,
+        marginTop: 0
+      },
+      noBottomPadding: {
+        paddingBottom: 0
+      }
+    }),
+    [theme]
+  )
   usePlaceholders(placeholders)
 
   const Li = useCallback(
     ({children, ...rest}: ListBulletItemProps) => (
-      <ListBulletItem classes={{root: classes.noBottomPadding}} {...rest}>
+      <ListBulletItem sx={{...style.noBottomPadding}} {...rest}>
         {children}
       </ListBulletItem>
     ),
-    [classes]
+    [style]
   )
 
   const LiBody = useCallback(
     ({children, ...rest}: ListItemTextProps) => (
-      <ListItemText classes={{root: classes.noTopBottomMargin}} {...rest}>
+      <ListItemText sx={{...style.noTopBottomMargin}} {...rest}>
         {children}
       </ListItemText>
     ),
-    [classes]
+    [style]
   )
-  const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (

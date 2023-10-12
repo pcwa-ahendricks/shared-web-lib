@@ -9,46 +9,24 @@ import {
   Typography as Type,
   Box,
   Link,
-  ListItem,
   ListItemText,
   ListSubheader,
-  ListItemProps,
-  // Theme
-  Divider
+  Divider,
+  ListItemButton,
+  ListItemButtonProps
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/legacy/image'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    listItemText: {
-      margin: 0
-    }
-  })
-)
-
 const LinksPage = () => {
-  const classes = useStyles()
-
-  // const ExtLink = ({children, ...rest}: LinkProps) => {
-  //   return (
-  //     <Link {...rest} target="_blank" rel="noopener noreferrer">
-  //       {children}
-  //     </Link>
-  //   )
-  // }
-
   const ExtLinkListItem = ({
     children,
     href,
     ...rest
-  }: ListItemProps<'a', {button?: true}>) => {
+  }: ListItemButtonProps<'a', {button?: true}>) => {
     return (
-      <ListItem
-        button
+      <ListItemButton
         component="a"
         href={href}
         target="_blank"
@@ -56,12 +34,9 @@ const LinksPage = () => {
         {...rest}
       >
         {/* <ExtLink >{children}</ExtLink> */}
-        <ListItemText
-          primary={children}
-          classes={{root: classes.listItemText}}
-        />
+        <ListItemText primary={children} sx={{margin: 0}} />
         {/* {children} */}
-      </ListItem>
+      </ListItemButton>
     )
   }
 
@@ -125,7 +100,10 @@ const LinksPage = () => {
                     disablePadding
                     aria-labelledby="placer-county-subheader"
                     subheader={
-                      <ListSubheader component="div">
+                      <ListSubheader
+                        component="div"
+                        sx={{backgroundColor: 'inherit'}}
+                      >
                         <Type
                           color="textPrimary"
                           variant="subtitle1"
@@ -202,7 +180,10 @@ const LinksPage = () => {
                     disablePadding
                     aria-labelledby="how-to-save-water-subheader"
                     subheader={
-                      <ListSubheader component="div">
+                      <ListSubheader
+                        component="div"
+                        sx={{backgroundColor: 'inherit'}}
+                      >
                         <Type
                           color="textPrimary"
                           variant="subtitle1"
@@ -243,7 +224,10 @@ const LinksPage = () => {
                     disablePadding
                     aria-labelledby="recreational-subheader"
                     subheader={
-                      <ListSubheader component="div">
+                      <ListSubheader
+                        component="div"
+                        sx={{backgroundColor: 'inherit'}}
+                      >
                         <Type
                           color="textPrimary"
                           variant="subtitle1"
@@ -268,7 +252,10 @@ const LinksPage = () => {
                     disablePadding
                     aria-labelledby="water-districts-subheader"
                     subheader={
-                      <ListSubheader component="div">
+                      <ListSubheader
+                        component="div"
+                        sx={{backgroundColor: 'inherit'}}
+                      >
                         <Type
                           color="textPrimary"
                           variant="subtitle1"
@@ -297,7 +284,10 @@ const LinksPage = () => {
                     disablePadding
                     aria-labelledby="regional-subheader"
                     subheader={
-                      <ListSubheader component="div">
+                      <ListSubheader
+                        component="div"
+                        sx={{backgroundColor: 'inherit'}}
+                      >
                         <Type
                           color="textPrimary"
                           variant="subtitle1"
@@ -335,7 +325,10 @@ const LinksPage = () => {
                     disablePadding
                     aria-labelledby="state-subheader"
                     subheader={
-                      <ListSubheader component="div">
+                      <ListSubheader
+                        component="div"
+                        sx={{backgroundColor: 'inherit'}}
+                      >
                         <Type
                           color="textPrimary"
                           variant="subtitle1"
@@ -374,7 +367,10 @@ const LinksPage = () => {
                     disablePadding
                     aria-labelledby="national-subheader"
                     subheader={
-                      <ListSubheader component="div">
+                      <ListSubheader
+                        component="div"
+                        sx={{backgroundColor: 'inherit'}}
+                      >
                         <Type
                           color="textPrimary"
                           variant="subtitle1"

@@ -4,9 +4,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Typography as Type,
-  Theme,
   Box,
-  useTheme,
   Table,
   TableHead,
   TableRow,
@@ -14,8 +12,6 @@ import {
   TableBody,
   Link
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
 import MainPhone from '@components/links/MainPhone'
@@ -25,9 +21,11 @@ import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import {stringify} from 'querystringify'
+import useTheme from '@hooks/useTheme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const RateAdjustFAQ = () => {
+  const theme = useTheme()
+  const style = {
     expansionPanel: {
       backgroundColor: theme.palette.common.white
     },
@@ -36,19 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
       // flexBasis: '33.33%',
       // flexShrink: 0
     }
-  })
-)
-
-const RateAdjustFAQ = () => {
-  const classes = useStyles()
+  }
   const [expanded, setExpanded] = useState<string | false>(false)
 
   const handleChange = useCallback(
     (panel: string) =>
-      (
-        _event: React.ChangeEvent<Record<string, unknown>>,
-        isExpanded: boolean
-      ) => {
+      (_event: React.SyntheticEvent<Element, Event>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false)
       },
     []
@@ -58,8 +49,6 @@ const RateAdjustFAQ = () => {
       cost.toLocaleString(undefined, {style: 'currency', currency: 'USD'}),
     []
   )
-
-  const theme = useTheme<Theme>()
 
   // const [show, setShow] = useState<String | null>()
 
@@ -85,7 +74,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel1'}
         onChange={handleChange('panel1')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -118,7 +107,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel2'}
         onChange={handleChange('panel2')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -140,7 +129,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel3'}
         onChange={handleChange('panel3')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -164,7 +153,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel4'}
         onChange={handleChange('panel4')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -188,7 +177,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel5'}
         onChange={handleChange('panel5')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -278,9 +267,11 @@ const RateAdjustFAQ = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/0b2b4ae0-9976-11ec-8bb7-91577e4f4933-Slide1.jpeg"
                     mediaName="Colfax WTP"
-                    mediaPreviewDialogProps={{
-                      width: 1440,
-                      height: 810,
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 1440,
+                        height: 810
+                      },
                       children: (
                         <Box p={2}>
                           <Type variant="body1">
@@ -314,9 +305,11 @@ const RateAdjustFAQ = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/0b299d30-9976-11ec-8bb7-91577e4f4933-Slide2.jpeg"
                     mediaName="Foothill Water Treatment Plant Grit Screen Replacement"
-                    mediaPreviewDialogProps={{
-                      width: 1440,
-                      height: 810,
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 1440,
+                        height: 810
+                      },
                       children: (
                         <Box p={2}>
                           <Type variant="body1">
@@ -378,9 +371,11 @@ const RateAdjustFAQ = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/0b3e5db0-9976-11ec-8bb7-91577e4f4933-Slide3.jpeg"
                     mediaName="High Street Water Main Replacement, Auburn"
-                    mediaPreviewDialogProps={{
-                      width: 1440,
-                      height: 810,
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 1440,
+                        height: 810
+                      },
                       children: (
                         <Box p={2}>
                           <Type variant="body1">
@@ -416,9 +411,11 @@ const RateAdjustFAQ = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/0b3b7780-9976-11ec-8bb7-91577e4f4933-Slide4.jpeg"
                     mediaName="Midas Avenue Water Main Replacement, Rocklin"
-                    mediaPreviewDialogProps={{
-                      width: 1440,
-                      height: 810,
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 1440,
+                        height: 810
+                      },
                       children: (
                         <Box p={2}>
                           <Type variant="body1">
@@ -455,9 +452,11 @@ const RateAdjustFAQ = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/0b400b60-9976-11ec-8bb7-91577e4f4933-Slide6.jpeg"
                     mediaName="Interstate 80 Water Crossing Improvement Program"
-                    mediaPreviewDialogProps={{
-                      width: 1440,
-                      height: 810,
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 1440,
+                        height: 810
+                      },
                       children: (
                         <Box p={2}>
                           <Type variant="body1">
@@ -493,9 +492,11 @@ const RateAdjustFAQ = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/0b40f5c0-9976-11ec-8bb7-91577e4f4933-Slide5.jpeg"
                     mediaName="Kilmer Siphon Replacement, Colfax"
-                    mediaPreviewDialogProps={{
-                      width: 1440,
-                      height: 810,
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 1440,
+                        height: 810
+                      },
                       children: (
                         <Box p={2}>
                           <Type variant="body1">
@@ -559,9 +560,11 @@ const RateAdjustFAQ = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/0b425550-9976-11ec-8bb7-91577e4f4933-Slide7.jpeg"
                     mediaName="Tank Renewal and Replacement"
-                    mediaPreviewDialogProps={{
-                      width: 1440,
-                      height: 810,
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 1440,
+                        height: 810
+                      },
                       children: (
                         <Box p={2}>
                           <Type variant="body1">
@@ -626,9 +629,11 @@ const RateAdjustFAQ = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/0b381c20-9976-11ec-8bb7-91577e4f4933-Slide8.jpeg"
                     mediaName="Pump Station Renewal and Replacement"
-                    mediaPreviewDialogProps={{
-                      width: 1440,
-                      height: 810,
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 1440,
+                        height: 810
+                      },
                       children: (
                         <Box p={2}>
                           <Type variant="body1">
@@ -675,7 +680,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel6'}
         onChange={handleChange('panel6')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -705,7 +710,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel7'}
         onChange={handleChange('panel7')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -745,7 +750,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel8'}
         onChange={handleChange('panel8')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -837,7 +842,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel9'}
         onChange={handleChange('panel9')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -903,7 +908,7 @@ const RateAdjustFAQ = () => {
       <Accordion
         expanded={expanded === 'panel10'}
         onChange={handleChange('panel10')}
-        classes={{root: classes.expansionPanel}}
+        sx={{...style.expansionPanel}}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

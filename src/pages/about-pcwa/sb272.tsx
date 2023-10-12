@@ -11,21 +11,19 @@ import {
   TableCell,
   Toolbar,
   Typography as Type,
-  Theme,
   Link,
-  useTheme,
   TypographyProps
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import SectionBox from '@components/boxes/SectionBox'
 import WideContainer from '@components/containers/WideContainer'
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded'
 import {RowBox} from '@components/MuiSleazebox'
+import useTheme from '@hooks/useTheme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const Sb272Page = () => {
+  const theme = useTheme()
+  const style = {
     headerIcon: {
       marginRight: theme.spacing(1),
       verticalAlign: 'middle'
@@ -35,23 +33,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     bulletLi: {
       listStyleType: 'none',
-      marginBottom: 4
+      marginBottom: '4px'
       // '&::marker': {
       //   fontSize: '1rem'
       // }
     }
-  })
-)
-
-const Sb272Page = () => {
-  const theme = useTheme()
-  const classes = useStyles()
+  }
 
   const lastReviewDate = 'January, 2023'
 
   const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
-      <Type component="li" className={classes.bulletLi} {...rest}>
+      <Type component="li" sx={{...style.bulletLi}} {...rest}>
         {children}
       </Type>
     )
@@ -153,13 +146,13 @@ const Sb272Page = () => {
           >
             <Toolbar>
               <RowBox alignItems="center">
-                <StorageRoundedIcon className={classes.headerIcon} />
+                <StorageRoundedIcon sx={{...style.headerIcon}} />
                 <Type variant="h6" id="tableTitle">
                   Enterprise Systems
                 </Type>
               </RowBox>
             </Toolbar>
-            <Box className={classes.tableContainer}>
+            <Box sx={{...style.tableContainer}}>
               <Table
                 aria-label="enterprise-systems-table"
                 aria-labelledby="tableTitle"

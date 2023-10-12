@@ -1,47 +1,49 @@
 // cspell:ignore firewise ondemand
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {
   ListItemText,
   Box,
   Typography as Type,
   List,
   ListItem,
-  makeStyles,
   ListSubheader,
   Button,
   ListItemIcon,
   ListItemIconProps,
   Paper
-} from '@material-ui/core'
+} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
-
-const useStyles = makeStyles((theme) => ({
-  listItem: {
-    paddingBottom: 0
-  },
-  listItemBullet: {
-    minWidth: theme.spacing(5)
-  }
-}))
+import useTheme from '@hooks/useTheme'
 
 const StateOfOurWaterWebinarPage = () => {
-  const classes = useStyles()
+  const theme = useTheme()
+  const style = useMemo(
+    () => ({
+      listItem: {
+        paddingBottom: 0
+      },
+      listItemBullet: {
+        minWidth: theme.spacing(5)
+      }
+    }),
+    [theme]
+  )
 
   const ListItemBullet = useCallback(
     ({children, ...rest}: ListItemIconProps) => {
       return (
-        <ListItemIcon classes={{root: classes.listItemBullet}} {...rest}>
+        <ListItemIcon sx={{...style.listItemBullet}} {...rest}>
           <BulletIcon fontSize="large" />
         </ListItemIcon>
       )
     },
-    [classes]
+    [style]
   )
   return (
     <PageLayout
@@ -115,23 +117,23 @@ const StateOfOurWaterWebinarPage = () => {
                   <ListSubheader style={{fontSize: '1rem'}}>
                     Discussion topics explored:
                   </ListSubheader>
-                  <ListItem classes={{root: classes.listItem}}>
+                  <ListItem sx={{...style.listItem}}>
                     <ListItemBullet />
                     <ListItemText primary="The crucial question, “Are we really out of the drought?" />
                   </ListItem>
-                  <ListItem classes={{root: classes.listItem}}>
+                  <ListItem sx={{...style.listItem}}>
                     <ListItemBullet />
                     <ListItemText primary="How PCWA measures water supply utilizing the latest technology" />
                   </ListItem>
-                  <ListItem classes={{root: classes.listItem}}>
+                  <ListItem sx={{...style.listItem}}>
                     <ListItemBullet />
                     <ListItemText primary="Results of PCWA's April 1 snow survey" />
                   </ListItem>
-                  <ListItem classes={{root: classes.listItem}}>
+                  <ListItem sx={{...style.listItem}}>
                     <ListItemBullet />
                     <ListItemText primary="Melt rates and the projected impacts of climate change" />
                   </ListItem>
-                  <ListItem classes={{root: classes.listItem}}>
+                  <ListItem sx={{...style.listItem}}>
                     <ListItemBullet />
                     <ListItemText primary="Rebates and services available from PCWA to help customers use water wisely" />
                   </ListItem>

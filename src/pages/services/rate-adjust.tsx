@@ -3,7 +3,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
-  useTheme,
   Typography as Type,
   Box,
   Link
@@ -18,6 +17,7 @@ import WideContainer from '@components/containers/WideContainer'
 // import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import Spacing from '@components/boxes/Spacing'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
+import useTheme from '@hooks/useTheme'
 
 const RateAdjustPage = () => {
   const theme = useTheme()

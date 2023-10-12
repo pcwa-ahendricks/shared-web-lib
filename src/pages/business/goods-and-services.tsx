@@ -5,29 +5,23 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {Typography as Type, Divider, Link, TypographyProps} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import PurchasingEmail from '@components/links/PurchasingEmail'
 import AccountsPayableEmail from '@components/links/AccountsPayableEmail'
 import PublicPurchaseIframe from '@components/PublicPurchaseIframe/PublicPurchaseIframe'
 
-const useStyles = makeStyles(() =>
-  createStyles({
+const GoodsAndServicesPage = () => {
+  const style = {
     leakItem: {
       listStyleType: 'none',
-      marginBottom: 10
+      marginBottom: '10px'
     }
-  })
-)
-
-const GoodsAndServicesPage = () => {
-  const classes = useStyles()
+  }
 
   const RegStepItem = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
-      <Type component="li" className={classes.leakItem} {...rest}>
+      <Type component="li" sx={{...style.leakItem}} {...rest}>
         {children}
       </Type>
     )

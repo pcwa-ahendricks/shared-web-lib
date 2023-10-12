@@ -17,7 +17,6 @@ import {
   TableHead,
   TableBody
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import Link from 'next/link'
 import {yellow} from '@mui/material/colors'
 import Spacing from '@components/boxes/Spacing'
@@ -29,12 +28,6 @@ interface MeetingDatesMetadata {
   time: string
   notes: string
 }
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 500
-  }
-})
 
 const refreshInterval = 1000 * 60 * 2 // Two minute interval.
 const meetingDatesParams = {
@@ -48,8 +41,6 @@ const meetingDatesQs = stringify({...meetingDatesParams}, true)
 const meetingDatesUrl = `/api/cosmic/objects${meetingDatesQs}`
 
 export default function BasicTemplatePage() {
-  const classes = useStyles()
-
   const {data: meetingDatesData} = useSWR<
     CosmicObjectResponse<MeetingDatesMetadata>
   >(meetingDatesUrl, {refreshInterval})
@@ -75,7 +66,6 @@ export default function BasicTemplatePage() {
         })) ?? [],
     [meetingDatesData, parseFn]
   )
-  console.log(boardMeetings)
 
   return (
     <PageLayout title="Board Meeting Dates (subject to change)" waterSurface>
@@ -102,7 +92,9 @@ export default function BasicTemplatePage() {
               <Typography variant="h4">Future Board Dates</Typography>
             </Box> */}
             <Table
-              className={classes.table}
+              sx={{
+                minWidth: 500
+              }}
               aria-label="Board Meeting Dates Table"
             >
               <TableHead>

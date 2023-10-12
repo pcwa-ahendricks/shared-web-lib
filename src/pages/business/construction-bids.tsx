@@ -14,12 +14,8 @@ import {
   Tab,
   Tabs,
   Divider,
-  Button,
-  useTheme,
-  Theme
+  Button
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/legacy/image'
 import PublicIcon from '@mui/icons-material/Public'
@@ -29,35 +25,7 @@ import EngineeringPhone from '@components/links/EngineeringPhone'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import imgixLoader from '@lib/imageLoader'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    icon: {
-      margin: 'auto',
-      paddingLeft: 5
-      // marginRight: theme.spacing(1)
-    },
-    inboxIcon: {
-      marginRight: theme.spacing(3)
-    },
-    tabWrapper: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center'
-    },
-    tabIcon: {
-      '& .tabWrapper': {
-        '& .MuiSvgIcon-root': {
-          margin: 0,
-          marginRight: theme.spacing(1)
-        },
-        '& > :first-child': {
-          marginBottom: 0
-        }
-      }
-    }
-  })
-)
+import useTheme from '@hooks/useTheme'
 
 function TabPanel(props: any) {
   const {children, value, index, ...other} = props
@@ -83,8 +51,28 @@ function a11yProps(index: number) {
 }
 
 const ConstructionBidsPage = () => {
-  const classes = useStyles()
   const theme = useTheme()
+  const style = {
+    icon: {
+      margin: 'auto',
+      paddingLeft: '5px'
+      // marginRight: theme.spacing(1)
+    },
+    inboxIcon: {
+      marginRight: theme.spacing(3)
+    },
+    tab: {
+      '&.MuiTab-labelIcon': {
+        '& svg.MuiSvgIcon-root': {
+          margin: 0,
+          marginRight: theme.spacing(1)
+        }
+      },
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center'
+    }
+  }
   const [tabValue, setTabValue] = useState(0)
 
   const handleChange = (_event: any, newValue: number) => {
@@ -149,7 +137,7 @@ const ConstructionBidsPage = () => {
             >
               <Box component="span" display="inline-flex" alignItems="center">
                 how to register your company
-                <DescriptionOutlinedIcon className={classes.icon} />
+                <DescriptionOutlinedIcon sx={{...style.icon}} />
               </Box>
             </Link>{' '}
             with Public Purchase, or see{' '}
@@ -191,7 +179,7 @@ const ConstructionBidsPage = () => {
             <InboxIcon
               color="disabled"
               fontSize="large"
-              className={classes.inboxIcon}
+              sx={{...style.inboxIcon}}
             />
             <Type>
               <em>None at this time</em>
@@ -225,18 +213,16 @@ const ConstructionBidsPage = () => {
                 label="1. Sign Up"
                 {...a11yProps(0)}
                 icon={<ExitToAppIcon />}
-                classes={{
-                  labelIcon: classes.tabIcon,
-                  wrapper: classes.tabWrapper
+                sx={{
+                  ...style.tab
                 }}
               />
               <Tab
                 label="2. Add PCWA"
                 {...a11yProps(1)}
                 icon={<MailOutlinedIcon />}
-                classes={{
-                  labelIcon: classes.tabIcon,
-                  wrapper: classes.tabWrapper
+                sx={{
+                  ...style.tab
                 }}
               />
             </Tabs>

@@ -35,6 +35,7 @@ const FancyButton = ({
       onMouseLeave={onMouseLeaveHandler}
     >
       <Button
+        color="inherit"
         component="a"
         href={href}
         sx={{

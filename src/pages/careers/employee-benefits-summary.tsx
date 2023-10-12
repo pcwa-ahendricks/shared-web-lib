@@ -8,16 +8,12 @@ import {
   Box, // Divider,
   Link,
   List,
-  ListItem,
   ListItemText,
   ListSubheader,
   Typography as Type,
-  useTheme,
-  Theme,
-  ListItemIcon
+  ListItemIcon,
+  ListItemButton
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import SectionBox from '@components/boxes/SectionBox'
@@ -25,18 +21,10 @@ import HumanResourcesEmail from '@components/links/HumanResourcesEmail'
 import HumanResourcesPhone from '@components/links/HumanResourcesPhone'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    listItemIcon: {
-      justifyContent: 'flex-end'
-    }
-  })
-)
+import useTheme from '@hooks/useTheme'
 
 const EmployeeBenefitsSummaryPage = () => {
-  const theme = useTheme<Theme>()
-  const classes = useStyles()
+  const theme = useTheme()
 
   const healthInsuranceAmounts = {
     employeeOnly: 1035.21,
@@ -46,8 +34,7 @@ const EmployeeBenefitsSummaryPage = () => {
 
   const ListItemLink = (props: any) => {
     return (
-      <ListItem
-        button
+      <ListItemButton
         component="a"
         target="_blank"
         rel="noopener noreferrer"
@@ -106,17 +93,13 @@ const EmployeeBenefitsSummaryPage = () => {
                     </ListSubheader>
                   }
                 >
-                  <ListItem
-                    button
-                    component="a"
-                    href="/careers/salary-schedule"
-                  >
+                  <ListItemButton href="/careers/salary-schedule">
                     <ListItemText primary="View Employee Salary Schedule" />
-                  </ListItem>
+                  </ListItemButton>
 
                   <ListItemLink href="https://publicpay.ca.gov/Reports/SpecialDistricts/SpecialDistrict.aspx?entityid=2559&amp;fiscalyear=2018">
                     <ListItemText primary="Annual Compensation for PCWA Employees (link to Government Compensation in CA)" />
-                    <ListItemIcon classes={{root: classes.listItemIcon}}>
+                    <ListItemIcon sx={{justifyContent: 'flex-end'}}>
                       <OpenInNewIcon />
                     </ListItemIcon>
                   </ListItemLink>

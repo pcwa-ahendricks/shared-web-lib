@@ -8,13 +8,9 @@ import {
   Typography as Type,
   Box,
   Link,
-  Theme,
-  useTheme,
   ButtonProps,
   LinkProps
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'
@@ -22,27 +18,24 @@ import FancyButton from '@components/FancyButton/FancyButton'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import Spacing from '@components/boxes/Spacing'
+import useTheme from '@hooks/useTheme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const EmployeeBenefitsSummaryPage = () => {
+  const theme = useTheme()
+  const style = {
     olderReportLink: {
-      padding: 3,
+      padding: '3px',
       color: theme.palette.primary.light,
       outline: 'none'
     }
-  })
-)
-
-const EmployeeBenefitsSummaryPage = () => {
-  const theme = useTheme<Theme>()
-  const classes = useStyles()
+  }
 
   const OlderReportLink = ({children, ...props}: LinkProps) => {
     return (
       <Link
         rel="noopener noreferrer"
         target="_blank"
-        className={classes.olderReportLink}
+        sx={{...style.olderReportLink}}
         underline="hover"
         {...props}
       >

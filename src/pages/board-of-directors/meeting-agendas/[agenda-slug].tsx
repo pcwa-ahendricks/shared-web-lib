@@ -10,17 +10,13 @@ import {
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
-  Theme,
   useMediaQuery,
   Box,
   Typography as Type,
   Divider,
   Breadcrumbs,
-  LinearProgress,
-  useTheme
+  LinearProgress
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {format, parse} from 'date-fns'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import ErrorPage from '@pages/_error'
@@ -33,6 +29,7 @@ import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFa
 import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import {agendasUrl, AgendaMetadata} from '@lib/types/agenda'
+import useTheme from '@hooks/useTheme'
 // const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
@@ -45,8 +42,15 @@ type Props = {
   agendaDateStr?: string
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const DynamicBoardAgendasPage = ({
+  agendaImgixUrl = '',
+  agendaTitle = '',
+  agendaDateStr = '',
+  err,
+  agendaSlug
+}: Props) => {
+  const theme = useTheme()
+  const style = {
     pageNo: {
       cursor: 'default'
     },
@@ -60,17 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 20,
       height: 20
     }
-  })
-)
-
-const DynamicBoardAgendasPage = ({
-  agendaImgixUrl = '',
-  agendaTitle = '',
-  agendaDateStr = '',
-  err,
-  agendaSlug
-}: Props) => {
-  const theme = useTheme<Theme>()
+  }
   const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
   const isXS = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -102,7 +96,6 @@ const DynamicBoardAgendasPage = ({
     [loadingAddPages]
   )
 
-  const classes = useStyles()
   const boardAgendaDateFormatted = agendaDateStr
     ? format(
         parse(agendaDateStr, DATE_FNS_FORMAT, new Date()),
@@ -144,16 +137,16 @@ const DynamicBoardAgendasPage = ({
             <Breadcrumbs aria-label="breadcrumb">
               <MuiNextLink
                 color="inherit"
-                className={classes.bcLink}
+                sx={{...style.bcLink}}
                 href="/board-of-directors/meeting-agendas"
               >
                 <>
-                  <BackIcon className={classes.bcIcon} />
+                  <BackIcon sx={{...style.bcIcon}} />
                   Board Agendas
                 </>
               </MuiNextLink>
               <Type color="textPrimary" style={{display: 'flex'}}>
-                <DocIcon className={classes.bcIcon} />
+                <DocIcon sx={{...style.bcIcon}} />
                 {boardAgendaDateFormatted}
               </Type>
             </Breadcrumbs>
@@ -189,7 +182,7 @@ const DynamicBoardAgendasPage = ({
                 justifyContent="center"
                 width="100%"
                 fontStyle="italic"
-                className={classes.pageNo}
+                sx={{...style.pageNo}}
               >
                 <Type color="primary">{`Page ${number}`}</Type>
               </RowBox>

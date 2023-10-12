@@ -9,11 +9,8 @@ import {
   Link,
   Hidden,
   LinkProps,
-  TypographyProps,
-  useTheme
+  TypographyProps
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -24,26 +21,18 @@ import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/Respons
 import MuiNextLink from '@components/NextLink/NextLink'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import useJumpTo from '@hooks/useJumpTo'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    bulletLi: {
-      listStyleType: 'circle',
-      marginBottom: 2
-    },
-    plantImgStyle: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      objectPosition: 'center'
-    }
-  })
-)
+import useTheme from '@hooks/useTheme'
 
 const FireResistantGardenPage = () => {
-  useJumpTo(undefined)
-  const classes = useStyles()
   const theme = useTheme()
+  useJumpTo(undefined)
+  const style = {
+    bulletLi: {
+      listStyleType: 'circle',
+      marginBottom: '1px'
+    }
+  }
+
   const isSMUp = useMediaQuery(theme.breakpoints.up('sm'))
 
   const plantImgSpacing = useMemo(() => (isSMUp ? 2 : 1), [isSMUp])
@@ -58,7 +47,7 @@ const FireResistantGardenPage = () => {
 
   const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
     return (
-      <Type component="li" className={classes.bulletLi} {...rest}>
+      <Type component="li" sx={{...style.bulletLi}} {...rest}>
         {children}
       </Type>
     )
@@ -302,7 +291,8 @@ const FireResistantGardenPage = () => {
                         loader={imgixLoader}
                         src="e7e0c090-ad61-11e9-910a-9dd8fa8729ee-Rosy-Glow-Barberry.jpg"
                         alt="Rosy Glow Barberry"
-                        className={classes.plantImgStyle}
+                        objectFit="cover"
+                        objectPosition="center"
                         width={256}
                         height={384}
                       />
@@ -312,7 +302,8 @@ const FireResistantGardenPage = () => {
                         loader={imgixLoader}
                         src="e7850c00-ad61-11e9-910a-9dd8fa8729ee-Gold-Dust-Aucuba.jpg"
                         alt="Gold Dust Aucuba"
-                        className={classes.plantImgStyle}
+                        objectFit="cover"
+                        objectPosition="center"
                         width={256}
                         height={384}
                       />
@@ -322,7 +313,6 @@ const FireResistantGardenPage = () => {
                         loader={imgixLoader}
                         src="e7749140-ad61-11e9-8aa7-c50c7cc602b8-Dwarf-Butterfly-Bush.jpg"
                         alt="Dwarf Butterfly Bush"
-                        className={classes.plantImgStyle}
                         width={256}
                         height={384}
                       />
@@ -332,7 +322,8 @@ const FireResistantGardenPage = () => {
                         loader={imgixLoader}
                         src="e711fee0-ad61-11e9-8aa7-c50c7cc602b8-African-Iris.jpg"
                         alt="African Iris"
-                        className={classes.plantImgStyle}
+                        objectFit="cover"
+                        objectPosition="center"
                         width={256}
                         height={384}
                       />
