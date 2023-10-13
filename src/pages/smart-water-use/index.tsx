@@ -1,6 +1,7 @@
 // cspell:ignore Eisley Normac watersavingplants
 import React, {useState, useCallback} from 'react'
 import {
+  Paper,
   Typography as Type,
   Box,
   Link,
@@ -41,6 +42,9 @@ import NextButton from '@components/NextButton/NextButton'
 import WebsiteIcon from '@mui/icons-material/Language'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
 import {Theme} from '@lib/material-theme'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import Image from 'next/image'
+import NextLink from 'next/link'
 
 const SmartWaterUsePage = () => {
   const theme = useTheme<Theme>()
@@ -235,28 +239,77 @@ const SmartWaterUsePage = () => {
             <Type variant="h3" gutterBottom color="primary">
               Water Efficiency
             </Type>
+            <Box>
+              <Type paragraph>
+                We in Placer County are fortunate to be surrounded by beautiful
+                waterways and natural resources that make our community unique.
+                As stewards of these resources, we all have a responsibility to
+                do our part to use water efficiently and to not waste water.
+              </Type>
+              <Type paragraph>
+                Rebates are available! PCWA offers rebates on efficient
+                irrigation equipment and timers. Learn more{' '}
+                <MuiNextLink
+                  aria-label="link to PCWA's Rebate Program Page"
+                  href="/smart-water-use/rebate-programs"
+                >
+                  here by clicking this link
+                </MuiNextLink>
+                .
+              </Type>
+            </Box>
+            <Spacing size="x-large" />
             <RowBox responsive flexSpacing={6} justifyContent="space-between">
-              <ChildBox flex="0 1 50%">
-                <Type paragraph>
-                  We in Placer County are fortunate to be surrounded by
-                  beautiful waterways and natural resources that make our
-                  community unique. As stewards of these resources, we all have
-                  a responsibility to do our part to use water efficiently and
-                  to not waste water.
-                </Type>
-                <Type paragraph>
-                  Rebates are available! PCWA offers rebates on efficient
-                  irrigation equipment and timers. Learn more{' '}
-                  <MuiNextLink
-                    aria-label="link to PCWA's Rebate Program Page"
-                    href="/smart-water-use/rebate-programs"
-                  >
-                    here by clicking this link
-                  </MuiNextLink>
-                  .
-                </Type>
+              <ChildBox flex="0 1 55%">
+                <Box>
+                  <Paper>
+                    <Box bgcolor={theme.palette.common.white}>
+                      <Image
+                        layout="responsive"
+                        loader={imgixUrlLoader}
+                        src="https://imgix.cosmicjs.com/5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg"
+                        width={1280}
+                        height={800}
+                        alt="California Fuchsia, Summer Strong Low-Water Use Plant of the Month"
+                        sizes="(max-width: 600px) 100vw, 70vw"
+                      />
+                      <Box padding={2}>
+                        <Type variant="h3" gutterBottom>
+                          Summer Strong
+                        </Type>
+                        <Type paragraph variant="body2">
+                          PCWA is partnering with the UC Master Gardeners of
+                          Placer County to highlight Summer Strong
+                          plants—flowers, shrubs and trees that are water-wise,
+                          well-suited to Placer County's environment and
+                          available at local nurseries.
+                        </Type>
+                        <Type paragraph variant="body2">
+                          New plants will be featured each month through October
+                          2023. Learn about this month's plant and find the
+                          complete list of Summer Strong plants on our{' '}
+                          <NextLink
+                            href="/smart-water-use/summer-strong"
+                            passHref
+                          >
+                            <Link>Summer Strong</Link>
+                          </NextLink>{' '}
+                          page.
+                        </Type>
+                        <NextLink
+                          href="/smart-water-use/summer-strong"
+                          passHref
+                        >
+                          <Button color="primary">
+                            View Complete List of Summer Strong Plants
+                          </Button>
+                        </NextLink>
+                      </Box>
+                    </Box>
+                  </Paper>
+                </Box>
               </ChildBox>
-              <ChildBox flex="0 1 50%">
+              <ChildBox flex="0 1 45%">
                 <Box
                   bgcolor={theme.palette.grey['100']}
                   p={2}
@@ -303,13 +356,13 @@ const SmartWaterUsePage = () => {
                 </Box>
               </ChildBox>
             </RowBox>
-            <Spacing />
+            <Spacing size="x-large" />
             <Box bgcolor={theme.palette.common.white} p={3} boxShadow={1}>
               <Type variant="h4" gutterBottom>
                 Rethink Your Yard
               </Type>
               <Type paragraph>
-                For many people, the drought provides an opportunity to rethink
+                For many people, the drought provided an opportunity to rethink
                 the way they view and use their landscape and to consider
                 whether it's time for a change.
               </Type>
@@ -756,7 +809,7 @@ const SmartWaterUsePage = () => {
                     <CardMedia
                       sx={{...style.cardMedia}}
                       component="img"
-                      src="https://cosmicjs.imgix.net/169e7430-6b48-11e7-80fa-8bf0863a196c-Screen_Shot_2016-08-12_at_4.26.00_PM_ttbpsa.jpg?h=400"
+                      src="https://imgix.cosmicjs.com/169e7430-6b48-11e7-80fa-8bf0863a196c-Screen_Shot_2016-08-12_at_4.26.00_PM_ttbpsa.jpg?h=400"
                       alt="Design for the New California Landscape"
                     />
                     <CardContent>
@@ -804,7 +857,7 @@ const SmartWaterUsePage = () => {
                     <CardMedia
                       sx={{...style.cardMedia}}
                       component="img"
-                      src="https://cosmicjs.imgix.net/69900400-6b49-11e7-8970-3b688d290373-Landscape_Survival_Tips_w0slls.pdf?auto=format&w=600&h=300&fit=crop&crop=top"
+                      src="https://imgix.cosmicjs.com/69900400-6b49-11e7-8970-3b688d290373-Landscape_Survival_Tips_w0slls.pdf?auto=format&w=600&h=300&fit=crop&crop=top"
                       alt="Design for the New California Landscape"
                     />
                     <CardContent>
@@ -847,7 +900,7 @@ const SmartWaterUsePage = () => {
                     <CardMedia
                       sx={{...style.cardMedia}}
                       component="img"
-                      src="https://cosmicjs.imgix.net/0bf5f5b0-6b4a-11e7-b3a3-fbbc226e29f5-Openingscreen_kqywly.jpg?w=600&h=400&fit=crop"
+                      src="https://imgix.cosmicjs.com/0bf5f5b0-6b4a-11e7-b3a3-fbbc226e29f5-Openingscreen_kqywly.jpg?w=600&h=400&fit=crop"
                       alt="Design for the New California Landscape"
                     />
                     <CardContent>

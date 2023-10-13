@@ -521,7 +521,8 @@ const ResourceLibraryPage = ({
                     <CardActions>
                       <Button
                         size="small"
-                        startIcon={<MovieIcon color="action" />}
+                        // startIcon={<MovieIcon color="action" />}
+                        startIcon={<YouTubeIcon color="action" />}
                         href="https://www.youtube.com/watch?v=dSXMOGczI1o"
                         target="_blank"
                         rel="noopener noreferrer"

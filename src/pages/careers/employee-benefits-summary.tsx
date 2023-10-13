@@ -46,7 +46,7 @@ const EmployeeBenefitsSummaryPage = () => {
   const tlsOpts = {style: 'currency', currency: 'USD'}
 
   return (
-    <PageLayout title="Employee Benefits Summary" waterSurface>
+    <PageLayout title="Employee Benefits Summary" waterSurface={false}>
       <MainBox>
         <NarrowContainer>
           <PageTitle
@@ -273,8 +273,8 @@ const EmployeeBenefitsSummaryPage = () => {
               </Type>
               <Type paragraph>
                 <strong>New Members</strong>: 2.0% @ 62; employee pays 50% of
-                “normal cost,” as determined by CalPERS, currently 6.25% of
-                salary.
+                "normal cost," as determined by CalPERS. As of of July 1, 2023,
+                that amount equals 7.50%.
               </Type>
               <Type paragraph>
                 <strong>Classic Members</strong>: 2.7% @ 55, single highest

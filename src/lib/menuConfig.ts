@@ -79,6 +79,10 @@ const menuConfig: MenuConfig[] = [
             nextLink: '/about-pcwa/financial-report'
           },
           {
+            title: 'Risk Management',
+            nextLink: '/about-pcwa/claims-process'
+          },
+          {
             title: 'Unclaimed Property',
             nextLink: '/about-pcwa/unclaimed-property'
           },
@@ -192,7 +196,7 @@ const menuConfig: MenuConfig[] = [
             nextLink: '/services/backflow-prevention'
           },
           {
-            title: 'Water Rates',
+            title: 'Water Rates & Rules and Regulations',
             nextLink: '/services/water-rates'
           },
           {
@@ -298,6 +302,10 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Improvement Standards',
             nextLink: '/business/standards'
+          },
+          {
+            title: 'Utility Map Request',
+            nextLink: '/business/new-development#UtilityMapRequest'
           }
         ]
       },

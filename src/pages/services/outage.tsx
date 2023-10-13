@@ -37,7 +37,7 @@ type Props = {
 }
 
 interface OutageMetadata {
-  hide_on_website: {key: string; value: boolean}
+  hide_on_website?: {key: string; value: string}
   last_updated: string
   type: string
 }
@@ -112,8 +112,8 @@ const OutageInformationPage = ({fallbackData}: Props) => {
           ? outages.objects
               .filter(
                 (outage) =>
-                  outage?.metadata.hide_on_website.value === false &&
-                  re.test(outage?.metadata.type)
+                  outage?.metadata.hide_on_website?.value?.toLowerCase() !==
+                    'yes' && re.test(outage?.metadata.type)
               )
               .map((outage) => outage?.content)
               .shift() // [0]
@@ -278,7 +278,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   .
                 </Type>
               </Box>
-              {/* <Spacing />
+              <Spacing />
               <Box
                 // bgcolor={paletteType(theme.palette.warning.main, 0.92)}
                 bgcolor={theme.palette.common.white}
@@ -296,7 +296,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                     }}
                   />
                   <Type gutterBottom variant="subtitle2" color="textPrimary">
-                    2022 Annual PG&E Fall Canal Outage Schedule
+                    2023 Annual PG&E Fall Canal Outage Schedule
                   </Type>
                 </RowBox>
                 <Type paragraph variant="body2" color="inherit">
@@ -305,17 +305,17 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   start and end dates and to find out more information about
                   these outages{' '}
                   <MuiLink
-                    href="https://cdn.cosmicjs.com/b42ced10-4f29-11ed-a2c4-b5a49b133277-2022-Orifice-changing-chart.pdf"
+                    href="https://cdn.cosmicjs.com/47234430-6850-11ee-b27c-e13e14dddc51-2023-Orifice-Changing-Chart.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="Link to 2022 Annual PG&E Fall Canal Outage Schedule"
+                    title="Link to 2023 Annual PG&E Fall Canal Outage Schedule"
                     underline="always"
                   >
-                    <ClickOrTap /> here for the 2022 Schedule
+                    <ClickOrTap /> here for the 2023 Schedule
                   </MuiLink>
                   .
                 </Type>
-              </Box> */}
+              </Box>
 
               <Spacing size="large" />
               <Box

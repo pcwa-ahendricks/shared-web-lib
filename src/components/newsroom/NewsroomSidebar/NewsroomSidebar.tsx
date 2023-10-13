@@ -28,11 +28,11 @@ const NewsroomSidebar = () => {
           Contacts
         </Type>
         <Spacing size="small" />
-        <Type variant="subtitle2" color="primary">
+        {/* <Type variant="subtitle2" color="primary">
           Public Relations / Press
         </Type>
-        <Spacing size="x-small" />
-        <Type variant="body1" color="textPrimary">
+        <Spacing size="x-small" /> */}
+        {/* <Type variant="body1" color="textPrimary">
           Ross Branch
         </Type>
         <Box>
@@ -56,10 +56,13 @@ const NewsroomSidebar = () => {
         </Box>
         <Spacing>
           <Divider />
-        </Spacing>
+        </Spacing> */}
         <Type variant="subtitle2" color="primary">
-          Multimedia
+          Communications & Press / Multimedia
         </Type>
+        {/* <Type variant="subtitle2" color="primary">
+          Multimedia
+        </Type> */}
         <Spacing size="x-small" />
         <Type variant="body1" color="textPrimary">
           Brie Coleman

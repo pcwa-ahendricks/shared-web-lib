@@ -6,14 +6,14 @@ import {stringify} from 'querystringify'
 // import {CosmicGetMediaResponse} from '@api-lib/cosmic'
 // import lambdaUrl from '@api-lib/lambdaUrl'
 import lambdaUrl from '@lib/api/lambdaUrl'
-import {CosmicGetMediaResponse} from '@lib/api/cosmic'
+import {CosmicGetMediaResponse, GetMedia} from '@lib/api/cosmic'
 import {TZ} from '@lib/api/shared'
 
 const MEDIA_FOLDER = 'csv'
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
-    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+    // res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     const baseURL = lambdaUrl(req)
     const {filename} = req.query
     const qs = stringify(
@@ -24,9 +24,12 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       true
     )
     const mediaResponse = await fetch(`${baseURL}/api/cosmic/media${qs}`)
-    const media: CosmicGetMediaResponse['media'] = await mediaResponse.json()
+    const media: GetMedia | CosmicGetMediaResponse['media'] =
+      await mediaResponse.json()
 
-    const filteredMedia = media.filter((m) => m.original_name === filename)
+    const filteredMedia = Array.isArray(media)
+      ? media.filter((m) => m.original_name === filename)
+      : [media]
 
     const sortedMedia = filteredMedia.sort((left, right) => {
       const leftCreated = utcToZonedTime(new Date(left.created), TZ)

@@ -7,8 +7,13 @@ import {
   setLightboxViewerOpen
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {Box, Typography as Type, useMediaQuery} from '@mui/material'
-import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
+import {
+  Box,
+  Typography as Type,
+  useMediaQuery,
+  Unstable_Grid2 as Grid
+} from '@mui/material'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'
@@ -330,39 +335,32 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                 </Type>
                 <Spacing size="x-small" />
 
-                <RowBox key={0} flexWrap="wrap" flexSpacing={margin}>
+                <Grid key={0} container direction="row" spacing={margin}>
                   {c.photos.map((p) => {
                     const width = Math.round(p.width ?? 0)
                     const height = Math.round(p.height ?? 0)
                     return (
-                      <ChildBox key={p.index}>
-                        <ColumnBox>
-                          <ChildBox
-                            flex
-                            position="relative"
+                      <Grid key={p.index} xs={12} sm={6} md={3}>
+                        <ChildBox>
+                          <ImageFancier
+                            layout="responsive"
+                            sizes="(max-width: 500px) 100vw, (max-width: 760px) 45vw, 33vw"
+                            alt={
+                              p.metadata?.description ??
+                              `${p.metadata?.gallery} ${
+                                p.metadata?.category
+                              } photo #${p.index + 1}`
+                            }
+                            // onClick: imageClickHandler(p.index),
+                            boxProps={{
+                              onClick: imageClickHandler(p.index)
+                            }}
+                            src={p.imgix_url}
                             width={width}
                             height={height}
-                          >
-                            <ImageFancier
-                              // [todo] - responsive layout is not working, it's pulling in full size images.
-                              // sizes="(max-width: 500px) 100vw, (max-width: 760px) 45vw, 33vw"
-                              layout="intrinsic"
-                              alt={
-                                p.metadata?.description ??
-                                `${p.metadata?.gallery} ${
-                                  p.metadata?.category
-                                } photo #${p.index + 1}`
-                              }
-                              // onClick: imageClickHandler(p.index),
-                              boxProps={{
-                                onClick: imageClickHandler(p.index)
-                              }}
-                              src={p.imgix_url}
-                              width={width}
-                              height={height}
-                              defaultGrey
-                            />
-                            {/* {p.metadata?.caption ? (
+                            defaultGrey
+                          />
+                          {/* {p.metadata?.caption ? (
                             <ChildBox position="absolute" bottom="0" left="0">
                               <Type
                                 className={classes.photoCaption}
@@ -372,19 +370,18 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
                               </Type>
                             </ChildBox>
                           ) : null} */}
+                        </ChildBox>
+                        {p.metadata?.caption ? (
+                          <ChildBox>
+                            <Type color="textSecondary" variant="caption">
+                              {p.metadata.caption}
+                            </Type>
                           </ChildBox>
-                          {p.metadata?.caption ? (
-                            <ChildBox>
-                              <Type color="textSecondary" variant="caption">
-                                {p.metadata.caption}
-                              </Type>
-                            </ChildBox>
-                          ) : null}
-                        </ColumnBox>
-                      </ChildBox>
+                        ) : null}
+                      </Grid>
                     )
                   })}
-                </RowBox>
+                </Grid>
               </Box>
             ))
           ) : (

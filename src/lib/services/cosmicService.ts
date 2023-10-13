@@ -104,6 +104,8 @@ const fileNameUtil = (
     /(^\d{4})(_|-)(\d{2})(_|-)(\d{2}_.*)/,
     '$1-$3-$5'
   )
+  // This isn't needed anymore, Cosmic fixed this bug.
+  // fCorrected = fCorrected.replace(/(^.*)(\d)([A-Z])(.*$)/, '$1$2_$3$4') // Cosmic 2 is stripping "_" (underscores), add them back in when a number is followed by a capital letter.
   const fSplit = fCorrected.split(/(_(.+)?)|(\.(.+)?)/) // using greedy operator, split on "_" (underscore) or "." decimal characters.
   const title =
     fSplit[0] && !fSplit[1]

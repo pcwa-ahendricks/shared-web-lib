@@ -277,7 +277,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         agendaTitle,
         agendaImgixUrl
       },
-      revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log(error)

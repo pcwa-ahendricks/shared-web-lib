@@ -91,7 +91,7 @@ const GeneralInfoPage = () => {
                 priority: true,
                 loader: imgixUrlLoader,
                 layout: 'responsive',
-                src: 'https://cosmicjs.imgix.net/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg',
+                src: 'https://imgix.cosmicjs.com/85146240-6cdc-11e7-9add-5dda20e48e6e-HH_Vista_-_EL.jpg',
                 alt: 'Photo of Hell Hole Reservoir'
               }}
               style={{
@@ -321,12 +321,21 @@ const GeneralInfoPage = () => {
               </ListItem>
               <ListItem>
                 <Type>
-                  Public Affairs Manager, Ross Branch - <PublicAffairsEmail />
+                  Communications and Multimedia, Brie Coleman -{' '}
+                  <PublicAffairsEmail />
                 </Type>
                 <Type>
                   , <PublicAffairsPhone />
                 </Type>
               </ListItem>
+              {/* <ListItem>
+                <Type>
+                  Public Affairs Manager, Ross Branch - <PublicAffairsEmail />
+                </Type>
+                <Type>
+                  , <PublicAffairsPhone />
+                </Type>
+              </ListItem> */}
             </List>
           </Box>
         </WideContainer>

@@ -1,42 +1,46 @@
 import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
-import {
-  ResponsiveEnhancedCalendar,
-  CalendarDatum
-} from '@kevinmoe/nivo-fork-calendar'
 import round from '@lib/round'
-import {Box, Typography as Type, useMediaQuery, useTheme} from '@mui/material'
+import {Box, Typography as Type, useTheme} from '@mui/material'
 import {blue, brown, deepOrange} from '@mui/material/colors'
 import SquareIcon from 'mdi-material-ui/Square'
 import React from 'react'
+import {
+  CalendarDatum,
+  TimeRangeSvgProps,
+  ResponsiveTimeRange
+} from '@nivo/calendar'
 
 type Props = {
   waterYear: number
   tempObservedDiffData: CalendarDatum[]
-}
+} & Partial<TimeRangeSvgProps>
 
 export default function TempDiffCalendar({
   waterYear,
-  tempObservedDiffData
+  tempObservedDiffData,
+  ...rest
 }: Props) {
   const theme = useTheme()
-  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   return (
-    <ResponsiveEnhancedCalendar
+    <ResponsiveTimeRange
+      weekdayLegendOffset={0}
+      weekdayTicks={[]}
       direction="horizontal"
       // granularity="month"
       // weekDirection="horizontal"
-      monthSpacing={!isXS ? undefined : 16}
-      // yearSpacing={18}
-      breakpoint={!isXS ? undefined : 3}
-      weekDirection={!isXS ? 'vertical' : 'horizontal'}
+      // monthSpacing={!isXS ? undefined : 16}
+      // breakpoint={!isXS ? undefined : 3}
+      // weekDirection={!isXS ? 'vertical' : 'horizontal'}
       data={tempObservedDiffData}
-      from={`${waterYear - 1}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
+      from={`${waterYear - 1}-10-01`}
       to={`${waterYear}-09-30`}
       // monthSpacing={monthSpacing}
       tooltip={({value, day, color}) => {
-        if (value === undefined || isNaN(value)) return null
-        const newVal = `${round(Math.abs(value))}° ${
-          value > 0 ? 'warmer' : 'cooler'
+        const val = parseFloat(value)
+        if (value === undefined) return null
+        const newVal = `${round(Math.abs(val))}° ${
+          val > 0 ? 'warmer' : 'cooler'
         }`
         return (
           <Box
@@ -70,16 +74,16 @@ export default function TempDiffCalendar({
         // />
         // )
       }}
-      granularity="month"
+      // granularity="month"
       emptyColor={theme.palette.grey[200]}
-      undefinedColor={theme.palette.grey[600]}
+      // undefinedColor={theme.palette.grey[600]}
       minValue={-22}
       maxValue={22}
       margin={{top: 30, right: 30, bottom: 20, left: 40}}
       // yearSpacing={40}
-      monthBorderColor="#ffffff"
+      // monthBorderColor="#ffffff"
       dayBorderWidth={2}
-      dayBorderColor="#ffffff"
+      // dayBorderColor="#ffffff"
       // colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
       colors={[
         // '#a50026',
@@ -121,6 +125,7 @@ export default function TempDiffCalendar({
           itemDirection: 'right-to-left'
         }
       ]}
+      {...rest}
     />
   )
 }

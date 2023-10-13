@@ -71,6 +71,10 @@ const BoardMinutesPage = ({fallbackData}: Props) => {
                     DATE_FNS_FORMAT
                   )
                 }))
+                // .map((d) => {
+                //   console.log(d)
+                //   return d
+                // })
                 .filter((bm) => bm.derivedFilenameAttr.date), // Don't list links that will ultimately 404.
               (mbm) => mbm.derivedFilenameAttr?.publishedYear
             )

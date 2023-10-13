@@ -21,6 +21,7 @@ import Image from 'next/legacy/image'
 import Spacing from '@components/boxes/Spacing'
 import useTheme from '@hooks/useTheme'
 import imgixLoader from '@lib/imageLoader'
+import Spacing from '@components/boxes/Spacing'
 
 function createData(tier: string, cost: number) {
   return {tier, cost}
@@ -127,7 +128,7 @@ const WaterRatesPage = () => {
   }
 
   return (
-    <PageLayout title="Water Rates" waterSurface>
+    <PageLayout title="Water Rates & Rules and Regulations" waterSurface>
       <MainBox>
         <WideContainer>
           <PageTitle

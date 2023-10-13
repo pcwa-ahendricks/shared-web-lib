@@ -79,6 +79,7 @@ const imgixImages = [
   '492aa9a0-6658-11eb-8120-dfe8ec2b682f-Year-End-Report-2020FINAL.pdf',
   '1dc4d750-2b57-11ea-bfe8-5b62c3bdf959-2019-YEAR-END-REPORT-FINAL.pdf',
   '61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf',
+  '55810b10-f335-11ed-9f0e-e959935e64bf-2023-Strategic-Plan.pdf',
   '0ce1e4c0-a6cd-11ec-8a0f-d90ff9705f55-2022-Strategic-Plan.pdf',
   '7f7c0030-f4ab-11eb-af9b-23a6e756c49c-2021-Strategic-PlanFINAL.pdf'
 ]
@@ -686,6 +687,19 @@ const PublicationsPage = ({
                 >
                   <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
+                      title="2023 Strategic Plan"
+                      publishedDate={parse(
+                        '5/15/2023',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://imgix.cosmicjs.com/55810b10-f335-11ed-9f0e-e959935e64bf-2023-Strategic-Plan.pdf"
+                      linkUrl="https://docs.pcwa.net/strategic-plan-2023.pdf"
+                      downloadUrl="https://docs.pcwa.net/strategic-plan-2023.pdf?dl=PCWA-Strategic-Plan-2023.pdf"
+                    />
+                  </ChildBox>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="2022 Strategic Plan"
                       publishedDate={parse(
                         '3/18/2022',
@@ -693,6 +707,8 @@ const PublicationsPage = ({
                         new Date()
                       )}
                       imgixURL="https://imgix.cosmicjs.com/0ce1e4c0-a6cd-11ec-8a0f-d90ff9705f55-2022-Strategic-Plan.pdf"
+                      linkUrl="https://docs.pcwa.net/strategic-plan-2022.pdf"
+                      downloadUrl="https://docs.pcwa.net/strategic-plan-2022.pdf?dl=PCWA-Strategic-Plan-2022.pdf"
                     />
                   </ChildBox>
                   <ChildBox width={isXS ? '100%' : 'auto'}>
@@ -704,6 +720,8 @@ const PublicationsPage = ({
                         new Date()
                       )}
                       imgixURL="https://imgix.cosmicjs.com/7f7c0030-f4ab-11eb-af9b-23a6e756c49c-2021-Strategic-PlanFINAL.pdf"
+                      linkUrl="https://docs.pcwa.net/strategic-plan-2021.pdf"
+                      downloadUrl="https://docs.pcwa.net/strategic-plan-2021.pdf?dl=PCWA-Strategic-Plan-2021.pdf"
                     />
                   </ChildBox>
                 </RowBox>

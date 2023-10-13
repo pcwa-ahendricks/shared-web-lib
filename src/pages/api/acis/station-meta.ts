@@ -2,7 +2,7 @@
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {ACCEPT_SIDS} from '@lib/api/acis'
 import {dLog, paramToStr} from '@lib/api/shared'
-import {get, set} from '@lib/api/upstash'
+import {kv} from '@vercel/kv'
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
@@ -37,10 +37,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const hash = `acis-station-meta-${sid}`
 
-    const cacheData = await get(hash)
-    const result = typeof cacheData === 'object' ? cacheData.result : ''
-    if (!bust && result && typeof result === 'string') {
-      const cache = JSON.parse(result)
+    const cache = await kv.get(hash)
+
+    if (!bust && cache && typeof cache === 'object') {
       dLog('returning cache copy...')
       res.status(200).json(cache)
       return
@@ -59,8 +58,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     const data = await response.json()
 
-    const params = {EX: 60 * 60 * 24 * 7} // 1 week
-    await set(hash, data, {params})
+    const params = {ex: 60 * 60 * 24 * 7} // 1 week
+    await kv.set(hash, data, {...params})
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     dLog('returning fresh copy...')

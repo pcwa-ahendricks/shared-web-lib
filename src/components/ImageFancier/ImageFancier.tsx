@@ -1,6 +1,5 @@
 import React, {useMemo, useState, useCallback, useEffect} from 'react'
-import {Box, BoxProps, useTheme} from '@mui/material'
-
+import {Box, BoxProps, useTheme, useMediaQuery} from '@mui/material'
 import {FlexBox} from '@components/MuiSleazebox'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import JackinBox from 'mui-jackinbox'
@@ -22,13 +21,14 @@ const ImageFancier = ({
   isHover: isHoverProp,
   ...rest
 }: Props) => {
+  const theme = useTheme()
   const [isHover, setIsHover] = useState<boolean>() // For animation to work properly this must be initialized as undefined
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   useEffect(() => {
     setIsHover(isHoverProp)
   }, [isHoverProp])
 
-  const theme = useTheme()
   const [imgIsLoaded, setImageIsLoaded] = useState(false)
   const style = useMemo(
     () => ({
@@ -61,12 +61,21 @@ const ImageFancier = ({
     [isHover, imgIsLoaded]
   )
 
+  useEffect(() => {
+    if (isXs) {
+      setIsHover(false)
+    } else {
+      if (isHoverProp) {
+        setIsHover(isHoverProp)
+      }
+    }
+  }, [isHoverProp, isXs])
+
   const mouseEnterHandler = useCallback(() => {
-    // Use of isHoverProp is exclusive
-    if (isHoverProp === undefined) {
+    if (isHoverProp === undefined && !isXs) {
       setIsHover(true)
     }
-  }, [isHoverProp])
+  }, [isHoverProp, isXs])
 
   const mouseLeaveHandler = useCallback(() => {
     // Use of isHoverProp is exclusive
@@ -83,7 +92,9 @@ const ImageFancier = ({
     <Box
       width={width}
       height={height}
-      sx={{...style.clickableImg}}
+      sx={{
+        ...(!isXs && style.clickableImg)
+      }}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
       boxShadow={2}

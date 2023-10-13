@@ -47,7 +47,7 @@ const DoingBusinessPage = () => {
                 href="/business/goods-and-services"
                 caption="Goods and Services"
                 description="Public Purchase and Procurement Procedure"
-                imgSrc="https://cosmicjs.imgix.net/0fabf990-70c0-11e7-91bb-396f9ed9122e-inventory_warehouse.jpg"
+                imgSrc="https://imgix.cosmicjs.com/0fabf990-70c0-11e7-91bb-396f9ed9122e-inventory_warehouse.jpg"
                 imgAlt="Goods and Services Image Link"
               />
             </ChildBox>
@@ -57,7 +57,7 @@ const DoingBusinessPage = () => {
                 href="/business/construction-bids"
                 caption="Construction Bids"
                 description="Current bid opportunities, bid results and associated information"
-                imgSrc="https://cosmicjs.imgix.net/55028630-70c0-11e7-9a24-9b88e5e26abf-tank_construction.jpg"
+                imgSrc="https://imgix.cosmicjs.com/55028630-70c0-11e7-9a24-9b88e5e26abf-tank_construction.jpg"
                 imgAlt="Construction Bids Image Link"
               />
             </ChildBox>
@@ -67,7 +67,7 @@ const DoingBusinessPage = () => {
                 href="/business/new-development"
                 caption="New Development Process"
                 description="Information about PCWA's Facilities Agreement process, checklists, and Standard Specifications and Standard Drawings"
-                imgSrc="https://cosmicjs.imgix.net/5b81b990-6cdd-11e7-aa00-c3930981f23b-drafting_table.jpg"
+                imgSrc="https://imgix.cosmicjs.com/5b81b990-6cdd-11e7-aa00-c3930981f23b-drafting_table.jpg"
                 imgAlt="New Development Process Image Link"
                 imgixParams={{bri: -4}}
               />
@@ -78,7 +78,7 @@ const DoingBusinessPage = () => {
                   href="/business/energy-products"
                   caption="Energy Products"
                   description="Information about upcoming opportunities with PCWA's Power Marketing Division"
-                  imgSrc="https://cosmicjs.imgix.net/ba7745a0-70c0-11e7-b5da-0f4de7f0f597-french-meadows-powerhouse.jpg"
+                  imgSrc="https://imgix.cosmicjs.com/ba7745a0-70c0-11e7-b5da-0f4de7f0f597-french-meadows-powerhouse.jpg"
                   imgAlt="Energy Products Image Link"
                   imgixParams={{bri: -8}}
                 />
@@ -89,7 +89,7 @@ const DoingBusinessPage = () => {
                 href="/business/standards"
                 caption="Improvement Standards"
                 description="View PCWA approved improvement standards, standard specifications, and standard drawings"
-                imgSrc="https://cosmicjs.imgix.net/190031f0-68d7-11e7-9a78-c5ed605d4ef5-Transmission pipeline 3.jpg"
+                imgSrc="https://imgix.cosmicjs.com/190031f0-68d7-11e7-9a78-c5ed605d4ef5-Transmission pipeline 3.jpg"
                 imgAlt="Improvement Standards Image Link"
                 imgixParams={{bri: -4}}
               />

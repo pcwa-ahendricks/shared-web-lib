@@ -1,19 +1,20 @@
 import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
-import {
-  ResponsiveEnhancedCalendar,
-  CalendarDatum,
-  EnhancedCalendarSvgProps
-} from '@kevinmoe/nivo-fork-calendar'
 import round from '@lib/round'
-import {Box, Typography as Type, useMediaQuery, useTheme} from '@mui/material'
+import {Box, Typography as Type, useTheme} from '@mui/material'
 import {blueGrey, blue} from '@mui/material/colors'
 import SquareIcon from 'mdi-material-ui/Square'
 import React from 'react'
 
+import {
+  CalendarDatum,
+  TimeRangeSvgProps,
+  ResponsiveTimeRange
+} from '@nivo/calendar'
+
 type Props = {
   waterYear: number
   precipData: CalendarDatum[]
-} & Partial<EnhancedCalendarSvgProps>
+} & Partial<TimeRangeSvgProps>
 
 export default function PrecipCalendar({
   waterYear,
@@ -21,31 +22,33 @@ export default function PrecipCalendar({
   ...rest
 }: Props) {
   const theme = useTheme()
-  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   return (
-    <ResponsiveEnhancedCalendar
+    <ResponsiveTimeRange
+      weekdayLegendOffset={0}
+      weekdayTicks={[]}
       direction="horizontal"
       // granularity="month"
       // weekDirection="horizontal"
-      monthSpacing={!isXS ? undefined : 16}
+      // monthSpacing={!isXS ? undefined : 16}
       // yearSpacing={18}
       data={precipData}
-      breakpoint={!isXS ? undefined : 3}
-      weekDirection={!isXS ? 'vertical' : 'horizontal'}
-      from={`${waterYear - 1}-10-02`} // Bug w/ EnhancedCal? Offset required for display.
+      // breakpoint={!isXS ? undefined : 3}
+      // weekDirection={!isXS ? 'vertical' : 'horizontal'}
+      from={`${waterYear - 1}-10-01`}
       to={`${waterYear}-09-30`}
       // monthSpacing={monthSpacing}
       // granularity={!isXS ? 'month' : 'year'}
-      granularity="month"
+      // granularity="month"
       emptyColor={theme.palette.grey[200]}
-      undefinedColor={theme.palette.grey[600]}
+      // undefinedColor={theme.palette.grey[600]}
       minValue={-0.66}
       maxValue={2}
       margin={{top: 30, right: 30, bottom: 20, left: 40}}
       // yearSpacing={40}
-      monthBorderColor="#ffffff"
+      // monthBorderColor="#ffffff"
       dayBorderWidth={2}
-      dayBorderColor="#ffffff"
+      // dayBorderColor="#ffffff"
       // colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
       colors={[blueGrey[100], blue[200], blue[400], blue[700]]}
       legends={[
@@ -61,7 +64,7 @@ export default function PrecipCalendar({
         }
       ]}
       tooltip={({value, day, color}) => {
-        if (value === undefined || isNaN(value)) return null
+        if (value === undefined) return null
         return (
           <Box
             bgcolor={theme.palette.common.white}
@@ -79,7 +82,7 @@ export default function PrecipCalendar({
               </ChildBox>
               <ChildBox>
                 <Type variant="caption">
-                  <strong>{`${round(value, 1)}"`}</strong>
+                  <strong>{`${round(parseFloat(value), 1)}"`}</strong>
                 </Type>
               </ChildBox>
             </RowBox>

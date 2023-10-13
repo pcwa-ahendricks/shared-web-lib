@@ -1,7 +1,7 @@
-// cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid upstash begbaseyear endbaseyear begtrendyear endtrendyear
+// cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid begbaseyear endbaseyear begtrendyear endtrendyear
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
-import {get, set} from '@lib/api/upstash'
+import {kv} from '@vercel/kv'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -36,19 +36,15 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const hash = `noaa-avg-temp_${useMonthDiff}_${twoMonthsAgoMo}-${twoMonthsAgoYr}${
       isDev ? '-dev' : ''
     }`
-    const upstashData = await get(hash)
-    const result = typeof upstashData === 'object' ? upstashData.result : ''
+    const cache = await kv.get(hash)
 
     //     console.log('apiUrl: ', apiUrl)
     //     console.log('hash: ', hash)
     //     console.log('result: ', JSON.stringify(result, null, 2))
     //     console.log('error: ', error)
 
-    if (result && typeof result === 'string') {
-      const cache = JSON.parse(result)
-
+    if (cache && typeof cache === 'object') {
       isDev && console.log('Using cache object: ', cache)
-
       res.status(200).json(cache)
       return
     }
@@ -63,9 +59,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
 
     // Only store data if data was retrieved, because the Noaa api doesn't work all the time
     if (data?.data && Object.keys(data.data).length > 0) {
-      // Pass Redis options via url params. See https://redis.io/commands/set and https://docs.upstash.com/features/restapi#json-or-binary-value.
-      const params = {EX: sevenDaysInSec}
-      await set(hash, data, {params})
+      // Pass Redis options via url params. See https://redis.io/commands/set
+      const params = {ex: sevenDaysInSec}
+      await kv.set(hash, data, {...params})
     }
 
     res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')

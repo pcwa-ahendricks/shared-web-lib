@@ -75,7 +75,7 @@ const EmployeeBenefitsSummaryPage = () => {
             >
               <Image
                 loader={imgixLoader}
-                src="10be14f0-ecd3-11ec-aad0-63c3465ecebb-2021-ACFR-for-website-final.pdf"
+                src="5b811d20-0b0e-11ee-ae37-df4d4894726e-PCWA-2022-Annual-Report-for-Web.pdf"
                 layout="responsive"
                 sizes="(max-width: 600px) 50vw, 20vw"
                 width={85}
@@ -106,6 +106,13 @@ const EmployeeBenefitsSummaryPage = () => {
               </Box>
               <Box mt={3}>
                 <RowBox justifyContent="space-around">
+                  <ImageThumbLink
+                    sizes="(max-width: 600px) 25vw, 10vw"
+                    href="https://docs.pcwa.net/annual-comprehensive-financial-report-2022"
+                    imgixUrl="https://imgix.cosmicjs.com/343153d0-f019-11ed-b7bd-57cb4c9665a9-PCWA-2022-ACFR.pdf"
+                    caption="2022 Annual Report"
+                    alt="Annual Report Thumbnail and link for 2022 PCWA Annual Report pdf"
+                  />
                   <ImageThumbLink
                     sizes="(max-width: 600px) 25vw, 10vw"
                     href="https://docs.pcwa.net/annual-comprehensive-financial-report-2021"
@@ -324,24 +331,46 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
                 <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
+                    aria-label="View 2022 Lower Zone 6 Report"
+                    href="https://docs.pcwa.net/wcc-annual-report-2022-lower-zone-6.pdf"
+                  >
+                    2022 Lower Zone 6 Report
+                  </BudgetDoc>
+                  <BudgetDoc
+                    aria-label="View 2022 Upper Zone 6 Report"
+                    href="https://docs.pcwa.net/wcc-annual-report-2022-upper-zone-6.pdf"
+                  >
+                    2022 Upper Zone 6 Report
+                  </BudgetDoc>
+                </RowBox>
+                <Spacing />
+                {/* <RowBox flexWrap="wrap" flexSpacing={3}>
+                  <BudgetDoc
                     aria-label="View 2021 Lower Zone 6 Report"
-                    href="https://cdn.cosmicjs.com/8bb2f700-e906-11ec-9177-7506dda64181-Final-Report---2021-Lower-Zone-6.pdf"
+                    href="https://docs.pcwa.net/wcc-annual-report-2021-lower-zone-6.pdf"
                   >
                     2021 Lower Zone 6 Report
                   </BudgetDoc>
                   <BudgetDoc
                     aria-label="View 2021 Upper Zone 6 Report"
-                    href="https://cdn.cosmicjs.com/8f1a16d0-e906-11ec-9177-7506dda64181-Final-Report---2021-Upper-Zone-6.pdf"
+                    href="https://docs.pcwa.net/wcc-annual-report-2021-upper-zone-6.pdf"
                   >
                     2021 Upper Zone 6 Report
                   </BudgetDoc>
-                </RowBox>
+                </RowBox> */}
                 <Spacing />
                 <Box p={2} bgcolor={theme.palette.background.paper}>
                   <Type variant="subtitle2">
                     Older Water Connection Charge Annual Reports
                   </Type>
                   <RowBox alignItems="center" flexWrap="wrap">
+                    <OlderReportLink
+                      title="2021 Water Connection Charge Report Link"
+                      href="https://docs.pcwa.net/wcc-annual-report-2021-zone-6-combined.pdf"
+                    >
+                      2021
+                    </OlderReportLink>
+                    •
                     <OlderReportLink
                       title="2020 Water Connection Charge Report Link"
                       href="https://cdn.cosmicjs.com/c4bdc750-e906-11ec-9177-7506dda64181-Final-Report---2020.pdf"

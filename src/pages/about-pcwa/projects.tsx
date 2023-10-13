@@ -1102,23 +1102,24 @@ const ProjectsPage = () => {
                     </Type>
                     <Type paragraph>
                       A multi-year main replacement program to replace aging
-                      infrastructure is beginning with Phase 1, which is on
-                      Midas Avenue, between 2nd Street and Argonaut Road. The
+                      infrastructure is beginning with Phase 2 which is on Midas
+                      Avenue, between Argonaut Road and Clover Valley Road. The
                       project will consist of replacing the existing main,
                       services, and fire hydrants in this area. New meter boxes
                       and new water meters will be included in the project. In
                       cooperation with the City of Rocklin, the entire width of
                       Midas Avenue is planned to be resurfaced as part of the
-                      Phase 1 project.
+                      Phase 2 project.
                     </Type>
                     <Type paragraph>
-                      Approximately 1,900 feet of new 12-inch water main will be
-                      installed, including 12 new water meters.
+                      Approximately 1,550 feet of 16-inch and 800 feet of
+                      12-inch water main will be installed, including 42 new
+                      water meters.
                     </Type>
                     <Type paragraph>
-                      Phase 2 main replacement project is currently in design.
-                      Phase 2 is on Midas Avenue, between Argonaut Road and
-                      Clover Valley Road.
+                      Phase 1 main replacement project is currently in design.
+                      The Phase 1 project area is on Midas Avenue, between 2nd
+                      Street and Argonaut Road.
                     </Type>
                     {/* <Type paragraph>
                       Future anticipated Phases are shown below.
@@ -1169,13 +1170,13 @@ const ProjectsPage = () => {
                     </Type>
                     <List disablePadding>
                       <TimelineListItem>
-                        <ListItemText primary="Design Completion - Spring 2023" />
+                        <ListItemText primary="Design Completion - Fall 2023" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Advertise/Award - Spring 2023" />
+                        <ListItemText primary="Advertise/Award - Winter 2023" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Begin Construction - Summer 2023" />
+                        <ListItemText primary="Begin Construction - Spring 2024" />
                       </TimelineListItem>
                     </List>
                     <Spacing size="x-small" />
@@ -1184,13 +1185,13 @@ const ProjectsPage = () => {
                     </Type>
                     <List disablePadding>
                       <TimelineListItem>
-                        <ListItemText primary="Design Completion - Fall 2023" />
+                        <ListItemText primary="Design Completion - Summer 2023" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Advertise/Award - Winter 2023" />
+                        <ListItemText primary="Advertise/Award - Summer 2023" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Begin Construction - Spring 2024" />
+                        <ListItemText primary="Begin Construction - Summer 2023" />
                       </TimelineListItem>
                     </List>
                   </article>
