@@ -12,9 +12,7 @@ import {
   setSelectedGallery
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {useMediaQuery, Typography as Type, Box, useTheme} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import {useMediaQuery, Typography as Type, Box} from '@mui/material'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'
@@ -30,6 +28,8 @@ import {
   PickedVideoResponse,
   MappedPhoto
 } from '@lib/types/multimedia'
+import {galleryCrossFadeDuration} from '@pages/_app'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   multimedia?: VideoList
@@ -53,43 +53,18 @@ export type MultimediaVideoGallery = {
   galleryCover: MappedPhoto
 }
 
-const crossFadeDuration = 1000 * 0.2 // 200 milliseconds
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    trans: {
-      '& .cross-fade-leave': {
-        opacity: 1,
-        transition: `opacity ${crossFadeDuration}ms linear`
-      },
-      '& .cross-fade-leave.cross-fade-leave-active': {
-        opacity: 0
-      },
-      '& .cross-fade-enter': {
-        opacity: 0,
-        transition: `opacity ${crossFadeDuration}ms linear`
-      },
-      '& .cross-fade-enter.cross-fade-enter-active': {
-        opacity: 1
-      },
-      '&.cross-fade-height': {
-        height: '100% !important', // Fix SSR height. Setting minHeight property won't suffice.
-        transition: `height ${crossFadeDuration}ms ease-in-out`
-      }
-    },
-    player: {
-      '& > video': {
-        '&:focus': {
-          outline: 0
-        }
-      }
-    }
-  })
-)
-
 const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
-  const classes = useStyles()
   const theme = useTheme()
+  // [TODO] Is the player style still needed? If not delete this commented section.
+  // const style = {
+  //   player: {
+  //     '& > video': {
+  //       '&:focus': {
+  //         outline: 0
+  //       }
+  //     }
+  //   }
+  // }
   const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
   const [mappedMultimedia, setMappedMultimedia] = useState<VideoList>([])
@@ -224,10 +199,9 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
   return (
     <>
       <ReactCSSTransitionReplace
-        className={classes.trans}
-        transitionName="cross-fade"
-        transitionEnterTimeout={crossFadeDuration}
-        transitionLeaveTimeout={crossFadeDuration}
+        transitionName="gallery-cross-fade"
+        transitionEnterTimeout={galleryCrossFadeDuration}
+        transitionLeaveTimeout={galleryCrossFadeDuration}
       >
         {selectedGallery ? (
           <>
@@ -240,7 +214,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
               {currentGallery?.videos.map((p) => (
                 <ChildBox key={p.index} paddingBottom={5}>
                   <FilePlayer
-                    className={classes.player}
+                    // style={{...style.player}}
                     controls
                     url={p.url}
                     width={videoWidth}
@@ -262,7 +236,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
               ))}
               <ChildBox width="100%">
                 <YouTubePlayer
-                  className={classes.player}
+                  // style={{...style.player}}
                   controls
                   url="https://www.youtube.com/watch?v=Oazkk7VrlAY"
                   width={videoWidth}

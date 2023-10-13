@@ -10,7 +10,7 @@ import {
 } from '@lib/services/cosmicService'
 import {compareDesc, parseJSON, format, parseISO} from 'date-fns'
 import groupBy from '@lib/groupBy'
-import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import {
   Box,
   Typography as Type,
@@ -18,16 +18,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Theme,
   List,
-  useTheme,
   ListItemText,
   ListItemAvatar,
   SelectChangeEvent,
   ListItemButton
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSidebar'
 import NextLink from 'next/link'
 import Spacing from '@components/boxes/Spacing'
@@ -42,20 +38,12 @@ import useSWR from 'swr'
 import fetcher from '@lib/fetcher'
 import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
+import useTheme from '@hooks/useTheme'
 const DATE_FNS_FORMAT = 'MM-dd-yyyy'
 
 type Props = {
   fallbackData?: CosmicMediaResponse
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120
-    }
-  })
-)
 
 const cosmicGetMediaProps = {
   props: 'id,original_name,url,imgix_url'
@@ -68,7 +56,6 @@ const qs = stringify({...params}, true)
 const newsReleasesUrl = `/api/cosmic/media${qs}`
 
 const NewsReleasesPage = ({fallbackData}: Props) => {
-  const classes = useStyles()
   const theme = useTheme()
   const newsroomContext = useContext(NewsroomContext)
   const newsroomDispatch = newsroomContext.dispatch
@@ -185,7 +172,13 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                   Filter News Releases by Year
                 </Type>
                 <Spacing size="x-small" />
-                <FormControl variant="standard" className={classes.formControl}>
+                <FormControl
+                  variant="standard"
+                  sx={{
+                    margin: theme.spacing(1),
+                    minWidth: 120
+                  }}
+                >
                   <InputLabel id="news-release-year-select-label">
                     Year
                   </InputLabel>
@@ -249,12 +242,16 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                     >
                       <ListItemButton component="a">
                         <ListItemAvatar>
-                          <ColumnBox
-                            bgcolor={theme.palette.common.white}
-                            borderColor={theme.palette.grey['300']}
-                            border={1}
-                            mr={2}
-                            width={50}
+                          <Box
+                            sx={(theme) => ({
+                              marginRight: 2,
+                              width: 50,
+                              bgcolor: 'common.white',
+                              borderColor: theme.palette.grey[300],
+                              borderWidth: 1,
+                              borderStyle: 'solid',
+                              borderRadius: 1
+                            })}
                           >
                             <Image
                               loader={imgixUrlLoader}
@@ -266,7 +263,7 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                               src={n.imgix_url}
                               alt={`Thumbnail image for ${n.derivedFilenameAttr?.date} News Release`}
                             />
-                          </ColumnBox>
+                          </Box>
                         </ListItemAvatar>
                         <ListItemText
                           primary={n.derivedFilenameAttr?.title}

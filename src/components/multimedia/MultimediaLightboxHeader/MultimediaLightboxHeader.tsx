@@ -7,49 +7,12 @@ import CloseIcon from '@mui/icons-material/Close'
 // [TODO] why?
 // eslint-disable-next-line import/named
 import {CommonProps, ViewType} from 'react-images'
-import {Box, IconButton, Tooltip, Menu, MenuItem, Hidden} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {Box, IconButton, Tooltip, Menu, MenuItem} from '@mui/material'
 import {MultimediaContext, setLvDownloadMenuOpen} from '../MultimediaStore'
 import {PhotoLibraryMetadata} from '@lib/types/multimedia'
 import fileExtension from '@lib/fileExtension'
 import slugify from 'slugify'
 
-type UseStylesProps = {
-  interactionIsIdle?: boolean
-}
-const useStyles = makeStyles(() =>
-  createStyles({
-    header: ({interactionIsIdle}: UseStylesProps) => ({
-      alignItems: 'center',
-      display: 'flex ',
-      flex: '0 0 auto',
-      justifyContent: 'space-between',
-      opacity: interactionIsIdle ? 0 : 1,
-      padding: 10,
-      paddingBottom: 20,
-      position: 'absolute',
-      transform: `translateY(${interactionIsIdle ? -10 : 0}px)`,
-      transition: 'opacity 300ms, transform 300ms',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 1,
-      '& *:focus': {
-        outline: '1.5px solid orange'
-      }
-    }),
-    headerButton: {
-      opacity: 0.7,
-      '&:hover': {
-        opacity: 1
-      }
-    },
-    menuPaper: {
-      minWidth: 125
-    }
-  })
-)
 const MultimediaLightboxHeader = ({
   innerProps,
   isModal,
@@ -63,7 +26,36 @@ const MultimediaLightboxHeader = ({
     metadata?: PhotoLibraryMetadata
   }
 }) => {
-  const classes = useStyles({interactionIsIdle})
+  const style = {
+    header: {
+      alignItems: 'center',
+      display: 'flex ',
+      flex: '0 0 auto',
+      justifyContent: 'space-between',
+      opacity: interactionIsIdle ? 0 : 1,
+      padding: '10px',
+      paddingBottom: '20px',
+      position: 'absolute',
+      transform: `translateY(${interactionIsIdle ? -10 : 0}px)`,
+      transition: 'opacity 300ms, transform 300ms',
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 1,
+      '& *:focus': {
+        outline: '1.5px solid orange'
+      }
+    },
+    headerButton: {
+      opacity: 0.7,
+      '&:hover': {
+        opacity: 1
+      }
+    },
+    menuPaper: {
+      minWidth: 125
+    }
+  }
   const {onClose = null, isFullscreen = false} = modalProps ? modalProps : {}
   const multimediaContext = useContext(MultimediaContext)
   const multimediaDispatch = multimediaContext.dispatch
@@ -108,14 +100,14 @@ const MultimediaLightboxHeader = ({
   }, [])
 
   return isModal ? (
-    <Box className={classes.header} {...innerProps}>
+    <Box sx={{...style.header}} {...innerProps}>
       <RowBox justifyContent="flex-end" width="100%">
         {/* Mobile users probably don't want to download images. */}
-        <Hidden only="xs" implementation="css">
+        <Box sx={{display: {xs: 'none', sm: 'block'}}}>
           <ChildBox flex="0 1 auto">
             <Tooltip title="download photo" enterDelay={400}>
               <IconButton
-                className={classes.headerButton}
+                sx={{...style.headerButton}}
                 disabled={downloadDisabled}
                 onClick={downloadPhotoClickHandler}
                 aria-controls="download-image-menu"
@@ -132,8 +124,12 @@ const MultimediaLightboxHeader = ({
               keepMounted={false}
               open={Boolean(anchorEl)}
               onClose={menuCloseHandler}
-              classes={{
-                paper: classes.menuPaper
+              slotProps={{
+                paper: {
+                  sx: {
+                    ...style.menuPaper
+                  }
+                }
               }}
             >
               <MenuItem
@@ -169,14 +165,14 @@ const MultimediaLightboxHeader = ({
               </MenuItem>
             </Menu>
           </ChildBox>
-        </Hidden>
+        </Box>
 
         {/* It's unclear if the fullscreen functionality works on mobile browsers. It didn't seem to work with mobile firefox. */}
-        <Hidden only="xs" implementation="css">
+        <Box sx={{display: {xs: 'none', sm: 'block'}}}>
           <ChildBox flex="0 1 auto">
             <Tooltip title="fullscreen (f)" enterDelay={400}>
               <IconButton
-                className={classes.headerButton}
+                sx={{...style.headerButton}}
                 onClick={modalProps?.toggleFullscreen}
                 size="large"
               >
@@ -191,11 +187,11 @@ const MultimediaLightboxHeader = ({
               </IconButton>
             </Tooltip>
           </ChildBox>
-        </Hidden>
+        </Box>
         <ChildBox>
           <Tooltip title="close (esc)" enterDelay={400}>
             <IconButton
-              className={classes.headerButton}
+              sx={{...style.headerButton}}
               onClick={closeHandler}
               size="large"
             >

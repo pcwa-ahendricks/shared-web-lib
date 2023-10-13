@@ -1,6 +1,5 @@
 // cspell:ignore Lightbox
 import React, {useCallback, useContext, useEffect, useState} from 'react'
-
 import {format, parse} from 'date-fns'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -22,11 +21,8 @@ import {
   CardActions,
   Button,
   CardContent,
-  useMediaQuery,
-  useTheme
+  useMediaQuery
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import DescriptionIcon from '@mui/icons-material/Description'
 import {GetStaticPaths, GetStaticProps} from 'next'
@@ -69,6 +65,7 @@ import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import fileExtension from '@lib/fileExtension'
+import useTheme from '@hooks/useTheme'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -95,14 +92,6 @@ const imgixImages = [
   'c657f680-05d1-11ec-b6f4-332534522a48-image001-3.jpg'
 ]
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    appBar: {
-      zIndex: 1 // Defaults to a higher level appearing over mega menu.
-    }
-  })
-)
-
 const ResourceLibraryPage = ({
   err,
   initialMultimediaData,
@@ -114,7 +103,6 @@ const ResourceLibraryPage = ({
   lightboxIndexParam,
   placeholders
 }: Props) => {
-  const classes = useStyles()
   const multimediaContext = useContext(MultimediaContext)
   const {selectedGallery} = multimediaContext.state
   const multimediaDispatch = multimediaContext.dispatch
@@ -230,7 +218,11 @@ const ResourceLibraryPage = ({
   // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList is saved using Context API. Shallow routing will skip getInitialProps entirely.
   const LinkTab = useCallback(
     ({href, as, ...rest}: LinkProps & TabProps<'a'>) => {
-      return <Tab component={Link} href={href} as={as} shallow {...rest} />
+      return (
+        <Link href={href} as={as} shallow legacyBehavior passHref>
+          <Tab component="a" {...rest} />
+        </Link>
+      )
     },
     []
   )
@@ -291,7 +283,9 @@ const ResourceLibraryPage = ({
             <AppBar
               position="static"
               color="default"
-              classes={{root: classes.appBar}}
+              sx={{
+                zIndex: 1 // Defaults to a higher level appearing over mega menu.
+              }}
               elevation={0}
               // square={false}
             >
@@ -300,6 +294,7 @@ const ResourceLibraryPage = ({
                   variant="fullWidth"
                   value={tabIndex}
                   onChange={tabChangeHandler}
+                  indicatorColor="secondary"
                   aria-label="navigation tabs"
                 >
                   <LinkTab

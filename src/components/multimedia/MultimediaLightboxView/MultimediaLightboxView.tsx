@@ -1,22 +1,12 @@
 // cspell:ignore lightbox
 import React, {useCallback, useState, useEffect} from 'react'
-import {Box, CircularProgress, useTheme} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
+import {Box, CircularProgress} from '@mui/material'
 import {FlexBox} from '@components/MuiSleazebox'
 import {stringify} from 'querystringify'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {useWindowSize} from 'react-use'
-
-const useStyles = makeStyles({
-  img: {
-    height: 'auto',
-    width: 'auto',
-    maxHeight: '88vh', // Don't cover controls
-    maxWidth: '100%',
-    userSelect: 'none'
-  }
-})
+import useTheme from '@hooks/useTheme'
 
 const MultimediaLightboxView = (props: any) => {
   const {data, getStyles, index, modalProps, currentIndex} = props
@@ -28,7 +18,6 @@ const MultimediaLightboxView = (props: any) => {
   const {onClose = null} = modalProps ? modalProps : {}
 
   const theme = useTheme()
-  const classes = useStyles()
 
   const closeHandler = useCallback(
     (event: any) => {
@@ -87,7 +76,13 @@ const MultimediaLightboxView = (props: any) => {
           height={height}
           layout="intrinsic"
           objectFit="contain"
-          className={classes.img}
+          style={{
+            height: 'auto',
+            width: 'auto',
+            maxHeight: '88vh', // Don't cover controls
+            maxWidth: '100%',
+            userSelect: 'none'
+          }}
         />
       ) : null}
     </Box>

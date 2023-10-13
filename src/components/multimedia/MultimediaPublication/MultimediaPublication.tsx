@@ -1,26 +1,20 @@
 // cspell:ignore Lightbox
 import React, {useMemo, Fragment} from 'react'
 import NextLink from 'next/link'
-import {ListItem, ListItemAvatar, ListItemText, useTheme} from '@mui/material'
+import {ListItemAvatar, ListItemButton, ListItemText} from '@mui/material'
 import slugify from 'slugify'
 import {ColumnBox} from '@components/MuiSleazebox'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {PickedPublicationResponse} from '@lib/types/multimedia'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   publication: PickedPublicationResponse
   thumbMedia?: PickedPublicationResponse
 }
 
-// const useStyles = makeStyles(() =>
-//   createStyles({
-
-//   })
-// )
-
 const MultimediaPublication = ({publication, thumbMedia}: Props) => {
-  // const classes = useStyles()
   const theme = useTheme()
 
   const thumbUrl = thumbMedia?.imgix_url ?? publication.imgix_url
@@ -43,12 +37,15 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
         scroll
         legacyBehavior
       >
-        <ListItem button component="a">
+        <ListItemButton>
           <ListItemAvatar>
             <ColumnBox
-              bgcolor={theme.palette.common.white}
-              borderColor={theme.palette.grey['300']}
-              border={1}
+              sx={{
+                bgcolor: theme.palette.common.white,
+                borderColor: theme.palette.grey['300'],
+                borderWidth: 1,
+                borderStyle: 'solid'
+              }}
               mr={2}
               width={thumbWith}
             >
@@ -71,7 +68,7 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
             // color="primary"
             primaryTypographyProps={{variant: 'subtitle1'}}
           />
-        </ListItem>
+        </ListItemButton>
       </NextLink>
     </Fragment>
   )

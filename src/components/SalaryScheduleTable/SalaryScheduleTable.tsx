@@ -10,13 +10,10 @@ import {
   TableSortLabel,
   TablePagination,
   TextField,
-  Theme,
   Toolbar,
-  useTheme,
   LinearProgress
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+
 import {getSorting, stableSort} from '@lib/table-utils'
 import {generate} from 'shortid'
 import round from '@lib/round'
@@ -24,6 +21,7 @@ import noNaN from '@lib/noNaN'
 import SalaryScheduleRow from '@components/SalaryScheduleTable/SalaryScheduleRow'
 import DlSalaryScheduleCsvButton from '@components/SalaryScheduleTable/DlSalaryScheduleCsvButton'
 import {useDebounce} from 'use-debounce'
+import useTheme from '@hooks/useTheme'
 
 export interface SalaryScheduleResponse {
   'CLASS CODE': string
@@ -83,8 +81,13 @@ type Props = {
   isValidating: boolean
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
+const SalaryScheduleTable = ({
+  salaryCsvData,
+  isValidating,
+  salaryCsv
+}: Props) => {
+  const theme = useTheme()
+  const style = {
     tableWrapper: {
       overflowX: 'scroll'
     },
@@ -96,7 +99,7 @@ const useStyles = makeStyles(() =>
       border: 0,
       clip: 'rect(0 0 0 0)',
       height: 1,
-      margin: -1,
+      margin: '-1px',
       overflow: 'hidden',
       padding: 0,
       position: 'absolute',
@@ -106,16 +109,7 @@ const useStyles = makeStyles(() =>
     textField: {
       width: 300
     }
-  })
-)
-
-const SalaryScheduleTable = ({
-  salaryCsvData,
-  isValidating,
-  salaryCsv
-}: Props) => {
-  const theme = useTheme<Theme>()
-  const classes = useStyles()
+  }
   const [sortFilterSalaryData, setSortFilterSalaryData] = useState<
     SalaryScheduleData[]
   >([])
@@ -318,13 +312,13 @@ const SalaryScheduleTable = ({
             id="table-filter-by-job-class-title"
             // placeholder="Filter"
             label="Filter by Class Title (eg. Account)"
-            classes={{root: classes.textField}}
+            sx={{...style.textField}}
             value={classTitleFilter}
             onChange={handleInputChange}
             margin="normal"
           />
         </Box>
-        <Box className={classes.tableWrapper}>
+        <Box sx={{...style.tableWrapper}}>
           <Table size="small" aria-labelledby="tableTitle">
             <TableHead>
               <TableRow>
@@ -335,7 +329,7 @@ const SalaryScheduleTable = ({
                     align={c.numeric ? 'right' : 'left'}
                     padding={c.disablePadding ? 'none' : 'normal'}
                     sortDirection={orderBy === c.id ? order : false}
-                    classes={{root: classes.tableHeaderCell}}
+                    sx={{...style.tableHeaderCell}}
                   >
                     <TableSortLabel
                       active={orderBy === c.id}
@@ -344,11 +338,11 @@ const SalaryScheduleTable = ({
                     >
                       {c.label}
                       {orderBy === c.id ? (
-                        <span className={classes.visuallyHidden}>
+                        <Box component="span" sx={{...style.visuallyHidden}}>
                           {order === 'desc'
                             ? 'sorted descending'
                             : 'sorted ascending'}
-                        </span>
+                        </Box>
                       ) : null}
                     </TableSortLabel>
                   </TableCell>

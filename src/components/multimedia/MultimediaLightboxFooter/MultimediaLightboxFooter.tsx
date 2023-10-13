@@ -2,19 +2,29 @@ import React from 'react'
 // [TODO] why?
 // eslint-disable-next-line import/named
 import {CommonProps, ViewType} from 'react-images'
-import {useTheme, useMediaQuery} from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import {useMediaQuery} from '@mui/material'
 import {PhotoLibraryMetadata} from '@lib/types/multimedia'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
+import useTheme from '@hooks/useTheme'
 
-type UseStylesProps = {
-  interactionIsIdle?: boolean
-  isModal?: boolean
-  smallDevice: boolean
-}
-const useStyles = makeStyles(() =>
-  createStyles({
+const MultimediaLightboxFooter = ({
+  innerProps,
+  isModal,
+  interactionIsIdle,
+  currentView,
+  currentIndex = 0,
+  views
+}: Omit<CommonProps, 'currentView'> & {
+  currentView?: ViewType & {
+    caption?: any
+    imgix_url?: string
+    original_name?: string
+    metadata?: PhotoLibraryMetadata
+  }
+}) => {
+  const theme = useTheme()
+  const isXsDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const style = {
     count: {
       /* Included with react-images source, but not needed for this custom implementation */
       // flexShrink: 0,
@@ -25,7 +35,7 @@ const useStyles = makeStyles(() =>
     caption: {
       backgroundColor: 'rgba(0,0,0,0.1)'
     },
-    footer: ({interactionIsIdle, isModal, smallDevice}: UseStylesProps) => ({
+    footer: {
       alignItems: 'top',
       bottom: isModal ? 0 : 'auto',
       color: isModal ? 'rgba(255, 255, 255, 0.9)' : '#666',
@@ -46,7 +56,7 @@ const useStyles = makeStyles(() =>
       backgroundColor: isModal
         ? 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.33))'
         : 'transparent',
-      padding: smallDevice
+      padding: isXsDown
         ? isModal
           ? '20px 15px 15px'
           : '5px 0'
@@ -56,35 +66,16 @@ const useStyles = makeStyles(() =>
       '& *:focus': {
         outline: '1.5px solid orange'
       }
-    })
-  })
-)
-const MultimediaLightboxFooter = ({
-  innerProps,
-  isModal,
-  interactionIsIdle,
-  currentView,
-  currentIndex = 0,
-  views
-}: Omit<CommonProps, 'currentView'> & {
-  currentView?: ViewType & {
-    caption?: any
-    imgix_url?: string
-    original_name?: string
-    metadata?: PhotoLibraryMetadata
+    }
   }
-}) => {
-  const theme = useTheme()
-  const isXsDown = useMediaQuery(theme.breakpoints.down('sm'))
-  const classes = useStyles({interactionIsIdle, smallDevice: isXsDown, isModal})
   const {caption} = currentView || {}
   const activeView = currentIndex + 1
   const totalViews = views?.length
 
   return isModal ? (
-    <RowBox className={classes.footer} {...innerProps}>
-      <ChildBox className={classes.caption}>{caption}</ChildBox>
-      <ChildBox className={classes.count}>
+    <RowBox sx={{...style.footer}} {...innerProps}>
+      <ChildBox sx={{...style.caption}}>{caption}</ChildBox>
+      <ChildBox sx={{...style.count}}>
         {activeView} of {totalViews}
       </ChildBox>
     </RowBox>

@@ -9,12 +9,8 @@ import {
   Link,
   Popover,
   CircularProgress,
-  Theme,
-  useMediaQuery,
-  useTheme
+  useMediaQuery
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import Spacing from '@components/boxes/Spacing'
 import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 import {ChildBox, ColumnBox, RowBox, FlexBox} from '@components/MuiSleazebox'
@@ -40,6 +36,7 @@ import {CountyMetaResponse} from '@pages/water-year-dashboard'
 import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
 import {useDebounce} from 'use-debounce'
 import ClimateChangeLine from './ClimateChangeLine'
+import useTheme from '@hooks/useTheme'
 
 type Props = {countyResponse?: CountyMetaResponse; regionalWaterYear: number}
 
@@ -108,8 +105,12 @@ const multiStnMxTempSmryUrls = {
   last7Days: '/api/acis/multi-stn-mxtemp-last7-smry'
 } as const
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+export default function RegionalSection({
+  countyResponse,
+  regionalWaterYear
+}: Props) {
+  const theme = useTheme()
+  const style = {
     popover: {
       pointerEvents: 'none'
     },
@@ -141,29 +142,27 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
       whiteSpace: 'nowrap'
     }
-  })
-)
-
-export default function RegionalSection({
-  countyResponse,
-  regionalWaterYear
-}: Props) {
-  const classes = useStyles()
-  const theme = useTheme()
+  }
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
   const [regionalTimeFrame, setRegionalTimeFrame] = useState<RegionalTimeFrame>(
     DEFAULT_REGIONAL_TIME_FRAME
   )
 
-  const rgnlTmFrmHandler = useCallback((_e, timeFrame: RegionalTimeFrame) => {
-    // Enforce a value (ie. don't allow un-select)
-    if (timeFrame !== null) {
-      setRegionalTimeFrame(timeFrame)
-    }
-  }, [])
+  const rgnlTmFrmHandler = useCallback(
+    (
+      _e: React.MouseEvent<HTMLElement, MouseEvent>,
+      timeFrame: RegionalTimeFrame
+    ) => {
+      // Enforce a value (ie. don't allow un-select)
+      if (timeFrame !== null) {
+        setRegionalTimeFrame(timeFrame)
+      }
+    },
+    []
+  )
 
-  const Emx = useCallback(({children}) => {
+  const Emx = useCallback(({children}: {children: React.ReactNode}) => {
     return <em style={{letterSpacing: 0.4}}>{children}</em>
   }, [])
 
@@ -694,7 +693,7 @@ export default function RegionalSection({
                   <ColumnBox child alignItems="center">
                     <Type
                       variant="body1"
-                      className={classes.regionalStat}
+                      sx={{...style.regionalStat}}
                       align="center"
                     >
                       {relativePrecip(precipPerc)}
@@ -710,7 +709,7 @@ export default function RegionalSection({
                         Using data from{' '}
                         <Type
                           variant="inherit"
-                          className={classes.hasPopover}
+                          sx={{...style.hasPopover}}
                           aria-owns={
                             regPrecipStnPopoverOpen
                               ? 'regional-precip-stations-popover'
@@ -724,9 +723,13 @@ export default function RegionalSection({
                         </Type>{' '}
                         <Popover
                           id="regional-precip-stations-popover"
-                          className={classes.popover}
-                          classes={{
-                            paper: classes.paper
+                          sx={{...style.popover}}
+                          slotProps={{
+                            paper: {
+                              sx: {
+                                ...style.paper
+                              }
+                            }
                           }}
                           open={regPrecipStnPopoverOpen}
                           anchorEl={regPrecipStnAnchorEl}
@@ -753,7 +756,7 @@ export default function RegionalSection({
                         in{' '}
                         <Type
                           variant="inherit"
-                          className={classes.hasPopover}
+                          sx={{...style.hasPopover}}
                           aria-owns={
                             regPrecipCntyPopoverOpen
                               ? 'regional-precip-counties-popover'
@@ -772,9 +775,13 @@ export default function RegionalSection({
                         </Type>
                         <Popover
                           id="regional-precip-counties-popover"
-                          className={classes.popover}
-                          classes={{
-                            paper: classes.paper
+                          sx={{...style.popover}}
+                          slotProps={{
+                            paper: {
+                              sx: {
+                                ...style.paper
+                              }
+                            }
                           }}
                           open={regPrecipCntyPopoverOpen}
                           anchorEl={regPrecipCntyAnchorEl}
@@ -808,7 +815,7 @@ export default function RegionalSection({
                 {multiStnSnowSmryResLoading ? <AbsSpinner /> : null}
                 <Zoom animate={isNumber(snowPerc)}>
                   <ColumnBox child alignItems="center">
-                    <Type variant="body1" className={classes.regionalStat}>
+                    <Type variant="body1" sx={{...style.regionalStat}}>
                       {relativePrecip(snowPerc)}
                     </Type>
                     <Box maxWidth="90%">
@@ -822,7 +829,7 @@ export default function RegionalSection({
                         Using data from{' '}
                         <Type
                           variant="inherit"
-                          className={classes.hasPopover}
+                          sx={{...style.hasPopover}}
                           aria-owns={
                             regSnowStnPopoverOpen
                               ? 'regional-snowfall-stations-popover'
@@ -836,9 +843,13 @@ export default function RegionalSection({
                         </Type>
                         <Popover
                           id="regional-snowfall-stations-popover"
-                          className={classes.popover}
-                          classes={{
-                            paper: classes.paper
+                          sx={{...style.popover}}
+                          slotProps={{
+                            paper: {
+                              sx: {
+                                ...style.paper
+                              }
+                            }
                           }}
                           open={regSnowStnPopoverOpen}
                           anchorEl={regSnowStnAnchorEl}
@@ -865,7 +876,7 @@ export default function RegionalSection({
                         in{' '}
                         <Type
                           variant="inherit"
-                          className={classes.hasPopover}
+                          sx={{...style.hasPopover}}
                           aria-owns={
                             regSnowCntyPopoverOpen
                               ? 'regional-snowfall-counties-popover'
@@ -883,9 +894,13 @@ export default function RegionalSection({
                         .
                         <Popover
                           id="regional-snowfall-counties-popover"
-                          className={classes.popover}
-                          classes={{
-                            paper: classes.paper
+                          sx={{...style.popover}}
+                          slotProps={{
+                            paper: {
+                              sx: {
+                                ...style.paper
+                              }
+                            }
                           }}
                           open={regSnowCntyPopoverOpen}
                           anchorEl={regSnowCntyAnchorEl}
@@ -932,7 +947,7 @@ export default function RegionalSection({
                     <Box position="relative">
                       <Type
                         variant="body1"
-                        className={classes.regionalStat}
+                        sx={{...style.regionalStat}}
                         component="header"
                       >
                         {isNumber(mxTempDepart)
@@ -957,7 +972,7 @@ export default function RegionalSection({
                     </Box>
                     <Type
                       variant="body1"
-                      className={classes.regionalStatSub}
+                      sx={{...style.regionalStatSub}}
                       component="header"
                       style={{marginTop: -16}}
                     >
@@ -985,7 +1000,7 @@ export default function RegionalSection({
                         Using daily max temperature data from{' '}
                         <Type
                           variant="inherit"
-                          className={classes.hasPopover}
+                          sx={{...style.hasPopover}}
                           aria-owns={
                             regTempStnPopoverOpen
                               ? 'regional-temp-stations-popover'
@@ -999,9 +1014,13 @@ export default function RegionalSection({
                         </Type>{' '}
                         <Popover
                           id="regional-temp-stations-popover"
-                          className={classes.popover}
-                          classes={{
-                            paper: classes.paper
+                          sx={{...style.popover}}
+                          slotProps={{
+                            paper: {
+                              sx: {
+                                ...style.paper
+                              }
+                            }
                           }}
                           open={regTempStnPopoverOpen}
                           anchorEl={regTempStnAnchorEl}
@@ -1028,7 +1047,7 @@ export default function RegionalSection({
                         in{' '}
                         <Type
                           variant="inherit"
-                          className={classes.hasPopover}
+                          sx={{...style.hasPopover}}
                           aria-owns={
                             regTempCntyPopoverOpen
                               ? 'regional-temp-counties-popover'
@@ -1047,9 +1066,13 @@ export default function RegionalSection({
                         </Type>
                         <Popover
                           id="regional-temp-counties-popover"
-                          className={classes.popover}
-                          classes={{
-                            paper: classes.paper
+                          sx={{...style.popover}}
+                          slotProps={{
+                            paper: {
+                              sx: {
+                                ...style.paper
+                              }
+                            }
                           }}
                           open={regTempCntyPopoverOpen}
                           anchorEl={regTempCntyAnchorEl}
@@ -1096,9 +1119,11 @@ export default function RegionalSection({
               <MediaDialogOnClick
                 mediaName="Actual Precipitation"
                 mediaUrl={precipSrc}
-                mediaPreviewDialogProps={{
-                  width: 2200,
-                  height: 1700
+                MediaPreviewDialogProps={{
+                  ImageProps: {
+                    width: 2200,
+                    height: 1700
+                  }
                 }}
               >
                 <Image
@@ -1108,7 +1133,7 @@ export default function RegionalSection({
                   height={850}
                   width={1100}
                   alt="Actual Precipitation for California"
-                  className={classes.mediaDialogImg}
+                  style={{...style.mediaDialogImg}}
                 />
               </MediaDialogOnClick>
               <ColumnBox mt={1} alignItems="center">
@@ -1142,9 +1167,11 @@ export default function RegionalSection({
               <MediaDialogOnClick
                 mediaName="Percent of Normal"
                 mediaUrl={percNormalPrecipSrc}
-                mediaPreviewDialogProps={{
-                  width: 2200,
-                  height: 1700
+                MediaPreviewDialogProps={{
+                  ImageProps: {
+                    width: 2200,
+                    height: 1700
+                  }
                 }}
               >
                 <Image
@@ -1154,7 +1181,7 @@ export default function RegionalSection({
                   height={850}
                   width={1100}
                   alt="Percent of Normal Precipitation for California"
-                  className={classes.mediaDialogImg}
+                  style={{...style.mediaDialogImg}}
                 />
               </MediaDialogOnClick>
               <ColumnBox mt={1} alignItems="center">
@@ -1173,9 +1200,11 @@ export default function RegionalSection({
             <MediaDialogOnClick
               mediaName="Temperature Departure"
               mediaUrl={tempDepartSrc}
-              mediaPreviewDialogProps={{
-                width: 2200,
-                height: 1700
+              MediaPreviewDialogProps={{
+                ImageProps: {
+                  width: 2200,
+                  height: 1700
+                }
               }}
             >
               <Image
@@ -1185,7 +1214,7 @@ export default function RegionalSection({
                 height={850}
                 width={1100}
                 alt="Departure from Normal Temperature for California"
-                className={classes.mediaDialogImg}
+                style={{...style.mediaDialogImg}}
               />
             </MediaDialogOnClick>
             <ColumnBox mt={1} alignItems="center">
@@ -1206,7 +1235,7 @@ export default function RegionalSection({
         <RowBox
           child
           flex={isMdUp ? '0 1 70%' : '0 1 100%'}
-          className={classes.climChgBox}
+          sx={{...style.climChgBox}}
           responsive
         >
           <ChildBox

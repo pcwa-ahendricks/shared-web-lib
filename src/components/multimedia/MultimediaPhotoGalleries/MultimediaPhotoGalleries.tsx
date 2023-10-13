@@ -7,15 +7,7 @@ import {
   setLightboxViewerOpen
 } from '@components/multimedia/MultimediaStore'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import {
-  Box,
-  Typography as Type,
-  useMediaQuery,
-  useTheme,
-  Theme
-} from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import {Box, Typography as Type, useMediaQuery} from '@mui/material'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import groupBy from '@lib/groupBy'
@@ -32,6 +24,8 @@ import {
   PhotoLibraryMetadata,
   PhotoList
 } from '@lib/types/multimedia'
+import {galleryCrossFadeDuration} from '@pages/_app'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   multimedia?: PhotoList
@@ -59,40 +53,14 @@ export type MultimediaPhotoGallery = {
   galleryCover: MappedPhoto
 }
 
-const crossFadeDuration = 1000 * 0.2 // 200 milliseconds
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    trans: {
-      '& .cross-fade-leave': {
-        opacity: 1,
-        transition: `opacity ${crossFadeDuration}ms linear`
-      },
-      '& .cross-fade-leave.cross-fade-leave-active': {
-        opacity: 0
-      },
-      '& .cross-fade-enter': {
-        opacity: 0,
-        transition: `opacity ${crossFadeDuration}ms linear`
-      },
-      '& .cross-fade-enter.cross-fade-enter-active': {
-        opacity: 1
-      },
-      '&.cross-fade-height': {
-        height: '100% !important', // Fix SSR height. Setting minHeight property won't suffice.
-        transition: `height ${crossFadeDuration}ms ease-in-out`
-      }
-    },
-    photoCaption: {
-      color: theme.palette.common.white,
-      paddingLeft: theme.spacing(1)
-    }
-  })
-)
-
 const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
-  const classes = useStyles()
   const theme = useTheme()
+  // const style = {
+  //   photoCaption: {
+  //     color: theme.palette.common.white,
+  //     paddingLeft: theme.spacing(1)
+  //   }
+  // }
   // const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const isSM = useMediaQuery(theme.breakpoints.down('md'))
   const isMD = useMediaQuery(theme.breakpoints.only('md'))
@@ -349,10 +317,9 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   return (
     <>
       <ReactCSSTransitionReplace
-        className={classes.trans}
-        transitionName="cross-fade"
-        transitionEnterTimeout={crossFadeDuration}
-        transitionLeaveTimeout={crossFadeDuration}
+        transitionName="gallery-cross-fade"
+        transitionEnterTimeout={galleryCrossFadeDuration}
+        transitionLeaveTimeout={galleryCrossFadeDuration}
       >
         <>
           {selectedGallery ? (

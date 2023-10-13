@@ -1,29 +1,29 @@
 // cspell:ignore
 import React from 'react'
-import {Box, Typography as Type, Divider, Link, useTheme} from '@mui/material'
+import {Box, Typography as Type, Divider, Link} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-
-//   })
-// )
-
 const NewsroomSidebar = () => {
-  const theme = useTheme()
-  // const classes = useStyles()
-
   return (
     <Box
-      width={{xs: '100%', sm: 175}}
-      p={2}
-      bgcolor={theme.palette.grey['100']}
-      borderColor={theme.palette.grey['300']}
-      borderRadius="1px"
-      border={1}
-      minWidth={{xs: 0, sm: 210}}
+      sx={(theme) => ({
+        minWidth: {
+          xs: 0,
+          sm: 210
+        },
+        width: {
+          xs: '100%',
+          sm: 210
+        },
+        padding: 2,
+        bgcolor: theme.palette.grey[100],
+        borderColor: theme.palette.grey[300],
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderRadius: 1
+      })}
     >
-      <Box color={theme.palette.primary.light}>
+      <Box color="primary.light">
         <Type variant="subtitle1" color="textPrimary">
           Contacts
         </Type>

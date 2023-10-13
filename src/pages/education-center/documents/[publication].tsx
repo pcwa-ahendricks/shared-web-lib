@@ -12,17 +12,13 @@ import {
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
-  Theme,
   useMediaQuery,
   Box,
   Typography as Type,
   Divider,
   Breadcrumbs,
-  LinearProgress,
-  useTheme
+  LinearProgress
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import ErrorPage from '@pages/_error'
 import UndoIcon from '@mui/icons-material/UndoOutlined'
@@ -34,6 +30,7 @@ import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import {publicationUrl} from '@lib/types/publication'
 import {PublicationLibraryMetadata} from '@lib/types/multimedia'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   err?: any
@@ -52,15 +49,19 @@ type PickedMediaResponse = Pick<
 >
 type PickedMediaResponses = PickedMediaResponse[]
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
+  const theme = useTheme()
+
+  const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
+  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
+  const style = {
     pageNo: {
       cursor: 'default'
     },
     pageNoType: {
       borderRadius: 8,
-      paddingLeft: 4,
-      paddingRight: 4,
+      paddingLeft: '4px',
+      paddingRight: '4px',
       backgroundColor: theme.palette.common.white,
       lineHeight: 1.2
     },
@@ -73,15 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 20,
       height: 20
     }
-  })
-)
-
-const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
-  const theme = useTheme<Theme>()
-
-  const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
-  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
-  const classes = useStyles()
+  }
 
   const [additionalPages, setAdditionalPages] = useState<Page[]>([])
   const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
@@ -142,13 +135,13 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
                 color="inherit"
                 href="/education-center/[...multimedia]"
                 as="/education-center/documents"
-                className={classes.bcLink}
+                sx={{...style.bcLink}}
               >
-                <UndoIcon className={classes.bcIcon} />
+                <UndoIcon sx={{...style.bcIcon}} />
                 Documents
               </MuiNextLink>
               <Type color="textPrimary" style={{display: 'flex'}}>
-                <DocIcon className={classes.bcIcon} />
+                <DocIcon sx={{...style.bcIcon}} />
                 {title}
               </Type>
             </Breadcrumbs>
@@ -184,12 +177,12 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
                 justifyContent="center"
                 width="100%"
                 fontStyle="italic"
-                className={classes.pageNo}
+                sx={{...style.pageNo}}
               >
                 <Type
                   color="primary"
                   variant={isSMDown ? 'body2' : 'body1'}
-                  className={classes.pageNoType}
+                  sx={{...style.pageNoType}}
                 >{`Page ${number}`}</Type>
               </RowBox>
             ) : null}

@@ -5,22 +5,21 @@ import {
   Grow,
   TableRow,
   TableCell,
-  Theme,
   TableCellProps,
   Tooltip
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import {SalaryScheduleData} from '@components/SalaryScheduleTable/SalaryScheduleTable'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   data: SalaryScheduleData
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const SalaryScheduleRow = ({data}: Props) => {
+  const theme = useTheme()
+  const style = {
     tableRow: {
       cursor: 'pointer'
     },
@@ -31,20 +30,16 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.95rem'
     },
     small: {
-      paddingTop: 3, // 1/2 of default.
-      paddingRight: 24,
-      paddingBottom: 3, // 1/2 of default.
-      paddingLeft: 8
+      paddingTop: '3px',
+      paddingBottom: '3px',
+      paddingRight: theme.spacing(3),
+      paddingLeft: theme.spacing(1)
     },
     detailRowCaption: {
       fontStyle: 'italic',
       whiteSpace: 'nowrap'
     }
-  })
-)
-
-const SalaryScheduleRow = ({data}: Props) => {
-  const classes = useStyles()
+  }
 
   const [rowDetailExpanded, setRowDetailExpanded] = useState<boolean>(true)
 
@@ -57,10 +52,14 @@ const SalaryScheduleRow = ({data}: Props) => {
   const DetailTableCell = ({children, ...rest}: TableCellProps) => {
     return (
       <TableCell
-        classes={{
-          root: classes.root,
-          body: classes.body,
-          sizeSmall: classes.small
+        sx={{
+          ...style.root,
+          '.MuiTableCell-body': {
+            ...style.body
+          },
+          '.MuiTableCell-sizeSmall': {
+            ...style.small
+          }
         }}
         {...rest}
       >
@@ -84,7 +83,7 @@ const SalaryScheduleRow = ({data}: Props) => {
         aria-expanded={rowDetailExpanded}
         aria-label={labelId}
         tabIndex={-1}
-        className={classes.tableRow}
+        sx={{...style.tableRow}}
       >
         <TableCell padding="checkbox">
           <ButtonBase aria-label={labelId}>
@@ -117,7 +116,7 @@ const SalaryScheduleRow = ({data}: Props) => {
       <Grow in={rowDetailExpanded} unmountOnExit>
         <TableRow>
           <DetailTableCell rowSpan={2} colSpan={3} />
-          <DetailTableCell colSpan={2} className={classes.detailRowCaption}>
+          <DetailTableCell colSpan={2} sx={{...style.detailRowCaption}}>
             monthly rate
           </DetailTableCell>
           <DetailTableCell align="right">
@@ -143,7 +142,7 @@ const SalaryScheduleRow = ({data}: Props) => {
       <Grow in={rowDetailExpanded} unmountOnExit>
         <TableRow>
           {/* <DetailTableCell rowSpan={2} colSpan={3} /> */}
-          <DetailTableCell colSpan={2} className={classes.detailRowCaption}>
+          <DetailTableCell colSpan={2} sx={{...style.detailRowCaption}}>
             annual rate
           </DetailTableCell>
           <DetailTableCell align="right">

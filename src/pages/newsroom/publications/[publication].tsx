@@ -37,17 +37,14 @@ import {
   Select,
   MenuItem,
   List,
-  ListItem,
   ListItemAvatar,
   ListItemText,
   TabProps,
   Button,
   useMediaQuery,
-  Theme,
-  useTheme
+  SelectChangeEvent,
+  ListItemButton
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {GetStaticProps, GetStaticPaths} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
 import ErrorPage from '@pages/_error'
@@ -71,6 +68,7 @@ import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
+import useTheme from '@hooks/useTheme'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -122,23 +120,6 @@ export const cosmicFetcher = (
   return fetch(url).then((r) => r.json())
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    appBar: {
-      zIndex: 1, // Defaults to a higher level appearing over mega menu.
-      margin: 'auto', // [HACK] Center maxWidth appBar.
-      maxWidth: 'calc(100% - 6px)' // [HACK] Don't cutoff box shadow from left and right edge.
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120
-    },
-    listItem: {
-      alignItems: 'flex-start'
-    }
-  })
-)
-
 const cosmicGetMediaProps = {
   props: 'id,original_name,imgix_url'
 }
@@ -156,8 +137,21 @@ const PublicationsPage = ({
   publicationParam = '',
   placeholders
 }: Props) => {
-  const classes = useStyles()
   const theme = useTheme()
+  const style = {
+    appBar: {
+      zIndex: 1, // Defaults to a higher level appearing over mega menu.
+      margin: 'auto', // [HACK] Center maxWidth appBar.
+      maxWidth: 'calc(100% - 6px)' // [HACK] Don't cutoff box shadow from left and right edge.
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120
+    },
+    listItem: {
+      alignItems: 'flex-start'
+    }
+  }
   const [tabIndex, setTabIndex] = useState(0)
   const newsroomContext = useContext(NewsroomContext)
   const newsroomDispatch = newsroomContext.dispatch
@@ -262,8 +256,14 @@ const PublicationsPage = ({
   // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList and Enews Blasts are saved using Context API. Shallow routing will skip getInitialProps entirely.
   const LinkTab = useCallback(
     ({href, as, ...rest}: TabProps<'a'> & LinkProps) => (
-      <NextLink passHref href={href} as={as} shallow legacyBehavior>
-        <Tab component="a" {...rest} />
+      <NextLink href={href} as={as} shallow passHref legacyBehavior>
+        <Tab
+          component="a"
+          onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+            event.preventDefault()
+          }}
+          {...rest}
+        />
       </NextLink>
     ),
     []
@@ -306,8 +306,8 @@ const PublicationsPage = ({
   const selectYear = newsletterYear ?? maxYear
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<{value: unknown}>) => {
-      newsroomDispatch(setNewsletterYear(event.target.value as number))
+    (event: SelectChangeEvent) => {
+      newsroomDispatch(setNewsletterYear(parseInt(event.target.value, 10)))
     },
     [newsroomDispatch]
   )
@@ -320,9 +320,12 @@ const PublicationsPage = ({
     [newsletters, selectYear]
   )
 
-  const tabChangeHandler = useCallback((_, newValue) => {
-    setTabIndex(newValue)
-  }, [])
+  const tabChangeHandler = useCallback(
+    (_event: React.SyntheticEvent, newValue: any) => {
+      setTabIndex(newValue)
+    },
+    []
+  )
 
   const sortedEnewsBlasts = useMemo(
     () =>
@@ -377,21 +380,21 @@ const PublicationsPage = ({
           <AppBar
             position="relative"
             color="default"
-            classes={{root: classes.appBar}}
+            sx={{...style.appBar}}
             elevation={2}
             square={false}
           >
             <Tabs
               value={tabIndex}
               onChange={tabChangeHandler}
-              aria-label="nav tabs example"
+              aria-label="publication navigation"
               // variant="fullWidth"
               // variant="scrollable"
               scrollButtons="auto"
               variant={isMDUp ? 'standard' : 'scrollable'}
               centered={isMDUp ? true : false}
               // textColor="secondary"
-              // indicatorColor="secondary"
+              indicatorColor="secondary"
             >
               <LinkTab
                 label="Newsletters"
@@ -436,10 +439,7 @@ const PublicationsPage = ({
                     Filter Newsletters by Year
                   </Type>
                   <Spacing size="x-small" />
-                  <FormControl
-                    variant="standard"
-                    className={classes.formControl}
-                  >
+                  <FormControl variant="standard" sx={{...style.formControl}}>
                     <InputLabel id="newsletter-year-select-label">
                       Year
                     </InputLabel>
@@ -447,7 +447,7 @@ const PublicationsPage = ({
                       variant="standard"
                       labelId="newsletter-year-select-label"
                       id="newsletter-year-select"
-                      value={selectYear}
+                      value={selectYear.toString()}
                       onChange={handleChange}
                       MenuProps={{
                         keepMounted: true,
@@ -484,18 +484,17 @@ const PublicationsPage = ({
                           scroll
                           legacyBehavior
                         >
-                          <ListItem
-                            button
-                            component="a"
-                            classes={{root: classes.listItem}}
-                          >
+                          <ListItemButton sx={{...style.listItem}}>
                             <ListItemAvatar>
                               <ColumnBox
-                                bgcolor={theme.palette.common.white}
-                                borderColor={theme.palette.grey['300']}
-                                border={1}
-                                mr={2}
-                                width={75}
+                                sx={{
+                                  bgcolor: theme.palette.common.white,
+                                  borderColor: theme.palette.grey['300'],
+                                  borderWidth: 1,
+                                  borderStyle: 'solid',
+                                  marginRight: 2,
+                                  width: 75
+                                }}
                               >
                                 <Image
                                   loader={imgixUrlLoader}
@@ -513,7 +512,7 @@ const PublicationsPage = ({
                               primary={n.derivedFilenameAttr?.title}
                               secondary={formatNewsletterDate(n)}
                             />
-                          </ListItem>
+                          </ListItemButton>
                         </NextLink>
                       </Box>
                     ))}
@@ -755,10 +754,8 @@ const PublicationsPage = ({
                       'MM/dd/yyyy'
                     )
                     return (
-                      <ListItem
+                      <ListItemButton
                         key={blast.id}
-                        component="a"
-                        button
                         href={blast.mailchimpURL}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -766,7 +763,7 @@ const PublicationsPage = ({
                         <ListItemText
                           primary={`${distDateFormatted} - ${blast.title}`}
                         />
-                      </ListItem>
+                      </ListItemButton>
                     )
                   })}
                 </List>

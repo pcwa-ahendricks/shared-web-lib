@@ -16,17 +16,13 @@ import {
 } from '@lib/services/cosmicService'
 import PDFPage from '@components/PDFPage/PDFPage'
 import {
-  Theme,
   useMediaQuery,
   Box,
   Typography as Type,
   Divider,
   Breadcrumbs,
-  LinearProgress,
-  useTheme
+  LinearProgress
 } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import {format, parseJSON, isValid} from 'date-fns'
 import ErrorPage from '@pages/_error'
@@ -45,6 +41,7 @@ import {
   NewsReleaseMediaResponses
 } from '@lib/types/newsReleases'
 import {setCenterProgress, UiContext} from '@components/ui/UiStore'
+import useTheme from '@hooks/useTheme'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -52,8 +49,16 @@ type Props = {
   media?: NewsReleaseMediaResponse
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const DynamicNewsReleasePage = ({media, err}: Props) => {
+  const theme = useTheme()
+  const uiContext = useContext(UiContext)
+  const {dispatch: uiDispatch} = uiContext
+
+  const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
+  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const router = useRouter()
+  const style = {
     pageNo: {
       cursor: 'default'
     },
@@ -67,19 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 20,
       height: 20
     }
-  })
-)
-
-const DynamicNewsReleasePage = ({media, err}: Props) => {
-  const theme = useTheme<Theme>()
-  const uiContext = useContext(UiContext)
-  const {dispatch: uiDispatch} = uiContext
-
-  const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
-  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
-
-  const classes = useStyles()
-  const router = useRouter()
+  }
 
   const [additionalPages, setAdditionalPages] = useState<Page[]>([])
   const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
@@ -159,16 +152,16 @@ const DynamicNewsReleasePage = ({media, err}: Props) => {
             <Breadcrumbs aria-label="breadcrumb">
               <MuiNextLink
                 color="inherit"
-                className={classes.bcLink}
+                sx={{...style.bcLink}}
                 href="/newsroom/news-releases"
               >
                 <>
-                  <UndoIcon className={classes.bcIcon} />
+                  <UndoIcon sx={{...style.bcIcon}} />
                   News Releases
                 </>
               </MuiNextLink>
               <Type color="textPrimary" style={{display: 'flex'}}>
-                <DocIcon className={classes.bcIcon} />
+                <DocIcon sx={{...style.bcIcon}} />
                 {newsReleaseDateFormatted}
               </Type>
             </Breadcrumbs>
@@ -204,7 +197,7 @@ const DynamicNewsReleasePage = ({media, err}: Props) => {
                 justifyContent="center"
                 width="100%"
                 fontStyle="italic"
-                className={classes.pageNo}
+                sx={{...style.pageNo}}
               >
                 <Type color="primary">{`Page ${number}`}</Type>
               </RowBox>

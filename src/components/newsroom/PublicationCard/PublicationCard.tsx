@@ -10,11 +10,8 @@ import {
   CardActions,
   TypographyProps,
   useMediaQuery,
-  useTheme,
   BoxProps
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import DownloadIcon from '@mui/icons-material/CloudDownload'
 import {format} from 'date-fns'
 import fileExtension from '@lib/fileExtension'
@@ -22,6 +19,7 @@ import ImageFancier from '@components/ImageFancier/ImageFancier'
 import slugify from 'slugify'
 import {stringify} from 'querystringify'
 import {ImageProps} from 'next/legacy/image'
+import useTheme from '@hooks/useTheme'
 
 export type PublicationCardProps = {
   title: string
@@ -34,19 +32,6 @@ export type PublicationCardProps = {
   sizes?: ImageProps['sizes']
 } & BoxProps
 
-type UseStylesProps = {
-  cardMediaHeight: number
-}
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    cardMedia: ({cardMediaHeight}: UseStylesProps) => ({
-      height: cardMediaHeight,
-      overflow: 'hidden'
-    })
-  })
-)
-
 const PublicationCard = ({
   title,
   publishedDate,
@@ -58,8 +43,13 @@ const PublicationCard = ({
   sizes,
   ...rest
 }: PublicationCardProps) => {
-  const classes = useStyles({cardMediaHeight})
   const theme = useTheme()
+  const style = {
+    cardMedia: {
+      height: cardMediaHeight,
+      overflow: 'hidden'
+    }
+  }
   const isMDUp = useMediaQuery(theme.breakpoints.up('md'))
   const [actionAreaIsHover, setActionAreaIsHover] = useState<boolean>() // For animation w/ <ImageFancier/> to work properly this must be initialized as undefined
   const thumbImgixURL = thumbImgixURLProp ?? imgixURL // If thumbnail image src specified use it, if not, use the other imgixURL prop.
@@ -93,7 +83,7 @@ const PublicationCard = ({
           onMouseLeave={leaveHandler}
         >
           <CardMedia
-            className={classes.cardMedia}
+            sx={{...style.cardMedia}}
             // component={}
             // src={}
             // alt=""
