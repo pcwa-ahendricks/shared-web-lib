@@ -21,7 +21,7 @@ import {
   AccordionSummary,
   AccordionDetails
 } from '@mui/material'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
 import Spacing from '@components/boxes/Spacing'
@@ -281,11 +281,11 @@ export default function WhyGoPaperlessPage() {
                   <Box sx={{...style.imgInline, ...style.imgBorder}}>
                     <Image
                       style={{
+                        objectFit: 'cover',
                         ...style.zoomInToggleOpt
                       }}
                       height={200}
                       width={500}
-                      objectFit="cover"
                       loader={imgixUrlLoader}
                       src={`https://imgix.cosmicjs.com/0cd7f830-f41e-11ed-bb44-790a83f99a24-Paperless-toggled.png`}
                       alt="Un-toggle Paperless Billing Option"
@@ -601,11 +601,10 @@ export default function WhyGoPaperlessPage() {
           </Type>
           <Spacing size="large" />
 
-          <Box>
+          <Box sx={{backgroundColor: 'background.paper', padding: 3}}>
             <Stepper activeStep={-1} orientation="vertical">
               {genericSteps.map(({key, cmp}) => (
                 <Step key={key} active>
-                  ={false}
                   <StepLabel>{cmp}</StepLabel>
                   <StepContent>
                     {/* <Type>{getStopMailContent(key)}</Type> */}
@@ -658,11 +657,8 @@ export default function WhyGoPaperlessPage() {
                   <Stepper activeStep={-1} orientation="vertical">
                     {haveAcctSteps.map(({key, cmp}) => (
                       <Step key={key} active>
-                        ={false}
                         <StepLabel>{cmp}</StepLabel>
-                        <StepContent>
-                          <Type>{getHaveAcctStepContent(key)}</Type>
-                        </StepContent>
+                        <StepContent>{getHaveAcctStepContent(key)}</StepContent>
                       </Step>
                     ))}
                   </Stepper>
@@ -705,11 +701,8 @@ export default function WhyGoPaperlessPage() {
                   <Stepper activeStep={-1} orientation="vertical">
                     {noAcctSteps.map(({key, cmp}) => (
                       <Step key={key} active>
-                        ={false}
                         <StepLabel>{cmp}</StepLabel>
-                        <StepContent>
-                          <Type>{getNoAcctStepContent(key)}</Type>
-                        </StepContent>
+                        <StepContent>{getNoAcctStepContent(key)}</StepContent>
                       </Step>
                     ))}
                   </Stepper>
@@ -756,11 +749,8 @@ export default function WhyGoPaperlessPage() {
                   <Stepper activeStep={-1} orientation="vertical">
                     {stopMailSteps.map(({key, cmp}) => (
                       <Step key={key} active>
-                        ={false}
                         <StepLabel>{cmp}</StepLabel>
-                        <StepContent>
-                          <Type>{getStopMailContent(key)}</Type>
-                        </StepContent>
+                        <StepContent>{getStopMailContent(key)}</StepContent>
                       </Step>
                     ))}
                   </Stepper>
