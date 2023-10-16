@@ -1,10 +1,10 @@
-import React, {useMemo, useState, useCallback, useEffect} from 'react'
-import {Box, BoxProps, useTheme, useMediaQuery} from '@mui/material'
-import {FlexBox} from '@components/MuiSleazebox'
+import React, {useState, useCallback, useEffect} from 'react'
+import {Box, BoxProps, useMediaQuery} from '@mui/material'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import JackinBox from 'mui-jackinbox'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   boxProps?: BoxProps
@@ -24,42 +24,6 @@ const ImageFancier = ({
   const theme = useTheme()
   const [isHover, setIsHover] = useState<boolean>() // For animation to work properly this must be initialized as undefined
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-
-  useEffect(() => {
-    setIsHover(isHoverProp)
-  }, [isHoverProp])
-
-  const [imgIsLoaded, setImageIsLoaded] = useState(false)
-  const style = useMemo(
-    () => ({
-      clickableImg: {
-        overflow: 'hidden', // prevent placeholder from displaying in the box shadow regions
-        cursor: 'pointer',
-        // boxShadow 2 -> 5
-        // only show box shadow after image is loaded
-        boxShadow: !imgIsLoaded
-          ? 'none'
-          : isHover
-          ? 'rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 5px 8px 0px, rgba(0, 0, 0, 0.12) 0px 1px 14px 0px'
-          : 'rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px',
-        transition: 'box-shadow 200ms ease-in'
-        // borderStyle: 'solid',
-        // borderWidth: isHover ? 1 : 0,
-        // borderColor: !isHover
-        //   ? 'rgba(180, 191, 205, 0.0)'
-        //   : 'rgba(180, 191, 205, 0.7)'
-      },
-      img: {
-        transition: 'transform 150ms ease 0s',
-        transform: isHover ? 'scale3d(1.1, 1.1, 1.1)' : 'scale3d(1, 1, 1)'
-      },
-      dimmer: {
-        opacity: isHover ? 0.3 : 0,
-        transition: 'opacity 150ms ease-in 0s'
-      }
-    }),
-    [isHover, imgIsLoaded]
-  )
 
   useEffect(() => {
     if (isXs) {
@@ -84,16 +48,27 @@ const ImageFancier = ({
     }
   }, [isHoverProp])
 
+  const [imgIsLoaded, setImageIsLoaded] = useState(false)
+
   const loadingCompleteHandler = useCallback(() => {
     setImageIsLoaded(true)
   }, [])
 
+  // const classes = useStyles({isHover, imgIsLoaded})
   return (
     <Box
-      width={width}
-      height={height}
       sx={{
-        ...(!isXs && style.clickableImg)
+        ...(!isXs && {
+          overflow: 'hidden', // prevent placeholder from displaying in the box shadow regions
+          cursor: 'pointer',
+          // only show box shadow after image is loaded
+          boxShadow: !imgIsLoaded
+            ? 'none'
+            : isHover
+            ? 'rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 5px 8px 0px, rgba(0, 0, 0, 0.12) 0px 1px 14px 0px'
+            : 'rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px',
+          transition: 'box-shadow 200ms ease-in'
+        })
       }}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
@@ -109,9 +84,13 @@ const ImageFancier = ({
         width="100%"
         height="100%"
         zIndex={3}
-        sx={{...style.dimmer}}
+        sx={{
+          opacity: isHover ? 0.3 : 0,
+          transition: 'opacity 150ms ease-in 0s'
+        }}
       />
-      <FlexBox
+      <Box
+        display="flex"
         justifyContent="center"
         alignItems="center"
         position="absolute"
@@ -130,7 +109,7 @@ const ImageFancier = ({
         >
           <SearchRoundedIcon fontSize="large" color="inherit" />
         </JackinBox>
-      </FlexBox>
+      </Box>
       <ImageBlur
         alt={alt}
         src={src}
@@ -138,7 +117,10 @@ const ImageFancier = ({
         layout="responsive"
         height={height}
         width={width}
-        style={{...style.img}}
+        style={{
+          transition: 'transform 150ms ease 0s',
+          transform: isHover ? 'scale3d(1.1, 1.1, 1.1)' : 'scale3d(1, 1, 1)'
+        }}
         onLoadingComplete={loadingCompleteHandler}
         {...rest}
       />

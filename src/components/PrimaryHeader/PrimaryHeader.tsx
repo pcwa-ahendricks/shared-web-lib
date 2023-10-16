@@ -11,7 +11,6 @@ import {
   AppBar,
   alpha,
   Box,
-  Hidden,
   IconButton,
   Toolbar,
   PopperProps,
@@ -92,7 +91,7 @@ const PrimaryHeader = () => {
     dispatch(setDrawerViz(!state.drawerOpen))
   }, [dispatch, state])
 
-  const enterMenuHandler = useCallback((event, el, key) => {
+  const enterMenuHandler = useCallback((event: any, el: any, key: any) => {
     const {currentTarget} = event
     setAnchorEl(currentTarget)
     setActiveLinkEl(el)

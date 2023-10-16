@@ -19,7 +19,7 @@ import {
 // import BirdIcon from 'mdi-material-ui/Bird'
 // import StarsIcon from 'mdi-material-ui/Creation'
 // import SunIcon from 'mdi-material-ui/WhiteBalanceSunny'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import NextLink from 'next/link'
 import imgixLoader from '@lib/imageLoader'
 import Spacing from '@components/boxes/Spacing'

@@ -8,7 +8,7 @@ import {
   useTheme,
   Link
 } from '@mui/material'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'

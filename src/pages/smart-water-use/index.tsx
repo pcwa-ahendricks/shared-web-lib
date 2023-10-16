@@ -43,7 +43,7 @@ import WebsiteIcon from '@mui/icons-material/Language'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
 import {Theme} from '@lib/material-theme'
 import {imgixUrlLoader} from '@lib/imageLoader'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import NextLink from 'next/link'
 
 const SmartWaterUsePage = () => {
