@@ -1,6 +1,6 @@
 // cspell:ignore cc'd
 import React, {useState, useCallback, useMemo} from 'react'
-import {Divider, Typography as Type, Box, useTheme, Hidden} from '@mui/material'
+import {Divider, Typography as Type, Box, useMediaQuery} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
@@ -39,6 +39,7 @@ import FormTextField from '@components/formFields/FormTextField'
 import EditLocIcon from '@mui/icons-material/Spellcheck'
 import ContactUsGeolocator from '@components/ContactUsGeolocator/ContactUsGeolocator'
 import HoursOfOperation from '@components/HoursOfOperation/HoursOfOperation'
+import useTheme from '@hooks/useTheme'
 
 const SERVICE_URI_PATH = 'contact-us'
 
@@ -73,7 +74,9 @@ const initialFormValues: FormData = {
 
 const ContactUsPage = () => {
   const theme = useTheme()
-
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'))
+  const smUp = useMediaQuery(theme.breakpoints.up('sm'))
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
     useState<boolean>(false)
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
@@ -281,49 +284,51 @@ const ContactUsPage = () => {
                     </ChildBox>
 
                     {/* SM mobile & non-mobile address inputs */}
-                    <Hidden only="xs">
-                      {showAddressConfirmAlert ? (
-                        <ChildBox my={1}>
-                          <Alert severity="info" icon={<EditLocIcon />}>
-                            Please verify that the service address below is
-                            correct before submitting
-                          </Alert>
-                        </ChildBox>
-                      ) : null}
-                      <RowBox child flexSpacing={3} alignItems="center">
-                        <ChildBox flex="60%">
-                          <FormTextField
-                            name="serviceAddress"
-                            label="Service Street Address"
-                            // placeholder="Street address for service"
-                            required={false}
-                            margin="normal"
-                          />
-                        </ChildBox>
-                        <ChildBox flex="40%">
-                          <FormTextField
-                            name="serviceCity"
-                            label="City"
-                            // placeholder="City"
-                            required={false}
-                            margin="normal"
-                          />
-                        </ChildBox>
-                        {/* just show on sm devices (tablets) */}
-                        <Hidden mdUp>
-                          <ChildBox>
-                            <ContactUsGeolocator
-                              onSuccess={useMyLocationSuccessHandler}
-                              addressFieldName="serviceAddress"
-                              cityFieldName="serviceCity"
+                    {isXs ? null : (
+                      <>
+                        {showAddressConfirmAlert ? (
+                          <ChildBox my={1}>
+                            <Alert severity="info" icon={<EditLocIcon />}>
+                              Please verify that the service address below is
+                              correct before submitting
+                            </Alert>
+                          </ChildBox>
+                        ) : null}
+                        <RowBox child flexSpacing={3} alignItems="center">
+                          <ChildBox flex="60%">
+                            <FormTextField
+                              name="serviceAddress"
+                              label="Service Street Address"
+                              // placeholder="Street address for service"
+                              required={false}
+                              margin="normal"
                             />
                           </ChildBox>
-                        </Hidden>
-                      </RowBox>
-                    </Hidden>
+                          <ChildBox flex="40%">
+                            <FormTextField
+                              name="serviceCity"
+                              label="City"
+                              // placeholder="City"
+                              required={false}
+                              margin="normal"
+                            />
+                          </ChildBox>
+                          {/* just show on sm devices (tablets) */}
+                          {mdUp ? null : (
+                            <ChildBox>
+                              <ContactUsGeolocator
+                                onSuccess={useMyLocationSuccessHandler}
+                                addressFieldName="serviceAddress"
+                                cityFieldName="serviceCity"
+                              />
+                            </ChildBox>
+                          )}
+                        </RowBox>
+                      </>
+                    )}
                     {/* XS mobile address inputs   */}
-                    <Hidden smUp>
-                      {/* [todo] - Need to figure out why flexSpacing is adding a top margin to the first item with <ColumBox/>. The workaround here is to use mt with 2nd element below. */}
+                    {smUp ? null : (
+                      /* [todo] - Need to figure out why flexSpacing is adding a top margin to the first item with <ColumBox/>. The workaround here is to use mt with 2nd element below. */
                       <ColumnBox
                         child
                         // flexSpacing={5}
@@ -371,7 +376,7 @@ const ContactUsPage = () => {
                           />
                         </ChildBox>
                       </ColumnBox>
-                    </Hidden>
+                    )}
 
                     <ChildBox>
                       <Field
@@ -470,7 +475,14 @@ const ContactUsPage = () => {
         </NarrowContainer>
       </MainBox>
     ),
-    [theme, showAddressConfirmAlert, useMyLocationSuccessHandler]
+    [
+      theme,
+      showAddressConfirmAlert,
+      useMyLocationSuccessHandler,
+      isXs,
+      smUp,
+      mdUp
+    ]
   )
 
   return (

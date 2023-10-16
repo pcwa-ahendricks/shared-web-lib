@@ -23,8 +23,6 @@ import {
   FormGroup,
   FormControlLabel,
   Divider,
-  Hidden,
-  useTheme,
   BoxProps,
   Link,
   SelectChangeEvent
@@ -52,6 +50,7 @@ import round from '@lib/round'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
 import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
 import {imgixUrlLoader} from '@lib/imageLoader'
+import useTheme from '@hooks/useTheme'
 const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -725,8 +724,18 @@ export default function WaterYearDashboardPage() {
               >
                 <Paper elevation={2} square>
                   <Box p={1}>
-                    <Type variant="caption" align="center" component="header">
-                      <Hidden mdDown>Accumulated </Hidden>
+                    <Type
+                      variant="caption"
+                      align="center"
+                      component="header"
+                      noWrap
+                    >
+                      <Box
+                        component="span"
+                        sx={{display: {xs: 'none', md: 'inline'}}}
+                      >
+                        Accumulated{' '}
+                      </Box>
                       <strong>{precipAccumDiff}%</strong> of Normal Average
                     </Type>
                   </Box>

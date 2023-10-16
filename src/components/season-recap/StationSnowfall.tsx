@@ -274,8 +274,13 @@ export default function StationSnowfall({waterYear, sid}: Props) {
         >
           <Paper elevation={2} square>
             <Box p={1}>
-              <Type variant="caption" align="center" component="header">
-                <Hidden mdDown>Accumulated </Hidden>
+              <Type variant="caption" align="center" component="header" noWrap>
+                <Box
+                  component="span"
+                  sx={{display: {xs: 'none', md: 'inline'}}}
+                >
+                  Accumulated{' '}
+                </Box>
                 <strong>{snowfallAccumDiff}%</strong> of Normal Average
               </Type>
             </Box>

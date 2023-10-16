@@ -7,7 +7,6 @@ import {
   Typography as Type,
   useMediaQuery,
   Link,
-  Hidden,
   LinkProps,
   TypographyProps
 } from '@mui/material'
@@ -25,6 +24,7 @@ import useTheme from '@hooks/useTheme'
 
 const FireResistantGardenPage = () => {
   const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   useJumpTo(undefined)
   const style = {
     bulletLi: {
@@ -127,12 +127,10 @@ const FireResistantGardenPage = () => {
             As Seen in Fire & Water...
           </OpenInNewLink> */}
 
-          <Hidden smUp>
-            <Box width="100%">
-              <Spacing />
-              <FirstAsideImage />
-            </Box>
-          </Hidden>
+          <Box sx={{width: '100%', display: {xs: 'block', sm: 'none'}}}>
+            <Spacing />
+            <FirstAsideImage />
+          </Box>
 
           <RowBox responsive flexSpacing={6}>
             <ChildBox flex="55%">
@@ -161,7 +159,7 @@ const FireResistantGardenPage = () => {
                   and shrubs that are both fire-resistant and water-wise.
                 </Type>
 
-                <ul>
+                <Box component="ul">
                   <TypeBullet id="landscapeDesignPlan">
                     <ExtLink href="https://imgix.cosmicjs.com/7647c4d0-ad73-11e9-8ba7-dba4340cf409-MF-L2.1-050719.pdf">
                       View the landscape design plan
@@ -173,7 +171,7 @@ const FireResistantGardenPage = () => {
                       See the complete plant list
                     </ExtLink>
                   </TypeBullet>
-                </ul>
+                </Box>
                 <Spacing size="x-large" />
                 <Type paragraph>
                   The garden also features state-of-the art drip irrigation and
@@ -194,7 +192,7 @@ const FireResistantGardenPage = () => {
                 <Type variant="h5" color="primary" gutterBottom>
                   Learn More about Water-Wise Plants and Landscaping
                 </Type>
-                <ul>
+                <Box component="ul">
                   <TypeBullet>
                     <MuiNextLink
                       href="/smart-water-use/rebate-programs"
@@ -220,13 +218,13 @@ const FireResistantGardenPage = () => {
                       Eco-Friendly Landscape Design Plans
                     </ExtLink>
                   </TypeBullet>
-                </ul>
+                </Box>
 
                 <Spacing size="large" />
                 <Type variant="h5" color="primary" gutterBottom>
                   Thank You!
                 </Type>
-                <ul>
+                <Box component="ul">
                   <TypeBullet style={{listStyleType: 'none'}}>
                     Yamasaki Landscape Architecture (landscape plan)
                   </TypeBullet>
@@ -242,7 +240,7 @@ const FireResistantGardenPage = () => {
                   <TypeBullet style={{listStyleType: 'none'}}>
                     BrightView Landscape (irrigation installation)
                   </TypeBullet>
-                </ul>
+                </Box>
               </Box>
             </ChildBox>
             <ChildBox flex="45%">
@@ -263,11 +261,11 @@ const FireResistantGardenPage = () => {
                     </Type>
                   </Box>
                 </ChildBox>
-                <Hidden only="xs" implementation="js">
+                {isXs ? null : (
                   <ChildBox>
                     <FirstAsideImage />
                   </ChildBox>
-                </Hidden>
+                )}
                 <ChildBox>
                   <Image
                     loader={imgixLoader}
