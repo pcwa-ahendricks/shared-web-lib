@@ -163,7 +163,11 @@ export default function RegionalSection({
   )
 
   const Emx = useCallback(({children}: {children: React.ReactNode}) => {
-    return <em style={{letterSpacing: 0.4}}>{children}</em>
+    return (
+      <Box component="em" sx={{letterSpacing: 0.4}}>
+        {children}
+      </Box>
+    )
   }, [])
 
   const [percNormalPrecipSrc, setPercNormalPrecipSrc] = useState<string>(
@@ -693,7 +697,11 @@ export default function RegionalSection({
                   <ColumnBox child alignItems="center">
                     <Type
                       variant="body1"
-                      sx={{...style.regionalStat}}
+                      sx={{
+                        '&.MuiTypography-body1': {
+                          ...style.regionalStat
+                        }
+                      }}
                       align="center"
                     >
                       {relativePrecip(precipPerc)}
@@ -708,6 +716,7 @@ export default function RegionalSection({
                       <Type align="center" variant="body2">
                         Using data from{' '}
                         <Type
+                          component="span"
                           variant="inherit"
                           sx={{...style.hasPopover}}
                           aria-owns={
@@ -755,6 +764,7 @@ export default function RegionalSection({
                         </Popover>{' '}
                         in{' '}
                         <Type
+                          component="span"
                           variant="inherit"
                           sx={{...style.hasPopover}}
                           aria-owns={
@@ -815,7 +825,14 @@ export default function RegionalSection({
                 {multiStnSnowSmryResLoading ? <AbsSpinner /> : null}
                 <Zoom animate={isNumber(snowPerc)}>
                   <ColumnBox child alignItems="center">
-                    <Type variant="body1" sx={{...style.regionalStat}}>
+                    <Type
+                      variant="body1"
+                      sx={{
+                        '&.MuiTypography-body1': {
+                          ...style.regionalStat
+                        }
+                      }}
+                    >
                       {relativePrecip(snowPerc)}
                     </Type>
                     <Box maxWidth="90%">
@@ -828,6 +845,7 @@ export default function RegionalSection({
                       <Type align="center" variant="body2">
                         Using data from{' '}
                         <Type
+                          component="span"
                           variant="inherit"
                           sx={{...style.hasPopover}}
                           aria-owns={
@@ -875,6 +893,7 @@ export default function RegionalSection({
                         </Popover>{' '}
                         in{' '}
                         <Type
+                          component="span"
                           variant="inherit"
                           sx={{...style.hasPopover}}
                           aria-owns={
@@ -947,7 +966,11 @@ export default function RegionalSection({
                     <Box position="relative">
                       <Type
                         variant="body1"
-                        sx={{...style.regionalStat}}
+                        sx={{
+                          '&.MuiTypography-body1': {
+                            ...style.regionalStat
+                          }
+                        }}
                         component="header"
                       >
                         {isNumber(mxTempDepart)
@@ -972,7 +995,11 @@ export default function RegionalSection({
                     </Box>
                     <Type
                       variant="body1"
-                      sx={{...style.regionalStatSub}}
+                      sx={{
+                        '&.MuiTypography-body1': {
+                          ...style.regionalStatSub
+                        }
+                      }}
                       component="header"
                       style={{marginTop: -16}}
                     >
@@ -999,6 +1026,7 @@ export default function RegionalSection({
                       <Type align="center" variant="body2">
                         Using daily max temperature data from{' '}
                         <Type
+                          component="span"
                           variant="inherit"
                           sx={{...style.hasPopover}}
                           aria-owns={
@@ -1046,6 +1074,7 @@ export default function RegionalSection({
                         </Popover>{' '}
                         in{' '}
                         <Type
+                          component="span"
                           variant="inherit"
                           sx={{...style.hasPopover}}
                           aria-owns={
