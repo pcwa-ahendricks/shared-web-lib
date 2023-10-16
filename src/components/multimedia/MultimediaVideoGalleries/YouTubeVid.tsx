@@ -17,20 +17,9 @@ export default function YouTubeVid({
   gallery: string
   activeGallery?: MultimediaVideoGallery
 }) {
-  const style = {
-    container: {minHeight: 300},
-    player: {
-      '& > video': {
-        '&:focus': {
-          outline: 0
-        }
-      }
-    }
-  }
   return activeGallery?.label.toLowerCase() == gallery.toLowerCase() ? (
-    <ChildBox sx={{...style.container}} paddingBottom={5}>
+    <ChildBox sx={{minHeight: 300}} paddingBottom={5}>
       <YouTubePlayer
-        style={{...style.player}}
         controls
         url={`https://www.youtube.com/watch?v=${youTubeId}`}
         width={videoWidth}
