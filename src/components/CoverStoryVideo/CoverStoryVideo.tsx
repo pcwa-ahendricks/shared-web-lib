@@ -7,7 +7,6 @@ import {
   Typography as Type,
   TypographyProps
 } from '@mui/material'
-// import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
 

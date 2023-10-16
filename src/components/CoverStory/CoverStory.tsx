@@ -1,7 +1,6 @@
 import React, {useCallback, useMemo} from 'react'
 import {Box, BoxProps, Typography as Type, TypographyProps} from '@mui/material'
 import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
-// import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import {stringify} from 'querystringify'
 import {imgixUrlLoader} from '@lib/imageLoader'

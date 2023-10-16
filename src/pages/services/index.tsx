@@ -1,10 +1,10 @@
 import React from 'react'
-import {Typography as Type, Link, List, ListItem, Box} from '@mui/material'
+import {Typography as Type, List, ListItem, Box} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import NextLink from '@components/NextLink/NextLink'
+import Link from '@components/Link'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
@@ -32,68 +32,97 @@ const ServicesPage = () => {
             <ChildBox flex="0 1 auto">
               <List dense disablePadding>
                 <ListItem>
-                  <NextLink variant="h6" href="/services/pay-bill">
+                  <Link
+                    underline="hover"
+                    variant="h6"
+                    href="/services/pay-bill"
+                  >
                     Bill Payment Options
-                  </NextLink>
+                  </Link>
                 </ListItem>
                 <ListItem>
                   <Link
+                    underline="hover"
                     variant="h6"
                     href="https://ipn.paymentus.com/cp/plco"
                     target="_blank"
                     rel="noopener noreferrer"
-                    underline="hover"
                   >
                     View &amp; Pay Your Bill Online
                   </Link>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/services/account-maintenance">
+                  <Link
+                    underline="hover"
+                    variant="h6"
+                    href="/services/account-maintenance"
+                  >
                     Account Maintenance
-                  </NextLink>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/smart-water-use">
+                  <Link underline="hover" variant="h6" href="/smart-water-use">
                     How to Save Water
-                  </NextLink>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <NextLink
+                  <Link
+                    underline="hover"
                     variant="h6"
                     href="/smart-water-use/rebate-programs"
                   >
                     Rebate Programs
-                  </NextLink>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/services/irrigation-canal">
+                  <Link
+                    underline="hover"
+                    variant="h6"
+                    href="/services/irrigation-canal"
+                  >
                     Irrigation Canal Information
-                  </NextLink>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/services/outage">
+                  <Link underline="hover" variant="h6" href="/services/outage">
                     Outage Information
-                  </NextLink>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/services/water-quality">
+                  <Link
+                    underline="hover"
+                    variant="h6"
+                    href="/services/water-quality"
+                  >
                     Water Quality
-                  </NextLink>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/services/backflow-prevention">
+                  <Link
+                    underline="hover"
+                    variant="h6"
+                    href="/services/backflow-prevention"
+                  >
                     Backflow Prevention Devices
-                  </NextLink>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/services/water-rates">
+                  <Link
+                    underline="hover"
+                    variant="h6"
+                    href="/services/water-rates"
+                  >
                     Water Rates
-                  </NextLink>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <NextLink variant="h6" href="/services/shutoff-protection">
+                  <Link
+                    underline="hover"
+                    variant="h6"
+                    href="/services/shutoff-protection"
+                  >
                     Water Shutoff Protection Act
-                  </NextLink>
+                  </Link>
                 </ListItem>
               </List>
             </ChildBox>

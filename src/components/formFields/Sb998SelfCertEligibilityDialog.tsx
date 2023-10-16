@@ -53,7 +53,7 @@ import MainPhone from '@components/links/MainPhone'
 import Spacing from '@components/boxes/Spacing'
 import {blueGrey, yellow} from '@mui/material/colors'
 import CollectionsPhone from '@components/links/CollectionsPhone'
-import MuiNextLink from '@components/NextLink/NextLink'
+import Link from '@components/Link'
 
 type Sb998SelfCertFormDataProp = keyof Sb998SelfCertFormData
 
@@ -456,9 +456,9 @@ const Intro = () => {
         Water Agency (PCWA, the Agency) will not terminate residential service
         for nonpayment when specific conditions are met. The written policy is
         available online on our{' '}
-        <MuiNextLink href="/services/shutoff-protection">
+        <Link href="/services/shutoff-protection">
           Water Shutoff Protection
-        </MuiNextLink>{' '}
+        </Link>{' '}
         page or by calling the Customer Services department at <MainPhone />.
       </Type>
       <Spacing />
