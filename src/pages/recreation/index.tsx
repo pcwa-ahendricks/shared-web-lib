@@ -115,9 +115,11 @@ const RecreationPage = ({placeholders}: {placeholders: Placeholders}) => {
                 <MediaDialogOnClick
                   mediaUrl={recreationMapImgixUrl}
                   mediaName={recreationMapAlt}
-                  mediaPreviewDialogProps={{
-                    width: 700,
-                    height: 440,
+                  MediaPreviewDialogProps={{
+                    ImageProps: {
+                      width: 700,
+                      height: 440
+                    },
                     showActions: true,
                     dlUrl: `${recreationMapImgixUrl}?dl=${slugify(
                       recreationMapAlt
@@ -153,9 +155,11 @@ const RecreationPage = ({placeholders}: {placeholders: Placeholders}) => {
                 <MediaDialogOnClick
                   mediaUrl={exploringTheMfCoverImgixUrl}
                   mediaName={exploringTheMfAlt}
-                  mediaPreviewDialogProps={{
-                    width: 700,
-                    height: 777,
+                  MediaPreviewDialogProps={{
+                    ImageProps: {
+                      width: 700,
+                      height: 777
+                    },
                     showActions: true,
                     dlUrl: `${exploringTheMfImgixUrl}?dl=${slugify(
                       exploringTheMfAlt

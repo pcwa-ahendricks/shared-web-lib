@@ -1,4 +1,4 @@
-import React, {useContext, useCallback, useState, useEffect} from 'react'
+import React, {useContext, useCallback, useState} from 'react'
 import {
   Box,
   Button,
@@ -39,7 +39,7 @@ const SearchResultsDialog = ({
     isSearching,
     response,
     betterTotalItems,
-    isIterating,
+    // isIterating,
     isPaging
   } = searchState
 
@@ -77,7 +77,7 @@ const SearchResultsDialog = ({
 
   const request = response?.queries?.request?.[0]
   const searchTerms = request?.searchTerms ?? '...'
-  const count = request?.count ?? 0
+  // const count = request?.count ?? 0
   const dialogTitle = isSearching
     ? 'Searching...'
     : `Search Results for "${searchTerms}"`

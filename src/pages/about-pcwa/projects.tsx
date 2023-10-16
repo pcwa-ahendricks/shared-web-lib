@@ -210,7 +210,7 @@ const ProjectsPage = () => {
                     <MediaDialogOnClick
                       mediaUrl="https://imgix.cosmicjs.com/b61ce6a0-a9ba-11ea-a37c-29813b746c00-Hell-Hole-Dam-Core-Raise.jpg"
                       mediaName="Photo of Hell Hole Dam construction"
-                      mediaPreviewDialogProps={{
+                      MediaPreviewDialogProps={{
                         width: 900,
                         height: 675
                       }}
@@ -368,7 +368,7 @@ const ProjectsPage = () => {
                     <MediaDialogOnClick
                       mediaUrl="https://imgix.cosmicjs.com/ad5af780-16f5-11ea-a594-a170ead8b2cb-Foothill-Pipeline-Alignment-Figure-Figure-3.png"
                       mediaName="Map Figure of Foothill Raw Water Pipeline Phase 2 Project"
-                      mediaPreviewDialogProps={{
+                      MediaPreviewDialogProps={{
                         width: 700,
                         height: 961
                       }}
@@ -527,7 +527,7 @@ const ProjectsPage = () => {
                   <MediaDialogOnClick
                     mediaUrl="https://imgix.cosmicjs.com/2c213b60-930f-11eb-bd79-3164cb34dd88-2021-01-18ExistingandProposedCanalMap-Layout1.pdf"
                     mediaName="Map Figure of existing and proposed canal layout"
-                    mediaPreviewDialogProps={{
+                    MediaPreviewDialogProps={{
                       width: 700,
                       height: 525
                     }}

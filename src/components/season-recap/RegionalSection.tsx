@@ -1173,7 +1173,7 @@ export default function RegionalSection({
         <MediaDialogOnClick
           mediaName="Departure from Normal"
           mediaUrl={departNormalPrecipSrc}
-          mediaPreviewDialogProps={{
+          MediaPreviewDialogProps={{
             width: 850,
             height: 1100
           }}
