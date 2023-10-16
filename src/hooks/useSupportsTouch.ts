@@ -9,11 +9,13 @@ const useSupportsTouch = () => {
       // iOS & android
       setSupportsTouch(true)
       isDev && console.log('Supports Touch: true')
-    } else if (window.navigator.msPointerEnabled) {
-      // Win8
-      setSupportsTouch(true)
-      isDev && console.log('Supports Touch: true')
-    } else if ('ontouchstart' in document.documentElement) {
+    }
+    // else if (window.navigator.msPointerEnabled) {
+    //   // Win8
+    //   setSupportsTouch(true)
+    //   isDev && console.log('Supports Touch: true')
+    // }
+    else if ('ontouchstart' in document.documentElement) {
       // Controversial way to check touch support
       setSupportsTouch(true)
       isDev && console.log('Supports Touch: true')

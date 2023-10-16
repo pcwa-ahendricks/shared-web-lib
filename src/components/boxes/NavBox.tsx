@@ -1,9 +1,7 @@
 import React from 'react'
 import {Box, BoxProps} from '@mui/material'
 
-type Props = {children?: React.ReactNode} & BoxProps
-
-const NavBox = ({children, ...rest}: Props) => {
+const NavBox = ({children, ...rest}: BoxProps) => {
   return (
     <Box component="nav" {...rest}>
       {children}

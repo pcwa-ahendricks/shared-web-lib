@@ -58,7 +58,7 @@ const MultimediaLightbox = ({
       {/* React-images will crash when array is empty. See https://github.com/jossmac/react-images/issues/216 */}
       {photos.length > 0 ? (
         <>
-          <ModalGateway>
+          <ModalGatewayEx>
             {viewerIsOpen ? (
               <Modal
                 onClose={onClose}
@@ -79,7 +79,7 @@ const MultimediaLightbox = ({
                 />
               </Modal>
             ) : null}
-          </ModalGateway>
+          </ModalGatewayEx>
         </>
       ) : null}
     </>
@@ -87,3 +87,7 @@ const MultimediaLightbox = ({
 }
 
 export default MultimediaLightbox
+
+const ModalGatewayEx: React.ComponentType<{children: any}> = (props: any) => {
+  return <ModalGateway {...props} />
+}

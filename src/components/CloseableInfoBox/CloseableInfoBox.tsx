@@ -2,9 +2,7 @@ import React, {useState} from 'react'
 import {Box, BoxProps, ButtonBase, Collapse, Tooltip} from '@mui/material'
 import CloseIcon from '@mui/icons-material/CloseRounded'
 
-type Props = {children?: React.ReactNode} & BoxProps
-
-const CloseableInfoBox = ({children, ...rest}: Props) => {
+const CloseableInfoBox = ({children, ...rest}: BoxProps) => {
   const [showBox, setShowBox] = useState<boolean>(true)
 
   return (

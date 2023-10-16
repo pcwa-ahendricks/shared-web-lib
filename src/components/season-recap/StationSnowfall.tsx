@@ -1,6 +1,6 @@
 // cspell:ignore accum
 import React, {useMemo, useState, useEffect, useCallback} from 'react'
-import {Typography as Type, Divider, Box, Paper, Hidden} from '@mui/material'
+import {Typography as Type, Divider, Box, Paper} from '@mui/material'
 import SnowfallAccumLine from '@components/season-recap/SnowAccumLine'
 import useSWR from 'swr'
 import slugify from 'slugify'

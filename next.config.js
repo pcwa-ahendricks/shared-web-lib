@@ -613,9 +613,9 @@ module.exports = {
   // Dangerously allow production builds to successfully complete even if
   // your project has type errors.
   // !! WARN !!
-  typescript: {
-    ignoreBuildErrors: true
-  },
+  // typescript: {
+  // ignoreBuildErrors: true
+  // },
   webpack: (config, {isServer}) => {
     // Generate sitemap.xml automatically
     if (isServer) {

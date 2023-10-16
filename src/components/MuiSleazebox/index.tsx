@@ -12,7 +12,6 @@ type EnhancedFlexProp =
 type Props = {
   flexSpacing?: number
   wrapSpacing?: number
-  children?: React.ReactNode
   child?: boolean
   flex?: EnhancedFlexProp
 } & Omit<BoxProps, 'flex'>
@@ -24,7 +23,6 @@ export type RowBoxProps = Props & {
   halfRespSpacing?: boolean
 }
 export type ChildBoxProps = {
-  children?: React.ReactNode
   flex?: EnhancedFlexProp
 } & Omit<BoxProps, 'flex'>
 export type {Props as FlexBoxProps}

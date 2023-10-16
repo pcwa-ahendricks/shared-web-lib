@@ -28,7 +28,6 @@ export const pageLoadingTimeout = 600
 
 type Props = {
   description?: string
-  children?: React.ReactNode
   title?: string
   waterSurface?: boolean
   bannerComponent?: React.ReactElement

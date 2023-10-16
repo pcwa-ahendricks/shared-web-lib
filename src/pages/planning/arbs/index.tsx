@@ -139,11 +139,7 @@ const ARBSPage = () => {
     )
   }
 
-  const LIText = ({
-    children,
-    sx,
-    ...rest
-  }: {children?: React.ReactNode} & ListItemTextProps) => {
+  const LIText = ({children, sx, ...rest}: ListItemTextProps) => {
     return (
       <ListItemText
         disableTypography
@@ -184,7 +180,6 @@ const ARBSPage = () => {
     completed = false,
     ...rest
   }: {
-    children?: React.ReactNode
     date: string
     title: string
     completed?: boolean

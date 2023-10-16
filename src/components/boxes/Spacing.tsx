@@ -2,7 +2,6 @@ import React, {useMemo} from 'react'
 import {Box, BoxProps} from '@mui/material'
 
 type Props = {
-  children?: React.ReactNode
   size?: 'medium' | 'x-small' | 'small' | 'large' | 'x-large'
   factor?: number
 } & BoxProps

@@ -3,7 +3,6 @@ import {Box, BoxProps, useTheme} from '@mui/material'
 import {Theme} from '@lib/material-theme'
 
 type Props = {
-  children?: React.ReactNode
   lineHeight?: number
   lineMargin?: number | string
   visible?: boolean | null
