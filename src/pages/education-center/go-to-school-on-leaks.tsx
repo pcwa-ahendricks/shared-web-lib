@@ -2,8 +2,8 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RowBox, ChildBox} from 'mui-sleazebox'
-import {Box, Typography as Type, Link} from '@material-ui/core'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
+import {Box, Typography as Type, Link} from '@mui/material'
 import imgixLoader from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
 import Spacing from '@components/boxes/Spacing'
@@ -77,9 +77,11 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               <MediaDialogOnClick
                 mediaUrl="https://imgix.cosmicjs.com/f4c42c40-567a-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach02.jpg"
                 mediaName="PCWA staff speaking with children in classroom"
-                mediaPreviewDialogProps={{
-                  width: 6720,
-                  height: 3941
+                MediaPreviewDialogProps={{
+                  ImageProps: {
+                    width: 6720,
+                    height: 3941
+                  }
                 }}
               >
                 <ImageFancier
@@ -113,9 +115,11 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               <MediaDialogOnClick
                 mediaUrl="https://imgix.cosmicjs.com/b5794b30-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach03.jpg"
                 mediaName="PCWA staff speaking with children in classroom"
-                mediaPreviewDialogProps={{
-                  width: 6423,
-                  height: 4282
+                MediaPreviewDialogProps={{
+                  ImageProps: {
+                    width: 6423,
+                    height: 4282
+                  }
                 }}
               >
                 <ImageFancier
@@ -137,9 +141,11 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               <MediaDialogOnClick
                 mediaUrl="https://imgix.cosmicjs.com/b5850b00-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach08.jpg"
                 mediaName="PCWA staff speaking with children in classroom picture 3"
-                mediaPreviewDialogProps={{
-                  width: 6720,
-                  height: 4480
+                MediaPreviewDialogProps={{
+                  ImageProps: {
+                    width: 6720,
+                    height: 4480
+                  }
                 }}
               >
                 <ImageFancier
@@ -161,9 +167,11 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               <MediaDialogOnClick
                 mediaUrl="https://imgix.cosmicjs.com/b57c5870-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach05.jpg"
                 mediaName="PCWA staff speaking with children in classroom picture 4"
-                mediaPreviewDialogProps={{
-                  width: 6720,
-                  height: 4480
+                MediaPreviewDialogProps={{
+                  ImageProps: {
+                    width: 6720,
+                    height: 4480
+                  }
                 }}
               >
                 <ImageFancier
@@ -185,9 +193,11 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               <MediaDialogOnClick
                 mediaUrl="https://imgix.cosmicjs.com/b58d6f70-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach06.jpg"
                 mediaName="PCWA staff speaking with children in classroom picture 5"
-                mediaPreviewDialogProps={{
-                  width: 6311,
-                  height: 3483
+                MediaPreviewDialogProps={{
+                  ImageProps: {
+                    width: 6311,
+                    height: 3483
+                  }
                 }}
               >
                 <ImageFancier

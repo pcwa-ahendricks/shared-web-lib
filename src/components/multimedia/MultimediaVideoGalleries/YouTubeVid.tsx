@@ -1,25 +1,9 @@
 import Spacing from '@components/boxes/Spacing'
-import {
-  Box,
-  Typography as Type,
-  makeStyles,
-  createStyles
-} from '@material-ui/core'
+import {Box, Typography as Type} from '@mui/material'
 import YouTubePlayer from 'react-player/youtube'
 import {MultimediaVideoGallery} from './MultimediaVideoGalleries'
-import {ChildBox} from 'mui-sleazebox'
-const useStyles = makeStyles(() =>
-  createStyles({
-    container: {minHeight: 300},
-    player: {
-      '& > video': {
-        '&:focus': {
-          outline: 0
-        }
-      }
-    }
-  })
-)
+import {ChildBox} from '@components/MuiSleazebox'
+
 export default function YouTubeVid({
   videoWidth,
   caption,
@@ -33,11 +17,20 @@ export default function YouTubeVid({
   gallery: string
   activeGallery?: MultimediaVideoGallery
 }) {
-  const classes = useStyles()
+  const style = {
+    container: {minHeight: 300},
+    player: {
+      '& > video': {
+        '&:focus': {
+          outline: 0
+        }
+      }
+    }
+  }
   return activeGallery?.label.toLowerCase() == gallery.toLowerCase() ? (
-    <ChildBox className={classes.container} paddingBottom={5}>
+    <ChildBox sx={{...style.container}} paddingBottom={5}>
       <YouTubePlayer
-        className={classes.player}
+        style={{...style.player}}
         controls
         url={`https://www.youtube.com/watch?v=${youTubeId}`}
         width={videoWidth}

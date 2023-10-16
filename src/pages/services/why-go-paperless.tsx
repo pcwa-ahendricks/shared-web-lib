@@ -1,9 +1,9 @@
-import React, {useState, useCallback} from 'react'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import React, {useState, useCallback, useMemo} from 'react'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {RowBox, ChildBox, ColumnBox} from 'mui-sleazebox'
+import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import {
   Box,
   Step,
@@ -11,9 +11,6 @@ import {
   StepLabel,
   Stepper,
   Typography as Type,
-  useTheme,
-  makeStyles,
-  createStyles,
   List,
   ListItem,
   ListItemText,
@@ -23,19 +20,17 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails
-} from '@material-ui/core'
+} from '@mui/material'
 import Image from 'next/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
 import Spacing from '@components/boxes/Spacing'
-// import CheckIcon from '@material-ui/icons/Check'
-// import UnCheckIcon from '@material-ui/icons/Block'
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
-import OpenInBrowserIcon from '@material-ui/icons/OpenInBrowser'
-import CreditCardIcon from '@material-ui/icons/CreditCard'
-import TrendingUpIcon from '@material-ui/icons/TrendingUp'
-import TodayIcon from '@material-ui/icons/Today'
-import {brown, green, grey, red} from '@material-ui/core/colors'
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
+import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser'
+import CreditCardIcon from '@mui/icons-material/CreditCard'
+import TrendingUpIcon from '@mui/icons-material/TrendingUp'
+import TodayIcon from '@mui/icons-material/Today'
+import {brown, green, grey, red} from '@mui/material/colors'
 import {stringify} from 'querystringify'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
@@ -43,67 +38,65 @@ import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import EmailRemoveIcon from 'mdi-material-ui/EmailRemove'
 import AcctCheckIcon from 'mdi-material-ui/AccountCheck'
 import AcctCancelIcon from 'mdi-material-ui/AccountCancel'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    zoomInAcctNo: {
-      cursor: 'pointer',
-      '&:hover': {
-        transform: 'scale(1.45)',
-        transformOrigin: 'top right',
-        transition: 'transform 500ms linear'
-      }
-    },
-    zoomInToggleOpt: {
-      cursor: 'pointer',
-      '&:hover': {
-        transform: 'scale(1.45)',
-        transformOrigin: '10% 20%',
-        transition: 'transform 500ms linear'
-      }
-    },
-    zoomInLoginScreen: {
-      cursor: 'pointer',
-      '&:hover': {
-        transform: 'scale(1.15)',
-        transformOrigin: '90% 25%',
-        transition: 'transform 500ms linear'
-      }
-    },
-    zoomInHeaderMenu: {
-      cursor: 'pointer',
-      '&:hover': {
-        transform: 'scale(1.15)',
-        transformOrigin: '50% 0%',
-        transition: 'transform 500ms linear'
-      }
-    },
-    lessPadding: {
-      paddingBottom: 4
-    },
-    imgInline: {
-      display: 'inline-flex'
-    },
-    imgBorder: {
-      borderWidth: 0.5,
-      borderColor: grey[500],
-      borderStyle: 'solid'
-    },
-    accordionCaption: {
-      paddingLeft: 30
-    }
-  })
-)
+import useTheme from '@hooks/useTheme'
 
 export default function WhyGoPaperlessPage() {
   const theme = useTheme()
-  const classes = useStyles()
-  const style = {
-    step: {
-      color: theme.palette.grey[800],
-      marginLeft: 5
-    }
-  }
+  const style = useMemo(
+    () => ({
+      zoomInAcctNo: {
+        cursor: 'pointer',
+        '&:hover': {
+          transform: 'scale(1.45)',
+          transformOrigin: 'top right',
+          transition: 'transform 500ms linear'
+        }
+      },
+      zoomInToggleOpt: {
+        cursor: 'pointer',
+        '&:hover': {
+          transform: 'scale(1.45)',
+          transformOrigin: '10% 20%',
+          transition: 'transform 500ms linear'
+        }
+      },
+      zoomInLoginScreen: {
+        cursor: 'pointer',
+        '&:hover': {
+          transform: 'scale(1.15)',
+          transformOrigin: '90% 25%',
+          transition: 'transform 500ms linear'
+        }
+      },
+      zoomInHeaderMenu: {
+        cursor: 'pointer',
+        '&:hover': {
+          transform: 'scale(1.15)',
+          transformOrigin: '50% 0%',
+          transition: 'transform 500ms linear'
+        }
+      },
+      lessPadding: {
+        paddingBottom: '4px'
+      },
+      imgInline: {
+        display: 'inline-flex'
+      },
+      imgBorder: {
+        borderWidth: 0.5,
+        borderColor: grey[500],
+        borderStyle: 'solid'
+      },
+      accordionCaption: {
+        paddingLeft: '30px'
+      },
+      step: {
+        color: theme.palette.grey[800],
+        marginLeft: '5px'
+      }
+    }),
+    [theme]
+  )
   const isLgUp = useMediaQuery(theme.breakpoints.up('lg'))
 
   const AddAcctContent = useCallback(
@@ -111,13 +104,12 @@ export default function WhyGoPaperlessPage() {
       <Box padding={2} display="flex">
         <RowBox flexSpacing={4} responsive="md" alignItems="center">
           <ChildBox>
-            <Box className={classes.imgBorder} width={600}>
+            <Box sx={{...style.imgBorder}} width={600}>
               <Image
                 height={1441}
                 width={1362}
                 sizes="(max-width: 600px) 100vw, 75vw"
-                layout="responsive"
-                objectFit="cover"
+                style={{width: '100%', height: 'auto', objectFit: 'cover'}}
                 loader={imgixUrlLoader}
                 src={
                   'https://imgix.cosmicjs.com/9dc313a0-f44d-11ed-bb44-790a83f99a24-Paperless-toggled.JPG'
@@ -129,7 +121,7 @@ export default function WhyGoPaperlessPage() {
         </RowBox>
       </Box>
     ),
-    [classes]
+    [style]
   )
 
   const LogIntoAcctContent = useCallback(
@@ -137,13 +129,15 @@ export default function WhyGoPaperlessPage() {
       <Box padding={2} display="flex">
         <ColumnBox flexSpacing={2} alignItems="center">
           <ChildBox>
-            <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
+            <Box sx={{...style.imgInline, ...style.imgBorder}}>
               <Image
-                className={classes.zoomInHeaderMenu}
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center 10%',
+                  ...style.zoomInHeaderMenu
+                }}
                 height={50}
                 width={500}
-                objectFit="cover"
-                objectPosition="center 10%"
                 loader={imgixUrlLoader}
                 src="https://imgix.cosmicjs.com/ac90ebf0-f416-11ed-bb44-790a83f99a24-Homepage.JPG"
                 alt="PCWA.net Pay My Bill Button in menu"
@@ -158,13 +152,15 @@ export default function WhyGoPaperlessPage() {
             />
           </ChildBox>
           <ChildBox>
-            <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
+            <Box sx={{...style.imgInline, ...style.imgBorder}}>
               <Image
-                className={classes.zoomInLoginScreen}
+                style={{
+                  ...style.zoomInLoginScreen,
+                  objectFit: 'cover',
+                  objectPosition: 'center 10%'
+                }}
                 height={200}
                 width={500}
-                objectFit="cover"
-                objectPosition="center 10%"
                 loader={imgixUrlLoader}
                 src="https://imgix.cosmicjs.com/aca44ce0-f416-11ed-bb44-790a83f99a24-Customer-portal.JPG"
                 alt="Customer Portal Login Screen"
@@ -174,7 +170,7 @@ export default function WhyGoPaperlessPage() {
         </ColumnBox>
       </Box>
     ),
-    [classes]
+    [style]
   )
 
   const getHaveAcctStepContent = useCallback(
@@ -200,12 +196,14 @@ export default function WhyGoPaperlessPage() {
       case 1:
         return (
           <Box padding={2} display="flex">
-            <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
+            <Box sx={{...style.imgInline, ...style.imgBorder}}>
               <Image
-                className={classes.zoomInAcctNo}
+                style={{
+                  ...style.zoomInAcctNo,
+                  objectFit: 'cover'
+                }}
                 height={200}
                 width={500}
-                objectFit="cover"
                 loader={imgixUrlLoader}
                 src={`https://imgix.cosmicjs.com/fc00aa80-4679-11e9-bbe9-d7e354f499a1-Find-My-Account-Number.png${stringify(
                   {
@@ -227,12 +225,11 @@ export default function WhyGoPaperlessPage() {
       case 3:
         return (
           <Box padding={2} display="flex">
-            <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
+            <Box sx={{...style.imgInline, ...style.imgBorder}}>
               <Image
-                className={classes.zoomInToggleOpt}
+                style={{...style.zoomInToggleOpt, objectFit: 'cover'}}
                 height={200}
                 width={500}
-                objectFit="cover"
                 loader={imgixUrlLoader}
                 src={`https://imgix.cosmicjs.com/0cd7f830-f41e-11ed-bb44-790a83f99a24-Paperless-toggled.png`}
                 alt="Un-toggle Paperless Billing Option"
@@ -260,12 +257,11 @@ export default function WhyGoPaperlessPage() {
             <Box padding={2} display="flex">
               <RowBox flexSpacing={4} responsive="md" alignItems="center">
                 <ChildBox>
-                  <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
+                  <Box sx={{...style.imgInline, ...style.imgBorder}}>
                     <Image
-                      className={classes.zoomInToggleOpt}
+                      style={{...style.zoomInToggleOpt, objectFit: 'cover'}}
                       height={200}
                       width={500}
-                      objectFit="cover"
                       loader={imgixUrlLoader}
                       src={
                         'https://imgix.cosmicjs.com/0cd1b6a0-f41e-11ed-bb44-790a83f99a24-Paperless-untoggled.png'
@@ -282,9 +278,11 @@ export default function WhyGoPaperlessPage() {
                   />
                 </ChildBox>
                 <ChildBox>
-                  <Box className={`${classes.imgInline} ${classes.imgBorder}`}>
+                  <Box sx={{...style.imgInline, ...style.imgBorder}}>
                     <Image
-                      className={classes.zoomInToggleOpt}
+                      style={{
+                        ...style.zoomInToggleOpt
+                      }}
                       height={200}
                       width={500}
                       objectFit="cover"
@@ -305,7 +303,7 @@ export default function WhyGoPaperlessPage() {
           return ''
       }
     },
-    [isLgUp, classes, LogIntoAcctContent, AddAcctContent]
+    [isLgUp, style, LogIntoAcctContent, AddAcctContent]
   )
 
   const genericSteps = [
@@ -513,10 +511,7 @@ export default function WhyGoPaperlessPage() {
 
   const handleChange = useCallback(
     (panel: string) =>
-      (
-        _event: React.ChangeEvent<Record<string, unknown>>,
-        isExpanded: boolean
-      ) => {
+      (_event: React.SyntheticEvent<Element, Event>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false)
       },
     []
@@ -538,7 +533,7 @@ export default function WhyGoPaperlessPage() {
                 src="c9983980-f0ef-11ed-b7bd-57cb4c9665a9-cut-the-clutter.jpg"
                 alt="Cut the clutter"
                 loader={imgixLoader}
-                layout="responsive"
+                style={{width: '100%', height: 'auto'}}
                 sizes="(max-width: 600px) 60vw, 33vw"
                 width={1000}
                 height={667}
@@ -561,7 +556,7 @@ export default function WhyGoPaperlessPage() {
                 src="c99b46c0-f0ef-11ed-b7bd-57cb4c9665a9-pay-anywhere.jpg"
                 alt="Pay anywhere, anytime"
                 loader={imgixLoader}
-                layout="responsive"
+                style={{width: '100%', height: 'auto'}}
                 sizes="(max-width: 600px) 60vw, 33vw"
                 width={1000}
                 height={667}
@@ -584,7 +579,7 @@ export default function WhyGoPaperlessPage() {
                 src="c3f7a7a0-f364-11ed-9f0e-e959935e64bf-dreamstimexs158227081.jpg"
                 alt="Safe Secure and Seamless"
                 loader={imgixLoader}
-                layout="responsive"
+                style={{width: '100%', height: 'auto'}}
                 sizes="(max-width: 600px) 60vw, 33vw"
                 width={480}
                 height={319}
@@ -779,13 +774,13 @@ export default function WhyGoPaperlessPage() {
           <Type variant="h3">How Does Paperless Billing Work?</Type>
           <Spacing size="small" />
           <List>
-            <ListItem classes={{root: classes.lessPadding}}>
+            <ListItem sx={{...style.lessPadding}}>
               <ListItemIcon>
                 <TodayIcon />
               </ListItemIcon>
               <ListItemText primary="Each month you will receive an email or text message saying your monthly bill is ready for viewing." />
             </ListItem>
-            <ListItem classes={{root: classes.lessPadding}}>
+            <ListItem sx={{...style.lessPadding}}>
               <ListItemIcon>
                 <OpenInBrowserIcon />
               </ListItemIcon>
@@ -794,13 +789,13 @@ export default function WhyGoPaperlessPage() {
                 your account.
               </ListItemText>
             </ListItem>
-            <ListItem classes={{root: classes.lessPadding}}>
+            <ListItem sx={{...style.lessPadding}}>
               <ListItemIcon>
                 <CreditCardIcon />
               </ListItemIcon>
               <ListItemText primary="Pay your bill online." />
             </ListItem>
-            <ListItem classes={{root: classes.lessPadding}}>
+            <ListItem sx={{...style.lessPadding}}>
               <ListItemIcon>
                 <TrendingUpIcon />
               </ListItemIcon>

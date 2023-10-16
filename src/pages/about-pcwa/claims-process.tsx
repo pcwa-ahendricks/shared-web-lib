@@ -3,9 +3,10 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type, Box} from '@material-ui/core'
+import {Typography as Type, Box} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
+
 export default function BasicTemplatePage() {
   return (
     <PageLayout title="Claims Process" waterSurface>

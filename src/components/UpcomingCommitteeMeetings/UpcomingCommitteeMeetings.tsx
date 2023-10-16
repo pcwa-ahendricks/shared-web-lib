@@ -1,15 +1,11 @@
-import {
-  Box,
-  CircularProgress,
-  Typography as Type,
-  useTheme
-} from '@material-ui/core'
+import {Box, CircularProgress, Typography as Type} from '@mui/material'
 import {format} from 'date-fns'
-import InboxRoundedIcon from '@material-ui/icons/InboxRounded'
+import InboxRoundedIcon from '@mui/icons-material/InboxRounded'
 import {MappedAgenda} from '@pages/board-of-directors/meeting-agendas'
 import slugify from 'slugify'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
+import useTheme from '@hooks/useTheme'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -66,7 +62,6 @@ export default function UpcomingCommitteeMeetings({
                 <Box marginLeft={4}>
                   <OpenInNewLink
                     pdf
-                    isNextLink
                     as={linkAs}
                     href="/board-of-directors/meeting-agendas/[agenda-slug]"
                   >

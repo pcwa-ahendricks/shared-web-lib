@@ -6,8 +6,8 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import AccountsPayableEmail from '@components/links/AccountsPayableEmail'
 import Spacing from '@components/boxes/Spacing'
-// import {yellow} from '@material-ui/core/colors'
-// import AlertIcon from '@material-ui/icons/ErrorOutlineOutlined'
+// import {yellow} from '@mui/material/colors'
+// import AlertIcon from '@mui/icons-material/ErrorOutlineOutlined'
 
 export default function CheckFraudAlert() {
   return (
