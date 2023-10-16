@@ -32,7 +32,6 @@ import {useRouter} from 'next/router'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
-import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import {
   newsReleaseDateFrmt,
@@ -42,6 +41,7 @@ import {
 } from '@lib/types/newsReleases'
 import {setCenterProgress, UiContext} from '@components/ui/UiStore'
 import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -150,7 +150,7 @@ const DynamicNewsReleasePage = ({media, err}: Props) => {
         >
           <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
-              <MuiNextLink
+              <Link
                 color="inherit"
                 sx={{...style.bcLink}}
                 href="/newsroom/news-releases"
@@ -159,7 +159,7 @@ const DynamicNewsReleasePage = ({media, err}: Props) => {
                   <UndoIcon sx={{...style.bcIcon}} />
                   News Releases
                 </>
-              </MuiNextLink>
+              </Link>
               <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon sx={{...style.bcIcon}} />
                 {newsReleaseDateFormatted}

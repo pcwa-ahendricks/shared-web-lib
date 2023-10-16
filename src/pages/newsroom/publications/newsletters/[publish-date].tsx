@@ -28,7 +28,6 @@ import {format, parseJSON, addMonths, getYear} from 'date-fns'
 import ErrorPage from '@pages/_error'
 import MinutesIcon from '@mui/icons-material/UndoOutlined'
 import DocIcon from '@mui/icons-material/DescriptionOutlined'
-import MuiNextLink from '@components/NextLink/NextLink'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
@@ -42,6 +41,7 @@ import {
 import {useRouter} from 'next/router'
 import {setCenterProgress, UiContext} from '@components/ui/UiStore'
 import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -171,15 +171,15 @@ const DynamicNewslettersPage = ({media, err}: Props) => {
         >
           <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
-              <MuiNextLink
+              <Link
                 color="inherit"
+                sx={{...style.bcLink}}
                 href="/newsroom/publications/[publication]"
                 as="/newsroom/publications/newsletters"
-                sx={{...style.bcLink}}
               >
                 <MinutesIcon sx={{...style.bcIcon}} />
                 Newsletters
-              </MuiNextLink>
+              </Link>
               <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon sx={{...style.bcIcon}} />
                 {newsletterDateFormatted}
