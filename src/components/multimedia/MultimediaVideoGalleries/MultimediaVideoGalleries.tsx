@@ -228,19 +228,14 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
   const videoWidth = isSMDown ? '100%' : isLGUp ? '425px' : '350px' // Use px suffix with calc().
 
   return (
-    <>
-      <ReactCSSTransitionReplace
-        transitionName="gallery-cross-fade"
-        transitionEnterTimeout={galleryCrossFadeDuration}
-        transitionLeaveTimeout={galleryCrossFadeDuration}
-      >
-        {selectedGallery ? (
-          <RowBox
-            key={0}
-            flexWrap="wrap"
-            flexSpacing={margin}
-            paddingBottom={5}
-          >
+    <ReactCSSTransitionReplace
+      transitionName="gallery-cross-fade"
+      transitionEnterTimeout={galleryCrossFadeDuration}
+      transitionLeaveTimeout={galleryCrossFadeDuration}
+    >
+      {selectedGallery ? (
+        <div key={0}>
+          <RowBox flexWrap="wrap" flexSpacing={margin} paddingBottom={5}>
             {currentGallery?.videos.map((p) => (
               <ChildBox key={p.index} paddingBottom={5}>
                 <FilePlayer
@@ -305,9 +300,10 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
               activeGallery={currentGallery}
             />
           </RowBox>
-        ) : (
+        </div>
+      ) : (
+        <div key={1}>
           <RowBox
-            key={1}
             flexWrap="wrap"
             flexSpacing={margin}
             wrapSpacing={cardMargin}
@@ -323,9 +319,9 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
               />
             ))}
           </RowBox>
-        )}
-      </ReactCSSTransitionReplace>
-    </>
+        </div>
+      )}
+    </ReactCSSTransitionReplace>
   )
 }
 
