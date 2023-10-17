@@ -617,13 +617,13 @@ const ProjectsPage = () => {
                     </TimelineListItem>
                     <TimelineListItem>
                       <ListItemText
-                        primary="Construction: Pump Station May 2022-Fall 2023"
+                        primary="Construction: Pump Station May 2022 - Winter 2023"
                         style={{marginBottom: 0}}
                       />
                     </TimelineListItem>
                     <TimelineListItem>
                       <ListItemText
-                        primary="Construction: Homes - Fall 2023"
+                        primary="Construction: Homes - Winter 2023"
                         style={{marginBottom: 0}}
                       />
                     </TimelineListItem>
@@ -676,6 +676,136 @@ const ProjectsPage = () => {
                       </Type>
                     </Box>
                   </ColumnBox> */}
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Alta Loop Pipeline - Cable And Powerhouse Rd
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Description
+                    </Type>
+                    <Type paragraph>
+                      The project will consist of replacing the existing 4”
+                      steel distribution water main within Cable Road, Alta
+                      Power House Road, and Timber (red line). The main has
+                      experienced several breaks throughout the years and is at
+                      the end of its useful life. The pipe that goes from Brown
+                      Road south east through several properties to Alta
+                      Bonnynook Road may be replaced by installing a main in
+                      Alta Power House Road (yellow line). All existing services
+                      will be replaced and/or reconnected.
+                    </Type>
+                    <Type paragraph>
+                      A new water main (green) will also be installed along
+                      Cable Road beginning at the intersection of Cable Road and
+                      Timber Lane going east connecting to the existing 10”
+                      distribution main at the east end of Cable Road. A
+                      pressure reducing station (PRS) will be included to
+                      connect two distinct pressure zones. The purpose of the
+                      new line is to increase the reliability of service by
+                      providing redundancy to a portion of the system.
+                    </Type>
+                    <Spacing />
+                    <Type variant="subtitle1">Project Schedule</Type>
+                    <List disablePadding>
+                      {/* <TimelineListItem>
+                        <ListItemText primary="Survey, geotechnical exploration, and other information gathering - 2019" />
+                      </TimelineListItem> */}
+                      <TimelineListItem>
+                        <ListItemText primary="Design Completion - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Spring 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Spring 2023" />
+                      </TimelineListItem>
+                    </List>
+                    {/* <Spacing /> */}
+                    {/* <Type variant="subtitle1" gutterBottom>
+                      Frequently Asked Questions (FAQ’s)
+                    </Type>
+                    <Type gutterBottom>
+                      <em>What are surveyors doing in my area?</em>
+                    </Type>
+                    <Type paragraph>
+                      Surveyors will be in the neighborhood to begin work by
+                      collecting various points of interest (e.g. meter boxes,
+                      elevations, existing site improvements, etc.). This
+                      includes locating and identifying trees by tagging them
+                      with a unique ID tag.
+                    </Type>
+                    <Type gutterBottom>
+                      <em>Can I remove tree tags?</em>
+                    </Type>
+                    <Type paragraph>
+                      No please don't; these will be critical through the design
+                      phase to accurately map the trees on the plans and
+                      identify them in the field during construction.
+                    </Type>
+                    <Type gutterBottom>
+                      <em>Will new fire hydrants be added?</em>
+                    </Type>
+                    <Type paragraph>
+                      Currently, hydrants are spaced more than 1,000 feet apart
+                      in this area. PCWA standards call for hydrants to be
+                      spaced at a maximum of 500 feet for residential areas, 350
+                      feet for commercial and industrial areas. This will
+                      require the construction of new hydrants.
+                    </Type>
+                    <Spacing /> */}
+                    {/* <Type variant="subtitle1" gutterBottom>
+                      For questions regarding this project, contact:
+                    </Type>
+                    <Type paragraph>
+                      PCWA Associate Engineer
+                      <br />
+                      Jordan Jakobsen
+                      <br />
+                      Phone: (530) 823-4950
+                      <br />
+                      E-mail:{' '}
+                      <Link href="mailto:jjakobsen@pcwa.net">
+                        jjakobsen@pcwa.net
+                      </Link>
+                    </Type> */}
+                    <Spacing size="large" />
+                    <MediaDialogOnClick
+                      mediaUrl="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
+                      mediaName="Map Figure of Alta Loop Pipeline Project"
+                      mediaPreviewDialogProps={{
+                        width: 700,
+                        height: 535
+                      }}
+                    >
+                      <Image
+                        loader={imgixUrlLoader}
+                        src={`https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png${stringify(
+                          {border: '1,AAAAAA'},
+                          true
+                        )}`}
+                        alt="Map Figure of Alta Loop Pipeline Project"
+                        width={700}
+                        height={535}
+                        layout="responsive"
+                        sizes="(max-width: 600px) 100vw, 45vw"
+                      />
+                    </MediaDialogOnClick>
+                    <ColumnBox alignItems="center">
+                      <Box mt={1} width="60%" textAlign="center">
+                        <Type variant="caption">
+                          Map Figure of Alta Loop Pipeline Project{' '}
+                          <em>(click to enlarge)</em>
+                        </Type>
+                      </Box>
+                    </ColumnBox>
+                  </article>
                 </ConstructionProject>
               </ProjectChild>
               <ProjectChild>
@@ -835,118 +965,102 @@ const ProjectsPage = () => {
               <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
-                    Alta Loop Pipeline - Cable And Powerhouse Rd
+                    Bickford Ranch Phase 1 - Mass Grading
                   </Type>
                   <Spacing>
                     <Divider />
                   </Spacing>
-                  <article>
-                    <Type variant="subtitle1" gutterBottom>
-                      Project Description
-                    </Type>
-                    <Type paragraph>
-                      The project will consist of replacing the existing 4”
-                      steel distribution water main within Cable Road, Alta
-                      Power House Road, and Timber (red line). The main has
-                      experienced several breaks throughout the years and is at
-                      the end of its useful life. The pipe that goes from Brown
-                      Road south east through several properties to Alta
-                      Bonnynook Road may be replaced by installing a main in
-                      Alta Power House Road (yellow line). All existing services
-                      will be replaced and/or reconnected.
-                    </Type>
-                    <Type paragraph>
-                      A new water main (green) will also be installed along
-                      Cable Road beginning at the intersection of Cable Road and
-                      Timber Lane going east connecting to the existing 10”
-                      distribution main at the east end of Cable Road. A
-                      pressure reducing station (PRS) will be included to
-                      connect two distinct pressure zones. The purpose of the
-                      new line is to increase the reliability of service by
-                      providing redundancy to a portion of the system.
-                    </Type>
-                    <Spacing />
-                    <Type variant="subtitle1">Project Schedule</Type>
-                    <List disablePadding>
-                      {/* <TimelineListItem>
-                        <ListItemText primary="Survey, geotechnical exploration, and other information gathering - 2019" />
-                      </TimelineListItem> */}
-                      <TimelineListItem>
-                        <ListItemText primary="Design Completion - Spring 2023" />
-                      </TimelineListItem>
-                      <TimelineListItem>
-                        <ListItemText primary="Advertise/Award - Spring 2023" />
-                      </TimelineListItem>
-                      <TimelineListItem>
-                        <ListItemText primary="Begin Construction - Spring 2023" />
-                      </TimelineListItem>
-                    </List>
-                    {/* <Spacing /> */}
-                    {/* <Type variant="subtitle1" gutterBottom>
-                      Frequently Asked Questions (FAQ’s)
-                    </Type>
-                    <Type gutterBottom>
-                      <em>What are surveyors doing in my area?</em>
-                    </Type>
-                    <Type paragraph>
-                      Surveyors will be in the neighborhood to begin work by
-                      collecting various points of interest (e.g. meter boxes,
-                      elevations, existing site improvements, etc.). This
-                      includes locating and identifying trees by tagging them
-                      with a unique ID tag.
-                    </Type>
-                    <Type gutterBottom>
-                      <em>Can I remove tree tags?</em>
-                    </Type>
-                    <Type paragraph>
-                      No please don't; these will be critical through the design
-                      phase to accurately map the trees on the plans and
-                      identify them in the field during construction.
-                    </Type>
-                    <Type gutterBottom>
-                      <em>Will new fire hydrants be added?</em>
-                    </Type>
-                    <Type paragraph>
-                      Currently, hydrants are spaced more than 1,000 feet apart
-                      in this area. PCWA standards call for hydrants to be
-                      spaced at a maximum of 500 feet for residential areas, 350
-                      feet for commercial and industrial areas. This will
-                      require the construction of new hydrants.
-                    </Type>
-                    <Spacing /> */}
-                    {/* <Type variant="subtitle1" gutterBottom>
-                      For questions regarding this project, contact:
-                    </Type>
-                    <Type paragraph>
-                      PCWA Associate Engineer
-                      <br />
-                      Jordan Jakobsen
-                      <br />
-                      Phone: (530) 823-4950
-                      <br />
-                      E-mail:{' '}
-                      <Link href="mailto:jjakobsen@pcwa.net">
-                        jjakobsen@pcwa.net
-                      </Link>
-                    </Type> */}
-                    <Spacing size="large" />
+                  <Type variant="subtitle1" gutterBottom>
+                    Project Description
+                  </Type>
+                  <Type paragraph>
+                    This Facilities Agreement (FA) Project is being funded and
+                    completed by Bickford Ranch Developers (Bickford). Bickford
+                    has begun construction on Phase 1 of the Bickford Ranch
+                    Community Facility District in 2021. Part of Phase 1 work
+                    involves the relocation and permanent pipe encasement of a
+                    portion of the Caperton Canal. Approximately 2,900 linear
+                    feet of new 42-inch Raw Water Pipeline has been constructed
+                    and in operation in 2022. Starting in 2023, Bickford will be
+                    extending the canal encasement one last time per their
+                    agreement, an additional 5,200 linear feet of 42” HDPE pipe
+                    and relocate five Customer Turn Outs (CTO). Additionally, a
+                    new permanent Inlet structure will be constructed, helping
+                    to create a more robust canal system at this location.
+                  </Type>
+                  <Spacing />
+                  <Type variant="subtitle1">Project Schedule</Type>
+                  <List disablePadding>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Design – Spring 2023"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                    <TimelineListItem>
+                      <ListItemText
+                        primary="Construction: Intake and raw water pipeline - October 2023 - June 2024"
+                        style={{marginBottom: 0}}
+                      />
+                    </TimelineListItem>
+                  </List>
+                  <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    Frequently Asked Questions (FAQ's)
+                  </Type>
+                  <Type gutterBottom>
+                    <em>What is happening to my Customer Turn Out (CTO)?</em>
+                  </Type>
+                  <Type paragraph>
+                    Each CTO within the Project location is being upgraded.
+                    Bickford's contractor will be installing a permanent
+                    pipeline, which they will reconnect every CTO at each step
+                    of construction, making sure that you will continue to
+                    receive water.
+                  </Type>
+                  <Type gutterBottom>
+                    <em>
+                      Will there be water outages on our CTO’s during this work?
+                    </em>
+                  </Type>
+                  <Type paragraph>
+                    Yes. Brief outages are be expected during the work.
+                    Customers will be notified of all planned outages ahead of
+                    time.
+                  </Type>
+                  <Type gutterBottom>
+                    <em>
+                      Who do we contact if we need to visit out CTO and clean
+                      the service screens?
+                    </em>
+                  </Type>
+                  <Type paragraph>
+                    Customers can contact Gene Mancebo, Project Manager at EGM
+                    Solutions and a Bickford representative, at (209) 969-5631
+                    or{' '}
+                    <Link href="mailto:genemancebo@gmail.com">
+                      genemancebo@gmail.com
+                    </Link>
+                    . When will construction of the encased Caperton Canal be
+                    complete? It is anticipated that construction for encasing
+                    the Caperton Canal will be completed by June 2024.
+                  </Type>
+                  <Spacing size="large" />
+                  <Box>
                     <MediaDialogOnClick
-                      mediaUrl="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
-                      mediaName="Map Figure of Alta Loop Pipeline Project"
+                      mediaUrl="https://imgix.cosmicjs.com/f6fa7450-6d0f-11ee-b27c-e13e14dddc51-2023-10-12---Existing-and-Proposed-Canal.png"
+                      mediaName="Map Figure of Bickford Ranch Phase 1 - Caperton Canal Services"
                       mediaPreviewDialogProps={{
-                        width: 700,
-                        height: 535
+                        width: 3456,
+                        height: 2592
                       }}
                     >
                       <Image
                         loader={imgixUrlLoader}
-                        src={`https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png${stringify(
-                          {border: '1,AAAAAA'},
-                          true
-                        )}`}
-                        alt="Map Figure of Alta Loop Pipeline Project"
-                        width={700}
-                        height={535}
+                        src="https://imgix.cosmicjs.com/f6fa7450-6d0f-11ee-b27c-e13e14dddc51-2023-10-12---Existing-and-Proposed-Canal.png"
+                        alt="Map Figure of Bickford Ranch Phase 1 - Caperton Canal Services"
+                        width={3456}
+                        height={2592}
                         layout="responsive"
                         sizes="(max-width: 600px) 100vw, 45vw"
                       />
@@ -954,12 +1068,39 @@ const ProjectsPage = () => {
                     <ColumnBox alignItems="center">
                       <Box mt={1} width="60%" textAlign="center">
                         <Type variant="caption">
-                          Map Figure of Alta Loop Pipeline Project{' '}
-                          <em>(click to enlarge)</em>
+                          Map Figure of Bickford Ranch Phase 1, Caperton Canal
+                          Services <em>(click to enlarge)</em>
                         </Type>
                       </Box>
                     </ColumnBox>
-                  </article>
+                  </Box>
+                  {/* <Spacing />
+                  <Type variant="subtitle1" gutterBottom>
+                    If you have any questions regarding the Project, please
+                    contact the following PCWA Representative:
+                  </Type>
+                  <Type paragraph>
+                    Brian Rickards
+                    <br />
+                    Planning & Development Services Manager
+                    <br />
+                    Phone: (530) 823-4845
+                    <br />
+                    E-mail:{' '}
+                    <Link href="mailto:brickards@pcwa.net ">
+                      brickards@pcwa.net
+                    </Link>
+                  </Type> */}
+                  {/* <Spacing size="large" /> */}
+
+                  {/* <ColumnBox alignItems="center">
+                    <Box mt={1} width="60%" textAlign="center">
+                      <Type variant="caption">
+                        Map Figure of Bickford Ranch Phase I - Canal Services{' '}
+                        <em>(click to enlarge)</em>
+                      </Type>
+                    </Box>
+                  </ColumnBox> */}
                 </ConstructionProject>
               </ProjectChild>
               <ProjectChild>
