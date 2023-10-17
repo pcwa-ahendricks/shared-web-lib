@@ -6,8 +6,6 @@ import {
   Box,
   Typography as Type,
   useMediaQuery,
-  Link,
-  LinkProps,
   TypographyProps
 } from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -17,10 +15,10 @@ import {FlexBox, ColumnBox, ChildBox, RowBox} from '@components/MuiSleazebox'
 import WideContainer from '@components/containers/WideContainer'
 import Spacing from '@components/boxes/Spacing'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
-import MuiNextLink from '@components/NextLink/NextLink'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import useJumpTo from '@hooks/useJumpTo'
 import useTheme from '@hooks/useTheme'
+import Link, {LinkProps} from '@components/Link'
 
 const FireResistantGardenPage = () => {
   const theme = useTheme()
@@ -194,12 +192,12 @@ const FireResistantGardenPage = () => {
                 </Type>
                 <Box component="ul">
                   <TypeBullet>
-                    <MuiNextLink
+                    <Link
                       href="/smart-water-use/rebate-programs"
                       variant="inherit"
                     >
                       Rebates available from PCWA
-                    </MuiNextLink>{' '}
+                    </Link>{' '}
                     for weather-based sprinkler timers and efficient irrigation
                     equipment.
                   </TypeBullet>

@@ -27,7 +27,6 @@ import MainPhone from '@components/links/MainPhone'
 import EightHundredPhone from '@components/links/EightHundredPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import PageTitle from '@components/PageTitle/PageTitle'
-import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
@@ -40,6 +39,7 @@ import EditLocIcon from '@mui/icons-material/Spellcheck'
 import ContactUsGeolocator from '@components/ContactUsGeolocator/ContactUsGeolocator'
 import HoursOfOperation from '@components/HoursOfOperation/HoursOfOperation'
 import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 
 const SERVICE_URI_PATH = 'contact-us'
 
@@ -118,10 +118,7 @@ const ContactUsPage = () => {
                 and our answering service will relay your call to standby
                 personnel who can assist you. If you are wanting to report water
                 waste incident, please visit{' '}
-                <MuiNextLink href="/report-water-waste">
-                  Report Water Waste
-                </MuiNextLink>
-                .
+                <Link href="/report-water-waste">Report Water Waste</Link>.
               </Type>
             </ChildBox>
             <ChildBox flex="35%" display="flex">
@@ -154,13 +151,13 @@ const ContactUsPage = () => {
                 <Type>
                   <em>Business Center Located At</em>
                 </Type>
-                <MuiNextLink href="/about-pcwa/directions">
+                <Link href="/about-pcwa/directions">
                   Placer County Water Agency
                   <br />
                   144 Ferguson Road
                   <br />
                   Auburn, CA 95603
-                </MuiNextLink>
+                </Link>
               </ChildBox>
               {/* <ChildBox>
                 <FlexBox

@@ -3,7 +3,6 @@ import React, {useEffect, useState, useCallback} from 'react'
 import {
   useTheme,
   Typography as Type,
-  Link,
   Box,
   Divider,
   Badge,
@@ -24,12 +23,12 @@ import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import {paramToStr} from '@lib/queryParamToStr'
-import MuiNextLink from '@components/NextLink/NextLink'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
 import {Theme} from '@lib/material-theme'
+import Link from '@components/Link'
 const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -114,23 +113,23 @@ const BoardOfDirectorsDynamicPage = ({district: districtProp}: Props) => {
               <Type variant="h4" gutterBottom>
                 Directors - General Information
               </Type>
-              <ul>
+              <Box component="ul">
                 <LinkItem>
-                  <MuiNextLink href="/board-of-directors/meeting-agendas">
+                  <Link href="/board-of-directors/meeting-agendas">
                     Board Meeting Agendas
-                  </MuiNextLink>
+                  </Link>
                 </LinkItem>
                 <LinkItem>
-                  <MuiNextLink href="/board-of-directors/meeting-minutes">
+                  <Link href="/board-of-directors/meeting-minutes">
                     Board Meeting Minutes
-                  </MuiNextLink>
+                  </Link>
                 </LinkItem>
                 <LinkItem>
-                  <MuiNextLink href="/board-of-directors/qualifications">
+                  <Link href="/board-of-directors/qualifications">
                     Compensation, Benefits, and Qualifications
-                  </MuiNextLink>
+                  </Link>
                 </LinkItem>
-              </ul>
+              </Box>
             </ChildBox>
             <ColumnBox child flex="40%" alignItems="center" textAlign="center">
               <Box mx="auto" mb={1} width="100%">

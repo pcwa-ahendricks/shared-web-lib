@@ -11,8 +11,7 @@ import {
   Divider,
   Paper,
   useMediaQuery,
-  useTheme,
-  Link
+  useTheme
 } from '@mui/material'
 import {grey, yellow, blueGrey} from '@mui/material/colors'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -20,7 +19,6 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
-import NextLink from '@components/NextLink/NextLink'
 import FancyButton from '@components/FancyButton/FancyButton'
 import CloseableInfoBox from '@components/CloseableInfoBox/CloseableInfoBox'
 import MainPhone from '@components/links/MainPhone'
@@ -43,6 +41,7 @@ import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
 import IrrigSvcAgreeLookHere from '@components/LookHere/IrrigSvcAgreeLookHere'
 import {Theme} from '@lib/material-theme'
+import Link from '@components/Link'
 
 // type Props = {
 //   fallbackData?: PlayListItems
@@ -121,8 +120,8 @@ const IrrigationCanalPage = () => {
                   </strong>
                 </em>
                 , updates will be posted on PCWA's{' '}
-                <NextLink href="/services/outage">Outage Information</NextLink>{' '}
-                page of this website.
+                <Link href="/services/outage">Outage Information</Link> page of
+                this website.
               </Type>
             </ChildBox>
             <ChildBox flex="40%">
@@ -255,17 +254,13 @@ const IrrigationCanalPage = () => {
                     <IrrigSvcAgreeLookHere animate={!irrigSvcAgreeAnimateDone}>
                       <Type>
                         Visit our{' '}
-                        <NextLink
+                        <Link
                           href="/services/irrigation-service-agreement"
-                          passHref
+                          underline="always"
+                          style={{backgroundColor: blueGrey[50]}}
                         >
-                          <Link
-                            underline="always"
-                            style={{backgroundColor: blueGrey[50]}}
-                          >
-                            <strong>Irrigation Service Agreement FAQs</strong>
-                          </Link>
-                        </NextLink>{' '}
+                          <strong>Irrigation Service Agreement FAQs</strong>
+                        </Link>{' '}
                         page to find out more information.
                       </Type>
                     </IrrigSvcAgreeLookHere>

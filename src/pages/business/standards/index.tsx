@@ -4,11 +4,11 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
-import {Typography as Type, Box, Link, Divider} from '@mui/material'
+import {Typography as Type, Box, Divider} from '@mui/material'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import Spacing from '@components/boxes/Spacing'
-import MuiNextLink from '@components/NextLink/NextLink'
 import EngineeringPhone from '@components/links/EngineeringPhone'
+import Link from '@components/Link'
 
 const ImprovementStandardsPage = () => {
   return (
@@ -70,9 +70,7 @@ const ImprovementStandardsPage = () => {
             <Divider />
           </Spacing>
           <Type variant="h4" gutterBottom>
-            <MuiNextLink href="/business/standards/specs">
-              Specification Updates
-            </MuiNextLink>
+            <Link href="/business/standards/specs">Specification Updates</Link>
           </Type>
           <Type paragraph>
             The specification documents provided here in, are specific edits,
@@ -83,9 +81,9 @@ const ImprovementStandardsPage = () => {
             <Divider />
           </Spacing>
           <Type variant="h4" gutterBottom>
-            <MuiNextLink href="/business/standards/updates">
+            <Link href="/business/standards/updates">
               Standard Drawing Updates
-            </MuiNextLink>
+            </Link>
           </Type>
           <Type paragraph>
             The standard drawings provided here in, are specific edits, changes
@@ -96,9 +94,9 @@ const ImprovementStandardsPage = () => {
             <Divider />
           </Spacing>
           <Type variant="h4" gutterBottom>
-            <MuiNextLink href="/business/standards/materials">
+            <Link href="/business/standards/materials">
               Updated Approved Materials List
-            </MuiNextLink>
+            </Link>
           </Type>
           <Type paragraph>
             This includes a complete list of Approved Materials and supersedes
@@ -112,9 +110,9 @@ const ImprovementStandardsPage = () => {
             If you have any comments, corrections or additions you would like
             considered for inclusion in future updates, please call{' '}
             <EngineeringPhone />, or{' '}
-            <MuiNextLink href="/contact-us">
+            <Link href="/contact-us">
               submit your question or suggestion online
-            </MuiNextLink>
+            </Link>
             .
           </Type>
         </NarrowContainer>

@@ -5,9 +5,9 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {Typography as Type} from '@mui/material'
-import MuiNextLink from '@components/NextLink/NextLink'
 import ClerkToBoardEmail from '@components/links/ClerkToBoardEmail'
 import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
+import Link from '@components/Link'
 
 const BoardOfDirectorsQualificationsPage = () => {
   return (
@@ -47,13 +47,13 @@ const BoardOfDirectorsQualificationsPage = () => {
               The Board of Directors meet in regular session on the first and
               third Thursday of each month at 2:00 p.m. at the Placer County
               Water Agency Business Center,{' '}
-              <MuiNextLink href="/about-pcwa/directions">
+              <Link href="/about-pcwa/directions">
                 144 Ferguson Road, Auburn, California
-              </MuiNextLink>
+              </Link>
               . All Board meetings are open to the public. See{' '}
-              <MuiNextLink href="/board-of-directors/meeting-agendas">
+              <Link href="/board-of-directors/meeting-agendas">
                 Upcoming Meetings
-              </MuiNextLink>{' '}
+              </Link>{' '}
               for more information.
             </Type>
             <Type paragraph>

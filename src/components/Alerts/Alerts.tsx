@@ -163,9 +163,9 @@ export default function Alerts({
         <AlertTitle>COVID-19 and Your Drinking Water</AlertTitle>
         <Type variant="inherit" component="div">
           See our{' '}
-          <MuiNextLink href="/newsroom/covid-19-faqs" underline="always">
+          <Link href="/newsroom/covid-19-faqs" underline="always">
             Frequently Asked Questions
-          </MuiNextLink>
+          </Link>
         </Type>
       </CollapsibleAlert> */}
 
@@ -184,9 +184,9 @@ export default function Alerts({
           email at <CustomerServicesEmail />.
         </Type>
         <Type variant="inherit" component="div">
-          <MuiNextLink href="/newsroom/covid-19-faqs">
+          <Link href="/newsroom/covid-19-faqs">
             Frequently Asked Questions
-          </MuiNextLink>{' '}
+          </Link>{' '}
           regarding COVID-19 and your drinking water supply.
         </Type>
       </CollapsibleAlert> */}

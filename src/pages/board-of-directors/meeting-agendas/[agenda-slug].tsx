@@ -26,10 +26,10 @@ import DocIcon from '@mui/icons-material/DescriptionOutlined'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
-import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import {agendasUrl, AgendaMetadata} from '@lib/types/agenda'
 import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 // const isDev = process.env.NODE_ENV === 'development'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
@@ -135,7 +135,7 @@ const DynamicBoardAgendasPage = ({
         >
           <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
-              <MuiNextLink
+              <Link
                 color="inherit"
                 sx={{...style.bcLink}}
                 href="/board-of-directors/meeting-agendas"
@@ -144,7 +144,7 @@ const DynamicBoardAgendasPage = ({
                   <BackIcon sx={{...style.bcIcon}} />
                   Board Agendas
                 </>
-              </MuiNextLink>
+              </Link>
               <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon sx={{...style.bcIcon}} />
                 {boardAgendaDateFormatted}

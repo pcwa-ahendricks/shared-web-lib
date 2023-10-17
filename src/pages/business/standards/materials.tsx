@@ -19,8 +19,8 @@ import Spacing from '@components/boxes/Spacing'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import {format} from 'date-fns'
-import MuiNextLink from '@components/NextLink/NextLink'
 import NarrowContainer from '@components/containers/NarrowContainer'
+import Link from '@components/Link'
 
 interface Material {
   id: number
@@ -73,13 +73,13 @@ const MaterialsListUpdatesPage = () => {
             aria-label="breadcrumb"
             separator={<NavigateNextIcon fontSize="small" />}
           >
-            <MuiNextLink color="inherit" href="/business">
+            <Link color="inherit" href="/business">
               {' '}
               Business with PCWA{' '}
-            </MuiNextLink>{' '}
-            <MuiNextLink color="inherit" href="/business/standards">
+            </Link>{' '}
+            <Link color="inherit" href="/business/standards">
               Improvement Standards
-            </MuiNextLink>
+            </Link>
             <Type color="textPrimary">Updated Approved Materials List</Type>
           </Breadcrumbs>
         </NarrowContainer>

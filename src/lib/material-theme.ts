@@ -126,6 +126,18 @@ const theme = responsiveFontSizes(
       //   disabled: 'rgba(0, 0, 0, 0.38)',
       //   hint: 'rgba(0, 0, 0, 0.38)'
       // }
+    },
+    components: {
+      MuiLink: {
+        defaultProps: {
+          underline: 'hover' // this was the old default in material v4, which is what this site was build with
+        },
+        styleOverrides: {
+          underlineAlways: {
+            textDecorationColor: 'inherit' // defaults to primary w/ alpha
+          }
+        }
+      }
     }
   })
 )

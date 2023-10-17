@@ -9,14 +9,12 @@ import {
   Typography as Type,
   ListItemText,
   ListItemTextProps,
-  Link,
   Divider,
   useMediaQuery
 } from '@mui/material'
 import ListBulletItem, {
   ListBulletItemProps
 } from '@components/lists/ListBulletItem'
-import MuiNextLink from '@components/NextLink/NextLink'
 import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
@@ -24,6 +22,7 @@ import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
 import {ChildBox, RowBox} from '@components/MuiSleazebox'
 import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 
 const imgixImages = [
   'f4451c70-0207-11ed-b7be-d956591ad437-Median-grass.jpg',
@@ -139,12 +138,9 @@ export default function CiiConservationRegulationsPage({
             PCWA offers services and rebates to help our customers use water
             more efficiently, including rebates for replacing turf with a
             low-water landscape. You can learn more on our{' '}
-            <MuiNextLink
-              underline="always"
-              href="/smart-water-use/rebate-programs"
-            >
+            <Link underline="always" href="/smart-water-use/rebate-programs">
               Rebates page
-            </MuiNextLink>
+            </Link>
             .
           </Type>
           <Spacing />

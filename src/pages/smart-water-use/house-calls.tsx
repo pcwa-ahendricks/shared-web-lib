@@ -8,9 +8,9 @@ import {FlexBox, RowBox, ChildBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
-import MuiNextLink from '@components/NextLink/NextLink'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
+import Link from '@components/Link'
 
 // const useStyles = makeStyles(() =>
 //   createStyles({
@@ -114,9 +114,9 @@ const HouseCallsPage = () => {
                 landscape and for incorporating high-efficiency appliances into
                 your home. Information and applications are available on our
                 website on{' '}
-                <MuiNextLink href="/smart-water-use/rebate-programs">
+                <Link href="/smart-water-use/rebate-programs">
                   our rebates page.
-                </MuiNextLink>
+                </Link>
               </Type>
               <Type paragraph>
                 If you’d like to learn more about PCWA’s water efficiency

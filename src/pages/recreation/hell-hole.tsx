@@ -6,12 +6,12 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import {Typography as Type, Box, BoxProps} from '@mui/material'
-import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
+import Link from '@components/Link'
 
 const HellHolePage = () => {
   const TypeWithAdornment = useCallback(
@@ -65,10 +65,8 @@ const HellHolePage = () => {
                 the Rubicon River. The more remote Hell Hole Reservoir covers
                 1,253 acres and is surrounded by scenic rock outcroppings.
                 Fishing, hiking, and{' '}
-                <MuiNextLink href="/recreation/campgrounds">
-                  camping
-                </MuiNextLink>{' '}
-                are the main activities here.
+                <Link href="/recreation/campgrounds">camping</Link> are the main
+                activities here.
               </Type>
             </ChildBox>
           </RowBox>

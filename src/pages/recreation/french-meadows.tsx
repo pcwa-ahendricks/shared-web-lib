@@ -5,8 +5,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@mui/material/colors'
 import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
-import {Typography as Type, Box, Link, BoxProps} from '@mui/material'
-import MuiNextLink from '@components/NextLink/NextLink'
+import {Typography as Type, Box, BoxProps} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import FilterHdrIcon from '@mui/icons-material/FilterHdr'
@@ -15,6 +14,7 @@ import PeopleIcon from '@mui/icons-material/People'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
+import Link from '@components/Link'
 
 const FrenchMeadowsPage = () => {
   const TypeWithAdornment = useCallback(
@@ -66,10 +66,7 @@ const FrenchMeadowsPage = () => {
               <Type paragraph>
                 French Meadows Reservoir, near the headwaters of the Middle Fork
                 American River, is a large 1,408 acre reservoir.{' '}
-                <MuiNextLink href="/recreation/campgrounds">
-                  Campground
-                </MuiNextLink>{' '}
-                and{' '}
+                <Link href="/recreation/campgrounds">Campground</Link> and{' '}
                 <Link
                   href="https://www.fs.usda.gov/recarea/tahoe/recarea/?recid=55740"
                   target="_blank"

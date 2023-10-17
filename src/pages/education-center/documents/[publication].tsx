@@ -23,7 +23,6 @@ import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
 import ErrorPage from '@pages/_error'
 import UndoIcon from '@mui/icons-material/UndoOutlined'
 import DocIcon from '@mui/icons-material/DescriptionOutlined'
-import MuiNextLink from '@components/NextLink/NextLink'
 import slugify from 'slugify'
 import fetcher from '@lib/fetcher'
 import {paramToStr} from '@lib/queryParamToStr'
@@ -31,6 +30,7 @@ import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFa
 import {publicationUrl} from '@lib/types/publication'
 import {PublicationLibraryMetadata} from '@lib/types/multimedia'
 import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 
 type Props = {
   err?: any
@@ -131,7 +131,7 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
         >
           <ChildBox>
             <Breadcrumbs aria-label="breadcrumb">
-              <MuiNextLink
+              <Link
                 color="inherit"
                 href="/education-center/[...multimedia]"
                 as="/education-center/documents"
@@ -139,7 +139,7 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
               >
                 <UndoIcon sx={{...style.bcIcon}} />
                 Documents
-              </MuiNextLink>
+              </Link>
               <Type color="textPrimary" style={{display: 'flex'}}>
                 <DocIcon sx={{...style.bcIcon}} />
                 {title}

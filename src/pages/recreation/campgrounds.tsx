@@ -4,18 +4,12 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
-import {
-  Typography as Type,
-  Box,
-  TypographyProps,
-  Link,
-  useTheme
-} from '@mui/material'
-import MuiNextLink from '@components/NextLink/NextLink'
+import {Typography as Type, Box, TypographyProps, useTheme} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import {Theme} from '@lib/material-theme'
+import Link from '@components/Link'
 
 const CampgroundsPage = () => {
   const theme = useTheme<Theme>()
@@ -64,13 +58,11 @@ const CampgroundsPage = () => {
                 High on the western slope of the Sierra, near the headwaters of
                 the American and Rubicon Rivers, lies a pristine, relatively
                 undiscovered area;{' '}
-                <MuiNextLink href="/recreation/french-meadows">
+                <Link href="/recreation/french-meadows">
                   French Meadows Reservoir{' '}
-                </MuiNextLink>
+                </Link>
                 and{' '}
-                <MuiNextLink href="/recreation/hell-hole">
-                  Hell Hole Reservoir,
-                </MuiNextLink>{' '}
+                <Link href="/recreation/hell-hole">Hell Hole Reservoir,</Link>{' '}
                 owned and operated by PCWA, attract outdoor enthusiasts who want
                 to get away to enjoy uncrowded natural beauty. Snowbound in the
                 winter, the reservoirs and surrounding area are generally

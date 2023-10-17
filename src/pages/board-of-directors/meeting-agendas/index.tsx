@@ -17,14 +17,12 @@ import {
   List,
   ListItem,
   ListItemText,
-  Link,
   useMediaQuery
 } from '@mui/material'
 import GavelRoundedIcon from '@mui/icons-material/GavelRounded'
 import ClerkToBoardEmail from '@components/links/ClerkToBoardEmail'
 import NovusIframe from '@components/NovusIframe/NovusIframe'
 import Spacing from '@components/boxes/Spacing'
-import MuiNextLink from '@components/NextLink/NextLink'
 import {firstBy} from 'thenby'
 // import {
 //   futureBoardMeetingDates,
@@ -50,6 +48,7 @@ import {ics, google, yahoo, outlook} from '@lib/calendar-link'
 import Empty from '@components/boxes/Empty'
 import UpcomingCommitteeMeetings from '@components/UpcomingCommitteeMeetings/UpcomingCommitteeMeetings'
 import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 // const isDev = process.env.NODE_ENV === 'development'
 
 type Props = {
@@ -322,9 +321,9 @@ const MeetingAgendasPage = ({
               <Type gutterBottom>
                 All Board meetings will be held at the Agency's Business Center
                 at{' '}
-                <MuiNextLink href="/about-pcwa/directions">
+                <Link href="/about-pcwa/directions">
                   144 Ferguson Road, Auburn, California
-                </MuiNextLink>
+                </Link>
                 , unless otherwise noted.
               </Type>
               <Spacing />
@@ -471,9 +470,7 @@ const MeetingAgendasPage = ({
 
           <Type paragraph>
             For Board meeting minutes see our{' '}
-            <MuiNextLink href="/board-of-directors/meeting-minutes">
-              Minutes Page
-            </MuiNextLink>
+            <Link href="/board-of-directors/meeting-minutes">Minutes Page</Link>
           </Type>
           <Type paragraph>
             For more information, contact the Clerk to the Board at{' '}

@@ -6,8 +6,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@mui/material/colors'
 import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'
-import {Typography as Type, Box, Link, BoxProps} from '@mui/material'
-import MuiNextLink from '@components/NextLink/NextLink'
+import {Typography as Type, Box, BoxProps} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import FilterHdrIcon from '@mui/icons-material/FilterHdr'
@@ -16,6 +15,7 @@ import PeopleIcon from '@mui/icons-material/People'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
+import Link from '@components/Link'
 
 type TypeWithAdornProps = {
   caption: string
@@ -71,9 +71,9 @@ const AmericanRiverPage = () => {
                 River as well as reservoir-based recreation including fishing,
                 swimming, and boating. The Indian Bar Rafting Access and Parking
                 area near Oxbow Powerhouse supports whitewater{' '}
-                <MuiNextLink href="/recreation/rafting">boating</MuiNextLink> in
-                the Middle Fork American River as well as localized stream based
-                recreation such as fishing and picnicking.
+                <Link href="/recreation/rafting">boating</Link> in the Middle
+                Fork American River as well as localized stream based recreation
+                such as fishing and picnicking.
               </Type>
             </ChildBox>
           </RowBox>
@@ -88,11 +88,8 @@ const AmericanRiverPage = () => {
             Mosquito Ridge Road. The fish, Sacramento sucker, Hardhead,
             Smallmouth bass, Speckled dace, Sacramento Pikeminnow, Rainbow and
             Brown Trout range from 8 to 16 inches. Fishing at{' '}
-            <MuiNextLink href="/recreation/french-meadows">
-              French Meadows
-            </MuiNextLink>{' '}
-            and{' '}
-            <MuiNextLink href="/recreation/hell-hole">Hell Hole</MuiNextLink>.
+            <Link href="/recreation/french-meadows">French Meadows</Link> and{' '}
+            <Link href="/recreation/hell-hole">Hell Hole</Link>.
           </Type>
           <Spacing />
           <Type variant="h3" gutterBottom>

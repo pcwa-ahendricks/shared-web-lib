@@ -5,10 +5,10 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
-import MuiNextLink from '@components/NextLink/NextLink'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import OpenInNewLink from '@components/OpenInNewLink/OpenInNewLink'
+import Link from '@components/Link'
 
 const WaterSensePage = () => {
   return (
@@ -100,9 +100,9 @@ const WaterSensePage = () => {
             <Box mt={3}>
               <Type>
                 Learn more about our rebates today and apply online on our{' '}
-                <MuiNextLink href="/smart-water-use/rebate-programs">
+                <Link href="/smart-water-use/rebate-programs">
                   Rebate Programs
-                </MuiNextLink>{' '}
+                </Link>{' '}
                 page.
               </Type>
             </Box>

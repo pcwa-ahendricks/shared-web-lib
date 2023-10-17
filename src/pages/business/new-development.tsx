@@ -5,14 +5,7 @@ import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {FlexBox, RowBox} from '@components/MuiSleazebox'
-import {
-  Box,
-  Typography as Type,
-  Link,
-  BoxProps,
-  LinkProps,
-  TypographyProps
-} from '@mui/material'
+import {Box, Typography as Type, BoxProps, TypographyProps} from '@mui/material'
 import Image from 'next/legacy/image'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import AssignmentLateOutlinedIcon from '@mui/icons-material/AssignmentLateOutlined'
@@ -20,9 +13,9 @@ import Spacing from '@components/boxes/Spacing'
 import EngineeringPhone from '@components/links/EngineeringPhone'
 import EngineeringEmail from '@components/links/EngineeringEmail'
 import GisDeptEmail from '@components/links/GisDeptEmail'
-import MuiNextLink from '@components/NextLink/NextLink'
 import imgixLoader from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
+import Link, {LinkProps} from '@components/Link'
 
 const NewDevelopmentPage = () => {
   const theme = useTheme()
@@ -185,10 +178,10 @@ const NewDevelopmentPage = () => {
           </Box>
           <Box mt={1}>
             <Type component="span">
-              <MuiNextLink href="/business/standards" passHref color="primary">
+              <Link href="/business/standards" color="primary">
                 Improvement Standards, Standard Specifications, and Standard
                 Drawings
-              </MuiNextLink>{' '}
+              </Link>{' '}
               - The Agency's standard specifications for water system design.
             </Type>
           </Box>
@@ -264,7 +257,7 @@ const NewDevelopmentPage = () => {
             </Type>
           </RowBox>
           <Spacing />
-          <ul>
+          <Box component="ul">
             <TightListItem
               url="https://cdn.cosmicjs.com/b109af90-064a-11ea-944c-cfd32d7bf8a6-PCWA-Project-Review-Form.pdf"
               title="Project Application"
@@ -273,7 +266,7 @@ const NewDevelopmentPage = () => {
             />
             <TightBullet>
               <Type component="span" color="textPrimary">
-                Supplemental Service Information Forms – For projects with
+                Supplemental Service Information Forms - For projects with
                 residential services, please fill out one{' '}
               </Type>
               <LinkItem href="https://cdn.cosmicjs.com/9ada4ec0-0675-11ea-944c-cfd32d7bf8a6-PCWA-Supplemental-Res-Service-Form.pdf">
@@ -316,7 +309,7 @@ const NewDevelopmentPage = () => {
                 Approved Tentative Map or Preliminary Final/Parcel Map.
               </Type>
             </TightBullet>
-          </ul>
+          </Box>
           <Type paragraph>
             Should you have questions regarding new development projects, please
             contact the Engineering Division at <EngineeringPhone /> or{' '}

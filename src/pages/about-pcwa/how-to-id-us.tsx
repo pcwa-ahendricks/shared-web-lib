@@ -8,9 +8,9 @@ import {Typography as Type, Box} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
-import MuiNextLink from '@components/NextLink/NextLink'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
+import Link from '@components/Link'
 
 const HowToIDUsPage = () => {
   return (
@@ -69,9 +69,9 @@ const HowToIDUsPage = () => {
                 PCWA employees will only enter your home upon a water related
                 request by the customer. For example, a PCWA Water Efficiency
                 Specialist may enter your home for a{' '}
-                <MuiNextLink href="/smart-water-use/house-calls">
+                <Link href="/smart-water-use/house-calls">
                   Water Wise House Call
-                </MuiNextLink>{' '}
+                </Link>{' '}
                 that is scheduled by the customer.
               </Type>
               <Type paragraph>

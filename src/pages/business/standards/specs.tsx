@@ -20,7 +20,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import {format, parse} from 'date-fns'
 import WideContainer from '@components/containers/WideContainer'
-import MuiNextLink from '@components/NextLink/NextLink'
+import Link from '@components/Link'
 
 interface Spec {
   id: number
@@ -88,12 +88,12 @@ const SpecificationUpdatesPage = () => {
             aria-label="breadcrumb"
             separator={<NavigateNextIcon fontSize="small" />}
           >
-            <MuiNextLink color="inherit" href="/business">
+            <Link color="inherit" href="/business">
               Business with PCWA
-            </MuiNextLink>
-            <MuiNextLink color="inherit" href="/business/standards">
+            </Link>
+            <Link color="inherit" href="/business/standards">
               Improvement Standards
-            </MuiNextLink>
+            </Link>
             <Type color="textPrimary">Specification Updates</Type>
           </Breadcrumbs>
         </WideContainer>

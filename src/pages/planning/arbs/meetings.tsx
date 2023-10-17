@@ -16,7 +16,6 @@ import {
   ListSubheader
 } from '@mui/material'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
-import MuiNextLink from '@components/NextLink/NextLink'
 import Spacing from '@components/boxes/Spacing'
 import {isBefore, parseISO, isAfter, format, compareDesc} from 'date-fns'
 import Link from '@components/Link'
@@ -314,9 +313,9 @@ const ARBSMeetingsPage = () => {
             aria-label="breadcrumb"
             separator={<NavigateNextIcon fontSize="small" />}
           >
-            <MuiNextLink color="inherit" href="/planning/arbs">
+            <Link color="inherit" href="/planning/arbs">
               American River Basin Study
-            </MuiNextLink>
+            </Link>
             <Type color="textPrimary">Meetings</Type>
           </Breadcrumbs>
 

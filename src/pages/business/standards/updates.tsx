@@ -19,8 +19,8 @@ import Spacing from '@components/boxes/Spacing'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import {format, parse} from 'date-fns'
-import MuiNextLink from '@components/NextLink/NextLink'
 import NarrowContainer from '@components/containers/NarrowContainer'
+import Link from '@components/Link'
 
 interface Standard {
   id: number
@@ -150,13 +150,13 @@ const StandardDrawingsUpdatesPage = () => {
             aria-label="breadcrumb"
             separator={<NavigateNextIcon fontSize="small" />}
           >
-            <MuiNextLink color="inherit" href="/business">
+            <Link color="inherit" href="/business">
               {' '}
               Business with PCWA{' '}
-            </MuiNextLink>{' '}
-            <MuiNextLink color="inherit" href="/business/standards">
+            </Link>{' '}
+            <Link color="inherit" href="/business/standards">
               Improvement Standards
-            </MuiNextLink>
+            </Link>
             <Type color="textPrimary">Standard Drawing Updates</Type>
           </Breadcrumbs>
         </NarrowContainer>

@@ -4,7 +4,6 @@ import {
   Paper,
   Typography as Type,
   Box,
-  Link,
   List,
   ListItem,
   ListItemIcon,
@@ -30,7 +29,6 @@ import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
-import MuiNextLink from '@components/NextLink/NextLink'
 import SectionBox from '@components/boxes/SectionBox'
 import FeedbackIcon from '@mui/icons-material/Feedback'
 import BuildIcon from '@mui/icons-material/BuildOutlined'
@@ -45,6 +43,7 @@ import {Theme} from '@lib/material-theme'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import Image from 'next/legacy/image'
 import NextLink from 'next/link'
+import Link from '@components/Link'
 
 const SmartWaterUsePage = () => {
   const theme = useTheme<Theme>()
@@ -166,9 +165,9 @@ const SmartWaterUsePage = () => {
                       irrigation equipment. WaterSense products are
                       independently certified to use less water and work as well
                       or better than regular models. Read more about WaterSense{' '}
-                      <MuiNextLink href="/smart-water-use/watersense">
+                      <Link href="/smart-water-use/watersense">
                         on our website by clicking here
-                      </MuiNextLink>
+                      </Link>
                       .
                     </Type>
                     <ChildBox width={100} m="auto">
@@ -186,9 +185,9 @@ const SmartWaterUsePage = () => {
             <Type paragraph>
               <strong>Rebates are available! </strong> PCWA offers rebates on
               efficient irrigation equipment and timers. Learn more{' '}
-              <MuiNextLink href="/smart-water-use/rebate-programs">
+              <Link href="/smart-water-use/rebate-programs">
                 here by clicking this link
-              </MuiNextLink>
+              </Link>
               .
             </Type>
             <Spacing factor={2} size="large" />
@@ -215,9 +214,9 @@ const SmartWaterUsePage = () => {
                 </Type>
                 <Type paragraph>
                   You can find out more about them on our{' '}
-                  <MuiNextLink href="/stewardship/landscape-resources">
+                  <Link href="/stewardship/landscape-resources">
                     Landscaping Resources page
-                  </MuiNextLink>
+                  </Link>
                   .
                 </Type>
               </ChildBox>
@@ -249,12 +248,12 @@ const SmartWaterUsePage = () => {
               <Type paragraph>
                 Rebates are available! PCWA offers rebates on efficient
                 irrigation equipment and timers. Learn more{' '}
-                <MuiNextLink
+                <Link
                   aria-label="link to PCWA's Rebate Program Page"
                   href="/smart-water-use/rebate-programs"
                 >
                   here by clicking this link
-                </MuiNextLink>
+                </Link>
                 .
               </Type>
             </Box>
@@ -288,12 +287,9 @@ const SmartWaterUsePage = () => {
                           New plants will be featured each month through October
                           2023. Learn about this month's plant and find the
                           complete list of Summer Strong plants on our{' '}
-                          <NextLink
-                            href="/smart-water-use/summer-strong"
-                            passHref
-                          >
-                            <Link>Summer Strong</Link>
-                          </NextLink>{' '}
+                          <Link href="/smart-water-use/summer-strong">
+                            Summer Strong
+                          </Link>{' '}
                           page.
                         </Type>
                         <NextLink
@@ -345,9 +341,9 @@ const SmartWaterUsePage = () => {
                     irrigation equipment. WaterSense products are independently
                     certified to use less water and work as well or better than
                     regular models. Read more about WaterSense{' '}
-                    <MuiNextLink href="/smart-water-use/watersense">
+                    <Link href="/smart-water-use/watersense">
                       on our website by clicking here
-                    </MuiNextLink>
+                    </Link>
                     .
                   </Type>
                   <ChildBox width={100} m="auto">

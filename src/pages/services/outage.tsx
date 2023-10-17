@@ -2,21 +2,16 @@ import React, {useMemo, useCallback} from 'react'
 import {
   Box,
   Theme,
-  Link as MuiLink,
   Typography as Type,
-  // lighten,
-  // darken,
   Divider,
   CircularProgress,
   useTheme
 } from '@mui/material'
-// import {blueGrey} from '@mui/material/colors'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import MainPhone from '@components/links/MainPhone'
-import Link from '@components/NextLink/NextLink'
 import EventIcon from '@mui/icons-material/Event'
 // import WavesIcon from '@mui/icons-material/Waves'
 import {FlexBox, ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
@@ -31,6 +26,7 @@ import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
+import Link from '@components/Link'
 
 type Props = {
   fallbackData?: CosmicObjectResponse<OutageMetadata>
@@ -266,7 +262,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   approximate. Recovery time for water service is approximately
                   12 hours. To see start and end dates and to find out more
                   information about these outages{' '}
-                  <MuiLink
+                  <Link
                     href="https://cdn.cosmicjs.com/c421c990-759c-11ed-8951-b39aeeb44ac4-2023-Canal-cleaning-schedule.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -274,7 +270,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                     underline="always"
                   >
                     <ClickOrTap /> here for Zone 1 and Zone 3
-                  </MuiLink>
+                  </Link>
                   .
                 </Type>
               </Box>
@@ -304,7 +300,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   to perform maintenance and inspection of it's canals. To see
                   start and end dates and to find out more information about
                   these outages{' '}
-                  <MuiLink
+                  <Link
                     href="https://cdn.cosmicjs.com/47234430-6850-11ee-b27c-e13e14dddc51-2023-Orifice-Changing-Chart.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -312,7 +308,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                     underline="always"
                   >
                     <ClickOrTap /> here for the 2023 Schedule
-                  </MuiLink>
+                  </Link>
                   .
                 </Type>
               </Box>
@@ -340,7 +336,10 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                     <Box my={1}>
                       <Divider />
                     </Box>
-                    <ol style={{paddingInlineStart: theme.spacing(3)}}>
+                    <Box
+                      component="ol"
+                      style={{paddingInlineStart: theme.spacing(3)}}
+                    >
                       <Type component="li" variant="body2" paragraph>
                         If you are experiencing water outages or low water
                         pressure, immediately discontinue any non-essential
@@ -390,7 +389,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                         family to assure that all family members are prepared
                         should water outages or low water pressure occur.
                       </Type>
-                    </ol>
+                    </Box>
                     <Box my={3}>
                       <Divider />
                     </Box>

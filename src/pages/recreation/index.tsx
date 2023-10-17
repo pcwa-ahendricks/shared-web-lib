@@ -5,8 +5,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {blueGrey} from '@mui/material/colors'
 import {RowBox, ChildBox, ColumnBox} from '@components/MuiSleazebox'
-import {Typography as Type, Box, Link} from '@mui/material'
-import MuiNextLink from '@components/NextLink/NextLink'
+import {Typography as Type, Box} from '@mui/material'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import Spacing from '@components/boxes/Spacing'
 import slugify from 'slugify'
@@ -16,6 +15,7 @@ import {stringify} from 'querystringify'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import ImageBlur, {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
+import Link from '@components/Link'
 
 const recreationMapUrl =
   'https://cdn.cosmicjs.com/b1597680-70b2-11e8-b89a-91a6fa50a41c-recreation-map.pdf'
@@ -100,13 +100,13 @@ const RecreationPage = ({placeholders}: {placeholders: Placeholders}) => {
                   </Link>{' '}
                   highlights the primary recreational opportunities. Although
                   snowbound in winter,{' '}
-                  <MuiNextLink href="/recreation/french-meadows">
+                  <Link href="/recreation/french-meadows">
                     French Meadows Reservoir Area
-                  </MuiNextLink>{' '}
+                  </Link>{' '}
                   and{' '}
-                  <MuiNextLink href="/recreation/hell-hole">
+                  <Link href="/recreation/hell-hole">
                     Hell Hole Reservoir Area
-                  </MuiNextLink>{' '}
+                  </Link>{' '}
                   attract great numbers of outdoor enthusiasts from Memorial Day
                   weekend through early October.
                 </Type>
