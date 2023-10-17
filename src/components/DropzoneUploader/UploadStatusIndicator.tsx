@@ -22,12 +22,6 @@ const UploadStatusIndicator = ({
 }: Props) => {
   const style = useMemo(
     () => ({
-      badgeRoot: {
-        maxWidth: '100%',
-        display: 'flex', // defaults to inline-flex
-        flexDirection: 'column',
-        justifyContent: 'center'
-      },
       badge: {
         width: 20,
         height: 20
@@ -78,8 +72,7 @@ const UploadStatusIndicator = ({
     <Box m={2}>
       <Badge
         sx={{
-          ...style.badgeRoot,
-          '.MuiBadge-badge': {
+          '& .MuiBadge-badge': {
             ...style.badge
           }
         }}

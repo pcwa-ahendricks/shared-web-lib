@@ -184,10 +184,10 @@ const WashEffEligibilityDialog = ({open = false, onClose, formik}: Props) => {
                 <StepLabel
                   error={stepHasError(name)}
                   sx={{
-                    '.MuiStepLabel-iconContainer': {
+                    '& .MuiStepLabel-iconContainer': {
                       ...style.stepLabelIcon
                     },
-                    '.MuiStepLabel-labelContainer': {
+                    '& .MuiStepLabel-labelContainer': {
                       ...style.stepLabelLabel
                     }
                   }}
@@ -342,10 +342,10 @@ const QuestionOne = () => {
                 color="textPrimary"
                 sx={{...style.qualifyMsg}}
               >
-                Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
-                Residential/Multi Family Water-Efficient Clothes Washing Machine
-                Rebate. You must be a current Placer County Water Agency treated
-                water customer.
+                Unfortunately, you do not qualify for the PCWA/USBR Energy
+                Star® Residential/Multi Family Water-Efficient Clothes Washing
+                Machine Rebate. You must be a current Placer County Water Agency
+                treated water customer.
               </DialogContentText>
             </WaitToGrow>
           </div>
@@ -404,10 +404,10 @@ const QuestionTwo = () => {
                 color="textPrimary"
                 sx={{...style.qualifyMsg}}
               >
-                Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
-                Residential/Multi Family Water-Efficient Clothes Washing Machine
-                Rebate. Rebates are not available for the replacement of an
-                existing high efficiency clothes washing machine with another
+                Unfortunately, you do not qualify for the PCWA/USBR Energy
+                Star® Residential/Multi Family Water-Efficient Clothes Washing
+                Machine Rebate. Rebates are not available for the replacement of
+                an existing high efficiency clothes washing machine with another
                 new high efficiency clothes washing machine.
               </DialogContentText>
             </WaitToGrow>
@@ -468,10 +468,10 @@ const QuestionThree = () => {
                 color="textPrimary"
                 sx={{...style.qualifyMsg}}
               >
-                Unfortunately, you do not qualify for the PCWA/USBR Energy Star®
-                Residential/Multi Family Water-Efficient Clothes Washing Machine
-                Rebate. New construction is not eligible for a rebate under this
-                program.
+                Unfortunately, you do not qualify for the PCWA/USBR Energy
+                Star® Residential/Multi Family Water-Efficient Clothes Washing
+                Machine Rebate. New construction is not eligible for a rebate
+                under this program.
               </DialogContentText>
             </WaitToGrow>
           </div>

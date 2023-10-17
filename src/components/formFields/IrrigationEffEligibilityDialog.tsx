@@ -184,10 +184,10 @@ const IrrigationEffEligibilityDialog = ({
                 <StepLabel
                   error={stepHasError(name)}
                   sx={{
-                    '.MuiStepLabel-iconContainer': {
+                    '& .MuiStepLabel-iconContainer': {
                       ...style.stepLabelIcon
                     },
-                    '.MuiStepLabel-labelContainer': {
+                    '& .MuiStepLabel-labelContainer': {
                       ...style.stepLabelLabel
                     }
                   }}
