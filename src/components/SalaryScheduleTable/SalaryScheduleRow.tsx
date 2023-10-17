@@ -11,29 +11,23 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import {SalaryScheduleData} from '@components/SalaryScheduleTable/SalaryScheduleTable'
-import useTheme from '@hooks/useTheme'
 
 type Props = {
   data: SalaryScheduleData
 }
 
 const SalaryScheduleRow = ({data}: Props) => {
-  const theme = useTheme()
   const style = {
     tableRow: {
       cursor: 'pointer'
     },
     body: {
-      color: theme.palette.text.secondary
-    },
-    root: {
+      color: 'text.secondary',
       fontSize: '0.95rem'
     },
     small: {
       paddingTop: '3px',
-      paddingBottom: '3px',
-      paddingRight: theme.spacing(3),
-      paddingLeft: theme.spacing(1)
+      paddingBottom: '3px'
     },
     detailRowCaption: {
       fontStyle: 'italic',
@@ -49,17 +43,18 @@ const SalaryScheduleRow = ({data}: Props) => {
 
   const labelId = `table-row-detail-toggle-${data.id}`
 
-  const DetailTableCell = ({children, ...rest}: TableCellProps) => {
+  const DetailTableCell = ({children, sx, ...rest}: TableCellProps) => {
     return (
       <TableCell
+        size="small"
         sx={{
-          ...style.root,
-          '.MuiTableCell-body': {
+          '&.MuiTableCell-body': {
             ...style.body
           },
-          '.MuiTableCell-sizeSmall': {
+          '&.MuiTableCell-sizeSmall': {
             ...style.small
-          }
+          },
+          ...sx
         }}
         {...rest}
       >

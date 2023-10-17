@@ -230,8 +230,8 @@ const SalaryScheduleTable = ({
   )
 
   const handleRequestSort = useCallback(
-    (property: HeadRowId) =>
-      () => // _event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    (property: HeadRowId) => () =>
+      // _event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
       {
         const isDesc = orderBy === property && order === 'desc'
         setOrder(isDesc ? 'asc' : 'desc')
