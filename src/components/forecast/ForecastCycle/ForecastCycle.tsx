@@ -102,9 +102,9 @@ const ForecastCycle = ({
         transitionLeaveTimeout={forecastCrossFadeDuration}
         onTransitionEnd={transitionLeaveHandler}
       >
-        {forecast && forecast.id ? (
-          <ForecastDisplay key={forecast.id} forecast={forecast} />
-        ) : null}
+        <div key={forecast.id}>
+          <ForecastDisplay forecast={forecast} />
+        </div>
       </ReactCSSTransitionReplace>
       <ForecastPopover
         open={hasAnchorEl}

@@ -22,18 +22,6 @@ import {
   NewsroomContext
 } from '@components/newsroom/NewsroomStore'
 
-// const DynamicForecast = dynamic(
-//   import('@components/ForecastContainer/ForecastContainer'),
-//   {
-//     /* eslint-disable-next-line react/display-name */
-//     loading: () => (
-//       <CircularProgress size={20} disableShrink={true} color="secondary" />
-//     )
-//   }
-// )
-
-// Be careful not to break <ReactCSSTransitionReplace/> with Flex layouts, hence forecastContainer with fixed width. Pixel units and % will work, 'auto' and vw units will not.
-
 const SecondaryHeader = () => {
   const theme = useTheme<Theme>()
   // Custom width defined by point at which menu links overlap each other.

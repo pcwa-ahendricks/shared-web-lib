@@ -235,81 +235,76 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
         transitionLeaveTimeout={galleryCrossFadeDuration}
       >
         {selectedGallery ? (
-          <>
-            <RowBox
-              key={0}
-              flexWrap="wrap"
-              flexSpacing={margin}
-              paddingBottom={5}
-            >
-              {currentGallery?.videos.map((p) => (
-                <ChildBox key={p.index} paddingBottom={5}>
-                  <FilePlayer
-                    // style={{...style.player}}
-                    controls
-                    url={p.url}
-                    width={videoWidth}
-                    height="100%"
-                    config={{
-                      file: {
-                        attributes: {poster: p.posterUrl}
-                      }
-                    }}
-                  />
-                  <Spacing size="x-small" />
-                  <Box
-                    textAlign="center"
-                    maxWidth={`calc(${videoWidth} - 24px)`}
-                  >
-                    <Type variant="subtitle1">{p.metadata?.caption}</Type>
-                  </Box>
-                </ChildBox>
-              ))}
+          <RowBox
+            key={0}
+            flexWrap="wrap"
+            flexSpacing={margin}
+            paddingBottom={5}
+          >
+            {currentGallery?.videos.map((p) => (
+              <ChildBox key={p.index} paddingBottom={5}>
+                <FilePlayer
+                  // style={{...style.player}}
+                  controls
+                  url={p.url}
+                  width={videoWidth}
+                  height="100%"
+                  config={{
+                    file: {
+                      attributes: {poster: p.posterUrl}
+                    }
+                  }}
+                />
+                <Spacing size="x-small" />
+                <Box textAlign="center" maxWidth={`calc(${videoWidth} - 24px)`}>
+                  <Type variant="subtitle1">{p.metadata?.caption}</Type>
+                </Box>
+              </ChildBox>
+            ))}
 
-              <YouTubeVid
-                gallery="Informational"
-                videoWidth={videoWidth}
-                caption="Wettest Drought Ever"
-                youTubeId="Oazkk7VrlAY"
-                activeGallery={currentGallery}
-              />
-              <YouTubeVid
-                gallery="Construction"
-                videoWidth={videoWidth}
-                caption="Hayford Flume #2 Replacement Project"
-                youTubeId="fGVDnjhcoOo"
-                activeGallery={currentGallery}
-              />
-              <YouTubeVid
-                gallery="Informational"
-                videoWidth={videoWidth}
-                caption="Where does my water come from? (Part 1)"
-                youTubeId="QXPtUgeWnc4"
-                activeGallery={currentGallery}
-              />
-              <YouTubeVid
-                gallery="Informational"
-                videoWidth={videoWidth}
-                caption="Where does my water come from? (Part 2)"
-                youTubeId="3WcnZRgXOqY"
-                activeGallery={currentGallery}
-              />
-              <YouTubeVid
-                gallery="Historical"
-                videoWidth={videoWidth}
-                caption="Middle Fork Project 50th Anniversary"
-                youTubeId="WTf2FLyBVxY"
-                activeGallery={currentGallery}
-              />
-              <YouTubeVid
-                gallery="Construction"
-                videoWidth={videoWidth}
-                caption="Fiber Optics Installation"
-                youTubeId="bUZbLwzyDVI"
-                activeGallery={currentGallery}
-              />
-            </RowBox>
-          </>
+            <YouTubeVid
+              gallery="Informational"
+              videoWidth={videoWidth}
+              caption="Wettest Drought Ever"
+              youTubeId="Oazkk7VrlAY"
+              activeGallery={currentGallery}
+            />
+            <YouTubeVid
+              gallery="Construction"
+              videoWidth={videoWidth}
+              caption="Hayford Flume #2 Replacement Project"
+              youTubeId="fGVDnjhcoOo"
+              activeGallery={currentGallery}
+            />
+            <YouTubeVid
+              gallery="Informational"
+              videoWidth={videoWidth}
+              caption="Where does my water come from? (Part 1)"
+              youTubeId="QXPtUgeWnc4"
+              activeGallery={currentGallery}
+            />
+            <YouTubeVid
+              gallery="Informational"
+              videoWidth={videoWidth}
+              caption="Where does my water come from? (Part 2)"
+              youTubeId="3WcnZRgXOqY"
+              activeGallery={currentGallery}
+            />
+            <YouTubeVid
+              gallery="Historical"
+              videoWidth={videoWidth}
+              caption="Middle Fork Project 50th Anniversary"
+              youTubeId="WTf2FLyBVxY"
+              activeGallery={currentGallery}
+            />
+            <YouTubeVid
+              gallery="Construction"
+              videoWidth={videoWidth}
+              caption="Fiber Optics Installation"
+              youTubeId="bUZbLwzyDVI"
+              activeGallery={currentGallery}
+            />
+          </RowBox>
         ) : (
           <RowBox
             key={1}
