@@ -11,8 +11,8 @@ import {
   Link,
   Divider,
   List,
-  ListItem,
-  ListItemText
+  ListItemText,
+  ListItemButton
 } from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import FancyButton from '@components/FancyButton/FancyButton'
@@ -157,98 +157,92 @@ const TransparencyPage = () => {
           </Type>
           <List dense disablePadding>
             <NextLink passHref href="/board-of-directors" legacyBehavior>
-              <ListItem button>
+              <ListItemButton>
                 <ListItemText
                   primary="Board of Directors'"
                   secondary="Including election procedure, compensation and benefits"
                 />
-              </ListItem>
+              </ListItemButton>
             </NextLink>
             <NextLink
               passHref
               href="/board-of-directors/meeting-agendas"
               legacyBehavior
             >
-              <ListItem button>
+              <ListItemButton>
                 <ListItemText primary="Board of Directors' Meetings and Agendas" />
-              </ListItem>
+              </ListItemButton>
             </NextLink>
             <NextLink
               passHref
               href="/board-of-directors/meeting-minutes"
               legacyBehavior
             >
-              <ListItem button>
+              <ListItemButton>
                 <ListItemText primary="Board of Directors' Minutes" />
-              </ListItem>
+              </ListItemButton>
             </NextLink>
             <NextLink passHref href="/contact-us" legacyBehavior>
-              <ListItem button>
+              <ListItemButton>
                 <ListItemText primary="Contact Us" />
-              </ListItem>
+              </ListItemButton>
             </NextLink>
             <NextLink passHref href="/about-pcwa/sb272" legacyBehavior>
-              <ListItem button>
+              <ListItemButton>
                 <ListItemText primary="Disclosure of Enterprise System Information (SB 272)" />
-              </ListItem>
+              </ListItemButton>
             </NextLink>
             <NextLink
               passHref
               href="/careers/employee-benefits-summary"
               legacyBehavior
             >
-              <ListItem button>
+              <ListItemButton>
                 <ListItemText primary="Employee Salary and Benefits" />
-              </ListItem>
+              </ListItemButton>
             </NextLink>
             <NextLink
               passHref
               href="/about-pcwa/financial-report"
               legacyBehavior
             >
-              <ListItem button>
+              <ListItemButton>
                 <ListItemText
                   primary="Financial Reports"
                   secondary="Adopted Budget, Annual Comprehensive Financial Reports"
                 />
-              </ListItem>
+              </ListItemButton>
             </NextLink>
 
-            <ListItem
-              button
-              component="a"
+            <ListItemButton
               href="https://bythenumbers.sco.ca.gov/finance-explorer/view-by-retirement#benefits"
               target="_blank"
               rel="noopener noreferrer"
             >
               <ListItemText primary="Financial Transaction Report - CA State Controller" />
-            </ListItem>
+            </ListItemButton>
 
             <NextLink passHref href="/board-of-directors" legacyBehavior>
-              <ListItem button>
+              <ListItemButton>
                 <ListItemText primary="Map of District Boundaries/Service Area" />
-              </ListItem>
+              </ListItemButton>
             </NextLink>
 
-            <ListItem
-              button
-              component="a"
+            <ListItemButton
               href="https://docs.pcwa.net/pcwa-rules-and-regs.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
               <ListItemText primary="Rules and Regulations" />
-            </ListItem>
+            </ListItemButton>
 
-            <ListItem
-              button
-              component="a"
+            <ListItemButton
               href="http://www.placer.courts.ca.gov/general-grandjury-info.shtml"
               target="_blank"
               rel="noopener noreferrer"
             >
               <ListItemText primary="Placer County Grand Jury" />
-            </ListItem>
+            </ListItemButton>
           </List>
 
           <Spacing />
@@ -256,9 +250,7 @@ const TransparencyPage = () => {
             Placer County Grand Jury Reports &amp; PCWA Responses:
           </Type>
           <List dense disablePadding>
-            <ListItem
-              button
-              component="a"
+            <ListItemButton
               href="https://cdn.cosmicjs.com/186dd790-2d8a-11ea-bfe8-5b62c3bdf959-2015GrandJuryFinalReportPCWAResponse.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -267,11 +259,9 @@ const TransparencyPage = () => {
                 primary="Enhanced Service to Placer County Residents Utilizing Reserves from Sale
         of Surplus Water and Electricity"
               />
-            </ListItem>
+            </ListItemButton>
 
-            <ListItem
-              button
-              component="a"
+            <ListItemButton
               href="https://cdn.cosmicjs.com/187a5ab0-2d8a-11ea-bfe8-5b62c3bdf959-2015GrandJuryFinalReportPCWAResponse-Websites.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -280,32 +270,28 @@ const TransparencyPage = () => {
                 primary="Review of Placer County Government and Special District/Agency
                 Websites"
               />
-            </ListItem>
+            </ListItemButton>
 
-            <ListItem
-              button
-              component="a"
+            <ListItemButton
               href="https://cdn.cosmicjs.com/186e73d0-2d8a-11ea-a6d4-f90f4871ce6f-PCWAAct.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
               <ListItemText primary="Placer County Water Agency Act" />
-            </ListItem>
+            </ListItemButton>
 
-            <ListItem
-              button
-              component="a"
+            <ListItemButton
               href="https://docs.pcwa.net/public-records-request.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
               <ListItemText primary="Public Records Request Form" />
-            </ListItem>
+            </ListItemButton>
 
             <NextLink passHref href="/services/water-rates" legacyBehavior>
-              <ListItem button>
+              <ListItemButton>
                 <ListItemText primary="Water Rates" />
-              </ListItem>
+              </ListItemButton>
             </NextLink>
           </List>
         </NarrowContainer>

@@ -11,7 +11,8 @@ import {
   Divider,
   Paper,
   useMediaQuery,
-  useTheme
+  useTheme,
+  ListItemButton
 } from '@mui/material'
 import {grey, yellow, blueGrey} from '@mui/material/colors'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -412,7 +413,7 @@ const IrrigationCanalPage = () => {
               borderColor={theme.palette.grey[300]}
             >
               <List>
-                <ListItem button>
+                <ListItemButton>
                   <ListItemAvatar>
                     <Avatar>
                       <EyeIcon />
@@ -425,8 +426,8 @@ const IrrigationCanalPage = () => {
                     primary="Check Flow"
                     secondary="Is there water flowing into your delivery box?"
                   />
-                </ListItem>
-                <ListItem button>
+                </ListItemButton>
+                <ListItemButton>
                   <ListItemAvatar>
                     <Avatar>
                       <InletIcon />
@@ -436,8 +437,8 @@ const IrrigationCanalPage = () => {
                     primary="Clean Inlet"
                     secondary="Check and clean your screen at the connection point."
                   />
-                </ListItem>
-                <ListItem button>
+                </ListItemButton>
+                <ListItemButton>
                   <ListItemAvatar>
                     <Avatar>
                       <NeighborsIcon />
@@ -451,8 +452,8 @@ const IrrigationCanalPage = () => {
                     secondary="If you share your line, check with your neighbors to determine
                   if they are also out of water."
                   />
-                </ListItem>
-                <ListItem button>
+                </ListItemButton>
+                <ListItemButton>
                   <ListItemAvatar>
                     <Avatar>
                       <ContactUsIcon />
@@ -466,7 +467,7 @@ const IrrigationCanalPage = () => {
                     secondary="If you are on an open canal and the canal water level is lower
                   than usual or dry, <br />please report this condition to PCWA."
                   />
-                </ListItem>
+                </ListItemButton>
               </List>
               <Divider variant="middle" />
               <Box p={2}>
