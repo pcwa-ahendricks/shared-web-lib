@@ -1041,9 +1041,17 @@ const ProjectsPage = () => {
                     <Link href="mailto:genemancebo@gmail.com">
                       genemancebo@gmail.com
                     </Link>
-                    . When will construction of the encased Caperton Canal be
-                    complete? It is anticipated that construction for encasing
-                    the Caperton Canal will be completed by June 2024.
+                    .
+                  </Type>
+                  <Type gutterBottom>
+                    <em>
+                      When will construction of the encased Caperton Canal be
+                      complete?
+                    </em>
+                  </Type>
+                  <Type paragraph>
+                    It is anticipated that construction for encasing the
+                    Caperton Canal will be completed by June 2024.
                   </Type>
                   <Spacing size="large" />
                   <Box>
