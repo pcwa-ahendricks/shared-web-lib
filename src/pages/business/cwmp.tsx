@@ -53,9 +53,9 @@ const CountyWideMasterPlanPage = () => {
   )
 
   const style = {
-    isActiveStep: {
+    activeStepLabel: {
       '& .MuiStepIcon-root': {
-        color: theme.palette.secondary.main
+        color: theme.palette.secondary.main // this maintains the secondary color after another step is selected
       },
       '& .MuiStepLabel-label': {
         fontWeight: 500
@@ -63,14 +63,15 @@ const CountyWideMasterPlanPage = () => {
     },
     stepLabel: {
       textAlign: 'start',
-      '&.MuiStepLabel-label': {
-        '&.MuiStepLabel-completed': {
+      '& .MuiStepLabel-label': {
+        '&.Mui-completed': {
           fontWeight: 400
-        }
+        },
+        color: 'text.primary'
       }
     },
     stepLabelIcon: {
-      '&.MuiStepIcon-active': {
+      '&.Mui-active': {
         color:
           activeIndex === activeStep
             ? theme.palette.secondary.main
@@ -385,23 +386,16 @@ const CountyWideMasterPlanPage = () => {
                     nonLinear
                   >
                     {steps.map((label, index) => (
-                      <Step key={label}>
+                      <Step key={label} completed={isStepComplete(index)}>
                         <StepButton onClick={handleStep(index)}>
                           <StepLabel
                             sx={{
                               ...style.stepLabel,
                               ...(index === ACTIVE_STEP - 1 && {
-                                ...style.isActiveStep
-                              }),
-                              '&.Mui-completed': {
-                                ...style.stepLabel
-                              },
-                              '&.MuiStepLabel-label': {
-                                ...style.stepLabel
-                              }
+                                ...style.activeStepLabel
+                              })
                             }}
                             StepIconProps={{
-                              completed: isStepComplete(index),
                               sx: {
                                 ...style.stepLabelIcon
                               }
@@ -445,15 +439,15 @@ const CountyWideMasterPlanPage = () => {
                 </List>
               </Box>
 
-              <Spacing />
+              {/* <Spacing />
               <Type variant="subtitle2" color="textSecondary">
                 <strong>Questions regarding CWMP?</strong>
-              </Type>
+              </Type> */}
               <Spacing />
               <Button
                 fullWidth
-                variant="outlined"
-                // color="secondary"
+                variant="contained"
+                color="inherit"
                 aria-label="Open Contact Us Dialog"
                 onClick={() => setDialogOpen(true)}
               >
