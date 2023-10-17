@@ -37,27 +37,31 @@ const APP_BAR_HEIGHT = {
   regular: 56
 }
 
-export const style = {
-  mmLink: {
-    textTransform: 'uppercase',
-    // Responsive font size for Mega Menu links. Default fontSize is 1rem.
-    '@media screen and (max-width: 680px)': {
-      fontSize: '0.85rem'
-    },
-    '@media screen and (min-width: 681px) and (max-width: 750px)': {
-      fontSize: '0.9rem'
-    },
-    '@media screen and (min-width: 1400px)': {
-      fontSize: '1.05rem'
-    }
-  }
-}
+const BREAKPOINT_1 = '@media screen and (max-width: 680px)'
+const BREAKPOINT_2 =
+  '@media screen and (min-width: 681px) and (max-width: 750px)'
+const BREAKPOINT_3 = '@media screen and (min-width: 1400px)'
 
 export type ToolbarVariant = 'regular' | 'dense'
 
 // The __debounced isXS variant is used with the isXS variant to prevent the background-color transition from occurring when the window width resizes from XS to non-XS and vice-versa.
 
 const PrimaryHeader = () => {
+  const style = {
+    mmLink: {
+      textTransform: 'uppercase',
+      // Responsive font size for Mega Menu links. Default fontSize is 1rem.
+      [BREAKPOINT_1]: {
+        fontSize: '0.85rem'
+      },
+      [BREAKPOINT_2]: {
+        fontSize: '0.9rem'
+      },
+      [BREAKPOINT_3]: {
+        fontSize: '1.05rem'
+      }
+    }
+  }
   const phRef = useRef<HTMLDivElement>(null)
   const stuck = useScrollTrigger({
     threshold: phRef.current ? phRef.current.offsetTop : 9999,
@@ -255,20 +259,27 @@ const PrimaryHeader = () => {
                 mr="1vw"
               >
                 <ColumnBox height="100%" justifyContent="center">
-                  <ChildBox
-                    sx={{
-                      transform: 'translateY(-1px)' // manually adjust Home button text so that it's inline (centered) with other mega menu text
-                    }}
-                  >
-                    <Link
-                      href="/"
-                      color="primary"
-                      variant="button"
-                      underline="none"
-                      sx={{...style.mmLink}}
+                  <ChildBox>
+                    <Box
+                      sx={{
+                        transform: 'translateY(-1px)', // manually adjust Home button text so that it's inline (centered) with other mega menu text
+                        [BREAKPOINT_3]: {
+                          transform: 'none'
+                        }
+                      }}
                     >
-                      Home
-                    </Link>
+                      <Link
+                        sx={{
+                          ...style.mmLink
+                        }}
+                        href="/"
+                        color="primary"
+                        variant="button"
+                        underline="none"
+                      >
+                        Home
+                      </Link>
+                    </Box>
                   </ChildBox>
                 </ColumnBox>
               </Box>
