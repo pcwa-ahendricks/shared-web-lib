@@ -18,7 +18,7 @@ const FormDateTimeField = ({disabled, ...other}: Props) => {
   const fieldIsTouchedWithError = fieldHasError && touched && !open // don't immediately show error message
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {

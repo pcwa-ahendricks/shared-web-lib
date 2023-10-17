@@ -23,7 +23,7 @@ const MultimediaLightboxFooter = ({
   }
 }) => {
   const theme = useTheme()
-  const isXsDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const style = {
     count: {
       /* Included with react-images source, but not needed for this custom implementation */
@@ -56,7 +56,7 @@ const MultimediaLightboxFooter = ({
       backgroundColor: isModal
         ? 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.33))'
         : 'transparent',
-      padding: isXsDown
+      padding: isXs
         ? isModal
           ? '20px 15px 15px'
           : '5px 0'

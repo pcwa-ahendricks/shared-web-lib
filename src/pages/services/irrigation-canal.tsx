@@ -72,7 +72,7 @@ const IrrigationCanalPage = () => {
   )
 
   const theme = useTheme<Theme>()
-  const isXsDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   const uiContext = useContext(UiContext)
   const {state: uiState, dispatch: uiDispatch} = uiContext
@@ -110,7 +110,7 @@ const IrrigationCanalPage = () => {
                 outages; these are usually planned during the non-irrigation
                 season months from January into April.
               </Type>
-              <Type paragraph={!isXsDown}>
+              <Type paragraph={!isXs}>
                 When outages are scheduled, specific outage dates and
                 approximate times will be sent to customers whose water
                 deliveries will be interrupted.{' '}

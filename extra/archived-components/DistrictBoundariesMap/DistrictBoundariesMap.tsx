@@ -66,7 +66,7 @@ const DistrictBoundariesMap = () => {
   const onViewStateChange = useCallback(({viewState}) => {
     setViewState({...viewState})
   }, [])
-  const isXsDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   const [activeDistrict, setActiveDistrict] = useState<string>()
   const [activeDirector, setActiveDirector] = useState<Director | null>()
@@ -205,7 +205,7 @@ const DistrictBoundariesMap = () => {
         // onTransitionEnd={onTransitionEndHandler}
         // onTransitionStart={onTransitionStartHandler}
         // onTransitionInterrupt={onTransitionEndHandler}
-        scrollZoom={isXsDown ? false : true}
+        scrollZoom={isXs ? false : true}
         {...viewState}
         // onMouseMove={onHoverHandler}
         // onLoad={onLoadHandler}
@@ -214,8 +214,8 @@ const DistrictBoundariesMap = () => {
         <Grow in={showDistrictOverlay}>
           <ColumnBox
             position="absolute"
-            top={isXsDown ? 'auto' : theme.spacing(1)}
-            bottom={isXsDown ? theme.spacing(5) : 'auto'}
+            top={isXs ? 'auto' : theme.spacing(1)}
+            bottom={isXs ? theme.spacing(5) : 'auto'}
             right={theme.spacing(1)}
             bgcolor={theme.palette.common.white}
             p={1}

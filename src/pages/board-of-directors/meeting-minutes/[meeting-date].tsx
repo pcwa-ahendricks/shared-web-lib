@@ -47,7 +47,7 @@ type Props = {
 const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
   const theme = useTheme()
   const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
-  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const [additionalPages, setAdditionalPages] = useState<Page[]>([])
   const [loadingAddPages, setLoadingAddPages] = useState<boolean>()
 

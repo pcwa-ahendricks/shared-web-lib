@@ -55,7 +55,7 @@ const DynamicNewsReleasePage = ({media, err}: Props) => {
   const {dispatch: uiDispatch} = uiContext
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
-  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   const router = useRouter()
   const style = {

@@ -73,7 +73,7 @@ const DynamicNewslettersPage = ({media, err}: Props) => {
     }
   }
   const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
-  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const router = useRouter()
   const uiContext = useContext(UiContext)
   const {dispatch: uiDispatch} = uiContext

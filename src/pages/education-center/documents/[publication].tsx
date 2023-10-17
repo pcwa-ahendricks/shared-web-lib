@@ -53,7 +53,7 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
   const theme = useTheme()
 
   const isSMDown = useMediaQuery(theme.breakpoints.down('md'))
-  const isXS = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
   const style = {
     pageNo: {
       cursor: 'default'

@@ -25,7 +25,7 @@ const EligibilityDialog = ({
   ...rest
 }: EligibilityDialogProps) => {
   const theme = useTheme<Theme>()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const fullScreen = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (
     <Dialog

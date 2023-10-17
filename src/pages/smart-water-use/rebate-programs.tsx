@@ -97,7 +97,7 @@ const RebateProgramsPage = () => {
           <PageTitle title="Rebate Programs" subtitle="Smart Water Use" />
           {/* <Box>
             <Paper elevation={5}>
-              <Box p={4} bgcolor={colorAlpha(blue[50], 0.4)}>
+              <Box p={4} bgcolor={alpha(blue[50], 0.4)}>
                 <Type variant="h3" gutterBottom>
                   Summer of Savings coming soon…and, going fast!
                 </Type>
