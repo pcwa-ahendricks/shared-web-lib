@@ -40,16 +40,6 @@ const MMNavLink = ({children, href, as, isNextLink = true}: Props) => {
     >
       {children}
     </FlexButton>
-    // <FlexLink
-    //   className={classes.text}
-    //   variant="body1"
-    //   href={href}
-    //   color="inherit"
-    //   underline="none"
-    //   isNextLink={isNextLink}
-    // >
-    //   {children}
-    // </FlexLink>
   )
 }
 

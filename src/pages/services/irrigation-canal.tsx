@@ -35,7 +35,6 @@ import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
-import FlexLink from '@components/FlexLink/FlexLink'
 import Spacing from '@components/boxes/Spacing'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
@@ -519,11 +518,11 @@ const IrrigationCanalPage = () => {
             <Type paragraph>
               Customer Service Representatives are available during our regular
               business hours. Our{' '}
-              <FlexLink href="/contact-us#contact-us">
+              <Link href="/contact-us#hours-of-operation">
                 Hours of Operation
-              </FlexLink>{' '}
-              can be found on our{' '}
-              <FlexLink href="/contact-us">Contact Us</FlexLink> page.
+              </Link>{' '}
+              can be found on our <Link href="/contact-us">Contact Us</Link>{' '}
+              page.
             </Type>
           </Box>
         </NarrowContainer>

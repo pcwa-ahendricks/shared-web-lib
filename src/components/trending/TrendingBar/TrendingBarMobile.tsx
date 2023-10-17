@@ -1,6 +1,5 @@
 import React, {useCallback, useContext, useMemo} from 'react'
 import {
-  // Typography as Type,
   List,
   ListItemProps,
   ListItemText,
@@ -12,7 +11,6 @@ import {
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 import useTheme from '@hooks/useTheme'
-// import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 
 const TrendingBarMobile = () => {
   const theme = useTheme()

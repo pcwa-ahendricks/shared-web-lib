@@ -51,7 +51,6 @@ export default function UpcomingCommitteeMeetings({
               <Box key={idx} display="flex" flexDirection="row">
                 <Box>
                   <ImageThumbLink
-                    isNextLink
                     imgixUrl={item.metadata.agenda_pdf.imgix_url}
                     alt={`Thumbnail and link for ${item.title}`}
                     as={linkAs}

@@ -1,11 +1,11 @@
 import React, {useState, useMemo, useCallback} from 'react'
 import {Box, Typography as Type, useTheme} from '@mui/material'
 import {ColumnBox} from '@components/MuiSleazebox'
-import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import slugify from 'slugify'
 import Image, {ImageProps} from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {Theme} from '@lib/material-theme'
+import Link, {LinkProps} from '@components/Link'
 
 type Props = {
   caption?: string
@@ -14,7 +14,7 @@ type Props = {
   margin?: number
   alt: string
   paddingPercent?: number
-} & Partial<FlexLinkProps> &
+} & Partial<LinkProps> &
   Partial<ImageProps>
 
 const ImageThumbLink = ({
@@ -26,7 +26,6 @@ const ImageThumbLink = ({
   width = 85,
   height = 110,
   href: hrefProp,
-  isNextLink = false,
   sizes = '10vw',
   ...rest
 }: Props) => {
@@ -62,19 +61,18 @@ const ImageThumbLink = ({
 
   const downloadAs = useMemo(() => slugify(filenameProp), [filenameProp])
 
-  const href = hrefProp || `${imgixUrl}?dl=${downloadAs}`
+  const href = hrefProp?.toString() || `${imgixUrl}?dl=${downloadAs}`
 
   return (
     // minWidth required w/ Image on Standards page
     <Box mt={margin} ml={margin} minWidth={width} width="100%">
-      <FlexLink
+      <Link
         href={href}
         sx={{
           ...style.link
         }}
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
-        isNextLink={isNextLink}
         {...rest}
       >
         <Box
@@ -105,7 +103,7 @@ const ImageThumbLink = ({
             {caption}
           </Type>
         </ColumnBox>
-      </FlexLink>
+      </Link>
     </Box>
   )
 }

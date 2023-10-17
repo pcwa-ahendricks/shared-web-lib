@@ -124,7 +124,6 @@ const Index = ({
               linkHref="https://www.waterboards.ca.gov/waterrights/water_issues/programs/applications/notices/"
               imgixURL="https://imgix.cosmicjs.com/e9d52af0-33b6-11ee-9ab5-815d9b73ff1f-waterboardslogohighresedit.png"
               alt="Sites Reservoir Project Notice"
-              flexLinkProps={{isNextLink: false}}
               body={
                 <Type variant="inherit">
                   PCWA is currently participating in the Sites Reservoir
@@ -155,13 +154,15 @@ const Index = ({
           </ChildBox> */}
           <ChildBox flex="0 0 50%">
             <CoverStory
+              linkProps={{
+                target: '_blank'
+              }}
               aspectRatio={coverStoryImageRatio}
               title="ON FIRE: The Report of the Wildland Fire Mitigation and Management Commission"
               readMore="Visit Wildland Fire Mitigation and Management Commission"
               linkHref="https://www.usda.gov/topics/disaster-resource-center/wildland-fire/commission"
               imgixURL="https://imgix.cosmicjs.com/c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png"
               alt="Wildland Fire Mitigation and Management Commission Final Report Available"
-              flexLinkProps={{isNextLink: false}}
               imgixParams={{fit: 'crop', crop: 'bottom'}}
               body={
                 <Type variant="inherit">
@@ -262,7 +263,6 @@ const Index = ({
               imgixURL={canalSurveyImgSrc}
               // paymentusLogoImgSrc="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__SQMZxZUNzJSSUFWVEhFSkdHVVQ2RkVCODU1SkJWMy4u"
               linkHref="/services/annual-canal-survey"
-              flexLinkProps={{isNextLink: true}}
               alt="Thumbnail and link for Canal Customer Survey"
             />
           </ChildBox> */}
@@ -275,8 +275,7 @@ const Index = ({
               linkHref="https://storymaps.arcgis.com/stories/3cf1ddba68e34c59a5326e61e05d304b"
               imgixURL="https://imgix.cosmicjs.com/8cabbeb0-5f79-11ec-a8a3-53f360c99be6-Screen-Shot-2021-12-17-at-12.40.06-PM.png"
               alt="French Meadows Forest Restoration Project, an interactive story map"
-              flexLinkProps={{
-                isNextLink: false,
+              linkProps={{
                 target: '_blank',
                 rel: 'noopener noreferrer'
               }}
@@ -289,7 +288,6 @@ const Index = ({
               title="Irrigation Service Agreement"
               imgixURL="https://imgix.cosmicjs.com/2662b390-b79b-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgementbg.png"
               linkHref="/services/irrigation-service-agreement"
-              flexLinkProps={{isNextLink: true}}
               imgixParams={{fit: 'fill', bg: '#013769'}}
               alt="Irrigation Service Agreement QR Code"
             />
@@ -300,7 +298,6 @@ const Index = ({
               title="Fire-Wise, Water-Wise Makeover Debuts at Auburn Fire Station"
               imgixURL="https://imgix.cosmicjs.com/31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg"
               linkHref="/smart-water-use/landscaping-lessons-at-auburn-fire-station"
-              flexLinkProps={{isNextLink: true}}
               alt="Fire-Wise, Water-Wise Makeover Debuts at Auburn Fire Station link"
               typeProps={{style: {fontSize: '1rem'}}}
             />
@@ -311,7 +308,6 @@ const Index = ({
               title="Educational Outreach Program"
               imgixURL="https://imgix.cosmicjs.com/b58d6f70-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach06.jpg"
               linkHref="education-center/go-to-school-on-leaks"
-              flexLinkProps={{isNextLink: true}}
               alt="Go to School on Leaks link"
               // typeProps={{style: {fontSize: '1rem'}}}
             />
@@ -322,17 +318,18 @@ const Index = ({
               title="American River Basin Study"
               imgixURL="https://imgix.cosmicjs.com/7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg"
               linkHref="/planning/arbs"
-              flexLinkProps={{isNextLink: true}}
               alt="American River Basin Study link"
             />
           </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
+              linkProps={{
+                target: '_blank'
+              }}
               width={tileWidth}
               title="Tahoe Central Sierra Cal-FRAME Project for Biomass Management"
               imgixURL="https://imgix.cosmicjs.com/907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png"
               linkHref="https://youtu.be/ft1_RiK-xKY"
-              flexLinkProps={{isNextLink: false}}
               alt="YouTube link to Tahoe Central Sierra Cal-FRAME Project for Biomass Management webinar"
               typeProps={{style: {fontSize: '1rem'}}}
             />
@@ -343,7 +340,6 @@ const Index = ({
               title="Water Year Dashboard"
               imgixURL="https://imgix.cosmicjs.com/038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg"
               linkHref="/water-year-dashboard"
-              flexLinkProps={{isNextLink: true}}
               alt="Link to PCWA's Water Year Dashboard page"
               imgixParams={{crop: 'bottom'}}
             />
@@ -351,11 +347,13 @@ const Index = ({
 
           <ChildBox width={tileWidth}>
             <CoverTile
+              linkProps={{
+                target: '_blank'
+              }}
               width={tileWidth}
               title="PCWA 2023 Annual Budget"
               imgixURL="https://imgix.cosmicjs.com/62748ce0-5fb8-11ed-8cf5-3be6a6f9365d-PCWA-2023-Adopted-Budget-for-Website.pdf"
               linkHref="https://docs.pcwa.net/pcwa-2023-annual-budget.pdf"
-              flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for PCWA 2023 Annual Budget"
               imgixParams={{crop: 'top'}}
             />
@@ -391,8 +389,7 @@ const Index = ({
               linkHref="https://experience.arcgis.com/experience/775dd76aaffe44b6aa9eaaf9bed2648b"
               imgixURL="https://imgix.cosmicjs.com/68c5af10-afb5-11ec-97bc-19d12908cbbe-hazardtreeportal.jpg"
               alt="Hazard Tree Removal Portal, an interactive ArcGIS Online map"
-              flexLinkProps={{
-                isNextLink: false,
+              linkProps={{
                 rel: 'noopener noreferrer',
                 target: '_blank'
               }}
@@ -416,7 +413,6 @@ const Index = ({
               title="PCWA Urban Water Management Plan"
               imgixURL="https://imgix.cosmicjs.com/3d69d560-b8f0-11eb-9b4d-19bb36ed9e4c-PCWA-2020-UWMPPublic-Draft.pdf"
               linkHref="https://docs.pcwa.net/uwmp-2020.pdf"
-              flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for PCWA 2020 Urban Water Management Plan"
               imgixParams={{crop: 'top'}}
             /> */}
@@ -441,7 +437,6 @@ const Index = ({
               title="PCWA Water Shortage Contingency Plan"
               imgixURL="https://imgix.cosmicjs.com/f694d8b0-adc3-11eb-bd86-3988be5a9e1c-Placer-County-Water-Agency-Water-Shortage-Contigency-Plan-Final-05.05.21.pdf"
               linkHref="https://docs.pcwa.net/pcwa-water-shortage-contingency-plan.pdf"
-              flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for PCWA Water Shortage Contingency Plan, final draft"
               imgixParams={{crop: 'top'}}
             /> */}
@@ -454,7 +449,6 @@ const Index = ({
               title="Pay My Bill"
               imgixURL={paymentusLogoImgSrc}
               linkHref="https://ipn.paymentus.com/cp/plco"
-              flexLinkProps={{isNextLink: false}}
               alt="Thumbnail and link for Pay My Bill Using Paymentus"
             />
           </ChildBox> */}
@@ -488,13 +482,13 @@ const Index = ({
           </ChildBox>
           <ChildBox width={tileWidth}>
             <CoverTile
+              linkProps={{
+                target: '_blank'
+              }}
               width={tileWidth}
               title="PCWA Fire Hydrant Map"
               imgixURL="https://imgix.cosmicjs.com/d1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png"
               linkHref="https://experience.arcgis.com/experience/562030e3a7974bb88b86f19a32d255a9"
-              flexLinkProps={{
-                isNextLink: false
-              }}
               alt="Thumbnail and link for PCWA Fire Hydrant Map"
             />
           </ChildBox>

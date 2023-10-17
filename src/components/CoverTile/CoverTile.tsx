@@ -6,11 +6,11 @@ import {
   useTheme,
   TypographyProps
 } from '@mui/material'
-import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import Spacing from '@components/boxes/Spacing'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
 import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
+import Link, {LinkProps} from '@components/Link'
 
 export type CoverTileProps = {
   title: string
@@ -18,7 +18,7 @@ export type CoverTileProps = {
   imgixURL: string
   readMore?: string
   imageRatio?: string | number | boolean // Expressed as W:H
-  flexLinkProps?: Partial<FlexLinkProps>
+  linkProps?: Partial<LinkProps>
   imgixParams?: any
   typeProps?: Partial<TypographyProps>
   // imageProps?: Partial<
@@ -35,7 +35,7 @@ const CoverTile = ({
   imgixURL: imgixUrlProp,
   imageRatio = '11:7', // 220w / 140h = 1.57. Using 1.57*7=10.99, 11:7
   linkHref,
-  flexLinkProps,
+  linkProps,
   typeProps,
   imgixParams,
   imageProps,
@@ -74,12 +74,7 @@ const CoverTile = ({
       width={width}
       {...rest}
     >
-      <FlexLink
-        href={linkHref}
-        underline="none"
-        aria-label={title}
-        {...flexLinkProps}
-      >
+      <Link href={linkHref} underline="none" aria-label={title} {...linkProps}>
         <Box
           borderRadius="4px"
           overflow="hidden"
@@ -101,7 +96,7 @@ const CoverTile = ({
         <Type variant="subtitle1" color={titleColor} {...typeProps}>
           {title}
         </Type>
-      </FlexLink>
+      </Link>
     </Box>
   )
 }

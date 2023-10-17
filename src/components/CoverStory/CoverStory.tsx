@@ -1,12 +1,12 @@
 import React, {useCallback, useMemo} from 'react'
 import {Box, BoxProps, Typography as Type, TypographyProps} from '@mui/material'
-import FlexLink, {FlexLinkProps} from '@components/FlexLink/FlexLink'
 import Spacing from '@components/boxes/Spacing'
 import {stringify} from 'querystringify'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import IeNever from '@components/boxes/IeNever'
 import IeOnly from '@components/boxes/IeOnly'
 import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
+import Link, {LinkProps} from '@components/Link'
 
 export type CoverStoryProps = {
   title: string
@@ -14,7 +14,7 @@ export type CoverStoryProps = {
   imgixURL: string
   readMore?: string
   aspectRatio?: string
-  flexLinkProps?: Partial<FlexLinkProps>
+  linkProps?: Partial<LinkProps>
   body?: TypographyProps['children']
   alt?: ImageBlurProps['alt']
   imgixParams?: any
@@ -38,7 +38,7 @@ const CoverStory = ({
   // paddingPercent="34.23%", // Default ratio for a 190h x 555w image.
   // paddingPercent = '40.54%', // Default ratio for a 225h x 555w image.
   linkHref,
-  flexLinkProps,
+  linkProps,
   body,
   ...rest
 }: CoverStoryProps) => {
@@ -89,7 +89,7 @@ const CoverStory = ({
 
   return (
     <Box {...rest}>
-      <FlexLink href={linkHref} aria-label={title} {...flexLinkProps}>
+      <Link href={linkHref} aria-label={title} {...linkProps}>
         <IeNever>
           <Box style={{aspectRatio}} overflow="hidden" position="relative">
             <CoverStoryImage />
@@ -110,31 +110,31 @@ const CoverStory = ({
             <CoverStoryImage />
           </Box>
         </IeOnly>
-      </FlexLink>
+      </Link>
       <Spacing />
       <Box textAlign="center">
-        <FlexLink
+        <Link
           variant="h3"
           underline="none"
           href={linkHref}
           // gutterBottom
           color="primary"
           aria-label={title}
-          {...flexLinkProps}
+          {...linkProps}
         >
           {title}
-        </FlexLink>
+        </Link>
         <Spacing size="small" />
         {BodyEl}
         {children}
-        <FlexLink
+        <Link
           variant="subtitle2"
           href={linkHref}
           aria-label={title}
-          {...flexLinkProps}
+          {...linkProps}
         >
           {readMore}
-        </FlexLink>
+        </Link>
       </Box>
     </Box>
   )

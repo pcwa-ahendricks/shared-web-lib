@@ -1,13 +1,6 @@
 // cspell:ignore bgcolor
 import React, {useEffect, useCallback, useContext} from 'react'
-import {
-  Box,
-  Typography as Type,
-  Theme,
-  Link,
-  useTheme,
-  Divider
-} from '@mui/material'
+import {Box, Typography as Type, Theme, useTheme, Divider} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
@@ -27,8 +20,8 @@ import Spacing from '@components/boxes/Spacing'
 import LookHere from '@components/LookHere/LookHere'
 import {setAnimateDone, UiContext} from '@components/ui/UiStore'
 import imgixLoader from '@lib/imageLoader'
-import FlexLink from '@components/FlexLink/FlexLink'
 import NextLink from 'next/link'
+import Link from '@components/Link'
 
 const PayBillPage = () => {
   const theme = useTheme<Theme>()
@@ -209,14 +202,13 @@ const PayBillPage = () => {
             <Type paragraph>
               Customer Service Representatives are available during our regular
               business hours. Our{' '}
-              <FlexLink href="/contact-us#contact-us">
+              <Link href="/contact-us#hours-of-operation">
                 Hours of Operation
-              </FlexLink>{' '}
-              can be found on our{' '}
-              <FlexLink href="/contact-us">Contact Us</FlexLink> page. Customer
-              Service Representatives can be reached by phone at <MainPhone />{' '}
-              or <EightHundredPhone />, or by email at <CustomerServicesEmail />
-              .
+              </Link>{' '}
+              can be found on our <Link href="/contact-us">Contact Us</Link>{' '}
+              page. Customer Service Representatives can be reached by phone at{' '}
+              <MainPhone /> or <EightHundredPhone />, or by email at{' '}
+              <CustomerServicesEmail />.
             </Type>
           </Box>
         </NarrowContainer>

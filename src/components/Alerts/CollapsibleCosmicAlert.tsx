@@ -4,11 +4,11 @@ import {AlertTitle, SvgIcon} from '@mui/material'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import useSWR from 'swr'
 import {textFetcher} from '@lib/fetcher'
-import FlexLink from '@components/FlexLink/FlexLink'
 import BodyParagraph from './BodyParagraph'
 import CollapsibleAlert, {CollapsibleAlertProps} from './CollapsibleAlert'
 import Heading from './Heading'
 import {useRouter} from 'next/router'
+import Link from '@components/Link'
 
 type CollapsibleCosmicAlertProps = {
   muiIconName?: string
@@ -44,17 +44,11 @@ const headingParserOptions: HTMLReactParserOptions = {
       )
     } else if (name === 'a') {
       return (
-        <FlexLink
-          {...attribs}
-          underline="always"
-          detectNext
-          color="inherit"
-          variant="inherit"
-        >
+        <Link {...attribs} underline="always" color="inherit" variant="inherit">
           {/* Recursive parsing un-necessary with <a/> elements */}
           {/* {domToReact(children, parserOptions)} */}
           {domToReact(children)}
-        </FlexLink>
+        </Link>
       )
     }
   }
@@ -70,11 +64,11 @@ const bodyParserOptions: HTMLReactParserOptions = {
       )
     } else if (name === 'a') {
       return (
-        <FlexLink {...attribs} underline="always" variant="inherit" detectNext>
+        <Link {...attribs} underline="always" variant="inherit">
           {/* Recursive parsing un-necessary with <a/> elements */}
           {/* {domToReact(children, parserOptions)} */}
           {domToReact(children)}
-        </FlexLink>
+        </Link>
       )
     }
   }

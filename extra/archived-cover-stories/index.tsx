@@ -37,9 +37,6 @@ export default function homepage() {
               width="100%"
               linkHref="/water-year-dashboard"
               readMore="Take a look"
-              flexLinkProps={{
-                isNextLink: true
-              }}
               imgixURL="https://imgix.cosmicjs.com/c3e93020-9c78-11eb-85ef-2dda0e0d7ad2-wateryearrecapposter.png"
               alt="A view of French Meadows and Hell Hole Reservoirs from above"
               body={
@@ -60,7 +57,6 @@ export default function homepage() {
               title="Announcing the Water Spots Video Contest"
               readMore="Find out more"
               linkHref="https://mailchi.mp/53676dd9f907/introducing-the-2022-water-spots-video-contest?e=3cebaef6d8"
-              flexLinkProps={{isNextLink: false}}
               imgixURL="https://imgix.cosmicjs.com/dee77900-26c4-11ec-a33b-09138673c894-waterspots.png"
               alt="Announcing the Water Spots Video Contest banner"
               body="The Water Spots video contest is designed to spread the word about water efficiency through the talents of high school and middle school-aged film makers in the Sacramento region."
@@ -101,7 +97,7 @@ export default function homepage() {
               title="PCWA Secures Permanent Water Contract With U.S. Bureau Of Reclamation"
               readMore="See Story..."
               linkHref="/newsroom/news-releases/[release-date]"
-              flexLinkProps={{as: '/newsroom/news-releases/03-03-2020'}}
+              linkProps={{as: '/newsroom/news-releases/03-03-2020'}}
               imgixURL="https://imgix.cosmicjs.com/19d91520-6234-11ea-9b83-bbd594758415-PCWA-signs-USBR-contract002.jpg"
               imgixFancyProps={{
                 htmlAttributes: {alt: 'Thumbnail photo of French Meadows'}
@@ -133,8 +129,7 @@ export default function homepage() {
               paddingPercent={coverStoryPadPerc}
               title="2020 Year End Report"
               readMore="More Information..."
-              flexLinkProps={{
-                isNextLink: true,
+              linkProps={{
                 target: '_blank',
                 rel: 'noopener noreferrer'
               }}
@@ -152,9 +147,6 @@ export default function homepage() {
               imageRatio={coverStoryImageRatio}
               title="We’re Transitioning to Monthly Billing"
               readMore="More Information..."
-              flexLinkProps={{
-                isNextLink: true
-              }}
               linkHref="/services/monthly-billing"
               imgixURL="https://imgix.cosmicjs.com/56867e20-d47c-11eb-bfc5-2fdb31ae3481-PCWAMonthlyBillingWebImage-2022.jpg"
               alt="Monthly Billing Announcement Flyer"
@@ -204,7 +196,7 @@ export default function homepage() {
               title="Hazard Tree Removal"
               readMore="Open Interactive Map"
               linkHref="https://experience.arcgis.com/experience/775dd76aaffe44b6aa9eaaf9bed2648b/"
-              flexLinkProps={{isNextLink: false, target: '_blank'}}
+              linkProps={{target: '_blank'}}
               imgixURL="https://imgix.cosmicjs.com/68c5af10-afb5-11ec-97bc-19d12908cbbe-hazardtreeportal.jpg"
               alt="Hazard Tree Removal Portal, an interactive ArcGIS Online map"
               body={
@@ -225,7 +217,6 @@ export default function homepage() {
               title="Water Quality Webinar"
               readMore="Watch Today"
               linkHref="/education-center/webinars/mountain-tops-to-tap"
-              flexLinkProps={{isNextLink: true}}
               imgixURL="https://imgix.cosmicjs.com/b9ad3b20-1a7f-11ed-a845-076c64d3ede5-PCWAMtnTapWebinarGraphicPost.jpg"
               alt="From the Mountain Tops to your Tap Webinar graphic"
               body={
@@ -285,9 +276,6 @@ export default function homepage() {
               paddingPercent={coverStoryPadPerc}
               title="Drought-Proofing PCWA’s Water Supply"
               readMore="Watch video on our YouTube Channel"
-              flexLinkProps={{
-                isNextLink: false
-              }}
               linkHref="https://youtu.be/FMId8W8x8ik"
               imgixURL={DROUGHT_PROOF_IMG_SRC}
               imgixFancyProps={{
@@ -303,9 +291,6 @@ export default function homepage() {
               imageRatio={coverStoryImageRatio}
               paddingPercent={coverStoryPadPerc}
               title="Fire & Water, 2020 Edition"
-              flexLinkProps={{
-                isNextLink: false
-              }}
               linkHref="https://imgix.cosmicjs.com/cced2b40-f2e1-11ea-a3de-692d5982216c-Fire--Water---2020.pdf"
               imgixURL={fireWaterImgSrc}
               imgixFancyProps={{
@@ -341,9 +326,6 @@ export default function homepage() {
                 imageRatio="9:5" // [TODO] This actually distorts the image which is not what I was intending but looks good nonetheless
                 title="PCWA Wants You to Save!"
                 readMore="See Rebate Programs"
-                flexLinkProps={{
-                  isNextLink: true
-                }}
                 linkHref="/smart-water-use/rebate-programs"
                 imgixURL="https://imgix.cosmicjs.com/706b47d0-ef16-11eb-849a-8548c9a99fc0-Summer-of-Savings-FB-Image-cropped.png"
                 alt="PCWA Summer of Savings banner"
@@ -361,7 +343,7 @@ export default function homepage() {
               title="French Meadows Forest Restoration Project"
               readMore="Open Story"
               linkHref="https://storymaps.arcgis.com/stories/3cf1ddba68e34c59a5326e61e05d304b"
-              flexLinkProps={{isNextLink: false, target: '_blank'}}
+              linkProps={{ target: '_blank'}}
               imgixURL="https://imgix.cosmicjs.com/cfca4260-5f89-11ec-a8a3-53f360c99be6-Screen-Shot-2021-12-17-at-2.36.17-PM.png"
               alt="French Meadows Forest Restoration Project, an interactive story map"
               body={

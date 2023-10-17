@@ -8,7 +8,7 @@ import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import MainPhone from '@components/links/MainPhone'
 import imgixLoader from '@lib/imageLoader'
 import Image from 'next/legacy/image'
-import FlexLink from '@components/FlexLink/FlexLink'
+import Link from '@components/Link'
 
 const AccountMaintenancePage = () => {
   return (
@@ -23,14 +23,13 @@ const AccountMaintenancePage = () => {
                 Customer Services at <MainPhone />, or visit our Business Center
                 Lobby at 144 Ferguson Road, Auburn, during our regular business
                 hours. Our{' '}
-                <FlexLink href="/contact-us#contact-us">
+                <Link href="/contact-us#hours-of-operation">
                   Hours of Operation
-                </FlexLink>{' '}
-                can be found on our{' '}
-                <FlexLink href="/contact-us">Contact Us</FlexLink> page. Please
-                be prepared to provide a PIN # or password when signing up for
-                water service. Deposits are required when signing up for water
-                service.
+                </Link>{' '}
+                can be found on our <Link href="/contact-us">Contact Us</Link>{' '}
+                page. Please be prepared to provide a PIN # or password when
+                signing up for water service. Deposits are required when signing
+                up for water service.
               </Type>
             </ChildBox>
             <ChildBox flex="25%">
