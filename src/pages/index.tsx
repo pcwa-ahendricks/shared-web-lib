@@ -165,7 +165,7 @@ const Index = ({
               alt="Wildland Fire Mitigation and Management Commission Final Report Available"
               imgixParams={{fit: 'crop', crop: 'bottom'}}
               body={
-                <Type variant="inherit">
+                <Type component="span" variant="inherit">
                   The Wildland Fire Mitigation and Management Commission's
                   second and final report (PDF) was submitted to Congress on
                   September 27, 2023 and reflects one of the most sweeping and
