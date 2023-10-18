@@ -1,11 +1,10 @@
 import React from 'react'
-import {Box, Typography, useTheme} from '@mui/material'
+import {Box, Typography, Button} from '@mui/material'
 import {ColumnBox, RowBox} from '@components/MuiSleazebox'
-import FlexButton from '@components/FlexButton/FlexButton'
-import {Theme} from '@lib/material-theme'
+import useTheme from '@hooks/useTheme'
 
 export default function QuickLinksMobileBar() {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const style = {
     button: {
       marginBottom: theme.spacing(1)
@@ -21,23 +20,22 @@ export default function QuickLinksMobileBar() {
           // justifyContent="flex-start"
           // alignItems="center"
         >
-          <FlexButton
+          <Button
             href="/board-of-directors/meeting-agendas"
             color="primary"
             variant="outlined"
             // imageAlt="PCWA Board Meetings and Agendas link icon"
             // imageSrc="5662a7f0-c943-11eb-ba89-e7f98c8c358b-BoardAgenda.png"
             // caption="Board Meetings"
-            isNextLink
             sx={{
-              marginBottom: '8px'
+              ...style.button
             }}
           >
             <Typography noWrap variant="inherit">
               Board Meetings
             </Typography>
-          </FlexButton>
-          <FlexButton
+          </Button>
+          <Button
             href="https://careers.pcwa.net/"
             target="_blank"
             color="primary"
@@ -45,22 +43,20 @@ export default function QuickLinksMobileBar() {
             // imageAlt="Careers quick link icon"
             // imageSrc="e7a5cf40-c942-11eb-ba89-e7f98c8c358b-Careers.png"
             // caption="Careers"
-            isNextLink={false}
             sx={{
               ...style.button
             }}
           >
             Careers
-          </FlexButton>
+          </Button>
           {/* <Button
           href="#"
           imageAlt="Start/Stop Service quick link icon"
           imageSrc="c14e4d00-c946-11eb-ba89-e7f98c8c358b-Start-StopServiceicon.png"
           caption="Start/Stop Service"
         /> */}
-          <FlexButton
+          <Button
             href="/services/outage"
-            isNextLink
             color="primary"
             variant="outlined"
             // imageAlt="Outages link icon"
@@ -71,7 +67,7 @@ export default function QuickLinksMobileBar() {
             }}
           >
             Outages
-          </FlexButton>
+          </Button>
         </ColumnBox>
         <ColumnBox
           child
@@ -79,7 +75,7 @@ export default function QuickLinksMobileBar() {
           // justifyContent="flex-start"
           // alignItems="center"
         >
-          <FlexButton
+          <Button
             href="https://ipn.paymentus.com/cp/plco"
             target="_blank"
             color="primary"
@@ -87,7 +83,6 @@ export default function QuickLinksMobileBar() {
             // imageAlt="Bill Pay quick link icon"
             // imageSrc="1938eb70-c941-11eb-ba89-e7f98c8c358b-PayBill.png"
             // caption="Pay My Bill"
-            isNextLink={false}
             sx={{
               ...style.button
             }}
@@ -95,13 +90,12 @@ export default function QuickLinksMobileBar() {
             <Typography noWrap variant="inherit">
               Pay My Bill
             </Typography>
-          </FlexButton>
-          <FlexButton
+          </Button>
+          <Button
             href="/smart-water-use/rebate-programs"
             // imageAlt="Rebates link icon"
             // imageSrc="7e4b1440-ca0c-11eb-ba89-e7f98c8c358b-Rebateicon.png"
             // caption="Rebates"
-            isNextLink
             color="primary"
             variant="outlined"
             sx={{
@@ -109,7 +103,7 @@ export default function QuickLinksMobileBar() {
             }}
           >
             Rebates
-          </FlexButton>
+          </Button>
 
           {/* <Button
           href="#"

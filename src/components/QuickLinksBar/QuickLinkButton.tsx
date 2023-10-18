@@ -8,6 +8,7 @@ import Image, {ImageProps} from 'next/legacy/image'
 import Overline from '@components/Overline/Overline'
 import {Theme} from '@lib/material-theme'
 import useTheme from '@hooks/useTheme'
+import NextLink from 'next/link'
 
 export default function QuickLinkButton({
   href,
@@ -15,6 +16,7 @@ export default function QuickLinkButton({
   imageSrc,
   caption,
   target,
+  as,
   ...rest
 }: {
   href: string
@@ -77,15 +79,11 @@ export default function QuickLinkButton({
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
       >
-        <Fab
-          LinkComponent={Link}
-          href={href}
-          target={target}
-          sx={{...style.fab}}
-          {...rest}
-        >
-          <FabImage />
-        </Fab>
+        <NextLink href={href} target={target} as={as}>
+          <Fab sx={{...style.fab}} {...rest}>
+            <FabImage />
+          </Fab>
+        </NextLink>
       </ChildBox>
       <ChildBox
         mt={1}

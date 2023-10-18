@@ -29,19 +29,19 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'Board of Directors',
-            nextLink: '/board-of-directors'
+            href: '/board-of-directors'
           },
           {
             title: 'Board Meeting Agendas',
-            nextLink: '/board-of-directors/meeting-agendas'
+            href: '/board-of-directors/meeting-agendas'
           },
           {
             title: 'Board Meeting Minutes',
-            nextLink: '/board-of-directors/meeting-minutes'
+            href: '/board-of-directors/meeting-minutes'
           }
           // {
           //   title: 'MFPFA Board Meeting Agendas',
-          //   nextLink: '/board-of-directors/mfpfa-meeting-agendas'
+          //   href: '/board-of-directors/mfpfa-meeting-agendas'
           // }
         ]
       },
@@ -54,11 +54,11 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Employee Benefits Summary',
-            nextLink: '/careers/employee-benefits-summary'
+            href: '/careers/employee-benefits-summary'
           },
           {
             title: 'Salary Schedule',
-            nextLink: '/careers/salary-schedule'
+            href: '/careers/salary-schedule'
           }
         ]
       },
@@ -67,38 +67,38 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'About PCWA',
-            nextLink: '/about-pcwa'
+            href: '/about-pcwa'
           },
-          {title: 'Contact Us', nextLink: '/contact-us'},
+          {title: 'Contact Us', href: '/contact-us'},
           {
             title: 'Environmental Planning & Compliance',
-            nextLink: '/about-pcwa/environmental-planning'
+            href: '/about-pcwa/environmental-planning'
           },
           {
             title: 'Financial Reports',
-            nextLink: '/about-pcwa/financial-report'
+            href: '/about-pcwa/financial-report'
           },
           {
             title: 'Risk Management',
-            nextLink: '/about-pcwa/claims-process'
+            href: '/about-pcwa/claims-process'
           },
           {
             title: 'Unclaimed Property',
-            nextLink: '/about-pcwa/unclaimed-property'
+            href: '/about-pcwa/unclaimed-property'
           },
           {
             title: 'Identifying PCWA Employees',
-            nextLink: '/about-pcwa/how-to-id-us'
+            href: '/about-pcwa/how-to-id-us'
           },
-          {title: 'Links', nextLink: '/about-pcwa/links'},
+          {title: 'Links', href: '/about-pcwa/links'},
           {
             title: 'Construction Projects',
-            nextLink: '/about-pcwa/projects'
+            href: '/about-pcwa/projects'
           },
           // { 'class': 'item', 'title': 'SB-272', 'nextLink': ['/about-pcwa/sb272'] },
           {
             title: 'Transparency Information',
-            nextLink: '/about-pcwa/transparency'
+            href: '/about-pcwa/transparency'
           },
           {
             title: 'Middle Fork Project Finance Authority - JPA',
@@ -110,12 +110,12 @@ const menuConfig: MenuConfig[] = [
           // },
           {
             title: 'Education Center',
-            nextLink: '/education-center/[...multimedia]',
+            href: '/education-center/[...multimedia]',
             as: '/education-center/documents'
           },
           {
             title: 'Water Year Dashboard',
-            nextLink: '/water-year-dashboard'
+            href: '/water-year-dashboard'
           },
           {
             title: 'French Meadows Forest Restoration Project',
@@ -127,30 +127,30 @@ const menuConfig: MenuConfig[] = [
         groupName: 'Recreation',
         items: [
           {title: 'MiddleForkFun.com', href: 'https://www.middleforkfun.com'},
-          {title: 'Recreation', nextLink: '/recreation'},
+          {title: 'Recreation', href: '/recreation'},
           {
             title: 'Campgrounds',
-            nextLink: '/recreation/campgrounds'
+            href: '/recreation/campgrounds'
           },
           {
             title: 'Rafting',
-            nextLink: '/recreation/rafting'
+            href: '/recreation/rafting'
           },
           {
             title: 'French Meadows Reservoir',
-            nextLink: '/recreation/french-meadows'
+            href: '/recreation/french-meadows'
           },
           {
             title: 'Hell Hole Reservoir',
-            nextLink: '/recreation/hell-hole'
+            href: '/recreation/hell-hole'
           },
           {
             title: 'American River',
-            nextLink: '/recreation/american-river'
+            href: '/recreation/american-river'
           },
           {
             title: 'River Flows',
-            nextLink: '/recreation/river-flows'
+            href: '/recreation/river-flows'
           }
         ]
       }
@@ -165,47 +165,47 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'Customer Services',
-            nextLink: '/services'
+            href: '/services'
           },
           {
             title: 'Pay Bill',
-            nextLink: '/services/pay-bill'
+            href: '/services/pay-bill'
           },
           {
             title: 'Monthly Billing FAQs',
-            nextLink: '/services/monthly-billing'
+            href: '/services/monthly-billing'
           },
           {
             title: 'Account Maintenance',
-            nextLink: '/services/account-maintenance'
+            href: '/services/account-maintenance'
           },
           {
             title: 'Irrigation Canal Information',
-            nextLink: '/services/irrigation-canal'
+            href: '/services/irrigation-canal'
           },
           {
             title: 'Outage Information',
-            nextLink: '/services/outage'
+            href: '/services/outage'
           },
           {
             title: 'Water Quality',
-            nextLink: '/services/water-quality'
+            href: '/services/water-quality'
           },
           {
             title: 'Cross-Connection Control Program',
-            nextLink: '/services/backflow-prevention'
+            href: '/services/backflow-prevention'
           },
           {
             title: 'Water Rates & Rules and Regulations',
-            nextLink: '/services/water-rates'
+            href: '/services/water-rates'
           },
           {
             title: '2023 Multiyear Rate Adjustment',
-            nextLink: '/services/rate-adjust'
+            href: '/services/rate-adjust'
           },
           {
             title: 'Water Shutoff Protection Act',
-            nextLink: '/services/shutoff-protection'
+            href: '/services/shutoff-protection'
           }
         ]
       },
@@ -214,55 +214,55 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'Smart Water Use',
-            nextLink: '/smart-water-use'
+            href: '/smart-water-use'
           },
           // {
           //   title: 'Drought',
-          //   nextLink: '/smart-water-use/drought'
+          //   href: '/smart-water-use/drought'
           // },
           // {
           //   title: 'Water Shortage Contingency Plan',
-          //   nextLink: '/smart-water-use/water-shortage-contingency-plan'
+          //   href: '/smart-water-use/water-shortage-contingency-plan'
           // },
           {
             title: 'Landscaping Resources',
-            nextLink: '/smart-water-use/landscape-resources'
+            href: '/smart-water-use/landscape-resources'
           },
           {
             title: 'Rebate Programs',
-            nextLink: '/smart-water-use/rebate-programs'
+            href: '/smart-water-use/rebate-programs'
           },
           // {
           //   title: 'Maidu Fire Station Makeover',
-          //   nextLink: '/smart-water-use/maidu-fire-station-makeover'
+          //   href: '/smart-water-use/maidu-fire-station-makeover'
           // },
           {
             title: 'Fire-Wise, Water-Wise Landscaping',
-            nextLink: '/smart-water-use/fire-wise-landscaping'
+            href: '/smart-water-use/fire-wise-landscaping'
           },
           {
             title: 'Water Wise House Calls',
-            nextLink: '/smart-water-use/house-calls'
+            href: '/smart-water-use/house-calls'
           },
           {
             title: 'Tips for Kids',
-            nextLink: '/smart-water-use/tips-for-kids'
+            href: '/smart-water-use/tips-for-kids'
           },
           {
             title: 'Stop Leaks',
-            nextLink: '/smart-water-use/stop-leaks'
+            href: '/smart-water-use/stop-leaks'
           },
           {
             title: 'WaterSense',
-            nextLink: '/smart-water-use/watersense'
+            href: '/smart-water-use/watersense'
           },
           {
             title: 'Tree Care',
-            nextLink: '/smart-water-use/trees'
+            href: '/smart-water-use/trees'
           },
           {
             title: 'Clearing Your Water Meter',
-            nextLink: '/smart-water-use/clearing-water-meter'
+            href: '/smart-water-use/clearing-water-meter'
           }
         ]
       }
@@ -277,35 +277,35 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'Business With PCWA',
-            nextLink: '/business'
+            href: '/business'
           },
           {
             title: 'Goods and Services',
-            nextLink: '/business/goods-and-services'
+            href: '/business/goods-and-services'
           },
           {
             title: 'New Developments',
-            nextLink: '/business/new-development'
+            href: '/business/new-development'
           },
           {
             title: 'Construction Bids',
-            nextLink: '/business/construction-bids'
+            href: '/business/construction-bids'
           },
           {
             title: 'Construction Projects',
-            nextLink: '/about-pcwa/projects'
+            href: '/about-pcwa/projects'
           },
           // {
           //   title: 'Energy Products',
-          //   nextLink: '/business/energy-products'
+          //   href: '/business/energy-products'
           // },
           {
             title: 'Improvement Standards',
-            nextLink: '/business/standards'
+            href: '/business/standards'
           },
           {
             title: 'Utility Map Request',
-            nextLink: '/business/new-development#UtilityMapRequest'
+            href: '/business/new-development#UtilityMapRequest'
           }
         ]
       },
@@ -315,7 +315,7 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'County-Wide Master Plan',
-            nextLink: '/business/cwmp'
+            href: '/business/cwmp'
           }
         ]
       }
@@ -330,16 +330,16 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'News Releases',
-            nextLink: '/newsroom/news-releases'
+            href: '/newsroom/news-releases'
           },
           {
             title: 'Publications',
-            nextLink: '/newsroom/publications/[publication]',
+            href: '/newsroom/publications/[publication]',
             as: '/newsroom/publications/newsletters'
           }
           // {
           //   title: 'Legislation & Letters',
-          //   nextLink: '/newsroom/legislation-letters'
+          //   href: '/newsroom/legislation-letters'
           // }
         ]
       }

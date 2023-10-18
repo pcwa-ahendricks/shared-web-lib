@@ -52,15 +52,16 @@ const MMContent = ({contentKey = 1}: Props) => {
               />
               {menuGroup.items.map((item, itemIdx) => (
                 <Box key={itemIdx}>
-                  {item.nextLink ? (
-                    <MMNavLink href={item.nextLink} as={item.as}>
-                      {item.title}
-                    </MMNavLink>
-                  ) : item.href ? (
-                    <MMNavLink href={item.href} isNextLink={false}>
-                      {item.title}
-                    </MMNavLink>
-                  ) : null}
+                  <MMNavLink
+                    href={item.href}
+                    slotProps={{
+                      nextLink: {
+                        as: item.as
+                      }
+                    }}
+                  >
+                    {item.title}
+                  </MMNavLink>
                 </Box>
               ))}
             </ColumnBox>

@@ -1,14 +1,14 @@
+import {ButtonProps, Button} from '@mui/material'
 import React from 'react'
-import FlexButton, {FlexButtonProps} from '@components/FlexButton/FlexButton'
 
 type Props = {
   children: React.ReactNode
   href: string
-} & FlexButtonProps
+} & ButtonProps
 
 const TrendingLink = ({children, sx, ...rest}: Props) => {
   return (
-    <FlexButton
+    <Button
       size="small"
       color="inherit"
       sx={{
@@ -24,7 +24,7 @@ const TrendingLink = ({children, sx, ...rest}: Props) => {
       {...rest}
     >
       {children}
-    </FlexButton>
+    </Button>
   )
 }
 
