@@ -19,7 +19,6 @@ import {
   CardContent,
   CardActions,
   useMediaQuery,
-  useTheme,
   Divider,
   Unstable_Grid2 as Grid
 } from '@mui/material'
@@ -36,17 +35,16 @@ import GaugeIcon from 'mdi-material-ui/Gauge'
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import DripSystemIcon from '@mui/icons-material/AccountTreeOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import NextButton from '@components/NextButton/NextButton'
 import WebsiteIcon from '@mui/icons-material/Language'
 import WaterSenseLogo from '@components/WaterSenseLogo/WaterSenseLogo'
-import {Theme} from '@lib/material-theme'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import Image from 'next/legacy/image'
 import NextLink from 'next/link'
 import Link from '@components/Link'
+import useTheme from '@hooks/useTheme'
 
 const SmartWaterUsePage = () => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const style = {
     listItemBullet: {
       minWidth: theme.spacing(5)
@@ -292,10 +290,7 @@ const SmartWaterUsePage = () => {
                           </Link>{' '}
                           page.
                         </Type>
-                        <NextLink
-                          href="/smart-water-use/summer-strong"
-                          passHref
-                        >
+                        <NextLink href="/smart-water-use/summer-strong">
                           <Button color="primary">
                             View Complete List of Summer Strong Plants
                           </Button>
@@ -507,13 +502,11 @@ const SmartWaterUsePage = () => {
                 </ColumnBox>
               </AccordionDetails>
               <AccordionActions>
-                <NextButton
-                  href="/smart-water-use/rebate-programs"
-                  color="secondary"
-                  fullWidth
-                >
-                  Learn More About Rebates
-                </NextButton>
+                <NextLink href="/smart-water-use/rebate-programs">
+                  <Button color="secondary" fullWidth>
+                    Learn More About Rebates
+                  </Button>
+                </NextLink>
               </AccordionActions>
             </Accordion>
 
@@ -719,13 +712,11 @@ const SmartWaterUsePage = () => {
                 >
                   Discover WaterSense Products
                 </Button>
-                <NextButton
-                  href="/smart-water-use/rebate-programs"
-                  color="secondary"
-                  fullWidth
-                >
-                  Learn More About Rebates
-                </NextButton>
+                <NextLink href="/smart-water-use/rebate-programs">
+                  <Button color="secondary" fullWidth>
+                    Learn More About Rebates
+                  </Button>
+                </NextLink>
               </AccordionActions>
             </Accordion>
 
@@ -760,13 +751,11 @@ const SmartWaterUsePage = () => {
                 </ColumnBox>
               </AccordionDetails>
               <AccordionActions>
-                <NextButton
-                  href="/smart-water-use/rebate-programs"
-                  color="secondary"
-                  fullWidth
-                >
-                  Learn More About Rebates
-                </NextButton>
+                <NextLink href="/smart-water-use/rebate-programs">
+                  <Button color="secondary" fullWidth>
+                    Learn More About Rebates
+                  </Button>
+                </NextLink>
               </AccordionActions>
             </Accordion>
           </SectionBox>
@@ -867,15 +856,14 @@ const SmartWaterUsePage = () => {
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
-                    <NextButton
-                      size="small"
-                      startIcon={<WebsiteIcon color="action" />}
-                      href="/"
-                    >
-                      <Type variant="inherit" color="textSecondary">
+                    <NextLink href="/">
+                      <Button
+                        size="small"
+                        startIcon={<WebsiteIcon color="action" />}
+                      >
                         PCWA.net
-                      </Type>
-                    </NextButton>
+                      </Button>
+                    </NextLink>
                   </CardActions>
                 </Card>
               </Grid>
