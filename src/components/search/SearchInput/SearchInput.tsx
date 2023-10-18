@@ -2,11 +2,11 @@ import React, {useCallback, useContext, useState, useRef} from 'react'
 import {
   alpha,
   Box,
+  BoxProps,
   InputBase,
   Paper,
   Typography as Type,
-  useMediaQuery,
-  useTheme
+  useMediaQuery
 } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import search from '@lib/services/googleSearchService'
@@ -28,11 +28,12 @@ import {GoogleCseResponse} from '../SearchResponse'
 import WebmasterEmail from '@components/links/WebmasterEmail'
 import SearchIcon from '@mui/icons-material/Search'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
+import useTheme from '@hooks/useTheme'
 // import delay from 'then-sleep'
 
 const maxBetterTotalResultsHackIterations = 7 // This count doesn't include the original request. So if it takes three requests to determine the best total results number for all queries, then setting this to 2 would suffice. But it's uncertain how many queries it takes to determine the most accurate total results number so 5 is more appropriate.
 
-const SearchInput = () => {
+const SearchInput = (props: BoxProps) => {
   // const inputRef = useRef<HTMLInputElement>()
   const {dispatch: searchDispatch, state: searchState} =
     useContext(SearchContext)
@@ -176,7 +177,7 @@ const SearchInput = () => {
   }, [searchHandler])
 
   const keyPressHandler = useCallback(
-    (evt: React.KeyboardEvent<HTMLDivElement>) => {
+    (evt: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       if (evt.key.toLowerCase() === 'enter') {
         searchHandler()
       }
@@ -206,7 +207,7 @@ const SearchInput = () => {
 
   if (isXS) {
     return (
-      <>
+      <Box {...props}>
         <RowBox alignItems="center" justifyContent="flex-end">
           <ChildBox
             sx={{
@@ -221,7 +222,7 @@ const SearchInput = () => {
                 type="search"
                 margin="none"
                 onChange={inputChangeHandler}
-                onKeyPress={keyPressHandler}
+                onKeyDown={keyPressHandler}
                 sx={{
                   marginLeft: theme.spacing(2)
                 }}
@@ -259,12 +260,12 @@ const SearchInput = () => {
           </ChildBox>
         </RowBox>
         <SearchResultsDialog onPageSearch={onPageSearchHandler} />
-      </>
+      </Box>
     )
   }
 
   return (
-    <>
+    <Box {...props}>
       <Paper
         sx={{
           backgroundColor: alpha(theme.palette.primary.main, 0.07),
@@ -286,7 +287,7 @@ const SearchInput = () => {
           margin="dense"
           // startAdornment={<SearchIcon />}
           onChange={inputChangeHandler}
-          onKeyPress={keyPressHandler}
+          onKeyDown={keyPressHandler}
           sx={{
             maxWidth: 100,
             transition: 'max-width 500ms ease',
@@ -317,7 +318,7 @@ const SearchInput = () => {
         </IconButton>
       </Paper>
       <SearchResultsDialog onPageSearch={onPageSearchHandler} />
-    </>
+    </Box>
   )
 }
 

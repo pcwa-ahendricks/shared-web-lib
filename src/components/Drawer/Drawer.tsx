@@ -6,12 +6,10 @@ import {
   List,
   ListItemText,
   ListSubheader,
-  Theme,
   Box,
   Collapse,
   Typography as Type,
   Divider,
-  useTheme,
   alpha,
   ListItemIcon,
   ListItemButton,
@@ -31,13 +29,14 @@ import {useRouter} from 'next/router'
 import Spacing from '@components/boxes/Spacing'
 import Link from '@components/Link'
 import NextLink from 'next/link'
+import useTheme from '@hooks/useTheme'
 
 const SwipeableTemporaryDrawer = () => {
   const [activeGroup, setActiveGroup] = useState<number | null>(null)
   const router = useRouter()
 
   const {state, dispatch} = useContext(UiContext)
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const notXS = useMediaQuery(theme.breakpoints.up('sm'))
 
   const toggleDrawer = useCallback(

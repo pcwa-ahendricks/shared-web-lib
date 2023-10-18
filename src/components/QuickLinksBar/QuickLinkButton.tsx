@@ -79,8 +79,8 @@ export default function QuickLinkButton({
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
       >
-        <NextLink href={href} target={target} as={as}>
-          <Fab sx={{...style.fab}} {...rest}>
+        <NextLink href={href} as={as} passHref legacyBehavior>
+          <Fab href={href} target={target} sx={{...style.fab}} {...rest}>
             <FabImage />
           </Fab>
         </NextLink>

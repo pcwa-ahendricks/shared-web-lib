@@ -1,6 +1,10 @@
 import {ButtonProps, Button} from '@mui/material'
 import React from 'react'
 
+/*
+NOTE - If this is used again, it will need to be updated and modeled after QuickLinkButton and/or MMNavLink since it used to use <FlexButton/>, which has been deleted.
+*/
+
 type Props = {
   children: React.ReactNode
   href: string
