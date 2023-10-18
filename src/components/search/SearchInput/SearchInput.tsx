@@ -246,7 +246,7 @@ const SearchInput = (props: BoxProps) => {
           >
             <IconButton
               sx={{
-                marginRight: -12
+                marginRight: '-12px'
               }}
               color="inherit"
               aria-label="Site Search"

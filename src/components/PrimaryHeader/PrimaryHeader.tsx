@@ -167,36 +167,40 @@ const PrimaryHeader = () => {
           <Box
             alignItems="center"
             width="100%"
+            minWidth="100%"
             justifyContent="space-between"
             display={isXS ? 'flex' : 'none'}
             flexDirection="row"
           >
-            <IconButton
-              sx={{
-                marginLeft: '-12px'
-              }}
-              color="inherit"
-              aria-label="Menu"
-              onClick={handleMenuButtonClick}
-              size="large"
-            >
-              <MenuIcon />
-            </IconButton>
-            <PcwaLogo
-              sx={{
-                transition: 'opacity 300ms ease-out',
-                opacity: inputMobFocused ? 0 : 1,
-                height: 'auto'
-              }}
-              height={24}
-              // width="20%"
-              preserveAspectRatio="xMidYMin meet"
-              missionStatementFill="rgba(0,0,0,0)"
-              brandFill={theme.palette.grey[200]}
-              logoLeftFill={theme.palette.grey[200]}
-              logoRightFill={theme.palette.grey[300]}
-            />
-            <SearchInput />
+            <ChildBox flex="1 0 auto">
+              <IconButton
+                sx={{
+                  marginLeft: '-12px'
+                }}
+                color="inherit"
+                aria-label="Menu"
+                onClick={handleMenuButtonClick}
+                size="large"
+              >
+                <MenuIcon />
+              </IconButton>
+            </ChildBox>
+            <ChildBox flex="auto">
+              <PcwaLogo
+                sx={{
+                  transition: 'opacity 300ms ease-out',
+                  opacity: inputMobFocused ? 0 : 1
+                }}
+                height={24}
+                // width="20%"
+                preserveAspectRatio="xMidYMin meet"
+                missionStatementFill="rgba(0,0,0,0)"
+                brandFill={theme.palette.grey[200]}
+                logoLeftFill={theme.palette.grey[200]}
+                logoRightFill={theme.palette.grey[300]}
+              />
+            </ChildBox>
+            <ChildBox flex="0 1 auto">{isXS ? <SearchInput /> : null}</ChildBox>
           </Box>
           {/* See media query above for class logoContainer. */}
           {/* <Hidden only="xs" implementation="css"> */}
