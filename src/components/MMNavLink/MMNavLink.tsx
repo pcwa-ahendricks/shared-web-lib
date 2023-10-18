@@ -10,8 +10,9 @@ type Props = {
 const MMNavLink = ({children, href, slotProps, ...rest}: Props) => {
   const theme = useTheme()
 
+  // Need to use legacy Next Link behavior so that external links respect "target" prop and open in new tabs.
   return (
-    <NextLink href={href} {...slotProps?.nextLink}>
+    <NextLink href={href} legacyBehavior passHref {...slotProps?.nextLink}>
       <Button
         sx={{
           margin: '-1px 0',
