@@ -54,6 +54,7 @@ const MMContent = ({contentKey = 1}: Props) => {
                 <Box key={itemIdx}>
                   <MMNavLink
                     href={item.href}
+                    target={item.target}
                     slotProps={{
                       nextLink: {
                         as: item.as

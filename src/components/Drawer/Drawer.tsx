@@ -146,14 +146,14 @@ const SwipeableTemporaryDrawer = () => {
                         {g.items.map((i, idxLvl3) => (
                           <Link
                             key={idxLvl3}
-                            href={i.nextLink || i.href || '/'}
+                            href={i.href || '/'}
                             underline="none"
                             color="primary"
                             as={i.as}
                           >
                             <NavListItem
                               title={i.title}
-                              selected={i.nextLink === router.pathname}
+                              selected={i.href === router.pathname}
                             />
                           </Link>
                         ))}

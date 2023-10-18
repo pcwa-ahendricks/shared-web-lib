@@ -3,7 +3,9 @@ import {Button, ButtonProps, alpha} from '@mui/material'
 import useTheme from '@hooks/useTheme'
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 
-type Props = {slotProps: {nextLink: Partial<NextLinkProps>}} & ButtonProps
+type Props = {
+  slotProps: {nextLink: Partial<NextLinkProps>}
+} & Partial<ButtonProps<any>>
 
 const MMNavLink = ({children, href, slotProps, ...rest}: Props) => {
   const theme = useTheme()
