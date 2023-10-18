@@ -31,9 +31,7 @@ const TrendingBar = () => {
         Rebates
       </TrendingLink>
       <TrendingLink href="/services/outage">Outages</TrendingLink>
-      <TrendingLink isNextLink={false} href="https://careers.pcwa.net/">
-        Careers
-      </TrendingLink>
+      <TrendingLink href="https://careers.pcwa.net/">Careers</TrendingLink>
       {/* <TrendingLink href="...">Recruitment Video</TrendingLink> */}
     </Paper>
   )
