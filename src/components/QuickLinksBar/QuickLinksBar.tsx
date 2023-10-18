@@ -25,7 +25,6 @@ export default function QuickLinksBar(props: BoxProps) {
           imageAlt="Bill Pay quick link icon"
           imageSrc="1938eb70-c941-11eb-ba89-e7f98c8c358b-PayBill.png"
           caption="Pay My Bill"
-          isNextLink={false}
         />
         {/* <QuickLinkButton
           href="#"
@@ -51,7 +50,6 @@ export default function QuickLinksBar(props: BoxProps) {
           imageAlt="Careers quick link icon"
           imageSrc="e7a5cf40-c942-11eb-ba89-e7f98c8c358b-Careers.png"
           caption="Careers"
-          isNextLink={false}
         />
         <QuickLinkButton
           href="/board-of-directors/meeting-agendas"
