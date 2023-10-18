@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState, useRef} from 'react'
+import React, {useCallback, useContext, useState, useRef, useMemo} from 'react'
 import {
   alpha,
   Box,
@@ -205,14 +205,58 @@ const SearchInput = (props: BoxProps) => {
     inputMobileRef?.current?.focus?.()
   }, [])
 
+  const style = useMemo(
+    () => ({
+      paper: {
+        backgroundColor: alpha(theme.palette.primary.main, 0.07),
+        margin: theme.spacing(1),
+        height: theme.spacing(4),
+        display: 'flex',
+        alignItems: 'center',
+        color: theme.palette.common.white
+      },
+      input: {
+        maxWidth: 100,
+        '-webkit-transition': 'max-width 500ms ease',
+        transition: 'max-width 500ms ease',
+        '&.Mui-focused': {
+          maxWidth: 175
+        },
+        marginLeft: theme.spacing(2),
+        flex: '1 1 auto'
+      },
+      inputMobile: {
+        marginLeft: theme.spacing(2)
+      },
+      // withStartAdornment: {
+      //   paddingLeft: theme.spacing( 1)
+      // }
+      mobileIconButton: {
+        marginRight: '-12px'
+      },
+      mobileIconBtnContainer: {
+        transition: 'opacity 300ms ease-out',
+        opacity: inputMobFocused ? 0 : 1
+      },
+      mobileInputContainer: {
+        opacity: inputMobFocused ? 1 : 0,
+        maxWidth: inputMobFocused ? 175 : 0,
+        transition:
+          'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease',
+        '-webkit-transition':
+          'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease'
+      }
+    }),
+    [theme, inputMobFocused]
+  )
+
   if (isXS) {
     return (
       <Box {...props}>
         <RowBox alignItems="center" justifyContent="flex-end">
           <ChildBox
             sx={{
-              transition: 'opacity 300ms ease-out',
-              opacity: inputMobFocused ? 0 : 1
+              ...style.mobileInputContainer
             }}
           >
             <Paper elevation={0} square={false}>
@@ -224,7 +268,7 @@ const SearchInput = (props: BoxProps) => {
                 onChange={inputChangeHandler}
                 onKeyDown={keyPressHandler}
                 sx={{
-                  marginLeft: theme.spacing(2)
+                  ...style.inputMobile
                 }}
                 placeholder="Search..."
                 onFocus={focusHandler}
@@ -238,15 +282,12 @@ const SearchInput = (props: BoxProps) => {
           </ChildBox>
           <ChildBox
             sx={{
-              opacity: inputMobFocused ? 1 : 0,
-              maxWidth: inputMobFocused ? 175 : 0,
-              transition:
-                'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease'
+              ...style.mobileIconBtnContainer
             }}
           >
             <IconButton
               sx={{
-                marginRight: '-12px'
+                ...style.mobileIconButton
               }}
               color="inherit"
               aria-label="Site Search"
@@ -268,40 +309,21 @@ const SearchInput = (props: BoxProps) => {
     <Box {...props}>
       <Paper
         sx={{
-          backgroundColor: alpha(theme.palette.primary.main, 0.07),
-          margin: theme.spacing(1),
-          height: theme.spacing(4),
-          display: 'flex',
-          alignItems: 'center',
-          color: theme.palette.common.white
+          ...style.paper
         }}
         elevation={0}
         square={false}
       >
         <InputBase
-          // inputProps={{
-          //   ref: inputRef
-          // }}
           value={searchValue}
           type="search"
           margin="dense"
-          // startAdornment={<SearchIcon />}
           onChange={inputChangeHandler}
           onKeyDown={keyPressHandler}
           sx={{
-            maxWidth: 100,
-            transition: 'max-width 500ms ease',
-            marginLeft: theme.spacing(2),
-            flex: '1 1 auto',
-            '&.Mui-focused': {
-              maxWidth: 175
-            }
+            ...style.input
           }}
           placeholder="Search..."
-          // classes={{
-          // inputAdornedStart: classes.withStartAdornment,
-          // focused: classes.inputFocus
-          // }}
           inputProps={{
             'aria-label': 'site search',
             id: 'site-search'
