@@ -150,7 +150,7 @@ const IrrigationCanalPage = () => {
                 <RowBox alignItems="center">
                   <EventIcon
                     color="inherit"
-                    style={{
+                    sx={{
                       marginRight: theme.spacing(1),
                       alignSelf: 'stretch'
                     }}
@@ -187,7 +187,7 @@ const IrrigationCanalPage = () => {
                 <RowBox alignItems="center">
                   <EventIcon
                     color="inherit"
-                    style={{
+                    sx={{
                       marginRight: theme.spacing(1),
                       alignSelf: 'stretch'
                       // color: blueGrey[400]
@@ -234,7 +234,7 @@ const IrrigationCanalPage = () => {
           <Spacing size="x-large" />
           <Paper square elevation={3}>
             <Box
-              style={{
+              sx={{
                 backgroundColor: theme.palette.common.white,
                 padding: theme.spacing(3)
               }}
@@ -257,7 +257,7 @@ const IrrigationCanalPage = () => {
                         <Link
                           href="/services/irrigation-service-agreement"
                           underline="always"
-                          style={{backgroundColor: blueGrey[50]}}
+                          sx={{backgroundColor: blueGrey[50]}}
                         >
                           <strong>Irrigation Service Agreement FAQs</strong>
                         </Link>{' '}
@@ -494,9 +494,9 @@ const IrrigationCanalPage = () => {
                 </Box>
                 <Box>
                   <Type variant="h5">
-                    <span style={{textTransform: 'uppercase'}}>
+                    <Box component="span" sx={{textTransform: 'uppercase'}}>
                       Be safe first
-                    </span>
+                    </Box>
                   </Type>
                 </Box>
               </ColumnBox>

@@ -160,7 +160,7 @@ const DynamicNewsReleasePage = ({media, err}: Props) => {
                   News Releases
                 </>
               </Link>
-              <Type color="textPrimary" style={{display: 'flex'}}>
+              <Type color="textPrimary" sx={{display: 'flex'}}>
                 <DocIcon sx={{...style.bcIcon}} />
                 {newsReleaseDateFormatted}
               </Type>

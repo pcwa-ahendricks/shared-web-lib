@@ -256,15 +256,9 @@ const PublicationsPage = ({
 
   // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList and Enews Blasts are saved using Context API. Shallow routing will skip getInitialProps entirely.
   const LinkTab = useCallback(
-    ({href, as, ...rest}: TabProps<'a'> & LinkProps) => (
-      <NextLink href={href} as={as} shallow passHref legacyBehavior>
-        <Tab
-          component="a"
-          onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-            event.preventDefault()
-          }}
-          {...rest}
-        />
+    ({href, as, ...rest}: TabProps & LinkProps) => (
+      <NextLink href={href} as={as} shallow>
+        <Tab {...rest} />
       </NextLink>
     ),
     []
@@ -479,11 +473,9 @@ const PublicationsPage = ({
                     {newslettersForYear.map((n) => (
                       <Box key={n.id} mb={2}>
                         <NextLink
-                          passHref
                           href="/newsroom/publications/newsletters/[publish-date]"
                           as={`/newsroom/publications/newsletters/${n.derivedFilenameAttr?.date}`}
                           scroll
-                          legacyBehavior
                         >
                           <ListItemButton sx={{...style.listItem}}>
                             <ListItemAvatar>

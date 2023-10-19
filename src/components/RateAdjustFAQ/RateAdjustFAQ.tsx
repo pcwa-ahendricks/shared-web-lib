@@ -200,10 +200,10 @@ const RateAdjustFAQ = () => {
                 gallons of water per year. Projects slated in the next five
                 years include:
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Colfax Water Treatment Plant Replacement</em>
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Foothill Water Treatment Plant Grit Screen Replacement</em>
               </Type>
             </ChildBox>
@@ -220,14 +220,14 @@ const RateAdjustFAQ = () => {
                   value="foothill"
                   aria-label="Foothill WTP Grit Screen Replacement"
                 >
-                  <ImageIcon style={{paddingRight: 6}} />
+                  <ImageIcon sx={{paddingRight: 6}} />
                   Foothill WTP Grit Screen Replacement
                 </ToggleButton>
                 <ToggleButton
                   value="colfax"
                   aria-label="Colfax WTP Replacement"
                 >
-                  <ImageIcon style={{paddingRight: 6}} />
+                  <ImageIcon sx={{paddingRight: 6}} />
                   Colfax WTP Replacement
                 </ToggleButton>
               </ToggleButtonGroup>
@@ -352,16 +352,16 @@ const RateAdjustFAQ = () => {
                 PCWA maintains over 600 miles of pipeline and 167 miles of raw
                 water canals. Projects slated in the next five years include:
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>High Street Water Main Replacement, Auburn</em>
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Midas Avenue Water Main Replacement, Rocklin</em>
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Interstate 80 Water Crossing Improvement Program</em>
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Kilmer Siphon Replacement, Colfax</em>
               </Type>
             </ChildBox>
@@ -541,16 +541,16 @@ const RateAdjustFAQ = () => {
                 PCWA maintains 34 water storage tanks from Alta to Rocklin.
                 Projects slated in the next five years include:
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Alta Tank</em>
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Monte Vista Tank</em>
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Stanford Ranch Tank</em>
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Bella Tuscany Tank</em>
               </Type>
             </ChildBox>
@@ -594,7 +594,7 @@ const RateAdjustFAQ = () => {
                   <ColumnBox alignItems="center">
                     <Box mt={1} position="relative" width="100%" height={25}>
                       <Box
-                        style={{
+                        sx={{
                           position: 'absolute'
                         }}
                       >
@@ -616,10 +616,10 @@ const RateAdjustFAQ = () => {
                 several locations. Projects slated in the next five years
                 include:
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Northstar Road, Rocklin</em>
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
+              <Type variant="body2" sx={{fontSize: '1.1rem'}}>
                 <em>Ophir Pump Station including Auburn Tunnel Pumps 2 & 3</em>
               </Type>
             </ChildBox>
@@ -660,7 +660,7 @@ const RateAdjustFAQ = () => {
                   <ColumnBox alignItems="center">
                     <Box mt={1} position="relative" width="100%" height={25}>
                       <Box
-                        style={{
+                        sx={{
                           position: 'absolute'
                         }}
                       >

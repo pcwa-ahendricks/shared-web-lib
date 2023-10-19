@@ -146,7 +146,7 @@ export default function WhyGoPaperlessPage() {
           </ChildBox>
           <ChildBox>
             <DoubleArrowIcon
-              style={{
+              sx={{
                 rotate: '90deg'
               }}
             />
@@ -272,7 +272,7 @@ export default function WhyGoPaperlessPage() {
                 </ChildBox>
                 <ChildBox>
                   <DoubleArrowIcon
-                    style={{
+                    sx={{
                       rotate: !isLgUp ? '90deg' : 'none'
                     }}
                   />
@@ -310,7 +310,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 1,
       cmp: (
-        <Type variant="inherit" style={{...style.step}} component="div">
+        <Type variant="inherit" sx={{...style.step}} component="div">
           <Link
             variant="inherit"
             href="https://ipn.paymentus.com/cp/plco"
@@ -327,7 +327,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 2,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           When on your profile, set the Paperless Billing tab to “Yes”.
         </Type>
       )
@@ -335,7 +335,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 3,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Choose whether you want to receive bill notifications by email, text
           message, or both.
         </Type>
@@ -344,7 +344,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 4,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Click box for Payment Authorization Terms and "Add Account".
         </Type>
       )
@@ -354,7 +354,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 1,
       cmp: (
-        <Type variant="inherit" style={{...style.step}} component="div">
+        <Type variant="inherit" sx={{...style.step}} component="div">
           <Link
             variant="inherit"
             href="https://ipn.paymentus.com/cp/plco"
@@ -372,7 +372,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 2,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Toggle the Paperless Billing option to "Yes".
         </Type>
       )
@@ -380,7 +380,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 3,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Choose how to receive your bill notifications by email, SMS text
           message, or both.
         </Type>
@@ -389,7 +389,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 4,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Agree to Terms & Conditions by clicking box.
         </Type>
       )
@@ -397,7 +397,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 5,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Click the “Add Account” box.
         </Type>
       )
@@ -407,7 +407,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 1,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Locate your account number. It's located in the upper right hand
           corner of your monthly bill.
         </Type>
@@ -419,7 +419,7 @@ export default function WhyGoPaperlessPage() {
         <OpenInNewLink
           variant="inherit"
           href="https://ipn.paymentus.com/cp/signup.action?client=8080766779&lang=en"
-          style={{...style.step}}
+          sx={{...style.step}}
           underline="always"
         >
           Click here to create an online account.
@@ -429,7 +429,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 3,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           After setting up your online account, switch the Paperless Billing
           option to "Yes".
         </Type>
@@ -438,7 +438,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 4,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Choose how to receive your bill notifications by email, mobile phone,
           or both.
         </Type>
@@ -447,7 +447,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 5,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Agree to Terms & Conditions by clicking box.
         </Type>
       )
@@ -455,7 +455,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 6,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Click the “Add Account” box.
         </Type>
       )
@@ -465,7 +465,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 1,
       cmp: (
-        <Type variant="inherit" style={{...style.step}} component="div">
+        <Type variant="inherit" sx={{...style.step}} component="div">
           <Link
             variant="inherit"
             href="https://ipn.paymentus.com/cp/plco"
@@ -483,7 +483,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 2,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Turn off the Paperless Billing option and then turn it back on.
         </Type>
       )
@@ -491,7 +491,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 3,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           You will need to re-choose how to receive your bill notifications and
           agree to Terms & Conditions by clicking box.
         </Type>
@@ -500,7 +500,7 @@ export default function WhyGoPaperlessPage() {
     {
       key: 4,
       cmp: (
-        <Type variant="inherit" style={{...style.step}}>
+        <Type variant="inherit" sx={{...style.step}}>
           Click the “Add Account” box.
         </Type>
       )
@@ -631,13 +631,13 @@ export default function WhyGoPaperlessPage() {
               id="panel1bh-header"
             >
               <Box
-                style={{
+                sx={{
                   display: 'flex',
                   alignItems: 'center'
                 }}
               >
                 <AcctCheckIcon
-                  style={{
+                  sx={{
                     fontSize: '32px',
                     color: green[400],
                     paddingRight: 8
@@ -676,13 +676,13 @@ export default function WhyGoPaperlessPage() {
               id="panel2bh-header"
             >
               <Box
-                style={{
+                sx={{
                   display: 'flex',
                   alignItems: 'center'
                 }}
               >
                 <AcctCancelIcon
-                  style={{
+                  sx={{
                     fontSize: '32px',
                     color: red[400],
                     paddingRight: 8
@@ -720,13 +720,13 @@ export default function WhyGoPaperlessPage() {
               id="panel3bh-header"
             >
               <Box
-                style={{
+                sx={{
                   display: 'flex',
                   alignItems: 'center'
                 }}
               >
                 <EmailRemoveIcon
-                  style={{
+                  sx={{
                     fontSize: '32px',
                     color: brown[400],
                     paddingRight: 8

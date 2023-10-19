@@ -4,7 +4,7 @@ import useTheme from '@hooks/useTheme'
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 
 type Props = {
-  slotProps: {nextLink: Partial<NextLinkProps>}
+  slotProps?: {nextLink?: Partial<NextLinkProps>}
 } & Partial<ButtonProps<any>>
 
 const MMNavLink = ({children, href, slotProps, ...rest}: Props) => {

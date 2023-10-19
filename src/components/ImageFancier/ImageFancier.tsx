@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import {Box, BoxProps, useMediaQuery} from '@mui/material'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import JackinBox from 'mui-jackinbox'
+import JackinBox from '@components/mui-jackinbox/JackinBox'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
 import useTheme from '@hooks/useTheme'
@@ -118,7 +118,7 @@ const ImageFancier = ({
         layout="responsive"
         height={height}
         width={width}
-        style={{
+        sx={{
           transition: 'transform 150ms ease 0s',
           transform: isHover ? 'scale3d(1.1, 1.1, 1.1)' : 'scale3d(1, 1, 1)',
           ...style

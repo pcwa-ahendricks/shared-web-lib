@@ -114,7 +114,7 @@ const MultimediaLightboxHeader = ({
                 aria-haspopup="true"
                 size="large"
               >
-                <DownloadIcon fontSize="large" style={{fill: '#FFFFFF'}} />
+                <DownloadIcon fontSize="large" sx={{fill: '#FFFFFF'}} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -177,12 +177,9 @@ const MultimediaLightboxHeader = ({
                 size="large"
               >
                 {!isFullscreen ? (
-                  <FullscreenIcon fontSize="large" style={{fill: '#FFFFFF'}} />
+                  <FullscreenIcon fontSize="large" sx={{fill: '#FFFFFF'}} />
                 ) : (
-                  <FullscreenExitIcon
-                    fontSize="large"
-                    style={{fill: '#FFFFFF'}}
-                  />
+                  <FullscreenExitIcon fontSize="large" sx={{fill: '#FFFFFF'}} />
                 )}
               </IconButton>
             </Tooltip>
@@ -195,7 +192,7 @@ const MultimediaLightboxHeader = ({
               onClick={closeHandler}
               size="large"
             >
-              <CloseIcon fontSize="large" style={{fill: '#FFFFFF'}} />
+              <CloseIcon fontSize="large" sx={{fill: '#FFFFFF'}} />
             </IconButton>
           </Tooltip>
         </ChildBox>

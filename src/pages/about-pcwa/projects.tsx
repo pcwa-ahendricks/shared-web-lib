@@ -607,25 +607,25 @@ const ProjectsPage = () => {
                     <TimelineListItem>
                       <ListItemText
                         primary="Design - Complete"
-                        style={{marginBottom: 0}}
+                        sx={{marginBottom: 0}}
                       />
                     </TimelineListItem>
                     <TimelineListItem>
                       <ListItemText
                         primary="Construction: Tank - April 2021 - December 2022"
-                        style={{marginBottom: 0}}
+                        sx={{marginBottom: 0}}
                       />
                     </TimelineListItem>
                     <TimelineListItem>
                       <ListItemText
                         primary="Construction: Pump Station May 2022-Fall 2023"
-                        style={{marginBottom: 0}}
+                        sx={{marginBottom: 0}}
                       />
                     </TimelineListItem>
                     <TimelineListItem>
                       <ListItemText
                         primary="Construction: Homes - Fall 2023"
-                        style={{marginBottom: 0}}
+                        sx={{marginBottom: 0}}
                       />
                     </TimelineListItem>
                   </List>

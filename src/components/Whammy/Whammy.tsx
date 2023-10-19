@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import imgixLoader from '@lib/imageLoader'
 import {useIntersection, useTimeoutFn} from 'react-use'
-import JackinBox from 'mui-jackinbox'
+import JackinBox from '@components/mui-jackinbox/JackinBox'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {BoxProps, useMediaQuery, useTheme, Box} from '@mui/material'
 import Image from 'next/legacy/image'
@@ -103,7 +103,7 @@ export default function Whammy({children, ...rest}: BoxProps) {
             >
               <Box
                 // [HACK] - This transition is required to prevent the animation from flickering back on after animation. Not sure why it's flickering at all. This doesn't stop the flicker, merely makes the image transparent so that it is not seen.
-                style={{
+                sx={{
                   transition: 'opacity 800ms ease',
                   opacity: removeAnimation ? 0 : 1
                 }}

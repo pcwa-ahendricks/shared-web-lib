@@ -86,7 +86,7 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
   )
 
   return (
-    <Link href={url} as={as} passHref legacyBehavior>
+    <Link href={url} as={as}>
       <ColumnBoxEx
         role="link"
         tabIndex={0}

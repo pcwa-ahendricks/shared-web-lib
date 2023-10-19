@@ -138,11 +138,11 @@ export default function MyDocument({emotionStyleTags}: MyDocumentProps) {
           }}
         />
 
-        <link
+        {/* <link
           href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css"
           rel="stylesheet"
           key="mapbox-gl.css"
-        />
+        /> */}
 
         <meta name="emotion-insertion-point" content="" />
         {emotionStyleTags}

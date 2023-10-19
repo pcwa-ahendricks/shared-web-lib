@@ -8,7 +8,7 @@ import Image, {ImageProps} from 'next/legacy/image'
 import Overline from '@components/Overline/Overline'
 import {Theme} from '@lib/material-theme'
 import useTheme from '@hooks/useTheme'
-import NextLink from 'next/link'
+import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 
 export default function QuickLinkButton({
   href,
@@ -16,14 +16,16 @@ export default function QuickLinkButton({
   imageSrc,
   caption,
   target,
-  as,
+  slotProps,
   ...rest
 }: {
   href: string
-  isNextLink?: boolean
   caption: string
   imageAlt: ImageProps['alt']
   imageSrc: string
+  slotProps?: {
+    nextLink?: NextLinkProps
+  }
 } & Partial<FabProps<any>>) {
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.only('sm'))
@@ -79,7 +81,8 @@ export default function QuickLinkButton({
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
       >
-        <NextLink href={href} as={as} passHref legacyBehavior>
+        {/* need to use legacy Next Link behavior so that external links respect "target" prop and open in new tabs */}
+        <NextLink href={href} passHref legacyBehavior {...slotProps?.nextLink}>
           <Fab href={href} target={target} sx={{...style.fab}} {...rest}>
             <FabImage />
           </Fab>

@@ -78,9 +78,9 @@ const ShowMore = ({
         </Box>
       </Box>
       <Type variant="body1" color="primary">
-        <span style={{fontStyle: 'italic', fontSize: '1.1em'}}>
+        <Type component="span" sx={{fontStyle: 'italic', fontSize: '1.1em'}}>
           {isExpanded ? outShowMoreTitle : inShowMoreTitle}
-        </span>
+        </Type>
       </Type>
     </Box>
   )

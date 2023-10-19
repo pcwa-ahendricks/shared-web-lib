@@ -60,7 +60,7 @@ export default function CoverStoryVideo({
 
   return (
     <Box {...rest}>
-      <Box style={{aspectRatio}} overflow="hidden" position="relative">
+      <Box sx={{aspectRatio}} overflow="hidden" position="relative">
         <ResponsiveYouTubePlayer
           aspectRatio={playerAspectRatio}
           controls

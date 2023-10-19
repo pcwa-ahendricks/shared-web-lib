@@ -50,11 +50,11 @@ const imgixImages = [
   'dfdbf900-5e1a-11ee-b975-cb0cfadd93ad-3093a-Credit-Garden-Soft.jpg'
 ]
 
-const StrongGrey = ({children, ...props}: TypographyProps) => {
+const StrongGrey = ({children, sx, ...props}: TypographyProps) => {
   return (
     <Type
       component="strong"
-      style={{color: grey[800], ...props.style}}
+      sx={{color: grey[800], ...props.style, ...sx}}
       {...props}
     >
       {children}
@@ -142,12 +142,12 @@ export default function SummerStrongPage({placeholders}: Props) {
               </Type>
               <Spacing />
               <RowBox>
-                {/* <LeafIcon color="secondary" style={{marginRight: 8}} /> */}
+                {/* <LeafIcon color="secondary" sx={{marginRight: '8px'}} /> */}
                 {/* <BirdIcon
-                  style={{marginRight: 8, color: blueGrey[500], fontSize: 32}}
+                  sx={{marginRight: '8px', color: blueGrey[500], fontSize: 32}}
                 /> */}
                 {/* <SunIcon
-                  style={{marginRight: 8, color: orange[400], fontSize: 32}}
+                  sx={{marginRight: '8px', color: orange[400], fontSize: 32}}
                 /> */}
                 {/* <Type variant="h3" gutterBottom>
                   A Butterfly Buffet!
@@ -665,7 +665,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
                     {/* <AcctCancelIcon
-                    style={{
+                    sx={{
                       fontSize: '32px',
                       color: red[400],
                       paddingRight: 8
@@ -864,7 +864,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
                     {/* <AcctCancelIcon
-                    style={{
+                    sx={{
                       fontSize: '32px',
                       color: red[400],
                       paddingRight: 8
@@ -1022,7 +1022,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                 <RowBox justifyContent="space-between" width="100%">
                   <ChildBox flex="grow">
                     {/* <AcctCancelIcon
-                    style={{
+                    sx={{
                       fontSize: '32px',
                       color: red[400],
                       paddingRight: 8

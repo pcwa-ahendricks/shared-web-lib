@@ -93,7 +93,7 @@ const ImageDimmerLink = ({
   }
 
   return (
-    <Link href={href} passHref legacyBehavior>
+    <Link href={href}>
       <Box
         sx={{...style.container}}
         position="relative"

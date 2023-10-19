@@ -115,7 +115,7 @@ const WaterLeakRequireCheckboxes = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <MyFormLabel component="legend" style={{marginBottom: '0.5rem'}}>
+      <MyFormLabel component="legend" sx={{marginBottom: '0.5rem'}}>
         You must acknowledge the following requirements
       </MyFormLabel>
       <FormGroup>

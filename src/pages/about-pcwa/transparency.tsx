@@ -156,7 +156,7 @@ const TransparencyPage = () => {
             Useful Links
           </Type>
           <List dense disablePadding>
-            <NextLink passHref href="/board-of-directors" legacyBehavior>
+            <NextLink href="/board-of-directors">
               <ListItemButton>
                 <ListItemText
                   primary="Board of Directors'"
@@ -164,48 +164,32 @@ const TransparencyPage = () => {
                 />
               </ListItemButton>
             </NextLink>
-            <NextLink
-              passHref
-              href="/board-of-directors/meeting-agendas"
-              legacyBehavior
-            >
+            <NextLink href="/board-of-directors/meeting-agendas">
               <ListItemButton>
                 <ListItemText primary="Board of Directors' Meetings and Agendas" />
               </ListItemButton>
             </NextLink>
-            <NextLink
-              passHref
-              href="/board-of-directors/meeting-minutes"
-              legacyBehavior
-            >
+            <NextLink href="/board-of-directors/meeting-minutes">
               <ListItemButton>
                 <ListItemText primary="Board of Directors' Minutes" />
               </ListItemButton>
             </NextLink>
-            <NextLink passHref href="/contact-us" legacyBehavior>
+            <NextLink href="/contact-us">
               <ListItemButton>
                 <ListItemText primary="Contact Us" />
               </ListItemButton>
             </NextLink>
-            <NextLink passHref href="/about-pcwa/sb272" legacyBehavior>
+            <NextLink href="/about-pcwa/sb272">
               <ListItemButton>
                 <ListItemText primary="Disclosure of Enterprise System Information (SB 272)" />
               </ListItemButton>
             </NextLink>
-            <NextLink
-              passHref
-              href="/careers/employee-benefits-summary"
-              legacyBehavior
-            >
+            <NextLink href="/careers/employee-benefits-summary">
               <ListItemButton>
                 <ListItemText primary="Employee Salary and Benefits" />
               </ListItemButton>
             </NextLink>
-            <NextLink
-              passHref
-              href="/about-pcwa/financial-report"
-              legacyBehavior
-            >
+            <NextLink href="/about-pcwa/financial-report">
               <ListItemButton>
                 <ListItemText
                   primary="Financial Reports"
@@ -222,7 +206,7 @@ const TransparencyPage = () => {
               <ListItemText primary="Financial Transaction Report - CA State Controller" />
             </ListItemButton>
 
-            <NextLink passHref href="/board-of-directors" legacyBehavior>
+            <NextLink href="/board-of-directors">
               <ListItemButton>
                 <ListItemText primary="Map of District Boundaries/Service Area" />
               </ListItemButton>
@@ -288,7 +272,7 @@ const TransparencyPage = () => {
               <ListItemText primary="Public Records Request Form" />
             </ListItemButton>
 
-            <NextLink passHref href="/services/water-rates" legacyBehavior>
+            <NextLink href="/services/water-rates">
               <ListItemButton>
                 <ListItemText primary="Water Rates" />
               </ListItemButton>

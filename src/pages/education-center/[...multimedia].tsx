@@ -38,7 +38,7 @@ import {
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
 // } from '@components/PrefetchDataLink/PrefetchDataLink'
-import Link, {LinkProps} from 'next/link'
+import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 import MultimediaPhotoGalleries from '@components/multimedia/MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {useRouter} from 'next/router'
 import isNumber from 'is-number'
@@ -217,11 +217,11 @@ const ResourceLibraryPage = ({
 
   // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList is saved using Context API. Shallow routing will skip getInitialProps entirely.
   const LinkTab = useCallback(
-    ({href, as, ...rest}: LinkProps & TabProps<'a'>) => {
+    ({href, as, ...rest}: NextLinkProps & TabProps<'a'>) => {
       return (
-        <Link href={href} as={as} shallow legacyBehavior passHref>
+        <NextLink href={href} as={as} shallow legacyBehavior passHref>
           <Tab component="a" {...rest} />
-        </Link>
+        </NextLink>
       )
     },
     []
@@ -269,7 +269,7 @@ const ResourceLibraryPage = ({
                   color="inherit"
                   onClick={backToGalleriesHandler}
                   // [HACK] Not sure why this is needed (onClick?), but it is.
-                  style={{cursor: 'pointer'}}
+                  sx={{cursor: 'pointer'}}
                   underline="hover"
                 >
                   Galleries
@@ -352,7 +352,7 @@ const ResourceLibraryPage = ({
                   <Card title="From the Mountain Tops to Your Tap">
                     <FancierCardActionArea
                       LinkComponent={() => (
-                        <Link
+                        <NextLink
                           href="/education-center/webinars/mountain-tops-to-tap"
                           className="reset-a"
                         />
@@ -415,7 +415,7 @@ const ResourceLibraryPage = ({
                   >
                     <FancierCardActionArea
                       LinkComponent={() => (
-                        <Link
+                        <NextLink
                           href="/education-center/webinars/state-of-our-water"
                           className="reset-a"
                         />
@@ -483,7 +483,7 @@ const ResourceLibraryPage = ({
                   <Card title="Fire-Wise, Water-Wise Landscaping">
                     <FancierCardActionArea
                       LinkComponent={() => (
-                        <Link
+                        <NextLink
                           href="/smart-water-use/fire-wise-landscaping"
                           className="reset-a"
                         />

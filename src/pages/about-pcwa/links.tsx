@@ -112,7 +112,7 @@ const LinksPage = () => {
                         >
                           Placer County
                         </Type>
-                        <Divider style={{width: '90%'}} />
+                        <Divider sx={{width: '90%'}} />
                       </ListSubheader>
                     }
                   >
@@ -192,7 +192,7 @@ const LinksPage = () => {
                         >
                           How to Save Water
                         </Type>
-                        <Divider style={{width: '90%'}} />
+                        <Divider sx={{width: '90%'}} />
                       </ListSubheader>
                     }
                   >
@@ -236,7 +236,7 @@ const LinksPage = () => {
                         >
                           Recreational
                         </Type>
-                        <Divider style={{width: '90%'}} />
+                        <Divider sx={{width: '90%'}} />
                       </ListSubheader>
                     }
                   >
@@ -264,7 +264,7 @@ const LinksPage = () => {
                         >
                           Water Districts
                         </Type>
-                        <Divider style={{width: '90%'}} />
+                        <Divider sx={{width: '90%'}} />
                       </ListSubheader>
                     }
                   >
@@ -296,7 +296,7 @@ const LinksPage = () => {
                         >
                           Regional
                         </Type>
-                        <Divider style={{width: '90%'}} />
+                        <Divider sx={{width: '90%'}} />
                       </ListSubheader>
                     }
                   >
@@ -337,7 +337,7 @@ const LinksPage = () => {
                         >
                           State
                         </Type>
-                        <Divider style={{width: '90%'}} />
+                        <Divider sx={{width: '90%'}} />
                       </ListSubheader>
                     }
                   >
@@ -379,7 +379,7 @@ const LinksPage = () => {
                         >
                           National
                         </Type>
-                        <Divider style={{width: '90%'}} />
+                        <Divider sx={{width: '90%'}} />
                       </ListSubheader>
                     }
                   >

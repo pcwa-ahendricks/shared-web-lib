@@ -180,7 +180,7 @@ const DynamicNewslettersPage = ({media, err}: Props) => {
                 <MinutesIcon sx={{...style.bcIcon}} />
                 Newsletters
               </Link>
-              <Type color="textPrimary" style={{display: 'flex'}}>
+              <Type color="textPrimary" sx={{display: 'flex'}}>
                 <DocIcon sx={{...style.bcIcon}} />
                 {newsletterDateFormatted}
               </Type>

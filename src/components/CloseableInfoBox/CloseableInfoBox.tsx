@@ -8,7 +8,7 @@ const CloseableInfoBox = ({children, ...rest}: BoxProps) => {
   return (
     <Collapse in={showBox}>
       <Box>
-        <Box p={1} zIndex={2} style={{float: 'right'}}>
+        <Box p={1} zIndex={2} sx={{float: 'right'}}>
           <Tooltip title="Close" enterDelay={400} placement="top-end">
             <ButtonBase aria-label="delete" onClick={() => setShowBox(false)}>
               <CloseIcon />

@@ -1,7 +1,7 @@
 //cspell:ignore publicpurchase
 import React, {useCallback, useState} from 'react'
 import {Typography as Type, Box, BoxProps} from '@mui/material'
-import JackinBox from 'mui-jackinbox'
+import JackinBox from '@components/mui-jackinbox/JackinBox'
 import useTheme from '@hooks/useTheme'
 
 const PublicPurchaseIframe = ({...rest}: BoxProps) => {

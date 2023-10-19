@@ -36,9 +36,7 @@ const BoardMemberCard = ({
     <Link
       href="/board-of-directors/[district]"
       as={`/board-of-directors/district-${district}`}
-      passHref
       scroll={false}
-      legacyBehavior
     >
       <Card sx={{...style.card}}>
         <CardActionArea>

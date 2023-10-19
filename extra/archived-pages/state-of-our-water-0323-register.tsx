@@ -104,10 +104,10 @@ const StateOfOurWaterWebinarPage = () => {
             <Paper>
               <Box pb={2}>
                 <List dense>
-                  {/* <ListSubheader style={{fontSize: '1rem'}}>
+                  {/* <ListSubheader sx={{fontSize: '1rem'}}>
                     Discussion topics will explore:
                   </ListSubheader> */}
-                  <ListSubheader style={{fontSize: '1rem'}}>
+                  <ListSubheader sx={{fontSize: '1rem'}}>
                     Discussion topics explore:
                   </ListSubheader>
                   <ListItem classes={{root: classes.listItem}}>

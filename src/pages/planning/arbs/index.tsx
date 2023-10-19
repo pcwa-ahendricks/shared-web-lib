@@ -812,7 +812,7 @@ const ARBSPage = () => {
                     <Type
                       variant="caption"
                       align="right"
-                      style={{zIndex: 1, maxWidth: '50%'}}
+                      sx={{zIndex: 1, maxWidth: '50%'}}
                     >
                       <em>
                         * Subject to U.S. Department of the Interior Approval

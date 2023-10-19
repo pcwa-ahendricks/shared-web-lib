@@ -151,8 +151,8 @@ const UnclaimedPropertyTable = ({fallbackData}: Props) => {
   )
 
   const handleRequestSort = useCallback(
-    (property: HeadRowId) =>
-      () => // _event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    (property: HeadRowId) => () =>
+      // _event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
       {
         const isDesc = orderBy === property && order === 'desc'
         setOrder(isDesc ? 'asc' : 'desc')
@@ -272,7 +272,7 @@ const UnclaimedPropertyTable = ({fallbackData}: Props) => {
                   <UnclaimedPropertyTableRow key={row.id} data={row} />
                 ))}
               {/* {emptyRows > 0 && (
-                  <TableRow style={{height: 49 * emptyRows}}>
+                  <TableRow sx={{height: 49 * emptyRows}}>
                     <TableCell colSpan={6} />
                   </TableRow>
                 )} */}

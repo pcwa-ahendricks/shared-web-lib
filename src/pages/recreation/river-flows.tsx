@@ -147,7 +147,7 @@ const ResponsiveImageTemplatePage = () => {
                   endIcon={<OpenInNewIcon />}
                   variant="text"
                 >
-                  <Type variant="inherit" style={{textTransform: 'none'}}>
+                  <Type variant="inherit" sx={{textTransform: 'none'}}>
                     Visit MiddleForkFun.com
                   </Type>
                 </Button>

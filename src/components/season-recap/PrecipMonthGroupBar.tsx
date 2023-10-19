@@ -188,10 +188,12 @@ export default function PrecipMonthGroupBar({
           >
             <RowBox alignItems="center">
               <ColumnBox justifyContent="center" pr={0.5}>
-                <SquareIcon fontSize="small" style={{color}} />
+                <SquareIcon fontSize="small" sx={{color}} />
               </ColumnBox>
-              <ChildBox style={{paddingRight: 6}}>
-                <Type variant="caption">{label}:</Type>
+              <ChildBox>
+                <Type variant="caption" sx={{paddingRight: '6px'}}>
+                  {label}:
+                </Type>
               </ChildBox>
               <ChildBox>
                 <Type variant="caption">

@@ -149,7 +149,7 @@ const ThumbPreview = ({
                 onMouseEnter={() => setThumbHover(file.name)}
                 onClick={clickHandler(file)}
                 role="dialog"
-                // style={{cursor: 'pointer'}}
+                // sx={{cursor: 'pointer'}}
               >
                 {/* Old n/a comment - Using data-src="..." as a fallback shouldn't be necessary with
               IE11 if polyfill is used. See
@@ -178,7 +178,7 @@ const ThumbPreview = ({
               >
                 <Box display="flex" flexDirection="column" textAlign="center">
                   <DescriptionOutlinedIcon
-                    style={{fontSize: '58px'}}
+                    sx={{fontSize: '48px'}}
                     color="primary"
                   />
                   <Type variant="h6" color="primary">

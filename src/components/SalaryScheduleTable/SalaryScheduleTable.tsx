@@ -356,7 +356,7 @@ const SalaryScheduleTable = ({
                   <SalaryScheduleRow key={row.id} data={row} />
                 ))}
               {/* {emptyRows > 0 && (
-                  <TableRow style={{height: 49 * emptyRows}}>
+                  <TableRow sx={{height: 49 * emptyRows}}>
                     <TableCell colSpan={6} />
                   </TableRow>
                 )} */}

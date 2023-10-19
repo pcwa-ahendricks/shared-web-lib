@@ -89,7 +89,7 @@ const SwipeableTemporaryDrawer = () => {
     () => (
       <>
         <List component="nav">
-          <NextLink href="/" passHref legacyBehavior>
+          <NextLink href="/">
             <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
@@ -182,7 +182,7 @@ const SwipeableTemporaryDrawer = () => {
               }}
             />
           </ListItemButton>
-          <NextLink href="/services/outage" passHref legacyBehavior>
+          <NextLink href="/services/outage">
             <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
@@ -211,11 +211,7 @@ const SwipeableTemporaryDrawer = () => {
               }}
             />
           </ListItemButton>
-          <NextLink
-            href="/board-of-directors/meeting-agendas"
-            passHref
-            legacyBehavior
-          >
+          <NextLink href="/board-of-directors/meeting-agendas">
             <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}
@@ -229,11 +225,7 @@ const SwipeableTemporaryDrawer = () => {
               />
             </ListItemButton>
           </NextLink>
-          <NextLink
-            href="/smart-water-use/rebate-programs"
-            passHref
-            legacyBehavior
-          >
+          <NextLink href="/smart-water-use/rebate-programs">
             <ListItemButton
               onClick={toggleDrawer(false)}
               onKeyDown={toggleDrawer(false)}

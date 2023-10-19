@@ -9,7 +9,7 @@ import React, {
 import HeroOverlay from '@components/hero/HeroOverlay'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import {useIntersection} from 'react-use'
-import JackinBox from 'mui-jackinbox'
+import JackinBox from '@components/mui-jackinbox/JackinBox'
 import {useMediaQuery, useTheme} from '@mui/material'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {imgixUrlLoader} from '@lib/imageLoader'
@@ -97,7 +97,7 @@ export default function HeroImage() {
             <HeroOverlay
               height="100%"
               preserveAspectRatio="xMidYMid meet"
-              style={{
+              sx={{
                 flex: '0 0 auto'
               }}
             />

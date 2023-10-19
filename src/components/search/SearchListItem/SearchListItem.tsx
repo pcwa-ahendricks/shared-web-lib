@@ -33,7 +33,7 @@ const SearchListItem = ({result}: Props) => {
   const resultLinkEl = useMemo(
     () =>
       nextLinkRe.test(link) ? (
-        <Link href={nextLinkHref} passHref legacyBehavior>
+        <Link href={nextLinkHref}>
           <Box
             // onMouseEnter={mouseEnterHandler(link)}
             width="100%"

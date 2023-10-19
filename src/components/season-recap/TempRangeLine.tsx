@@ -124,7 +124,7 @@ export default function TempRangeLine({tempDataset}: Props) {
         default: {
           strokeWidth: 2.0
         }
-      } as {[key: string]: React.SVGProps<SVGPathElement>['style']}),
+      }) as {[key: string]: React.SVGProps<SVGPathElement>['style']},
     [recordLineWidth]
   )
   const TempLines: CustomLayer = useMemo(
@@ -300,11 +300,13 @@ export default function TempRangeLine({tempDataset}: Props) {
             <ColumnBox justifyContent="center" pr={0.5}>
               <BarChartIcon
                 fontSize="small"
-                style={{color: noData ? grey[200] : obsRngePts[0]?.serieColor}}
+                sx={{color: noData ? grey[200] : obsRngePts[0]?.serieColor}}
               />
             </ColumnBox>
-            <ChildBox style={{paddingRight: 6}}>
-              <Type variant="caption">Observed Range:</Type>
+            <ChildBox>
+              <Type variant="caption" sx={{paddingRight: '6px'}}>
+                Observed Range:
+              </Type>
             </ChildBox>
             <ChildBox>
               <Type variant="caption">
@@ -346,12 +348,14 @@ export default function TempRangeLine({tempDataset}: Props) {
             <ColumnBox justifyContent="center" pr={0.5}>
               <DragHandleIcon
                 fontSize="small"
-                style={{color: nrmlRngePts[0]?.serieColor}}
+                sx={{color: nrmlRngePts[0]?.serieColor}}
               />
             </ColumnBox>
 
-            <ChildBox style={{paddingRight: 6}}>
-              <Type variant="caption">Average Range:</Type>
+            <ChildBox>
+              <Type variant="caption" sx={{paddingRight: '6px'}}>
+                Average Range:
+              </Type>
             </ChildBox>
             <ChildBox>
               <Type variant="caption">
@@ -396,10 +400,12 @@ export default function TempRangeLine({tempDataset}: Props) {
             return (
               <RowBox alignItems="center" key={id}>
                 <ColumnBox justifyContent="center" pr={0.5}>
-                  <ShowChartIcon fontSize="small" style={{color: serieColor}} />
+                  <ShowChartIcon fontSize="small" sx={{color: serieColor}} />
                 </ColumnBox>
-                <ChildBox style={{paddingRight: 6}}>
-                  <Type variant="caption">{serieId}:</Type>
+                <ChildBox>
+                  <Type variant="caption" sx={{paddingRight: '6px'}}>
+                    {serieId}:
+                  </Type>
                 </ChildBox>
                 <ChildBox>
                   <Type variant="caption">

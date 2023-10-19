@@ -34,8 +34,6 @@ const MultimediaPublication = ({publication, thumbMedia}: Props) => {
         passHref
         href="/education-center/documents/[publication]"
         as={`/education-center/documents/${publicationSlug}`}
-        scroll
-        legacyBehavior
       >
         <ListItemButton>
           <ListItemAvatar>

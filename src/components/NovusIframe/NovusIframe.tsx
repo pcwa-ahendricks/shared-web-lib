@@ -3,7 +3,7 @@ import React, {useCallback, useState} from 'react'
 import {Typography as Type, Box, BoxProps} from '@mui/material'
 import IeOnly from '@components/boxes/IeOnly'
 import IeNever from '@components/boxes/IeNever'
-import JackinBox from 'mui-jackinbox'
+import JackinBox from '@components/mui-jackinbox/JackinBox'
 
 type Props = {
   mfpfa?: boolean

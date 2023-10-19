@@ -43,9 +43,9 @@ const FireResistantGardenPage = () => {
     [isSMUp, theme, plantImgSpacing]
   )
 
-  const TypeBullet = ({children, ...rest}: TypographyProps<'li'>) => {
+  const TypeBullet = ({children, sx, ...rest}: TypographyProps<'li'>) => {
     return (
-      <Type component="li" sx={{...style.bulletLi}} {...rest}>
+      <Type component="li" sx={{...style.bulletLi, ...sx}} {...rest}>
         {children}
       </Type>
     )
@@ -223,19 +223,19 @@ const FireResistantGardenPage = () => {
                   Thank You!
                 </Type>
                 <Box component="ul">
-                  <TypeBullet style={{listStyleType: 'none'}}>
+                  <TypeBullet sx={{listStyleType: 'none'}}>
                     Yamasaki Landscape Architecture (landscape plan)
                   </TypeBullet>
-                  <TypeBullet style={{listStyleType: 'none'}}>
+                  <TypeBullet sx={{listStyleType: 'none'}}>
                     Mid-City Nursery (plants)
                   </TypeBullet>
-                  <TypeBullet style={{listStyleType: 'none'}}>
+                  <TypeBullet sx={{listStyleType: 'none'}}>
                     Village Nursery (plants)
                   </TypeBullet>
-                  <TypeBullet style={{listStyleType: 'none'}}>
+                  <TypeBullet sx={{listStyleType: 'none'}}>
                     Hunter Industries (irrigation system and controller)
                   </TypeBullet>
-                  <TypeBullet style={{listStyleType: 'none'}}>
+                  <TypeBullet sx={{listStyleType: 'none'}}>
                     BrightView Landscape (irrigation installation)
                   </TypeBullet>
                 </Box>

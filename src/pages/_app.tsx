@@ -22,9 +22,7 @@ import createEmotionCache from '@lib/createEmotionCache'
 import {CacheProvider, EmotionCache} from '@emotion/react'
 import {Analytics} from '@vercel/analytics/react'
 import * as gtag from '@lib/gtag'
-
 import '@lib/css/styles.css'
-
 // import '@lib/css/NoCollapseVerticalTimeline.css'
 
 /*
@@ -32,11 +30,7 @@ Global External Styles
 */
 // React Vertical Timeline
 // import 'react-vertical-timeline-component/style.min.css'
-
-// Loading Mapbox-gl css via _document.tsx
-// import 'mapbox-gl/dist/mapbox-gl.css'
-
-// Load Animate.css globally
+import 'mapbox-gl/dist/mapbox-gl.css'
 import 'animate.css'
 
 export interface MyAppProps extends AppProps {

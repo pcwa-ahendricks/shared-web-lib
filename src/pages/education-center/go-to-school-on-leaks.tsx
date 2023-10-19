@@ -39,12 +39,12 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
           />
           <RowBox responsive flexSpacing={4}>
             <ChildBox flex="55%">
-              <Type paragraph style={{fontSize: '15pt'}}>
+              <Type paragraph sx={{fontSize: '15pt'}}>
                 PCWA offers a fun, interactive educational program for 3rd to
                 5th grade that teaches students about where their water comes
                 from and trains them to be “Leak Detectives” at home and school.
               </Type>
-              <Type paragraph style={{fontSize: '15pt'}}>
+              <Type paragraph sx={{fontSize: '15pt'}}>
                 The curriculum, which can be customized to suit teacher needs,
                 includes:
               </Type>

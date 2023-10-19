@@ -57,7 +57,7 @@ const RateAdjustPage = () => {
                 on May 9, 2022.
               </Type>
               {/* <Box bgcolor={yellow[50]} paddingY={2} paddingX={4}>
-                <Type variant="h5" style={{color: brown[800]}} gutterBottom>
+                <Type variant="h5" sx={{color: brown[800]}} gutterBottom>
                   Correction to the March 3, 2022 Notice of Public Hearing to
                   Consider Changes to PCWA Water Rates and Charges
                 </Type>
@@ -65,7 +65,7 @@ const RateAdjustPage = () => {
                 <Spacing size="small" />
                 <Type
                   variant="subtitle2"
-                  style={{color: grey[800]}}
+                  sx={{color: grey[800]}}
                   gutterBottom
                 >
                   Notice of Public Hearing to Consider Changes to PCWA Water
@@ -78,7 +78,7 @@ const RateAdjustPage = () => {
                   <Type
                     variant="body2"
                     component="div"
-                    style={{color: grey[800]}}
+                    sx={{color: grey[800]}}
                   >
                     <strong>
                       The correct day of the public hearing is Monday, May 9,

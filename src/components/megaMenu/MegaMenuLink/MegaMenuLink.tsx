@@ -62,10 +62,11 @@ const MegaMenuLink = ({
             cursor: 'pointer',
             '&:hover,&:focus,&.linkActive': {
               color: theme.palette.primary.dark
-            }
+            },
+            // Use padding over margin to prevent mega menu popover from closing when cursor moves between links. Should likely match <Overline/> margin.
+            paddingLeft: linkMargin,
+            paddingRight: linkMargin
           }}
-          // Use padding over margin to prevent mega menu popover from closing when cursor moves between links. Should likely match <Overline/> margin.
-          style={{paddingLeft: linkMargin, paddingRight: linkMargin}}
           aria-describedby={describedbyId}
           onClick={onLinkClick}
           onBlur={onLinkLeave}

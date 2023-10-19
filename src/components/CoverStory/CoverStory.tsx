@@ -91,13 +91,13 @@ const CoverStory = ({
     <Box {...rest}>
       <Link href={linkHref} aria-label={title} {...linkProps}>
         <IeNever>
-          <Box style={{aspectRatio}} overflow="hidden" position="relative">
+          <Box sx={{aspectRatio}} overflow="hidden" position="relative">
             <CoverStoryImage />
           </Box>
         </IeNever>
         <IeOnly>
           <Box
-            style={{
+            sx={{
               float: 'none',
               clear: 'both',
               width: '100%',

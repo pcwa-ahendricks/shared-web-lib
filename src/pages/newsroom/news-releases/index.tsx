@@ -238,9 +238,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                           : undefined
                       }
                       scroll
-                      legacyBehavior
                     >
-                      <ListItemButton component="a">
+                      <ListItemButton>
                         <ListItemAvatar>
                           <Box
                             sx={(theme) => ({

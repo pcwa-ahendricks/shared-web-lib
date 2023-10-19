@@ -93,9 +93,9 @@ const MediaDialogOnClick = ({
         onClick={imageClickHandler}
         position="relative"
       >
-        <div
+        <Box
           ref={popperAnchorEl}
-          style={{
+          sx={{
             position: 'absolute',
             top: theme.spacing(1),
             right: theme.spacing(1),

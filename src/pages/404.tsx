@@ -44,7 +44,7 @@ const NotFoundPage = () => {
             <Type
               component="span"
               variant="h2"
-              style={{paddingRight: 5}}
+              sx={{paddingRight: '5px'}}
               color="secondary"
             >
               {statusCode}
@@ -53,7 +53,7 @@ const NotFoundPage = () => {
               component="span"
               variant="h2"
               color="textSecondary"
-              style={{paddingRight: 5}}
+              sx={{paddingRight: '5px'}}
             >
               |
             </Type>
