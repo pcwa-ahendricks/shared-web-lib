@@ -780,9 +780,11 @@ const ProjectsPage = () => {
                     <MediaDialogOnClick
                       mediaUrl="https://imgix.cosmicjs.com/0a9e0040-16b5-11ea-a8c4-6b69c807b1d7-Alta-Loop-Pipeline-Map-Figure.png"
                       mediaName="Map Figure of Alta Loop Pipeline Project"
-                      mediaPreviewDialogProps={{
-                        width: 700,
-                        height: 535
+                      MediaPreviewDialogProps={{
+                        ImageProps: {
+                          width: 700,
+                          height: 535
+                        }
                       }}
                     >
                       <Image
@@ -1061,9 +1063,11 @@ const ProjectsPage = () => {
                     <MediaDialogOnClick
                       mediaUrl="https://imgix.cosmicjs.com/f6fa7450-6d0f-11ee-b27c-e13e14dddc51-2023-10-12---Existing-and-Proposed-Canal.png"
                       mediaName="Map Figure of Bickford Ranch Phase 1 - Caperton Canal Services"
-                      mediaPreviewDialogProps={{
-                        width: 3456,
-                        height: 2592
+                      MediaPreviewDialogProps={{
+                        ImageProps: {
+                          width: 3456,
+                          height: 2592
+                        }
                       }}
                     >
                       <Image
