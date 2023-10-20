@@ -11,6 +11,7 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'
 import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
 import Link, {LinkProps} from '@components/Link'
+import getImageSizes from '@lib/getImageSizes'
 
 export type CoverTileProps = {
   title: string
@@ -30,10 +31,10 @@ export type CoverTileProps = {
 
 const CoverTile = ({
   alt,
-  width,
   title,
   imgixURL: imgixUrlProp,
-  imageRatio = '11:7', // 220w / 140h = 1.57. Using 1.57*7=10.99, 11:7
+  // imageRatio = '11:7', // 220w / 140h = 1.57. Using 1.57 * 7=10.99, 11:7
+  imageRatio = '18:10', // 360w / 200h = 1.8.     Using 1.8  * 10=18,   18:10
   linkHref,
   linkProps,
   typeProps,
@@ -66,12 +67,13 @@ const CoverTile = ({
     true
   )
   const imgixUrl = `${imgixUrlProp}${imgixQs}`
+  const imageSizes = getImageSizes({xs: 6, sm: 4, md: 3}) // using <Grid xs={6} sm={4} md={3} /> specified on homepage
 
   return (
     <Box
       onMouseEnter={buttonEnterHandler}
       onMouseLeave={buttonLeaveHandler}
-      width={width}
+      // width={width}
       {...rest}
     >
       <Link href={linkHref} underline="none" aria-label={title} {...linkProps}>
@@ -86,9 +88,9 @@ const CoverTile = ({
             src={imgixUrl}
             alt={alt}
             layout="responsive"
-            sizes="(min-width: 1000px) 20vw, (min-width: 640px) 30vw, 50vw"
-            width={width}
-            height="100%"
+            sizes={imageSizes}
+            width={360}
+            height={200}
             {...imageProps}
           />
         </Box>

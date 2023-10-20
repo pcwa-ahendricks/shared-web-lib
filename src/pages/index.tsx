@@ -4,12 +4,10 @@ import HeroImage from '@components/hero/HeroImage'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Typography as Type,
-  useMediaQuery,
   Divider,
-  useTheme,
+  Unstable_Grid2 as Grid,
   Box
 } from '@mui/material'
-import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
@@ -65,16 +63,16 @@ const Index = ({
   placeholders
 }: Props) => {
   usePlaceholders(placeholders)
-  const theme = useTheme()
-  const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
+  // const theme = useTheme()
+  // const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
 
   // const Emx = useCallback(
   //   ({children}) => <Type component='em' sx={{letterSpacing: 0.2}}>{children}</Type>,
   //   []
   // )
-  const coverTileTopMargin = 5
+  const coverTileTopMargin = 4
 
-  const tileWidth = isLGUp ? 176 : 160
+  // const tileWidth = isLGUp ? 176 : 160
 
   // const coverStoryImageRatio = '3/2' // State Water Resources Control Board
   const coverStoryImageRatio = '8/5' // Summer Strong Image
@@ -115,7 +113,7 @@ const Index = ({
         <Spacing size="small" />
       </Box>
       <WideContainer>
-        <RowBox responsive flexSpacing={4}>
+        <Grid container spacing={5}>
           {/* <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
@@ -152,7 +150,7 @@ const Index = ({
               }
             />
           </ChildBox> */}
-          <ChildBox flex="0 0 50%">
+          <Grid xs={12} sm={6}>
             <CoverStory
               linkProps={{
                 target: '_blank'
@@ -173,8 +171,8 @@ const Index = ({
                 </Type>
               }
             />
-          </ChildBox>
-          <ChildBox flex="0 0 50%">
+          </Grid>
+          <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Resilient and Beautiful"
@@ -184,11 +182,11 @@ const Index = ({
               alt="California Fuchsia, Summer Strong Low-Water Use Plant of the Month"
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
-          </ChildBox>
-        </RowBox>
+          </Grid>
+        </Grid>
         <Spacing />
-        <RowBox responsive flexSpacing={4}>
-          <ChildBox flex="0 0 50%">
+        <Grid container spacing={5}>
+          <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Paperless Billing Available"
@@ -199,8 +197,8 @@ const Index = ({
               // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
               body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
             />
-          </ChildBox>
-          <ChildBox flex="50%" minWidth="50%">
+          </Grid>
+          <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="State of PCWA's Water Supplies 2023"
@@ -213,7 +211,7 @@ const Index = ({
               // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
               body="The recording is now posted for PCWA’s webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
             />
-          </ChildBox>
+          </Grid>
           {/*
           <ChildBox flex="0 0 50%">
             <CoverStory
@@ -230,18 +228,19 @@ const Index = ({
             />
           </ChildBox>
           */}
-        </RowBox>
+        </Grid>
 
         <Spacing size="large">
           <Divider />
         </Spacing>
         {/* Ross wanted the 4 items center aligned for the time being. When <LatestNewsRelease/> is added back to this page we can cut over to the row wrapping flex box layout. */}
         {/* Ross REALLY wants these centered, no matter what. */}
-        <RowBox
-          flexWrap="wrap"
-          wrapSpacing={coverTileTopMargin}
-          flexSpacing={6}
-          justifyContent="center"
+        <Grid
+          container
+          rowSpacing={coverTileTopMargin}
+          columnSpacing={6}
+          wrap="wrap"
+          // justifyContent="center"
         >
           {/* <RowBox responsive
           flexWrap="nowrap"
@@ -282,16 +281,16 @@ const Index = ({
             />
           </ChildBox> */}
 
-          <ChildBox width={tileWidth} position="relative">
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
-              width={tileWidth}
+              // width={tileWidth}
               title="Irrigation Service Agreement"
               imgixURL="https://imgix.cosmicjs.com/2662b390-b79b-11ed-a33c-958e5b2068f9-QR-Code-for-Ag-Acknowledgementbg.png"
               linkHref="/services/irrigation-service-agreement"
               imgixParams={{fit: 'fill', bg: '#013769'}}
               alt="Irrigation Service Agreement QR Code"
             />
-          </ChildBox>
+          </Grid>
           {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
@@ -302,62 +301,62 @@ const Index = ({
               typeProps={{style: {fontSize: '1rem'}}}
             />
           </ChildBox> */}
-          <ChildBox width={tileWidth}>
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
-              width={tileWidth}
+              // width={tileWidth}
               title="Educational Outreach Program"
               imgixURL="https://imgix.cosmicjs.com/b58d6f70-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach06.jpg"
               linkHref="education-center/go-to-school-on-leaks"
               alt="Go to School on Leaks link"
               // typeProps={{style: {fontSize: '1rem'}}}
             />
-          </ChildBox>
-          <ChildBox width={tileWidth}>
+          </Grid>
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
-              width={tileWidth}
+              // width={tileWidth}
               title="American River Basin Study"
               imgixURL="https://imgix.cosmicjs.com/7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg"
               linkHref="/planning/arbs"
               alt="American River Basin Study link"
             />
-          </ChildBox>
-          <ChildBox width={tileWidth}>
+          </Grid>
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
               linkProps={{
                 target: '_blank'
               }}
-              width={tileWidth}
+              // width={tileWidth}
               title="Tahoe Central Sierra Cal-FRAME Project for Biomass Management"
               imgixURL="https://imgix.cosmicjs.com/907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png"
               linkHref="https://youtu.be/ft1_RiK-xKY"
               alt="YouTube link to Tahoe Central Sierra Cal-FRAME Project for Biomass Management webinar"
               typeProps={{style: {fontSize: '1rem'}}}
             />
-          </ChildBox>
-          <ChildBox width={tileWidth}>
+          </Grid>
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
-              width={tileWidth}
+              // width={tileWidth}
               title="Water Year Dashboard"
               imgixURL="https://imgix.cosmicjs.com/038bdff0-6d81-11ec-af0e-17f5b6d183fb-Hell-Hole-Res.jpg"
               linkHref="/water-year-dashboard"
               alt="Link to PCWA's Water Year Dashboard page"
               imgixParams={{crop: 'bottom'}}
             />
-          </ChildBox>
+          </Grid>
 
-          <ChildBox width={tileWidth}>
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
               linkProps={{
                 target: '_blank'
               }}
-              width={tileWidth}
+              // width={tileWidth}
               title="PCWA 2023 Annual Budget"
               imgixURL="https://imgix.cosmicjs.com/62748ce0-5fb8-11ed-8cf5-3be6a6f9365d-PCWA-2023-Adopted-Budget-for-Website.pdf"
               linkHref="https://docs.pcwa.net/pcwa-2023-annual-budget.pdf"
               alt="Thumbnail and link for PCWA 2023 Annual Budget"
               imgixParams={{crop: 'top'}}
             />
-          </ChildBox>
+          </Grid>
 
           {/* <ChildBox width={tileWidth}>
             <CoverTile
@@ -381,9 +380,9 @@ const Index = ({
             />
           </ChildBox> */}
 
-          <ChildBox width={tileWidth}>
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
-              width={tileWidth}
+              // width={tileWidth}
               imageRatio={coverStoryImageRatio}
               title="Hazard Tree Removal Map"
               linkHref="https://experience.arcgis.com/experience/775dd76aaffe44b6aa9eaaf9bed2648b"
@@ -394,7 +393,7 @@ const Index = ({
                 target: '_blank'
               }}
             />
-          </ChildBox>
+          </Grid>
 
           {/* <ChildBox width={tileWidth}> */}
           {/* <RibbonContainer>
@@ -461,37 +460,37 @@ const Index = ({
               alt="Thumbnail and link for Current PCWA Water Outages Page"
             />
           </ChildBox> */}
-          <ChildBox width={tileWidth}>
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
-              width={tileWidth}
+              // width={tileWidth}
               title="WaterSense Products"
               imgixURL="https://imgix.cosmicjs.com/329b7180-cdfd-11eb-a17a-1d11087b211e-WaterSense.png"
               linkHref="/smart-water-use/watersense"
               alt="Thumbnail and link for WaterSense page"
             />
-          </ChildBox>
+          </Grid>
 
-          <ChildBox width={tileWidth}>
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
-              width={tileWidth}
+              // width={tileWidth}
               title="Current PCWA Projects"
               imgixURL="https://imgix.cosmicjs.com/cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg"
               linkHref="/about-pcwa/projects"
               alt="Thumbnail and link for Current Projects"
             />
-          </ChildBox>
-          <ChildBox width={tileWidth}>
+          </Grid>
+          <Grid xs={6} sm={4} md={3}>
             <CoverTile
               linkProps={{
                 target: '_blank'
               }}
-              width={tileWidth}
+              // width={tileWidth}
               title="PCWA Fire Hydrant Map"
               imgixURL="https://imgix.cosmicjs.com/d1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png"
               linkHref="https://experience.arcgis.com/experience/562030e3a7974bb88b86f19a32d255a9"
               alt="Thumbnail and link for PCWA Fire Hydrant Map"
             />
-          </ChildBox>
+          </Grid>
           {/* <ChildBox width={tileWidth}>
             <CoverTile
               width={tileWidth}
@@ -506,7 +505,7 @@ const Index = ({
           </ChildBox> */}
 
           {/* </RowBox> */}
-        </RowBox>
+        </Grid>
         <Spacing size="large">
           <Divider />
         </Spacing>

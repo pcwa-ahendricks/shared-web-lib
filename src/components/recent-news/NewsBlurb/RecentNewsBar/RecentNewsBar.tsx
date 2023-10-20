@@ -1,8 +1,7 @@
 import React, {useMemo} from 'react'
-import {BoxProps, Box} from '@mui/material'
+import {BoxProps, Box, Unstable_Grid2 as Grid} from '@mui/material'
 import NewsBlurb from '../NewsBlurb'
 import {compareDesc, parseJSON, parse} from 'date-fns'
-import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import TextProgress from '@components/TextProgress/TextProgress'
 import {isWebUri} from 'valid-url'
 import useSWR from 'swr'
@@ -68,24 +67,19 @@ const RecentNewsBar = ({
   }
 
   return (
-    <Box minHeight={200}>
-      <RowBox
-        responsive
-        justifyContent="space-between"
-        flexSpacing={4}
-        {...rest}
-      >
+    <Box minHeight={200} {...rest}>
+      <Grid container spacing={4}>
         {sortedAndFilteredNews.map((blurb) => (
-          <ChildBox key={blurb.id} flex="25%">
+          <Grid key={blurb.id} xs={12} sm={6} lg={3}>
             <NewsBlurb
               title={blurb.title}
               readMoreCaption={blurb.readMoreCaption}
               summary={blurb.summary}
               linkURL={blurb.linkURL}
             />
-          </ChildBox>
+          </Grid>
         ))}
-      </RowBox>
+      </Grid>
     </Box>
   )
 }

@@ -7,6 +7,7 @@ import IeNever from '@components/boxes/IeNever'
 import IeOnly from '@components/boxes/IeOnly'
 import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
 import Link, {LinkProps} from '@components/Link'
+import getImageSizes from '@lib/getImageSizes'
 
 export type CoverStoryProps = {
   title: string
@@ -73,6 +74,8 @@ const CoverStory = ({
       .map((v) => parseFloat(v))
       .reduce((p, c) => p / c) * 100
 
+  const imageSizes = getImageSizes({xs: 12, sm: 6}) // Using <Grid xs={12} sm={6}> from homepage
+
   const CoverStoryImage = useCallback(
     () => (
       <ImageBlur
@@ -80,11 +83,12 @@ const CoverStory = ({
         src={imgixUrl}
         layout="fill"
         objectFit="fill"
-        sizes="(min-width: 600px) 50vw, 100vw"
+        // sizes="(min-width: 600px) 50vw, 100vw"
+        sizes={imageSizes}
         alt={alt}
       />
     ),
-    [imgixUrl, alt]
+    [imgixUrl, alt, imageSizes]
   )
 
   return (

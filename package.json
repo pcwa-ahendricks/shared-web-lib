@@ -52,7 +52,7 @@
     "@mui/icons-material": "^5.14.14",
     "@mui/lab": "^5.0.0-alpha.149",
     "@mui/material": "^5.14.14",
-    "@mui/x-date-pickers-pro": "^6.0.4",
+    "@mui/x-date-pickers-pro": "^6.16.3",
     "@mui/x-license-pro": "^6.0.3",
     "@nivo/bar": "0.80.0",
     "@nivo/calendar": "0.80.0",
@@ -104,7 +104,7 @@
     "trendline": "^1.0.0",
     "use-debounce": "^9.0.4",
     "valid-url": "^1.0.9",
-    "vercel": "^32.2.0",
+    "vercel": "^32.5.0",
     "yup": "^0.32.11"
   }
 }
