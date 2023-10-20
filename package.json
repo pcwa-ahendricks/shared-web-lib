@@ -58,7 +58,6 @@
   },
   "dependencies": {
     "@cosmicjs/sdk": "^1.0.10",
-    "@date-io/date-fns": "<2",
     "@emotion/cache": "^11.10.5",
     "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
