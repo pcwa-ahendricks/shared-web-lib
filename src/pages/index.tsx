@@ -238,7 +238,7 @@ const Index = ({
         <Grid
           container
           rowSpacing={coverTileTopMargin}
-          columnSpacing={6}
+          columnSpacing={{xs: 3, sm: 4, md: 6}}
           wrap="wrap"
           // justifyContent="center"
         >
