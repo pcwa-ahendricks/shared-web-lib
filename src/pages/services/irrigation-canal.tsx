@@ -63,7 +63,7 @@ const IrrigationCanalPage = () => {
   const style = {
     listItem: {
       paddingTop: 0,
-      paddingBottom: 4 // Defaults to 8px
+      paddingBottom: '4px' // Defaults to 8px
     }
   }
 

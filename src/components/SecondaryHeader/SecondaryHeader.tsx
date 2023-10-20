@@ -57,7 +57,7 @@ const SecondaryHeader = () => {
           color: theme.palette.secondary.dark,
           fontWeight: 600,
           fontSize: '0.9rem',
-          paddingLeft: 16
+          paddingLeft: '16px'
         }}>
           Canal Survey
         </Type>

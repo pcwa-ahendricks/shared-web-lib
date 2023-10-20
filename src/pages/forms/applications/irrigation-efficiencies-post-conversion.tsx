@@ -220,7 +220,7 @@ const IrrigationEfficienciesPostConversion = () => {
       },
       liItem: {
         listStyleType: 'disc',
-        marginBottom: 2
+        marginBottom: '2px'
       }
     }),
     [theme]

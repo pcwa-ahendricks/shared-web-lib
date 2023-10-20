@@ -15,7 +15,7 @@ export default function BodyParagraph({attribs, children, sx, ...rest}: Props) {
       sx={{
         ...sx,
         '&.MuiTypography-paragraph': {
-          marginBottom: 8,
+          marginBottom: '8px',
           '&:last-child': {
             marginBottom: 0
           }

@@ -16,7 +16,7 @@ import Link from '@components/Link'
 //   createStyles({
 //     bulletLi: {
 //       listStyleType: 'circle',
-//       marginBottom: 2
+//       marginBottom: '2px'
 //     }
 //   })
 // )

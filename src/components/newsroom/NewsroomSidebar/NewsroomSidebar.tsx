@@ -15,7 +15,7 @@ const NewsroomSidebar = () => {
           xs: '100%',
           sm: 210
         },
-        padding: 2,
+        padding: theme.spacing(2),
         bgcolor: theme.palette.grey[100],
         borderColor: theme.palette.grey[300],
         borderWidth: 1,

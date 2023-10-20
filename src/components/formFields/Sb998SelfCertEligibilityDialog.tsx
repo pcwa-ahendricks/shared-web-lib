@@ -421,12 +421,12 @@ const Intro = () => {
         minWidth: theme.spacing(5)
       },
       tightListItem: {
-        paddingTop: 2,
-        paddingBottom: 2
+        paddingTop: '2px',
+        paddingBottom: '2px'
       },
       tightListItemText: {
-        paddingTop: 2,
-        paddingBottom: 2,
+        paddingTop: '2px',
+        paddingBottom: '2px',
         marginTop: 0,
         marginBottom: 0
       }

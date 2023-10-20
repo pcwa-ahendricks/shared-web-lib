@@ -242,7 +242,7 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                         <ListItemAvatar>
                           <Box
                             sx={(theme) => ({
-                              marginRight: 2,
+                              marginRight: theme.spacing(2),
                               width: 50,
                               bgcolor: 'common.white',
                               borderColor: theme.palette.grey[300],

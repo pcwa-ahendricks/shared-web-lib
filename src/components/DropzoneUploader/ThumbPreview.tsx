@@ -73,15 +73,15 @@ const ThumbPreview = ({
         height: 150,
         marginBottom: theme.spacing(1),
         marginRight: theme.spacing(1),
-        padding: 4,
+        padding: '4px',
         boxSizing: 'border-box',
         [theme.breakpoints.down('sm')]: {
           borderRadius: 1,
           width: 100,
           height: 100,
-          marginBottom: 4,
-          marginRight: 4,
-          padding: 2
+          marginBottom: '4px',
+          marginRight: '4px',
+          padding: '2px'
         }
       },
       thumbInner: {
@@ -95,7 +95,7 @@ const ThumbPreview = ({
       //   zIndex: 11,
       //   color: theme.palette.common.white,
       //   wordWrap: 'anywhere',
-      //   padding: 2,
+      //   padding: '2px',
       //   fontSize: '0.65rem'
       // },
       removeUploadFabContainer: {

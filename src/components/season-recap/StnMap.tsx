@@ -33,7 +33,7 @@ type Props = {
 // metadataDataList: {
 //   position: 'absolute',
 //   right: 0,
-//   padding: 10,
+//   padding: '10px',
 //   zIndex: 1, // If this is changed ensure that mega menu covers the data list.
 //   maxHeight: 'calc(100% - 25px)', // Don't let this overlay get too big or cover the Mapbox attributes.
 //   overflowY: 'scroll'

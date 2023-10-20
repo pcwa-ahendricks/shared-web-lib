@@ -184,7 +184,6 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
                 {!submittedWithoutError ? (
                   <SubmitFormButton
                     color="secondary"
-                    sx={{marginLeft: 3}}
                     variant="contained"
                     aria-label="Send us a message via email"
                     disabled={

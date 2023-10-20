@@ -86,7 +86,7 @@ const ARBSSidebar = () => {
     <Box
       sx={{
         width: {xs: '100%', sm: 175},
-        padding: 2,
+        padding: theme.spacing(2),
         bgcolor: theme.palette.grey['100'],
         borderWidth: 1,
         borderRadius: 1,

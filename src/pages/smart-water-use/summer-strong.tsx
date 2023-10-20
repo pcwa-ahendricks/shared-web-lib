@@ -668,7 +668,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                     sx={{
                       fontSize: '32px',
                       color: red[400],
-                      paddingRight: 8
+                      paddingRight: '8px'
                     }}
                   /> */}
                     <Type variant="h4">
@@ -867,7 +867,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                     sx={{
                       fontSize: '32px',
                       color: red[400],
-                      paddingRight: 8
+                      paddingRight: '8px'
                     }}
                   /> */}
                     <Type variant="h4">Santa Barbara Daisy</Type>
@@ -1025,7 +1025,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                     sx={{
                       fontSize: '32px',
                       color: red[400],
-                      paddingRight: 8
+                      paddingRight: '8px'
                     }}
                   /> */}
                     <Type variant="h4">

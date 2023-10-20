@@ -477,7 +477,7 @@ const PublicationsPage = ({
                                   borderColor: theme.palette.grey['300'],
                                   borderWidth: 1,
                                   borderStyle: 'solid',
-                                  marginRight: 2,
+                                  marginRight: theme.spacing(2),
                                   width: 75
                                 }}
                               >

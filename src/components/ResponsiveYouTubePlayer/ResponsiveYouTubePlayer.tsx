@@ -36,7 +36,7 @@ const ResponsiveYouTubePlayer = ({
         height: 0,
         position: 'relative',
         paddingBottom: `${aspectRatio}% !important`,
-        // paddingTop: 25 // Not sure how this helps, but it is documented on https://alistapart.com/article/creating-intrinsic-ratios-for-video and states that "the chrome" is static; However, I'm uncertain what "the chrome" is, but either way, it simply adds black bars (or space) to the top and bottom of the video when added so it's left out here.
+        // paddingTop: '25px' // Not sure how this helps, but it is documented on https://alistapart.com/article/creating-intrinsic-ratios-for-video and states that "the chrome" is static; However, I'm uncertain what "the chrome" is, but either way, it simply adds black bars (or space) to the top and bottom of the video when added so it's left out here.
         ...sx
       }}
       {...restPlayerWrapperProps}

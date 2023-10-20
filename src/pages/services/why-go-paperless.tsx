@@ -601,7 +601,12 @@ export default function WhyGoPaperlessPage() {
           </Type>
           <Spacing size="large" />
 
-          <Box sx={{backgroundColor: 'background.paper', padding: 3}}>
+          <Box
+            sx={{
+              backgroundColor: 'background.paper',
+              padding: theme.spacing(3)
+            }}
+          >
             <Stepper activeStep={-1} orientation="vertical">
               {genericSteps.map(({key, cmp}) => (
                 <Step key={key} active>
