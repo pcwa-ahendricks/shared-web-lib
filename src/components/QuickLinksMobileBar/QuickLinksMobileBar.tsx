@@ -12,7 +12,7 @@ export default function QuickLinksMobileBar() {
   }
 
   return (
-    <Box mx={4}>
+    <Box mx={3} my={3}>
       <RowBox flexSpacing={4}>
         <ColumnBox
           child
