@@ -93,9 +93,9 @@ const MediaDialogOnClick = ({
         onClick={imageClickHandler}
         position="relative"
       >
-        <div
+        <Box
           ref={popperAnchorEl}
-          style={{
+          sx={{
             position: 'absolute',
             top: theme.spacing(1),
             right: theme.spacing(1),
@@ -121,7 +121,8 @@ const MediaDialogOnClick = ({
                     borderColor: theme.palette.grey['300'], // Must be specified after border prop. Might not be necessary in future versions of @mui/material.
                     p: 1,
                     fontStyle: 'italic',
-                    bgcolor: alpha(theme.palette.background.paper, 1)
+                    bgcolor: alpha(theme.palette.background.paper, 1),
+                    cursor: 'pointer'
                   }}
                 >
                   <Type variant="body2">{popperMessage}</Type>

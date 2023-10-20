@@ -7,10 +7,13 @@ import {
   Box,
   ListItemButton
 } from '@mui/material'
-
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
 import useTheme from '@hooks/useTheme'
+
+/*
+NOTE - If this is used again, it will need to be updated and modeled after QuickLinkButton and/or MMNavLink since it used to use <FlexButton/>, which has been deleted.
+*/
 
 const TrendingBarMobile = () => {
   const theme = useTheme()

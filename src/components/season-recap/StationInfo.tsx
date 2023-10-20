@@ -2,7 +2,7 @@ import React from 'react'
 import {Box, Typography as Type, alpha} from '@mui/material'
 import {blueGrey} from '@mui/material/colors'
 import {StationMeta} from '@pages/water-year-dashboard'
-import JackinBox from 'mui-jackinbox'
+import JackinBox from '@components/mui-jackinbox/JackinBox'
 // import round from '@lib/round'
 
 type Props = {

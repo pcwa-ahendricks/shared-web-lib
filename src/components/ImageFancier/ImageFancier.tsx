@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import {Box, BoxProps, useMediaQuery} from '@mui/material'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import JackinBox from 'mui-jackinbox'
+import JackinBox from '@components/mui-jackinbox/JackinBox'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import ImageBlur, {ImageBlurProps} from '@components/imageBlur/ImageBlur'
 import useTheme from '@hooks/useTheme'
@@ -30,7 +30,7 @@ const ImageFancier = ({
     if (isXs) {
       setIsHover(false)
     } else {
-      if (isHoverProp) {
+      if (isHoverProp !== undefined) {
         setIsHover(isHoverProp)
       }
     }

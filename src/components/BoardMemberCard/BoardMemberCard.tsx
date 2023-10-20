@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import {
   CardActionArea,
   CardContent,
@@ -33,12 +33,10 @@ const BoardMemberCard = ({
     }
   }
   return (
-    <Link
+    <NextLink
       href="/board-of-directors/[district]"
       as={`/board-of-directors/district-${district}`}
-      passHref
       scroll={false}
-      legacyBehavior
     >
       <Card sx={{...style.card}}>
         <CardActionArea>
@@ -67,7 +65,7 @@ const BoardMemberCard = ({
           </CardContent>
         </CardActionArea>
       </Card>
-    </Link>
+    </NextLink>
   )
 }
 

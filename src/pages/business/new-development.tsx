@@ -244,7 +244,7 @@ const NewDevelopmentPage = () => {
           >
             <AssignmentLateOutlinedIcon
               fontSize="large"
-              style={{
+              sx={{
                 marginRight: theme.spacing(2),
                 color: theme.palette.grey['600']
               }}

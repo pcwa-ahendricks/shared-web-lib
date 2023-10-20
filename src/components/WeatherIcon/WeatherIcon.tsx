@@ -26,6 +26,7 @@ export default function WeatherIcon({
   weatherCode,
   temp,
   observationTime,
+  sx,
   ...rest
 }: Props) {
   const sunriseDate = useMemo(
@@ -199,7 +200,8 @@ export default function WeatherIcon({
     <Icon
       fontSize="small"
       sx={{
-        overflow: 'visible'
+        overflow: 'visible',
+        ...sx
       }}
       className={clsx([
         styles.wi,

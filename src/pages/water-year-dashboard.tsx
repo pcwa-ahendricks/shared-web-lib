@@ -24,7 +24,6 @@ import {
   FormControlLabel,
   Divider,
   BoxProps,
-  Link,
   SelectChangeEvent
 } from '@mui/material'
 // import {BasicTooltip} from '@nivo/tooltip'
@@ -48,9 +47,10 @@ import RegionalSection from '@components/season-recap/RegionalSection'
 import StationSnowfall from '@components/season-recap/StationSnowfall'
 import round from '@lib/round'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
-import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
+import JackinBox, {JackinBoxProps} from '@components/mui-jackinbox/JackinBox'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
+import Link from '@components/Link'
 const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -569,7 +569,6 @@ export default function WaterYearDashboardPage() {
               href="https://www.rcc-acis.org"
               target="_blank"
               rel="noopener noreferrer"
-              style={{outline: 'none'}}
               underline="hover"
             >
               Applied Climate Information System (ACIS)
@@ -579,7 +578,6 @@ export default function WaterYearDashboardPage() {
               href="https://www.ncei.noaa.gov/cag/county/time-series"
               target="_blank"
               rel="noopener noreferrer"
-              style={{outline: 'none'}}
               underline="hover"
             >
               National Oceanic and Atmospheric Administration (NOAA)
@@ -589,7 +587,6 @@ export default function WaterYearDashboardPage() {
               href="https://hprcc.unl.edu"
               target="_blank"
               rel="noopener noreferrer"
-              style={{outline: 'none'}}
               underline="hover"
             >
               High Plains Regional Climate Center
@@ -608,7 +605,7 @@ export default function WaterYearDashboardPage() {
           <Spacing />
           <RowBox justifyContent="flex-start" flexSpacing={5}>
             <ChildBox flex="0 1 25%">
-              <FormControl variant="standard" style={{minWidth: 140}} fullWidth>
+              <FormControl variant="standard" sx={{minWidth: 140}} fullWidth>
                 <InputLabel id="water-year-select-label">Water Year</InputLabel>
                 <Select
                   variant="standard"
@@ -621,9 +618,12 @@ export default function WaterYearDashboardPage() {
                     <MenuItem key={y} value={y}>
                       {`${y - 1}-${y}`}
                       {currentWaterYear === y ? (
-                        <em style={{letterSpacing: 0.5, paddingLeft: 4}}>
+                        <Type
+                          component="em"
+                          sx={{letterSpacing: 0.5, paddingLeft: '4px'}}
+                        >
                           (current)
-                        </em>
+                        </Type>
                       ) : (
                         ''
                       )}
@@ -875,7 +875,7 @@ export default function WaterYearDashboardPage() {
                 top="50%"
                 left="50%"
                 zIndex={3}
-                style={{transform: 'translate(-50%, -50%)'}}
+                sx={{transform: 'translate(-50%, -50%)'}}
               >
                 <Paper elevation={2} square>
                   <Box p={1}>
@@ -918,7 +918,7 @@ export default function WaterYearDashboardPage() {
                 top="50%"
                 left="50%"
                 zIndex={2}
-                style={{transform: 'translate(-50%, -50%)'}}
+                sx={{transform: 'translate(-50%, -50%)'}}
               >
                 <Paper elevation={3} square>
                   <Box p={1}>

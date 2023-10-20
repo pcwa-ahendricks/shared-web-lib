@@ -11,18 +11,14 @@ type Props = {
 const MegaMenuContentContainer = ({children}: Props) => {
   const theme = useTheme<Theme>()
   return (
-    <Box
-      sx={{
-        zIndex: 10
-      }}
-    >
+    <Box>
       <Paper
         square
         sx={{
           width: '100vw',
           minHeight: '30vh',
           // backgroundColor: theme.palette.primary.dark // Dark background
-          backgroundColor: alpha(theme.palette.background.paper, 0.96) // Light, transparent background
+          backgroundColor: alpha(theme.palette.background.paper, 0.97) // Light, transparent background
         }}
       >
         <ReactCSSTransitionReplace

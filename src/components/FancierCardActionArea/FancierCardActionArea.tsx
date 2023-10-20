@@ -12,7 +12,7 @@ import ImageFancier, {
 export type FancierCardActionAreaProps = {
   CardMediaProps?: CardMediaProps
   ImageFancierProps: ImageFancierProps
-} & CardActionAreaProps
+} & Partial<CardActionAreaProps<any>>
 
 const FancierCardActionArea = ({
   CardMediaProps,

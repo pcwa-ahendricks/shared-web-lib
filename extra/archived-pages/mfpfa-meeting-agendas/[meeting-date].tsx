@@ -170,7 +170,7 @@ const DynamicBoardAgendaPage = ({media, err, meetingDate}: Props) => {
                   </>
                 )} */}
               </MuiNextLink>
-              <Type color="textPrimary" style={{display: 'flex'}}>
+              <Type color="textPrimary" sx={{display: 'flex'}}>
                 <DocIcon className={classes.bcIcon} />
                 {boardMeetingDateFormatted}
               </Type>

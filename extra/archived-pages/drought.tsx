@@ -217,7 +217,7 @@ export default function DroughtPage() {
                     </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        style={{
+                        sx={{
                           ...style.noBottomMargin
                         }}
                         primary="Cycle and soak to prevent runoff. Some sprinkler systems apply water faster than the ground will absorb, causing water to run off your landscape into the street and gutter. Cycle and soak is a process of running your sprinklers in shorter increments spaced out over a period of time to allow for better absorption by the soil."
@@ -225,7 +225,7 @@ export default function DroughtPage() {
                     </ListBulletItem>
                     <ListBulletItem>
                       <ListItemText
-                        style={{
+                        sx={{
                           ...style.noBottomMargin
                         }}
                         primary="Adjust sprinklers to reduce overspray."
@@ -235,7 +235,7 @@ export default function DroughtPage() {
                 </ChildBox>
                 <ChildBox flex="nogrow">
                   <Box maxWidth="70vw" margin="auto">
-                    <Box style={{cursor: 'pointer'}}>
+                    <Box sx={{cursor: 'pointer'}}>
                       <Link
                         href="/smart-water-use/trees"
                         passHref

@@ -216,8 +216,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                 <List>
                   {newsReleasesForYear.map((n) => (
                     <NextLink
+                      scroll
                       key={n.id}
-                      passHref
                       href={
                         n.derivedFilenameAttr?.date === '12-20-2022'
                           ? 'https://docs.pcwa.net/mosquito-fire-update-pcwa-has-filed-suit-against-pacific-gas-electric-company.pdf'
@@ -237,10 +237,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                           ? '_blank'
                           : undefined
                       }
-                      scroll
-                      legacyBehavior
                     >
-                      <ListItemButton component="a">
+                      <ListItemButton>
                         <ListItemAvatar>
                           <Box
                             sx={(theme) => ({

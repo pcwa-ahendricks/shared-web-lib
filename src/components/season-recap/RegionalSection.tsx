@@ -33,7 +33,7 @@ import {
 } from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/water-year-dashboard'
-import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
+import JackinBox, {JackinBoxProps} from '@components/mui-jackinbox/JackinBox'
 import {useDebounce} from 'use-debounce'
 import ClimateChangeLine from './ClimateChangeLine'
 import useTheme from '@hooks/useTheme'
@@ -612,13 +612,10 @@ export default function RegionalSection({
 
   const AbsSpinner = useCallback(
     () => (
-      <ChildBox
-        position="absolute"
-        left="50%"
-        top="50%"
-        style={{transform: 'translate(-50%, -50%)'}}
-      >
-        <CircularProgress color="secondary" />
+      <ChildBox position="absolute" left="50%" top="50%">
+        <Box sx={{transform: 'translate(-50%, -50%)'}}>
+          <CircularProgress color="secondary" />
+        </Box>
       </ChildBox>
     ),
     []
@@ -673,7 +670,11 @@ export default function RegionalSection({
           <ColumnBox child>
             <RowBox p={1}>
               <ChildBox flex="auto">
-                <Type variant="body1" align="center" style={{fontSize: 20}}>
+                <Type
+                  variant="body1"
+                  align="center"
+                  sx={{'&.MuiTypography-root': {fontSize: 20}}}
+                >
                   <Emx>
                     In the{' '}
                     <StrongEmphasis variant="inherit" color="primary">
@@ -698,7 +699,7 @@ export default function RegionalSection({
                     <Type
                       variant="body1"
                       sx={{
-                        '&.MuiTypography-body1': {
+                        '&.MuiTypography-root': {
                           ...style.regionalStat
                         }
                       }}
@@ -828,7 +829,7 @@ export default function RegionalSection({
                     <Type
                       variant="body1"
                       sx={{
-                        '&.MuiTypography-body1': {
+                        '&.MuiTypography-root': {
                           ...style.regionalStat
                         }
                       }}
@@ -953,7 +954,11 @@ export default function RegionalSection({
           <ColumnBox child>
             <RowBox p={1}>
               <ChildBox flex="auto">
-                <Type variant="body1" align="center" style={{fontSize: 20}}>
+                <Type
+                  variant="body1"
+                  align="center"
+                  sx={{'&.MuiTypography-root': {fontSize: 20}}}
+                >
                   <Emx>and has been...</Emx>
                 </Type>
               </ChildBox>
@@ -967,7 +972,7 @@ export default function RegionalSection({
                       <Type
                         variant="body1"
                         sx={{
-                          '&.MuiTypography-body1': {
+                          '&.MuiTypography-root': {
                             ...style.regionalStat
                           }
                         }}
@@ -984,7 +989,7 @@ export default function RegionalSection({
                         >
                           <WeatherIcon
                             name="fahrenheit"
-                            style={{
+                            sx={{
                               fontSize: 32,
                               color: grey[800],
                               verticalAlign: 'top'
@@ -996,12 +1001,12 @@ export default function RegionalSection({
                     <Type
                       variant="body1"
                       sx={{
-                        '&.MuiTypography-body1': {
+                        marginTop: '-16px',
+                        '&.MuiTypography-root': {
                           ...style.regionalStatSub
                         }
                       }}
                       component="header"
-                      style={{marginTop: -16}}
                     >
                       {isNumber(mxTempDepart)
                         ? mxTempDepart > 0
@@ -1282,7 +1287,7 @@ export default function RegionalSection({
               top="50%"
               left="50%"
               zIndex={2}
-              style={{transform: 'translate(-50%, -50%)'}}
+              sx={{transform: 'translate(-50%, -50%)'}}
             >
               <Paper elevation={3} square>
                 <Box p={1}>
@@ -1324,12 +1329,12 @@ export default function RegionalSection({
         </RowBox>
       </RowBox>
       <Spacing size="x-large" />
-      <span style={{paddingRight: 4}}>
+      <Box component="span" sx={{paddingRight: '4px'}}>
         <Type variant="caption" color="textSecondary" gutterBottom>
           <em>
             Climate Maps are provided by{' '}
             <Link
-              style={{outline: 'none'}}
+              sx={{outline: 'none'}}
               variant="inherit"
               href="https://hprcc.unl.edu"
               target="_blank"
@@ -1340,14 +1345,14 @@ export default function RegionalSection({
             </Link>
           </em>
         </Type>{' '}
-      </span>
+      </Box>
       |{' '}
-      <span style={{paddingLeft: 4}}>
+      <Box component="span" sx={{paddingLeft: '4px'}}>
         <Type variant="caption" color="textSecondary">
           <em>
             Average Temperatures are provided by{' '}
             <Link
-              style={{outline: 'none'}}
+              sx={{outline: 'none'}}
               variant="inherit"
               href={noaaClimChgUrl}
               target="_blank"
@@ -1358,7 +1363,7 @@ export default function RegionalSection({
             </Link>
           </em>
         </Type>
-      </span>
+      </Box>
     </>
   )
 }

@@ -13,7 +13,7 @@ import {BlurhashCanvas} from 'react-blurhash'
 import {ImageBlurContext} from './ImageBlurStore'
 import pTimeout from 'p-timeout'
 import {sequenceArray} from '@lib/util'
-import {Box} from '@mui/material'
+import {Box, BoxProps} from '@mui/material'
 
 const DEFAULT_WIDTH = 50
 const DEFAULT_HEIGHT = 50
@@ -60,7 +60,8 @@ type Props = {
   blurWidth?: number
   blurHeight?: number
   defaultGrey?: boolean
-} & Omit<ImageProps, 'src'>
+} & Omit<ImageProps, 'src'> &
+  Partial<BoxProps>
 
 const ImageBlur = ({
   blurHeight = DEFAULT_HEIGHT,
@@ -69,6 +70,7 @@ const ImageBlur = ({
   onLoadingComplete,
   defaultGrey = false,
   layout,
+  sx,
   ...rest
 }: Props) => {
   const imageBlurContext = useContext(ImageBlurContext)
@@ -118,7 +120,8 @@ const ImageBlur = ({
         position: 'relative',
         ...(isFillLayout && {
           height: '100%' // required by <CoverStory/>
-        })
+        }),
+        ...sx
       }}
     >
       {/* eslint-disable-next-line jsx-a11y/alt-text */}

@@ -17,7 +17,7 @@ import {
 import isNumber from 'is-number'
 import PrecipCalendar from './PrecipCalendar'
 import {ResponsiveLine} from '@nivo/line'
-import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
+import JackinBox, {JackinBoxProps} from '@components/mui-jackinbox/JackinBox'
 
 type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
 type Props = {

@@ -103,7 +103,7 @@ const StnMap = ({isLoading = false, stationInfo}: Props) => {
     return latitude && longitude ? (
       <Marker longitude={longitude} latitude={latitude}>
         <CrossHairIcon
-          style={{
+          sx={{
             fill: orange[800],
             height: markerSize,
             width: markerSize,

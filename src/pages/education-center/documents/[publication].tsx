@@ -140,7 +140,7 @@ const DynamicPublicationPage = ({media, err, publicationSlug}: Props) => {
                 <UndoIcon sx={{...style.bcIcon}} />
                 Documents
               </Link>
-              <Type color="textPrimary" style={{display: 'flex'}}>
+              <Type color="textPrimary" sx={{display: 'flex'}}>
                 <DocIcon sx={{...style.bcIcon}} />
                 {title}
               </Type>

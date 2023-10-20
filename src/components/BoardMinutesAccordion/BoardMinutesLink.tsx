@@ -11,7 +11,7 @@ import {
 import {ColumnBox} from '@components/MuiSleazebox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import {format, parseJSON} from 'date-fns'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 
@@ -86,7 +86,7 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
   )
 
   return (
-    <Link href={url} as={as} passHref legacyBehavior>
+    <NextLink href={url} as={as}>
       <ColumnBoxEx
         role="link"
         tabIndex={0}
@@ -127,7 +127,7 @@ const BoardMinutesLink = ({date, publishedDate, imgixUrl, title}: Props) => {
           </Type>
         </ColumnBox>
       </ColumnBoxEx>
-    </Link>
+    </NextLink>
   )
 }
 

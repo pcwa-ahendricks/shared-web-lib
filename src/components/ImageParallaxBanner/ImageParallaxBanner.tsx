@@ -27,7 +27,7 @@ const ImageParallaxBanner = ({
           speed,
           children: (
             <Box
-              style={{
+              sx={{
                 marginTop
               }}
             >

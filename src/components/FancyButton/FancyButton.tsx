@@ -1,13 +1,17 @@
 import React, {useState, useCallback} from 'react'
 import {Box, Button, ButtonProps} from '@mui/material'
 import NativeListener from 'react-native-listener'
+import {LinkProps} from '@components/Link'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 export type FancyButtonProps = {
-  children: React.ReactNode
   hoverText?: string
   transition?: 'fade' | 'slideUp'
   transitionDuration?: string
-} & ButtonProps<'a'>
+  slotProps?: {
+    nextLink?: Partial<LinkProps>
+  }
+} & ButtonProps<any>
 
 const FancyButton = ({
   hoverText,
@@ -15,6 +19,7 @@ const FancyButton = ({
   children,
   transitionDuration = '150ms',
   href,
+  slotProps,
   sx,
   ...rest
 }: FancyButtonProps) => {
@@ -29,16 +34,23 @@ const FancyButton = ({
     setIsHovering(false)
   }, [])
 
+  const LinkComponent = useLinkComponent({
+    ...slotProps?.nextLink
+  })
+
   return (
     <NativeListener
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
     >
       <Button
-        color="inherit"
-        component="a"
+        LinkComponent={LinkComponent}
         href={href}
+        color="inherit"
         sx={{
+          '&.MuiButton-contained:hover': {
+            backgroundColor: '#d5d5d5' // not sure why this is explicitly needed to fix color="inherit" prop with <Button/>.
+          },
           ...sx,
           overflow: transition === 'slideUp' ? 'hidden' : 'visible' // Hide translated content with slideUp button.
         }}

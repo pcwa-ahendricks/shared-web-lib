@@ -1,5 +1,12 @@
 // cspell:ignore Lightbox
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import {format, parse} from 'date-fns'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -38,7 +45,6 @@ import {
 // import PrefetchDataLink, {
 //   PrefetchDataLinkProps
 // } from '@components/PrefetchDataLink/PrefetchDataLink'
-import Link, {LinkProps} from 'next/link'
 import MultimediaPhotoGalleries from '@components/multimedia/MultimediaPhotoGalleries/MultimediaPhotoGalleries'
 import {useRouter} from 'next/router'
 import isNumber from 'is-number'
@@ -66,6 +72,8 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import fileExtension from '@lib/fileExtension'
 import useTheme from '@hooks/useTheme'
+import {LinkProps} from '@components/Link'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -215,18 +223,6 @@ const ResourceLibraryPage = ({
     []
   )
 
-  // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList is saved using Context API. Shallow routing will skip getInitialProps entirely.
-  const LinkTab = useCallback(
-    ({href, as, ...rest}: LinkProps & TabProps<'a'>) => {
-      return (
-        <Link href={href} as={as} shallow legacyBehavior passHref>
-          <Tab component="a" {...rest} />
-        </Link>
-      )
-    },
-    []
-  )
-
   const backToGalleriesHandler = useCallback(() => {
     multimediaDispatch(setSelectedGallery(null))
     const hrefAs = /videos/gi.test(router.asPath)
@@ -242,6 +238,8 @@ const ResourceLibraryPage = ({
     },
     []
   )
+
+  const LinkComponent = useLinkComponent()
 
   if (err?.statusCode) {
     console.log(err)
@@ -269,7 +267,7 @@ const ResourceLibraryPage = ({
                   color="inherit"
                   onClick={backToGalleriesHandler}
                   // [HACK] Not sure why this is needed (onClick?), but it is.
-                  style={{cursor: 'pointer'}}
+                  sx={{cursor: 'pointer'}}
                   underline="hover"
                 >
                   Galleries
@@ -351,12 +349,8 @@ const ResourceLibraryPage = ({
                 <Box width={440} marginRight="auto">
                   <Card title="From the Mountain Tops to Your Tap">
                     <FancierCardActionArea
-                      LinkComponent={() => (
-                        <Link
-                          href="/education-center/webinars/mountain-tops-to-tap"
-                          className="reset-a"
-                        />
-                      )}
+                      LinkComponent={LinkComponent}
+                      href="/education-center/webinars/mountain-tops-to-tap"
                       CardMediaProps={{
                         style: {overflow: 'hidden', width: '100%'}
                       }}
@@ -414,13 +408,8 @@ const ResourceLibraryPage = ({
                     // objectPosition="top center"
                   >
                     <FancierCardActionArea
-                      LinkComponent={() => (
-                        <Link
-                          href="/education-center/webinars/state-of-our-water"
-                          className="reset-a"
-                        />
-                      )}
-                      className="reset-a"
+                      LinkComponent={LinkComponent}
+                      href="/education-center/webinars/state-of-our-water"
                       CardMediaProps={{
                         style: {overflow: 'hidden', width: '100%'}
                       }}
@@ -482,12 +471,8 @@ const ResourceLibraryPage = ({
                 <Box width={440} marginRight="auto">
                   <Card title="Fire-Wise, Water-Wise Landscaping">
                     <FancierCardActionArea
-                      LinkComponent={() => (
-                        <Link
-                          href="/smart-water-use/fire-wise-landscaping"
-                          className="reset-a"
-                        />
-                      )}
+                      LinkComponent={LinkComponent}
+                      href="/smart-water-use/fire-wise-landscaping"
                       CardMediaProps={{
                         style: {overflow: 'hidden', width: '100%'}
                       }}
@@ -696,3 +681,17 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 }
 
 export default ResourceLibraryPage
+
+// Use shallow routing with tabs so that extra api requests are skipped. MultimediaList and Enews Blasts are saved using Context API. Shallow routing will skip getInitialProps entirely.
+const LinkTab = ({
+  href,
+  as,
+  ...rest
+}: Partial<TabProps<'a'>> & Partial<LinkProps>) => {
+  const LinkComponent = useLinkComponent({
+    shallow: true,
+    as
+  })
+
+  return <Tab LinkComponent={LinkComponent} href={href} {...rest} />
+}

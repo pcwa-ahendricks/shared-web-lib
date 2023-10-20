@@ -1,7 +1,8 @@
 @font-face {
   font-family: 'Dona';
   font-weight: 400;
-  src: url('/static/fonts/Dona/Dona-Regular.eot?#iefix')
+  src:
+    url('/static/fonts/Dona/Dona-Regular.eot?#iefix')
       format('embedded-opentype'),
     url('/static/fonts/Dona/Dona-Regular.woff2') format('woff2'),
     url('/static/fonts/Dona/Dona-Regular.woff') format('woff');
@@ -10,8 +11,8 @@
 @font-face {
   font-family: 'Dona';
   font-weight: 500;
-  src: url('/static/fonts/Dona/Dona-Medium.eot?#iefix')
-      format('embedded-opentype'),
+  src:
+    url('/static/fonts/Dona/Dona-Medium.eot?#iefix') format('embedded-opentype'),
     url('/static/fonts/Dona/Dona-Medium.woff2') format('woff2'),
     url('/static/fonts/Dona/Dona-Medium.woff') format('woff');
   font-display: swap;
@@ -28,7 +29,8 @@
 @font-face {
   font-family: 'Kiperman';
   font-weight: 400;
-  src: url('/static/fonts/Kiperman/Kiperman-Regular-1d65e07959.eot?#iefix')
+  src:
+    url('/static/fonts/Kiperman/Kiperman-Regular-1d65e07959.eot?#iefix')
       format('embedded-opentype'),
     url('/static/fonts/Kiperman/Kiperman-Regular-c63eb9630d.woff2')
       format('woff2'),
@@ -40,7 +42,8 @@
   font-family: 'Kiperman';
   font-weight: 400;
   font-style: italic;
-  src: url('/static/fonts/Kiperman/Kiperman-Italic-7a53a9f0ea.eot?#iefix')
+  src:
+    url('/static/fonts/Kiperman/Kiperman-Italic-7a53a9f0ea.eot?#iefix')
       format('embedded-opentype'),
     url('/static/fonts/Kiperman/Kiperman-Italic-8c53b21454.woff2')
       format('woff2'),
@@ -50,11 +53,26 @@
 @font-face {
   font-family: 'Kiperman';
   font-weight: 500;
-  src: url('/static/fonts/Kiperman/Kiperman-Bold-6a4bbead8c.eot?#iefix')
+  src:
+    url('/static/fonts/Kiperman/Kiperman-Bold-6a4bbead8c.eot?#iefix')
       format('embedded-opentype'),
     url('/static/fonts/Kiperman/Kiperman-Bold-ebe3ff3bb7.woff2') format('woff2'),
     url('/static/fonts/Kiperman/Kiperman-Bold-df28389487.woff') format('woff');
   font-display: swap;
+}
+
+/*
+Don't underline non-Mui anchor text, ex. Board of Director cards.
+Anchor color should stay the same as the anchor's parent element for non-Mui text, ex. News Releases' buttons
+[class^='Mui'] will select all MuiTypography*, MuiLink*, MuiButton* and so forth classes, and is case sensitive.
+See https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors for more info.
+*/
+a:not([class^='Mui']),
+a:not([class^='Mui']):visited,
+a:not([class^='Mui']):hover,
+a:not([class^='Mui']):active {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* <StrongEmphasis/> */

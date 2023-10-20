@@ -14,8 +14,16 @@ const systemFonts = [
   '"Segoe UI Symbol"'
 ]
 
-// All the following keys are optional.
-// We try our best to provide a great default value.
+/*
+Note - specificity for css font-size prop is required when using sx with typography since responsiveFontSizes is used with this Mui theme.
+     <Type
+        component="span"
+        variant="body1"
+        sx={{'&.MuiTypography-root': {fontSize: '12.34rem'}}}
+      >
+        Example Text
+      </Type>
+*/
 const theme = responsiveFontSizes(
   createTheme({
     typography: {

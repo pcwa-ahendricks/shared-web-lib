@@ -11,7 +11,7 @@ export default function HoursOfOperation() {
         <Type
           variant="body2"
           component="span"
-          style={{
+          sx={{
             fontFamily: 'Dona',
             fontWeight: 500
           }}
@@ -23,7 +23,7 @@ export default function HoursOfOperation() {
         <Type
           variant="body2"
           component="span"
-          style={{
+          sx={{
             fontFamily: 'Dona',
             fontWeight: 500
           }}

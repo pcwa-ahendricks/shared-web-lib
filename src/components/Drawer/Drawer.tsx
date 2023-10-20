@@ -28,8 +28,8 @@ import {useRouter} from 'next/router'
 // import TrendingBarMobile from '@components/trending/TrendingBar/TrendingBarMobile'
 import Spacing from '@components/boxes/Spacing'
 import Link from '@components/Link'
-import NextLink from 'next/link'
 import useTheme from '@hooks/useTheme'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 const SwipeableTemporaryDrawer = () => {
   const [activeGroup, setActiveGroup] = useState<number | null>(null)
@@ -85,24 +85,26 @@ const SwipeableTemporaryDrawer = () => {
     [theme, toggleDrawer]
   )
 
+  const LinkComponent = useLinkComponent()
+
   const SideList = useCallback(
     () => (
       <>
         <List component="nav">
-          <NextLink href="/" passHref legacyBehavior>
-            <ListItemButton
-              onClick={toggleDrawer(false)}
-              onKeyDown={toggleDrawer(false)}
-            >
-              <ListItemText
-                primary="Home"
-                primaryTypographyProps={{
-                  color: 'primary',
-                  sx: {fontWeight: 500}
-                }}
-              />
-            </ListItemButton>
-          </NextLink>
+          <ListItemButton
+            LinkComponent={LinkComponent}
+            href="/"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+          >
+            <ListItemText
+              primary="Home"
+              primaryTypographyProps={{
+                color: 'primary',
+                sx: {fontWeight: 500}
+              }}
+            />
+          </ListItemButton>
           {menuConfig.map((cfg, idxLvl1) => (
             <Box key={idxLvl1}>
               <ListItemButton
@@ -182,20 +184,20 @@ const SwipeableTemporaryDrawer = () => {
               }}
             />
           </ListItemButton>
-          <NextLink href="/services/outage" passHref legacyBehavior>
-            <ListItemButton
-              onClick={toggleDrawer(false)}
-              onKeyDown={toggleDrawer(false)}
-            >
-              <ListItemText
-                primary="Outages"
-                primaryTypographyProps={{
-                  color: 'secondary',
-                  sx: {fontWeight: 500}
-                }}
-              />
-            </ListItemButton>
-          </NextLink>
+          <ListItemButton
+            LinkComponent={LinkComponent}
+            href="/services/outage"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+          >
+            <ListItemText
+              primary="Outages"
+              primaryTypographyProps={{
+                color: 'secondary',
+                sx: {fontWeight: 500}
+              }}
+            />
+          </ListItemButton>
           <ListItemButton
             href="https://careers.pcwa.net/"
             target="_blank"
@@ -211,47 +213,47 @@ const SwipeableTemporaryDrawer = () => {
               }}
             />
           </ListItemButton>
-          <NextLink
+          <ListItemButton
+            LinkComponent={LinkComponent}
             href="/board-of-directors/meeting-agendas"
-            passHref
-            legacyBehavior
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
           >
-            <ListItemButton
-              onClick={toggleDrawer(false)}
-              onKeyDown={toggleDrawer(false)}
-            >
-              <ListItemText
-                primary="Board Meetings"
-                primaryTypographyProps={{
-                  color: 'secondary',
-                  sx: {fontWeight: 500}
-                }}
-              />
-            </ListItemButton>
-          </NextLink>
-          <NextLink
+            <ListItemText
+              primary="Board Meetings"
+              primaryTypographyProps={{
+                color: 'secondary',
+                sx: {fontWeight: 500}
+              }}
+            />
+          </ListItemButton>
+          <ListItemButton
+            LinkComponent={LinkComponent}
             href="/smart-water-use/rebate-programs"
-            passHref
-            legacyBehavior
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
           >
-            <ListItemButton
-              onClick={toggleDrawer(false)}
-              onKeyDown={toggleDrawer(false)}
-            >
-              <ListItemText
-                primary="Rebates"
-                primaryTypographyProps={{
-                  color: 'secondary',
-                  sx: {fontWeight: 500}
-                }}
-              />
-            </ListItemButton>
-          </NextLink>
+            <ListItemText
+              primary="Rebates"
+              primaryTypographyProps={{
+                color: 'secondary',
+                sx: {fontWeight: 500}
+              }}
+            />
+          </ListItemButton>
         </List>
         {/* <Divider /> */}
       </>
     ),
-    [toggleDrawer, activeGroup, router, groupSelectHandler, NavListItem, theme]
+    [
+      toggleDrawer,
+      activeGroup,
+      router,
+      groupSelectHandler,
+      NavListItem,
+      theme,
+      LinkComponent
+    ]
   )
 
   // Close the drawer if it's open and window is resized larger.

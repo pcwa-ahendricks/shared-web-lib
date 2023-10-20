@@ -69,7 +69,7 @@ const Index = ({
   const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
 
   // const Emx = useCallback(
-  //   ({children}) => <em style={{letterSpacing: 0.2}}>{children}</em>,
+  //   ({children}) => <Type component='em' sx={{letterSpacing: 0.2}}>{children}</Type>,
   //   []
   // )
   const coverTileTopMargin = 5
@@ -404,9 +404,9 @@ const Index = ({
                 fontFamily="Arial"
                 zIndex={3}
               >
-                <span style={{fontSize: '.65rem', verticalAlign: 'top'}}>
+                <Box component="span" sx={{fontSize: '.65rem', verticalAlign: 'top'}}>
                   Final Draft
-                </span>
+                </Box>
               </RightRibbon> */}
           {/* <CoverTile
               width={tileWidth}
@@ -427,9 +427,9 @@ const Index = ({
                 fontFamily="Arial"
                 zIndex={3}
               >
-                <span style={{fontSize: '.65rem', verticalAlign: 'top'}}>
+                <Box component="span" sx={{fontSize: '.65rem', verticalAlign: 'top'}}>
                   Final Draft
-                </span>
+                </Box>
               </RightRibbon> */}
 
           {/* <CoverTile

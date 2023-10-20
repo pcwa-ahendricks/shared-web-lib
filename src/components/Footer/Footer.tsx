@@ -93,8 +93,8 @@ const Footer = () => {
                 preserveAspectRatio={isXS ? 'xMidYMin meet' : 'xMinYMin meet'}
                 height="100%"
                 // Setting max width/height prevents strange jank'ing when toolbar variant changes.
-                style={{
-                  maxWidth: theme.spacing(22),
+                sx={{
+                  maxWidth: 175,
                   width: '100%'
                 }}
                 missionStatementFill="rgba(0,0,0,0)"

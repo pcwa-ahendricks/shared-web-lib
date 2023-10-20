@@ -8,7 +8,6 @@ import {FlexBox, ChildBox, RowBox} from '@components/MuiSleazebox'
 import {
   Typography as Type,
   Box,
-  Link,
   Divider,
   List,
   ListItemText,
@@ -16,11 +15,14 @@ import {
 } from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import FancyButton from '@components/FancyButton/FancyButton'
-import NextLink from 'next/link'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
+import Link from '@components/Link'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 const TransparencyPage = () => {
+  const LinkComponent = useLinkComponent()
+
   return (
     <PageLayout title="Transparency" waterSurface>
       <MainBox>
@@ -156,63 +158,51 @@ const TransparencyPage = () => {
             Useful Links
           </Type>
           <List dense disablePadding>
-            <NextLink passHref href="/board-of-directors" legacyBehavior>
-              <ListItemButton>
-                <ListItemText
-                  primary="Board of Directors'"
-                  secondary="Including election procedure, compensation and benefits"
-                />
-              </ListItemButton>
-            </NextLink>
-            <NextLink
-              passHref
+            <ListItemButton
+              LinkComponent={LinkComponent}
+              href="/board-of-directors"
+            >
+              <ListItemText
+                primary="Board of Directors'"
+                secondary="Including election procedure, compensation and benefits"
+              />
+            </ListItemButton>
+            <ListItemButton
+              LinkComponent={LinkComponent}
               href="/board-of-directors/meeting-agendas"
-              legacyBehavior
             >
-              <ListItemButton>
-                <ListItemText primary="Board of Directors' Meetings and Agendas" />
-              </ListItemButton>
-            </NextLink>
-            <NextLink
-              passHref
+              <ListItemText primary="Board of Directors' Meetings and Agendas" />
+            </ListItemButton>
+            <ListItemButton
+              LinkComponent={LinkComponent}
               href="/board-of-directors/meeting-minutes"
-              legacyBehavior
             >
-              <ListItemButton>
-                <ListItemText primary="Board of Directors' Minutes" />
-              </ListItemButton>
-            </NextLink>
-            <NextLink passHref href="/contact-us" legacyBehavior>
-              <ListItemButton>
-                <ListItemText primary="Contact Us" />
-              </ListItemButton>
-            </NextLink>
-            <NextLink passHref href="/about-pcwa/sb272" legacyBehavior>
-              <ListItemButton>
-                <ListItemText primary="Disclosure of Enterprise System Information (SB 272)" />
-              </ListItemButton>
-            </NextLink>
-            <NextLink
-              passHref
+              <ListItemText primary="Board of Directors' Minutes" />
+            </ListItemButton>
+            <ListItemButton LinkComponent={LinkComponent} href="/contact-us">
+              <ListItemText primary="Contact Us" />
+            </ListItemButton>
+            <ListItemButton
+              LinkComponent={LinkComponent}
+              href="/about-pcwa/sb272"
+            >
+              <ListItemText primary="Disclosure of Enterprise System Information (SB 272)" />
+            </ListItemButton>
+            <ListItemButton
+              LinkComponent={LinkComponent}
               href="/careers/employee-benefits-summary"
-              legacyBehavior
             >
-              <ListItemButton>
-                <ListItemText primary="Employee Salary and Benefits" />
-              </ListItemButton>
-            </NextLink>
-            <NextLink
-              passHref
+              <ListItemText primary="Employee Salary and Benefits" />
+            </ListItemButton>
+            <ListItemButton
+              LinkComponent={LinkComponent}
               href="/about-pcwa/financial-report"
-              legacyBehavior
             >
-              <ListItemButton>
-                <ListItemText
-                  primary="Financial Reports"
-                  secondary="Adopted Budget, Annual Comprehensive Financial Reports"
-                />
-              </ListItemButton>
-            </NextLink>
+              <ListItemText
+                primary="Financial Reports"
+                secondary="Adopted Budget, Annual Comprehensive Financial Reports"
+              />
+            </ListItemButton>
 
             <ListItemButton
               href="https://bythenumbers.sco.ca.gov/finance-explorer/view-by-retirement#benefits"
@@ -222,11 +212,12 @@ const TransparencyPage = () => {
               <ListItemText primary="Financial Transaction Report - CA State Controller" />
             </ListItemButton>
 
-            <NextLink passHref href="/board-of-directors" legacyBehavior>
-              <ListItemButton>
-                <ListItemText primary="Map of District Boundaries/Service Area" />
-              </ListItemButton>
-            </NextLink>
+            <ListItemButton
+              LinkComponent={LinkComponent}
+              href="/board-of-directors"
+            >
+              <ListItemText primary="Map of District Boundaries/Service Area" />
+            </ListItemButton>
 
             <ListItemButton
               href="https://docs.pcwa.net/pcwa-rules-and-regs.pdf"
@@ -288,11 +279,12 @@ const TransparencyPage = () => {
               <ListItemText primary="Public Records Request Form" />
             </ListItemButton>
 
-            <NextLink passHref href="/services/water-rates" legacyBehavior>
-              <ListItemButton>
-                <ListItemText primary="Water Rates" />
-              </ListItemButton>
-            </NextLink>
+            <ListItemButton
+              LinkComponent={LinkComponent}
+              href="/services/water-rates"
+            >
+              <ListItemText primary="Water Rates" />
+            </ListItemButton>
           </List>
         </NarrowContainer>
       </MainBox>

@@ -8,7 +8,7 @@ import Image, {ImageProps} from 'next/legacy/image'
 import Overline from '@components/Overline/Overline'
 import {Theme} from '@lib/material-theme'
 import useTheme from '@hooks/useTheme'
-import NextLink from 'next/link'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 export default function QuickLinkButton({
   href,
@@ -16,11 +16,9 @@ export default function QuickLinkButton({
   imageSrc,
   caption,
   target,
-  as,
   ...rest
 }: {
   href: string
-  isNextLink?: boolean
   caption: string
   imageAlt: ImageProps['alt']
   imageSrc: string
@@ -47,6 +45,7 @@ export default function QuickLinkButton({
   const style = useMemo(
     () => ({
       fab: {
+        zIndex: 1, // show AppBar and Mega Menu Popover above mega menu popper with box shadow, and above Mui <Fab/> (default z-index of 1050)
         height: fabSize,
         width: fabSize,
         borderWidth: 0,
@@ -73,17 +72,23 @@ export default function QuickLinkButton({
     setOverlineVisible(true)
   }, [])
 
+  const LinkComponent = useLinkComponent()
+
   return (
     <ColumnBox child alignItems="center">
       <ChildBox
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
       >
-        <NextLink href={href} as={as} passHref legacyBehavior>
-          <Fab href={href} target={target} sx={{...style.fab}} {...rest}>
-            <FabImage />
-          </Fab>
-        </NextLink>
+        <Fab
+          LinkComponent={LinkComponent}
+          href={href}
+          target={target}
+          sx={{...style.fab}}
+          {...rest}
+        >
+          <FabImage />
+        </Fab>
       </ChildBox>
       <ChildBox
         mt={1}

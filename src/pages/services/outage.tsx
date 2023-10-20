@@ -62,7 +62,7 @@ const options: HTMLReactParserOptions = {
 
     if (name === 'em') {
       return (
-        <Type style={{fontStyle: 'italic'}} variant="body1" component="span">
+        <Type component="em" variant="body1">
           {domToReact(children, options)}
         </Type>
       )
@@ -247,7 +247,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                 <RowBox alignItems="center">
                   <EventIcon
                     color="inherit"
-                    style={{
+                    sx={{
                       marginRight: theme.spacing(1),
                       alignSelf: 'stretch'
                     }}
@@ -285,7 +285,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                 <RowBox alignItems="center">
                   <EventIcon
                     color="inherit"
-                    style={{
+                    sx={{
                       marginRight: theme.spacing(1),
                       alignSelf: 'stretch'
                       // color: blueGrey[400]
@@ -338,7 +338,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                     </Box>
                     <Box
                       component="ol"
-                      style={{paddingInlineStart: theme.spacing(3)}}
+                      sx={{paddingInlineStart: theme.spacing(3)}}
                     >
                       <Type component="li" variant="body2" paragraph>
                         If you are experiencing water outages or low water

@@ -217,7 +217,6 @@ const SearchInput = (props: BoxProps) => {
       },
       input: {
         maxWidth: 100,
-        '-webkit-transition': 'max-width 500ms ease',
         transition: 'max-width 500ms ease',
         '&.Mui-focused': {
           maxWidth: 175
@@ -242,8 +241,6 @@ const SearchInput = (props: BoxProps) => {
         opacity: inputMobFocused ? 1 : 0,
         maxWidth: inputMobFocused ? 175 : 0,
         transition:
-          'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease',
-        '-webkit-transition':
           'opacity 300ms ease-out, width 500ms ease, max-width 500ms ease'
       }
     }),

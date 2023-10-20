@@ -219,7 +219,7 @@ const TipsForKidsPage = () => {
               <Type variant="subtitle1" gutterBottom>
                 Water Smart Tips for Kids
               </Type>
-              <ul style={{listStyle: 'none'}}>
+              <Box component="ul" sx={{listStyle: 'none'}}>
                 <TightBullet>
                   When washing hands, turn off the water after wetting hands and
                   turn it back on to rinse. Also, shut the water off while
@@ -238,7 +238,7 @@ const TipsForKidsPage = () => {
                   If you see a water-wasting problem (such as a leaky faucet or
                   broken sprinkler) tell an adult right away.
                 </TightBullet>
-              </ul>
+              </Box>
             </Box>
 
             <Spacing />
@@ -246,7 +246,7 @@ const TipsForKidsPage = () => {
               <Type variant="subtitle1" gutterBottom>
                 Water Smart Tips for Adults
               </Type>
-              <ul style={{listStyle: 'none'}}>
+              <Box component="ul" sx={{listStyle: 'none'}}>
                 <TightBullet>
                   Consider replacing all or part of your thirsty lawn with
                   beautiful, low-water use plants.
@@ -268,7 +268,7 @@ const TipsForKidsPage = () => {
                   at-home consultation with tailored information on how to use
                   less water in your home and landscape.
                 </TightBullet>
-              </ul>
+              </Box>
             </Box>
 
             <Spacing size="x-large" />

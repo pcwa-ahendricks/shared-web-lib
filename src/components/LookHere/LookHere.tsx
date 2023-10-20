@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material'
-import JackinBox, {JackinBoxProps} from 'mui-jackinbox'
+import JackinBox, {JackinBoxProps} from '@components/mui-jackinbox/JackinBox'
 import HandIcon from 'mdi-material-ui/HandPointingRight'
 import {useTimeoutFn} from 'react-use'
 
@@ -40,9 +40,15 @@ export default function LookHere({
           animate={show}
           hideUntilAnimate
         >
-          <Type variant="h4" color="primary" style={{letterSpacing: '.3px'}}>
-            <em>Click flyer to learn more</em>
+          <Type
+            component="em"
+            variant="h4"
+            color="primary"
+            sx={{letterSpacing: '.3px'}}
+          >
+            Click flyer to learn more
           </Type>
+          <br />
           <HandIcon color="primary" fontSize="large" />
         </JackinBox>
       </JackinBox>

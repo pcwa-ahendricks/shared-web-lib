@@ -75,14 +75,16 @@ export default function PrecipCalendar({
           >
             <RowBox alignItems="center">
               <ColumnBox justifyContent="center" pr={0.5}>
-                <SquareIcon fontSize="small" style={{color}} />
+                <SquareIcon fontSize="small" sx={{color}} />
               </ColumnBox>
-              <ChildBox style={{paddingRight: 6}}>
-                <Type variant="caption">{day}:</Type>
+              <ChildBox>
+                <Type variant="caption" sx={{paddingRight: '6px'}}>
+                  {day}:
+                </Type>
               </ChildBox>
               <ChildBox>
-                <Type variant="caption">
-                  <strong>{`${round(parseFloat(value), 1)}"`}</strong>
+                <Type component="strong" variant="caption">
+                  {`${round(parseFloat(value), 1)}"`}
                 </Type>
               </ChildBox>
             </RowBox>

@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {Typography as Type, Box, useTheme, Link, BoxProps} from '@mui/material'
 import MainBox from '@components/boxes/MainBox'
@@ -10,7 +10,6 @@ import FancyButton, {
   FancyButtonProps
 } from '@components/FancyButton/FancyButton'
 import MainPhone from '@components/links/MainPhone'
-import NextLink from 'next/link'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import RebatesEmail from '@components/links/RebatesEmail'
@@ -49,14 +48,6 @@ const RebateProgramsPage = () => {
     )
   }
 
-  // Using forwardRef made Typescript warnings and console error warnings go away.
-  const ForwardFancyButton = forwardRef(function forwardFancyButton(
-    props: FancyButtonProps,
-    ref: React.Ref<any>
-  ) {
-    return <FancyButton {...props} {...ref} />
-  })
-
   const ApplyNowButton = ({
     href,
     label,
@@ -66,27 +57,26 @@ const RebateProgramsPage = () => {
     label: string
   } & Partial<FancyButtonProps>) => {
     return (
-      <NextLink href={href} passHref legacyBehavior>
-        <ForwardFancyButton
-          color="primary"
-          aria-label={label}
-          hoverText="Apply Now"
-          {...rest}
-        >
-          <RowBox alignItems="center">
-            {/* <Type
+      <FancyButton
+        href={href}
+        color="primary"
+        aria-label={label}
+        hoverText="Apply Now"
+        {...rest}
+      >
+        <RowBox alignItems="center">
+          {/* <Type
               color="secondary"
               component="span"
               className={classes.annotate}
             > */}
-            {/* <StrongEmphasis>*New</StrongEmphasis> */}
-            {/* </Type> */}
-            <Type component="span" variant="inherit">
-              Apply Now
-            </Type>
-          </RowBox>
-        </ForwardFancyButton>
-      </NextLink>
+          {/* <StrongEmphasis>*New</StrongEmphasis> */}
+          {/* </Type> */}
+          <Type component="span" variant="inherit">
+            Apply Now
+          </Type>
+        </RowBox>
+      </FancyButton>
     )
   }
 
@@ -312,15 +302,15 @@ const RebateProgramsPage = () => {
                         fontFamily="Arial"
                         zIndex={3}
                       >
-                        <span
-                          style={{
+                        <Box component="span"
+                          sx={{
                             verticalAlign: 'top',
                             lineHeight: '1.2em',
                             fontSize: '0.9em'
                           }}
                         >
                           Enhanced
-                        </span>
+                        </Box>
                       </LeftLargeRibbon>
                     </RibbonContainer> */}
                     <RebateCard pt={4}>
@@ -442,9 +432,9 @@ const RebateProgramsPage = () => {
                       fontFamily="Arial"
                       zIndex={3}
                     >
-                      <span style={{verticalAlign: 'top', lineHeight: '1.2em'}}>
+                      <Box component="span" sx={{verticalAlign: 'top', lineHeight: '1.2em'}}>
                         New
-                      </span>
+                      </Box>
                     </LeftLargeRibbon>
                   </RibbonContainer> */}
                   <RebateCard pt={4}>
@@ -506,15 +496,15 @@ const RebateProgramsPage = () => {
                         fontFamily="Arial"
                         zIndex={3}
                       >
-                        <span
-                          style={{
+                        <Box component="span"
+                          sx={{
                             verticalAlign: 'top',
                             lineHeight: '1.2em',
                             fontSize: '0.9em'
                           }}
                         >
                           Enhanced
-                        </span>
+                        </Box>
                       </LeftLargeRibbon>
                     </RibbonContainer> */}
                     <RebateCard pt={4}>

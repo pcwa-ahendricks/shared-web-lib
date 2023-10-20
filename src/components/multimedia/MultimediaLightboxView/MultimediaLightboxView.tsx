@@ -1,7 +1,6 @@
 // cspell:ignore lightbox
 import React, {useCallback, useState, useEffect} from 'react'
 import {Box, CircularProgress} from '@mui/material'
-import {FlexBox} from '@components/MuiSleazebox'
 import {stringify} from 'querystringify'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
@@ -45,7 +44,8 @@ const MultimediaLightboxView = (props: any) => {
   // [HACK] The <Modal/> closeOnBackdropClick prop doesn't seem to be working. We fix it with a workaround here and with imageClickHandler. In future releases of react-images this workaround may not be needed.
   return (
     <Box style={getStyles('view', props)} onClick={closeHandler}>
-      <FlexBox
+      <Box
+        display="flex"
         justifyContent="center"
         alignItems="center"
         position="absolute"
@@ -55,15 +55,15 @@ const MultimediaLightboxView = (props: any) => {
         width="100%"
         height="100%"
         zIndex={5}
-        style={{cursor: 'none', pointerEvents: 'none'}}
+        sx={{cursor: 'none', pointerEvents: 'none'}}
       >
         {isLoading ? (
           <CircularProgress
             color="inherit"
-            style={{cursor: 'none', pointerEvents: 'none'}}
+            sx={{cursor: 'none', pointerEvents: 'none'}}
           />
         ) : null}
-      </FlexBox>
+      </Box>
       {showImage ? (
         <Image
           priority

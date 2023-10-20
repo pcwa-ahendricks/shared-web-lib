@@ -145,7 +145,7 @@ const DynamicBoardAgendasPage = ({
                   Board Agendas
                 </>
               </Link>
-              <Type color="textPrimary" style={{display: 'flex'}}>
+              <Type color="textPrimary" sx={{display: 'flex'}}>
                 <DocIcon sx={{...style.bcIcon}} />
                 {boardAgendaDateFormatted}
               </Type>

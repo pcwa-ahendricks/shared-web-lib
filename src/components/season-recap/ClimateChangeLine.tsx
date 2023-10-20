@@ -84,7 +84,7 @@ export default function ClimateChangeLine({
         default: {
           strokeWidth: isMdUp ? 1.5 : 1.3
         }
-      } as {[key: string]: React.SVGProps<SVGPathElement>['style']}),
+      }) as {[key: string]: React.SVGProps<SVGPathElement>['style']},
     [isMdUp]
   )
 
@@ -242,16 +242,16 @@ export default function ClimateChangeLine({
           >
             <RowBox alignItems="center">
               <ColumnBox justifyContent="center" pr={0.5}>
-                <SquareIcon fontSize="small" style={{color}} />
+                <SquareIcon fontSize="small" sx={{color}} />
               </ColumnBox>
-              <ChildBox style={{paddingRight: 6}}>
-                <Type variant="caption">
-                  <Type variant="inherit">{xFormatted}</Type>:
+              <ChildBox>
+                <Type variant="caption" sx={{paddingRight: '6px'}}>
+                  {xFormatted}:
                 </Type>
               </ChildBox>
               <ChildBox>
-                <Type variant="caption">
-                  <strong>{yFormatted}&deg;</strong>
+                <Type component="strong" variant="caption">
+                  {yFormatted}&deg;
                 </Type>
               </ChildBox>
             </RowBox>

@@ -24,7 +24,7 @@ import {
   parse,
   addMonths
 } from 'date-fns'
-import NextLink, {LinkProps} from 'next/link'
+import NextLink from 'next/link'
 import groupBy from '@lib/groupBy'
 import {
   AppBar,
@@ -69,6 +69,8 @@ import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import useTheme from '@hooks/useTheme'
+import {LinkProps} from '@components/Link'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
@@ -251,22 +253,6 @@ const PublicationsPage = ({
       id: `nav-tab-${index}`,
       'aria-controls': `nav-tabpanel-${index}`
     }),
-    []
-  )
-
-  // Use shallow routing with tabs so that extra api requests are skipped. MultimediaList and Enews Blasts are saved using Context API. Shallow routing will skip getInitialProps entirely.
-  const LinkTab = useCallback(
-    ({href, as, ...rest}: TabProps<'a'> & LinkProps) => (
-      <NextLink href={href} as={as} shallow passHref legacyBehavior>
-        <Tab
-          component="a"
-          onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-            event.preventDefault()
-          }}
-          {...rest}
-        />
-      </NextLink>
-    ),
     []
   )
 
@@ -479,11 +465,9 @@ const PublicationsPage = ({
                     {newslettersForYear.map((n) => (
                       <Box key={n.id} mb={2}>
                         <NextLink
-                          passHref
                           href="/newsroom/publications/newsletters/[publish-date]"
                           as={`/newsroom/publications/newsletters/${n.derivedFilenameAttr?.date}`}
                           scroll
-                          legacyBehavior
                         >
                           <ListItemButton sx={{...style.listItem}}>
                             <ListItemAvatar>
@@ -839,3 +823,16 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 }
 
 export default PublicationsPage
+
+// Use shallow routing with tabs so that extra api requests are skipped. MultimediaList and Enews Blasts are saved using Context API. Shallow routing will skip getInitialProps entirely.
+const LinkTab = ({
+  href,
+  as,
+  ...rest
+}: Partial<TabProps<'a'>> & Partial<LinkProps>) => {
+  const LinkComponent = useLinkComponent({
+    shallow: true,
+    as
+  })
+  return <Tab LinkComponent={LinkComponent} href={href} {...rest} />
+}

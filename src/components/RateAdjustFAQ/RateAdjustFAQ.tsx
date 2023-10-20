@@ -200,12 +200,14 @@ const RateAdjustFAQ = () => {
                 gallons of water per year. Projects slated in the next five
                 years include:
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Colfax Water Treatment Plant Replacement</em>
+              <Type component="em">
+                Colfax Water Treatment Plant Replacement
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Foothill Water Treatment Plant Grit Screen Replacement</em>
+              <br />
+              <Type component="em">
+                Foothill Water Treatment Plant Grit Screen Replacement
               </Type>
+              <br />
             </ChildBox>
             {/* <ChildBox>
               <ToggleButtonGroup
@@ -220,14 +222,14 @@ const RateAdjustFAQ = () => {
                   value="foothill"
                   aria-label="Foothill WTP Grit Screen Replacement"
                 >
-                  <ImageIcon style={{paddingRight: 6}} />
+                  <ImageIcon sx={{paddingRight: '6px'}} />
                   Foothill WTP Grit Screen Replacement
                 </ToggleButton>
                 <ToggleButton
                   value="colfax"
                   aria-label="Colfax WTP Replacement"
                 >
-                  <ImageIcon style={{paddingRight: 6}} />
+                  <ImageIcon sx={{paddingRight: '6px'}} />
                   Colfax WTP Replacement
                 </ToggleButton>
               </ToggleButtonGroup>
@@ -352,18 +354,20 @@ const RateAdjustFAQ = () => {
                 PCWA maintains over 600 miles of pipeline and 167 miles of raw
                 water canals. Projects slated in the next five years include:
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>High Street Water Main Replacement, Auburn</em>
+              <Type component="em">
+                High Street Water Main Replacement, Auburn
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Midas Avenue Water Main Replacement, Rocklin</em>
+              <br />
+              <Type component="em">
+                Midas Avenue Water Main Replacement, Rocklin
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Interstate 80 Water Crossing Improvement Program</em>
+              <br />
+              <Type component="em">
+                Interstate 80 Water Crossing Improvement Program
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Kilmer Siphon Replacement, Colfax</em>
-              </Type>
+              <br />
+              <Type component="em">Kilmer Siphon Replacement, Colfax</Type>
+              <br />
             </ChildBox>
             <ChildBox pt={1}>
               <RowBox responsive flexSpacing={4}>
@@ -541,18 +545,14 @@ const RateAdjustFAQ = () => {
                 PCWA maintains 34 water storage tanks from Alta to Rocklin.
                 Projects slated in the next five years include:
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Alta Tank</em>
-              </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Monte Vista Tank</em>
-              </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Stanford Ranch Tank</em>
-              </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Bella Tuscany Tank</em>
-              </Type>
+              <Type component="em">Alta Tank</Type>
+              <br />
+              <Type component="em">Monte Vista Tank</Type>
+              <br />
+              <Type component="em">Stanford Ranch Tank</Type>
+              <br />
+              <Type component="em">Bella Tuscany Tank</Type>
+              <br />
             </ChildBox>
             <ChildBox pt={1}>
               <RowBox responsive flexSpacing={4}>
@@ -594,7 +594,7 @@ const RateAdjustFAQ = () => {
                   <ColumnBox alignItems="center">
                     <Box mt={1} position="relative" width="100%" height={25}>
                       <Box
-                        style={{
+                        sx={{
                           position: 'absolute'
                         }}
                       >
@@ -616,12 +616,12 @@ const RateAdjustFAQ = () => {
                 several locations. Projects slated in the next five years
                 include:
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Northstar Road, Rocklin</em>
+              <Type component="em">Northstar Road, Rocklin</Type>
+              <br />
+              <Type component="em">
+                Ophir Pump Station including Auburn Tunnel Pumps 2 & 3
               </Type>
-              <Type variant="body2" style={{fontSize: '1.1rem'}}>
-                <em>Ophir Pump Station including Auburn Tunnel Pumps 2 & 3</em>
-              </Type>
+              <br />
             </ChildBox>
             <ChildBox pt={1}>
               <RowBox responsive flexSpacing={4}>
@@ -660,7 +660,7 @@ const RateAdjustFAQ = () => {
                   <ColumnBox alignItems="center">
                     <Box mt={1} position="relative" width="100%" height={25}>
                       <Box
-                        style={{
+                        sx={{
                           position: 'absolute'
                         }}
                       >

@@ -58,7 +58,7 @@ const ErrorPage = ({statusCode = 400, title: titleProp}: Props) => {
             <Type
               component="span"
               variant="h2"
-              style={{paddingRight: 5}}
+              sx={{paddingRight: '8px'}}
               color="secondary"
             >
               {statusCode}
@@ -67,7 +67,7 @@ const ErrorPage = ({statusCode = 400, title: titleProp}: Props) => {
               component="span"
               variant="h2"
               color="textSecondary"
-              style={{paddingRight: 5}}
+              sx={{paddingRight: '8px'}}
             >
               |
             </Type>

@@ -63,7 +63,7 @@ export default function SnowfallAccumLine({
         default: {
           strokeWidth: 2
         }
-      } as {[key: string]: React.SVGProps<SVGPathElement>['style']}),
+      }) as {[key: string]: React.SVGProps<SVGPathElement>['style']},
     []
   )
 
@@ -213,20 +213,16 @@ export default function SnowfallAccumLine({
           >
             <RowBox alignItems="center">
               <ColumnBox justifyContent="center" pr={0.5}>
-                <SquareIcon fontSize="small" style={{color}} />
+                <SquareIcon fontSize="small" sx={{color}} />
               </ColumnBox>
-              <ChildBox style={{paddingRight: 6}}>
-                <Type variant="caption">
-                  {label}{' '}
-                  <Type variant="inherit">
-                    <strong>{xFormatted}</strong>
-                  </Type>
-                  :
+              <ChildBox>
+                <Type variant="caption" sx={{paddingRight: '6px'}}>
+                  {label} {xFormatted}:
                 </Type>
               </ChildBox>
               <ChildBox>
-                <Type variant="caption">
-                  <strong>{yFormatted}"</strong>
+                <Type component="strong" variant="caption">
+                  {yFormatted}"
                 </Type>
               </ChildBox>
             </RowBox>

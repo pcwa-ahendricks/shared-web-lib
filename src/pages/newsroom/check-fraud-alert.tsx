@@ -17,7 +17,7 @@ export default function CheckFraudAlert() {
           <PageTitle title="Fraudulent Check Alert" />
           <Box>
             {/* <Box display="flex" justifyContent="center">
-              <AlertIcon style={{fontSize: 58, color: yellow[700]}} />
+              <AlertIcon sx={{fontSize: 58, color: yellow[700]}} />
             </Box> */}
             <Spacing />
             <Type paragraph>
