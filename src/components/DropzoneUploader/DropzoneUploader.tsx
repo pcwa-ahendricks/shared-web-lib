@@ -16,7 +16,12 @@ import ConfirmRemoveUploadDialog from './ConfirmRemoveUploadDialog'
 import ConfirmClearUploadsDialog from './ConfirmClearUploadsDialog'
 import UploadRejectedDialog from './UploadRejectedDialog'
 import ThumbPreviews from './ThumbPreviews'
-import {useDropzone, DropzoneOptions, FileRejection} from 'react-dropzone'
+import {
+  useDropzone,
+  DropzoneOptions,
+  FileRejection,
+  Accept
+} from 'react-dropzone'
 import {DroppedFile, UploadedFileAttr} from './types'
 import extension from '@lib/fileExtension'
 import {sequenceArray} from '@lib/util'
@@ -31,7 +36,7 @@ type Props = {
   uploadRoute: string
   maxSize: number
   disabled: boolean
-  accept: string
+  accept: Accept
   subtitle: string
   allowClearUploads?: boolean
 }

@@ -34,7 +34,6 @@ import {
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/water-year-dashboard'
 import JackinBox, {JackinBoxProps} from '@components/mui-jackinbox/JackinBox'
-import {useDebounce} from 'use-debounce'
 import ClimateChangeLine from './ClimateChangeLine'
 import useTheme from '@hooks/useTheme'
 
@@ -241,7 +240,7 @@ export default function RegionalSection({
   // example url for api (json): https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/time-series/CA-061-tavg-9-6-1895-2022.json?base_prd=true&begbaseyear=1895&endbaseyear=2022&trend=true&trend_base=10&begtrendyear=1895&endtrendyear=2022
   const url = `/api/noaa/avg-temp${noaaAvgTempQs}`
 
-  const {data: climChgData, isValidating: climChgIsValidating} =
+  const {data: climChgData, isLoading: climChgIsLoading} =
     useSWR<ClimChgResponse>(url)
   // console.log('[NOAA Avg Response]:', climChgData)
 
@@ -282,17 +281,10 @@ export default function RegionalSection({
   const [multiStnPrcpSmryUrlBase, setMultiStnPrcpSmryUrlBase] =
     useState<MultiStnPrcpSmryUrlBase>(multiStnPrcpSmryUrls[regionalTimeFrame])
 
-  const {
-    data: multiStnPrecipSmryRes,
-    isValidating: multiStnPrecipSmryResValidating
-  } = useSWR<MultiStnSmryResponse>(`${multiStnPrcpSmryUrlBase}${multiStnQs}`, {
-    revalidateOnFocus: false
-  })
-
-  const [multiStnPrecipSmryResLoading] = useDebounce(
-    multiStnPrecipSmryResValidating,
-    800
-  )
+  const {data: multiStnPrecipSmryRes, isLoading: multiStnPrecipSmryResLoading} =
+    useSWR<MultiStnSmryResponse>(`${multiStnPrcpSmryUrlBase}${multiStnQs}`, {
+      revalidateOnFocus: false
+    })
 
   const multiStnPrecipSmryData = useMemo(() => {
     // Only return station data for stations that have data for all three values
@@ -354,17 +346,10 @@ export default function RegionalSection({
   const [multiStnSnowSmryUrlBase, setMultiStnSnowSmryUrlBase] =
     useState<MultiStnSnowSmryUrlBase>(multiStnSnowSmryUrls[regionalTimeFrame])
 
-  const {
-    data: multiStnSnowSmryRes,
-    isValidating: multiStnSnowSmryResValidating
-  } = useSWR<MultiStnSmryResponse>(`${multiStnSnowSmryUrlBase}${multiStnQs}`, {
-    revalidateOnFocus: false
-  })
-
-  const [multiStnSnowSmryResLoading] = useDebounce(
-    multiStnSnowSmryResValidating,
-    800
-  )
+  const {data: multiStnSnowSmryRes, isLoading: multiStnSnowSmryResLoading} =
+    useSWR<MultiStnSmryResponse>(`${multiStnSnowSmryUrlBase}${multiStnQs}`, {
+      revalidateOnFocus: false
+    })
 
   const multiStnSnowSmryData = useMemo(() => {
     // Only return station data for stations that have data for all three values
@@ -430,18 +415,10 @@ export default function RegionalSection({
     useState<MultiStnMxTempSmryUrlBase>(
       multiStnMxTempSmryUrls[regionalTimeFrame]
     )
-  const {
-    data: multiStnMxTempSmryRes,
-    isValidating: multiStnMxTempSmryResValidating
-  } = useSWR<MultiStnSmryResponse>(
-    `${multiStnMxTempSmryUrlBase}${multiStnQs}`,
-    {revalidateOnFocus: false}
-  )
-
-  const [multiStnMxTempSmryResLoading] = useDebounce(
-    multiStnMxTempSmryResValidating,
-    800
-  )
+  const {data: multiStnMxTempSmryRes, isLoading: multiStnMxTempSmryResLoading} =
+    useSWR<MultiStnSmryResponse>(`${multiStnMxTempSmryUrlBase}${multiStnQs}`, {
+      revalidateOnFocus: false
+    })
 
   const multiStnMxTempSmryData = useMemo(() => {
     // Only return station data for stations that have data for all three values
@@ -1279,7 +1256,7 @@ export default function RegionalSection({
           >
             <JackinBox
               animate={Boolean(
-                climChgChartData.length === 0 && !climChgIsValidating
+                climChgChartData.length === 0 && !climChgIsLoading
               )}
               hideUntilAnimate
               name="fadeIn"

@@ -78,14 +78,10 @@ type HeadRowId = keyof SalaryScheduleData
 type Props = {
   salaryCsv?: string
   salaryCsvData?: SalaryScheduleResponse[]
-  isValidating: boolean
+  isLoading: boolean
 }
 
-const SalaryScheduleTable = ({
-  salaryCsvData,
-  isValidating,
-  salaryCsv
-}: Props) => {
+const SalaryScheduleTable = ({salaryCsvData, isLoading, salaryCsv}: Props) => {
   const theme = useTheme()
   const style = {
     tableWrapper: {
@@ -285,12 +281,12 @@ const SalaryScheduleTable = ({
 
   const linearProgressEl = useMemo(
     () =>
-      isValidating ? (
+      isLoading ? (
         <Box position="absolute" top={0} left={0} right={0} zIndex={2}>
           <LinearProgress variant="indeterminate" color="secondary" />
         </Box>
       ) : null,
-    [isValidating]
+    [isLoading]
   )
 
   return (

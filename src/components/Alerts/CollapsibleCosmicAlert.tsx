@@ -19,57 +19,77 @@ type CollapsibleCosmicAlertProps = {
 } & CollapsibleAlertProps
 
 const iconParserOptions: HTMLReactParserOptions = {
-  // [TODO] Fix any type
-  replace: ({children = [], attribs, name}: any) => {
-    if (name === 'svg') {
-      return (
-        <SvgIcon {...attribs}>
-          {/* Recursive parsing un-necessary with <svg/> elements */}
-          {/* {domToReact(children, parserOptions)} */}
-          {domToReact(children)}
-        </SvgIcon>
-      )
+  replace: (domNode) => {
+    // duck typing, see https://github.com/remarkablemark/html-react-parser/issues/221#issuecomment-985879867 for more info
+    if ('name' in domNode && 'attribs' in domNode) {
+      const {children = [], attribs, name} = domNode
+      if (name === 'svg') {
+        return (
+          <SvgIcon {...attribs}>
+            {/* Recursive parsing un-necessary with <svg/> elements */}
+            {/* {domToReact(children, parserOptions)} */}
+            {domToReact(children)}
+          </SvgIcon>
+        )
+      }
     }
   }
 }
 
 const headingParserOptions: HTMLReactParserOptions = {
-  replace: (domNode: any) => {
-    const {attribs, name, children} = domNode
-    if (name === 'p') {
-      return (
-        <Heading attribs={attribs}>
-          {domToReact(children, headingParserOptions)}
-        </Heading>
-      )
-    } else if (name === 'a') {
-      return (
-        <Link {...attribs} underline="always" color="inherit" variant="inherit">
-          {/* Recursive parsing un-necessary with <a/> elements */}
-          {/* {domToReact(children, parserOptions)} */}
-          {domToReact(children)}
-        </Link>
-      )
+  replace: (domNode) => {
+    if ('name' in domNode && 'attribs' in domNode) {
+      const {attribs, name, children} = domNode
+      if (name === 'p') {
+        return (
+          <Heading attribs={attribs}>
+            {domToReact(children, headingParserOptions)}
+          </Heading>
+        )
+      } else if (name === 'a') {
+        const {href = '', ...restAttribs} = attribs
+        return (
+          <Link
+            href={href} // suppress typescript warning
+            {...restAttribs}
+            underline="always"
+            color="inherit"
+            variant="inherit"
+          >
+            {/* Recursive parsing un-necessary with <a/> elements */}
+            {/* {domToReact(children, parserOptions)} */}
+            {domToReact(children)}
+          </Link>
+        )
+      }
     }
   }
 }
 const bodyParserOptions: HTMLReactParserOptions = {
-  replace: (domNode: any) => {
-    const {attribs, name, children} = domNode
-    if (name === 'p') {
-      return (
-        <BodyParagraph attribs={attribs}>
-          {domToReact(children, bodyParserOptions)}
-        </BodyParagraph>
-      )
-    } else if (name === 'a') {
-      return (
-        <Link {...attribs} underline="always" variant="inherit">
-          {/* Recursive parsing un-necessary with <a/> elements */}
-          {/* {domToReact(children, parserOptions)} */}
-          {domToReact(children)}
-        </Link>
-      )
+  replace: (domNode) => {
+    if ('name' in domNode && 'attribs' in domNode) {
+      const {attribs, name, children} = domNode
+      if (name === 'p') {
+        return (
+          <BodyParagraph attribs={attribs}>
+            {domToReact(children, bodyParserOptions)}
+          </BodyParagraph>
+        )
+      } else if (name === 'a') {
+        const {href = '', ...restAttribs} = attribs
+        return (
+          <Link
+            href={href} // suppress typescript warning
+            {...restAttribs}
+            underline="always"
+            variant="inherit"
+          >
+            {/* Recursive parsing un-necessary with <a/> elements */}
+            {/* {domToReact(children, parserOptions)} */}
+            {domToReact(children)}
+          </Link>
+        )
+      }
     }
   }
 }

@@ -52,7 +52,7 @@ const BoardMinutesPage = ({fallbackData}: Props) => {
     [year: string]: boolean
   }>({})
 
-  const {data: boardMinutesData, isValidating} = useSWR<CosmicMediaResponse>(
+  const {data: boardMinutesData, isLoading} = useSWR<CosmicMediaResponse>(
     boardMinutesUrl,
     {fallbackData}
   )
@@ -127,7 +127,7 @@ const BoardMinutesPage = ({fallbackData}: Props) => {
 
   const progressEl = useMemo(
     () =>
-      isValidating ? (
+      isLoading ? (
         <ColumnBox
           position="absolute"
           width="100%"
@@ -139,7 +139,7 @@ const BoardMinutesPage = ({fallbackData}: Props) => {
           </RowBox>
         </ColumnBox>
       ) : null,
-    [isValidating]
+    [isLoading]
   )
 
   return (

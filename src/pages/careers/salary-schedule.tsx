@@ -22,7 +22,7 @@ const csvDataUrl = `/api/cosmic/csv-data${qs}`
 
 const SalarySchedulePage = ({fallbackData}: Props) => {
   const {data: salaryCsv} = useSWR<string>(csvUrl, textFetcher) // Use text() with fetch method.
-  const {data: salaryCsvData, isValidating} = useSWR<SalaryScheduleResponse[]>(
+  const {data: salaryCsvData, isLoading} = useSWR<SalaryScheduleResponse[]>(
     csvDataUrl,
     {fallbackData}
   )
@@ -50,7 +50,7 @@ const SalarySchedulePage = ({fallbackData}: Props) => {
         <SalaryScheduleTable
           salaryCsv={salaryCsv}
           salaryCsvData={salaryCsvData}
-          isValidating={isValidating}
+          isLoading={isLoading}
         />
       </MainBox>
     </PageLayout>

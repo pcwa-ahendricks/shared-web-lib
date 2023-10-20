@@ -119,10 +119,25 @@ const AttachmentField = ({
         onUploadedChange={uploadedAttachmentsHandler}
         height={200}
         width="100%"
-        // There is currently no reasonable way to resize pdfs. So don't accept them for upload since Now will not accept anything over 4.5 MB. See https://vercel.com/docs/concepts/limits/overview#serverless-function-payload-size-limit for more info.
-        // accept="image/*, application/pdf"
+        // There is currently no reasonable way to resize pdfs. Note - Vercel will not accept anything over 4.5 MB. See https://vercel.com/docs/concepts/limits/overview#serverless-function-payload-size-limit for more info.
         // Post conversion application will need to upload (occasional) pdf and/or word document.
-        accept="image/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/pdf"
+        accept={{
+          'image/*': [
+            '.png',
+            '.gif',
+            '.jpeg',
+            '.jpg',
+            '.tif',
+            '.tiff',
+            '.webp',
+            '.avif',
+            '.bmp'
+          ],
+          'application/pdf': ['.pdf'],
+          'application/msword': ['.doc'],
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+            ['.docx']
+        }}
         disabled={
           disabled || isSubmitting || value?.length >= UPLOAD_FILE_LIMIT
         }
