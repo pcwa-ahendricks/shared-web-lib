@@ -38,6 +38,15 @@ const NewsBlurb = ({
     setHover(false)
   }, [])
 
+  // if url is for pcwa.net, allow <Link/> to use Next Router
+  const url = new URL(linkURL)
+  let href = ''
+  if (url.host === 'www.pcwa.net') {
+    href = url.pathname
+  } else {
+    href = url.href
+  }
+
   const titleColor: TypographyProps['color'] = hover ? 'secondary' : 'primary'
   return (
     <Box {...rest}>
@@ -45,7 +54,7 @@ const NewsBlurb = ({
         paragraph={false}
         scroll
         variant="subtitle2"
-        href={linkURL}
+        href={href}
         underline="none"
         onMouseEnter={linkEnterHandler}
         onMouseLeave={linkLeaveHandler}
@@ -61,7 +70,7 @@ const NewsBlurb = ({
         <Link
           scroll
           variant="inherit"
-          href={linkURL}
+          href={href}
           underline="hover"
           sx={{
             color: theme.palette.primary.light
