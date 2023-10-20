@@ -340,7 +340,7 @@ const DropzoneUploader: React.ForwardRefRenderFunction<
    * last onRejected called.
    */
   const rejectHandler: DropzoneOptions['onDropRejected'] = useCallback(
-    (fileRejections: FileRejection[]) => {
+    (fileRejections) => {
       setRejectedFiles([...fileRejections])
     },
     []
