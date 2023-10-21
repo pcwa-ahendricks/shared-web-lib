@@ -15,7 +15,6 @@ export default function QuickLinkButton({
   imageAlt,
   imageSrc,
   caption,
-  target,
   ...rest
 }: {
   href: string
@@ -83,7 +82,6 @@ export default function QuickLinkButton({
         <Fab
           LinkComponent={LinkComponent}
           href={href}
-          target={target}
           sx={{...style.fab}}
           {...rest}
         >
@@ -106,7 +104,6 @@ export default function QuickLinkButton({
             color="primary"
             align="center"
             underline="none"
-            target={target}
           >
             {caption}
           </Link>

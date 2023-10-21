@@ -16,7 +16,6 @@ interface Item {
   title: string
   href?: string | (string & Url)
   as?: string
-  target?: string
 }
 
 const menuConfig: MenuConfig[] = [
@@ -50,8 +49,7 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'Careers at PCWA',
-            href: 'https://careers.pcwa.net',
-            target: '_blank'
+            href: 'https://careers.pcwa.net'
           },
           {
             title: 'Employee Benefits Summary',
@@ -103,8 +101,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Middle Fork Project Finance Authority - JPA',
-            href: 'https://mfpfa.pcwa.net',
-            target: '_blank'
+            href: 'https://mfpfa.pcwa.net'
           },
           // {
           //   title: 'Middle Fork American River Project Relicensing',
@@ -121,8 +118,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'French Meadows Forest Restoration Project',
-            href: 'https://storymaps.arcgis.com/stories/3cf1ddba68e34c59a5326e61e05d304b',
-            target: '_blank'
+            href: 'https://storymaps.arcgis.com/stories/3cf1ddba68e34c59a5326e61e05d304b'
           }
         ]
       },
@@ -131,8 +127,7 @@ const menuConfig: MenuConfig[] = [
         items: [
           {
             title: 'MiddleForkFun.com',
-            href: 'https://www.middleforkfun.com',
-            target: '_blank'
+            href: 'https://www.middleforkfun.com'
           },
           {title: 'Recreation', href: '/recreation'},
           {

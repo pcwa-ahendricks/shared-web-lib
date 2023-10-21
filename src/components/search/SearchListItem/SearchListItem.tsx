@@ -1,18 +1,9 @@
-import React, {useMemo, useContext} from 'react'
-import {Box, ListItemButton} from '@mui/material'
-// import {ListItemProps} from '@mui/material/ListItem'
+import React, {useContext} from 'react'
+import {ListItemButton} from '@mui/material'
 import {SearchContext} from '../SearchStore'
 import {GoogleCseItem} from '../SearchResponse'
-// import usePrefetchHandler from '@hooks/usePrefetchHandler'
-// import NextLink from '@components/NextLink/NextLink'
-import Link from 'next/link'
 import SearchListItemContent from '../SearchListItemContent/SearchListItemContent'
-
-/*
-  [todo] Don't use usePrefetchHandler hook here until we know it won't crash page if route doesn't exist.
-*/
-
-const nextLinkRe = /^http(s)?:\/\/(www\.)?pcwa\.net/i
+import useLinkComponent from '@hooks/useLinkComponent'
 
 type Props = {result: GoogleCseItem}
 
@@ -21,39 +12,22 @@ const SearchListItem = ({result}: Props) => {
   // const searchDispatch = searchContext.dispatch
   const searchState = searchContext.state
   const {isPaging} = searchState
-  // const mouseEnterHandler = usePrefetchHandler()
 
-  const {link} = useMemo(() => result, [result])
+  // if url is for pcwa.net, allow <Link/> to use Next Router
+  const url = new URL(result.link)
+  let href = ''
 
-  const nextLinkHref = useMemo(
-    () => (nextLinkRe.test(link) ? link.replace(nextLinkRe, '') : ''),
-    [link]
-  )
-
-  const resultLinkEl = useMemo(
-    () =>
-      nextLinkRe.test(link) ? (
-        <Link href={nextLinkHref}>
-          <Box
-            // onMouseEnter={mouseEnterHandler(link)}
-            width="100%"
-            height="100%"
-          >
-            <SearchListItemContent result={result} />
-          </Box>
-        </Link>
-      ) : (
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          <SearchListItemContent result={result} />
-        </a>
-      ),
-    [link, nextLinkHref, result]
-  )
-
-  // const clickHandler = () => {}
+  if (url.host === 'www.pcwa.net') {
+    href = url.pathname
+  } else {
+    href = url.href
+  }
+  const LinkComponent = useLinkComponent()
 
   return (
     <ListItemButton
+      href={href}
+      LinkComponent={LinkComponent}
       sx={{
         padding: 0,
         transition: 'opacity 300ms ease',
@@ -65,7 +39,7 @@ const SearchListItem = ({result}: Props) => {
         })
       }}
     >
-      {resultLinkEl}
+      <SearchListItemContent result={result} />
     </ListItemButton>
   )
 }

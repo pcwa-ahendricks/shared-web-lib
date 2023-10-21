@@ -21,7 +21,6 @@ export default function QuickLinksBar(props: BoxProps) {
       <RowBox justifyContent="space-around" alignItems="center" height={150}>
         <QuickLinkButton
           href="https://ipn.paymentus.com/cp/plco"
-          target="_blank"
           imageAlt="Bill Pay quick link icon"
           imageSrc="1938eb70-c941-11eb-ba89-e7f98c8c358b-PayBill.png"
           caption="Pay My Bill"
@@ -46,7 +45,6 @@ export default function QuickLinksBar(props: BoxProps) {
         />
         <QuickLinkButton
           href="https://careers.pcwa.net/"
-          target="_blank"
           imageAlt="Careers quick link icon"
           imageSrc="e7a5cf40-c942-11eb-ba89-e7f98c8c358b-Careers.png"
           caption="Careers"

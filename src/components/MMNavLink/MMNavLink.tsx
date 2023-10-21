@@ -15,7 +15,6 @@ const MMNavLink = ({children, href, slotProps, ...rest}: Props) => {
     ...slotProps?.nextLink
   })
 
-  // Need to use legacy Next Link behavior so that external links respect "target" prop and open in new tabs.
   return (
     <Button
       LinkComponent={LinkComponent}
