@@ -1,5 +1,51 @@
 import {createTheme, responsiveFontSizes} from '@mui/material'
+import localFont from 'next/font/local'
 // import {indigo, green, red} from '@mui/material/colors'
+
+const dona = localFont({
+  src: [
+    {
+      path: '../fonts/Dona/Dona-Regular.woff2',
+      weight: '400',
+      style: 'normal'
+    },
+    {
+      path: '../fonts/Dona/Dona-Medium.woff2',
+      weight: '500',
+      style: 'normal'
+    },
+    {
+      path: '../fonts/Dona/Dona-MediumItalic.woff2',
+      weight: '500',
+      style: 'italic'
+    }
+  ]
+})
+
+const kiperman = localFont({
+  src: [
+    {
+      path: '../fonts/Kiperman/Kiperman-Regular-c63eb9630d.woff2',
+      weight: '400',
+      style: 'normal'
+    },
+    {
+      path: '../fonts/Kiperman/Kiperman-Bold-ebe3ff3bb7.woff2',
+      weight: '500',
+      style: 'normal'
+    },
+    {
+      path: '../fonts/Kiperman/Kiperman-Italic-8c53b21454.woff2',
+      weight: '400',
+      style: 'italic'
+    },
+    {
+      path: '../fonts/Kiperman/Kiperman-BoldItalic-cae179df5e.woff2',
+      weight: '500',
+      style: 'italic'
+    }
+  ]
+})
 
 const systemFonts = [
   '-apple-system',
@@ -29,7 +75,8 @@ const theme = responsiveFontSizes(
     typography: {
       // Use the system font instead of the default Roboto font.
       // fontFamily: ['Asap', ...systemFonts].join(','),
-      fontFamily: ['Dona', ...systemFonts].join(','),
+      // fontFamily: ['Dona', ...systemFonts].join(','),
+      fontFamily: [dona.style.fontFamily, ...systemFonts].join(','),
       h1: {
         fontSize: '2.6rem' // Default: 6rem
       },
@@ -59,18 +106,21 @@ const theme = responsiveFontSizes(
       },
       body2: {
         // fontFamily: ['Open Sans', ...systemFonts].join(',')
-        fontFamily: ['Kiperman', ...systemFonts].join(','),
+        // fontFamily: ['Kiperman', ...systemFonts].join(','),
+        fontFamily: [kiperman.style.fontFamily, ...systemFonts].join(','),
         fontSize: '1.1rem' // Default: 0.875rem
       },
       body1: {
         // fontFamily: ['Open Sans', ...systemFonts].join(',')
-        fontFamily: ['Kiperman', ...systemFonts].join(','),
+        // fontFamily: ['Kiperman', ...systemFonts].join(','),
+        fontFamily: [kiperman.style.fontFamily, ...systemFonts].join(','),
         fontSize: '1.2rem' // Default: 1rem
       },
       button: {
         // fontFamily: ['Asap Condensed', ...systemFonts].join(','),
         // fontWeight: 600, // Default: 500
-        fontFamily: ['Dona', ...systemFonts].join(','),
+        // fontFamily: ['Dona', ...systemFonts].join(','),
+        fontFamily: [dona.style.fontFamily, ...systemFonts].join(','),
         fontSize: '0.92rem' // Default: 0.875rem
       },
       overline: {

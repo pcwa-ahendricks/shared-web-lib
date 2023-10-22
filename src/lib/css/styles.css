@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: 'Dona';
   font-weight: 400;
   src:
@@ -16,7 +16,8 @@
     url('/static/fonts/Dona/Dona-Medium.woff2') format('woff2'),
     url('/static/fonts/Dona/Dona-Medium.woff') format('woff');
   font-display: swap;
-}
+} */
+/* just Dona 400 and 500 were used prior to using Next Font */
 /* @font-face {
   font-family: 'Dona';
   font-weight: 600;
@@ -26,7 +27,8 @@
     url('/static/fonts/Dona/Dona-Bold.woff') format('woff');
   font-display: swap;
 } */
-@font-face {
+
+/* @font-face {
   font-family: 'Kiperman';
   font-weight: 400;
   src:
@@ -59,7 +61,7 @@
     url('/static/fonts/Kiperman/Kiperman-Bold-ebe3ff3bb7.woff2') format('woff2'),
     url('/static/fonts/Kiperman/Kiperman-Bold-df28389487.woff') format('woff');
   font-display: swap;
-}
+} */
 
 /*
 Don't underline non-Mui anchor text, ex. Board of Director cards.
