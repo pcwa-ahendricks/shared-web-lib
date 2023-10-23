@@ -4,7 +4,6 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   SelectChangeEvent,
   useTheme
@@ -74,26 +73,23 @@ const ArtTurfSelect = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel
-        htmlFor="irrigation-method-select"
-        sx={{bgcolor: 'background.default', paddingX: 1}}
-      >
+      <InputLabel id="artificial-turf-select-label">
         Converting to Artificial Turf
       </InputLabel>
       <Select
+        labelId="artificial-turf-select-label"
+        label="Converting to Artificial Turf"
+        id="irrigation-method-select"
+        required
         value={value}
-        autoWidth={true}
+        autoWidth
         variant="outlined"
-        input={
-          <OutlinedInput
-            id="irrigation-method-select"
-            name={name}
-            error={fieldIsTouchedWithError}
-          />
-        }
+        inputProps={{
+          name,
+          error: fieldIsTouchedWithError
+        }}
         onChange={changeHandler}
         onBlur={handleBlur}
-        SelectDisplayProps={{style: {minWidth: 100}}}
       >
         {ANSWERS.map(({caption, value}) => (
           <MenuItem

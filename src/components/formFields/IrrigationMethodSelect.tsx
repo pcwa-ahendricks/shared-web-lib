@@ -4,7 +4,6 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   SelectChangeEvent
 } from '@mui/material'
@@ -62,23 +61,23 @@ const IrrigationTypesSelect = ({
       fullWidth={fullWidth}
       {...other}
     >
-      <InputLabel htmlFor="irrigation-method-select">
+      <InputLabel id="irrigation-method-select-label">
         Irrigation Method
       </InputLabel>
       <Select
+        labelId="irrigation-method-select-label"
+        label="Irrigation Method"
+        id="irrigation-method-select"
+        required
         value={value}
-        autoWidth={true}
+        autoWidth
         variant="outlined"
-        input={
-          <OutlinedInput
-            id="irrigation-method-select"
-            name={name}
-            error={fieldIsTouchedWithError}
-          />
-        }
+        inputProps={{
+          name,
+          error: fieldIsTouchedWithError
+        }}
         onChange={changeHandler}
         onBlur={handleBlur}
-        SelectDisplayProps={{style: {minWidth: 50}}}
       >
         {/* <MenuItem value="">
                           <em>None</em>

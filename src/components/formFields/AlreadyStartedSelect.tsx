@@ -5,7 +5,6 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   SelectChangeEvent,
   Typography as Type,
@@ -78,26 +77,23 @@ const AlreadyStartedSelect = ({
         fullWidth={fullWidth}
         {...other}
       >
-        <InputLabel
-          htmlFor="already-started-select"
-          sx={{bgcolor: 'background.default', paddingX: 1}}
-        >
+        <InputLabel id="already-started-select-label">
           What is the status of your Lawn Replacement project?
         </InputLabel>
         <Select
+          labelId="already-started-select-label"
+          label="What is the status of your Lawn Replacement project?"
+          id="already-started-select"
+          required
           value={value}
-          autoWidth={true}
+          autoWidth
           variant="outlined"
-          input={
-            <OutlinedInput
-              id="already-started-select"
-              name={name}
-              error={fieldIsTouchedWithError}
-            />
-          }
+          inputProps={{
+            name,
+            error: fieldIsTouchedWithError
+          }}
           onChange={changeHandler}
           onBlur={handleBlur}
-          SelectDisplayProps={{style: {minWidth: 100}}}
         >
           {ANSWERS.map((answer) => (
             <MenuItem key={answer} value={answer} sx={{...style.menuItem}}>

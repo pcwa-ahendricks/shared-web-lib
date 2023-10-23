@@ -88,7 +88,6 @@ const CitySelectField = ({
         }}
         onChange={changeHandler}
         onBlur={handleBlur}
-        SelectDisplayProps={{style: {minWidth: 50}}}
       >
         {/* <MenuItem value="">
                           <em>None</em>

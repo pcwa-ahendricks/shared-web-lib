@@ -79,7 +79,6 @@ const ReasonForContactSelectField = ({
         inputProps={{name, error: fieldIsTouchedWithError}}
         onChange={changeHandler}
         onBlur={handleBlur}
-        SelectDisplayProps={{style: {minWidth: 70}}}
       >
         {REASON_LIST.map((reason) => (
           <MenuItem key={reason} value={reason}>

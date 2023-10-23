@@ -61,7 +61,6 @@ const PropertyTypeSelectField = ({
         inputProps={{name, error: fieldIsTouchedWithError}}
         onChange={handleChange}
         onBlur={handleBlur}
-        SelectDisplayProps={{style: {minWidth: 120}}}
       >
         {/* <MenuItem value="">
                           <em>None</em>

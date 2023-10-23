@@ -7,7 +7,7 @@ import {
   Select
 } from '@mui/material'
 import {OutlinedInputProps} from '@mui/material/OutlinedInput'
-import {SelectChangeEvent, SelectProps} from '@mui/material/Select'
+import {SelectChangeEvent} from '@mui/material/Select'
 import {FieldProps} from 'formik'
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 
@@ -16,7 +16,6 @@ type Props = {
   fullWidth?: boolean
   disabled?: boolean
   inputId?: OutlinedInputProps['id']
-  SelectDisplayProps?: SelectProps['SelectDisplayProps']
   required?: boolean
   onChange?: (e: SelectChangeEvent) => void
 } & FieldProps<any>
@@ -32,7 +31,6 @@ const YesNoSelectField = ({
   fullWidth = true,
   disabled = false,
   inputId = 'form-select-id',
-  SelectDisplayProps = {style: {minWidth: 50}}, // Adequate minimum.
   onChange,
   ...other
 }: Props) => {
@@ -82,7 +80,6 @@ const YesNoSelectField = ({
         inputProps={{name, error: fieldIsTouchedWithError}}
         onChange={changeHandler}
         onBlur={handleBlur}
-        SelectDisplayProps={SelectDisplayProps}
       >
         {ANSWERS.map((method) => (
           <MenuItem key={method} value={method}>
