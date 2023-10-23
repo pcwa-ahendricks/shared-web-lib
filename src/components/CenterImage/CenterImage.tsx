@@ -5,7 +5,7 @@ import {Box, BoxProps} from '@mui/material'
   This component was adapted from https://jonathannicol.com/blog/2014/06/16/centre-crop-thumbnails-with-css/.
 
   An example of use use would be to replace the background image and wrapper use in fire-resistant-garden with the following. Note, the translateY seems to require a slightly different value due to differences in centering when compared with the object-position method:
-      <FlexBox>
+      <Box display="flex">
         <CenterImage
           portrait
           translateY={45}
@@ -19,7 +19,7 @@ import {Box, BoxProps} from '@mui/material'
             alt='PCWA Water Efficiency Team'
           />
         </CenterImage>
-      </FlexBox>
+      </Box>
 */
 
 type Props = {

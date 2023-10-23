@@ -160,7 +160,7 @@ const ContactUsPage = () => {
                 </Link>
               </ChildBox>
               {/* <ChildBox>
-                <FlexBox
+                <Box display="flex"
                   position="relative"
                   justifyContent="center"
                   alignItems="center"

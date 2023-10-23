@@ -15,7 +15,6 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import LocalDrinkIcon from '@mui/icons-material/LocalDrink'
 import DetectiveIcon from 'mdi-material-ui/AccountSearch'
 import Spacing from '@components/boxes/Spacing'
-import {FlexBox} from '@components/MuiSleazebox'
 import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import {Theme} from '@lib/material-theme'
@@ -129,11 +128,11 @@ const TipsForKidsPage = () => {
               lifetime:
             </Type>
             <Spacing size="large" factor={1}>
-              <FlexBox>
+              <Box display="flex">
                 <Box m="auto">
                   <LocalDrinkIcon color="secondary" fontSize="large" />
                 </Box>
-              </FlexBox>
+              </Box>
             </Spacing>
             <Type variant="h2" color="primary" gutterBottom>
               {/* <LocalDrinkIcon /> */}
@@ -172,11 +171,11 @@ const TipsForKidsPage = () => {
               toilet as a trash can and to take shorter showers.
             </Type>
             <Spacing size="large" factor={1}>
-              <FlexBox>
+              <Box display="flex">
                 <Box m="auto">
                   <DetectiveIcon color="secondary" fontSize="large" />
                 </Box>
-              </FlexBox>
+              </Box>
             </Spacing>
             <Type variant="h2" color="primary" gutterBottom>
               Make Them A Water Detective
@@ -276,7 +275,7 @@ const TipsForKidsPage = () => {
               Local Resources for Learning About Water
             </Type>
 
-            <ul>
+            <Box component="ul">
               <TypeBullet>
                 Roseville Utility Exploration Center on Pleasant Grove Blvd. in
                 Roseville is an environmental learning center with information
@@ -328,7 +327,7 @@ const TipsForKidsPage = () => {
                 community functions. Learn more by contacting PCWA Customer
                 Services at <MainPhone /> or email at <CustomerServicesEmail />.
               </TypeBullet>
-            </ul>
+            </Box>
           </Box>
         </NarrowContainer>
       </MainBox>

@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {FlexBox, RowBox, ChildBox} from '@components/MuiSleazebox'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import {
   Typography as Type,
   Box,
@@ -94,7 +94,7 @@ const ResponsiveImageTemplatePage = () => {
           </RowBox>
 
           <Spacing size="x-large" />
-          <FlexBox>
+          <Box display="flex">
             <Card sx={{...style.card}}>
               {/* <CardActionArea onClick={cardClickHandler}> */}
               <CardActionArea
@@ -162,7 +162,7 @@ const ResponsiveImageTemplatePage = () => {
                 </NextLink> */}
               </CardActions>
             </Card>
-          </FlexBox>
+          </Box>
         </NarrowContainer>
       </MainBox>
     </PageLayout>

@@ -14,7 +14,6 @@ import {
   Box
 } from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
-import {FlexBox} from '@components/MuiSleazebox'
 import Blockquote from '@components/typography/Blockquote'
 import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
@@ -57,7 +56,7 @@ const SuccessInTheSierraPage = () => {
               years of planning, preparation, and partnership.
             </Type>
             <Spacing />
-            <FlexBox>
+            <Box display="flex">
               <Box
                 m="auto"
                 width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
@@ -77,7 +76,7 @@ const SuccessInTheSierraPage = () => {
                   sizes="100vw"
                 />
               </Box>
-            </FlexBox>
+            </Box>
             <Spacing />
 
             <List dense disablePadding>
@@ -173,7 +172,7 @@ const SuccessInTheSierraPage = () => {
               partnership, and shared stewardship.
             </Type>
           </article>
-          <FlexBox>
+          <Box display="flex">
             <Box
               m="auto"
               width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
@@ -196,7 +195,7 @@ const SuccessInTheSierraPage = () => {
                 height={824}
               />
             </Box>
-          </FlexBox>
+          </Box>
           <Spacing size="large" />
 
           <Image

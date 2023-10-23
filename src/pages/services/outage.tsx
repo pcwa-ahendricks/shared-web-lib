@@ -14,7 +14,7 @@ import PageTitle from '@components/PageTitle/PageTitle'
 import MainPhone from '@components/links/MainPhone'
 import EventIcon from '@mui/icons-material/Event'
 // import WavesIcon from '@mui/icons-material/Waves'
-import {FlexBox, ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
+import {ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
 import ShowMore from '@components/ShowMore/ShowMore'
@@ -226,7 +226,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                 ) : null}
               </Box>
 
-              <FlexBox flex="1 1 auto" />
+              <Box flex="1 1 auto" />
               <Spacing size="large" />
               <Box flex="0 1 auto">
                 <Type variant="h4" gutterBottom>

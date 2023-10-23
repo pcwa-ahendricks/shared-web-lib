@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {FlexBox, RowBox, ChildBox} from '@components/MuiSleazebox'
+import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import MainPhone from '@components/links/MainPhone'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
@@ -40,7 +40,7 @@ const HouseCallsPage = () => {
       alertsProps={{bottomBgGradient: false}}
       bannerComponent={
         // flexShrink fix for Safari
-        <FlexBox flexShrink={0}>
+        <Box display="flex" flexShrink={0}>
           <Box
             m="auto"
             width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
@@ -71,7 +71,7 @@ const HouseCallsPage = () => {
             alt='PCWA Water Efficiency Team'
           />
         </Box> */}
-        </FlexBox>
+        </Box>
       }
     >
       <MainBox>

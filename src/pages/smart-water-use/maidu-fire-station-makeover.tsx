@@ -11,7 +11,7 @@ import {
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {FlexBox, ColumnBox, ChildBox, RowBox} from '@components/MuiSleazebox'
+import {ColumnBox, ChildBox, RowBox} from '@components/MuiSleazebox'
 import WideContainer from '@components/containers/WideContainer'
 import Spacing from '@components/boxes/Spacing'
 import ResponsiveYouTubePlayer from '@components/ResponsiveYouTubePlayer/ResponsiveYouTubePlayer'
@@ -84,7 +84,7 @@ const FireResistantGardenPage = () => {
       title="Maidu Fire Station Makeover"
       alertsProps={{bottomBgGradient: false}}
       bannerComponent={
-        <FlexBox id="top">
+        <Box display="flex" id="top">
           <Box
             m="auto"
             width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
@@ -107,7 +107,7 @@ const FireResistantGardenPage = () => {
               height={1707}
             />
           </Box>
-        </FlexBox>
+        </Box>
       }
     >
       <MainBox>

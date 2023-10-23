@@ -26,7 +26,6 @@ import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitc
 import RebatesEmail from '@components/links/RebatesEmail'
 import SubmitFormButton from './SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
-import {ColumnBox} from '@components/MuiSleazebox'
 // import HowDidYouHearAutocomplete from '@components/formFields/HowDidYouHearAutoselect'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
@@ -389,7 +388,11 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
             disabled={ineligible}
           />
           <Spacing />
-          <ColumnBox sx={{...style.dropzoneContainer}}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            sx={{...style.dropzoneContainer}}
+          >
             <Field
               disabled={ineligible || emailAttachments}
               name="receipts"
@@ -398,10 +401,14 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               onIsUploadingChange={receiptIsUploadingHandler}
               component={AttachmentField}
             />
-          </ColumnBox>
+          </Box>
 
           <Spacing />
-          <ColumnBox sx={{...style.dropzoneContainer}}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            sx={{...style.dropzoneContainer}}
+          >
             <Field
               disabled={ineligible || emailAttachments}
               name="installPhotos"
@@ -410,7 +417,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               onIsUploadingChange={installPhotosIsUploadingHandler}
               component={AttachmentField}
             />
-          </ColumnBox>
+          </Box>
         </Box>
 
         <Divider variant="middle" />

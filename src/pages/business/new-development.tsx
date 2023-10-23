@@ -4,7 +4,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {FlexBox, RowBox} from '@components/MuiSleazebox'
+import {RowBox} from '@components/MuiSleazebox'
 import {Box, Typography as Type, BoxProps, TypographyProps} from '@mui/material'
 import Image from 'next/legacy/image'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
@@ -119,7 +119,7 @@ const NewDevelopmentPage = () => {
       alertsProps={{bottomBgGradient: false}}
       bannerComponent={
         // Setting flex basis/flex shrink here is required by Safari.
-        <FlexBox flex="1 0 auto">
+        <Box display="flex" flex="1 0 auto">
           <Box
             m="auto"
             width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
@@ -138,7 +138,7 @@ const NewDevelopmentPage = () => {
               objectFit={'cover'} // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
             />
           </Box>
-        </FlexBox>
+        </Box>
       }
     >
       <MainBox>

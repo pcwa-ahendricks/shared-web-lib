@@ -1,7 +1,6 @@
 import React from 'react'
 import {Typography as Type, Box, LinearProgress, useTheme} from '@mui/material'
 import styles from './TextProgress.module.css'
-import {FlexBox} from '@components/MuiSleazebox'
 import {Theme} from '@lib/material-theme'
 
 type Props = {
@@ -11,7 +10,7 @@ type Props = {
 const TextProgress = ({caption = 'Loading...'}: Props) => {
   const theme = useTheme<Theme>()
   return (
-    <FlexBox>
+    <Box display="flex">
       <Box>
         <Type
           color="textSecondary"
@@ -33,7 +32,7 @@ const TextProgress = ({caption = 'Loading...'}: Props) => {
           }}
         />
       </Box>
-    </FlexBox>
+    </Box>
   )
 }
 

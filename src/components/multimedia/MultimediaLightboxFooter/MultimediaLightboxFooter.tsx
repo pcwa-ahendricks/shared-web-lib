@@ -2,9 +2,8 @@ import React from 'react'
 // [TODO] why?
 // eslint-disable-next-line import/named
 import {CommonProps, ViewType} from 'react-images'
-import {useMediaQuery} from '@mui/material'
+import {Box, useMediaQuery} from '@mui/material'
 import {PhotoLibraryMetadata} from '@lib/types/multimedia'
-import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import useTheme from '@hooks/useTheme'
 
 const MultimediaLightboxFooter = ({
@@ -73,12 +72,12 @@ const MultimediaLightboxFooter = ({
   const totalViews = views?.length
 
   return isModal ? (
-    <RowBox sx={{...style.footer}} {...innerProps}>
-      <ChildBox sx={{...style.caption}}>{caption}</ChildBox>
-      <ChildBox sx={{...style.count}}>
+    <Box display="flex" sx={{...style.footer}} {...innerProps}>
+      <Box sx={{...style.caption}}>{caption}</Box>
+      <Box sx={{...style.count}}>
         {activeView} of {totalViews}
-      </ChildBox>
-    </RowBox>
+      </Box>
+    </Box>
   ) : null
 }
 

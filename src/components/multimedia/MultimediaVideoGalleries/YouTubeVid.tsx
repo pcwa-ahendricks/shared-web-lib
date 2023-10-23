@@ -18,7 +18,7 @@ export default function YouTubeVid({
   activeGallery?: MultimediaVideoGallery
 }) {
   return activeGallery?.label.toLowerCase() == gallery.toLowerCase() ? (
-    <ChildBox sx={{minHeight: 300}} paddingBottom={5}>
+    <ChildBox minHeight={300} paddingBottom={5}>
       <YouTubePlayer
         controls
         url={`https://www.youtube.com/watch?v=${youTubeId}`}

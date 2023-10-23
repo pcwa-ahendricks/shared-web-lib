@@ -14,7 +14,6 @@ import {
 } from '@mui/material'
 import {SearchContext, setDialogOpen} from '../SearchStore'
 import SearchList from '../SearchList/SearchList'
-import {FlexBox, RowBox} from '@components/MuiSleazebox'
 import {resultsPerPage} from '@lib/services/googleSearchService'
 import {Theme} from '@lib/material-theme'
 
@@ -91,7 +90,7 @@ const SearchResultsDialog = ({
     () => (
       <DialogContent>
         {isSearching && !isPaging ? (
-          <FlexBox justifyContent="center" alignItems="center">
+          <Box display="flex" justifyContent="center" alignItems="center">
             <Box py={5} px={8} m="auto">
               <CircularProgress
                 sx={{
@@ -104,7 +103,7 @@ const SearchResultsDialog = ({
                 }}
               />
             </Box>
-          </FlexBox>
+          </Box>
         ) : (
           <SearchList />
         )}
@@ -195,9 +194,9 @@ const SearchResultsDialog = ({
       <DialogTitle id="search-results-dialog-title">{dialogTitle}</DialogTitle>
       <DialogContentEx />
       <DialogActions>
-        <RowBox justifyContent="space-around" width="100%">
+        <Box display="flex" justifyContent="space-around" width="100%">
           <PaginationEx />
-        </RowBox>
+        </Box>
         <Button onClick={closeHandler} color="primary">
           Close
         </Button>

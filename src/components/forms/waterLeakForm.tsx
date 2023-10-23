@@ -398,7 +398,11 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
             disabled={ineligible}
           />
           <Spacing />
-          <ColumnBox sx={{...style.dropzoneContainer}}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            sx={{...style.dropzoneContainer}}
+          >
             <Field
               disabled={ineligible || emailAttachments}
               name="receipts"
@@ -407,10 +411,14 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               onIsUploadingChange={receiptIsUploadingHandler}
               component={AttachmentField}
             />
-          </ColumnBox>
+          </Box>
 
           <Spacing />
-          <ColumnBox sx={{...style.dropzoneContainer}}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            sx={{...style.dropzoneContainer}}
+          >
             <Field
               disabled={ineligible || emailAttachments}
               name="leakPhotos"
@@ -419,10 +427,14 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               onIsUploadingChange={installPhotosIsUploadingHandler}
               component={AttachmentField}
             />
-          </ColumnBox>
+          </Box>
 
           <Spacing />
-          <ColumnBox sx={{...style.dropzoneContainer}}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            sx={{...style.dropzoneContainer}}
+          >
             <Field
               disabled={ineligible || emailAttachments}
               name="repairPhotos"
@@ -431,7 +443,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               onIsUploadingChange={installPhotosIsUploadingHandler}
               component={AttachmentField}
             />
-          </ColumnBox>
+          </Box>
         </Box>
 
         <Divider variant="middle" />
