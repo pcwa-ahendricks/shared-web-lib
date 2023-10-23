@@ -160,6 +160,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 name="firstName"
                 label="First Name"
                 autoComplete="billing given-name"
+                margin="normal"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -169,13 +170,18 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 name="lastName"
                 label="Last Name"
                 autoComplete="billing family-name"
+                margin="normal"
               />
             </Grid>
           </Grid>
 
           <Grid container spacing={5}>
             <Grid item xs={12} sm={7}>
-              <AccountNoField disabled={ineligible} name="accountNo" />
+              <AccountNoField
+                disabled={ineligible}
+                name="accountNo"
+                margin="normal"
+              />
             </Grid>
             <Grid item xs={12} sm={5}>
               <Field
@@ -272,16 +278,14 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
             summary for the repairs that were made to fix the leak.
           </Type>
           <Spacing />
-          <Grid container spacing={5} justifyContent="space-between">
+          <Grid container spacing={5}>
             <Grid item xs={12} sm={6}>
               <FormDateField
                 name="leakBeginDate"
                 label="Leak Begin Date"
                 placeholder="Begin Date of Leak (approx.)"
-                // required
-                fullWidth
+                slotProps={{textField: {fullWidth: true, margin: 'normal'}}}
                 disableFuture
-                margin="normal"
                 variant="outlined"
                 format="M/dd/yyyy"
                 // show Calendar icon
@@ -301,10 +305,10 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 name="leakIdentifyDate"
                 label="Leak Identified Date"
                 placeholder="Date Leak was Identified"
-                required
-                fullWidth
+                slotProps={{
+                  textField: {required: true, fullWidth: true, margin: 'normal'}
+                }}
                 disableFuture
-                margin="normal"
                 variant="outlined"
                 format="M/dd/yyyy"
                 // show Calendar icon
@@ -320,16 +324,16 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               />
             </Grid>
           </Grid>
-          <Grid container spacing={5} justifyContent="space-between">
+          <Grid container spacing={5}>
             <Grid item xs={12} sm={6}>
               <FormDateField
                 name="leakRepairDate"
                 label="Leak Repair Date"
                 placeholder="Date Leak was Repaired"
-                required
-                fullWidth
+                slotProps={{
+                  textField: {required: true, fullWidth: true, margin: 'normal'}
+                }}
                 disableFuture
-                margin="normal"
                 variant="outlined"
                 format="M/dd/yyyy"
                 // show Calendar icon

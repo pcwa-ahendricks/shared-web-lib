@@ -247,9 +247,14 @@ const ReportWaterWastePage = () => {
                         name="incidentDateTime"
                         label="Date/Time"
                         placeholder="Date and time of incident"
-                        required
                         disableFuture
-                        margin="none"
+                        slotProps={{
+                          textField: {
+                            required: true,
+                            fullWidth: isXs,
+                            margin: 'none'
+                          }
+                        }}
                         variant="outlined"
                         format="M/dd/yyyy',' h:mm aaa"
                         // show icon

@@ -20,7 +20,6 @@ const FormDateField = ({
   const fieldIsTouchedWithError = fieldHasError && touched && !open // don't immediately show error message
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
@@ -36,17 +35,20 @@ const FormDateField = ({
     }
   }, [isMobile, value, setFieldValue, name, isReady])
 
+  const {slotProps, ...rest} = other
+  const {textField: textFieldProps = {}, ...restSlotProps} = slotProps || {}
   return (
     <DatePicker
       slotProps={{
         textField: {
-          fullWidth: isXs,
           name,
           helperText: fieldIsTouchedWithError ? error : null,
           error: fieldIsTouchedWithError,
           onBlur,
-          placeholder
-        }
+          placeholder,
+          ...textFieldProps
+        },
+        ...restSlotProps
       }}
       // type={type}
       // variant={variant}
@@ -56,7 +58,7 @@ const FormDateField = ({
       onChange={(date) => setFieldValue(name, date, false)}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
-      {...other}
+      {...rest}
     />
   )
 }
