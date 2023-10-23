@@ -35,7 +35,7 @@
     "@vercel/ncc": "^0.38.1",
     "@vercel/node": "^3.0.7",
     "ava": "^5.3.1",
-    "eslint": "8.51.0",
+    "eslint": "8.52.0",
     "eslint-config-next": "^13.5.6",
     "eslint-config-prettier": "^9.0.0",
     "globby": "<12.0.0",
