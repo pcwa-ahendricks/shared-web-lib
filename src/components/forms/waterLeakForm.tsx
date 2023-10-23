@@ -36,7 +36,6 @@ import FormDateField from '@components/formFields/FormDateField'
 import CalendarIcon from '@mui/icons-material/Event'
 import WaterLeakRequireCheckboxes from '@components/formFields/WaterLeakRequireCheckboxes'
 import useTheme from '@hooks/useTheme'
-import {ColumnBox} from '@components/MuiSleazebox'
 
 type Props = {
   onIneligibleChange?: (eligible: boolean) => any
