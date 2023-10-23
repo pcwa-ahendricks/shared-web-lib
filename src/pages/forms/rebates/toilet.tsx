@@ -19,7 +19,7 @@ import {
 import PageLayout from '@components/PageLayout/PageLayout'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
-import delay from 'then-sleep'
+import delay from '@lib/delay'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import ToiletEffEligibilityDialog from '@components/formFields/ToiletEffEligibilityDialog'

@@ -33,7 +33,7 @@ import IrrigSysUpgradeOptsCheckboxes, {
 import IrrigUpgradeLocationCheckboxes, {
   formControlItems as initialIrrigUpgradeLocationOpts
 } from '@components/formFields/IrrigUpgradeLocationCheckboxes'
-import delay from 'then-sleep'
+import delay from '@lib/delay'
 import YesNoSelectField from '@components/formFields/YesNoSelectField'
 import IrrigationEffEligibilityDialog from '@components/formFields/IrrigationEffEligibilityDialog'
 import FormBox from '@components/boxes/FormBox'

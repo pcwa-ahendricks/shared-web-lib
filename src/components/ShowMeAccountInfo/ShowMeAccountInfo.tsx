@@ -10,7 +10,7 @@ import {
   useMediaQuery
 } from '@mui/material'
 import AccountQuestion from 'mdi-material-ui/AccountQuestion'
-import delay from 'then-sleep'
+import delay from '@lib/delay'
 import Image from 'next/legacy/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {stringify} from 'querystringify'

@@ -29,7 +29,6 @@ import WebmasterEmail from '@components/links/WebmasterEmail'
 import SearchIcon from '@mui/icons-material/Search'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import useTheme from '@hooks/useTheme'
-// import delay from 'then-sleep'
 
 const maxBetterTotalResultsHackIterations = 7 // This count doesn't include the original request. So if it takes three requests to determine the best total results number for all queries, then setting this to 2 would suffice. But it's uncertain how many queries it takes to determine the most accurate total results number so 5 is more appropriate.
 

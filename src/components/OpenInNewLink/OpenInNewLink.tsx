@@ -1,6 +1,5 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {Fade, SvgIconProps, IconProps, Box} from '@mui/material'
-import NativeListener from 'react-native-listener'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import AltIcon from '@mui/icons-material/Language'
@@ -29,7 +28,7 @@ const OpenInNewLink = ({
   pdf = false,
   showIconAlways = false,
   startAdornment = false,
-  iconPadding = 5,
+  iconPadding = '5px',
   centerIcon = true,
   iconColor = 'inherit',
   altIcon = false,
@@ -38,7 +37,6 @@ const OpenInNewLink = ({
 }: OpenInNewLinkProps) => {
   const [isHovering, setIsHovering] = useState<boolean>(false)
 
-  // [HACK] Next <Link/> will block React's synthetic events, such as onMouseEnter and onMouseLeave. Use react-native-listener as a workaround for this behavior.
   const onMouseEnterHandler = useCallback(() => {
     setIsHovering(true)
   }, [])
@@ -78,37 +76,38 @@ const OpenInNewLink = ({
   }, [pdf, iconFontSize, iconColor, altIcon, style])
 
   return (
-    <NativeListener
+    <Box
+      display="inline-flex"
+      flexDirection="row"
+      component="span"
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
     >
-      <Box display="inline-flex" flexDirection="row" component="span">
-        <Link sx={{...style.link, ...sx}} underline="hover" noWrap {...rest}>
+      <Link sx={{...style.link, ...sx}} underline="hover" noWrap {...rest}>
+        <Box
+          display="inline-flex"
+          component="span"
+          flexDirection={startAdornment ? 'row-reverse' : 'row'}
+        >
+          <Box>{children}</Box>
           <Box
-            display="inline-flex"
+            flexDirection="column"
+            flex="auto"
             component="span"
-            flexDirection={startAdornment ? 'row-reverse' : 'row'}
+            justifyContent={centerIcon ? 'center' : 'flex-start'}
           >
-            <Box>{children}</Box>
-            <Box
-              flexDirection="column"
-              flex="auto"
-              component="span"
-              justifyContent={centerIcon ? 'center' : 'flex-start'}
+            <Fade
+              in={isHovering || showIconAlways}
+              timeout={transitionDuration}
             >
-              <Fade
-                in={isHovering || showIconAlways}
-                timeout={transitionDuration}
-              >
-                <Box>
-                  <LinkIcon />
-                </Box>
-              </Fade>
-            </Box>
+              <Box>
+                <LinkIcon />
+              </Box>
+            </Fade>
           </Box>
-        </Link>
-      </Box>
-    </NativeListener>
+        </Box>
+      </Link>
+    </Box>
   )
 }
 
