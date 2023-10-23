@@ -26,6 +26,7 @@ import ToiletEffEligibilityDialog from '@components/formFields/ToiletEffEligibil
 import {BooleanAsString} from '@lib/safeCastBoolean'
 import ToiletForm from '@components/forms/toiletForm'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
+import FormValidate from '@components/forms/FormValidate/FormValidate'
 
 const SERVICE_URI_PATH = 'toilet-rebate'
 export const MAX_TOILETS = 25
@@ -267,16 +268,17 @@ const Toilet = () => {
                 }
               }}
             >
-              {/* Note - <FormValidate/> wrapper not needed with this form since it's implemented in <ToiletForm/>. */}
               <ProtectRouteChange>
-                <ToiletForm
-                  ineligible={ineligible}
-                  onIneligibleChange={ineligibleChangeHandler}
-                />
-                <ToiletEffEligibilityDialog
-                  open={eligibilityDialogOpen}
-                  onClose={() => setEligibilityDialogOpen(false)}
-                />
+                <FormValidate>
+                  <ToiletForm
+                    ineligible={ineligible}
+                    onIneligibleChange={ineligibleChangeHandler}
+                  />
+                  <ToiletEffEligibilityDialog
+                    open={eligibilityDialogOpen}
+                    onClose={() => setEligibilityDialogOpen(false)}
+                  />
+                </FormValidate>
               </ProtectRouteChange>
             </Formik>
           </MainBox>

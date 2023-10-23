@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useRef} from 'react'
 import {useFormikContext} from 'formik'
+import equal from 'fast-deep-equal'
 
 type Props = {
   children: React.ReactNode
@@ -7,9 +8,14 @@ type Props = {
 
 const FormValidate = ({children}: Props) => {
   const {values, validateForm} = useFormikContext<any>()
+  const prevValues = useRef(values)
+
   useEffect(() => {
-    // Validate the form values any time they are updated.
-    validateForm()
+    if (!equal(prevValues.current, values)) {
+      // Validate the form values any time they are updated.
+      // IMPORTANT! Need to wrap validateForm() in setTimeout or everything will lock up when text is input into a textfield
+      setTimeout(() => validateForm())
+    }
   }, [values, validateForm])
   return <>{children}</>
 }

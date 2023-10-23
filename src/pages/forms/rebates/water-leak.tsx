@@ -27,6 +27,7 @@ import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRout
 import WaterLeakForm from '@components/forms/waterLeakForm'
 import {formControlItems as eligibilityOpts} from '@components/formFields/WaterLeakRequireCheckboxes'
 import LeakFixEffEligibilityDialog from '@components/formFields/LeakFixEffEligibilityDialog'
+import FormValidate from '@components/forms/FormValidate/FormValidate'
 
 const SERVICE_URI_PATH = 'water-leak-rebate'
 
@@ -269,16 +270,17 @@ const WaterLeak = () => {
                 }
               }}
             >
-              {/* Note - <FormValidate/> wrapper not needed with this form since it's implemented in <WaterLeakForm/>. */}
               <ProtectRouteChange>
-                <WaterLeakForm
-                  ineligible={ineligible}
-                  onIneligibleChange={ineligibleChangeHandler}
-                />
-                <LeakFixEffEligibilityDialog
-                  open={eligibilityDialogOpen}
-                  onClose={() => setEligibilityDialogOpen(false)}
-                />
+                <FormValidate>
+                  <WaterLeakForm
+                    ineligible={ineligible}
+                    onIneligibleChange={ineligibleChangeHandler}
+                  />
+                  <LeakFixEffEligibilityDialog
+                    open={eligibilityDialogOpen}
+                    onClose={() => setEligibilityDialogOpen(false)}
+                  />
+                </FormValidate>
               </ProtectRouteChange>
             </Formik>
           </MainBox>

@@ -1,5 +1,5 @@
 // cspell:ignore addtl mnfg watersense Formik's
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback} from 'react'
 import {Box, Divider, Grid, Typography as Type} from '@mui/material'
 import {useFormikContext, Field, FieldProps} from 'formik'
 import {SmartControllerRebateFormData} from '@lib/services/formService'
@@ -82,20 +82,8 @@ const SmartControllerForm = ({
     []
   )
 
-  const {
-    setFieldValue,
-    errors,
-    isSubmitting,
-    dirty,
-    touched,
-    values,
-    validateForm
-  } = useFormikContext<SmartControllerRebateFormData>()
-
-  useEffect(() => {
-    // Validate the form values any time they are updated.
-    validateForm()
-  }, [values, validateForm])
+  const {setFieldValue, errors, isSubmitting, dirty, touched, values} =
+    useFormikContext<SmartControllerRebateFormData>()
 
   if (dirty !== formIsDirty) {
     setFormIsDirty(dirty)

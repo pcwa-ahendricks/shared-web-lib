@@ -1,5 +1,5 @@
 // cspell:ignore addtl mnfg watersense Formik's
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {Box, Divider, Grid, Typography as Type} from '@mui/material'
 import {useFormikContext, Field} from 'formik'
 import {UntreatedWaterTankRebateFormData} from '@lib/services/formService'
@@ -62,20 +62,8 @@ const UntreatedWaterTankForm = ({
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false)
   const [formIsTouched, setFormIsTouched] = useState<boolean>(false)
 
-  const {
-    setFieldValue,
-    errors,
-    isSubmitting,
-    dirty,
-    touched,
-    values,
-    validateForm
-  } = useFormikContext<UntreatedWaterTankRebateFormData>()
-
-  useEffect(() => {
-    // Validate the form values any time they are updated.
-    validateForm()
-  }, [values, validateForm])
+  const {setFieldValue, errors, isSubmitting, dirty, touched, values} =
+    useFormikContext<UntreatedWaterTankRebateFormData>()
 
   if (dirty !== formIsDirty) {
     setFormIsDirty(dirty)

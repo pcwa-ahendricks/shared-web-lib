@@ -17,6 +17,7 @@ import NarrowContainer from '@components/containers/NarrowContainer'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import UntreatedWaterTankEligibilityDialog from '@components/formFields/UntreatedWaterTankEligibilityDialog'
 import UntreatedWaterTankForm from '@components/forms/untreatedWaterTankForm'
+import FormValidate from '@components/forms/FormValidate/FormValidate'
 
 const SERVICE_URI_PATH = 'untreated-water-tank-rebate'
 
@@ -163,16 +164,17 @@ export default function UntreatedWaterTank() {
                 }
               }}
             >
-              {/* Note - <FormValidate/> wrapper not needed with this form since it's implemented in <UntreatedWaterTankForm/>. */}
               <ProtectRouteChange>
-                <UntreatedWaterTankForm
-                  ineligible={ineligible}
-                  onIneligibleChange={ineligibleChangeHandler}
-                />
-                <UntreatedWaterTankEligibilityDialog
-                  open={eligibilityDialogOpen}
-                  onClose={() => setEligibilityDialogOpen(false)}
-                />
+                <FormValidate>
+                  <UntreatedWaterTankForm
+                    ineligible={ineligible}
+                    onIneligibleChange={ineligibleChangeHandler}
+                  />
+                  <UntreatedWaterTankEligibilityDialog
+                    open={eligibilityDialogOpen}
+                    onClose={() => setEligibilityDialogOpen(false)}
+                  />
+                </FormValidate>
               </ProtectRouteChange>
             </Formik>
           </MainBox>

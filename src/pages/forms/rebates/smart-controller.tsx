@@ -18,6 +18,7 @@ import {BooleanAsString} from '@lib/safeCastBoolean'
 import SmartControllerForm from '@components/forms/smartControllerForm'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
 import SmartControllerEligibilityDialog from '@components/formFields/SmartControllerEligibilityDialog'
+import FormValidate from '@components/forms/FormValidate/FormValidate'
 
 const SERVICE_URI_PATH = 'smart-controller-rebate'
 
@@ -230,16 +231,17 @@ export default function SmartController() {
                 }
               }}
             >
-              {/* Note - <FormValidate/> wrapper not needed with this form since it's implemented in <SmartControllerForm/>. */}
               <ProtectRouteChange>
-                <SmartControllerForm
-                  ineligible={ineligible}
-                  onIneligibleChange={ineligibleChangeHandler}
-                />
-                <SmartControllerEligibilityDialog
-                  open={eligibilityDialogOpen}
-                  onClose={() => setEligibilityDialogOpen(false)}
-                />
+                <FormValidate>
+                  <SmartControllerForm
+                    ineligible={ineligible}
+                    onIneligibleChange={ineligibleChangeHandler}
+                  />
+                  <SmartControllerEligibilityDialog
+                    open={eligibilityDialogOpen}
+                    onClose={() => setEligibilityDialogOpen(false)}
+                  />
+                </FormValidate>
               </ProtectRouteChange>
             </Formik>
           </MainBox>
