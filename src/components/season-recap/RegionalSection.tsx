@@ -647,11 +647,7 @@ export default function RegionalSection({
           <ColumnBox child>
             <RowBox p={1}>
               <ChildBox flex="auto">
-                <Type
-                  variant="body1"
-                  align="center"
-                  sx={{'&.MuiTypography-root': {fontSize: 20}}}
-                >
+                <Type variant="body1" align="center" sx={{fontSize: 20}}>
                   <Emx>
                     In the{' '}
                     <StrongEmphasis variant="inherit" color="primary">
@@ -676,9 +672,7 @@ export default function RegionalSection({
                     <Type
                       variant="body1"
                       sx={{
-                        '&.MuiTypography-root': {
-                          ...style.regionalStat
-                        }
+                        ...style.regionalStat
                       }}
                       align="center"
                     >
@@ -806,9 +800,7 @@ export default function RegionalSection({
                     <Type
                       variant="body1"
                       sx={{
-                        '&.MuiTypography-root': {
-                          ...style.regionalStat
-                        }
+                        ...style.regionalStat
                       }}
                     >
                       {relativePrecip(snowPerc)}
@@ -931,11 +923,7 @@ export default function RegionalSection({
           <ColumnBox child>
             <RowBox p={1}>
               <ChildBox flex="auto">
-                <Type
-                  variant="body1"
-                  align="center"
-                  sx={{'&.MuiTypography-root': {fontSize: 20}}}
-                >
+                <Type variant="body1" align="center" sx={{fontSize: 20}}>
                   <Emx>and has been...</Emx>
                 </Type>
               </ChildBox>
@@ -949,9 +937,7 @@ export default function RegionalSection({
                       <Type
                         variant="body1"
                         sx={{
-                          '&.MuiTypography-root': {
-                            ...style.regionalStat
-                          }
+                          ...style.regionalStat
                         }}
                         component="header"
                       >
@@ -979,9 +965,7 @@ export default function RegionalSection({
                       variant="body1"
                       sx={{
                         marginTop: '-16px',
-                        '&.MuiTypography-root': {
-                          ...style.regionalStatSub
-                        }
+                        ...style.regionalStatSub
                       }}
                       component="header"
                     >

@@ -186,6 +186,23 @@ const theme = responsiveFontSizes(
       // }
     },
     components: {
+      MuiTypography: {
+        styleOverrides: {
+          /* There is a specificity issue with using <Typography sx={{fontSize: 0.9rem}} .../> with responsizeFontSizes used in theme.
+          Instead of using !important, use class specificity here. See https://github.com/mui/material-ui/issues/31078 for more info */
+          root: (props) => {
+            const {ownerState} = props
+            const sx: any = ownerState.sx || {}
+            return {
+              ...(Boolean(sx?.fontSize) && {
+                '&.MuiTypography-root': {
+                  fontSize: sx.fontSize
+                }
+              })
+            }
+          }
+        }
+      },
       MuiLink: {
         defaultProps: {
           underline: 'hover' // this was the old default in material v4, which is what this site was build with
@@ -193,6 +210,19 @@ const theme = responsiveFontSizes(
         styleOverrides: {
           underlineAlways: {
             textDecorationColor: 'inherit' // defaults to primary w/ alpha
+          },
+          /* There is a specificity issue with using <Link sx={{fontSize: 0.9rem}} .../> with responsizeFontSizes used in theme.
+          Instead of using !important, use class specificity here. See https://github.com/mui/material-ui/issues/31078 for more info */
+          root: (props) => {
+            const {ownerState} = props
+            const sx: any = ownerState.sx || {}
+            return {
+              ...(Boolean(sx?.fontSize) && {
+                '&.MuiTypography-root&.MuiLink-root': {
+                  fontSize: sx.fontSize
+                }
+              })
+            }
           }
         }
       }

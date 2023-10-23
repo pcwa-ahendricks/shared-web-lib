@@ -30,7 +30,6 @@ import {
   NewsroomContext,
   setEnewsDialogOpen
 } from '@components/newsroom/NewsroomStore'
-import styles from './Footer.module.css'
 
 const SubtleDivider = () => {
   const theme = useTheme<Theme>()
@@ -69,7 +68,10 @@ const Footer = () => {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
       fontSize: '1rem'
-    } as SxProps<Theme>
+    } as SxProps<Theme>,
+    copyright: {
+      fontSize: '0.9rem'
+    }
   }
 
   return (
@@ -266,18 +268,13 @@ const Footer = () => {
             <Type
               variant="body2"
               component="span"
-              classes={{body2: styles.copyright}}
-              sx={{...style.subtle, fontSize: 'inherit'}}
+              sx={{...style.subtle, ...style.copyright}}
             >
               Copyright &copy; 2023
             </Type>{' '}
             <Link
               variant="body2"
-              sx={{...style.link}}
-              TypographyClasses={{
-                body2: styles.copyright
-              }}
-              classes={{root: styles.copyright}}
+              sx={{...style.link, ...style.copyright}}
               href="/"
               underline="hover"
             >
@@ -286,8 +283,7 @@ const Footer = () => {
             <Type
               variant="body2"
               component="span"
-              classes={{body2: styles.copyright}}
-              sx={{...style.subtle}}
+              sx={{...style.subtle, ...style.copyright}}
             >
               All Rights Reserved
               <WeatherIcon
@@ -299,11 +295,7 @@ const Footer = () => {
             </Type>{' '}
             <Link
               variant="body2"
-              TypographyClasses={{
-                body2: styles.copyright
-              }}
-              classes={{root: styles.copyright}}
-              sx={{...style.link}}
+              sx={{...style.link, ...style.copyright}}
               href="https://openweathermap.org/"
               target="_blank"
               rel="noopener noreferrer"

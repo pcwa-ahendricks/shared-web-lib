@@ -90,10 +90,7 @@ export default function CiiConservationRegulationsPage({
           </Type>
           <Type paragraph>
             Non-functional turf is defined in the regulation as{' '}
-            <Type
-              component="em"
-              sx={{'&.MuiTypography-root': {fontSize: '1.21rem'}}}
-            >
+            <Type component="em" sx={{fontSize: '1.21rem'}}>
               "Turf that is solely ornamental and not regularly used for human
               recreational purposes or for civic or community events."
             </Type>

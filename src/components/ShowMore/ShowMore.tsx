@@ -81,7 +81,7 @@ const ShowMore = ({
         component="em"
         variant="body1"
         color="primary"
-        sx={{'&.MuiTypography-root': {fontSize: '1.1em'}}} // specificity for font-size is required since responsiveFontSizes is used with Mui theme
+        sx={{fontSize: '1.1em'}}
       >
         {isExpanded ? outShowMoreTitle : inShowMoreTitle}
       </Type>

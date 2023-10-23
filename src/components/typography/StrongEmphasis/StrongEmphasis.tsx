@@ -1,20 +1,30 @@
 import React from 'react'
 import {Typography as Type, TypographyProps} from '@mui/material'
-// Font loading using @font-face seems to work with css modules but I don't see where that's documented online. See https://nextjs.org/docs/basic-features/built-in-css-support for more info.
-import styles from './StrongEmphasis.module.css'
 
-const StrongEmphasis = ({children, ...rest}: TypographyProps) => {
+const StrongEmphasis = ({
+  children,
+  slotProps,
+  ...rest
+}: TypographyProps & {
+  slotProps?: {em?: Partial<TypographyProps>; strong?: Partial<TypographyProps>}
+}) => {
   return (
     <Type
-      component="span"
+      component="strong"
       color="inherit"
       variant="inherit"
-      className={styles.strongEm}
       {...rest}
+      {...slotProps?.strong}
     >
-      <strong>
-        <em>{children}</em>
-      </strong>
+      <Type
+        component="em"
+        color="inherit"
+        variant="inherit"
+        {...rest}
+        {...slotProps?.em}
+      >
+        {children}
+      </Type>
     </Type>
   )
 }
