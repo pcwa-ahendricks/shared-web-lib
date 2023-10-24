@@ -1,11 +1,12 @@
 import React from 'react'
-import {TextField} from '@mui/material'
+import {TextField, TextFieldProps} from '@mui/material'
 import {FieldProps} from 'formik'
 
 type Props = {
   fullWidth?: boolean
   disabled?: boolean
-} & FieldProps<any>
+} & FieldProps<any> &
+  TextFieldProps
 
 const EmailField = ({
   field,
@@ -30,7 +31,6 @@ const EmailField = ({
       label="Email"
       // placeholder="jane.doe@pcwa.net"
       autoComplete="email"
-      margin="normal"
       variant="outlined"
       helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
       error={fieldIsTouchedWithError}

@@ -5,6 +5,7 @@ import {
   Box,
   InputAdornment,
   IconButton,
+  Unstable_Grid2 as Grid,
   useMediaQuery
 } from '@mui/material'
 import EditLocIcon from '@mui/icons-material/Spellcheck'
@@ -26,7 +27,6 @@ import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErro
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox, RowBox, ChildBox} from '@components/MuiSleazebox'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Spacing from '@components/boxes/Spacing'
@@ -100,7 +100,7 @@ const initialFormValues: FormData = {
 const ReportWaterWastePage = () => {
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-  const isSm = useMediaQuery(theme.breakpoints.down('md'))
+  const isSm = useMediaQuery(theme.breakpoints.only('sm'))
 
   const [photosAreUploading, setPhotosAreUploading] = useState<boolean>(false)
   const photosAreUploadingHandler = useCallback((isUploading: boolean) => {
@@ -131,18 +131,13 @@ const ReportWaterWastePage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Report Water Waste" />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="65%">
-              <Type paragraph>
-                Water conservation is always important. Everyone can do their
-                part. Use the form below to help us identify outdoor water
-                waste. At PCWA, we appreciate your help in identifying water
-                losses. With your help we will continue to work to educate
-                residents and businesses about how to use water wisely and
-                efficiently.
-              </Type>
-            </ChildBox>
-          </RowBox>
+          <Type paragraph>
+            Water conservation is always important. Everyone can do their part.
+            Use the form below to help us identify outdoor water waste. At PCWA,
+            we appreciate your help in identifying water losses. With your help
+            we will continue to work to educate residents and businesses about
+            how to use water wisely and efficiently.
+          </Type>
 
           <Spacing size="large" />
           {/* <Type variant="h3" color="primary" gutterBottom>
@@ -203,207 +198,183 @@ const ReportWaterWastePage = () => {
                   <Type variant="h4" color="textSecondary">
                     Contact Information
                   </Type>
-                  <Spacing size="small" />
-                  <ColumnBox flexSpacing={5} flex="0 0 auto">
-                    <ChildBox>
+                  <Spacing size="x-small" />
+                  <Field
+                    name="name"
+                    component={NameField}
+                    label="Name"
+                    required={false}
+                  />
+
+                  <Grid container columnSpacing={4}>
+                    <Grid xs={12} sm={7}>
+                      <Field name="email" component={EmailField} required />
+                    </Grid>
+                    <Grid xs={12} sm={5}>
                       <Field
-                        name="name"
-                        component={NameField}
-                        label="Name"
+                        name="phone"
+                        component={PhoneNoField}
+                        label="Phone Number"
                         required={false}
                       />
-                    </ChildBox>
-
-                    <ChildBox>
-                      <RowBox responsive flexSpacing={5}>
-                        <ChildBox flex="60%">
-                          <Field
-                            name="email"
-                            component={EmailField}
-                            required
-                            margin="none"
-                          />
-                        </ChildBox>
-                        <ChildBox flex="40%">
-                          <Field
-                            name="phone"
-                            component={PhoneNoField}
-                            label="Phone Number"
-                            required={false}
-                            margin="none"
-                          />
-                        </ChildBox>
-                      </RowBox>
-                    </ChildBox>
-                  </ColumnBox>
+                    </Grid>
+                  </Grid>
                   <Spacing size="small" />
                   <Type variant="h4" color="textSecondary">
                     Incident Details
                   </Type>
-                  <Spacing size="small" />
-                  <ColumnBox flexSpacing={5}>
-                    <ChildBox>
-                      <FormDateTimeField
-                        name="incidentDateTime"
-                        label="Date/Time"
-                        placeholder="Date and time of incident"
-                        disableFuture
-                        slotProps={{
-                          textField: {
-                            required: true,
-                            fullWidth: isXs,
-                            margin: 'none'
-                          }
-                        }}
-                        variant="outlined"
-                        format="M/dd/yyyy',' h:mm aaa"
-                        // show icon
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton size="large">
-                                <CalendarIcon />
-                              </IconButton>
-                            </InputAdornment>
-                          )
-                        }}
-                      />
-                    </ChildBox>
-                    {/* SM mobile & non-mobile address inputs */}
-                    {isXs ? null : (
-                      <>
-                        {showAddressConfirmAlert ? (
-                          <ChildBox mb={-3}>
-                            <Alert severity="info" icon={<EditLocIcon />}>
-                              Please verify that the address below is correct
-                              before submitting
-                            </Alert>
-                          </ChildBox>
-                        ) : null}
-                        <RowBox child flexSpacing={3} alignItems="center">
-                          <ChildBox flex="60%">
-                            <FormTextField
-                              name="incidentAddress"
-                              label="Street Address"
-                              placeholder="Street address of water waste incident"
-                              required
-                              margin="none"
-                            />
-                          </ChildBox>
-                          <ChildBox flex="40%">
-                            <FormTextField
-                              name="incidentCity"
-                              label="City"
-                              placeholder="City where incident occurred"
-                              required
-                              margin="none"
-                            />
-                          </ChildBox>
-                          {/* just show geolocator on sm devices (tablets) (not md and up) */}
-                          {isSm ? (
-                            <ChildBox>
-                              <WaterWasteGeolocator
-                                onSuccess={useMyLocationSuccessHandler}
-                              />
-                            </ChildBox>
-                          ) : null}
-                        </RowBox>
-                      </>
-                    )}
-                    {/* XS mobile address inputs   */}
-                    {isXs ? (
-                      /* [todo] - Need to figure out why flexSpacing is adding a top margin to the first item with <ColumBox/>. The workaround here is to use mt with 2nd element below. */
-                      <ColumnBox
-                        child
-                        // flexSpacing={5}
-                      >
-                        {showAddressConfirmAlert ? (
-                          <ChildBox mb={2}>
-                            <Alert severity="info" icon={<EditLocIcon />}>
-                              Please verify that the address below is correct
-                              before submitting
-                            </Alert>
-                          </ChildBox>
-                        ) : null}
-                        <RowBox child flex="60%" flexSpacing={3}>
-                          <ChildBox flex>
-                            <FormTextField
-                              name="incidentAddress"
-                              label="Street Address"
-                              placeholder="Street address of water waste incident"
-                              required
-                              margin="none"
-                            />
-                          </ChildBox>
-                          <ChildBox>
-                            <WaterWasteGeolocator
-                              onSuccess={useMyLocationSuccessHandler}
-                            />
-                          </ChildBox>
-                        </RowBox>
-                        {/* see comment/todo above regard flexSpacing */}
-                        <ChildBox flex="40%" mt={5}>
+                  <Spacing size="x-small" />
+                  <FormDateTimeField
+                    name="incidentDateTime"
+                    label="Date/Time"
+                    placeholder="Date and time of incident"
+                    disableFuture
+                    slotProps={{
+                      textField: {
+                        required: true,
+                        fullWidth: isXs
+                      }
+                    }}
+                    variant="outlined"
+                    format="M/dd/yyyy',' h:mm aaa"
+                    // show icon
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton size="large">
+                            <CalendarIcon />
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  {/* SM mobile & non-mobile address inputs */}
+                  {!isXs ? (
+                    <>
+                      {showAddressConfirmAlert ? (
+                        <Alert
+                          sx={{my: 1}}
+                          severity="info"
+                          icon={<EditLocIcon />}
+                        >
+                          Please verify that the address below is correct before
+                          submitting
+                        </Alert>
+                      ) : null}
+                      <Grid container columnSpacing={4}>
+                        <Grid sm={7}>
+                          <FormTextField
+                            name="incidentAddress"
+                            label="Street Address"
+                            placeholder="Street address of water waste incident"
+                            required
+                          />
+                        </Grid>
+                        <Grid sm>
                           <FormTextField
                             name="incidentCity"
                             label="City"
                             placeholder="City where incident occurred"
                             required
-                            margin="none"
                           />
-                        </ChildBox>
-                      </ColumnBox>
-                    ) : null}
-                    <ChildBox>
-                      <Field
-                        name="incidentReason"
-                        margin="none"
-                        component={WtrWasteSelectField}
+                        </Grid>
+                        {/* just show geolocator on sm devices (tablets) (not md and up) */}
+                        {isSm ? (
+                          <Grid
+                            sm="auto"
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                          >
+                            <WaterWasteGeolocator
+                              onSuccess={useMyLocationSuccessHandler}
+                            />
+                          </Grid>
+                        ) : null}
+                      </Grid>
+                    </>
+                  ) : null}
+                  {/* XS mobile address inputs   */}
+                  {isXs ? (
+                    <>
+                      {showAddressConfirmAlert ? (
+                        <Alert
+                          sx={{my: 1}}
+                          severity="info"
+                          icon={<EditLocIcon />}
+                        >
+                          Please verify that the address below is correct before
+                          submitting
+                        </Alert>
+                      ) : null}
+                      <Grid container columnSpacing={3}>
+                        <Grid
+                          xs
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <FormTextField
+                            name="incidentAddress"
+                            label="Street Address"
+                            placeholder="Street address of water waste incident"
+                            required
+                          />
+                        </Grid>
+                        <Grid
+                          xs="auto"
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <WaterWasteGeolocator
+                            onSuccess={useMyLocationSuccessHandler}
+                          />
+                        </Grid>
+                      </Grid>
+                      {/* see comment/todo above regard flexSpacing */}
+                      <FormTextField
+                        name="incidentCity"
+                        label="City"
+                        placeholder="City where incident occurred"
                         required
-                        fullWidth
                       />
-                    </ChildBox>
-                    <ChildBox>
-                      <Field
-                        name="description"
-                        placeholder="Describe the water waste incident in detail (Examples, cross-streets, landmark, nearest address, backyard, front yard, near fence, on driveway, left of walkway, etc.)."
-                        label="Description"
-                        component={ContactUsMessageField}
-                        margin="none"
-                      />
-                    </ChildBox>
-                  </ColumnBox>
+                    </>
+                  ) : null}
+                  <Field
+                    name="incidentReason"
+                    component={WtrWasteSelectField}
+                    required
+                    fullWidth
+                  />
+                  <Field
+                    name="description"
+                    placeholder="Describe the water waste incident in detail (Examples, cross-streets, landmark, nearest address, backyard, front yard, near fence, on driveway, left of walkway, etc.)."
+                    label="Description"
+                    component={ContactUsMessageField}
+                  />
                   <Spacing size="small" />
                   <Type variant="h4" color="textSecondary">
                     Provide Photo Attachment(s)
                   </Type>
                   {/* flex="0 0 auto" is an IE11 fix. */}
-                  <Box flex="0 0 auto">
-                    <Type variant="caption" color="textSecondary">
-                      <em>
-                        Note - Only Image file formats can be uploaded (eg.
-                        .jpg, .png). PDF files <em>cannot</em> be uploaded.
-                      </em>
-                    </Type>
+                  <Type variant="caption" color="textSecondary">
+                    <em>
+                      Note - Only Image file formats can be uploaded (eg. .jpg,
+                      .png). PDF files <em>cannot</em> be uploaded.
+                    </em>
+                  </Type>
 
-                    <ColumnBox
-                      justifyContent="flex-start"
-                      alignItems="flex-start"
-                      mb={3}
-                      mt={1}
-                    >
-                      <Field
-                        // disabled={ineligible}
-                        name="photos"
-                        attachmentTitle="Photo(s)"
-                        uploadRoute="water-waste"
-                        onIsUploadingChange={photosAreUploadingHandler}
-                        component={AttachmentField}
-                      />
-                    </ColumnBox>
-                  </Box>
-                  <Box>
-                    <Field name="captcha" component={RecaptchaField} />
-                  </Box>
+                  <Spacing size="x-small" />
+                  <Field
+                    // disabled={ineligible}
+                    name="photos"
+                    attachmentTitle="Photo(s)"
+                    uploadRoute="water-waste"
+                    onIsUploadingChange={photosAreUploadingHandler}
+                    component={AttachmentField}
+                  />
+                  <Field name="captcha" component={RecaptchaField} />
                   <Spacing />
                   {/* For debugging form reset */}
                   {/* <Button

@@ -1,9 +1,10 @@
 import React, {useState, useCallback, useMemo} from 'react'
-import {Fade, SvgIconProps, IconProps, Box} from '@mui/material'
+import {Fade, SvgIconProps, IconProps} from '@mui/material'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import AltIcon from '@mui/icons-material/Language'
 import Link, {LinkProps} from '@components/Link'
+import Span from '@components/boxes/Span'
 
 export type OpenInNewLinkProps = {
   children?: React.ReactNode
@@ -76,38 +77,35 @@ const OpenInNewLink = ({
   }, [pdf, iconFontSize, iconColor, altIcon, style])
 
   return (
-    <Box
+    <Span
       display="inline-flex"
       flexDirection="row"
-      component="span"
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
     >
       <Link sx={{...style.link, ...sx}} underline="hover" noWrap {...rest}>
-        <Box
+        <Span
           display="inline-flex"
-          component="span"
           flexDirection={startAdornment ? 'row-reverse' : 'row'}
         >
-          <Box>{children}</Box>
-          <Box
+          <Span>{children}</Span>
+          <Span
             flexDirection="column"
             flex="auto"
-            component="span"
             justifyContent={centerIcon ? 'center' : 'flex-start'}
           >
             <Fade
               in={isHovering || showIconAlways}
               timeout={transitionDuration}
             >
-              <Box>
+              <span>
                 <LinkIcon />
-              </Box>
+              </span>
             </Fade>
-          </Box>
-        </Box>
+          </Span>
+        </Span>
       </Link>
-    </Box>
+    </Span>
   )
 }
 

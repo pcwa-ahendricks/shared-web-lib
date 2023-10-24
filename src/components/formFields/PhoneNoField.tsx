@@ -1,11 +1,12 @@
 import React from 'react'
-import {TextField} from '@mui/material'
+import {TextField, TextFieldProps} from '@mui/material'
 import {FieldProps} from 'formik'
 
 type Props = {
   fullWidth?: boolean
   disabled?: boolean
-} & FieldProps<any>
+} & FieldProps<any> &
+  TextFieldProps
 
 const PhoneNoField = ({
   field,
@@ -31,7 +32,6 @@ const PhoneNoField = ({
       // placeholder="jane.doe@pcwa.net"
       autoComplete="tel-national"
       variant="outlined"
-      margin="normal"
       helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
       error={fieldIsTouchedWithError}
       onChange={handleChange}

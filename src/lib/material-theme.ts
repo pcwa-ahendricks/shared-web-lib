@@ -225,6 +225,16 @@ const theme = responsiveFontSizes(
             }
           }
         }
+      },
+      MuiTextField: {
+        defaultProps: {
+          margin: 'normal' // defaults to 'none'
+        }
+      },
+      MuiFormControl: {
+        defaultProps: {
+          margin: 'normal' // defaults to 'none'
+        }
       }
     }
   })

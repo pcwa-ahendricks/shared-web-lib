@@ -1,6 +1,12 @@
 // cspell:ignore cc'd
 import React, {useState, useCallback, useMemo} from 'react'
-import {Divider, Typography as Type, Box, useMediaQuery} from '@mui/material'
+import {
+  Divider,
+  Typography as Type,
+  Box,
+  useMediaQuery,
+  Unstable_Grid2 as Grid
+} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {string, object} from 'yup'
 import {
@@ -21,7 +27,6 @@ import ContactUsErrorDialog from '@components/ContactUsErrorDialog/ContactUsErro
 import MainBox from '@components/boxes/MainBox'
 import FormBox from '@components/boxes/FormBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox, ChildBox, RowBox} from '@components/MuiSleazebox'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import MainPhone from '@components/links/MainPhone'
 import EightHundredPhone from '@components/links/EightHundredPhone'
@@ -75,8 +80,7 @@ const initialFormValues: FormData = {
 const ContactUsPage = () => {
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
-  const mdUp = useMediaQuery(theme.breakpoints.up('md'))
-  const smUp = useMediaQuery(theme.breakpoints.up('sm'))
+  const isSm = useMediaQuery(theme.breakpoints.only('sm'))
   const [formSubmitDialogOpen, setFormSubmitDialogOpen] =
     useState<boolean>(false)
   const [formSubmitDialogErrorOpen, setFormSubmitDialogErrorOpen] =
@@ -101,8 +105,8 @@ const ContactUsPage = () => {
       <MainBox>
         <NarrowContainer>
           <PageTitle id="contact-us" title="Contact Us" />
-          <RowBox responsive flexSpacing={4}>
-            <ChildBox flex="65%">
+          <Grid container xs={12} columnSpacing={5}>
+            <Grid sm={7}>
               <Type paragraph>
                 The PCWA Business Center Lobby is open Monday through Thursday:
                 8am-5pm, and closed Friday. Customer Service Representatives are
@@ -120,8 +124,8 @@ const ContactUsPage = () => {
                 waste incident, please visit{' '}
                 <Link href="/report-water-waste">Report Water Waste</Link>.
               </Type>
-            </ChildBox>
-            <ChildBox flex="35%" display="flex">
+            </Grid>
+            <Grid sm={5} display="flex">
               <Box
                 mx="auto"
                 width={{xs: '60vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
@@ -136,8 +140,8 @@ const ContactUsPage = () => {
                   height={790}
                 />
               </Box>
-            </ChildBox>
-          </RowBox>
+            </Grid>
+          </Grid>
           <Spacing size="x-small" />
           <HoursOfOperation />
           <Spacing factor={2} />
@@ -145,20 +149,23 @@ const ContactUsPage = () => {
             bgcolor={theme.palette.grey['100']}
             border={1}
             borderColor={theme.palette.grey['300']}
+            p={3}
           >
-            <RowBox justifyContent="space-around">
-              <ChildBox p={3}>
-                <Type>
-                  <em>Business Center Located At</em>
-                </Type>
-                <Link href="/about-pcwa/directions">
-                  Placer County Water Agency
-                  <br />
-                  144 Ferguson Road
-                  <br />
-                  Auburn, CA 95603
-                </Link>
-              </ChildBox>
+            <Grid container justifyContent="space-around">
+              <Grid xs display="flex" justifyContent="center">
+                <Box>
+                  <Type>
+                    <em>Business Center Located At</em>
+                  </Type>
+                  <Link href="/about-pcwa/directions">
+                    Placer County Water Agency
+                    <br />
+                    144 Ferguson Road
+                    <br />
+                    Auburn, CA 95603
+                  </Link>
+                </Box>
+              </Grid>
               {/* <ChildBox>
                 <Box display="flex"
                   position="relative"
@@ -176,7 +183,7 @@ const ContactUsPage = () => {
               {/* <Divider orientation="vertical" /> */}
               {/* </FlexBox>
               </ChildBox> */}
-              <ChildBox p={3}>
+              <Grid xs display="flex" justifyContent="center">
                 <Type>
                   <em>Mailing Address</em>
                   <br />
@@ -185,8 +192,8 @@ const ContactUsPage = () => {
                   Auburn, CA 95604-6570
                   <br />
                 </Type>
-              </ChildBox>
-            </RowBox>
+              </Grid>
+            </Grid>
           </Box>
 
           <Spacing size="large" factor={2} />
@@ -239,163 +246,143 @@ const ContactUsPage = () => {
                   </Type>
                   <Spacing size="x-small" />
                   {/* flex prop is an IE11 fix. */}
-                  <ColumnBox flex="0 0 auto">
-                    <ChildBox>
-                      <Field
-                        name="reason"
-                        component={ReasonForContactSelectField}
-                        required={true}
-                        margin="normal"
-                      />
-                    </ChildBox>
+                  <Field
+                    name="reason"
+                    component={ReasonForContactSelectField}
+                    required={true}
+                  />
 
-                    <ChildBox>
+                  <Field
+                    name="name"
+                    label="Name"
+                    component={NameField}
+                    required={false}
+                  />
+
+                  <Grid container columnSpacing={4}>
+                    <Grid xs={12} sm={7}>
                       <Field
-                        name="name"
-                        label="Name"
-                        component={NameField}
+                        name="email"
+                        component={EmailField}
                         required={false}
-                        margin="normal"
                       />
-                    </ChildBox>
+                    </Grid>
+                    <Grid xs={12} sm={5}>
+                      <Field
+                        name="phone"
+                        component={PhoneNoField}
+                        required={false}
+                      />
+                    </Grid>
+                  </Grid>
 
-                    <ChildBox>
-                      <RowBox responsive flexSpacing={3}>
-                        <ChildBox flex>
-                          <Field
-                            name="email"
-                            component={EmailField}
+                  {/* SM mobile & non-mobile address inputs */}
+                  {!isXs ? (
+                    <>
+                      {showAddressConfirmAlert ? (
+                        <Alert
+                          sx={{my: 1}}
+                          severity="info"
+                          icon={<EditLocIcon />}
+                        >
+                          Please verify that the service address below is
+                          correct before submitting
+                        </Alert>
+                      ) : null}
+                      <Grid container columnSpacing={4}>
+                        <Grid sm={7}>
+                          <FormTextField
+                            name="serviceAddress"
+                            label="Service Street Address"
+                            // placeholder="Street address for service"
                             required={false}
-                            margin="normal"
                           />
-                        </ChildBox>
-                        <ChildBox>
-                          <Field
-                            name="phone"
-                            component={PhoneNoField}
-                            required={false}
-                            margin="normal"
-                          />
-                        </ChildBox>
-                      </RowBox>
-                    </ChildBox>
-
-                    {/* SM mobile & non-mobile address inputs */}
-                    {isXs ? null : (
-                      <>
-                        {showAddressConfirmAlert ? (
-                          <ChildBox my={1}>
-                            <Alert severity="info" icon={<EditLocIcon />}>
-                              Please verify that the service address below is
-                              correct before submitting
-                            </Alert>
-                          </ChildBox>
-                        ) : null}
-                        <RowBox child flexSpacing={3} alignItems="center">
-                          <ChildBox flex="60%">
-                            <FormTextField
-                              name="serviceAddress"
-                              label="Service Street Address"
-                              // placeholder="Street address for service"
-                              required={false}
-                              margin="normal"
-                            />
-                          </ChildBox>
-                          <ChildBox flex="40%">
-                            <FormTextField
-                              name="serviceCity"
-                              label="City"
-                              // placeholder="City"
-                              required={false}
-                              margin="normal"
-                            />
-                          </ChildBox>
-                          {/* just show on sm devices (tablets) */}
-                          {mdUp ? null : (
-                            <ChildBox>
-                              <ContactUsGeolocator
-                                onSuccess={useMyLocationSuccessHandler}
-                                addressFieldName="serviceAddress"
-                                cityFieldName="serviceCity"
-                              />
-                            </ChildBox>
-                          )}
-                        </RowBox>
-                      </>
-                    )}
-                    {/* XS mobile address inputs   */}
-                    {smUp ? null : (
-                      /* [todo] - Need to figure out why flexSpacing is adding a top margin to the first item with <ColumBox/>. The workaround here is to use mt with 2nd element below. */
-                      <ColumnBox
-                        child
-                        // flexSpacing={5}
-                      >
-                        {showAddressConfirmAlert ? (
-                          <ChildBox my={1}>
-                            <Alert severity="info" icon={<EditLocIcon />}>
-                              Please verify that the service address below is
-                              correct before submitting
-                            </Alert>
-                          </ChildBox>
-                        ) : null}
-                        <ChildBox>
-                          <RowBox
-                            flex="60%"
-                            flexSpacing={3}
-                            alignItems="center"
-                          >
-                            <ChildBox flex>
-                              <FormTextField
-                                name="serviceAddress"
-                                label="Service Street Address"
-                                // placeholder="Street address for service"
-                                required={false}
-                                margin="normal"
-                              />
-                            </ChildBox>
-                            <ChildBox>
-                              <ContactUsGeolocator
-                                onSuccess={useMyLocationSuccessHandler}
-                                addressFieldName="serviceAddress"
-                                cityFieldName="serviceCity"
-                              />
-                            </ChildBox>
-                          </RowBox>
-                        </ChildBox>
-                        {/* see comment/todo above regard flexSpacing */}
-                        <ChildBox flex="40%">
+                        </Grid>
+                        <Grid sm>
                           <FormTextField
                             name="serviceCity"
                             label="City"
                             // placeholder="City"
                             required={false}
-                            margin="normal"
                           />
-                        </ChildBox>
-                      </ColumnBox>
-                    )}
-
-                    <ChildBox>
-                      <Field
-                        name="subject"
-                        component={MultilineTextField}
-                        label="Subject"
-                        margin="normal"
+                        </Grid>
+                        {/* just show on sm devices (tablets) (not md and up)  */}
+                        {isSm ? (
+                          <Grid
+                            sm="auto"
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                          >
+                            <ContactUsGeolocator
+                              onSuccess={useMyLocationSuccessHandler}
+                              addressFieldName="serviceAddress"
+                              cityFieldName="serviceCity"
+                            />
+                          </Grid>
+                        ) : null}
+                      </Grid>
+                    </>
+                  ) : null}
+                  {/* XS mobile address inputs   */}
+                  {isXs ? (
+                    <>
+                      {showAddressConfirmAlert ? (
+                        <Alert
+                          sx={{my: 1}}
+                          severity="info"
+                          icon={<EditLocIcon />}
+                        >
+                          Please verify that the service address below is
+                          correct before submitting
+                        </Alert>
+                      ) : null}
+                      <Grid container columnSpacing={3}>
+                        <Grid
+                          xs
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <FormTextField
+                            name="serviceAddress"
+                            label="Service Street Address"
+                            // placeholder="Street address for service"
+                            required={false}
+                          />
+                        </Grid>
+                        <Grid
+                          xs="auto"
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <ContactUsGeolocator
+                            onSuccess={useMyLocationSuccessHandler}
+                            addressFieldName="serviceAddress"
+                            cityFieldName="serviceCity"
+                          />
+                        </Grid>
+                      </Grid>
+                      {/* see comment/todo above regard flexSpacing */}
+                      <FormTextField
+                        name="serviceCity"
+                        label="City"
+                        // placeholder="City"
+                        required={false}
                       />
-                    </ChildBox>
+                    </>
+                  ) : null}
 
-                    <ChildBox>
-                      <Field
-                        name="message"
-                        component={ContactUsMessageField}
-                        margin="normal"
-                      />
-                    </ChildBox>
+                  <Field
+                    name="subject"
+                    component={MultilineTextField}
+                    label="Subject"
+                  />
 
-                    <ChildBox>
-                      <Field name="captcha" component={RecaptchaField} />
-                    </ChildBox>
-                  </ColumnBox>
+                  <Field name="message" component={ContactUsMessageField} />
+
+                  <Field name="captcha" component={RecaptchaField} />
                   <Spacing />
                   {/* For debugging form reset */}
                   {/* <Button
@@ -435,7 +422,7 @@ const ContactUsPage = () => {
             <div key={idx}>{attach}</div>
           ))} */}
 
-          <Spacing size="x-large" factor={2}>
+          <Spacing size="large" factor={2}>
             <Divider />
           </Spacing>
 
@@ -472,14 +459,7 @@ const ContactUsPage = () => {
         </NarrowContainer>
       </MainBox>
     ),
-    [
-      theme,
-      showAddressConfirmAlert,
-      useMyLocationSuccessHandler,
-      isXs,
-      smUp,
-      mdUp
-    ]
+    [theme, showAddressConfirmAlert, useMyLocationSuccessHandler, isXs, isSm]
   )
 
   return (

@@ -139,7 +139,6 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
                       id="name"
                       name="name"
                       // autoFocus
-                      margin="normal"
                       label="Name"
                       type="text"
                       autoComplete="name"
@@ -150,7 +149,6 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
                       id="email"
                       name="email"
                       // autoFocus
-                      margin="normal"
                       label="Email Address"
                       type="email"
                       fullWidth
@@ -161,7 +159,6 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
                       id="message"
                       name="message"
                       // autoFocus
-                      margin="normal"
                       label="Message"
                       type="text"
                       fullWidth
