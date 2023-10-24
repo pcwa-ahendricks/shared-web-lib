@@ -2,7 +2,6 @@
 import React, {useState, useCallback, useMemo} from 'react'
 import {
   Typography as Type,
-  Box,
   InputAdornment,
   IconButton,
   Unstable_Grid2 as Grid,
