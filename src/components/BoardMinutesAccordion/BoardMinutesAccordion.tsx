@@ -3,10 +3,10 @@ import {
   Accordion,
   Typography as Type,
   AccordionSummary,
+  Unstable_Grid2 as Grid,
   AccordionDetails
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
 import BoardMinutesLink from './BoardMinutesLink'
 
@@ -43,7 +43,7 @@ const BoardMinutesAccordion = ({
       </AccordionSummary>
       <AccordionDetails>
         {wasExpanded ? (
-          <RowBox flexWrap="wrap" flexSpacing={4}>
+          <Grid container spacing={4}>
             {minutes.map((m) => {
               const {derivedFilenameAttr, imgix_url} = m
               const {
@@ -52,17 +52,17 @@ const BoardMinutesAccordion = ({
                 date = ''
               } = derivedFilenameAttr ?? {}
               return (
-                <ChildBox key={m.id}>
+                <Grid xs="auto" key={m.id}>
                   <BoardMinutesLink
                     imgixUrl={imgix_url}
                     title={title}
                     publishedDate={publishedDate}
                     date={date}
                   />
-                </ChildBox>
+                </Grid>
               )
             })}
-          </RowBox>
+          </Grid>
         ) : (
           <div />
         )}

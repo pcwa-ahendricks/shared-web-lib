@@ -18,7 +18,6 @@ import {
 } from '@mui/material'
 import menuConfig from '@lib/menuConfig'
 import {setDrawerViz, UiContext} from '@components/ui/UiStore'
-import {ColumnBox, ChildBox, RowBox} from '@components/MuiSleazebox'
 // import PcwaLogo from '@components/PcwaLogo/PcwaLogo'
 import FacebookIcon from 'mdi-material-ui/Facebook'
 import TwitterIcon from 'mdi-material-ui/Twitter'
@@ -275,53 +274,45 @@ const SwipeableTemporaryDrawer = () => {
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
       >
-        <ColumnBox width={275} height="100%">
-          <ChildBox>
-            <SideList />
-          </ChildBox>
+        <Box display="flex" flexDirection="column" width={275} height="100%">
+          <SideList />
           {/* <ChildBox>
             <TrendingBarMobile />
           </ChildBox> */}
-          <ChildBox flex="auto" />
-          <ChildBox my={1}>
-            <RowBox justifyContent="center" fontStyle="italic">
+          <Box flex="auto" />
+          <Box my={1}>
+            <Box display="flex" justifyContent="center" fontStyle="italic">
               <Type variant="body1" color="primary">
                 Also on
               </Type>
-            </RowBox>
-            <RowBox justifyContent="center" flexSpacing={2} mt={1}>
-              <ChildBox>
-                <SocialIconButton
-                  href="https://www.facebook.com/ThePCWA"
-                  color="primary"
-                >
-                  <FacebookIcon fontSize="large" />
-                </SocialIconButton>
-              </ChildBox>
-              <ChildBox>
-                <SocialIconButton
-                  href="https://twitter.com/PlacerWater"
-                  color="primary"
-                >
-                  <TwitterIcon fontSize="large" />
-                </SocialIconButton>
-              </ChildBox>
-              <ChildBox>
-                <SocialIconButton
-                  href="https://www.youtube.com/user/ThePCWA"
-                  color="primary"
-                >
-                  <YoutubeIcon fontSize="large" />
-                </SocialIconButton>
-              </ChildBox>
-            </RowBox>
-          </ChildBox>
-          {/* <ChildBox mt={6} mb={1} flex="0 1 auto">
-            <RowBox justifyContent="space-around">
+            </Box>
+            <Box display="flex" justifyContent="center" mt={1}>
+              <SocialIconButton
+                href="https://www.facebook.com/ThePCWA"
+                color="primary"
+              >
+                <FacebookIcon fontSize="large" />
+              </SocialIconButton>
+              <SocialIconButton
+                href="https://twitter.com/PlacerWater"
+                color="primary"
+              >
+                <TwitterIcon fontSize="large" />
+              </SocialIconButton>
+              <SocialIconButton
+                href="https://www.youtube.com/user/ThePCWA"
+                color="primary"
+              >
+                <YoutubeIcon fontSize="large" />
+              </SocialIconButton>
+            </Box>
+          </Box>
+          {/* <Box mt={6} mb={1} flex="0 1 auto">
+            <Box display="flex" justifyContent="space-around">
               <PcwaLogo width="30%" missionStatementFill="rgba(0,0,0,0)" />
             </RowBox>
-          </ChildBox> */}
-        </ColumnBox>
+          </Box> */}
+        </Box>
       </SwipeableDrawer>
     </Box>
   )

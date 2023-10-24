@@ -1,14 +1,13 @@
 import React from 'react'
-import {BoxProps} from '@mui/material'
-import {ChildBox, RowBox} from '@components/MuiSleazebox'
+import {BoxProps, Box} from '@mui/material'
 
 type Props = {children: React.ReactNode; containerProps?: BoxProps} & BoxProps
 
 const NarrowContainer = ({children, containerProps, ...rest}: Props) => {
   return (
-    <RowBox justifyContent="space-around" {...containerProps}>
-      <ChildBox
-        flex
+    <Box display="flex" justifyContent="space-around" {...containerProps}>
+      <Box
+        flex="auto"
         width="100%" // IE fix
         maxWidth={700} // Ported from original pcwa.net website (Semantic-UI).
         ml={2}
@@ -21,8 +20,8 @@ const NarrowContainer = ({children, containerProps, ...rest}: Props) => {
         {...rest}
       >
         {children}
-      </ChildBox>
-    </RowBox>
+      </Box>
+    </Box>
   )
 }
 
