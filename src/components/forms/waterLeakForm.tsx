@@ -147,7 +147,6 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 name="firstName"
                 label="First Name"
                 autoComplete="billing given-name"
-                margin="normal"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -157,18 +156,13 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
                 name="lastName"
                 label="Last Name"
                 autoComplete="billing family-name"
-                margin="normal"
               />
             </Grid>
           </Grid>
 
           <Grid container spacing={5}>
             <Grid item xs={12} sm={7}>
-              <AccountNoField
-                disabled={ineligible}
-                name="accountNo"
-                margin="normal"
-              />
+              <AccountNoField disabled={ineligible} name="accountNo" />
             </Grid>
             <Grid item xs={12} sm={5}>
               <Field

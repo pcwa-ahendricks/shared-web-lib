@@ -30,7 +30,6 @@ const StreetAddressField = ({
       label="Address (as it appears on bill)"
       autoComplete="billing street-address"
       variant="outlined"
-      margin="normal"
       helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
       error={fieldIsTouchedWithError}
       onChange={handleChange}

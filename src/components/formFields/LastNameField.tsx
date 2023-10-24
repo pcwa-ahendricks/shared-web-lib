@@ -30,7 +30,6 @@ const LastNameField = ({
       label="Last Name"
       autoComplete="billing family-name"
       variant="outlined"
-      margin="normal"
       helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
       error={fieldIsTouchedWithError}
       onChange={handleChange}

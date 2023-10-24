@@ -66,7 +66,6 @@ const CitySelectField = ({
     <FormControl
       required={required}
       variant="outlined"
-      margin="normal"
       disabled={disabled || isSubmitting}
       error={fieldIsTouchedWithError}
       fullWidth={fullWidth}

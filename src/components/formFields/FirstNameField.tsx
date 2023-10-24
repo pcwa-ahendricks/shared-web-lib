@@ -31,7 +31,6 @@ const FirstNameField = ({
       autoComplete="billing given-name"
       // autoFocus
       variant="outlined"
-      margin="normal"
       helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
       error={fieldIsTouchedWithError}
       onChange={handleChange}

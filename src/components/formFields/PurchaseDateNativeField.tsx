@@ -50,7 +50,6 @@ const PurchaseDateNativeField = ({
       value={maskedValue}
       label="Purchase Date"
       variant="outlined"
-      margin="normal"
       placeholder="mm/dd/yyyy"
       helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
       error={fieldIsTouchedWithError}

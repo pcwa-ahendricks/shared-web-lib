@@ -29,7 +29,6 @@ const OtherHowDidYouHearField = ({
       value={value}
       label="Tell Us How You Heard About this Rebate Program"
       variant="outlined"
-      margin="normal"
       helperText={fieldHasError ? <>{currentError}</> : null}
       // error={fieldIsTouchedWithError}
       error={fieldHasError}

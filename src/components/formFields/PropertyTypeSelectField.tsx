@@ -43,7 +43,6 @@ const PropertyTypeSelectField = ({
     <FormControl
       required
       variant="outlined"
-      margin="normal"
       disabled={disabled || isSubmitting}
       error={fieldIsTouchedWithError}
       fullWidth={fullWidth}

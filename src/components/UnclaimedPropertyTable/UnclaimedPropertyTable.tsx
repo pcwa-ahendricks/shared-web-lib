@@ -232,7 +232,6 @@ const UnclaimedPropertyTable = ({fallbackData}: Props) => {
             sx={{...style.textField}}
             value={inputFilter}
             onChange={handleInputChange}
-            margin="normal"
           />
         </Box>
         <Box sx={{...style.tableWrapper}}>

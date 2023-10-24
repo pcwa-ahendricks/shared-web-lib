@@ -30,7 +30,6 @@ const OtherCityField = ({
       label="City (other)"
       autoComplete="billing address-level2"
       variant="outlined"
-      margin="normal"
       helperText={fieldHasError ? <>{currentError}</> : null}
       // error={fieldIsTouchedWithError}
       error={fieldHasError}

@@ -53,7 +53,6 @@ const AgreeInspectionCheckbox = ({
     <FormControl
       required
       variant="outlined"
-      margin="normal"
       error={fieldIsTouchedWithError}
       disabled={disabled || isSubmitting}
       component="fieldset"

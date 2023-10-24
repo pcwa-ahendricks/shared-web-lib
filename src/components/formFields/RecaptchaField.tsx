@@ -68,7 +68,6 @@ const RecaptchaField = ({
         <FormControl
           variant="standard"
           required={required}
-          margin="normal"
           // Since we are using FormHelperText error prop is required.
           error={fieldHasError}
           fullWidth={fullWidth}

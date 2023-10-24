@@ -311,7 +311,6 @@ const SalaryScheduleTable = ({salaryCsvData, isLoading, salaryCsv}: Props) => {
             sx={{...style.textField}}
             value={classTitleFilter}
             onChange={handleInputChange}
-            margin="normal"
           />
         </Box>
         <Box sx={{...style.tableWrapper}}>

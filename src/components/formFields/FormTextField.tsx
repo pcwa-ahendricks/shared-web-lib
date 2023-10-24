@@ -8,7 +8,6 @@ const FormTextField = ({
   fullWidth = true,
   disabled = false,
   variant = 'outlined',
-  margin = 'normal',
   type = 'text',
   ...other
 }: Props) => {
@@ -32,7 +31,6 @@ const FormTextField = ({
       name={name}
       value={value}
       variant={variant}
-      margin={margin}
       helperText={fieldIsTouchedWithError ? <>{error}</> : null}
       error={fieldIsTouchedWithError}
       onChange={onChange}

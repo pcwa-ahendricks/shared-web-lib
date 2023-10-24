@@ -145,7 +145,6 @@ const EnewsSubscribeDialog = () => {
                   <FormTextField
                     name="email"
                     // autoFocus
-                    margin="normal"
                     id="email"
                     label="Email Address"
                     type="email"

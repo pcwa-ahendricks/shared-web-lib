@@ -44,7 +44,6 @@ export default function HowDidYouHearAutocomplete({
       freeSolo
       options={sortedOpt.map((option) => option.title)}
       renderInput={(params) => {
-        console.log(params)
         return (
           <TextField
             {...params}
@@ -53,7 +52,6 @@ export default function HowDidYouHearAutocomplete({
             onChange={handleChange}
             value={value}
             label="How Did You Hear About this Rebate Program"
-            margin="normal"
             variant="outlined"
             helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
             error={fieldIsTouchedWithError}

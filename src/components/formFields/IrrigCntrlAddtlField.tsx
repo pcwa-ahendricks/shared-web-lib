@@ -39,7 +39,6 @@ const IrrigCntrlAddtlField = ({
       value={value}
       label="Additional Sensor / Outdoor Cover"
       variant="outlined"
-      margin="normal"
       helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
       error={fieldIsTouchedWithError}
       onChange={changeHandler}

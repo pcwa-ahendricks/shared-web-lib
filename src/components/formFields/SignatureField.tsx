@@ -31,7 +31,6 @@ const SignatureField = ({
       // autoComplete="name" // Seems that user should type this explicitly
       // autoFocus
       variant="filled"
-      margin="normal"
       helperText={fieldIsTouchedWithError ? <>{currentError}</> : null}
       error={fieldIsTouchedWithError}
       onChange={handleChange}

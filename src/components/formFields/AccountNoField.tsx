@@ -39,7 +39,6 @@ const AccountNoField = ({
       label="Account Number"
       // placeholder="XXXX-XXXXX"
       variant="outlined"
-      margin="normal"
       helperText={fieldIsTouchedWithError ? <>{error}</> : null}
       error={fieldIsTouchedWithError}
       onChange={changeHandler}
