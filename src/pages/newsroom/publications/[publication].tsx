@@ -105,33 +105,24 @@ type Props = {
   placeholders?: Placeholders
 }
 
-export const cosmicFetcher = (
-  apiUrl: RequestInfo,
-  type: string,
-  props: string
-) => {
-  const params = {
-    hide_metafields: true,
-    props,
-    query: JSON.stringify({
-      type
-    })
-  }
-
-  const qs = stringify({...params}, true)
-  const url = `${apiUrl}${qs}`
-  return fetch(url).then((r) => r.json())
-}
-
 const cosmicGetMediaProps = {
   props: 'id,original_name,imgix_url'
 }
-const params = {
+const newslettersParams = {
   folder: 'newsletters',
   ...cosmicGetMediaProps
 }
-const qs = stringify({...params}, true)
-const newslettersUrl = `/api/cosmic/media${qs}`
+const newslettersQs = stringify({...newslettersParams}, true)
+const newslettersUrl = `/api/cosmic/media${newslettersQs}`
+
+const enewsParams = {
+  props: 'id,content,metadata,slug,status,title',
+  query: JSON.stringify({
+    type: 'enews-blasts'
+  })
+}
+const enewsParamsQs = stringify({...enewsParams}, true)
+const enewsBlastsUrl = `/api/cosmic/objects${enewsParamsQs}`
 
 const PublicationsPage = ({
   err,
@@ -257,8 +248,8 @@ const PublicationsPage = ({
   )
 
   const {data: enewsData} = useSWR<CosmicObjectResponse<EnewsBlastMetadata>>(
-    ['/api/cosmic/objects', 'enews-blasts', 'id,metadata,status,title'],
-    cosmicFetcher,
+    enewsBlastsUrl,
+    fetcher,
     {
       fallbackData: initialEnewsBlasts
     }
@@ -799,11 +790,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     const [initialNewslettersData, initialEnewsBlasts] = await Promise.all([
       fetcher(`${baseUrl}${newslettersUrl}`),
-      cosmicFetcher(
-        `${baseUrl}/api/cosmic/objects`,
-        'enews-blasts',
-        'id,metadata,status,title'
-      )
+      fetcher(`${baseUrl}${enewsBlastsUrl}`)
     ])
     // Placeholder images
     const placeholders = await getImgixBlurHashes(imgixImages)
