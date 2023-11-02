@@ -38,7 +38,7 @@ const imgixImages = [
   '329b7180-cdfd-11eb-a17a-1d11087b211e-WaterSense.png',
   'cc5ac670-bb48-11e7-b00e-c51469856118-projects.jpg',
   'd1bd8510-f993-11ec-b2b1-473235369c53-Fire-Hydrants-Webmap-Thumbnail.png',
-  '23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg',
+  '4e155de0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_Paperless.jpg',
   '7731c930-3903-11ed-adfd-ddb1795c6ac6-American-River-Pump-Station-Spring-01.jpg',
   '907de9f0-96c8-11ed-93ee-cb9a2cd68754-Biomass-Webinar-Thumbnail.png',
   '31a04570-b15f-11ed-8bd4-17d132057cff-Auburn-Fire-Landscape-Plan.jpg',
@@ -47,7 +47,8 @@ const imgixImages = [
   // 'e9d52af0-33b6-11ee-9ab5-815d9b73ff1f-waterboardslogohighresedit.png',
   // 'd7b43770-491f-11ee-bfb7-cfc5e4366a0b-LionsTail8x5V3.jpg',
   '5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg',
-  'c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png'
+  'c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png',
+  '4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg'
 ]
 
 type Props = {
@@ -113,6 +114,64 @@ const Index = ({
         <Spacing size="small" />
       </Box>
       <WideContainer>
+        <Grid container spacing={5}>
+          <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Paperless Billing Available"
+              readMore="Go paperless today"
+              linkHref="/services/why-go-paperless"
+              imgixURL="https://imgix.cosmicjs.com/4e155de0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_Paperless.jpg"
+              alt="Go paperless"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
+            />
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Educational Outreach Program"
+              readMore="Learn more"
+              linkHref="/education-center/go-to-school-on-leaks"
+              imgixURL="https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg"
+              alt="Go to School on Leaks link, a PCWA educational program"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              body="PCWA offers a fun, interactive educational program for 3rd to 5th grade that teaches students about where their water comes from and trains them to be “Leak Detectives” at home and school."
+            />
+          </Grid>
+          {/* <Grid xs={12} sm={6}>
+    <CoverStory
+      aspectRatio={coverStoryImageRatio}
+      title="State of PCWA's Water Supplies 2023"
+      readMore="View the recording here"
+      linkHref="/education-center/webinars/state-of-our-water-0323"
+      imgixURL="https://imgix.cosmicjs.com/aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg"
+      imgixParams={{crop: 'top'}}
+      alt="State of our Water recorded webinar flier"
+      // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+      // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+      body="The recording is now posted for PCWA’s webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
+    />
+  </Grid> */}
+          {/*
+  <ChildBox flex="0 0 50%">
+    <CoverStory
+      aspectRatio={coverStoryImageRatio}
+      title="Multiyear Rate Adjustment"
+      readMore="Learn more"
+      linkHref="/services/rate-adjust"
+      imgixURL="https://imgix.cosmicjs.com/ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg"
+      alt="Sacramento Street Pipe Abandonment and Transfer Project in Auburn"
+      body="The PCWA Board of Directors has adopted new rates, fees, and charges for water service to take effect on January 1, 2023. PCWA has set up a page complete with FAQs about the new rates and rate-setting process."
+      // imgixParams={{
+      //   bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
+      // }}
+    />
+  </ChildBox>
+  */}
+        </Grid>
+        <Spacing />
         <Grid container spacing={5}>
           {/* <ChildBox flex="0 0 50%">
             <CoverStory
@@ -183,51 +242,6 @@ const Index = ({
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
           </Grid>
-        </Grid>
-        <Spacing />
-        <Grid container spacing={5}>
-          <Grid xs={12} sm={6}>
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="Paperless Billing Available"
-              readMore="Go paperless today"
-              linkHref="/services/why-go-paperless"
-              imgixURL="https://imgix.cosmicjs.com/23747cd0-3871-11ed-adfd-ddb1795c6ac6-Go-Paperless---oragami-bird---no-logo.jpg"
-              alt="Go paperless"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
-            />
-          </Grid>
-          <Grid xs={12} sm={6}>
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="State of PCWA's Water Supplies 2023"
-              readMore="View the recording here"
-              linkHref="/education-center/webinars/state-of-our-water-0323"
-              imgixURL="https://imgix.cosmicjs.com/aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg"
-              imgixParams={{crop: 'top'}}
-              alt="State of our Water recorded webinar flier"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
-              body="The recording is now posted for PCWA’s webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
-            />
-          </Grid>
-          {/*
-          <ChildBox flex="0 0 50%">
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="Multiyear Rate Adjustment"
-              readMore="Learn more"
-              linkHref="/services/rate-adjust"
-              imgixURL="https://imgix.cosmicjs.com/ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg"
-              alt="Sacramento Street Pipe Abandonment and Transfer Project in Auburn"
-              body="The PCWA Board of Directors has adopted new rates, fees, and charges for water service to take effect on January 1, 2023. PCWA has set up a page complete with FAQs about the new rates and rate-setting process."
-              // imgixParams={{
-              //   bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
-              // }}
-            />
-          </ChildBox>
-          */}
         </Grid>
 
         <Spacing size="large">
@@ -301,7 +315,7 @@ const Index = ({
               typeProps={{style: {fontSize: '1rem'}}}
             />
           </ChildBox> */}
-          <Grid xs={6} sm={4} md={3}>
+          {/* <Grid xs={6} sm={4} md={3}>
             <CoverTile
               // width={tileWidth}
               title="Educational Outreach Program"
@@ -310,7 +324,7 @@ const Index = ({
               alt="Go to School on Leaks link"
               // typeProps={{style: {fontSize: '1rem'}}}
             />
-          </Grid>
+          </Grid> */}
           <Grid xs={6} sm={4} md={3}>
             <CoverTile
               // width={tileWidth}
