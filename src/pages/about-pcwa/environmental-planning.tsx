@@ -131,6 +131,14 @@ const EnvironmentalPlanningPage = () => {
               <Type variant="h3" gutterBottom>
                 Planning and Studies
               </Type>
+
+              <OpenInNewLinkBox
+                {...linkProps}
+                href="https://docs.pcwa.net/PCWA-Duncan-Hill-Treated-Water-Improvements-Project-CEQA-NOI.pdf"
+              >
+                PCWA Duncan Hill Treated Water Improvements Project CEQA NOI &
+                ISMND Nov 2023
+              </OpenInNewLinkBox>
               <OpenInNewLinkBox
                 {...linkProps}
                 href="https://docs.pcwa.net/TCS-CalFrame_water-agency-role-in-forest-health-report"
