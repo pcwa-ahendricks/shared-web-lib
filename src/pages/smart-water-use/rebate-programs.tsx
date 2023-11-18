@@ -368,7 +368,9 @@ const RebateProgramsPage = () => {
                       <Link
                         rel="noopener noreferrer"
                         target="_blank"
-                        href="https://library.cee1.org/content/qualifying-product-lists-residential-clothes-washers"
+                        // this link is down. Check again in the future, using static pdf supplied from S. King in the meantime
+                        // href="https://library.cee1.org/content/qualifying-product-lists-residential-clothes-washers"
+                        href="https://docs.pcwa.net/Super-Efficient-Home-Appliances-Initiative-Clothes-Washer-Qualifying-Product-List"
                         underline="hover"
                       >
                         Consortium for Energy Efficiency - Super Efficient Home
