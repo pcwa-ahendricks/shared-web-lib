@@ -1,6 +1,14 @@
 import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
-import {Typography as Type, Box, useTheme, Link, BoxProps} from '@mui/material'
+import {
+  Typography as Type,
+  Box,
+  useTheme,
+  Link,
+  BoxProps,
+  Paper,
+  alpha
+} from '@mui/material'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
@@ -14,6 +22,7 @@ import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import RebatesEmail from '@components/links/RebatesEmail'
 import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
+import {yellow} from '@mui/material/colors'
 
 const RebateProgramsPage = () => {
   const theme = useTheme()
@@ -328,18 +337,18 @@ const RebateProgramsPage = () => {
                         </Type>{' '}
                         for additional information.
                       </Type>
-                      {/* <Paper elevation={1}>
+                      <Paper elevation={1}>
                         <Box
                           bgcolor={alpha(yellow[50], 0.8)}
                           paddingY={2}
                           paddingX={4}
                         >
                           <Type>
-                            We are no longer accepting applications in 2022 for
-                            this rebate. Please check back in 2023.
+                            This Rebate Application period is closed for 2023
+                            and we will re-open on January 1, 2024
                           </Type>
                         </Box>
-                      </Paper> */}
+                      </Paper>
                       <Spacing size="small" />
                       <ColumnBox>
                         <TermsAndConditionsButton
@@ -347,7 +356,7 @@ const RebateProgramsPage = () => {
                           label="Lawn Replacement Rebate Terms and Conditions"
                         />
                         <ApplyNowButton
-                          // disabled
+                          disabled
                           href="/forms/rebates/lawn-replacement"
                           label="Apply for Lawn Replacement Rebate Online"
                         />
@@ -414,12 +423,26 @@ const RebateProgramsPage = () => {
                       </Type>
                       . Rebate for untreated water customers only.
                     </Type>
+                    <Paper elevation={1}>
+                      <Box
+                        bgcolor={alpha(yellow[50], 0.8)}
+                        paddingY={2}
+                        paddingX={4}
+                      >
+                        <Type>
+                          This Rebate Application period is closed for 2023 and
+                          we will re-open on January 1, 2024
+                        </Type>
+                      </Box>
+                    </Paper>
+                    <Spacing size="small" />
                     <ColumnBox>
                       <TermsAndConditionsButton
                         href="https://docs.pcwa.net/untreated-water-tank-rebate-requirements.pdf"
                         caption="Untreated Water Tank Rebate Requirements"
                       />
                       <ApplyNowButton
+                        disabled
                         href="/forms/rebates/untreated-water-tank"
                         label="Apply for Untreated Water Tank Rebate Online"
                       />
@@ -475,7 +498,7 @@ const RebateProgramsPage = () => {
                         </Type>
                       </Box>
                     </Paper> */}
-                    <Spacing size="small" />
+                    {/* <Spacing size="small" /> */}
                     <ColumnBox>
                       <TermsAndConditionsButton
                         href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
@@ -523,18 +546,18 @@ const RebateProgramsPage = () => {
                         </Type>{' '}
                         for additional information.
                       </Type>
-                      {/* <Paper elevation={1}>
+                      <Paper elevation={1}>
                         <Box
                           bgcolor={alpha(yellow[50], 0.8)}
                           paddingY={2}
                           paddingX={4}
                         >
                           <Type>
-                            We are no longer accepting applications in 2022 for
-                            this rebate. Please check back in 2023.
+                            This Rebate Application period is closed for 2023
+                            and we will re-open on January 1, 2024
                           </Type>
                         </Box>
-                      </Paper> */}
+                      </Paper>
                       <Spacing size="small" />
                       <ColumnBox>
                         <TermsAndConditionsButton
@@ -542,7 +565,7 @@ const RebateProgramsPage = () => {
                           label="Irrigation Efficiencies Rebate Terms and Conditions"
                         />
                         <ApplyNowButton
-                          // disabled
+                          disabled
                           href="/forms/rebates/irrigation-efficiencies"
                           label="Apply for Efficiencies Rebate Online"
                         />
