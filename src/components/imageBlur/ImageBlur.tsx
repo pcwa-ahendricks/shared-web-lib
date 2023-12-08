@@ -26,17 +26,17 @@ const DEFAULT_HEIGHT = 50
 const FALLBACK_GREY_HASH =
   ':1PQ87-;00%M00xu00xu_3j[RjfQWBfQayj[00ay00WBayWBt7WB?bfQRjfQWBfQayfQ00ayIUayofayofay?bfQRjj[WBfQayfQ4nfQRjayofayoffQ?bj[RjfQWBfQayfQ'
 
-const DEFAULT_OPTIONS: Partial<Options> = {
-  width: DEFAULT_WIDTH,
-  height: DEFAULT_HEIGHT
-}
-
 const getImgixBlurHash = async (
   filename: string,
-  options: Partial<Options> = DEFAULT_OPTIONS
+  options: Partial<Options>
 ) => {
   // Default urlPrefix to empty string
-  const {urlPrefix = '', width, height} = options
+  const {
+    urlPrefix = '',
+    width = DEFAULT_WIDTH,
+    height = DEFAULT_HEIGHT
+  } = options || {}
+  console.log(urlPrefix)
   const queryParamsStr = stringify(
     {
       w: width,
@@ -57,11 +57,10 @@ const getImgixBlurHash = async (
 
 const getImgixBlurHashes = async (
   filenames: string[],
-  options: Partial<Options> = DEFAULT_OPTIONS
+  options: Partial<Options>
 ) => {
-  const {urlPrefix, width, height} = options
   const blurHashes = await sequenceArray(filenames, (i) =>
-    getImgixBlurHash(i, {width, height, urlPrefix})
+    getImgixBlurHash(i, options)
   )
   return blurHashes
 }
