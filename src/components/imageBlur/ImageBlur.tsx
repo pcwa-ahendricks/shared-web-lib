@@ -28,7 +28,7 @@ const FALLBACK_GREY_HASH =
 
 const getImgixBlurHash = async (
   filename: string,
-  options: Partial<Options>
+  options?: Partial<Options>
 ) => {
   // Default urlPrefix to empty string
   const {
@@ -57,7 +57,7 @@ const getImgixBlurHash = async (
 
 const getImgixBlurHashes = async (
   filenames: string[],
-  options: Partial<Options>
+  options?: Partial<Options>
 ) => {
   const blurHashes = await sequenceArray(filenames, (i) =>
     getImgixBlurHash(i, options)
