@@ -118,13 +118,12 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Paperless Billing Available"
-              readMore="Go paperless today"
-              linkHref="/services/why-go-paperless"
-              imgixURL="https://imgix.cosmicjs.com/4e155de0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_Paperless.jpg"
-              alt="Go paperless"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
+              title="Let Mother Nature Do Your Watering This Winter"
+              readMore="Learn more"
+              linkHref="/smart-water-use/winter-yard-tips"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg"
+              alt="Let Mother Nature Do Your Watering This Winter Info Graphic and link"
+              body="With winter's shorter and colder days, your yard should need little to no water from your sprinklers. Click here for quick tips on maintaining your yard this winter."
             />
           </Grid>
           <Grid xs={12} sm={6}>
@@ -211,6 +210,18 @@ const Index = ({
           </ChildBox> */}
           <Grid xs={12} sm={6}>
             <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Paperless Billing Available"
+              readMore="Go paperless today"
+              linkHref="/services/why-go-paperless"
+              imgixURL="https://imgix.cosmicjs.com/4e155de0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_Paperless.jpg"
+              alt="Go paperless"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
+            />
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <CoverStory
               linkProps={{
                 target: '_blank'
               }}
@@ -231,7 +242,8 @@ const Index = ({
               }
             />
           </Grid>
-          <Grid xs={12} sm={6}>
+
+          {/* <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Resilient and Beautiful"
@@ -241,7 +253,7 @@ const Index = ({
               alt="California Fuchsia, Summer Strong Low-Water Use Plant of the Month"
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
-          </Grid>
+          </Grid> */}
         </Grid>
 
         <Spacing size="large">

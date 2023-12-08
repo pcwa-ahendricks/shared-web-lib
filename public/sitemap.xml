@@ -252,10 +252,6 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/forms/rebates/lawn-replacement</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
     <loc>https://www.pcwa.net/forms/rebates/smart-controller</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -273,6 +269,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/smart-water-use/water-wise-home</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/smart-water-use/winter-yard-tips</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
@@ -296,10 +296,6 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/forms/rebates/untreated-water-tank</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
     <loc>https://www.pcwa.net/newsroom/acwa-leadership-award-2021</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -309,10 +305,6 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/smart-water-use/clearing-water-meter</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/forms/rebates/irrigation-efficiencies</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>

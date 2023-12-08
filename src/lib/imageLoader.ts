@@ -6,6 +6,12 @@ const imgixLoader: ImageLoader = ({src, width, quality}) => {
   }`
 }
 
+const imgixLoaderDO: ImageLoader = ({src, width, quality}) => {
+  return `https://pcwa.imgix.net/pcwa-net/${src}?auto=format&w=${width}&q=${
+    quality || 75
+  }`
+}
+
 const imgixUrlLoader: ImageLoader = ({src, width, quality}) => {
   const srcUrl = new URL(src)
   const {origin, pathname, searchParams} = srcUrl
@@ -22,4 +28,4 @@ const imgixUrlLoader: ImageLoader = ({src, width, quality}) => {
 }
 
 export default imgixLoader
-export {imgixUrlLoader}
+export {imgixUrlLoader, imgixLoaderDO}
