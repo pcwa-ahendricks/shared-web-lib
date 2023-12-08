@@ -15,17 +15,28 @@ import pTimeout from 'p-timeout'
 import {sequenceArray} from '@lib/util'
 import {Box, BoxProps} from '@mui/material'
 
+interface Options {
+  width: number
+  height: number
+  urlPrefix: 'https://imgix.cosmicjs.com/' | 'https://pcwa.imgix.net/pcwa-net/'
+}
+
 const DEFAULT_WIDTH = 50
 const DEFAULT_HEIGHT = 50
 const FALLBACK_GREY_HASH =
   ':1PQ87-;00%M00xu00xu_3j[RjfQWBfQayj[00ay00WBayWBt7WB?bfQRjfQWBfQayfQ00ayIUayofayofay?bfQRjj[WBfQayfQ4nfQRjayofayoffQ?bj[RjfQWBfQayfQ'
 
+const DEFAULT_OPTIONS: Options = {
+  width: DEFAULT_WIDTH,
+  height: DEFAULT_HEIGHT,
+  urlPrefix: 'https://imgix.cosmicjs.com/'
+}
+
 const getImgixBlurHash = async (
   filename: string,
-  width = DEFAULT_WIDTH,
-  height = DEFAULT_HEIGHT
+  options: Partial<Options> = DEFAULT_OPTIONS
 ) => {
-  const urlPrefix = 'https://imgix.cosmicjs.com/'
+  const {urlPrefix, width, height} = options
   const queryParamsStr = stringify(
     {
       w: width,
@@ -46,11 +57,11 @@ const getImgixBlurHash = async (
 
 const getImgixBlurHashes = async (
   filenames: string[],
-  width?: number,
-  height?: number
+  options: Partial<Options> = DEFAULT_OPTIONS
 ) => {
+  const {urlPrefix, width, height} = options
   const blurHashes = await sequenceArray(filenames, (i) =>
-    getImgixBlurHash(i, width, height)
+    getImgixBlurHash(i, {width, height, urlPrefix})
   )
   return blurHashes
 }

@@ -9,17 +9,19 @@ import WideContainer from '@components/containers/WideContainer'
 import Spacing from '@components/boxes/Spacing'
 import ImageFancier from '@components/ImageFancier/ImageFancier'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
+import {Placeholders} from '@components/imageBlur/ImageBlurStore'
+import usePlaceholders from '@components/imageBlur/usePlaceholders'
+import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
+import {GetStaticProps} from 'next'
 
-// type Props = {
-//   placeholders: Placeholders
-// }
+type Props = {
+  placeholders: Placeholders
+}
 
-// const imgixImages = [
-//   'f4c42c40-567a-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach02.jpg'
-// ]
+const imgixImages = ['image-assets/PCWA_MotherNature_1088x682.jpg']
 
-export default function GoToSchoolOnLeaksPage() {
-  // usePlaceholders(placeholders)
+export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
+  usePlaceholders(placeholders)
 
   return (
     <PageLayout title="Winter Yard Tips" waterSurface>
@@ -92,18 +94,20 @@ export default function GoToSchoolOnLeaksPage() {
   )
 }
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   try {
-//     const placeholders = await getImgixBlurHashes(imgixImages)
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const placeholders = await getImgixBlurHashes(imgixImages, {
+      urlPrefix: 'https://pcwa.imgix.net/pcwa-net/'
+    })
 
-//     return {
-//       props: {placeholders}
-//     }
-//   } catch (error) {
-//     console.log(
-//       'There was an error fetching placeholders for Summer Strong page',
-//       error
-//     )
-//     return {props: {}}
-//   }
-// }
+    return {
+      props: {placeholders}
+    }
+  } catch (error) {
+    console.log(
+      'There was an error fetching placeholders for Summer Strong page',
+      error
+    )
+    return {props: {}}
+  }
+}
