@@ -648,10 +648,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       )
       .map((p) => p.imgix_url.replace('https://imgix.cosmicjs.com/', ''))
 
-    const placeholders = await getImgixBlurHashes([
-      ...imgixImages,
-      ...multimediaImages
-    ])
+    const placeholders = await getImgixBlurHashes(
+      [...imgixImages, ...multimediaImages],
+      {urlPrefix: 'https://imgix.cosmicjs.com/'}
+    )
     return {
       props: {
         placeholders,

@@ -1242,7 +1242,9 @@ export default function SummerStrongPage({placeholders}: Props) {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const placeholders = await getImgixBlurHashes(imgixImages)
+    const placeholders = await getImgixBlurHashes(imgixImages, {
+      urlPrefix: 'https://imgix.cosmicjs.com/'
+    })
 
     return {
       props: {placeholders}

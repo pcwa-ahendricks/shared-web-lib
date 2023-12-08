@@ -26,17 +26,17 @@ const DEFAULT_HEIGHT = 50
 const FALLBACK_GREY_HASH =
   ':1PQ87-;00%M00xu00xu_3j[RjfQWBfQayj[00ay00WBayWBt7WB?bfQRjfQWBfQayfQ00ayIUayofayofay?bfQRjj[WBfQayfQ4nfQRjayofayoffQ?bj[RjfQWBfQayfQ'
 
-const DEFAULT_OPTIONS: Options = {
+const DEFAULT_OPTIONS: Partial<Options> = {
   width: DEFAULT_WIDTH,
-  height: DEFAULT_HEIGHT,
-  urlPrefix: 'https://imgix.cosmicjs.com/'
+  height: DEFAULT_HEIGHT
 }
 
 const getImgixBlurHash = async (
   filename: string,
   options: Partial<Options> = DEFAULT_OPTIONS
 ) => {
-  const {urlPrefix, width, height} = options
+  // Default urlPrefix to empty string
+  const {urlPrefix = '', width, height} = options
   const queryParamsStr = stringify(
     {
       w: width,

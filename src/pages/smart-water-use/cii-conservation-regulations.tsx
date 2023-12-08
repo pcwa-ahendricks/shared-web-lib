@@ -259,7 +259,9 @@ export default function CiiConservationRegulationsPage({
 
 export const getStaticProps = async () => {
   try {
-    const placeholders = await getImgixBlurHashes(imgixImages)
+    const placeholders = await getImgixBlurHashes(imgixImages, {
+      urlPrefix: 'https://imgix.cosmicjs.com/'
+    })
     return {
       props: {placeholders}
     }

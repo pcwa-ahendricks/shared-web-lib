@@ -793,7 +793,9 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       fetcher(`${baseUrl}${enewsBlastsUrl}`)
     ])
     // Placeholder images
-    const placeholders = await getImgixBlurHashes(imgixImages)
+    const placeholders = await getImgixBlurHashes(imgixImages, {
+      urlPrefix: 'https://imgix.cosmicjs.com/'
+    })
     return {
       props: {
         initialNewslettersData,
