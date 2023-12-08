@@ -36,7 +36,7 @@ const getImgixBlurHash = async (
     width = DEFAULT_WIDTH,
     height = DEFAULT_HEIGHT
   } = options || {}
-  console.log(urlPrefix)
+
   const queryParamsStr = stringify(
     {
       w: width,
