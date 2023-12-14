@@ -163,7 +163,7 @@ const EmployeeBenefitsSummaryPage = () => {
                     •
                     <OlderReportLink
                       title="2017 Annual Report Document Link"
-                      href="https://imgix.cosmicjs.com/75f2ea50-65da-11e8-bb19-b97477e02411-2017 CAFR Final for Website.pdf"
+                      href="https://pcwa.imgix.net/pcwa-net/financial/2017%20CAFR%20Final%20for%20Website.pdf"
                     >
                       2017
                     </OlderReportLink>
