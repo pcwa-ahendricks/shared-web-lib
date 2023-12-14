@@ -108,7 +108,7 @@ const meetings: Meeting[] = [
       },
       {
         title: `Slideshow Presentation - Video`,
-        url: 'https://imgix.cosmicjs.com/de4ed410-ea1d-11e9-b46c-c33ce7177bb8-2019-10-03-10.02-American-River-Basin-Study-Workshop-1---Assessing-Climate-Change-Challenges.mp4'
+        url: 'https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/environmental/2019-10-03%2010_02%20American%20River%20Basin%20Study_%20Workshop_1%20-%20Assessing%20Climate%20Change%20Challenges.mp4'
       }
     ]
   },
