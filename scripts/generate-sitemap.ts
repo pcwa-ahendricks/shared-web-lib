@@ -190,8 +190,9 @@ async function generateSitemap() {
       : []
 
   const multimediaPhotoPages = [
-    ...groupBy<MappedPhoto, string>(filteredPhotoMultimedia, (a) =>
-      a.metadata?.gallery?.toLowerCase().trim()
+    ...groupBy<MappedPhoto, string>(
+      filteredPhotoMultimedia,
+      (a) => a.metadata?.gallery?.toLowerCase().trim()
     )
   ]
     .map(([gallery, photos]) =>
@@ -225,7 +226,8 @@ async function generateSitemap() {
     // manually added routes, due to solely added YouTube Multimedia files
     .concat([
       '/education-center/videos/historical',
-      '/education-center/videos/construction'
+      '/education-center/videos/construction',
+      '/education-center/videos/water-in-action'
     ])
 
   const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

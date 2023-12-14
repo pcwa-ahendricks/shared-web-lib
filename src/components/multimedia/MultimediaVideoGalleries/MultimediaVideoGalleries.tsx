@@ -180,6 +180,20 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
               imgix_url:
                 'https://imgix.cosmicjs.com/8b1b00b0-94df-11e7-8a59-d544660e5779-MFP%2050th%20Anniversary%20cover.jpg'
             }
+          },
+          {
+            galleryKey: 'water-in-action',
+            label: 'Water in Action',
+            videos: [],
+            galleryCover: {
+              id: '6501d5ce1a7dbc957868a3dc',
+              name: 'b05ee9b0-9744-11e7-9fec-572a0ce3e796-American River Pump Station High Flows Jan 9 2017.jpg',
+              original_name:
+                'American River Pump Station High Flows Jan 9 2017.jpg',
+              url: 'https://cdn.cosmicjs.com/b05ee9b0-9744-11e7-9fec-572a0ce3e796-American%20River%20Pump%20Station%20High%20Flows%20Jan%209%202017.jpg',
+              imgix_url:
+                'https://imgix.cosmicjs.com/b05ee9b0-9744-11e7-9fec-572a0ce3e796-American%20River%20Pump%20Station%20High%20Flows%20Jan%209%202017.jpg'
+            }
           }
         ])
     )
@@ -203,6 +217,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
     () => galleries.find((g) => g.galleryKey === selectedGallery),
     [galleries, selectedGallery]
   )
+  console.log(currentGallery)
 
   const margin = useMemo(() => (isLGUp ? 14 : 8), [isLGUp]) // Used with left and top margin of flexWrap items.
 
@@ -257,6 +272,20 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
               </ChildBox>
             ))}
 
+            <YouTubeVid
+              gallery="Water in Action"
+              videoWidth={videoWidth}
+              caption="American River Pump Station - High Flows"
+              youTubeId="_TL9x9Hz_t8"
+              activeGallery={currentGallery}
+            />
+            <YouTubeVid
+              gallery="Water in Action"
+              videoWidth={videoWidth}
+              caption="When Hell Hole Spills Over"
+              youTubeId="x28nLZZwdlA"
+              activeGallery={currentGallery}
+            />
             <YouTubeVid
               gallery="Informational"
               videoWidth={videoWidth}
