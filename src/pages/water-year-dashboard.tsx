@@ -1,4 +1,4 @@
-// cspell:ignore actl accum climdiv frmt perc Prcp dprt Nrml rgnl stns mxtemp
+// cspell:ignore actl accum climdiv frmt perc Prcp dprt Nrml rgnl stns mxtemp NOAA
 import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import Image from 'next/legacy/image'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -39,7 +39,7 @@ import TempDiffCalendar from '@components/season-recap/TempDiffCalendar'
 import PrecipAccumLine from '@components/season-recap/PrecipAccumLine'
 import PrecipMonthGroupBar from '@components/season-recap/PrecipMonthGroupBar'
 import TempRangeLine from '@components/season-recap/TempRangeLine'
-import {multiFetcher} from '@lib/fetcher'
+import fetcher from '@lib/fetcher'
 import toTitleCase from '@lib/toTitleCase'
 import StnMap from '@components/season-recap/StnMap'
 import StationInfo from '@components/season-recap/StationInfo'
@@ -98,15 +98,60 @@ export default function WaterYearDashboardPage() {
   const [waterYear, setWaterYear] = useState(currentWaterYear)
   const [sid, setSid] = useState<StationId>('040897 2')
 
-  const {data: stationMetaResponse} = useSWR<StationMetaResponse[]>(
-    stationIdUrls,
-    multiFetcher
+  const {data: stationMetaResponse1} = useSWR<StationMetaResponse>(
+    stationIdUrls[0],
+    fetcher
   )
+  const {data: stationMetaResponse2} = useSWR<StationMetaResponse>(
+    stationIdUrls[1],
+    fetcher
+  )
+  const {data: stationMetaResponse3} = useSWR<StationMetaResponse>(
+    stationIdUrls[2],
+    fetcher
+  )
+  const {data: stationMetaResponse4} = useSWR<StationMetaResponse>(
+    stationIdUrls[3],
+    fetcher
+  )
+  const {data: stationMetaResponse5} = useSWR<StationMetaResponse>(
+    stationIdUrls[4],
+    fetcher
+  )
+  const {data: stationMetaResponse6} = useSWR<StationMetaResponse>(
+    stationIdUrls[5],
+    fetcher
+  )
+  const {data: stationMetaResponse7} = useSWR<StationMetaResponse>(
+    stationIdUrls[6],
+    fetcher
+  )
+  const stationMetaResponse = useMemo(
+    () => [
+      stationMetaResponse1,
+      stationMetaResponse2,
+      stationMetaResponse3,
+      stationMetaResponse4,
+      stationMetaResponse5,
+      stationMetaResponse6,
+      stationMetaResponse7
+    ],
+    [
+      stationMetaResponse1,
+      stationMetaResponse2,
+      stationMetaResponse3,
+      stationMetaResponse4,
+      stationMetaResponse5,
+      stationMetaResponse6,
+      stationMetaResponse7
+    ]
+  )
+
   const stationInfo = useMemo(
     () =>
       stationIds.reduce<StationInfo>((prev, stn) => {
-        const res = stationMetaResponse?.find((m) =>
-          m.meta[0].sids.find((s) => s === stn)
+        const res = stationMetaResponse?.find(
+          (m) => m?.meta[0].sids.find((s) => s === stn)
         )
         const resData = res?.meta[0]
         const prevObj = prev ?? {}
@@ -127,7 +172,6 @@ export default function WaterYearDashboardPage() {
     () => (stationInfo ? stationInfo[sid] : null),
     [sid, stationInfo]
   )
-  // console.log(selectedStationInfo)
 
   const qs = stringify({sid: slugify(sid), waterYear}, true)
   const {data: tempResponse} = useSWR<TempResponse>(`/api/acis/temp${qs}`, {
