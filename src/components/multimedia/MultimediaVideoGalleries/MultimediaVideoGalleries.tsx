@@ -187,12 +187,26 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
             videos: [],
             galleryCover: {
               id: '6501d5ce1a7dbc957868a3dc',
-              name: 'b05ee9b0-9744-11e7-9fec-572a0ce3e796-American River Pump Station High Flows Jan 9 2017.jpg',
+              name: 'b05ee9b0-9744-11e7-9fec-572a0ce3e796-American%20River%20Pump%20Station%20High%20Flows%20Jan%209%202017.jpg',
               original_name:
                 'American River Pump Station High Flows Jan 9 2017.jpg',
               url: 'https://cdn.cosmicjs.com/b05ee9b0-9744-11e7-9fec-572a0ce3e796-American%20River%20Pump%20Station%20High%20Flows%20Jan%209%202017.jpg',
               imgix_url:
                 'https://imgix.cosmicjs.com/b05ee9b0-9744-11e7-9fec-572a0ce3e796-American%20River%20Pump%20Station%20High%20Flows%20Jan%209%202017.jpg'
+            }
+          },
+          {
+            galleryKey: 'informational',
+            label: 'Informational',
+            videos: [],
+            galleryCover: {
+              id: '59b6eb40975dc29f7f000086',
+              name: 'cb6325f0-972b-11e7-9d39-d5bc03605bc9-Doodle web pic draft.jpg',
+              original_name:
+                'American River Pump Station High Flows Jan 9 2017.jpg',
+              url: 'https://cdn.cosmicjs.com/cb6325f0-972b-11e7-9d39-d5bc03605bc9-Doodle web pic draft.jpg',
+              imgix_url:
+                'https://imgix.cosmicjs.com/cb6325f0-972b-11e7-9d39-d5bc03605bc9-Doodle web pic draft.jpg'
             }
           }
         ])
@@ -271,7 +285,27 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
                 </Box>
               </ChildBox>
             ))}
-
+            <YouTubeVid
+              gallery="Informational"
+              videoWidth={videoWidth}
+              caption="Fix-A-Leak"
+              youTubeId="3GtSeNvyetE"
+              activeGallery={currentGallery}
+            />
+            <YouTubeVid
+              gallery="Informational"
+              videoWidth={videoWidth}
+              caption="Rethink your yard - Turn back sprinklers"
+              youTubeId="e_5Cd5TxKh4"
+              activeGallery={currentGallery}
+            />
+            <YouTubeVid
+              gallery="Informational"
+              videoWidth={videoWidth}
+              caption="Lawn Lovers Anonymous"
+              youTubeId="Op85yNSUt70"
+              activeGallery={currentGallery}
+            />
             <YouTubeVid
               gallery="Water in Action"
               videoWidth={videoWidth}

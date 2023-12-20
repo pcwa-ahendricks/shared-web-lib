@@ -227,7 +227,8 @@ async function generateSitemap() {
     .concat([
       '/education-center/videos/historical',
       '/education-center/videos/construction',
-      '/education-center/videos/water-in-action'
+      '/education-center/videos/water-in-action',
+      '/education-center/videos/informational'
     ])
 
   const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
