@@ -4036,6 +4036,10 @@
     <changefreq>never</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/11-02-2023</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/10-19-2023</loc>
     <changefreq>never</changefreq>
   </url>
@@ -6981,10 +6985,6 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/education-center/photos/historical</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/education-center/videos/informational</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>

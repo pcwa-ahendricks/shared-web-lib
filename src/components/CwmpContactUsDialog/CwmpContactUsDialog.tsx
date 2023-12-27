@@ -116,8 +116,8 @@ const CwmpContactUsDialog = ({open = false, onCloseDialog}: Props) => {
           const formTouched = Object.keys(touched).length > 0
 
           return (
-            // translate prop fixes typescript error.
-            <Form translate="yes">
+            // translate and placeholder props fixes typescript errors.
+            <Form translate="yes" placeholder={undefined}>
               <DialogTitle id="form-dialog-title">
                 {!hasError ? 'Contact Us' : 'Whoops! There was an Error'}
               </DialogTitle>

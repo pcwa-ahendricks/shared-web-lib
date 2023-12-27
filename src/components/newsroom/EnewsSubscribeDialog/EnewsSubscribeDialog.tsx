@@ -86,8 +86,8 @@ const EnewsSubscribeDialog = () => {
     const errorMessage = /member exists/gi.test(mailchimpError?.title ?? '')
       ? `The email address "${mailchimpError?.email_address}" is already subscribed with PCWA's E-News. You can close this window or enter another email address.`
       : mailchimpError?.title
-      ? mailchimpError?.title
-      : generalErrorStr
+        ? mailchimpError?.title
+        : generalErrorStr
     return <DialogContentText>{errorMessage}</DialogContentText>
   }, [mailchimpError?.email_address, mailchimpError?.title])
 
@@ -123,8 +123,8 @@ const EnewsSubscribeDialog = () => {
           const formTouched = Object.keys(touched).length > 0
 
           return (
-            // translate prop fixes typescript error.
-            <Form translate="yes">
+            // translate and placeholder props fixes typescript errors.
+            <Form translate="yes" placeholder={undefined}>
               <DialogTitle id="form-dialog-title">
                 {!hasMailchimpError
                   ? 'Subscribe to PCWA E-News'

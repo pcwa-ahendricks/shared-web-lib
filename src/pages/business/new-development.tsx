@@ -294,8 +294,8 @@ const NewDevelopmentPage = () => {
             </TightBullet>
             <TightBullet>
               <Type component="span" color="textPrimary">
-                $157 Application Fee to open a project account and $2,500
-                initial deposit for plan checking, a total of $2,657.
+                $161 Application Fee to open a project account and $2,500
+                initial deposit for plan checking, a total of $2,661.
               </Type>
             </TightBullet>
             <TightBullet>
