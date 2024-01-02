@@ -27,9 +27,9 @@ const EmployeeBenefitsSummaryPage = () => {
   const theme = useTheme()
 
   const healthInsuranceAmounts = {
-    employeeOnly: 1035.21,
-    employeePlusOne: 1676.0,
-    employeePlusFamily: 2178.0
+    employeeOnly: 1076.84,
+    employeePlusOne: 1755.0,
+    employeePlusFamily: 2281.0
   }
 
   const ListItemLink = (props: any) => {
@@ -179,11 +179,11 @@ const EmployeeBenefitsSummaryPage = () => {
               </Type>
               <Type paragraph>
                 PCWA participates in the CalPERS health insurance program
-                offering eight HMOs (Anthem Select and Anthem Traditional, Blue
-                Shield Access + and Blue Shield Trio, HealthNet Smart Care,
-                Kaiser Permanente, UnitedHealthcare, and Western Health
-                Advantage) and two PPOs (PERS Platinum and PERS Gold). The
-                Agency's current monthly contribution towards the premium is:
+                offering seven HMOs (Anthem Select and Anthem Traditional, Blue
+                Shield Access + and Blue Shield Trio, Kaiser Permanente,
+                UnitedHealthcare, and Western Health Advantage) and two PPOs
+                (PERS Platinum and PERS Gold). The Agency's current monthly
+                contribution towards the premium is:
               </Type>
               <RowBox
                 responsive
