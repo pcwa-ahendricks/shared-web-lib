@@ -258,7 +258,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {media, publicationSlug},
-      revalidate: 10
+      revalidate: 60
     }
   } catch (error) {
     console.log(error)
