@@ -41,7 +41,6 @@ export default function MyDocument({emotionStyleTags}: MyDocumentProps) {
         {/* {!isDev ? (
             <link rel="preconnect" href="https://www.google-analytics.com" />
           ) : null} */}
-        <link rel="preconnect" href="https://cosmic-s3.imgix.net" />
         <link rel="preconnect" href="https://imgix.cosmicjs.com" />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
