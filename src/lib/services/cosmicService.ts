@@ -111,8 +111,8 @@ const fileNameUtil = (
     fSplit[0] && !fSplit[1]
       ? fSplit[0]
       : fSplit[0] && fSplit[1]
-      ? fSplit[1]
-      : '' // don't call replace on null.
+        ? fSplit[1]
+        : '' // don't call replace on null.
   const date = fSplit[0] && fSplit[1] ? fSplit[0] : ''
   const dateParsed = parse(date, dateFrmt ?? '', new Date())
   // Date-fns isDate() won't work here since isDate(NaN) returns true.
@@ -163,7 +163,7 @@ const findMediaForPages = async <
               // eslint-disable-next-line
               imgix_url: (m.url ?? '').replace(
                 'cdn.cosmicjs.com',
-                'cosmic-s3.imgix.net'
+                'imgix.cosmicjs.com'
               )
             }
       )

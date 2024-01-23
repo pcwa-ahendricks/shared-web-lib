@@ -601,12 +601,7 @@ module.exports = {
   images: {
     // loader: 'imgix',
     // path: 'https://imgix.cosmicjs.com/',
-    domains: [
-      'cosmicjs.imgix.net',
-      'imgix.cosmicjs.com',
-      'cosmic-s3.imgix.net',
-      'hprcc.unl.edu'
-    ]
+    domains: ['imgix.cosmicjs.com', 'pcwa.imgix.net', 'hprcc.unl.edu']
   },
   // https://nextjs.org/docs/api-reference/next.config.js/ignoring-typescript-errors
   // !! WARN !!
