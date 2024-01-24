@@ -40,7 +40,7 @@ export interface MyAppProps extends AppProps {
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
-const MUI_LICENSE_KEY = process.env.NEXT_MUI_LICENSE_KEY ?? ''
+const MUI_LICENSE_KEY = process.env.NEXT_PUBLIC_MUI_X_LICENSE_KEY ?? ''
 LicenseInfo.setLicenseKey(MUI_LICENSE_KEY)
 
 const isDev = process.env.NODE_ENV === 'development'
