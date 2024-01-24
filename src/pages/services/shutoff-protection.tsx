@@ -1128,6 +1128,19 @@ const ShutoffProtectionPage = () => {
                 </Type>
               </ChildBox>
             </ColumnBox>
+            <ColumnBox child alignItems="center" flexSpacing={1}>
+              <ChildBox mb={-1}>
+                <Type variant="h4">2023</Type>
+              </ChildBox>
+              <ChildBox width="100%">
+                <Divider />
+              </ChildBox>
+              <ChildBox>
+                <Type variant="subtitle1">
+                  <strong>3,213</strong>
+                </Type>
+              </ChildBox>
+            </ColumnBox>
           </RowBox>
         </NarrowContainer>
       </MainBox>
