@@ -476,6 +476,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/education-center/documents/NSWARiverArcFactSheet</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/education-center/documents/Fact-Sheets-MFP-Reservoirs</loc>
     <changefreq>never</changefreq>
   </url>
@@ -493,6 +497,14 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/education-center/documents/American-River-Pump-Station-Brochure</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/news-releases/01-18-2024</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/news-releases/01-16-2024</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
@@ -3236,6 +3248,10 @@
     <changefreq>never</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2024-01-02</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2023-11-12</loc>
     <changefreq>never</changefreq>
   </url>
@@ -4033,6 +4049,18 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2002-04-05</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/12-21-2023</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/12-07-2023</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/11-16-2023</loc>
     <changefreq>never</changefreq>
   </url>
   <url>

@@ -33,7 +33,7 @@ export default function BasicTemplatePage() {
           <Type paragraph>
             <strong>
               Please note that the person making a claim and/or the owner has a
-              duty to mitigate their damages. It is the owner’s responsibility
+              duty to mitigate their damages. It is the owner's responsibility
               to keep damages from getting any worse once they are discovered
               (for example, removing your personal belongings from an area
               experiencing a water intrusion).
@@ -45,8 +45,8 @@ export default function BasicTemplatePage() {
           </Type>
           <Type paragraph>
             PCWA is not responsible for damages related to failure of the
-            property owner’s plumbing, service interruption caused by
-            maintenance and repair of PCWA’s system, or changes to water
+            property owner's plumbing, service interruption caused by
+            maintenance and repair of PCWA's system, or changes to water
             pressure caused by PCWA.
           </Type>
           <Spacing />
@@ -54,11 +54,12 @@ export default function BasicTemplatePage() {
             Time Limits for Filing a Claim
           </Type>
           <Type paragraph>
-            Submit a detailed claim as soon as possible. The California Tort
-            Claims Act puts forth strict timelines that you must follow when
-            filing a claim against PCWA. Claims received after the deadlines
-            will automatically be rejected. PCWA has 45 days to respond after
-            you file your claim.
+            Submit a detailed claim as soon as possible. Statutes of limitations
+            (the length of time allowed from the date of the incident to filing
+            a claim or legal action) apply, set by the Government Code,
+            California state law, or other applicable laws. Claims received
+            after the deadlines will be rejected. PCWA has 45 days to respond
+            after you file your claim.
           </Type>
           {/*
           <Box component="ul">
