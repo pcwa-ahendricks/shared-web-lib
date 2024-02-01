@@ -98,13 +98,13 @@ const EnvironmentalPlanningPage = () => {
               <Type variant="h3" gutterBottom>
                 Public Review
               </Type>
-              <OpenInNewLinkBox
+              {/* <OpenInNewLinkBox
                 {...linkProps}
                 href="https://docs.pcwa.net/PCWA-Duncan-Hill-Treated-Water-Improvements-Project-CEQA-NOI.pdf"
               >
                 PCWA Duncan Hill Treated Water Improvements Project CEQA NOI &
                 ISMND Nov 2023
-              </OpenInNewLinkBox>
+              </OpenInNewLinkBox> */}
               <OpenInNewLinkBox
                 {...linkProps}
                 href="https://cdn.cosmicjs.com/e1f00cd0-0c3c-11ed-b7be-d956591ad437-FMSS-Scoping-Doc071922-1-page.pdf"
