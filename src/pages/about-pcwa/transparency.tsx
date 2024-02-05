@@ -82,7 +82,7 @@ const TransparencyPage = () => {
                   hoverText="View PDF"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/e97bb5d0-6b1a-11e7-a9f0-012090bf7c28-Travel_and_Training_Policy.pdf"
+                  href="https://docs.pcwa.net/travel-training-time-policy.pdf"
                   color="primary"
                 >
                   Training and Travel
@@ -93,7 +93,7 @@ const TransparencyPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   hoverText="View PDF"
-                  href="https://cdn.cosmicjs.com/ed22ebe0-6b1a-11e7-8e92-5f0a6431fba8-Mobile_Communication_Policy.pdf"
+                  href="https://docs.pcwa.net/mobile-communication-device-policy.pdf"
                   color="primary"
                 >
                   Mobile Device
@@ -104,7 +104,7 @@ const TransparencyPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   hoverText="View PDF"
-                  href="https://cdn.cosmicjs.com/ed1d1f80-6b1a-11e7-8e92-5f0a6431fba8-Electronic_Media_Policy.pdf"
+                  href="hhttps://docs.pcwa.net/electronic-media-policy.pdf"
                   color="primary"
                 >
                   Electronic Media
