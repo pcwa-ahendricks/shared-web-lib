@@ -104,7 +104,7 @@ const TransparencyPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   hoverText="View PDF"
-                  href="hhttps://docs.pcwa.net/electronic-media-policy.pdf"
+                  href="https://docs.pcwa.net/electronic-media-policy.pdf"
                   color="primary"
                 >
                   Electronic Media
