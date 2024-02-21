@@ -599,9 +599,20 @@ module.exports = {
     ]
   },
   images: {
-    // loader: 'imgix',
-    // path: 'https://imgix.cosmicjs.com/',
-    domains: ['imgix.cosmicjs.com', 'pcwa.imgix.net', 'hprcc.unl.edu']
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'imgix.cosmicjs.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'pcwa.imgix.net'
+      },
+      {
+        protocol: 'https',
+        hostname: 'hprcc.unl.edu'
+      }
+    ]
   },
   // https://nextjs.org/docs/api-reference/next.config.js/ignoring-typescript-errors
   // !! WARN !!

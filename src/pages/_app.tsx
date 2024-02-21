@@ -18,9 +18,8 @@ import smoothscroll from 'smoothscroll-polyfill'
 import SearchProvider from '@components/search/SearchStore'
 import {SWRConfig} from 'swr'
 import fetcher from '@lib/fetcher'
-import createEmotionCache from '@lib/createEmotionCache'
-import {CacheProvider, EmotionCache} from '@emotion/react'
 import {Analytics} from '@vercel/analytics/react'
+import {AppCacheProvider} from '@mui/material-nextjs/v14-pagesRouter'
 import * as gtag from '@lib/gtag'
 import '@lib/css/styles.css'
 // import '@lib/css/NoCollapseVerticalTimeline.css'
@@ -33,13 +32,6 @@ Global External Styles
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'animate.css'
 
-export interface MyAppProps extends AppProps {
-  emotionCache?: EmotionCache
-}
-
-// Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createEmotionCache()
-
 const MUI_LICENSE_KEY = process.env.NEXT_PUBLIC_MUI_X_LICENSE_KEY ?? ''
 LicenseInfo.setLicenseKey(MUI_LICENSE_KEY)
 
@@ -48,8 +40,8 @@ export const mmCrossFadeDuration = 250
 export const forecastCrossFadeDuration = 850
 export const galleryCrossFadeDuration = 1000 * 0.2 // 200 milliseconds
 
-export default function MyApp(props: MyAppProps) {
-  const {Component, emotionCache = clientSideEmotionCache, pageProps} = props
+export default function MyApp(props: AppProps) {
+  const {Component, pageProps} = props
 
   useEffect(() => {
     isDev && console.log('Applying smoothscroll polyfill')
@@ -96,7 +88,7 @@ export default function MyApp(props: MyAppProps) {
 
   /* Wrap every page in Jss and Theme providers. ThemeProvider makes the theme available down the React tree thanks to React context. */
   return (
-    <CacheProvider value={emotionCache}>
+    <AppCacheProvider {...props}>
       <Head>
         {/* See https://github.com/vercel/next.js/blob/master/errors/no-document-viewport-meta.md */}
         {/* Use minimum-scale=1 to enable GPU rasterization */}
@@ -304,6 +296,6 @@ export default function MyApp(props: MyAppProps) {
           </LocalizationProvider>
         </SWRConfig>
       </ThemeProvider>
-    </CacheProvider>
+    </AppCacheProvider>
   )
 }
