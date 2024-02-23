@@ -252,6 +252,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/forms/rebates/lawn-replacement</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/forms/rebates/smart-controller</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -309,6 +313,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/smart-water-use/clearing-water-meter</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/forms/rebates/irrigation-efficiencies</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
