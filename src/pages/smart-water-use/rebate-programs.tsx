@@ -229,7 +229,7 @@ const RebateProgramsPage = () => {
               <Spacing />
               <ColumnBox flexSpacing={3}>
                 <ChildBox position="relative">
-                  <RibbonContainer>
+                  {/* <RibbonContainer>
                     <LeftLargeRibbon
                       backgroundColor="#cc4400"
                       sx={{
@@ -249,33 +249,32 @@ const RebateProgramsPage = () => {
                       >
                         New
                       </Box>
-                    </LeftLargeRibbon>
+                    </LeftLargeRibbon> */}
 
-                    <RebateCard pt={4}>
-                      <Type paragraph>
-                        <Type variant="h6" component="span">
-                          Water Leak -
-                        </Type>{' '}
-                        Receive up to a $500 rebate for repairing an indoor or
-                        outdoor treated water leak. For additional information
-                        see{' '}
-                        <Type component="em" variant="inherit">
-                          Water Leak Rebate Requirements
-                        </Type>
-                        . Rebate for treated water customers only.
+                  <RebateCard pt={4}>
+                    <Type paragraph>
+                      <Type variant="h6" component="span">
+                        Water Leak -
+                      </Type>{' '}
+                      Receive up to a $500 rebate for repairing an indoor or
+                      outdoor treated water leak. For additional information see{' '}
+                      <Type component="em" variant="inherit">
+                        Water Leak Rebate Requirements
                       </Type>
-                      <ColumnBox>
-                        <TermsAndConditionsButton
-                          href="https://docs.pcwa.net/water-leak-rebate-requirements.pdf"
-                          caption="Water Leak Rebate Requirements"
-                        />
-                        <ApplyNowButton
-                          href="/forms/rebates/water-leak"
-                          label="Apply Now"
-                        />
-                      </ColumnBox>
-                    </RebateCard>
-                  </RibbonContainer>
+                      . Rebate for treated water customers only.
+                    </Type>
+                    <ColumnBox>
+                      <TermsAndConditionsButton
+                        href="https://docs.pcwa.net/water-leak-rebate-requirements.pdf"
+                        caption="Water Leak Rebate Requirements"
+                      />
+                      <ApplyNowButton
+                        href="/forms/rebates/water-leak"
+                        label="Apply Now"
+                      />
+                    </ColumnBox>
+                  </RebateCard>
+                  {/* </RibbonContainer> */}
                 </ChildBox>
                 <ChildBox position="relative">
                   <RebateCard pt={4}>
@@ -322,22 +321,45 @@ const RebateProgramsPage = () => {
                         </Box>
                       </LeftLargeRibbon>
                     </RibbonContainer> */}
-                    <RebateCard pt={4}>
-                      <Type paragraph>
-                        <Type variant="h6" component="span">
-                          Lawn Replacement -
-                        </Type>{' '}
-                        Receive up to a $1,000 rebate for residential customers
-                        (at a rate of $2 per square foot) and up to a $8,000
-                        rebate for commercial customers (at a rate of $3 per
-                        square foot) for the conversion of a water-thirsty lawn
-                        to water-efficient landscaping. See program{' '}
-                        <Type component="em" variant="inherit">
-                          Terms &amp; Conditions
-                        </Type>{' '}
-                        for additional information.
-                      </Type>
-                      <Paper elevation={1}>
+
+                    <RibbonContainer>
+                      <LeftLargeRibbon
+                        backgroundColor="#cc4400"
+                        sx={{
+                          color: '#f0f0f0',
+                          fontFamily: 'Arial',
+                          zIndex: 3,
+                          top: '-25px !important'
+                        }}
+                      >
+                        <Box
+                          component="span"
+                          sx={{
+                            verticalAlign: 'top',
+                            lineHeight: '1.2em',
+                            fontSize: '.8em'
+                          }}
+                        >
+                          Enhanced
+                        </Box>
+                      </LeftLargeRibbon>
+                      <RebateCard pt={4}>
+                        <Type paragraph>
+                          <Type variant="h6" component="span">
+                            Lawn Replacement -
+                          </Type>{' '}
+                          Receive up to a $3,000 rebate for residential
+                          customers (at a rate of $3 per square foot) and up to
+                          a $15,000 rebate for commercial customers (at a rate
+                          of $3 per square foot) for the conversion of a
+                          water-thirsty lawn to water-efficient landscaping. See
+                          program{' '}
+                          <Type component="em" variant="inherit">
+                            Terms &amp; Conditions
+                          </Type>{' '}
+                          for additional information.
+                        </Type>
+                        {/* <Paper elevation={1}>
                         <Box
                           bgcolor={alpha(yellow[50], 0.8)}
                           paddingY={2}
@@ -348,20 +370,21 @@ const RebateProgramsPage = () => {
                             and we will re-open on January 1, 2024
                           </Type>
                         </Box>
-                      </Paper>
-                      <Spacing size="small" />
-                      <ColumnBox>
-                        <TermsAndConditionsButton
-                          href="https://docs.pcwa.net/lawn-replacement-rebate-tc.pdf"
-                          label="Lawn Replacement Rebate Terms and Conditions"
-                        />
-                        <ApplyNowButton
-                          disabled
-                          href="/forms/rebates/lawn-replacement"
-                          label="Apply for Lawn Replacement Rebate Online"
-                        />
-                      </ColumnBox>
-                    </RebateCard>
+                      </Paper> */}
+                        <Spacing size="small" />
+                        <ColumnBox>
+                          <TermsAndConditionsButton
+                            href="https://docs.pcwa.net/lawn-replacement-rebate-tc.pdf"
+                            label="Lawn Replacement Rebate Terms and Conditions"
+                          />
+                          <ApplyNowButton
+                            // disabled
+                            href="/forms/rebates/lawn-replacement"
+                            label="Apply for Lawn Replacement Rebate Online"
+                          />
+                        </ColumnBox>
+                      </RebateCard>
+                    </RibbonContainer>
                   </ChildBox>
                 </ChildBox>
                 <ChildBox>
@@ -423,7 +446,7 @@ const RebateProgramsPage = () => {
                       </Type>
                       . Rebate for untreated water customers only.
                     </Type>
-                    <Paper elevation={1}>
+                    {/* <Paper elevation={1}>
                       <Box
                         bgcolor={alpha(yellow[50], 0.8)}
                         paddingY={2}
@@ -434,7 +457,7 @@ const RebateProgramsPage = () => {
                           we will re-open on January 1, 2024
                         </Type>
                       </Box>
-                    </Paper>
+                    </Paper> */}
                     <Spacing size="small" />
                     <ColumnBox>
                       <TermsAndConditionsButton
@@ -442,7 +465,7 @@ const RebateProgramsPage = () => {
                         caption="Untreated Water Tank Rebate Requirements"
                       />
                       <ApplyNowButton
-                        disabled
+                        // disabled
                         href="/forms/rebates/untreated-water-tank"
                         label="Apply for Untreated Water Tank Rebate Online"
                       />
@@ -546,7 +569,7 @@ const RebateProgramsPage = () => {
                         </Type>{' '}
                         for additional information.
                       </Type>
-                      <Paper elevation={1}>
+                      {/* <Paper elevation={1}>
                         <Box
                           bgcolor={alpha(yellow[50], 0.8)}
                           paddingY={2}
@@ -557,7 +580,7 @@ const RebateProgramsPage = () => {
                             and we will re-open on January 1, 2024
                           </Type>
                         </Box>
-                      </Paper>
+                      </Paper> */}
                       <Spacing size="small" />
                       <ColumnBox>
                         <TermsAndConditionsButton
@@ -565,7 +588,7 @@ const RebateProgramsPage = () => {
                           label="Irrigation Efficiencies Rebate Terms and Conditions"
                         />
                         <ApplyNowButton
-                          disabled
+                          // disabled
                           href="/forms/rebates/irrigation-efficiencies"
                           label="Apply for Efficiencies Rebate Online"
                         />

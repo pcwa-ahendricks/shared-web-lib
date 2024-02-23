@@ -52,8 +52,8 @@
     "@mui/icons-material": "^5.15.10",
     "@mui/lab": "^5.0.0-alpha.165",
     "@mui/material": "^5.15.10",
-    "@mui/material-nextjs": "^5.15.9",
-    "@mui/x-date-pickers-pro": "^6.19.4",
+    "@mui/material-nextjs": "^5.15.11",
+    "@mui/x-date-pickers-pro": "^6.19.5",
     "@mui/x-license-pro": "^6.0.3",
     "@nivo/bar": "0.80.0",
     "@nivo/calendar": "0.80.0",
@@ -104,7 +104,7 @@
     "trendline": "^1.0.0",
     "use-debounce": "^10.0.0",
     "valid-url": "^1.0.9",
-    "vercel": "^33.5.1",
+    "vercel": "^33.5.2",
     "yup": "^0.32.11"
   }
 }

@@ -1,11 +1,12 @@
+// cspell:ignore addtl mnfg watersense Formik's
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Divider, Grid, Typography as Type, Box, useTheme} from '@mui/material'
 import {Formik, Field} from 'formik'
 import {string, object, StringSchema, ArraySchema, SchemaOf, array} from 'yup'
 import {
   postForm,
-  LawnReplacementRequestBody as RequestBody,
-  LawnReplacementRebateFormData as RebateFormData
+  IrrigationEfficienciesRequestBody as RequestBody,
+  IrrigationEfficienciesRebateFormData as RebateFormData
 } from '@lib/services/formService'
 import PageLayout from '@components/PageLayout/PageLayout'
 import AgreeInspectionCheckbox from '@components/formFields/AgreeInspectionCheckbox'
@@ -26,33 +27,32 @@ import ReviewTermsConditions from '@components/ReviewTermsConditions/ReviewTerms
 import WaitToGrow from '@components/WaitToGrow/WaitToGrow'
 import FormSubmissionDialog from '@components/FormSubmissionDialog/FormSubmissionDialog'
 import FormSubmissionDialogError from '@components/FormSubmissionDialogError/FormSubmissionDialogError'
-import LawnReplEligibilityDialog from '@components/formFields/LawnReplEligibilityDialog'
-import LawnApproxSqFootField from '@components/formFields/LawnApproxSqFootField'
-import ArtTurfSelect from '@components/formFields/ArtTurfSelect'
-import AlreadyStartedSelect from '@components/formFields/AlreadyStartedSelect'
-import isNumber from 'is-number'
+import IrrigSysUpgradeOptsCheckboxes, {
+  formControlItems as initialIrrigSysUpgradeOpts
+} from '@components/formFields/IrrigSysUpgradeOptsCheckboxes'
+import IrrigUpgradeLocationCheckboxes, {
+  formControlItems as initialIrrigUpgradeLocationOpts
+} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
 import delay from '@lib/delay'
 import YesNoSelectField from '@components/formFields/YesNoSelectField'
-import MainBox from '@components/boxes/MainBox'
+import IrrigationEffEligibilityDialog from '@components/formFields/IrrigationEffEligibilityDialog'
 import FormBox from '@components/boxes/FormBox'
+import MainBox from '@components/boxes/MainBox'
 import FormTextField from '@components/formFields/FormTextField'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import FormValidate from '@components/forms/FormValidate/FormValidate'
 import ProtectRouteChange from '@components/forms/ProtectRouteChange/ProtectRouteChange'
-import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import Spacing from '@components/boxes/Spacing'
-import IrrigUpgradeLocationCheckboxes, {
-  formControlItems as initialIrrigUpgradeLocationOpts
-} from '@components/formFields/IrrigUpgradeLocationCheckboxes'
+import SubmitFormButton from '@components/forms/SubmitFormButton/SubmitFormButton'
 import HowDidYouHearSelectField from '@components/formFields/HowDidYouHearSelectField'
 import OtherHowDidYouHearField from '@components/formFields/OtherHowDidYouHearField'
-import RebatesEmail from '@components/links/RebatesEmail'
-import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
 import {BooleanAsString} from '@lib/safeCastBoolean'
+import EmailAttachmentsSwitch from '@components/formFields/EmailAttachmentsSwitch'
+import RebatesEmail from '@components/links/RebatesEmail'
 import AttachmentField from '@components/formFields/AttachmentField'
 import {Theme} from '@lib/material-theme'
 
-const SERVICE_URI_PATH = 'lawn-replacement-rebate'
+const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
 
 const formSchema = object()
   .camelCase()
@@ -111,8 +111,13 @@ const formSchema = object()
           emailAttachments === 'true'
             ? schema
             : schema
-                .required('Must provide 5 photos of your pre-converted lawn')
-                .min(5, 'Must provide 5 photos of your pre-converted lawn')
+                .required(
+                  'Must provide 5 photos of your pre-converted irrigation system'
+                )
+                .length(
+                  5,
+                  'Must provide 5 photos of your pre-converted irrigation system'
+                )
       )
       .of(
         object({
@@ -137,43 +142,22 @@ const formSchema = object()
     describe: string()
       .max(300, 'Description must be less than 300 characters.')
       .label('Description'),
-    useArtTurf: string()
-      .required()
-      .oneOf(
-        ['false'],
-        'Artificial grass is not allowed in the rebated portion of the converted landscape'
-      )
-      .label('Replace lawn with artificial turf'),
-    alreadyStarted: string().required().label('Project Status'),
-    // .oneOf(
-    //   ['false'],
-    //   "Conversions that are initiated prior to PCWA's approval are ineligible"
-    // )
-    // .label('Already started replacement of lawn'),
-    approxSqFeet: string()
-      .required()
-      .test(
-        'min-sq-feet',
-        'A minimum of 300 square feet of lawn must be converted',
-        (val) => {
-          const stripped = (val && val.replace(/[^0-9.]/, '')) ?? ''
-          if (isNumber(stripped)) {
-            const valAsNo = Math.round(parseFloat(stripped))
-            return valAsNo >= 300
-          }
-          return false
-        }
-      )
-      .label('Approximate Square Feet of Existing Lawn'),
     irrigMethod: string().required().label('Irrigation Method').notOneOf(
       ['Hand water'], // Case sensitive
-      'The Lawn Replacement Rebates are only available to improve existing in-ground irrigation systems'
+      'The Irrigation Efficiencies Rebates are only available to improve existing in-ground irrigation systems'
     ),
     upgradeLocations: object()
       .required()
       .test(
         'has-one-location-option',
         'You must select at least one location option',
+        hasTrueValue
+      ),
+    upgradeOpts: object()
+      .required()
+      .test(
+        'has-one-upgrade-option',
+        'You must select at least one upgrade option',
         hasTrueValue
       )
   })
@@ -198,14 +182,12 @@ const initialFormValues: RebateFormData = {
   captcha: '',
   describe: '',
   irrigMethod: '',
-  approxSqFeet: '',
-  useArtTurf: '',
-  alreadyStarted: '',
   upgradeLocations: {...initialIrrigUpgradeLocationOpts},
+  upgradeOpts: {...initialIrrigSysUpgradeOpts},
   preConvPhotos: []
 }
 
-const LawnReplacement = () => {
+const IrrigationEfficiencies = () => {
   const theme = useTheme<Theme>()
   const style = useMemo(
     () => ({
@@ -267,7 +249,6 @@ const LawnReplacement = () => {
     setFormSubmitDialogOpen(false)
     setProvidedEmail('')
   }, [])
-
   const errorDialogCloseHandler = useCallback(() => {
     setFormSubmitDialogErrorOpen(false)
   }, [])
@@ -290,7 +271,7 @@ const LawnReplacement = () => {
             </Type>
 
             <Type variant="h3" color="primary" gutterBottom>
-              Lawn Replacement
+              Irrigation Efficiencies
             </Type>
 
             <Formik
@@ -334,14 +315,12 @@ const LawnReplacement = () => {
 
                 if (values !== formValues) {
                   // prevent max depth error with setTimeout()
-                  setTimeout(() => setFormValues(values), 10)
+                  setTimeout(() => setFormValues(values), 0)
                 }
 
                 // Check if user is in-eligible for rebate and disable all form controls if so.
                 const rebateIneligibility = [
                   errors['treatedCustomer'],
-                  errors['useArtTurf'],
-                  errors['approxSqFeet'],
                   errors['irrigMethod']
                 ].some(Boolean)
                 if (rebateIneligibility !== ineligible) {
@@ -376,6 +355,7 @@ const LawnReplacement = () => {
                     setFieldValue('otherHowDidYouHear', '')
                   }
                 }
+
                 const attachmentsAreUploading = photoIsUploading
 
                 return (
@@ -386,12 +366,18 @@ const LawnReplacement = () => {
                           ...style.form
                         }}
                       >
-                        <Box sx={{...style.formGroup}}>
+                        <Box
+                          sx={{
+                            ...style.formGroup
+                          }}
+                        >
                           <Type
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            sx={{...style.formGroupTitle}}
+                            sx={{
+                              ...style.formGroupTitle
+                            }}
                           >
                             Contact Information
                           </Type>
@@ -513,22 +499,17 @@ const LawnReplacement = () => {
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            sx={{...style.formGroupTitle}}
+                            sx={{
+                              ...style.formGroupTitle
+                            }}
                           >
                             Rebate Information
                           </Type>
 
                           <Grid container spacing={5}>
                             <Grid item xs={12}>
-                              <Field
-                                name="alreadyStarted"
-                                disabled={ineligible}
-                                component={AlreadyStartedSelect}
-                              />
-                            </Grid>
-                            <Grid item xs={12}>
                               <Type
-                                variant="subtitle1"
+                                variant="h5"
                                 color="textSecondary"
                                 gutterBottom
                               >
@@ -540,6 +521,25 @@ const LawnReplacement = () => {
                                 name="upgradeLocations"
                                 disabled={ineligible}
                                 component={IrrigUpgradeLocationCheckboxes}
+                              />
+                            </Grid>
+                          </Grid>
+                          <Spacing size="x-small" />
+                          <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                              <Type
+                                variant="h5"
+                                color="textSecondary"
+                                gutterBottom
+                              >
+                                Please specify how you would like to upgrade
+                                your irrigation system
+                              </Type>
+
+                              <Field
+                                name="upgradeOpts"
+                                disabled={ineligible}
+                                component={IrrigSysUpgradeOptsCheckboxes}
                               />
                             </Grid>
                           </Grid>
@@ -557,6 +557,7 @@ const LawnReplacement = () => {
                             </Grid>
                           </Grid>
 
+                          <Spacing />
                           <Grid container spacing={5}>
                             <Grid item xs={12} sm={6}>
                               <Field
@@ -568,24 +569,6 @@ const LawnReplacement = () => {
                               />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                              <Field
-                                disabled
-                                name="useArtTurf"
-                                component={ArtTurfSelect}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          <Grid container spacing={5}>
-                            <Grid item xs={12} sm={8}>
-                              <LawnApproxSqFootField
-                                disabled
-                                name="approxSqFeet"
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={5}>
-                            <Grid item xs={12}>
                               <Field
                                 disabled
                                 name="irrigMethod"
@@ -602,7 +585,9 @@ const LawnReplacement = () => {
                             variant="h4"
                             color="textSecondary"
                             gutterBottom
-                            sx={{...style.formGroupTitle}}
+                            sx={{
+                              ...style.formGroupTitle
+                            }}
                           >
                             Pre-Conversion Photograph Attachments
                           </Type>
@@ -627,7 +612,8 @@ const LawnReplacement = () => {
                               variant="body1"
                               sx={{...style.liItem}}
                             >
-                              No up-close photographs of grass.
+                              Irrigation system must be photographed while
+                              operating.
                             </Type>
                             <Type
                               component="li"
@@ -658,26 +644,18 @@ const LawnReplacement = () => {
                               variant="body1"
                               sx={{...style.liItem}}
                             >
-                              Photographs must be current representation of the
-                              conversion areas current state.
-                            </Type>
-                            <Type
-                              component="li"
-                              variant="body1"
-                              sx={{...style.liItem}}
-                            >
                               Altered photographs will result in application
                               being ineligible for rebate{' '}
-                              <em>(see II. D. on page 1)</em>.
+                              <em>(see II. E. on page 1)</em>.
                             </Type>
                             <Type
                               component="li"
                               variant="body1"
                               sx={{...style.liItem}}
                             >
-                              Conversation area must{' '}
-                              <strong>include at least</strong> one picture of
-                              irrigation system operating.
+                              Auto irrigation control valves{' '}
+                              <em>(i.e. manifolds)</em> must be included in{' '}
+                              <strong>at least one</strong> photograph.
                             </Type>
                           </Box>
                           <Spacing size="small" />
@@ -695,11 +673,11 @@ const LawnReplacement = () => {
                             fullWidth={false}
                             label={
                               <span>
-                                Optionally, check here to email photos instead.
-                                Send email with attachments to <RebatesEmail />{' '}
-                                with your name and account number in the subject
-                                line. Failure to do so may result in a delay or
-                                rejected application.
+                                Optionally, check here to email receipts and
+                                photos instead. Send email with attachments to{' '}
+                                <RebatesEmail /> with your name and account
+                                number in the subject line. Failure to do so may
+                                result in a delay or rejected application.
                               </span>
                             }
                             disabled={ineligible}
@@ -710,13 +688,12 @@ const LawnReplacement = () => {
                               disabled={ineligible || emailAttachments}
                               name="preConvPhotos"
                               attachmentTitle="(5) Photos"
-                              uploadRoute="lawn-replacement"
+                              uploadRoute="irrigation-efficiencies"
                               onIsUploadingChange={photoIsUploadingHandler}
                               component={AttachmentField}
                             />
                           </Box>
                         </Box>
-
                         <Divider variant="middle" />
 
                         <Box sx={{...style.formGroup}}>
@@ -742,8 +719,8 @@ const LawnReplacement = () => {
                             >
                               <ReviewTermsConditions
                                 pageCount={3}
-                                fileName="Lawn-Replacement-Terms-and-Conditions.pdf"
-                                termsConditionsUrl="https://imgix.cosmicjs.com/3ee0a600-5897-11ee-a06d-a31b04d2d095-Lawn-Replacement-Rebate-Terms-and-Conditions-09212023.pdf"
+                                fileName="Irrigation-Efficiency-Terms-and-Conditions.pdf"
+                                termsConditionsUrl="https://imgix.cosmicjs.com/e5d00de0-d29d-11ee-9ce5-59949019255e-Irrigation-Efficiencies-Terms-and-Conditions-2024.pdf"
                               />
                               <Field
                                 name="termsAgree"
@@ -753,10 +730,11 @@ const LawnReplacement = () => {
                               />
                               <Type variant="body1">
                                 You must agree to participate in a
-                                pre-conversion site inspection conducted by PCWA
-                                prior to the removal of any lawn. You may not be
-                                required to be present; arrangements will be
-                                made by a PCWA Water Efficiency Specialist.
+                                post-conversion site inspection conducted by
+                                PCWA to verify that all irrigation equipment is
+                                installed. You may not be required to be
+                                present; arrangements will be made by a PCWA
+                                Water Efficiency Specialist.
                               </Type>
                               <Field
                                 name="inspectAgree"
@@ -774,7 +752,9 @@ const LawnReplacement = () => {
                             color="textSecondary"
                             variant="h4"
                             gutterBottom
-                            sx={{...style.formGroupTitle}}
+                            sx={{
+                              ...style.formGroupTitle
+                            }}
                           >
                             Release of Liability & Signature
                           </Type>
@@ -785,7 +765,6 @@ const LawnReplacement = () => {
                               xs={12}
                               sx={{...style.ieFixFlexColumnDirection}}
                             >
-                              {/* [TODO] Need new wording from Cassandra. */}
                               <Type variant="body1" paragraph color="primary">
                                 PCWA may deny any application that does not meet
                                 all of the Program requirements. PCWA reserves
@@ -798,10 +777,11 @@ const LawnReplacement = () => {
                                 harmless PCWA, its directors, officers, and
                                 employees from and against all loss, damage,
                                 expense and liability resulting from or
-                                otherwise relating to the installation of water
-                                efficient landscape. By signing this form I
-                                agree that I have read, understand, and agree to
-                                the Terms and Conditions of this rebate program.
+                                otherwise relating to the installation of
+                                irrigation efficiencies equipment. By signing
+                                this form I agree that I have read, understand,
+                                and agree to the Terms and Conditions of this
+                                rebate program.
                               </Type>
                             </Grid>
 
@@ -854,6 +834,7 @@ const LawnReplacement = () => {
                       >
                         Show Dialog
                       </Button> */}
+
                         <Spacing />
                         <SubmitFormButton
                           boxProps={{
@@ -874,7 +855,7 @@ const LawnReplacement = () => {
                         </SubmitFormButton>
                       </FormBox>
 
-                      <LawnReplEligibilityDialog
+                      <IrrigationEffEligibilityDialog
                         open={eligibilityDialogOpen}
                         onClose={() => setEligibilityDialogOpen(false)}
                       />
@@ -901,7 +882,7 @@ const LawnReplacement = () => {
 
   return (
     <>
-      <PageLayout title="Lawn Replacement Rebate Form" waterSurface>
+      <PageLayout title="Irrigation Efficiencies Rebate Form" waterSurface>
         {mainEl}
       </PageLayout>
 
@@ -909,7 +890,7 @@ const LawnReplacement = () => {
         providedEmail={providedEmail}
         open={formSubmitDialogOpen}
         onClose={dialogCloseHandler}
-        description="Lawn Replacement Rebate Application"
+        description="Irrigation Efficiencies Rebate Application"
         dialogTitle="Your Rebate Application Has Been Submitted"
       />
       <FormSubmissionDialogError
@@ -921,7 +902,7 @@ const LawnReplacement = () => {
   )
 }
 
-export default LawnReplacement
+export default IrrigationEfficiencies
 
 function hasTrueValue(value: any): boolean {
   return (

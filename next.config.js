@@ -600,10 +600,12 @@ module.exports = {
   },
   images: {
     remotePatterns: [
+      // Cosmicjs assets
       {
         protocol: 'https',
         hostname: 'imgix.cosmicjs.com'
       },
+      // Digital Ocean assets
       {
         protocol: 'https',
         hostname: 'pcwa.imgix.net'

@@ -262,7 +262,7 @@ const UntreatedWaterTankForm = ({
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Untreated-Water-Tank-Terms-and-Conditions.pdf"
-                termsConditionsUrl="https://imgix.cosmicjs.com/05cb52b0-d5a3-11ed-af85-1d454625de52-Untreated-Water-Tank-Rebate-Terms-and-Conditions-2023.pdf"
+                termsConditionsUrl="https://imgix.cosmicjs.com/e22be510-d29d-11ee-9ce5-59949019255e-untreated-water-tank-rebate-requirements-2024.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>
