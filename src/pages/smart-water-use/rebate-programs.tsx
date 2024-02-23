@@ -5,9 +5,9 @@ import {
   Box,
   useTheme,
   Link,
-  BoxProps,
-  Paper,
-  alpha
+  BoxProps
+  // Paper,
+  // alpha
 } from '@mui/material'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -22,7 +22,7 @@ import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import RebatesEmail from '@components/links/RebatesEmail'
 import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
-import {yellow} from '@mui/material/colors'
+// import {yellow} from '@mui/material/colors'
 
 const RebateProgramsPage = () => {
   const theme = useTheme()
