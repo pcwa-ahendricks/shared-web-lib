@@ -21,11 +21,7 @@ import MainPhone from '@components/links/MainPhone'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import RebatesEmail from '@components/links/RebatesEmail'
-import {
-  LeftLargeRibbon,
-  LeftLongLargeRibbon,
-  RibbonContainer
-} from '@components/Ribbons/Ribbons'
+import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 // import {yellow} from '@mui/material/colors'
 
 const RebateProgramsPage = () => {
