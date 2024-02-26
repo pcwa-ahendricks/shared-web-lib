@@ -10,7 +10,10 @@ export const RibbonContainer = ({children, className, ...rest}: BoxProps) => {
   )
 }
 
-type Props = {backgroundColor?: string} & Partial<BoxProps>
+type Props = {
+  backgroundColor?: string
+  svgWidth?: string | number
+} & Partial<BoxProps>
 
 export const RightCornerRibbon = ({
   children,
@@ -262,24 +265,63 @@ export const LeftRibbon = ({
   )
 }
 
+// Original Version
+// export const LeftLargeRibbon = ({
+//   children,
+//   backgroundColor,
+//   color,
+//   fontFamily,
+//   sx
+// }: Props) => {
+//   return (
+//     <Box className={styles.leftLargeRibbon} sx={{...sx}}>
+//       <svg height="60" width="90">
+//         <g transform="scale(-1,1) translate(-90, 0)">
+//           <polygon
+//             points="0 15, 15 30, 0 45, 90 45, 90 15"
+//             fill={backgroundColor}
+//             strokeWidth="0"
+//           />
+//           <polygon
+//             points="75 60, 75 40, 90 45"
+//             fill={`${backgroundColor}77`}
+//             strokeWidth="0"
+//           />
+//         </g>
+//       </svg>
+//       <Box
+//         component="span"
+//         sx={{color, fontFamily}}
+//         className={styles.leftLargeRibbonText}
+//       >
+//         {children}
+//       </Box>
+//     </Box>
+//   )
+// }
+
 export const LeftLargeRibbon = ({
   children,
   backgroundColor,
   color,
   fontFamily,
+  svgWidth: svgWidthProp = 90,
   sx
 }: Props) => {
+  let svgWidth1 = svgWidthProp.toString()
+  let svgWidth2 = (parseInt(svgWidth1, 10) - 15).toString()
+
   return (
     <Box className={styles.leftLargeRibbon} sx={{...sx}}>
-      <svg height="60" width="90">
-        <g transform="scale(-1,1) translate(-90, 0)">
+      <svg height="60" width={svgWidth1}>
+        <g transform={`scale(-1,1) translate(-${svgWidth1}, 0)`}>
           <polygon
-            points="0 15, 15 30, 0 45, 90 45, 90 15"
+            points={`0 15, 15 30, 0 45, ${svgWidth1} 45, ${svgWidth1} 15`}
             fill={backgroundColor}
             strokeWidth="0"
           />
           <polygon
-            points="75 60, 75 40, 90 45"
+            points={`${svgWidth2} 60, ${svgWidth2} 40, ${svgWidth1} 45`}
             fill={`${backgroundColor}77`}
             strokeWidth="0"
           />

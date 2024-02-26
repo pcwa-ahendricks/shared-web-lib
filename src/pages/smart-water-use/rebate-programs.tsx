@@ -21,7 +21,11 @@ import MainPhone from '@components/links/MainPhone'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import RebatesEmail from '@components/links/RebatesEmail'
-import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
+import {
+  LeftLargeRibbon,
+  LeftLongLargeRibbon,
+  RibbonContainer
+} from '@components/Ribbons/Ribbons'
 // import {yellow} from '@mui/material/colors'
 
 const RebateProgramsPage = () => {
@@ -250,56 +254,104 @@ const RebateProgramsPage = () => {
                         New
                       </Box>
                     </LeftLargeRibbon> */}
-
-                  <RebateCard pt={4}>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        Water Leak -
-                      </Type>{' '}
-                      Receive up to a $500 rebate for repairing an indoor or
-                      outdoor treated water leak. For additional information see{' '}
-                      <Type component="em" variant="inherit">
-                        Water Leak Rebate Requirements
+                  <RibbonContainer>
+                    <LeftLargeRibbon
+                      svgWidth={220}
+                      backgroundColor="#cc4400"
+                      sx={{
+                        color: '#f0f0f0',
+                        fontFamily: 'Arial',
+                        zIndex: 3,
+                        top: '-25px !important',
+                        width: 200
+                      }}
+                    >
+                      <Box
+                        component="span"
+                        sx={{
+                          verticalAlign: 'top',
+                          lineHeight: '1.2em',
+                          fontSize: '.8em'
+                        }}
+                      >
+                        New for Commercial Customers
+                      </Box>
+                    </LeftLargeRibbon>
+                    <RebateCard pt={4}>
+                      <Type paragraph>
+                        <Type variant="h6" component="span">
+                          Water Leak -
+                        </Type>{' '}
+                        Receive up to a $1,000 rebate for residential customers
+                        and up to $2,000 for commercial customers for repairing
+                        an indoor or outdoor treated water leak. For additional
+                        information see{' '}
+                        <Type component="em" variant="inherit">
+                          Water Leak Rebate Requirements
+                        </Type>
+                        . Rebate for treated water customers only.
                       </Type>
-                      . Rebate for treated water customers only.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/water-leak-rebate-requirements.pdf"
-                        caption="Water Leak Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/water-leak"
-                        label="Apply Now"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
-                  {/* </RibbonContainer> */}
+                      <ColumnBox>
+                        <TermsAndConditionsButton
+                          href="https://docs.pcwa.net/water-leak-rebate-requirements.pdf"
+                          caption="Water Leak Rebate Requirements"
+                        />
+                        <ApplyNowButton
+                          href="/forms/rebates/water-leak"
+                          label="Apply Now"
+                        />
+                      </ColumnBox>
+                    </RebateCard>
+                  </RibbonContainer>
                 </ChildBox>
                 <ChildBox position="relative">
-                  <RebateCard pt={4}>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        Pool Cover -
-                      </Type>{' '}
-                      Receive up to a $50 rebate for purchasing and installing a
-                      new solar or safety pool cover. See{' '}
-                      <Type component="em" variant="inherit">
-                        Pool Cover Rebate Requirements
-                      </Type>{' '}
-                      for additional information.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/pool-cover-rebate-requirements.pdf"
-                        caption="Pool Cover Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/pool-cover"
-                        label="Apply for Pool Cover Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
+                  <RibbonContainer>
+                    <LeftLargeRibbon
+                      svgWidth={105}
+                      backgroundColor="#cc4400"
+                      sx={{
+                        color: '#f0f0f0',
+                        fontFamily: 'Arial',
+                        zIndex: 3,
+                        top: '-25px !important',
+                        width: 200
+                      }}
+                    >
+                      <Box
+                        component="span"
+                        sx={{
+                          verticalAlign: 'top',
+                          lineHeight: '1.2em',
+                          fontSize: '.8em'
+                        }}
+                      >
+                        New in 2024
+                      </Box>
+                    </LeftLargeRibbon>
+                    <RebateCard pt={4}>
+                      <Type paragraph>
+                        <Type variant="h6" component="span">
+                          Pool Autofill -
+                        </Type>{' '}
+                        Receive up to a $50 rebate for purchasing and installing
+                        a new solar or safety pool cover. See{' '}
+                        <Type component="em" variant="inherit">
+                          Pool Cover Rebate Requirements
+                        </Type>{' '}
+                        for additional information.
+                      </Type>
+                      <ColumnBox>
+                        <TermsAndConditionsButton
+                          href="https://docs.pcwa.net/pool-cover-rebate-requirements.pdf"
+                          caption="Pool Cover Rebate Requirements"
+                        />
+                        <ApplyNowButton
+                          href="/forms/rebates/pool-cover"
+                          label="Apply for Pool Cover Rebate Online"
+                        />
+                      </ColumnBox>
+                    </RebateCard>
+                  </RibbonContainer>
                 </ChildBox>
                 <ChildBox>
                   <ChildBox position="relative">
@@ -485,31 +537,55 @@ const RebateProgramsPage = () => {
                       </Box>
                     </LeftLargeRibbon>
                   </RibbonContainer> */}
-                  <RebateCard pt={4}>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        Smart Controller -
-                      </Type>{' '}
-                      Receive up to a $250 rebate for replacing an existing
-                      irrigation controller with an EPA WaterSense approved
-                      Weather Based Irrigation Controller. For a list of
-                      qualifying controllers see:{' '}
-                      <Link
-                        variant="inherit"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        underline="always"
-                        href="https://lookforwatersense.epa.gov/Product-Search-Results-IrrigationController.html"
+
+                  <RibbonContainer>
+                    <LeftLargeRibbon
+                      svgWidth={220}
+                      backgroundColor="#cc4400"
+                      sx={{
+                        color: '#f0f0f0',
+                        fontFamily: 'Arial',
+                        zIndex: 3,
+                        top: '-25px !important'
+                      }}
+                    >
+                      <Box
+                        component="span"
+                        sx={{
+                          verticalAlign: 'top',
+                          lineHeight: '1.2em',
+                          fontSize: '.8em'
+                        }}
                       >
-                        lookforwatersense.epa.gov
-                      </Link>
-                      . For additional information see{' '}
-                      <Type component="em" variant="inherit">
-                        Smart Controller Rebate Requirements
+                        New for Commercial Customers
+                      </Box>
+                    </LeftLargeRibbon>
+                    <RebateCard pt={4}>
+                      <Type paragraph>
+                        <Type variant="h6" component="span">
+                          Smart Controller -
+                        </Type>{' '}
+                        Receive up to a $250 rebate for residential customers
+                        and up to $2,000 for commercial customers for replacing
+                        an existing irrigation controller with an EPA WaterSense
+                        approved Weather Based Irrigation Controller. For a list
+                        of qualifying controllers see:{' '}
+                        <Link
+                          variant="inherit"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          underline="always"
+                          href="https://lookforwatersense.epa.gov/Product-Search-Results-IrrigationController.html"
+                        >
+                          lookforwatersense.epa.gov
+                        </Link>
+                        . For additional information see{' '}
+                        <Type component="em" variant="inherit">
+                          Smart Controller Rebate Requirements
+                        </Type>
+                        .
                       </Type>
-                      .
-                    </Type>
-                    {/* <Paper elevation={1}>
+                      {/* <Paper elevation={1}>
                       <Box
                         bgcolor={alpha(yellow[50], 0.8)}
                         paddingY={2}
@@ -521,18 +597,19 @@ const RebateProgramsPage = () => {
                         </Type>
                       </Box>
                     </Paper> */}
-                    {/* <Spacing size="small" /> */}
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
-                        caption="Smart Controller Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/smart-controller"
-                        label="Apply for Smart Controller Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
+                      {/* <Spacing size="small" /> */}
+                      <ColumnBox>
+                        <TermsAndConditionsButton
+                          href="https://docs.pcwa.net/smart-controller-rebate-requirements.pdf"
+                          caption="Smart Controller Rebate Requirements"
+                        />
+                        <ApplyNowButton
+                          href="/forms/rebates/smart-controller"
+                          label="Apply for Smart Controller Rebate Online"
+                        />
+                      </ColumnBox>
+                    </RebateCard>
+                  </RibbonContainer>
                 </ChildBox>
 
                 <ChildBox>
@@ -598,34 +675,56 @@ const RebateProgramsPage = () => {
                 </ChildBox>
 
                 <ChildBox>
-                  <RebateCard>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        High-Efficiency Toilet (HET)/Urinal -
-                      </Type>{' '}
-                      Receive up to a $50 rebate per toilet for the replacement
-                      of old 3 Gallons Per Flush (GPF) or Pre-1994 toilets with
-                      new high-efficiency 1.28 GPF toilets. For urinals, receive
-                      up to a $50 rebate per urinal for the replacement of
-                      commercial urinals with EPA WaterSense approved or
-                      waterless urinals. See{' '}
-                      <Type component="em" variant="inherit">
-                        Toilet Rebate Requirements
-                      </Type>{' '}
-                      for additional information.
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        caption="Toilet Rebate Requirements"
-                        href="https://docs.pcwa.net/toilet-rebate-requirements.pdf"
-                        label="HET Toilet/Urinal Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/toilet"
-                        label="Apply for HET Toilet/Urinal Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
+                  <RibbonContainer>
+                    <LeftLargeRibbon
+                      backgroundColor="#cc4400"
+                      sx={{
+                        color: '#f0f0f0',
+                        fontFamily: 'Arial',
+                        zIndex: 3,
+                        top: '-25px !important'
+                      }}
+                    >
+                      <Box
+                        component="span"
+                        sx={{
+                          verticalAlign: 'top',
+                          lineHeight: '1.2em',
+                          fontSize: '.8em'
+                        }}
+                      >
+                        Enhanced
+                      </Box>
+                    </LeftLargeRibbon>
+                    <RebateCard>
+                      <Type paragraph>
+                        <Type variant="h6" component="span">
+                          High-Efficiency Toilet (HET)/Urinal -
+                        </Type>{' '}
+                        Receive up to a $100 rebate per toilet for the
+                        replacement of old 3 Gallons Per Flush (GPF) or Pre-1994
+                        toilets with new high-efficiency 1.28 GPF toilets. For
+                        urinals, receive up to a $100 rebate per urinal for the
+                        replacement of commercial urinals with EPA WaterSense
+                        approved or waterless urinals. See{' '}
+                        <Type component="em" variant="inherit">
+                          Toilet Rebate Requirements
+                        </Type>{' '}
+                        for additional information.
+                      </Type>
+                      <ColumnBox>
+                        <TermsAndConditionsButton
+                          caption="Toilet Rebate Requirements"
+                          href="https://docs.pcwa.net/toilet-rebate-requirements.pdf"
+                          label="HET Toilet/Urinal Rebate Requirements"
+                        />
+                        <ApplyNowButton
+                          href="/forms/rebates/toilet"
+                          label="Apply for HET Toilet/Urinal Rebate Online"
+                        />
+                      </ColumnBox>
+                    </RebateCard>
+                  </RibbonContainer>
                 </ChildBox>
               </ColumnBox>
             </ChildBox>
