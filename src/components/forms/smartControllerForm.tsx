@@ -388,7 +388,7 @@ const SmartControllerForm = ({
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Smart-Controller-Terms-and-Conditions.pdf"
-                termsConditionsUrl="https://imgix.cosmicjs.com/ec1fc1a0-e3fc-11eb-be9a-bfe30c7c12b9-SMART-CONTROLLER-REBATE-PROGRAM-REQUIREMENTS.pdf"
+                termsConditionsUrl="https://pcwa.imgix.net/pcwa-net/rebate/Smart%20Controller%20Rebate%20Program%20Requirements%202024.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>

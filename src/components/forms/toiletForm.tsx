@@ -432,7 +432,7 @@ const ToiletForm = ({ineligible = false, onIneligibleChange}: Props) => {
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Toilet-Terms-and-Conditions.pdf"
-                termsConditionsUrl="https://imgix.cosmicjs.com/8c41df20-9792-11ed-93ee-cb9a2cd68754-Toilet-Rebate-Terms-and-Condtions-Revised-01182023.pdf"
+                termsConditionsUrl="https://pcwa.imgix.net/pcwa-net/rebate/Toilet%20Terms%20and%20Conditions%202024.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>
