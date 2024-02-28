@@ -13,6 +13,9 @@ export const RibbonContainer = ({children, className, ...rest}: BoxProps) => {
 type Props = {
   backgroundColor?: string
   svgWidth?: string | number
+  svgHeight?: string | number
+  svgOffset?: string | number
+  size?: 'regular' | 'large'
 } & Partial<BoxProps>
 
 export const RightCornerRibbon = ({
@@ -231,39 +234,40 @@ export const RightLargeRibbon = ({
   )
 }
 
-export const LeftRibbon = ({
-  children,
-  backgroundColor,
-  color,
-  fontFamily,
-  sx
-}: Props) => {
-  return (
-    <Box className={styles.leftRibbon} sx={{...sx}}>
-      <svg height="40" width="70">
-        <g transform="scale(-1,1) translate(-70, 0)">
-          <polygon
-            points="0 10, 10 20, 0 30, 70 30, 70 10"
-            fill={backgroundColor}
-            strokeWidth="0"
-          />
-          <polygon
-            points="60 40, 60 30, 70 30"
-            fill={`${backgroundColor}77`}
-            strokeWidth="0"
-          />
-        </g>
-      </svg>
-      <Box
-        component="span"
-        sx={{color, fontFamily}}
-        className={styles.leftRibbonText}
-      >
-        {children}
-      </Box>
-    </Box>
-  )
-}
+// Original Version
+// export const LeftRibbon = ({
+//   children,
+//   backgroundColor,
+//   color,
+//   fontFamily,
+//   sx
+// }: Props) => {
+//   return (
+//     <Box className={styles.leftRibbon} sx={{...sx}}>
+//       <svg height="40" width="70">
+//         <g transform="scale(-1,1) translate(-70, 0)">
+//           <polygon
+//             points="0 10, 10 20, 0 30, 70 30, 70 10"
+//             fill={backgroundColor}
+//             strokeWidth="0"
+//           />
+//           <polygon
+//             points="60 40, 60 30, 70 30"
+//             fill={`${backgroundColor}77`}
+//             strokeWidth="0"
+//           />
+//         </g>
+//       </svg>
+//       <Box
+//         component="span"
+//         sx={{color, fontFamily}}
+//         className={styles.leftRibbonText}
+//       >
+//         {children}
+//       </Box>
+//     </Box>
+//   )
+// }
 
 // Original Version
 // export const LeftLargeRibbon = ({
@@ -300,28 +304,63 @@ export const LeftRibbon = ({
 //   )
 // }
 
-export const LeftLargeRibbon = ({
+const defaultSvgHeight = 40
+const defaultSvgWidth = 70
+const defaultSvgOffset = 10
+
+export const LeftRibbon = ({
   children,
   backgroundColor,
   color,
   fontFamily,
-  svgWidth: svgWidthProp = 90,
+  svgHeight: svgHeightProp = defaultSvgHeight,
+  svgWidth: svgWidthProp = defaultSvgWidth,
+  svgOffset: svgOffsetProp = defaultSvgOffset,
+  size = 'regular',
   sx
 }: Props) => {
-  let svgWidth1 = svgWidthProp.toString()
-  let svgWidth2 = (parseInt(svgWidth1, 10) - 15).toString()
+  if (size === 'large') {
+    // only update the props if they were not set explicitly
+    if (svgHeightProp === defaultSvgHeight) {
+      svgHeightProp = 60
+    }
+    if (svgWidthProp === defaultSvgWidth) {
+      svgWidthProp = 90
+    }
+    if (svgOffsetProp === defaultSvgOffset) {
+      svgOffsetProp = 15
+    }
+  }
+
+  const svgOffset = svgOffsetProp.toString()
+  const svgWidth1 = svgWidthProp.toString()
+  const svgWidth2 = (
+    parseInt(svgWidth1, 10) - parseInt(svgOffset, 10)
+  ).toString()
+  const svgHeight1 = svgHeightProp.toString()
+  const svgHeight2 = (
+    parseInt(svgHeight1, 10) - parseInt(svgOffset, 10)
+  ).toString()
+  const svgHeightHalf = Math.round(parseInt(svgHeight1, 10) / 2).toString()
 
   return (
-    <Box className={styles.leftLargeRibbon} sx={{...sx}}>
-      <svg height="60" width={svgWidth1}>
+    <Box
+      sx={{
+        position: 'absolute',
+        top: 0,
+        left: parseInt(svgOffset, 10) * -1,
+        ...sx
+      }}
+    >
+      <svg height={svgHeight1} width={svgWidth1}>
         <g transform={`scale(-1,1) translate(-${svgWidth1}, 0)`}>
           <polygon
-            points={`0 15, 15 30, 0 45, ${svgWidth1} 45, ${svgWidth1} 15`}
+            points={`0 ${svgOffset}, ${svgOffset} ${svgHeightHalf}, 0 ${svgHeight2}, ${svgWidth1} ${svgHeight2}, ${svgWidth1} ${svgOffset}`}
             fill={backgroundColor}
             strokeWidth="0"
           />
           <polygon
-            points={`${svgWidth2} 60, ${svgWidth2} 40, ${svgWidth1} 45`}
+            points={`${svgWidth2} ${svgHeight1}, ${svgWidth2} ${svgHeight2}, ${svgWidth1} ${svgHeight2}`}
             fill={`${backgroundColor}77`}
             strokeWidth="0"
           />
@@ -329,8 +368,21 @@ export const LeftLargeRibbon = ({
       </svg>
       <Box
         component="span"
-        sx={{color, fontFamily}}
-        className={styles.leftLargeRibbonText}
+        sx={{
+          color,
+          fontFamily,
+          position: 'absolute',
+          // regular size
+          fontSize: '0.8em',
+          top: 12,
+          left: 7,
+          /// large size
+          ...(size === 'large' && {
+            fontSize: '0.9em',
+            top: 21,
+            left: 9
+          })
+        }}
       >
         {children}
       </Box>

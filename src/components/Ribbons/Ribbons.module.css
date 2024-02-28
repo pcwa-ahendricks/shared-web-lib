@@ -105,28 +105,28 @@
   right: 9px;
 }
 
-.leftRibbon {
+/* .leftRibbon {
   position: absolute;
   top: 0;
   left: -10px;
-}
+} */
 
-.leftRibbonText {
+/* .leftRibbonText {
   position: absolute;
   font-size: 0.8em;
   top: 12px;
   left: 7px;
-}
+} */
 
-.leftLargeRibbon {
+/* .leftLargeRibbon {
   position: absolute;
   top: 0;
   left: -15px;
-}
+} */
 
-.leftLargeRibbonText {
+/* .leftLargeRibbonText {
   position: absolute;
   font-size: 0.9em;
   top: 21px;
   left: 9px;
-}
+} */

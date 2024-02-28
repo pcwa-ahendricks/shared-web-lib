@@ -21,7 +21,7 @@ import MainPhone from '@components/links/MainPhone'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import RebatesEmail from '@components/links/RebatesEmail'
-import {LeftLargeRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
+import {LeftRibbon, RibbonContainer} from '@components/Ribbons/Ribbons'
 // import {yellow} from '@mui/material/colors'
 
 const RebateProgramsPage = () => {
@@ -229,29 +229,9 @@ const RebateProgramsPage = () => {
               <Spacing />
               <ColumnBox flexSpacing={3}>
                 <ChildBox position="relative">
-                  {/* <RibbonContainer>
-                    <LeftLargeRibbon
-                      backgroundColor="#cc4400"
-                      sx={{
-                        color: '#f0f0f0',
-                        fontFamily: 'Arial',
-                        zIndex: 3,
-                        top: '-25px !important'
-                      }}
-                    >
-                      <Box
-                        component="span"
-                        sx={{
-                          verticalAlign: 'top',
-                          lineHeight: '1.2em',
-                          fontSize: '.9em'
-                        }}
-                      >
-                        New
-                      </Box>
-                    </LeftLargeRibbon> */}
                   <RibbonContainer>
-                    <LeftLargeRibbon
+                    <LeftRibbon
+                      size="large"
                       svgWidth={220}
                       backgroundColor="#cc4400"
                       sx={{
@@ -272,7 +252,7 @@ const RebateProgramsPage = () => {
                       >
                         New for Commercial Customers
                       </Box>
-                    </LeftLargeRibbon>
+                    </LeftRibbon>
                     <RebateCard pt={4}>
                       <Type paragraph>
                         <Type variant="h6" component="span">
@@ -302,7 +282,8 @@ const RebateProgramsPage = () => {
                 </ChildBox>
                 <ChildBox position="relative">
                   <RibbonContainer>
-                    <LeftLargeRibbon
+                    <LeftRibbon
+                      size="large"
                       svgWidth={105}
                       backgroundColor="#cc4400"
                       sx={{
@@ -323,7 +304,7 @@ const RebateProgramsPage = () => {
                       >
                         New in 2024
                       </Box>
-                    </LeftLargeRibbon>
+                    </LeftRibbon>
                     <RebateCard pt={4}>
                       <Type paragraph>
                         <Type variant="h6" component="span">
@@ -351,27 +332,9 @@ const RebateProgramsPage = () => {
                 </ChildBox>
                 <ChildBox>
                   <ChildBox position="relative">
-                    {/* <RibbonContainer minHeight={theme.spacing(3)}>
-                      <LeftLargeRibbon
-                        backgroundColor={theme.palette.secondary.dark}
-                        color={theme.palette.grey['50']}
-                        fontFamily="Arial"
-                        zIndex={3}
-                      >
-                        <Box component="span"
-                          sx={{
-                            verticalAlign: 'top',
-                            lineHeight: '1.2em',
-                            fontSize: '0.9em'
-                          }}
-                        >
-                          Enhanced
-                        </Box>
-                      </LeftLargeRibbon>
-                    </RibbonContainer> */}
-
                     <RibbonContainer>
-                      <LeftLargeRibbon
+                      <LeftRibbon
+                        size="large"
                         backgroundColor="#cc4400"
                         sx={{
                           color: '#f0f0f0',
@@ -390,7 +353,7 @@ const RebateProgramsPage = () => {
                         >
                           Enhanced
                         </Box>
-                      </LeftLargeRibbon>
+                      </LeftRibbon>
                       <RebateCard pt={4}>
                         <Type paragraph>
                           <Type variant="h6" component="span">
@@ -521,21 +484,9 @@ const RebateProgramsPage = () => {
                   </RebateCard>
                 </ChildBox>
                 <ChildBox position="relative">
-                  {/* <RibbonContainer minHeight={theme.spacing(3)}>
-                    <LeftLargeRibbon
-                      backgroundColor="#cc4400"
-                      color="#f0f0f0"
-                      fontFamily="Arial"
-                      zIndex={3}
-                    >
-                      <Box component="span" sx={{verticalAlign: 'top', lineHeight: '1.2em'}}>
-                        New
-                      </Box>
-                    </LeftLargeRibbon>
-                  </RibbonContainer> */}
-
                   <RibbonContainer>
-                    <LeftLargeRibbon
+                    <LeftRibbon
+                      size="large"
                       svgWidth={220}
                       backgroundColor="#cc4400"
                       sx={{
@@ -555,7 +506,7 @@ const RebateProgramsPage = () => {
                       >
                         New for Commercial Customers
                       </Box>
-                    </LeftLargeRibbon>
+                    </LeftRibbon>
                     <RebateCard pt={4}>
                       <Type paragraph>
                         <Type variant="h6" component="span">
@@ -610,24 +561,6 @@ const RebateProgramsPage = () => {
 
                 <ChildBox>
                   <ChildBox position="relative">
-                    {/* <RibbonContainer minHeight={theme.spacing(3)}>
-                      <LeftLargeRibbon
-                        backgroundColor={theme.palette.secondary.dark}
-                        color={theme.palette.grey['50']}
-                        fontFamily="Arial"
-                        zIndex={3}
-                      >
-                        <Box component="span"
-                          sx={{
-                            verticalAlign: 'top',
-                            lineHeight: '1.2em',
-                            fontSize: '0.9em'
-                          }}
-                        >
-                          Enhanced
-                        </Box>
-                      </LeftLargeRibbon>
-                    </RibbonContainer> */}
                     <RebateCard pt={4}>
                       <Type paragraph>
                         <Type variant="h6" component="span">
@@ -672,7 +605,8 @@ const RebateProgramsPage = () => {
 
                 <ChildBox>
                   <RibbonContainer>
-                    <LeftLargeRibbon
+                    <LeftRibbon
+                      size="large"
                       backgroundColor="#cc4400"
                       sx={{
                         color: '#f0f0f0',
@@ -691,7 +625,7 @@ const RebateProgramsPage = () => {
                       >
                         Enhanced
                       </Box>
-                    </LeftLargeRibbon>
+                    </LeftRibbon>
                     <RebateCard>
                       <Type paragraph>
                         <Type variant="h6" component="span">
