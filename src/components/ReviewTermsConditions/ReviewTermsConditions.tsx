@@ -105,7 +105,13 @@ const ReviewTermsConditions = ({
             onEntered: () => setScrollSnackOpen(true),
             onExiting: () => setScrollSnackOpen(false)
           }}
-          ImageProps={{width: 3840, height: 4969}}
+          // setting 'keepMounted' and 'priority' props true so that image loads quicker
+          keepMounted
+          ImageProps={{
+            priority: true,
+            width: 3840,
+            height: 4969
+          }}
         />
       </div>
       <Snackbar

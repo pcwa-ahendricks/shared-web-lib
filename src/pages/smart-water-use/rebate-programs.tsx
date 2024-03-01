@@ -37,12 +37,13 @@ const RebateProgramsPage = () => {
   const TermsAndConditionsButton = ({
     href,
     label,
-    caption = 'Terms & Conditions'
+    caption = 'Terms & Conditions',
+    ...rest
   }: {
     href: string
     label?: string
     caption?: string
-  }) => {
+  } & Partial<FancyButtonProps>) => {
     return (
       <FancyButton
         color="primary"
@@ -51,6 +52,7 @@ const RebateProgramsPage = () => {
         rel="noopener noreferrer"
         aria-label={label || caption}
         hoverText="View PDF"
+        {...rest}
       >
         {caption}
       </FancyButton>
@@ -310,19 +312,22 @@ const RebateProgramsPage = () => {
                         <Type variant="h6" component="span">
                           Pool Autofill -
                         </Type>{' '}
-                        Receive up to a $50 rebate for purchasing and installing
+                        Pool Autofill Rebate Coming Soon!
+                        {/* Receive up to a $50 rebate for purchasing and installing
                         a new solar or safety pool cover. See{' '}
                         <Type component="em" variant="inherit">
                           Pool Cover Rebate Requirements
                         </Type>{' '}
-                        for additional information.
+                        for additional information. */}
                       </Type>
                       <ColumnBox>
-                        <TermsAndConditionsButton
+                        {/* <TermsAndConditionsButton
+                          disabled
                           href="https://docs.pcwa.net/pool-cover-rebate-requirements.pdf"
                           caption="Pool Cover Rebate Requirements"
-                        />
+                        /> */}
                         <ApplyNowButton
+                          disabled
                           href="/forms/rebates/pool-cover"
                           label="Apply for Pool Cover Rebate Online"
                         />
