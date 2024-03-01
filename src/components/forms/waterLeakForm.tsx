@@ -451,7 +451,7 @@ const WaterLeakForm = ({ineligible = false, onIneligibleChange}: Props) => {
               <ReviewTermsConditions
                 pageCount={2}
                 fileName="Water-Leak-Terms-and-Conditions.pdf"
-                termsConditionsUrl="https://pcwa.imgix.net/pcwa-net/rebate/Water%20Leak%20Terms%20and%20Conditions%202024%20.pdf"
+                termsConditionsUrl="https://pcwa.imgix.net/pcwa-net/rebate/Water%20Leak%20Terms%20and%20Conditions%202024.pdf"
               />
               <Spacing />
               <Type variant="body1" paragraph>
