@@ -159,11 +159,10 @@ const ServicesPage = () => {
               The PCWA Business Center Lobby is open Monday through Thursday:
               8am-5pm, and closed Friday. Customer Service Representatives are
               available by phone at <MainPhone /> or <EightHundredPhone />{' '}
-              Monday through Thursday: 8am-5:30pm, and Friday: 8am-5:00pm.
-              Customer Services can also be reached by email at{' '}
-              <CustomerServicesEmail /> (please allow two business days for a
-              response to your email inquiry). PCWA is closed on all major
-              holidays.
+              Monday through Friday: 8am-5pm. Customer Services can also be
+              reached by email at <CustomerServicesEmail /> (please allow two
+              business days for a response to your email inquiry). PCWA is
+              closed on all major holidays.
             </Type>
             <Spacing size="x-small" />
             <Type paragraph>

@@ -18,7 +18,7 @@ export default function HoursOfOperation() {
         >
           Phone:{' '}
         </Type>
-        Monday through Thursday: 8am-5:30pm, Friday: 8am-5:00pm
+        Monday through Friday: 8am-5pm
         <br />
         <Type
           variant="body2"

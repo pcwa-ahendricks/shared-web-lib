@@ -152,8 +152,7 @@ const Footer = () => {
                       underline="none"
                     />
                   </GlowLightGreen>
-                  <Type variant="body2">Mon. - Thurs., 8am - 5:30pm</Type>
-                  <Type variant="body2">Fri., 8am - 5pm</Type>
+                  <Type variant="body2">Mon. - Fri., 8am - 5pm</Type>
                 </Box>
               </RowBox>
             </ColumnBox>

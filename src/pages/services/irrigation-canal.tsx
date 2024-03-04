@@ -473,14 +473,13 @@ const IrrigationCanalPage = () => {
               <Box p={2}>
                 <Type variant="body2" paragraph>
                   Call PCWA Customer Services at <MainPhone /> weekdays, Monday
-                  through Thursday: 8am-5:30pm, Friday: 8am-5:00pm. After hours,
-                  our answering service will receive your call. If you call
-                  after 9:00pm, your call will often be referred to the office
-                  the next morning, as we are not able to send canal operators
-                  to unplug individual service lines during evenings and
-                  non-working hours. We recommend that customers keep an
-                  adequate supply in storage (pond or tank) for emergencies or
-                  outages.
+                  through Friday: 8am-5pm. After hours, our answering service
+                  will receive your call. If you call after 9:00pm, your call
+                  will often be referred to the office the next morning, as we
+                  are not able to send canal operators to unplug individual
+                  service lines during evenings and non-working hours. We
+                  recommend that customers keep an adequate supply in storage
+                  (pond or tank) for emergencies or outages.
                 </Type>
               </Box>
             </Box>
