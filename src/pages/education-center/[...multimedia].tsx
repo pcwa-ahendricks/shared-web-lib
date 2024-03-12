@@ -391,7 +391,7 @@ const ResourceLibraryPage = ({
               <ChildBox flex={isXS ? '100%' : '0 1 50%'}>
                 <Box width={440} marginRight="auto">
                   <Card
-                    title="State of PCWA's Water Supplies"
+                    title="State of PCWA's Water Supplies - 2022"
                     // publishedDate={parse(
                     //   '04/13/2022',
                     //   'MM/dd/yyyy',
@@ -402,7 +402,7 @@ const ResourceLibraryPage = ({
                   >
                     <FancierCardActionArea
                       LinkComponent={LinkComponent}
-                      href="/education-center/webinars/state-of-our-water"
+                      href="/education-center/webinars/state-of-our-water-2022"
                       CardMediaProps={{
                         style: {overflow: 'hidden', width: '100%'}
                       }}
@@ -410,7 +410,7 @@ const ResourceLibraryPage = ({
                         src: 'https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg',
                         objectFit: 'cover',
                         objectPosition: 'top center',
-                        alt: `Thumbnail image and link for State of Our Water Supplies webinar`,
+                        alt: `Thumbnail image and link for the 2022 State of Our Water Supplies webinar`,
                         height: 220,
                         width: 440
                         // isHover={actionAreaIsHover}
@@ -430,7 +430,7 @@ const ResourceLibraryPage = ({
                           gutterBottom
                           variant={isMDUp ? 'subtitle1' : 'subtitle2'}
                         >
-                          State of Our Water Supplies Webinar
+                          State of Our Water Supplies Webinar - 2022
                         </Type>
                         <Type variant="body2" color="textSecondary" paragraph>
                           Recorded{' '}
@@ -502,6 +502,65 @@ const ResourceLibraryPage = ({
                         // startIcon={<MovieIcon color="action" />}
                         startIcon={<YouTubeIcon color="action" />}
                         href="https://www.youtube.com/watch?v=dSXMOGczI1o"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Type variant="inherit" color="textSecondary">
+                          Watch Recording
+                        </Type>
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Box>
+              </ChildBox>
+              <ChildBox flex={isXS ? '100%' : '0 1 50%'}>
+                <Box width={440} marginRight="auto">
+                  <Card
+                    title="State of PCWA's Water Supplies - 2023"
+                    // publishedDate={parse(
+                    //   '04/13/2022',
+                    //   'MM/dd/yyyy',
+                    //   new Date()
+                    // )}
+                    // imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
+                    // objectPosition="top center"
+                  >
+                    <FancierCardActionArea
+                      LinkComponent={LinkComponent}
+                      href="/education-center/webinars/state-of-our-water-2023"
+                      CardMediaProps={{
+                        style: {overflow: 'hidden', width: '100%'}
+                      }}
+                      ImageFancierProps={{
+                        src: 'https://imgix.cosmicjs.com/aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg',
+                        objectFit: 'cover',
+                        objectPosition: 'top center',
+                        alt: `Thumbnail image and link for the 2023 State of Our Water Supplies webinar`,
+                        height: 220,
+                        width: 440
+                      }}
+                    >
+                      <CardContent>
+                        <Type
+                          gutterBottom
+                          variant={isMDUp ? 'subtitle1' : 'subtitle2'}
+                        >
+                          State of Our Water Supplies Webinar - 2023
+                        </Type>
+                        <Type variant="body2" color="textSecondary" paragraph>
+                          Recorded{' '}
+                          {format(
+                            parse('4/20/2023', 'MM/dd/yyyy', new Date()),
+                            'M/dd/yyyy'
+                          )}
+                        </Type>
+                      </CardContent>
+                    </FancierCardActionArea>
+                    <CardActions>
+                      <Button
+                        size="small"
+                        startIcon={<YouTubeIcon color="action" />}
+                        href="https://www.youtube.com/watch?v=46A1b6lUOZw"
                         target="_blank"
                         rel="noopener noreferrer"
                       >

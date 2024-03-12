@@ -421,7 +421,7 @@ export default function homepage() {
               aspectRatio={coverStoryImageRatio}
               title="Watch this PCWA Presents Free Webinar"
               readMore="Watch the recording here"
-              linkHref="/education-center/webinars/state-of-our-water"
+              linkHref="/education-center/webinars/state-of-our-water-2022"
               imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
               alt="State of our Water Webinar flier"
               body="A free webinar and live audience Q&A exploring the state of PCWA's water supplies for 2022 amid an emerging third year of severe drought in California."
@@ -460,7 +460,7 @@ export default function homepage() {
               aspectRatio={coverStoryImageRatio}
               title="State of PCWA's Water Supplies 2023"
               readMore="Learn more and register today"
-              linkHref="/education-center/webinars/state-of-our-water-0323"
+              linkHref="/education-center/webinars/state-of-our-water-2023"
               imgixURL="https://imgix.cosmicjs.com/bf071a60-ce51-11ed-94ed-95257c20dd73-PCWAWaterSuppliesWebinarGraphicPost5.jpg"
               imgixParams={{crop: 'top'}}
               alt="State of our Water Webinar flier"

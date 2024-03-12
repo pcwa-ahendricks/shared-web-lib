@@ -46,7 +46,7 @@ const StateOfOurWaterWebinarPage = () => {
     [style]
   )
   return (
-    <PageLayout title="State of Our Water Supplies Webinar" waterSurface>
+    <PageLayout title="State of Our Water Supplies Webinar - 2022" waterSurface>
       <MainBox>
         <WideContainer>
           {/* <PageTitle

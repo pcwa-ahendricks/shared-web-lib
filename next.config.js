@@ -130,7 +130,7 @@ const legacyRedirects = [
   // I (abe h.) changed where these 2 webinars are located to better reflect page structure/hierarchy
   {
     source: '/newsroom/state-of-our-water-webinar',
-    destination: '/education-center/webinars/state-of-our-water',
+    destination: '/education-center/webinars/state-of-our-water-2022',
     permanent: true
   },
   {

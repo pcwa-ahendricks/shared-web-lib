@@ -145,7 +145,7 @@ const Index = ({
       aspectRatio={coverStoryImageRatio}
       title="State of PCWA's Water Supplies 2023"
       readMore="View the recording here"
-      linkHref="/education-center/webinars/state-of-our-water-0323"
+      linkHref="/education-center/webinars/state-of-our-water-2023"
       imgixURL="https://imgix.cosmicjs.com/aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg"
       imgixParams={{crop: 'top'}}
       alt="State of our Water recorded webinar flier"
@@ -401,7 +401,7 @@ const Index = ({
               width={tileWidth}
               imageRatio={coverStoryImageRatio}
               title="State of Our Water Supplies Webinar"
-              linkHref="/education-center/webinars/state-of-our-water"
+              linkHref="/education-center/webinars/state-of-our-water-2022"
               imgixURL="https://imgix.cosmicjs.com/49389270-bf3c-11ec-bf80-e74645a81647-PCWAWaterSuppliesWebinarGraphicRecording.jpg"
               alt="State of Our Water webinar flier"
             />
