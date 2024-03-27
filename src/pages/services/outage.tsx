@@ -277,7 +277,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                 </Type>
               </Box>
               <Spacing />
-              <Box
+              {/* <Box
                 // bgcolor={paletteType(theme.palette.warning.main, 0.92)}
                 bgcolor={theme.palette.common.white}
                 p={2}
@@ -313,7 +313,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   </Link>
                   .
                 </Type>
-              </Box>
+              </Box> */}
 
               <Spacing size="large" />
               <Box

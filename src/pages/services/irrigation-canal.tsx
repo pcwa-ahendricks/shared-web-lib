@@ -177,7 +177,7 @@ const IrrigationCanalPage = () => {
                   .
                 </Type>
               </Box>
-              <Box
+              {/* <Box
                 // bgcolor={paletteType(theme.palette.warning.main, 0.92)}
                 bgcolor={theme.palette.common.white}
                 p={2}
@@ -214,7 +214,7 @@ const IrrigationCanalPage = () => {
                   </Link>
                   .
                 </Type>
-              </Box>
+              </Box> */}
             </ChildBox>
           </RowBox>
           <Spacing size="large" />

@@ -348,11 +348,11 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/education-center/webinars/state-of-our-water-0323</loc>
+    <loc>https://www.pcwa.net/education-center/webinars/state-of-our-water-2022</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/education-center/webinars/state-of-our-water-2022</loc>
+    <loc>https://www.pcwa.net/education-center/webinars/state-of-our-water-2023</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
@@ -3269,6 +3269,14 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/board-of-directors/meeting-agendas/2024-03-05-PCWA-City-of-Roseville-Water-Committee</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-agendas/2024-03-21-PCWA-Audit-Committee</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-agendas/2024-04-04-Finance-Committee</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
