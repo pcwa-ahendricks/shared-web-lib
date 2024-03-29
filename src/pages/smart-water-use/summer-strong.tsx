@@ -15,6 +15,7 @@ import {
 // import BirdIcon from 'mdi-material-ui/Bird'
 // import StarsIcon from 'mdi-material-ui/Creation'
 // import SunIcon from 'mdi-material-ui/WhiteBalanceSunny'
+import TitleIcon from '@mui/icons-material/LocalFlorist'
 import Image from 'next/legacy/image'
 import NextLink from 'next/link'
 import imgixLoader from '@lib/imageLoader'
@@ -26,7 +27,7 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import WideContainer from '@components/containers/WideContainer'
-import {grey} from '@mui/material/colors'
+import {grey, purple} from '@mui/material/colors'
 import ClevSageAccordion from './summer-strong/ClevSageAccordion'
 import LionsTailAccordion from './summer-strong/LionsTailAccordion'
 import CrapeMyrtleAccordion from './summer-strong/CrapeMyrtleAccordion'
@@ -152,6 +153,9 @@ export default function SummerStrongPage({placeholders}: Props) {
                 {/* <SunIcon
                   sx={{marginRight: '8px', color: orange[400], fontSize: 32}}
                 /> */}
+                <TitleIcon
+                  sx={{marginRight: '8px', color: purple[300], fontSize: 32}}
+                />
                 {/* <Type variant="h3" gutterBottom>
                   A Butterfly Buffet!
                 </Type>*/}
