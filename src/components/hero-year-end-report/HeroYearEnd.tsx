@@ -1,0 +1,135 @@
+import React, {
+  useEffect,
+  useContext,
+  useRef,
+  useState,
+  useCallback
+} from 'react'
+import HeroYearEndOverlay from '@components/hero-year-end-report/HeroYearEndOverlay'
+import {useIntersection} from 'react-use'
+import JackinBox from '@components/mui-jackinbox/JackinBox'
+import {UiContext, setAnimateDone} from '@components/ui/UiStore'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import {RowBox} from '@components/MuiSleazebox'
+import Image from 'next/image'
+import {Box, useMediaQuery} from '@mui/material'
+import {useTimeoutFn} from 'react-use'
+import useTheme from '@hooks/useTheme'
+
+const animateKey = 'homeHeroOverly'
+
+export default function HeroYearEnd() {
+  const uiContext = useContext(UiContext)
+  const {state: uiState, dispatch: uiDispatch} = uiContext
+  const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
+
+  const heroAnimateRef = useRef<HTMLDivElement>(null)
+  const [heroIntersected, setHeroIntersected] = useState(false)
+
+  const heroIntersection = useIntersection(heroAnimateRef, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5
+  })
+
+  useEffect(() => {
+    if (heroIntersection?.isIntersecting) {
+      setHeroIntersected(true)
+    }
+  }, [heroIntersection])
+
+  const {[animateKey]: homeAnimateDone} = uiState.animateDone
+
+  const animateDoneHandler = useCallback(() => {
+    uiDispatch(setAnimateDone(animateKey, true))
+  }, [uiDispatch])
+
+  const [colorState, setColorState] = useState(false)
+  function fn() {
+    setColorState(true)
+  }
+  const [_isReady, _cancel, _reset] = useTimeoutFn(fn, 1500)
+
+  const isXs = useMediaQuery('@media (min-width:0px) and (max-width:525px)')
+  const isSm = useMediaQuery('@media (min-width:525px) and (max-width:725px)')
+
+  return (
+    <div ref={heroAnimateRef}>
+      <Box
+        m="auto"
+        width="100%" // Setting width makes the image re-expand when window width resizes to a larger width from a smaller narrow width.
+        // maxWidth={1400}
+        // height={{xs: 400, sm: 450, md: 775, lg: 850, xl: 1000}} // Original Photo is not very tall, so special treatment is given on smaller devices. 'objectFit' is also toggled to help with image display.
+        overflow="hidden"
+        position="relative"
+      >
+        <Box
+          sx={{
+            // position: 'absolute',
+            // top: 0,
+            // bottom: 0,
+            // left: 0,
+            // right: 0,
+            '& img': {
+              filter: 'grayscale(1)',
+              opacity: 0.9,
+              transition: 'all 0.8s ease-in-out',
+              ...(colorState && {
+                opacity: 1,
+                filter: 'none',
+                transform: 'scale(1.04)'
+              })
+            }
+          }}
+        >
+          <Image
+            priority
+            // fill
+            width={4641}
+            height={2940}
+            loader={imgixUrlLoader}
+            src="https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_no_brand.jpg"
+            style={{
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
+              ...(isXs && {height: '375px'}),
+              ...(isSm && {height: '475px'})
+            }}
+            // src: `https://imgix.cosmicjs.com/b2033870-12ef-11e9-97ad-6ddd1d636af5-fm-inlet-progressive.jpg${stringify(
+            // {bri: -5, high: -15},
+            // true
+            // )}`,
+            alt="A photo of French Meadows Reservoir"
+          />
+        </Box>
+
+        <JackinBox
+          name="fadeInLeft"
+          delay={1}
+          hideUntilAnimate={!homeAnimateDone}
+          animate={heroOverlayIn && heroIntersected && !homeAnimateDone}
+          onAnimateEnd={animateDoneHandler}
+          sx={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+          }}
+        >
+          <RowBox justifyContent="space-around" alignItems="center">
+            <HeroYearEndOverlay
+              height="100%"
+              preserveAspectRatio="xMidYMid meet"
+              sx={{
+                zIndex: 99,
+                flex: '0 0 auto'
+              }}
+            />
+          </RowBox>
+        </JackinBox>
+      </Box>
+    </div>
+  )
+}

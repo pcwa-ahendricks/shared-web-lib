@@ -25,6 +25,7 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
+import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -101,7 +102,9 @@ const Index = ({
           />
         </Box>
       </Link> */}
-      <HeroImage />
+
+      {/* <HeroImage /> */}
+      <HeroYearEnd />
 
       {/* <Hidden only="xs" implementation="css">
         <TrendingBar />

@@ -17,7 +17,7 @@ import {RowBox} from '@components/MuiSleazebox'
 
 const animateKey = 'homeHeroOverly'
 
-export default function HeroImage() {
+export default function ParallaxHeroImage() {
   const uiContext = useContext(UiContext)
   const {state: uiState, dispatch: uiDispatch} = uiContext
   const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
