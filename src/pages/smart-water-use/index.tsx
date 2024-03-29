@@ -264,10 +264,10 @@ const SmartWaterUsePage = () => {
                       <Image
                         layout="responsive"
                         loader={imgixUrlLoader}
-                        src="https://imgix.cosmicjs.com/5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg"
+                        src="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5_no_web.jpg"
                         width={1280}
                         height={800}
-                        alt="California Fuchsia, Summer Strong Low-Water Use Plant of the Month"
+                        alt="Margarita BOP Penstemon, Summer Strong Low-Water Use Plant of the Month"
                         sizes="(max-width: 600px) 100vw, 70vw"
                       />
                       <Box padding={2}>
@@ -283,7 +283,7 @@ const SmartWaterUsePage = () => {
                         </Type>
                         <Type paragraph variant="body2">
                           New plants will be featured each month through October
-                          2023. Learn about this month's plant and find the
+                          2024. Learn about this month's plant and find the
                           complete list of Summer Strong plants on our{' '}
                           <Link href="/smart-water-use/summer-strong">
                             Summer Strong

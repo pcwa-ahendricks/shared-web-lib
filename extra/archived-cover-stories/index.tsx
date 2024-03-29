@@ -469,6 +469,99 @@ export default function homepage() {
               body="PCWA will host a free webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
             />
           </ChildBox> */}
+
+      {/* <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Let Mother Nature Do Your Watering This Winter"
+              readMore="Learn more"
+              linkHref="/smart-water-use/winter-yard-tips"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg"
+              alt="Let Mother Nature Do Your Watering This Winter Info Graphic and link"
+              body="With winter's shorter and colder days, your yard should need little to no water from your sprinklers. Click here for quick tips on maintaining your yard this winter."
+            />
+          </Grid> */}
+
+      {/* <Grid xs={12} sm={6}>
+    <CoverStory
+      aspectRatio={coverStoryImageRatio}
+      title="State of PCWA's Water Supplies 2023"
+      readMore="View the recording here"
+      linkHref="/education-center/webinars/state-of-our-water-2023"
+      imgixURL="https://imgix.cosmicjs.com/aba338f0-e080-11ed-844d-e9c32ac4a1e9-PCWAWaterSuppliesWebinarGraphicPostRecordingPosted.jpg"
+      imgixParams={{crop: 'top'}}
+      alt="State of our Water recorded webinar flier"
+      // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+      // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+      body="The recording is now posted for PCWA’s webinar moderated by Heather Waldman, KCRA 3 Meteorologist, exploring the state of PCWA's water supplies for 2023 amid the dramatic weather swings from drought to flood."
+    />
+  </Grid> */}
+
+      {/*
+  <ChildBox flex="0 0 50%">
+    <CoverStory
+      aspectRatio={coverStoryImageRatio}
+      title="Multiyear Rate Adjustment"
+      readMore="Learn more"
+      linkHref="/services/rate-adjust"
+      imgixURL="https://imgix.cosmicjs.com/ce54e690-a48c-11ec-a536-8726e3bb3867-Sacramento-Street-Pipe-Abandonment-and-Transfer-Project-Auburn-2021.jpg"
+      alt="Sacramento Street Pipe Abandonment and Transfer Project in Auburn"
+      body="The PCWA Board of Directors has adopted new rates, fees, and charges for water service to take effect on January 1, 2023. PCWA has set up a page complete with FAQs about the new rates and rate-setting process."
+      // imgixParams={{
+      //   bg: rgbToHex(theme.palette.background.default).substring(0, 7) // truncate '01' suffix
+      // }}
+    />
+  </ChildBox>
+  */}
+
+      {/* <ChildBox flex="0 0 50%">
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Sites Reservoir Project"
+              readMore="Visit California Water Boards"
+              linkHref="https://www.waterboards.ca.gov/waterrights/water_issues/programs/applications/notices/"
+              imgixURL="https://imgix.cosmicjs.com/e9d52af0-33b6-11ee-9ab5-815d9b73ff1f-waterboardslogohighresedit.png"
+              alt="Sites Reservoir Project Notice"
+              body={
+                <Type variant="inherit">
+                  PCWA is currently participating in the Sites Reservoir
+                  Project, a planned off-stream reservoir in Northern
+                  California. The Sites Project Authority is pursuing a water
+                  right permit from the State Water Resources Control Board.
+                  Additional information on the water right application and the
+                  Sites Reservoir Project can be found at{' '}
+                  <Link
+                    href="https://www.waterboards.ca.gov/waterrights/water_issues/programs/applications/notices/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    www.waterboards.ca.gov
+                  </Link>{' '}
+                  and{' '}
+                  <Link
+                    href="https://sitesproject.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    www.sitesproject.org
+                  </Link>
+                  .
+                </Type>
+              }
+            />
+          </ChildBox> */}
+
+      {/* <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Resilient and Beautiful"
+              readMore="Learn more"
+              linkHref="/smart-water-use/summer-strong"
+              imgixURL="https://imgix.cosmicjs.com/5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg"
+              alt="California Fuchsia, Summer Strong Low-Water Use Plant of the Month"
+              body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
+            />
+          </Grid> */}
     </>
   )
 }
