@@ -1,6 +1,5 @@
 // cspell:ignore COVID perc
 import React from 'react'
-import HeroImage from '@components/hero/HeroImage'
 import PageLayout from '@components/PageLayout/PageLayout'
 import {
   Typography as Type,

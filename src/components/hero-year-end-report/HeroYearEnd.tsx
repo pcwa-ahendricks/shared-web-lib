@@ -14,7 +14,6 @@ import {RowBox} from '@components/MuiSleazebox'
 import Image from 'next/image'
 import {Box, useMediaQuery} from '@mui/material'
 import {useTimeoutFn} from 'react-use'
-import useTheme from '@hooks/useTheme'
 
 const animateKey = 'homeHeroOverly'
 
