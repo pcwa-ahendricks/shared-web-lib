@@ -14,7 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import React from 'react'
 import ImageFancier from '@components/ImageFancier/ImageFancier'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
-import {StrongGrey} from '../summer-strong'
+import {StrongGrey} from '../../pages/smart-water-use/summer-strong'
 
 export default function VerbenaAccordion({
   imgixArParams,

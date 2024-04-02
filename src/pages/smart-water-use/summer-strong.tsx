@@ -28,12 +28,12 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import WideContainer from '@components/containers/WideContainer'
 import {grey, purple} from '@mui/material/colors'
-import ClevSageAccordion from './summer-strong/ClevSageAccordion'
-import LionsTailAccordion from './summer-strong/LionsTailAccordion'
-import CrapeMyrtleAccordion from './summer-strong/CrapeMyrtleAccordion'
-import VerbenaAccordion from './summer-strong/VerbenaAccordion'
-import SantaBarbaraDaisyAccordion from './summer-strong/SantaBarbaraDaisyAccordion'
-import FuchsiaAccordion from './summer-strong/FuchsiaAccordion'
+import ClevSageAccordion from '@components/summer-strong/ClevSageAccordion'
+import LionsTailAccordion from '@components/summer-strong/LionsTailAccordion'
+import CrapeMyrtleAccordion from '@components/summer-strong/CrapeMyrtleAccordion'
+import VerbenaAccordion from '@components/summer-strong/VerbenaAccordion'
+import SantaBarbaraDaisyAccordion from '@components/summer-strong/SantaBarbaraDaisyAccordion'
+import FuchsiaAccordion from '@components/summer-strong/FuchsiaAccordion'
 
 type Props = {
   placeholders: Placeholders

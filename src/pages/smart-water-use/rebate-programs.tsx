@@ -282,7 +282,7 @@ const RebateProgramsPage = () => {
                     </RebateCard>
                   </RibbonContainer>
                 </ChildBox>
-                <ChildBox position="relative">
+                {/* <ChildBox position="relative">
                   <RibbonContainer>
                     <LeftRibbon
                       size="large"
@@ -313,19 +313,19 @@ const RebateProgramsPage = () => {
                           Pool Autofill -
                         </Type>{' '}
                         Pool Autofill Rebate Coming Soon!
-                        {/* Receive up to a $50 rebate for purchasing and installing
+                    Receive up to a $50 rebate for purchasing and installing
                         a new solar or safety pool cover. See{' '}
                         <Type component="em" variant="inherit">
                           Pool Cover Rebate Requirements
                         </Type>{' '}
-                        for additional information. */}
+                        for additional information.
                       </Type>
                       <ColumnBox>
-                        {/* <TermsAndConditionsButton
+                       <TermsAndConditionsButton
                           disabled
                           href="https://docs.pcwa.net/pool-cover-rebate-requirements.pdf"
                           caption="Pool Cover Rebate Requirements"
-                        /> */}
+                        />
                         <ApplyNowButton
                           disabled
                           href="/forms/rebates/pool-cover"
@@ -334,7 +334,7 @@ const RebateProgramsPage = () => {
                       </ColumnBox>
                     </RebateCard>
                   </RibbonContainer>
-                </ChildBox>
+                </ChildBox> */}
                 <ChildBox>
                   <ChildBox position="relative">
                     <RibbonContainer>
@@ -403,50 +403,7 @@ const RebateProgramsPage = () => {
                     </RibbonContainer>
                   </ChildBox>
                 </ChildBox>
-                <ChildBox>
-                  <RebateCard>
-                    <Type paragraph>
-                      <Type variant="h6" component="span">
-                        High-Efficiency Clothes Washing Machine -
-                      </Type>{' '}
-                      Receive up to a $150 rebate for the replacement of an old
-                      clothes washing machine with a new high-efficiency machine
-                      that has a CEE Advanced tier 1 or tier 2 water factor. For
-                      a list of qualifying machines see:{' '}
-                      <Link
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        // this link is down. Check again in the future, using static pdf supplied from S. King in the meantime
-                        // href="https://library.cee1.org/content/qualifying-product-lists-residential-clothes-washers"
-                        href="https://docs.pcwa.net/Super-Efficient-Home-Appliances-Initiative-Clothes-Washer-Qualifying-Product-List.pdf"
-                        underline="hover"
-                      >
-                        Consortium for Energy Efficiency - Super Efficient Home
-                        Appliances Initiative
-                      </Link>
-                      . For additional information see{' '}
-                      <Type component="em" variant="inherit">
-                        Washer Rebate Requirements.
-                      </Type>
-                    </Type>
-                    <ColumnBox>
-                      <TermsAndConditionsButton
-                        caption="Washer Rebate Requirements"
-                        href="https://docs.pcwa.net/washing-machine-rebate-requirements.pdf"
-                        label="High-Efficiency Clothes Washing Machine Rebate Requirements"
-                      />
-                      <ApplyNowButton
-                        href="/forms/rebates/washing-machine"
-                        label="Apply for Washer Rebate Online"
-                      />
-                    </ColumnBox>
-                  </RebateCard>
-                </ChildBox>
-              </ColumnBox>
-            </ChildBox>
-            <ChildBox flex="50%">
-              <Spacing />
-              <ColumnBox flexSpacing={3}>
+
                 <ChildBox position="relative">
                   <RebateCard pt={4}>
                     <Type paragraph>
@@ -488,6 +445,53 @@ const RebateProgramsPage = () => {
                     </ColumnBox>
                   </RebateCard>
                 </ChildBox>
+
+                <ChildBox position="relative">
+                  <RebateCard pt={4}>
+                    <Type paragraph>
+                      <Type variant="h6" component="span">
+                        Irrigation Efficiencies -
+                      </Type>{' '}
+                      Receive up to a $500 rebate for residential customers and
+                      up to a $2,000 rebate for commercial customers for
+                      upgrading existing in-ground irrigation systems with new
+                      high efficiency equipment. See program{' '}
+                      <Type component="em" variant="inherit">
+                        Terms &amp; Conditions
+                      </Type>{' '}
+                      for additional information.
+                    </Type>
+                    {/* <Paper elevation={1}>
+                        <Box
+                          bgcolor={alpha(yellow[50], 0.8)}
+                          paddingY={2}
+                          paddingX={4}
+                        >
+                          <Type>
+                            This Rebate Application period is closed for 2023
+                            and we will re-open on January 1, 2024
+                          </Type>
+                        </Box>
+                      </Paper> */}
+                    <Spacing size="small" />
+                    <ColumnBox>
+                      <TermsAndConditionsButton
+                        href="https://docs.pcwa.net/irrigation-efficiencies-rebate-tc.pdf"
+                        label="Irrigation Efficiencies Rebate Terms and Conditions"
+                      />
+                      <ApplyNowButton
+                        // disabled
+                        href="/forms/rebates/irrigation-efficiencies"
+                        label="Apply for Efficiencies Rebate Online"
+                      />
+                    </ColumnBox>
+                  </RebateCard>
+                </ChildBox>
+              </ColumnBox>
+            </ChildBox>
+            <ChildBox flex="50%">
+              <ColumnBox flexSpacing={3}>
+                <Spacing size="small" />
                 <ChildBox position="relative">
                   <RibbonContainer>
                     <LeftRibbon
@@ -564,51 +568,7 @@ const RebateProgramsPage = () => {
                   </RibbonContainer>
                 </ChildBox>
 
-                <ChildBox>
-                  <ChildBox position="relative">
-                    <RebateCard pt={4}>
-                      <Type paragraph>
-                        <Type variant="h6" component="span">
-                          Irrigation Efficiencies -
-                        </Type>{' '}
-                        Receive up to a $500 rebate for residential customers
-                        and up to a $2,000 rebate for commercial customers for
-                        upgrading existing in-ground irrigation systems with new
-                        high efficiency equipment. See program{' '}
-                        <Type component="em" variant="inherit">
-                          Terms &amp; Conditions
-                        </Type>{' '}
-                        for additional information.
-                      </Type>
-                      {/* <Paper elevation={1}>
-                        <Box
-                          bgcolor={alpha(yellow[50], 0.8)}
-                          paddingY={2}
-                          paddingX={4}
-                        >
-                          <Type>
-                            This Rebate Application period is closed for 2023
-                            and we will re-open on January 1, 2024
-                          </Type>
-                        </Box>
-                      </Paper> */}
-                      <Spacing size="small" />
-                      <ColumnBox>
-                        <TermsAndConditionsButton
-                          href="https://docs.pcwa.net/irrigation-efficiencies-rebate-tc.pdf"
-                          label="Irrigation Efficiencies Rebate Terms and Conditions"
-                        />
-                        <ApplyNowButton
-                          // disabled
-                          href="/forms/rebates/irrigation-efficiencies"
-                          label="Apply for Efficiencies Rebate Online"
-                        />
-                      </ColumnBox>
-                    </RebateCard>
-                  </ChildBox>
-                </ChildBox>
-
-                <ChildBox>
+                <ChildBox position="relative">
                   <RibbonContainer>
                     <LeftRibbon
                       size="large"
@@ -660,6 +620,46 @@ const RebateProgramsPage = () => {
                       </ColumnBox>
                     </RebateCard>
                   </RibbonContainer>
+                </ChildBox>
+
+                <ChildBox position="relative">
+                  <RebateCard>
+                    <Type paragraph>
+                      <Type variant="h6" component="span">
+                        High-Efficiency Clothes Washing Machine -
+                      </Type>{' '}
+                      Receive up to a $150 rebate for the replacement of an old
+                      clothes washing machine with a new high-efficiency machine
+                      that has a CEE Advanced tier 1 or tier 2 water factor. For
+                      a list of qualifying machines see:{' '}
+                      <Link
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        // this link is down. Check again in the future, using static pdf supplied from S. King in the meantime
+                        // href="https://library.cee1.org/content/qualifying-product-lists-residential-clothes-washers"
+                        href="https://docs.pcwa.net/Super-Efficient-Home-Appliances-Initiative-Clothes-Washer-Qualifying-Product-List.pdf"
+                        underline="hover"
+                      >
+                        Consortium for Energy Efficiency - Super Efficient Home
+                        Appliances Initiative
+                      </Link>
+                      . For additional information see{' '}
+                      <Type component="em" variant="inherit">
+                        Washer Rebate Requirements.
+                      </Type>
+                    </Type>
+                    <ColumnBox>
+                      <TermsAndConditionsButton
+                        caption="Washer Rebate Requirements"
+                        href="https://docs.pcwa.net/washing-machine-rebate-requirements.pdf"
+                        label="High-Efficiency Clothes Washing Machine Rebate Requirements"
+                      />
+                      <ApplyNowButton
+                        href="/forms/rebates/washing-machine"
+                        label="Apply for Washer Rebate Online"
+                      />
+                    </ColumnBox>
+                  </RebateCard>
                 </ChildBox>
               </ColumnBox>
             </ChildBox>
