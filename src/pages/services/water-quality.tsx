@@ -148,6 +148,9 @@ const WaterQualityPage = () => {
                     <ListItemLink href="https://docs.pcwa.net/ccr/monte-vista">
                       <ListItemText primary="Monte Vista" />
                     </ListItemLink>
+                    <ListItemLink href="https://docs.pcwa.net/ccr/weimar">
+                      <ListItemText primary="Weimar" />
+                    </ListItemLink>
                   </List>
                 </Box>
               </ChildBox>
