@@ -84,7 +84,7 @@ const imgixImages = [
   'https://imgix.cosmicjs.com/55810b10-f335-11ed-9f0e-e959935e64bf-2023-Strategic-Plan.pdf',
   'https://imgix.cosmicjs.com/0ce1e4c0-a6cd-11ec-8a0f-d90ff9705f55-2022-Strategic-Plan.pdf',
   'https://imgix.cosmicjs.com/7f7c0030-f4ab-11eb-af9b-23a6e756c49c-2021-Strategic-PlanFINAL.pdf',
-  'https://pcwa.imgix.net/pcwa-net/newsroom/publications/PCWA%20Year%20End%20Report%202023.pdf'
+  'https://pcwa.imgix.net/pcwa-net/newsroom/publications/year-end/PCWA%20Year%20End%20Report%202023.pdf'
 ]
 
 interface EnewsBlastMetadata {
@@ -593,7 +593,7 @@ const PublicationsPage = ({
                         'MM/dd/yyyy',
                         new Date()
                       )}
-                      imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/publications/PCWA%20Year%20End%20Report%202023.pdf"
+                      imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/publications/year-end/PCWA%20Year%20End%20Report%202023.pdf"
                     />
                   </ChildBox>
                   <ChildBox width={isXS ? '100%' : 'auto'}>

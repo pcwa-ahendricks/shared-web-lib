@@ -139,7 +139,7 @@ export default function HeroYearEnd() {
                 size="large"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://pcwa.imgix.net/pcwa-net/newsroom/publications/PCWA%20Year%20End%20Report%202023.pdf"
+                href="https://docs.pcwa.net/year-end-report-2024.pdf"
                 sx={{height: 50, fontSize: '1.1rem'}}
               >
                 Read Our 2023 Year End Report
