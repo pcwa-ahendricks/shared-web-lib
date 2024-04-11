@@ -5,14 +5,13 @@ import React, {
   useState,
   useCallback
 } from 'react'
-import HeroYearEndOverlay from '@components/hero-year-end-report/HeroYearEndOverlay'
+// import HeroYearEndOverlay from '@components/hero-year-end-report/HeroYearEndOverlay'
 import {useIntersection} from 'react-use'
 import JackinBox from '@components/mui-jackinbox/JackinBox'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {imgixUrlLoader} from '@lib/imageLoader'
-import {RowBox} from '@components/MuiSleazebox'
 import Image from 'next/image'
-import {Box, useMediaQuery} from '@mui/material'
+import {Box, useMediaQuery, Button, Typography as Type} from '@mui/material'
 import {useTimeoutFn} from 'react-use'
 
 const animateKey = 'homeHeroOverly'
@@ -117,16 +116,44 @@ export default function HeroYearEnd() {
             right: 0
           }}
         >
-          <RowBox justifyContent="space-around" alignItems="center">
-            <HeroYearEndOverlay
+          <Box sx={{position: 'absolute', bottom: 30, left: 30}}>
+            <Box>
+              <Type
+                variant="h1"
+                sx={{
+                  // fontSize: '2.5rem',
+                  color: 'common.white',
+                  fontWeight: 500,
+                  textShadow:
+                    '3px 3px 0 #171717, -1px -1px 0 #171717,1px -1px 0 #171717,-1px 1px 0 #171717,1px 1px 0 #171717'
+                }}
+                gutterBottom
+              >
+                A YEAR IN REVIEW FOR PCWA 2023
+              </Type>
+            </Box>
+            <Box>
+              <Button
+                variant="contained"
+                color="secondary"
+                size="large"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://pcwa.imgix.net/pcwa-net/newsroom/publications/PCWA%20Year%20End%20Report%202023.pdf"
+                sx={{height: 50, fontSize: '1.1rem'}}
+              >
+                Read Our 2023 Year End Report
+              </Button>
+            </Box>
+            {/* <HeroYearEndOverlay
               height="100%"
               preserveAspectRatio="xMidYMid meet"
               sx={{
-                zIndex: 99,
+                // zIndex: 99,
                 flex: '0 0 auto'
               }}
-            />
-          </RowBox>
+            /> */}
+          </Box>
         </JackinBox>
       </Box>
     </div>

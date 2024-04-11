@@ -75,15 +75,16 @@ import useLinkComponent from '@hooks/useLinkComponent'
 const DATE_FNS_FORMAT = 'yyyy-MM-dd'
 
 const imgixImages = [
-  '21555930-fbc6-11eb-9a4d-af05155ef55d-FireWater8.5x11LOW2021.pdf',
-  'cced2b40-f2e1-11ea-a3de-692d5982216c-Fire--Water---2020.pdf',
-  '4ab2d130-7fd4-11ec-bfce-f334865cc167-2021YearEndReport.pdf',
-  '492aa9a0-6658-11eb-8120-dfe8ec2b682f-Year-End-Report-2020FINAL.pdf',
-  '1dc4d750-2b57-11ea-bfe8-5b62c3bdf959-2019-YEAR-END-REPORT-FINAL.pdf',
-  '61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf',
-  '55810b10-f335-11ed-9f0e-e959935e64bf-2023-Strategic-Plan.pdf',
-  '0ce1e4c0-a6cd-11ec-8a0f-d90ff9705f55-2022-Strategic-Plan.pdf',
-  '7f7c0030-f4ab-11eb-af9b-23a6e756c49c-2021-Strategic-PlanFINAL.pdf'
+  'https://imgix.cosmicjs.com/21555930-fbc6-11eb-9a4d-af05155ef55d-FireWater8.5x11LOW2021.pdf',
+  'https://imgix.cosmicjs.com/cced2b40-f2e1-11ea-a3de-692d5982216c-Fire--Water---2020.pdf',
+  'https://imgix.cosmicjs.com/4ab2d130-7fd4-11ec-bfce-f334865cc167-2021YearEndReport.pdf',
+  'https://imgix.cosmicjs.com/492aa9a0-6658-11eb-8120-dfe8ec2b682f-Year-End-Report-2020FINAL.pdf',
+  'https://imgix.cosmicjs.com/1dc4d750-2b57-11ea-bfe8-5b62c3bdf959-2019-YEAR-END-REPORT-FINAL.pdf',
+  'https://imgix.cosmicjs.com/61bcf350-104d-11e9-81dd-490e145a6cb6-2018-YEAR-END-REPORT---FINAL.pdf',
+  'https://imgix.cosmicjs.com/55810b10-f335-11ed-9f0e-e959935e64bf-2023-Strategic-Plan.pdf',
+  'https://imgix.cosmicjs.com/0ce1e4c0-a6cd-11ec-8a0f-d90ff9705f55-2022-Strategic-Plan.pdf',
+  'https://imgix.cosmicjs.com/7f7c0030-f4ab-11eb-af9b-23a6e756c49c-2021-Strategic-PlanFINAL.pdf',
+  'https://pcwa.imgix.net/pcwa-net/newsroom/publications/PCWA%20Year%20End%20Report%202023.pdf'
 ]
 
 interface EnewsBlastMetadata {
@@ -586,6 +587,17 @@ const PublicationsPage = ({
                 >
                   <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
+                      title="2023 Year End Report"
+                      publishedDate={parse(
+                        '4/01/2023',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/publications/PCWA%20Year%20End%20Report%202023.pdf"
+                    />
+                  </ChildBox>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="2022 Year End Report"
                       publishedDate={parse(
                         '3/07/2023',
@@ -793,9 +805,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       fetcher(`${baseUrl}${enewsBlastsUrl}`)
     ])
     // Placeholder images
-    const placeholders = await getImgixBlurHashes(imgixImages, {
-      urlPrefix: 'https://imgix.cosmicjs.com/'
-    })
+    const placeholders = await getImgixBlurHashes(imgixImages)
     return {
       props: {
         initialNewslettersData,
