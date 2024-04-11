@@ -125,7 +125,7 @@ export default function HeroYearEnd() {
                   color: 'common.white',
                   fontWeight: 500,
                   textShadow:
-                    '3px 3px 0 #171717, -1px -1px 0 #171717,1px -1px 0 #171717,-1px 1px 0 #171717,1px 1px 0 #171717'
+                    '0 0 10px #010818, 0 0 2px #001d30, 0 0 36px #080709, 0 0 42px #599f46'
                 }}
                 gutterBottom
               >
