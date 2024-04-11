@@ -90,7 +90,13 @@ export default function MulchMayhemPage() {
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Provided on a first-come, first-served basis until supplies are gone" />
+                  <ListItemText primary="Provided on a first-come, first-served basis until supplies are gone." />
+                </ListItem>
+                <ListItem sx={{...style.listItem}}>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Mulch will be comprised of shredded cedar." />
                 </ListItem>
 
                 <ListItem sx={{...style.listItem}}>
