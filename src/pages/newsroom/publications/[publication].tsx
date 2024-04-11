@@ -589,7 +589,7 @@ const PublicationsPage = ({
                     <PubCard
                       title="2023 Year End Report"
                       publishedDate={parse(
-                        '4/01/2023',
+                        '4/01/2024',
                         'MM/dd/yyyy',
                         new Date()
                       )}
