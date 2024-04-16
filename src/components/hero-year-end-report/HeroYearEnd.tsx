@@ -13,7 +13,6 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 import Image from 'next/image'
 import {Box, useMediaQuery, Button, Typography as Type} from '@mui/material'
 import {useTimeoutFn} from 'react-use'
-import Link from '@components/Link'
 import useLinkComponent from '@hooks/useLinkComponent'
 
 const animateKey = 'homeHeroOverly'
