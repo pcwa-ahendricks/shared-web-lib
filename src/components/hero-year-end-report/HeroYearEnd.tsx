@@ -13,6 +13,8 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 import Image from 'next/image'
 import {Box, useMediaQuery, Button, Typography as Type} from '@mui/material'
 import {useTimeoutFn} from 'react-use'
+import Link from '@components/Link'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 const animateKey = 'homeHeroOverly'
 
@@ -50,6 +52,8 @@ export default function HeroYearEnd() {
 
   const isXs = useMediaQuery('@media (min-width:0px) and (max-width:525px)')
   const isSm = useMediaQuery('@media (min-width:525px) and (max-width:725px)')
+
+  const LinkComponent = useLinkComponent()
 
   return (
     <div ref={heroAnimateRef}>
@@ -134,12 +138,14 @@ export default function HeroYearEnd() {
             </Box>
             <Box>
               <Button
+                LinkComponent={LinkComponent}
                 variant="contained"
                 color="secondary"
                 size="large"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://docs.pcwa.net/year-end-report-2024.pdf"
+                // target="_blank"
+                // rel="noopener noreferrer"
+                // href="https://docs.pcwa.net/year-end-report-2024.pdf"
+                href="/newsroom/publications/year-end-report"
                 sx={{height: 50, fontSize: '1.1rem'}}
               >
                 Read Our 2023 Year End Report
