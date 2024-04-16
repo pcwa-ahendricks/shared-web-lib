@@ -12,7 +12,8 @@ import {
   Paper,
   useMediaQuery,
   useTheme,
-  ListItemButton
+  ListItemButton,
+  Unstable_Grid2 as Grid
 } from '@mui/material'
 import {grey, yellow, blueGrey} from '@mui/material/colors'
 import PageLayout from '@components/PageLayout/PageLayout'
@@ -306,6 +307,115 @@ const IrrigationCanalPage = () => {
 
           <Box mt={6}>
             <Type variant="h3">Aquatic Weed Control Scheduling</Type>
+            <Spacing />
+            <Box>
+              <Type variant="h4">
+                Aquatic Pesticide Application Dates for 2024
+              </Type>
+              <Spacing size="x-small" />
+              <Divider />
+              <Spacing size="small" />
+              <Type variant="h5" color="primary.dark" gutterBottom>
+                Alta to Lake Theodore, Christian Valley, Clipper Gap to Auburn
+              </Type>
+              <Grid container spacing={6}>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    Cedar Creek Canal from 8+61 to end, Boardman (#570) from
+                    83+12 to 999+99, Boardman (#571) from1000+00 to 1581+26,
+                    Boardman (#57) from 7+84 to 324+92, Bowman Feeder Canal.
+                  </Type>
+                </Grid>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    April 19, May 17, June 14, July 12, August 9, September 6,
+                    October 4.
+                  </Type>
+                </Grid>
+              </Grid>
+              <Spacing size="small" />
+              <Type variant="h5" color="primary.dark" gutterBottom>
+                West Loomis, Newcastle, Penryn
+              </Type>
+              <Grid container spacing={6}>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    Antelope Canal, Antelope Stub Canal, Ben Franklin Canal,
+                    Caperton Canal, Dutch Ravine Canal, Morgan Canal, Penryn
+                    Canal.
+                  </Type>
+                </Grid>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    April 22, May 13, June 3 & 24, July 15, August 5 & 26,
+                    September 16, October 7.
+                  </Type>
+                </Grid>
+              </Grid>
+              <Spacing size="small" />
+              <Type variant="h5" color="primary.dark" gutterBottom>
+                Auburn, Ophir, Newcastle
+              </Type>
+              <Grid container spacing={6}>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    Boardman Canal 352+05 to 830+36, Gaylord Pipe, Jamison Pipe,
+                    Lower Banvard Canal, Maring Pipe, Middle Banvard Pipe,
+                    Middle Fiddler Green Canal, Newcastle Canal, Rock Springs
+                    Canal, Shirland Canal, Shirland Stub Canal, South Loop Pipe,
+                    Upper Greeley Canal.
+                  </Type>
+                </Grid>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    April 23, May 21, June 18, July 16 August 13, September 10,
+                    October 8.
+                  </Type>
+                </Grid>
+              </Grid>
+              <Spacing size="small" />
+              <Type variant="h5" color="primary.dark" gutterBottom>
+                Auburn, East Loomis, Newcastle
+              </Type>
+              <Grid container spacing={6}>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    Boardman Canal YB 92 to YB 78, Rock Springs Canal, Maring
+                    Pipe, Newcastle Canal, South Loop Pipe, Upper Greely Canal,
+                    Gaylord Pipe, Jamison Pipe, Lower Greeley Canal, Monte Rio
+                    Pipe, Niegel Pipe.
+                  </Type>
+                </Grid>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    April 24, May 22, June 19, July 17, August 14, September 11,
+                    October 9.
+                  </Type>
+                </Grid>
+              </Grid>
+              <Spacing size="small" />
+              <Type variant="h5" color="primary.dark" gutterBottom>
+                Newcastle, Loomis, Penryn
+              </Type>
+              <Grid container spacing={6}>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    Boardman Canal Foothill WTP to End, Sugarloaf Canal, Barton
+                    Canal, Perry Canal, East Perry Canal, West Perry Canal,
+                    Turner Canal, Yankee Hill Canal, Laird Ext., Baughman Canal,
+                    Ferguson Canal, Stallman Canal, Red Ravine, West Side Pipe,
+                    East Side Canal, Lyall Canal.
+                  </Type>
+                </Grid>
+                <Grid xs={12} sm={6}>
+                  <Type variant="body2">
+                    April 25, May 23, June 20, July 18, August 15, September 22,
+                    October 10.
+                  </Type>
+                </Grid>
+              </Grid>
+            </Box>
+
             <Box mt={4} mb={4}>
               <FancyButton
                 aria-label="Open PDF"
@@ -315,7 +425,7 @@ const IrrigationCanalPage = () => {
                 rel="noopener noreferrer"
                 href="https://docs.pcwa.net/aquatic-weed-control-schedule.pdf"
               >
-                2024 Aquatic Weed Control Schedule
+                2024 Aquatic Weed Control Schedule - Calendar
               </FancyButton>
             </Box>
             <CloseableInfoBox
