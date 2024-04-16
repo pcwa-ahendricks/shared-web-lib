@@ -315,7 +315,7 @@ const IrrigationCanalPage = () => {
                 rel="noopener noreferrer"
                 href="https://docs.pcwa.net/aquatic-weed-control-schedule.pdf"
               >
-                2023 Aquatic Weed Control Schedule
+                2024 Aquatic Weed Control Schedule
               </FancyButton>
             </Box>
             <CloseableInfoBox
