@@ -50,7 +50,8 @@ const imgixImages = [
   'https://imgix.cosmicjs.com/c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png',
   'https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg',
   // 'https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg',
-  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5_no_web.jpg'
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5_no_web.jpg',
+  'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg'
 ]
 
 type Props = {
@@ -134,14 +135,13 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Educational Outreach Program"
-              readMore="Learn more"
-              linkHref="/education-center/go-to-school-on-leaks"
-              imgixURL="https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg"
-              alt="Go to School on Leaks link, a PCWA educational program"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
-              body="PCWA offers a fun, interactive educational program for 3rd to 5th grade that teaches students about where their water comes from and trains them to be “Leak Detectives” at home and school."
+              title="Mulch Mayhem Coming Soon"
+              readMore="Find out more"
+              linkHref="/smart-water-use/mulch-mayhem-2024"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg"
+              // imgixParams={{crop: 'right'}}
+              alt="Mulch Mayhem Event flier"
+              body="Join us for Mulch Mayhem on Saturday, May 4th starting at 8:00 am. Free mulch available on a first-come, first-served basis while supplies last."
             />
           </Grid>
         </Grid>
@@ -159,7 +159,21 @@ const Index = ({
               body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
             />
           </Grid>
+
           <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Educational Outreach Program"
+              readMore="Learn more"
+              linkHref="/education-center/go-to-school-on-leaks"
+              imgixURL="https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg"
+              alt="Go to School on Leaks link, a PCWA educational program"
+              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
+              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
+              body="PCWA offers a fun, interactive educational program for 3rd to 5th grade that teaches students about where their water comes from and trains them to be “Leak Detectives” at home and school."
+            />
+
+            {/*
             <CoverStory
               linkProps={{
                 target: '_blank'
@@ -179,7 +193,7 @@ const Index = ({
                   comprehensive reviews of the wildfire system to date.
                 </Type>
               }
-            />
+            /> */}
           </Grid>
         </Grid>
 

@@ -148,6 +148,10 @@ const WaterQualityPage = () => {
                     <ListItemLink href="https://docs.pcwa.net/ccr/monte-vista">
                       <ListItemText primary="Monte Vista" />
                     </ListItemLink>
+                    <Divider />
+                    <ListItemLink href="https://docs.pcwa.net/ccr/weimar">
+                      <ListItemText primary="Weimar" />
+                    </ListItemLink>
                   </List>
                 </Box>
               </ChildBox>
@@ -279,7 +283,7 @@ const WaterQualityPage = () => {
                   hoverText="View PDF"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://cdn.cosmicjs.com/d247e020-50d6-11e9-9e90-b1c67a0a9b8f-WaterQualityFAQs.pdf"
+                  href="https://docs.pcwa.net/ccr/water-quality-faqs.pdf"
                 >
                   FAQs on Water Quality
                 </FancyButton>

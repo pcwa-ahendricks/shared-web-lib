@@ -12,7 +12,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import Image from 'next/legacy/image'
-import imgixLoader from '@lib/imageLoader'
+import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import Spacing from '@components/boxes/Spacing'
 import BulletIcon from 'mdi-material-ui/CircleSmall'
 import WideContainer from '@components/containers/WideContainer'
@@ -50,46 +50,53 @@ export default function MulchMayhemPage() {
         <WideContainer>
           <PageTitle title="Mulch Mayhem" />
           <Image
-            src="275e3830-d403-11ed-8810-6304ff84c766-PCWA-Mulch-Mayhem-2023.jpg"
+            src="https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg"
             alt="Mulch Mayhem Flier"
             layout="responsive"
-            loader={imgixLoader}
-            width={1200}
-            height={628}
+            loader={imgixUrlLoader}
+            width={1920}
+            height={1280}
           />
           <Spacing factor={2} size="large" />
           <RowBox flexSpacing={10} responsive>
-            <ChildBox flex="60%">
+            <ChildBox flex="65%">
               <Type variant="h3" color="primary" gutterBottom>
                 <em>
                   {/* Free Mulch available for Drive Thru Customers of Hosting
                   Agencies */}
-                  Free Mulch Available for PCWA and San Juan Water District
-                  Customers
+                  Free Mulch Available for PCWA, City of Lincoln, and San Juan
+                  Water District Customers
                 </em>
               </Type>
               <Spacing />
               <Type variant="h4" gutterBottom>
-                Join us for Mulch Mayhem on Saturday, May 6th, from 8 am to 12
-                pm.
+                Join us for Mulch Mayhem on Saturday, May 4th, starting at{' '}
+                <Type variant="inherit" noWrap component="span">
+                  8 am
+                </Type>
               </Type>
               <Spacing size="small" />
               <Type variant="subtitle1">Sierra College, Overflow Lot</Type>
-              <Type paragraph>
+              <Type>
                 Corner of Rocklin Rd. and El Don Dr. (opposite the campus) in
                 Rocklin
               </Type>
-
               {/* <Type variant="body1">
                 A Drive Thru Only Event for Trucks and Trailers. (Bring your own
                 tarp to cover.)
               </Type> */}
-              <List dense>
+              <List>
                 <ListItem sx={{...style.listItem}}>
                   <ListItemBullet>
                     <BulletIcon fontSize="large" />
                   </ListItemBullet>
-                  <ListItemText primary="Provided on a first-come, first-served basis until supplies are gone" />
+                  <ListItemText primary="Provided on a first-come, first-served basis until supplies are gone." />
+                </ListItem>
+                <ListItem sx={{...style.listItem}}>
+                  <ListItemBullet>
+                    <BulletIcon fontSize="large" />
+                  </ListItemBullet>
+                  <ListItemText primary="Mulch will be comprised of shredded cedar." />
                 </ListItem>
 
                 <ListItem sx={{...style.listItem}}>
@@ -105,7 +112,8 @@ export default function MulchMayhemPage() {
                 the City of Lincoln.
               </Type> */}
               <Type variant="body1" paragraph>
-                Hosted by PCWA in partnership with San Juan Water District.
+                Hosted by PCWA in partnership with the City of Lincoln and San
+                Juan Water District.
               </Type>
               <Spacing />
               <Type variant="subtitle1" gutterBottom>
@@ -164,7 +172,7 @@ export default function MulchMayhemPage() {
                 </em>
               </Type>
             </ChildBox>
-            <ColumnBox child flex="40%">
+            <ColumnBox child flex="35%">
               <ChildBox>
                 <Image
                   src="a80ea740-0c12-11ec-93a7-070c59f98950-Mulch-Mayhem-loading-trucks01.JPG"
