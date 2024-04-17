@@ -119,7 +119,9 @@ export default function HeroYearEnd() {
             right: 0
           }}
         >
-          <Box sx={{position: 'absolute', bottom: 30, left: 30}}>
+          <Box
+            sx={{position: 'absolute', bottom: 30, left: 30, maxWidth: '90vw'}}
+          >
             <Box>
               <Type
                 variant="h1"
@@ -145,7 +147,12 @@ export default function HeroYearEnd() {
                 // rel="noopener noreferrer"
                 // href="https://docs.pcwa.net/year-end-report-2024.pdf"
                 href="/newsroom/publications/year-end-report"
-                sx={{height: 50, fontSize: '1.1rem'}}
+                sx={{
+                  ...(!isXs && {
+                    height: 50,
+                    fontSize: '1.1rem'
+                  })
+                }}
               >
                 Read Our 2023 Year End Report
               </Button>
