@@ -1,26 +1,35 @@
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
+import useTheme from '@hooks/useTheme'
+import {useMediaQuery} from '@mui/material'
 import Script from 'next/script'
-// import {useEffect, useRef} from 'react'
-// import {useRouter} from 'next/router'
+import {useEffect, useRef} from 'react'
+import {useRouter} from 'next/router'
 
 export default function YearEndReportPage() {
-  //   const iframeRef = useRef(null)
-  //   const router = useRouter()
+  const iframeRef = useRef(null)
+  const router = useRouter()
 
-  //   useEffect(() => {
-  //     const handleRouteChange = () => {
-  //       if (iframeRef.current) {
-  //         iframeRef.current.src += '' // This triggers the iframe to reload
-  //       }
-  //     }
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (iframeRef.current) {
+        iframeRef.current.src += '' // This triggers the iframe to reload
+      }
+    }
 
-  //     router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.on('routeChangeComplete', handleRouteChange)
 
-  //     return () => {
-  //       router.events.off('routeChangeComplete', handleRouteChange)
-  //     }
-  //   }, [router.events])
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
+
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+
+  const url = isXs
+    ? 'https://794f0754.flowpaper.com/PCWAYearEndReport2023/#MaximizeViewer=true'
+    : 'https://794f0754.flowpaper.com/PCWAYearEndReport2023/'
 
   return (
     <>
@@ -32,11 +41,11 @@ export default function YearEndReportPage() {
       <PageLayout title="Year End Report">
         <MainBox sx={{height: '100%', minHeight: 900}}>
           <iframe
-            // ref={iframeRef}
-            src="https://794f0754.flowpaper.com/PCWAYearEndReport2023/"
+            ref={iframeRef}
+            src={url}
             className="fp-embed"
-            data-fp-width="400px"
-            data-fp-height="300px"
+            // data-fp-width="400px"
+            // data-fp-height="300px"
             width="100%"
             height="100%"
             style={{width: '100%', height: '100%', border: 'none'}}
