@@ -1,22 +1,53 @@
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
-import {Box} from '@mui/material'
 import Script from 'next/script'
+// import {useEffect, useRef} from 'react'
+// import {useRouter} from 'next/router'
 
 export default function YearEndReportPage() {
+  //   const iframeRef = useRef(null)
+  //   const router = useRouter()
+
+  //   useEffect(() => {
+  //     const handleRouteChange = () => {
+  //       if (iframeRef.current) {
+  //         iframeRef.current.src += '' // This triggers the iframe to reload
+  //       }
+  //     }
+
+  //     router.events.on('routeChangeComplete', handleRouteChange)
+
+  //     return () => {
+  //       router.events.off('routeChangeComplete', handleRouteChange)
+  //     }
+  //   }, [router.events])
+
   return (
     <>
-      <Script src="https://cdn-online.flowpaper.com/zine/3.8.4/js/embed.min.js" />
+      <Script
+        defer
+        async
+        src="https://cdn-online.flowpaper.com/zine/3.8.4/js/embed.min.js"
+      />
       <PageLayout title="Year End Report">
         <MainBox sx={{height: '100%', minHeight: 900}}>
-          <Box
+          <iframe
+            // ref={iframeRef}
+            src="https://794f0754.flowpaper.com/PCWAYearEndReport2023/"
+            className="fp-embed"
+            data-fp-width="400px"
+            data-fp-height="300px"
+            width="100%"
+            height="100%"
+            style={{width: '100%', height: '100%', border: 'none'}}
+          />
+          {/* <Box
+		  	ref={iframeref}
             component="a"
             href="https://794f0754.flowpaper.com/PCWAYearEndReport2023/#PreviewMode=Miniature"
             className="fp-embed"
-            // data-fp-width="400px"
-            // data-fp-height="300px"
             sx={{width: '100%', height: '100%'}}
-          />
+          /> */}
         </MainBox>
       </PageLayout>
     </>
