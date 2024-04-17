@@ -1,12 +1,12 @@
 import React, {
-  useEffect,
+  // useEffect,
   useContext,
   useRef,
   useState,
   useCallback
 } from 'react'
 // import HeroYearEndOverlay from '@components/hero-year-end-report/HeroYearEndOverlay'
-import {useIntersection} from 'react-use'
+// import {useIntersection} from 'react-use'
 import JackinBox from '@components/mui-jackinbox/JackinBox'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {imgixUrlLoader} from '@lib/imageLoader'
@@ -23,19 +23,19 @@ export default function HeroYearEnd() {
   const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
 
   const heroAnimateRef = useRef<HTMLDivElement>(null)
-  const [heroIntersected, setHeroIntersected] = useState(false)
+  // const [heroIntersected, setHeroIntersected] = useState(false)
 
-  const heroIntersection = useIntersection(heroAnimateRef, {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.5
-  })
+  // const heroIntersection = useIntersection(heroAnimateRef, {
+  //   root: null,
+  //   rootMargin: '0px',
+  //   threshold: 0.5
+  // })
 
-  useEffect(() => {
-    if (heroIntersection?.isIntersecting) {
-      setHeroIntersected(true)
-    }
-  }, [heroIntersection])
+  // useEffect(() => {
+  // if (heroIntersection?.isIntersecting) {
+  // setHeroIntersected(true)
+  //   }
+  // }, [heroIntersection])
 
   const {[animateKey]: homeAnimateDone} = uiState.animateDone
 
@@ -110,7 +110,7 @@ export default function HeroYearEnd() {
           name="fadeInLeft"
           delay={1}
           hideUntilAnimate={!homeAnimateDone}
-          animate={heroOverlayIn && heroIntersected && !homeAnimateDone}
+          animate={heroOverlayIn && !homeAnimateDone}
           onAnimateEnd={animateDoneHandler}
           sx={{
             position: 'absolute',
