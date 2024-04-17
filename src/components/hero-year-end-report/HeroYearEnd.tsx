@@ -78,7 +78,8 @@ export default function HeroYearEnd() {
               ...(colorState && {
                 opacity: 1,
                 filter: 'none',
-                transform: 'scale(1.04)'
+                '-webkit-transform': 'scale(1.04) translate3d(0,0,0)',
+                transform: 'scale(1.04) translate3d(0,0,0)'
               })
             }
           }}
