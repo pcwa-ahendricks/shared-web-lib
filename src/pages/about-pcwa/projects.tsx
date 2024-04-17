@@ -718,14 +718,17 @@ const ProjectsPage = () => {
                       {/* <TimelineListItem>
                         <ListItemText primary="Survey, geotechnical exploration, and other information gathering - 2019" />
                       </TimelineListItem> */}
-                      <TimelineListItem>
+                      {/* <TimelineListItem>
                         <ListItemText primary="Design Completion - Spring 2023" />
-                      </TimelineListItem>
-                      <TimelineListItem>
+                      </TimelineListItem> */}
+                      {/* <TimelineListItem>
                         <ListItemText primary="Advertise/Award - Spring 2023" />
+                      </TimelineListItem> */}
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Spring 2024" />
                       </TimelineListItem>
                       <TimelineListItem>
-                        <ListItemText primary="Begin Construction - Spring 2023" />
+                        <ListItemText primary="End Construction - Winter 2024" />
                       </TimelineListItem>
                     </List>
                     {/* <Spacing /> */}
@@ -811,7 +814,7 @@ const ProjectsPage = () => {
                   </article>
                 </ConstructionProject>
               </ProjectChild>
-              <ProjectChild>
+              {/* <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
                     Monte Vista WTP Redundant Filter Project
@@ -846,25 +849,10 @@ const ProjectsPage = () => {
                     <Type paragraph>
                       The project is scheduled to be completed by Summer 2023.
                     </Type>
-                    {/* <Spacing />
-                    <Type variant="subtitle1" gutterBottom>
-                      For questions regarding this project, contact:
-                    </Type>
-                    <Type paragraph>
-                      Project Manager / Engineer
-                      <br />
-                      Jordan Jakobsen
-                      <br />
-                      Phone: (530) 823-4950
-                      <br />
-                      E-mail:{' '}
-                      <Link href="mailto:jjakobsen@pcwa.net" underline="hover">
-                        jjakobsen@pcwa.net
-                      </Link>
-                    </Type> */}
+
                   </article>
                 </ConstructionProject>
-              </ProjectChild>
+              </ProjectChild> */}
               <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
@@ -967,6 +955,121 @@ const ProjectsPage = () => {
               </ProjectChild>
             </ColumnOne>
             <ColumnTwo>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Rocklin Main Replacements
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Description
+                    </Type>
+                    <Type paragraph>
+                      A multi-year main replacement program to replace aging
+                      infrastructure is beginning with Phase 2 which is on Midas
+                      Avenue, between Argonaut Road and Clover Valley Road. The
+                      project will consist of replacing the existing main,
+                      services, and fire hydrants in this area. New meter boxes
+                      and new water meters will be included in the project. In
+                      cooperation with the City of Rocklin, the entire width of
+                      Midas Avenue is planned to be resurfaced as part of the
+                      Phase 2 project.
+                    </Type>
+                    <Type paragraph>
+                      Approximately 1,550 feet of 16-inch and 800 feet of
+                      12-inch water main will be installed, including 42 new
+                      water meters.
+                    </Type>
+                    <Type paragraph>
+                      Phase 1 main replacement project is currently in design.
+                      The Phase 1 project area is on Midas Avenue, between 2nd
+                      Street and Argonaut Road.
+                    </Type>
+                    {/* <Type paragraph>
+                      Future anticipated Phases are shown below.
+                    </Type> */}
+                    <Spacing size="large" />
+                    <MediaDialogOnClick
+                      mediaUrl="https://imgix.cosmicjs.com/0cab1010-b489-11ed-bce9-6ddb530a836d-Rocklin-Main-Replacements---Future-Anticipated-Phases.png"
+                      mediaName="Map Figure of future anticipated Phases for Rocklin Main Replacement"
+                      MediaPreviewDialogProps={{
+                        ImageProps: {
+                          width: 1705,
+                          height: 1240
+                        }
+                      }}
+                    >
+                      <Image
+                        loader={imgixUrlLoader}
+                        src={`https://imgix.cosmicjs.com/0cab1010-b489-11ed-bce9-6ddb530a836d-Rocklin-Main-Replacements---Future-Anticipated-Phases.png`}
+                        alt="Map Figure of future anticipated Phases for Rocklin Main Replacement"
+                        width={1705}
+                        height={1240}
+                        layout="responsive"
+                        sizes="(max-width: 600px) 100vw, 45vw"
+                      />
+                    </MediaDialogOnClick>
+                    <ColumnBox alignItems="center">
+                      <Box mt={1} width="60%" textAlign="center">
+                        <Type variant="caption">
+                          Map Figure of Future Anticipated Phases{' '}
+                          <em>(click to enlarge)</em>
+                        </Type>
+                      </Box>
+                    </ColumnBox>
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      The multi-year project area is located in the City of
+                      Rocklin, and includes Midas Avenue, Argonaut Drive,
+                      Whitney Boulevard, Clover Valley Roads.
+                    </Type>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Schedule
+                    </Type>
+                    <Type variant="body2" color="primary">
+                      <strong>Phase 1</strong>
+                    </Type>
+                    <List disablePadding>
+                      {/* <TimelineListItem>
+                        <ListItemText primary="Design Completion - Fall 2023" />
+                      </TimelineListItem> */}
+                      {/* <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Winter 2023" />
+                      </TimelineListItem> */}
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Fall 2024" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="End Construction - Spring 2025" />
+                      </TimelineListItem>
+                    </List>
+                    <Spacing size="x-small" />
+                    <Type variant="body2" color="primary">
+                      <strong>Phase 2</strong>
+                    </Type>
+                    <List disablePadding>
+                      {/* <TimelineListItem>
+                        <ListItemText primary="Design Completion - Summer 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Summer 2023" />
+                      </TimelineListItem> */}
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Winter 2023" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="End Construction - Fall 2024" />
+                      </TimelineListItem>
+                    </List>
+                  </article>
+                </ConstructionProject>
+              </ProjectChild>
               <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
@@ -1226,123 +1329,17 @@ const ProjectsPage = () => {
                       Project Schedule
                     </Type>
                     <List disablePadding>
-                      <TimelineListItem>
+                      {/* <TimelineListItem>
                         <ListItemText primary="Design Completion - Spring 2023" />
                       </TimelineListItem>
                       <TimelineListItem>
                         <ListItemText primary="Advertise/Award - Spring 2023" />
-                      </TimelineListItem>
+                      </TimelineListItem> */}
                       <TimelineListItem>
                         <ListItemText primary="Begin Construction - Summer 2023" />
                       </TimelineListItem>
-                    </List>
-                  </article>
-                </ConstructionProject>
-              </ProjectChild>
-              <ProjectChild>
-                <ConstructionProject>
-                  <Type variant="h3" gutterBottom color="primary">
-                    Rocklin Main Replacements
-                  </Type>
-                  <Spacing>
-                    <Divider />
-                  </Spacing>
-                  <article>
-                    <Type variant="subtitle1" gutterBottom>
-                      Project Description
-                    </Type>
-                    <Type paragraph>
-                      A multi-year main replacement program to replace aging
-                      infrastructure is beginning with Phase 2 which is on Midas
-                      Avenue, between Argonaut Road and Clover Valley Road. The
-                      project will consist of replacing the existing main,
-                      services, and fire hydrants in this area. New meter boxes
-                      and new water meters will be included in the project. In
-                      cooperation with the City of Rocklin, the entire width of
-                      Midas Avenue is planned to be resurfaced as part of the
-                      Phase 2 project.
-                    </Type>
-                    <Type paragraph>
-                      Approximately 1,550 feet of 16-inch and 800 feet of
-                      12-inch water main will be installed, including 42 new
-                      water meters.
-                    </Type>
-                    <Type paragraph>
-                      Phase 1 main replacement project is currently in design.
-                      The Phase 1 project area is on Midas Avenue, between 2nd
-                      Street and Argonaut Road.
-                    </Type>
-                    {/* <Type paragraph>
-                      Future anticipated Phases are shown below.
-                    </Type> */}
-                    <Spacing size="large" />
-                    <MediaDialogOnClick
-                      mediaUrl="https://imgix.cosmicjs.com/0cab1010-b489-11ed-bce9-6ddb530a836d-Rocklin-Main-Replacements---Future-Anticipated-Phases.png"
-                      mediaName="Map Figure of future anticipated Phases for Rocklin Main Replacement"
-                      MediaPreviewDialogProps={{
-                        ImageProps: {
-                          width: 1705,
-                          height: 1240
-                        }
-                      }}
-                    >
-                      <Image
-                        loader={imgixUrlLoader}
-                        src={`https://imgix.cosmicjs.com/0cab1010-b489-11ed-bce9-6ddb530a836d-Rocklin-Main-Replacements---Future-Anticipated-Phases.png`}
-                        alt="Map Figure of future anticipated Phases for Rocklin Main Replacement"
-                        width={1705}
-                        height={1240}
-                        layout="responsive"
-                        sizes="(max-width: 600px) 100vw, 45vw"
-                      />
-                    </MediaDialogOnClick>
-                    <ColumnBox alignItems="center">
-                      <Box mt={1} width="60%" textAlign="center">
-                        <Type variant="caption">
-                          Map Figure of Future Anticipated Phases{' '}
-                          <em>(click to enlarge)</em>
-                        </Type>
-                      </Box>
-                    </ColumnBox>
-                    <Spacing />
-                    <Type variant="subtitle1" gutterBottom>
-                      Project Location
-                    </Type>
-                    <Type paragraph>
-                      The multi-year project area is located in the City of
-                      Rocklin, and includes Midas Avenue, Argonaut Drive,
-                      Whitney Boulevard, Clover Valley Roads.
-                    </Type>
-                    <Type variant="subtitle1" gutterBottom>
-                      Project Schedule
-                    </Type>
-                    <Type variant="body2" color="primary">
-                      <strong>Phase 1</strong>
-                    </Type>
-                    <List disablePadding>
                       <TimelineListItem>
-                        <ListItemText primary="Design Completion - Fall 2023" />
-                      </TimelineListItem>
-                      <TimelineListItem>
-                        <ListItemText primary="Advertise/Award - Winter 2023" />
-                      </TimelineListItem>
-                      <TimelineListItem>
-                        <ListItemText primary="Begin Construction - Spring 2024" />
-                      </TimelineListItem>
-                    </List>
-                    <Spacing size="x-small" />
-                    <Type variant="body2" color="primary">
-                      <strong>Phase 2</strong>
-                    </Type>
-                    <List disablePadding>
-                      <TimelineListItem>
-                        <ListItemText primary="Design Completion - Summer 2023" />
-                      </TimelineListItem>
-                      <TimelineListItem>
-                        <ListItemText primary="Advertise/Award - Summer 2023" />
-                      </TimelineListItem>
-                      <TimelineListItem>
-                        <ListItemText primary="Begin Construction - Summer 2023" />
+                        <ListItemText primary="End Construction - Summer 2024" />
                       </TimelineListItem>
                     </List>
                   </article>
