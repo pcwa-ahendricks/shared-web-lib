@@ -1,19 +1,18 @@
 import React from 'react'
-import {Box} from '@mui/material'
-import {BoxProps} from '@mui/material/Box'
+import Animate, {AnimateProps} from './Animate'
 
-const FromLeft = ({
+const SlideInLeft = ({
   children,
   delay = 0,
   animate = true,
   ...rest
-}: {animate?: boolean; delay?: number} & BoxProps) => {
+}: AnimateProps) => {
   const {sx, ...restBoxProps} = rest
   return (
-    <Box
+    <Animate
       sx={{
         ...(animate && {
-          '-webkit-animation': `slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms both`,
+          // '-webkit-animation': `slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms both`,
           animation: `slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms both`
         }),
         ...sx
@@ -21,8 +20,8 @@ const FromLeft = ({
       {...restBoxProps}
     >
       {children}
-    </Box>
+    </Animate>
   )
 }
 
-export default FromLeft
+export default SlideInLeft

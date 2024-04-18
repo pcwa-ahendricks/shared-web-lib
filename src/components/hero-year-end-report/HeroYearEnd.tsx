@@ -7,7 +7,7 @@ import Image from 'next/image'
 import {Box, useMediaQuery, Button, Typography as Type} from '@mui/material'
 import {useTimeoutFn} from 'react-use'
 import useLinkComponent from '@hooks/useLinkComponent'
-import FromLeft from '@components/boxes/animate/FromLeft'
+import SlideInLeft from '@components/boxes/animate/SlideInLeft'
 
 const animateKey = 'homeHeroOverly'
 
@@ -101,7 +101,7 @@ export default function HeroYearEnd() {
           />
         </Box>
 
-        <FromLeft
+        <SlideInLeft
           animate={heroOverlayIn && !homeAnimateDone}
           onAnimationEnd={animateDoneHandler}
           delay={1000}
@@ -160,7 +160,7 @@ export default function HeroYearEnd() {
               }}
             /> */}
           </Box>
-        </FromLeft>
+        </SlideInLeft>
       </Box>
     </div>
   )
