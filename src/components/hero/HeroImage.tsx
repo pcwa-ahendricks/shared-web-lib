@@ -7,7 +7,6 @@ import React, {
 } from 'react'
 import HeroOverlay from '@components/hero/HeroOverlay'
 import {useIntersection} from 'react-use'
-import JackinBox from '@components/mui-jackinbox/JackinBox'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {RowBox} from '@components/MuiSleazebox'

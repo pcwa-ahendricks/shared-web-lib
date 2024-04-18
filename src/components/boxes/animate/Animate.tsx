@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import {Box} from '@mui/material'
 import {BoxProps} from '@mui/material/Box'
 export type AnimateProps = {
@@ -35,7 +35,7 @@ const Animate = ({
   const {sx, ...restBoxProps} = rest
   const animate3dSuffix = animate3d ? '-3d' : ''
   const [animationStarted, setAnimationStarted] = useState(false)
-  const [animationEnded, setAnimationEnded] = useState(false)
+  const [_animationEnded, setAnimationEnded] = useState(false)
 
   const animationStartHandler = useCallback(
     (event) => {
