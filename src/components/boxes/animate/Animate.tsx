@@ -12,7 +12,9 @@ export type AnimateProps = {
   direction?: 'normal' | 'reverse' | 'alternate' | 'alternate-reverse'
   fillMode?: 'both' | 'backwards' | 'forwards' | 'none'
   transparentUntilAnimate?: boolean
+  hiddenUntilAnimate?: boolean
   animationEnded?: boolean
+  speed?: 'fast' | 'faster' | 'fastest' | 'slow' | 'slower' | 'slowest'
 } & BoxProps
 
 const Animate = ({
@@ -27,15 +29,42 @@ const Animate = ({
   animate3d = false, // some components won't use translate
   name,
   transparentUntilAnimate = false,
+  hiddenUntilAnimate = false,
   onAnimationStart,
   onAnimationEnd,
   animationEnded: animationEndedParam = false,
+  speed,
   ...rest
 }: AnimateProps) => {
   const {sx, ...restBoxProps} = rest
   const animate3dSuffix = animate3d ? '-3d' : ''
   const [animationStarted, setAnimationStarted] = useState(false)
   const [_animationEnded, setAnimationEnded] = useState(false)
+
+  if (speed) {
+    switch (speed) {
+      case 'slowest':
+        duration = duration + duration * 0.8
+        break
+      case 'slower':
+        duration = duration + duration * 0.6
+        break
+      case 'slow':
+        duration = duration + duration * 0.4
+        break
+      case 'fast':
+        duration = duration - duration * 0.4
+        break
+      case 'faster':
+        duration = duration - duration * 0.6
+        break
+      case 'fastest':
+        duration = duration - duration * 0.8
+        break
+      // default:
+      // console.log('Invalid speed');
+    }
+  }
 
   const animationStartHandler = useCallback(
     (event) => {
@@ -62,9 +91,15 @@ const Animate = ({
   // Only start transparent if: User specified, and the animation has not started
   const shouldStartTransparent = transparentUntilAnimate && !animationStarted
 
+  // Only start transparent if: User specified, and the animation has not started
+  const shouldStartHidden = hiddenUntilAnimate && !animationStarted
+
   return (
     <Box
       sx={{
+        ...(shouldStartHidden && {
+          visibility: 'hidden'
+        }),
         ...(shouldStartTransparent && {
           opacity: 0
         }),

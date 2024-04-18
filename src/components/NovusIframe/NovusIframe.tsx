@@ -3,7 +3,8 @@ import React, {useCallback, useState} from 'react'
 import {Typography as Type, Box, BoxProps} from '@mui/material'
 import IeOnly from '@components/boxes/IeOnly'
 import IeNever from '@components/boxes/IeNever'
-import JackinBox from '@components/mui-jackinbox/JackinBox'
+import FadeOut from '@components/boxes/animate/FadeOut'
+import FadeIn from '@components/boxes/animate/FadeIn'
 
 type Props = {
   mfpfa?: boolean
@@ -37,26 +38,25 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
 
   return (
     <Box position="relative" width="100%">
-      <JackinBox
-        name="fadeOut"
+      <FadeOut
+        speed="fast"
         animate={!iframeIsLoading}
         position="absolute"
-        speed="fast"
-        top={0}
-        left={0}
-        zIndex={1}
         sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 1,
           userSelect: 'none',
           pointerEvents: 'none' // This is important when using z-index. Certain web browsers will require this in order to select any elements beneath.
         }}
       >
         <Type>Novus Agenda is loading...</Type>
-      </JackinBox>
-      <JackinBox
-        name="fadeIn"
-        animate={!iframeIsLoading}
-        hideUntilAnimate
+      </FadeOut>
+      <FadeIn
         speed="fast"
+        animate={!iframeIsLoading}
+        transparentUntilAnimate
         height={{xs: 900, sm: 925, md: 875, lg: 750}}
       >
         <IeNever
@@ -65,27 +65,32 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
           height="inherit"
           {...rest}
         >
-          <iframe
+          <Box
+            component="iframe"
             title="Novus Agenda"
             onLoad={novusIframeLoadedHandler}
             src={url}
-            frameBorder="0"
-            width="100%"
-            height="100%"
-            scrolling="auto"
+            sx={{
+              border: 'none',
+              overflow: 'auto' /* Auto-scrolling as needed */,
+              width: '100%',
+              height: '100%'
+            }}
           />
         </IeNever>
-      </JackinBox>
+      </FadeIn>
       {/* iframe onLoad doesn't work with IE */}
       <IeOnly height="inherit" {...rest}>
-        <iframe
+        <Box
+          component="iframe"
           title="Novus Agenda"
-          onLoad={novusIframeLoadedHandler}
           src={url}
-          frameBorder="0"
-          width="100%"
-          height="100%"
-          scrolling="auto"
+          sx={{
+            border: 'none',
+            overflow: 'auto' /* Auto-scrolling as needed */,
+            width: '100%',
+            height: '100%'
+          }}
         />
       </IeOnly>
     </Box>
