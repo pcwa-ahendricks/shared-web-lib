@@ -12,11 +12,12 @@ const FromLeft = ({
   return (
     <Box
       sx={{
-        '-webkit-animation': `slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms both`,
-        animation: `slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms both`,
+        ...(animate && {
+          '-webkit-animation': `slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms both`,
+          animation: `slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms both`
+        }),
         ...sx
       }}
-      className={animate ? 'slide-in-left' : ''}
       {...restBoxProps}
     >
       {children}

@@ -1,14 +1,7 @@
-import React, {
-  // useEffect,
-  useContext,
-  useRef,
-  useState
-  // useCallback
-} from 'react'
+import React, {useContext, useRef, useState, useCallback} from 'react'
 // import HeroYearEndOverlay from '@components/hero-year-end-report/HeroYearEndOverlay'
 // import {useIntersection} from 'react-use'
-// import JackinBox from '@components/mui-jackinbox/JackinBox'
-import {UiContext} from '@components/ui/UiStore'
+import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import Image from 'next/image'
 import {Box, useMediaQuery, Button, Typography as Type} from '@mui/material'
@@ -20,7 +13,7 @@ const animateKey = 'homeHeroOverly'
 
 export default function HeroYearEnd() {
   const uiContext = useContext(UiContext)
-  const {state: uiState, dispatch: _uiDispatch} = uiContext
+  const {state: uiState, dispatch: uiDispatch} = uiContext
   const [heroOverlayIn] = useState(true) // onLoad doesn't work with Next Image, specifically 'priority' prop. See https://github.com/vercel/next.js/issues/20368#issuecomment-749539450
 
   const heroAnimateRef = useRef<HTMLDivElement>(null)
@@ -40,9 +33,10 @@ export default function HeroYearEnd() {
 
   const {[animateKey]: homeAnimateDone} = uiState.animateDone
 
-  // const animateDoneHandler = useCallback(() => {
-  //   uiDispatch(setAnimateDone(animateKey, true))
-  // }, [uiDispatch])
+  const animateDoneHandler = useCallback(() => {
+    uiDispatch(setAnimateDone(animateKey, true))
+    console.log('done')
+  }, [uiDispatch])
 
   const [colorState, setColorState] = useState(false)
   function fn() {
@@ -76,7 +70,7 @@ export default function HeroYearEnd() {
               filter: 'grayscale(1)',
               opacity: 0.9,
               transition: 'all 0.8s ease-in-out',
-              ...(colorState && {
+              ...((colorState || homeAnimateDone) && {
                 opacity: 1,
                 filter: 'none',
                 '-webkit-transform': 'scale(1.04) translate3d(0,0,0)',
@@ -107,22 +101,9 @@ export default function HeroYearEnd() {
           />
         </Box>
 
-        {/* <JackinBox
-          name="fadeInLeft"
-          delay={1}
-          hideUntilAnimate={!homeAnimateDone}
-          animate={heroOverlayIn && !homeAnimateDone}
-          onAnimateEnd={animateDoneHandler}
-          sx={{
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0
-          }}
-        > */}
         <FromLeft
           animate={heroOverlayIn && !homeAnimateDone}
+          onAnimationEnd={animateDoneHandler}
           delay={1000}
           sx={{
             position: 'absolute',
