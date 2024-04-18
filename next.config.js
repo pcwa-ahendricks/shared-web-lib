@@ -1,3 +1,6 @@
+/**
+ * @type {import('next').NextConfig}
+ */
 // cspell:ignore nskarda hprcc
 /* eslint @typescript-eslint/no-var-requires: 0 */
 // const {STATS} = process.env
