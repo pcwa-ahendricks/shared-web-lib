@@ -22,6 +22,7 @@ import {Analytics} from '@vercel/analytics/react'
 import {AppCacheProvider} from '@mui/material-nextjs/v14-pagesRouter'
 import * as gtag from '@lib/gtag'
 import '@lib/css/styles.css'
+import '@lib/css/animate.css'
 // import '@lib/css/NoCollapseVerticalTimeline.css'
 
 /*

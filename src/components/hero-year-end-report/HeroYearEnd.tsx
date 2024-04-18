@@ -7,13 +7,14 @@ import React, {
 } from 'react'
 // import HeroYearEndOverlay from '@components/hero-year-end-report/HeroYearEndOverlay'
 // import {useIntersection} from 'react-use'
-import JackinBox from '@components/mui-jackinbox/JackinBox'
+// import JackinBox from '@components/mui-jackinbox/JackinBox'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import Image from 'next/image'
 import {Box, useMediaQuery, Button, Typography as Type} from '@mui/material'
 import {useTimeoutFn} from 'react-use'
 import useLinkComponent from '@hooks/useLinkComponent'
+import FromLeft from '@components/boxes/animate/FromLeft'
 
 const animateKey = 'homeHeroOverly'
 
@@ -106,12 +107,23 @@ export default function HeroYearEnd() {
           />
         </Box>
 
-        <JackinBox
+        {/* <JackinBox
           name="fadeInLeft"
           delay={1}
           hideUntilAnimate={!homeAnimateDone}
           animate={heroOverlayIn && !homeAnimateDone}
           onAnimateEnd={animateDoneHandler}
+          sx={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+          }}
+        > */}
+        <FromLeft
+          animate={heroOverlayIn && !homeAnimateDone}
+          delay={1000}
           sx={{
             position: 'absolute',
             top: 0,
@@ -167,7 +179,7 @@ export default function HeroYearEnd() {
               }}
             /> */}
           </Box>
-        </JackinBox>
+        </FromLeft>
       </Box>
     </div>
   )
