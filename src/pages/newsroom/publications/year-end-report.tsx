@@ -1,7 +1,5 @@
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
-import useTheme from '@hooks/useTheme'
-import {useMediaQuery} from '@mui/material'
 import Script from 'next/script'
 import {useEffect, useRef} from 'react'
 import {useRouter} from 'next/router'
@@ -24,12 +22,14 @@ export default function YearEndReportPage() {
     }
   }, [router.events])
 
-  const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
+  // const theme = useTheme()
+  // const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
-  const url = isXs
-    ? 'https://794f0754.flowpaper.com/PCWAYearEndReport2023/#MaximizeViewer=true'
-    : 'https://794f0754.flowpaper.com/PCWAYearEndReport2023/'
+  // see <HeroYearEnd/>
+  // const url = isXs
+  //   ? 'https://794f0754.flowpaper.com/PCWAYearEndReport2023/#MaximizeViewer=true'
+  //   : 'https://794f0754.flowpaper.com/PCWAYearEndReport2023/'
+  const url = 'https://794f0754.flowpaper.com/PCWAYearEndReport2023/'
 
   return (
     <>

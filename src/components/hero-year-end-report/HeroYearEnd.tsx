@@ -140,7 +140,12 @@ export default function HeroYearEnd() {
                 // target="_blank"
                 // rel="noopener noreferrer"
                 // href="https://docs.pcwa.net/year-end-report-2024.pdf"
-                href="/newsroom/publications/year-end-report"
+                href={
+                  isXs
+                    ? 'https://794f0754.flowpaper.com/PCWAYearEndReport2023/#MaximizeViewer=true'
+                    : '/newsroom/publications/year-end-report'
+                }
+                target={isXs ? '_blank' : '_self'}
                 sx={{
                   ...(!isXs && {
                     height: 50,
