@@ -31,7 +31,7 @@ export default function LookHere({
   return (
     <Box position="relative" {...rest}>
       {children}
-      {/* don't set absolute positioning on <SlideInFwdLeft/> or in a child component therein, instead set on parent so perspective and positioning doesn't interfere/break */}
+      {/* don't set absolute positioning on a animation component that uses 'transform: translateZ()' or in a child component therein, instead set on parent so perspective and positioning doesn't interfere/break */}
       <Box
         sx={{
           position: 'absolute',
