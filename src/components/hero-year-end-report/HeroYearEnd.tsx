@@ -60,11 +60,6 @@ export default function HeroYearEnd() {
       >
         <Box
           sx={{
-            // position: 'absolute',
-            // top: 0,
-            // bottom: 0,
-            // left: 0,
-            // right: 0,
             '& img': {
               filter: 'grayscale(1)',
               opacity: 0.9,
