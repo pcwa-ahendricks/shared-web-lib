@@ -13,6 +13,7 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 import {RowBox} from '@components/MuiSleazebox'
 import Image from 'next/image'
 import {Box} from '@mui/material'
+import FadeIn from '@components/boxes/animate/FadeIn'
 
 const animateKey = 'homeHeroOverly'
 
@@ -66,12 +67,11 @@ export default function HeroImage() {
           objectFit={'cover'} // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
         />
 
-        <JackinBox
-          name="fadeIn"
-          delay={1}
-          hideUntilAnimate={!homeAnimateDone}
+        <FadeIn
+          delay={1000}
           animate={heroOverlayIn && heroIntersected && !homeAnimateDone}
-          onAnimateEnd={animateDoneHandler}
+          onAnimationEnd={animateDoneHandler}
+          transparentUntilAnimate={!homeAnimateDone}
         >
           <RowBox
             justifyContent="space-around"
@@ -90,7 +90,7 @@ export default function HeroImage() {
               }}
             />
           </RowBox>
-        </JackinBox>
+        </FadeIn>
       </Box>
     </div>
   )

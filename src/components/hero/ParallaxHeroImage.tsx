@@ -9,11 +9,11 @@ import React, {
 import HeroOverlay from '@components/hero/HeroOverlay'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import {useIntersection} from 'react-use'
-import JackinBox from '@components/mui-jackinbox/JackinBox'
 import {useMediaQuery, useTheme} from '@mui/material'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import {RowBox} from '@components/MuiSleazebox'
+import FadeIn from '@components/boxes/animate/FadeIn'
 
 const animateKey = 'homeHeroOverly'
 
@@ -78,12 +78,11 @@ export default function ParallaxHeroImage() {
           // minHeight: 400
         }}
       >
-        <JackinBox
-          name="fadeIn"
-          delay={1}
-          hideUntilAnimate={!homeAnimateDone}
+        <FadeIn
+          delay={1000}
           animate={heroOverlayIn && heroIntersected && !homeAnimateDone}
-          onAnimateEnd={animateDoneHandler}
+          onAnimationEnd={animateDoneHandler}
+          transparentUntilAnimate={!homeAnimateDone}
         >
           <RowBox
             justifyContent="space-around"
@@ -102,7 +101,7 @@ export default function ParallaxHeroImage() {
               }}
             />
           </RowBox>
-        </JackinBox>
+        </FadeIn>
       </ImageParallaxBanner>
     </div>
   )
