@@ -5,6 +5,7 @@ import IeOnly from '@components/boxes/IeOnly'
 import IeNever from '@components/boxes/IeNever'
 import FadeOut from '@components/boxes/animate/FadeOut'
 import FadeIn from '@components/boxes/animate/FadeIn'
+import {useTimeoutFn} from 'react-use'
 
 type Props = {
   mfpfa?: boolean
@@ -16,6 +17,12 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
   const novusIframeLoadedHandler = useCallback(() => {
     setIframeIsLoading(false)
   }, [])
+
+  // in case iframe onLoad event didn't fire after 5 seconds
+  const [_isReady, _cancel, _reset] = useTimeoutFn(
+    () => setIframeIsLoading(false),
+    5000
+  )
 
   /*
   the website is set up to display Novus Agenda types as follows:
@@ -41,7 +48,6 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
       <FadeOut
         speed="fast"
         animate={!iframeIsLoading}
-        position="absolute"
         sx={{
           position: 'absolute',
           top: 0,
