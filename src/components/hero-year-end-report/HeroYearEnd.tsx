@@ -152,14 +152,6 @@ export default function HeroYearEnd() {
                 Read Our 2023 Year End Report
               </Button>
             </Box>
-            {/* <HeroYearEndOverlay
-              height="100%"
-              preserveAspectRatio="xMidYMid meet"
-              sx={{
-                // zIndex: 99,
-                flex: '0 0 auto'
-              }}
-            /> */}
           </SlideInLeft>
         </Box>
       </Box>
