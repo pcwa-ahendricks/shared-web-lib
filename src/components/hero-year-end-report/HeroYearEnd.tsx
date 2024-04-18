@@ -73,7 +73,7 @@ export default function HeroYearEnd() {
                 opacity: 1,
                 filter: 'none',
                 '-webkit-transform': 'scale(1.04) translate3d(0,0,0)',
-                transform: 'scale(1.04) translate3d(0,0,0)'
+                transform: 'scale(1.03) translate3d(0,0,0)'
               })
             }
           }}
@@ -99,21 +99,18 @@ export default function HeroYearEnd() {
             alt="A photo of French Meadows Reservoir"
           />
         </Box>
-
-        <SlideInLeft
-          animate={!homeAnimateDone}
-          onAnimationEnd={animateDoneHandler}
-          delay={1000}
+        <Box
           sx={{
             position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0
+            bottom: 30,
+            left: 30,
+            maxWidth: '88vw'
           }}
         >
-          <Box
-            sx={{position: 'absolute', bottom: 30, left: 30, maxWidth: '90vw'}}
+          <SlideInLeft
+            animate={!homeAnimateDone}
+            onAnimationEnd={animateDoneHandler}
+            delay={1000}
           >
             <Box>
               <Type
@@ -163,8 +160,8 @@ export default function HeroYearEnd() {
                 flex: '0 0 auto'
               }}
             /> */}
-          </Box>
-        </SlideInLeft>
+          </SlideInLeft>
+        </Box>
       </Box>
     </div>
   )

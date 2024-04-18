@@ -97,22 +97,30 @@ const Animate = ({
   return (
     <Box
       sx={{
-        ...(shouldStartHidden && {
-          visibility: 'hidden'
-        }),
-        ...(shouldStartTransparent && {
-          opacity: 0
-        }),
-        ...(animate && {
-          animation: `${name}${animate3dSuffix} ${duration}ms ${easingFunc} ${delay}ms ${iterations} ${direction} ${fillMode}`
-        }),
-        ...sx
+        perspective: 500,
+        perspectiveOrigin: 'calc(50% + 120px) 50%',
+        transformStyle: 'preserve-3d'
       }}
-      onAnimationStart={animationStartHandler}
-      onAnimationEnd={animationEndHandler}
-      {...restBoxProps}
     >
-      {children}
+      <Box
+        sx={{
+          ...(shouldStartHidden && {
+            visibility: 'hidden'
+          }),
+          ...(shouldStartTransparent && {
+            opacity: 0
+          }),
+          ...(animate && {
+            animation: `${name}${animate3dSuffix} ${duration}ms ${easingFunc} ${delay}ms ${iterations} ${direction} ${fillMode}`
+          }),
+          ...sx
+        }}
+        onAnimationStart={animationStartHandler}
+        onAnimationEnd={animationEndHandler}
+        {...restBoxProps}
+      >
+        {children}
+      </Box>
     </Box>
   )
 }

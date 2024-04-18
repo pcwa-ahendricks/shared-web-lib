@@ -25,9 +25,7 @@ const PublicPurchaseIframe = ({...rest}: BoxProps) => {
 
   return (
     <Box position="relative" width="100%">
-      <FadeOut
-        speed="fast"
-        animate={!iframeIsLoading}
+      <Box
         sx={{
           position: 'absolute',
           top: 0,
@@ -37,8 +35,11 @@ const PublicPurchaseIframe = ({...rest}: BoxProps) => {
           pointerEvents: 'none' // This is important when using z-index. Certain web browsers will require this in order to select any elements beneath.
         }}
       >
-        <Type>Public Purchase is loading...</Type>
-      </FadeOut>
+        <FadeOut speed="fast" animate={!iframeIsLoading}>
+          <Type>Public Purchase is loading...</Type>
+        </FadeOut>
+      </Box>
+
       <FadeIn
         speed="fast"
         animate={!iframeIsLoading}

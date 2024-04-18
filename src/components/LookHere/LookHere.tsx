@@ -10,7 +10,7 @@ import HandIcon from 'mdi-material-ui/HandPointingRight'
 import {useTimeoutFn} from 'react-use'
 import FadeOut from '@components/boxes/animate/FadeOut'
 import {AnimateProps} from '@components/boxes/animate/Animate'
-import SlideInEllipticFwdLeft from '@components/boxes/animate/SlideInEllipticLeftFwd'
+import SlideInFwdLeft from '@components/boxes/animate/SlideInFwdLeft'
 
 export default function LookHere({
   children,
@@ -31,9 +31,8 @@ export default function LookHere({
   return (
     <Box position="relative" {...rest}>
       {children}
-      <SlideInEllipticFwdLeft
-        animate={show}
-        hiddenUntilAnimate
+      {/* don't set absolute positioning on <SlideInFwdLeft/> or in a child component therein, instead set on parent so perspective and positioning doesn't interfere/break */}
+      <Box
         sx={{
           position: 'absolute',
           left: -180,
@@ -43,19 +42,21 @@ export default function LookHere({
           textAlign: 'center'
         }}
       >
-        <FadeOut delay={5000} animate={show}>
-          <Type
-            component="em"
-            variant="h4"
-            color="primary"
-            sx={{letterSpacing: '.3px'}}
-          >
-            Click flyer to learn more
-          </Type>
-          <br />
-          <HandIcon color="primary" fontSize="large" />
-        </FadeOut>
-      </SlideInEllipticFwdLeft>
+        <SlideInFwdLeft animate={show} hiddenUntilAnimate>
+          <FadeOut delay={5000} animate={show}>
+            <Type
+              component="em"
+              variant="h4"
+              color="primary"
+              sx={{letterSpacing: '.3px'}}
+            >
+              Click flyer to learn more
+            </Type>
+            <br />
+            <HandIcon color="primary" fontSize="large" />
+          </FadeOut>
+        </SlideInFwdLeft>
+      </Box>
     </Box>
   )
 }

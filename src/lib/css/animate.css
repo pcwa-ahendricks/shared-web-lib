@@ -108,12 +108,12 @@
 @keyframes slide-in-elliptic-left-fwd-3d {
   0% {
     transform: translate3d(-800px, 0, 0) rotateY(30deg) scale(0);
-    transform-origin: left center;
+    transform-origin: -100% 50%;
     opacity: 0;
   }
   100% {
     transform: translate3d(0, 0, 0) rotateY(0) scale(1);
-    transform-origin: center center;
+    transform-origin: 1800px 50%;
     opacity: 1;
   }
 }

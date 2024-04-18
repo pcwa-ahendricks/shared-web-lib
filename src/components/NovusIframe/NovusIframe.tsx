@@ -45,9 +45,7 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
 
   return (
     <Box position="relative" width="100%">
-      <FadeOut
-        speed="fast"
-        animate={!iframeIsLoading}
+      <Box
         sx={{
           position: 'absolute',
           top: 0,
@@ -57,8 +55,11 @@ const NovusIframe = ({mfpfa = false, ...rest}: Props) => {
           pointerEvents: 'none' // This is important when using z-index. Certain web browsers will require this in order to select any elements beneath.
         }}
       >
-        <Type>Novus Agenda is loading...</Type>
-      </FadeOut>
+        <FadeOut speed="fast" animate={!iframeIsLoading}>
+          <Type>Novus Agenda is loading...</Type>
+        </FadeOut>
+      </Box>
+
       <FadeIn
         speed="fast"
         animate={!iframeIsLoading}
