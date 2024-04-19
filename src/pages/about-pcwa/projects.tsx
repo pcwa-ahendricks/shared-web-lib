@@ -66,7 +66,15 @@ const ProjectsPage = () => {
 
   const TimelineListItem = ({children}: ListItemProps) => {
     return (
-      <ListItem disableGutters sx={{...style.listItem}}>
+      <ListItem
+        disableGutters
+        sx={{
+          ...style.listItem,
+          '& .MuiListItemText-root': {
+            marginBottom: 0
+          }
+        }}
+      >
         {children}
       </ListItem>
     )
