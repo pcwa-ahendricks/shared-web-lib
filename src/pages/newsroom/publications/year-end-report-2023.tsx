@@ -38,7 +38,7 @@ export default function YearEndReportPage2023() {
         async
         src="https://cdn-online.flowpaper.com/zine/3.8.4/js/embed.min.js"
       />
-      <PageLayout title="Year End Report">
+      <PageLayout title="Year End Report - 2023">
         <MainBox sx={{height: '100%', minHeight: 900}}>
           <iframe
             ref={iframeRef}
