@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useState, AnimationEvent} from 'react'
 import {Box} from '@mui/material'
 import {BoxProps} from '@mui/material/Box'
 export type AnimateProps = {
@@ -69,7 +69,7 @@ const Animate = ({
   }
 
   const animationStartHandler = useCallback(
-    (event) => {
+    (event: AnimationEvent<HTMLDivElement>) => {
       setAnimationStarted(true)
       // Call the onAnimationStart function passed as a prop, if it exists
       onAnimationStart?.(event)
@@ -80,7 +80,7 @@ const Animate = ({
   )
 
   const animationEndHandler = useCallback(
-    (event) => {
+    (event: AnimationEvent<HTMLDivElement>) => {
       setAnimationEnded(true)
       // Call the onAnimationEnd function passed as a prop, if it exists
       onAnimationEnd?.(event)
