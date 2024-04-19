@@ -3,7 +3,7 @@ import {Box} from '@mui/material'
 import {BoxProps} from '@mui/material/Box'
 export type AnimateProps = {
   name: string
-  easingFunc: string
+  easingFunc?: string
   animate3d?: boolean
   animate?: boolean
   duration?: number
@@ -20,7 +20,7 @@ export type AnimateProps = {
 
 const Animate = ({
   children,
-  easingFunc,
+  easingFunc = 'ease',
   delay = 0,
   duration = 500,
   animate = true,
