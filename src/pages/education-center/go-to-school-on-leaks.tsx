@@ -75,6 +75,7 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               width={{xs: '65vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
             >
               <MediaDialogOnClick
+                showPopper={false}
                 mediaUrl="https://imgix.cosmicjs.com/f4c42c40-567a-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach02.jpg"
                 mediaName="PCWA staff speaking with children in classroom"
                 MediaPreviewDialogProps={{
@@ -113,6 +114,7 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               width={{xs: '65vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
             >
               <MediaDialogOnClick
+                showPopper={false}
                 mediaUrl="https://imgix.cosmicjs.com/b5794b30-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach03.jpg"
                 mediaName="PCWA staff speaking with children in classroom"
                 MediaPreviewDialogProps={{
@@ -139,6 +141,7 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               width={{xs: '65vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
             >
               <MediaDialogOnClick
+                showPopper={false}
                 mediaUrl="https://imgix.cosmicjs.com/b5850b00-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach08.jpg"
                 mediaName="PCWA staff speaking with children in classroom picture 3"
                 MediaPreviewDialogProps={{
@@ -165,6 +168,7 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               width={{xs: '65vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
             >
               <MediaDialogOnClick
+                showPopper={false}
                 mediaUrl="https://imgix.cosmicjs.com/b57c5870-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach05.jpg"
                 mediaName="PCWA staff speaking with children in classroom picture 4"
                 MediaPreviewDialogProps={{
@@ -191,6 +195,7 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               width={{xs: '65vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
             >
               <MediaDialogOnClick
+                showPopper={false}
                 mediaUrl="https://imgix.cosmicjs.com/b58d6f70-567d-11ee-a06d-a31b04d2d095-PCWAWaterEfficiencySchoolOutreach06.jpg"
                 mediaName="PCWA staff speaking with children in classroom picture 5"
                 MediaPreviewDialogProps={{

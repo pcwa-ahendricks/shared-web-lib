@@ -72,9 +72,9 @@ const Animate = ({
     (event) => {
       setAnimationStarted(true)
       // Call the onAnimationStart function passed as a prop, if it exists
-      if (onAnimationStart) {
-        onAnimationStart(event)
-      }
+      onAnimationStart?.(event)
+      // Don't trigger animation end events w/ nested animation components
+      event?.stopPropagation()
     },
     [onAnimationStart]
   )
@@ -83,9 +83,9 @@ const Animate = ({
     (event) => {
       setAnimationEnded(true)
       // Call the onAnimationEnd function passed as a prop, if it exists
-      if (onAnimationEnd) {
-        onAnimationEnd(event)
-      }
+      onAnimationEnd?.(event)
+      // Don't trigger animation end events w/ nested animation components
+      event?.stopPropagation()
     },
     [onAnimationEnd]
   )

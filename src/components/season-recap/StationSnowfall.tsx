@@ -1,5 +1,5 @@
 // cspell:ignore accum
-import React, {useMemo, useState, useEffect, useCallback} from 'react'
+import React, {useMemo, useState, useEffect} from 'react'
 import {Typography as Type, Divider, Box, Paper} from '@mui/material'
 import SnowfallAccumLine from '@components/season-recap/SnowAccumLine'
 import useSWR from 'swr'
@@ -17,7 +17,7 @@ import {
 import isNumber from 'is-number'
 import PrecipCalendar from './PrecipCalendar'
 import {ResponsiveLine} from '@nivo/line'
-import JackinBox, {JackinBoxProps} from '@components/mui-jackinbox/JackinBox'
+import FadeIn from '@components/boxes/animate/FadeIn'
 
 type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
 type Props = {
@@ -226,27 +226,13 @@ export default function StationSnowfall({waterYear, sid}: Props) {
     snowfallAccumHistLowData
   ])
 
-  const Fade = useCallback(
-    ({children, ...rest}: Partial<JackinBoxProps>) => (
-      <JackinBox
-        name="fadeIn"
-        animate={Boolean(snowfallResponse)}
-        hideUntilAnimate
-        {...rest}
-      >
-        {children}
-      </JackinBox>
-    ),
-    [snowfallResponse]
-  )
-
   return (
     <>
       <Spacing size="x-large" />
       <Type variant="h4" align="center">
         Accumulated Snowfall
       </Type>{' '}
-      <Fade>
+      <FadeIn animate={Boolean(snowfallResponse)} transparentUntilAnimate>
         <Type
           variant="caption"
           align="center"
@@ -263,29 +249,37 @@ export default function StationSnowfall({waterYear, sid}: Props) {
             </em>
           </Type>
         </Type>
-      </Fade>
+      </FadeIn>
       <Box height={{xs: 400, lg: 450}} position="relative">
-        <Fade
-          animate={Boolean(snowfallAccumDiff)}
-          position="absolute"
-          top={64}
-          left={64}
-          zIndex={2}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 64,
+            left: 64,
+            zIndex: 2
+          }}
         >
-          <Paper elevation={2} square>
-            <Box p={1}>
-              <Type variant="caption" align="center" component="header" noWrap>
-                <Box
-                  component="span"
-                  sx={{display: {xs: 'none', md: 'inline'}}}
+          <FadeIn animate={Boolean(snowfallAccumDiff)} transparentUntilAnimate>
+            <Paper elevation={2} square>
+              <Box p={1}>
+                <Type
+                  variant="caption"
+                  align="center"
+                  component="header"
+                  noWrap
                 >
-                  Accumulated{' '}
-                </Box>
-                <strong>{snowfallAccumDiff}%</strong> of Normal Average
-              </Type>
-            </Box>
-          </Paper>
-        </Fade>
+                  <Box
+                    component="span"
+                    sx={{display: {xs: 'none', md: 'inline'}}}
+                  >
+                    Accumulated{' '}
+                  </Box>
+                  <strong>{snowfallAccumDiff}%</strong> of Normal Average
+                </Type>
+              </Box>
+            </Paper>
+          </FadeIn>
+        </Box>
         <SnowfallAccumLine
           snowfallDataset={snowfallDataset}
           highYear={snowfallAccumHistHighYear}
@@ -298,7 +292,7 @@ export default function StationSnowfall({waterYear, sid}: Props) {
       <Type variant="h4" align="center">
         Actual Snowfall
       </Type>
-      <Fade>
+      <FadeIn animate={Boolean(snowfallResponse)} transparentUntilAnimate>
         <Type
           variant="caption"
           align="center"
@@ -307,7 +301,7 @@ export default function StationSnowfall({waterYear, sid}: Props) {
         >
           {snowfallResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
         </Type>
-      </Fade>
+      </FadeIn>
       <Box height={{xs: 650, sm: 200, lg: 300}}>
         <PrecipCalendar
           precipData={snowfallData}

@@ -33,9 +33,10 @@ import {
 } from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/water-year-dashboard'
-import JackinBox, {JackinBoxProps} from '@components/mui-jackinbox/JackinBox'
 import ClimateChangeLine from './ClimateChangeLine'
 import useTheme from '@hooks/useTheme'
+import ScaleInCenter from '@components/boxes/animate/ScaleInCenter'
+import FadeIn from '@components/boxes/animate/FadeIn'
 
 type Props = {countyResponse?: CountyMetaResponse; regionalWaterYear: number}
 
@@ -598,15 +599,6 @@ export default function RegionalSection({
     []
   )
 
-  const Zoom = useCallback(
-    ({children, ...rest}: Partial<JackinBoxProps>) => (
-      <JackinBox name="zoomIn" hideUntilAnimate speed="faster" {...rest}>
-        {children}
-      </JackinBox>
-    ),
-    []
-  )
-
   return (
     <>
       <Type variant="h2" color="primary">
@@ -654,10 +646,10 @@ export default function RegionalSection({
                       {regionalTimeFrame === 'waterYear'
                         ? 'current water year'
                         : regionalTimeFrame === 'last30Days'
-                        ? 'last 30 days'
-                        : regionalTimeFrame === 'last7Days'
-                        ? 'last 7 days'
-                        : ''}
+                          ? 'last 30 days'
+                          : regionalTimeFrame === 'last7Days'
+                            ? 'last 7 days'
+                            : ''}
                     </StrongEmphasis>{' '}
                     the greater region has received...
                   </Emx>
@@ -667,7 +659,7 @@ export default function RegionalSection({
             <RowBox>
               <ColumnBox child alignItems="center" position="relative">
                 {multiStnPrecipSmryResLoading ? <AbsSpinner /> : null}
-                <Zoom animate={isNumber(precipPerc)}>
+                <ScaleInCenter speed="fast" animate={isNumber(precipPerc)}>
                   <ColumnBox child alignItems="center">
                     <Type
                       variant="body1"
@@ -791,11 +783,11 @@ export default function RegionalSection({
                       </Type>
                     </Box>
                   </ColumnBox>
-                </Zoom>
+                </ScaleInCenter>
               </ColumnBox>
               <ColumnBox child alignItems="center" position="relative">
                 {multiStnSnowSmryResLoading ? <AbsSpinner /> : null}
-                <Zoom animate={isNumber(snowPerc)}>
+                <ScaleInCenter speed="fast" animate={isNumber(snowPerc)}>
                   <ColumnBox child alignItems="center">
                     <Type
                       variant="body1"
@@ -916,7 +908,7 @@ export default function RegionalSection({
                       </Type>
                     </Box>
                   </ColumnBox>
-                </Zoom>
+                </ScaleInCenter>
               </ColumnBox>
             </RowBox>
           </ColumnBox>
@@ -931,7 +923,7 @@ export default function RegionalSection({
             <RowBox>
               <ColumnBox child alignItems="center" position="relative">
                 {multiStnMxTempSmryResLoading ? <AbsSpinner /> : null}
-                <Zoom animate={isNumber(mxTempDepart)}>
+                <ScaleInCenter speed="fast" animate={isNumber(mxTempDepart)}>
                   <ColumnBox child alignItems="center">
                     <Box position="relative">
                       <Type
@@ -1095,7 +1087,7 @@ export default function RegionalSection({
                       </Type>
                     </Box>
                   </ColumnBox>
-                </Zoom>
+                </ScaleInCenter>
               </ColumnBox>
             </RowBox>
           </ColumnBox>
@@ -1238,26 +1230,30 @@ export default function RegionalSection({
             height={{xs: 400, sm: 250}}
             position="relative"
           >
-            <JackinBox
-              animate={Boolean(
-                climChgChartData.length === 0 && !climChgIsLoading
-              )}
-              hideUntilAnimate
-              name="fadeIn"
-              position="absolute"
-              top="50%"
-              left="50%"
-              zIndex={2}
-              sx={{transform: 'translate(-50%, -50%)'}}
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                zIndex: 2,
+                transform: 'translate(-50%, -50%)'
+              }}
             >
-              <Paper elevation={3} square>
-                <Box p={1}>
-                  <Type variant="h4" align="center" color="error">
-                    <strong>No Data</strong>
-                  </Type>
-                </Box>
-              </Paper>
-            </JackinBox>
+              <FadeIn
+                animate={Boolean(
+                  climChgChartData.length === 0 && !climChgIsLoading
+                )}
+                transparentUntilAnimate
+              >
+                <Paper elevation={3} square>
+                  <Box p={1}>
+                    <Type variant="h4" align="center" color="error">
+                      <strong>No Data</strong>
+                    </Type>
+                  </Box>
+                </Paper>
+              </FadeIn>
+            </Box>
             <ClimateChangeLine climChgChartData={climChgChartData} />
           </ChildBox>
           <ColumnBox child flex padding={2}>

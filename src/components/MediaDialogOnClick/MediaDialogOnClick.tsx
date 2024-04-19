@@ -24,6 +24,7 @@ type Props = {
   popperAnchorStyle?: React.CSSProperties
   MediaPreviewDialogProps: Partial<MediaPreviewDialogPropsType>
   mediaDialogOpen?: boolean
+  showPopper?: boolean
 } & Partial<Omit<BoxProps, 'width' | 'height'>>
 
 const PREFIX = 'StyledMediaDialogOnClick'
@@ -54,6 +55,7 @@ const MediaDialogOnClick = ({
   timeout = 350,
   MediaPreviewDialogProps,
   mediaDialogOpen: mediaDialogOpenProp = false,
+  showPopper = true,
   ...rest
 }: Props) => {
   const theme = useTheme<Theme>()
@@ -103,7 +105,7 @@ const MediaDialogOnClick = ({
           }}
         />
         {/* Css implementation won't work here (eg. Popper will still show on xs devices). */}
-        {isXs ? null : (
+        {isXs || !showPopper ? null : (
           <Popper
             id="mouse-over-popover"
             className={classes.popper}
