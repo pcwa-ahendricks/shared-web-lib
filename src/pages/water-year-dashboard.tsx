@@ -47,10 +47,10 @@ import RegionalSection from '@components/season-recap/RegionalSection'
 import StationSnowfall from '@components/season-recap/StationSnowfall'
 import round from '@lib/round'
 import StrongEmphasis from '@components/typography/StrongEmphasis/StrongEmphasis'
-import JackinBox, {JackinBoxProps} from '@components/mui-jackinbox/JackinBox'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
 import Link from '@components/Link'
+import FadeIn from '@components/boxes/animate/FadeIn'
 const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {
@@ -150,8 +150,8 @@ export default function WaterYearDashboardPage() {
   const stationInfo = useMemo(
     () =>
       stationIds.reduce<StationInfo>((prev, stn) => {
-        const res = stationMetaResponse?.find(
-          (m) => m?.meta[0].sids.find((s) => s === stn)
+        const res = stationMetaResponse?.find((m) =>
+          m?.meta[0].sids.find((s) => s === stn)
         )
         const resData = res?.meta[0]
         const prevObj = prev ?? {}
@@ -568,15 +568,6 @@ export default function WaterYearDashboardPage() {
     []
   )
 
-  const Fade = useCallback(
-    ({children, ...rest}: Partial<JackinBoxProps>) => (
-      <JackinBox name="fadeIn" hideUntilAnimate {...rest}>
-        {children}
-      </JackinBox>
-    ),
-    []
-  )
-
   const ChartBox = useCallback(
     ({children, ...rest}: BoxProps) => {
       return (
@@ -736,7 +727,7 @@ export default function WaterYearDashboardPage() {
             <Type variant="h4" align="center">
               Accumulated Precipitation
             </Type>
-            <Fade animate={Boolean(precipResponse)}>
+            <FadeIn transparentUntilAnimate animate={Boolean(precipResponse)}>
               <Type
                 variant="caption"
                 align="center"
@@ -754,37 +745,41 @@ export default function WaterYearDashboardPage() {
                   </em>
                 </Type>
               </Type>
-            </Fade>
+            </FadeIn>
             <Spacing size="x-small" />
             <ChartBox height={{xs: 400, lg: 450}} position="relative">
-              <JackinBox
-                hideUntilAnimate
-                name="fadeIn"
-                animate={Boolean(precipAccumDiff)}
-                position="absolute"
-                top={54}
-                left={84}
-                zIndex={2}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 54,
+                  left: 84,
+                  zIndex: 2
+                }}
               >
-                <Paper elevation={2} square>
-                  <Box p={1}>
-                    <Type
-                      variant="caption"
-                      align="center"
-                      component="header"
-                      noWrap
-                    >
-                      <Box
-                        component="span"
-                        sx={{display: {xs: 'none', md: 'inline'}}}
+                <FadeIn
+                  transparentUntilAnimate
+                  animate={Boolean(precipAccumDiff)}
+                >
+                  <Paper elevation={2} square>
+                    <Box p={1}>
+                      <Type
+                        variant="caption"
+                        align="center"
+                        component="header"
+                        noWrap
                       >
-                        Accumulated{' '}
-                      </Box>
-                      <strong>{precipAccumDiff}%</strong> of Normal Average
-                    </Type>
-                  </Box>
-                </Paper>
-              </JackinBox>
+                        <Box
+                          component="span"
+                          sx={{display: {xs: 'none', md: 'inline'}}}
+                        >
+                          Accumulated{' '}
+                        </Box>
+                        <strong>{precipAccumDiff}%</strong> of Normal Average
+                      </Type>
+                    </Box>
+                  </Paper>
+                </FadeIn>
+              </Box>
               <PrecipAccumLine
                 precipDataset={precipDataset}
                 highYear={precipAccumHistHighYear}
@@ -798,7 +793,10 @@ export default function WaterYearDashboardPage() {
               Monthly Summarized Precipitation
             </Type>
 
-            <Fade animate={Boolean(precipMoSmryResponse)}>
+            <FadeIn
+              transparentUntilAnimate
+              animate={Boolean(precipMoSmryResponse)}
+            >
               <Type
                 variant="caption"
                 align="center"
@@ -823,7 +821,7 @@ export default function WaterYearDashboardPage() {
                   </em>
                 </Type>
               </Type>
-            </Fade>
+            </FadeIn>
             <RowBox justifyContent="flex-end" mt={3}>
               <ChildBox>
                 <FormControl
@@ -862,7 +860,7 @@ export default function WaterYearDashboardPage() {
             <Type variant="h4" align="center">
               Actual Precipitation
             </Type>
-            <Fade animate={Boolean(precipResponse)}>
+            <FadeIn transparentUntilAnimate animate={Boolean(precipResponse)}>
               <Type
                 variant="caption"
                 align="center"
@@ -871,7 +869,7 @@ export default function WaterYearDashboardPage() {
               >
                 {precipResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
               </Type>
-            </Fade>
+            </FadeIn>
             <Spacing size="x-small" />
             <ChartBox height={{xs: 650, sm: 200}}>
               <PrecipCalendar precipData={precipData} waterYear={waterYear} />
@@ -888,7 +886,10 @@ export default function WaterYearDashboardPage() {
               Observed Temperature Ranges
             </Type>
 
-            <Fade animate={Boolean(tempHistResponse?.meta)}>
+            <FadeIn
+              transparentUntilAnimate
+              animate={Boolean(tempHistResponse?.meta)}
+            >
               <Type
                 variant="caption"
                 align="center"
@@ -908,27 +909,31 @@ export default function WaterYearDashboardPage() {
                   </em>
                 </Type>
               </Type>
-            </Fade>
+            </FadeIn>
             <Spacing size="x-small" />
             <ChartBox height={{xs: 400, lg: 450}} position="relative">
-              <JackinBox
-                animate={Boolean(tempResponse?.error)}
-                name="fadeIn"
-                hideUntilAnimate
-                position="absolute"
-                top="50%"
-                left="50%"
-                zIndex={3}
-                sx={{transform: 'translate(-50%, -50%)'}}
+              <Box
+                sx={{
+                  transform: 'translate(-50%, -50%)',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  zIndex: 3
+                }}
               >
-                <Paper elevation={2} square>
-                  <Box p={1}>
-                    <Type variant="h4" align="center" color="error">
-                      <strong>{toTitleCase(tempResponse?.error)}</strong>
-                    </Type>
-                  </Box>
-                </Paper>
-              </JackinBox>
+                <FadeIn
+                  animate={Boolean(tempResponse?.error)}
+                  transparentUntilAnimate
+                >
+                  <Paper elevation={2} square>
+                    <Box p={1}>
+                      <Type variant="h4" align="center" color="error">
+                        <strong>{toTitleCase(tempResponse?.error)}</strong>
+                      </Type>
+                    </Box>
+                  </Paper>
+                </FadeIn>
+              </Box>
               <TempRangeLine tempDataset={tempDataset} />
             </ChartBox>
             <Spacing size="x-large">
@@ -937,7 +942,10 @@ export default function WaterYearDashboardPage() {
             <Type variant="h4" align="center">
               Temperature Departure From Normal
             </Type>
-            <Fade animate={Boolean(tempResponse?.meta)}>
+            <FadeIn
+              transparentUntilAnimate
+              animate={Boolean(tempResponse?.meta)}
+            >
               <Type
                 variant="caption"
                 align="center"
@@ -946,7 +954,7 @@ export default function WaterYearDashboardPage() {
               >
                 {tempResponse?.meta.name}, {`${waterYear - 1}-${waterYear}`}
               </Type>
-            </Fade>
+            </FadeIn>
             <Spacing size="x-small" />
             <ChartBox
               height={{xs: 650, sm: 200}}
@@ -954,24 +962,28 @@ export default function WaterYearDashboardPage() {
               // onMouseEnter={mouseEnterCalHandler}
               // onMouseLeave={mouseLeaveCalHandler}
             >
-              <JackinBox
-                animate={Boolean(tempResponse?.error)}
-                hideUntilAnimate
-                name="fadeIn"
-                position="absolute"
-                top="50%"
-                left="50%"
-                zIndex={2}
-                sx={{transform: 'translate(-50%, -50%)'}}
+              <Box
+                sx={{
+                  transform: 'translate(-50%, -50%)',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  zIndex: 2
+                }}
               >
-                <Paper elevation={3} square>
-                  <Box p={1}>
-                    <Type variant="h4" align="center" color="error">
-                      <strong>{toTitleCase(tempResponse?.error)}</strong>
-                    </Type>
-                  </Box>
-                </Paper>
-              </JackinBox>
+                <FadeIn
+                  animate={Boolean(tempResponse?.error)}
+                  transparentUntilAnimate
+                >
+                  <Paper elevation={3} square>
+                    <Box p={1}>
+                      <Type variant="h4" align="center" color="error">
+                        <strong>{toTitleCase(tempResponse?.error)}</strong>
+                      </Type>
+                    </Box>
+                  </Paper>
+                </FadeIn>
+              </Box>
               <TempDiffCalendar
                 tempObservedDiffData={tempObservedDiffData}
                 waterYear={waterYear}

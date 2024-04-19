@@ -15,6 +15,7 @@ export type AnimateProps = {
   hiddenUntilAnimate?: boolean
   animationEnded?: boolean
   speed?: 'fast' | 'faster' | 'fastest' | 'slow' | 'slower' | 'slowest'
+  ContainerProps?: BoxProps
 } & BoxProps
 
 const Animate = ({
@@ -34,6 +35,7 @@ const Animate = ({
   onAnimationEnd,
   animationEnded: animationEndedParam = false,
   speed,
+  ContainerProps,
   ...rest
 }: AnimateProps) => {
   const {sx, ...restBoxProps} = rest
@@ -94,13 +96,20 @@ const Animate = ({
   // Only start transparent if: User specified, and the animation has not started
   const shouldStartHidden = hiddenUntilAnimate && !animationStarted
 
+  const {sx: sxContainerProps, ...restContainerProps} = ContainerProps || {}
+
   return (
     <Box
       sx={{
         perspective: 500,
         perspectiveOrigin: 'calc(50% + 120px) 50%',
-        transformStyle: 'preserve-3d'
+        /*  This setting will break backdrop-filter, as in <StationInfo/>. It's unclear when this is actually needed
+            so leave it commented out until it's better understood. Note, it doesn't appear to be used on the animista.net website.
+        */
+        // transformStyle: 'preserve-3d'
+        ...sxContainerProps
       }}
+      {...restContainerProps}
     >
       <Box
         sx={{

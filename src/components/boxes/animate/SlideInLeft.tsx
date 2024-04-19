@@ -7,7 +7,7 @@ const SlideInLeft = ({children, ...rest}: SlideInLeftProps) => {
   return (
     <Animate
       name="slide-in-left"
-      easingFunc="cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+      easingFunc="cubic-bezier(0.250, 0.460, 0.450, 0.940)"
       duration={500}
       animate3d
       {...rest}
