@@ -31,7 +31,6 @@ Global External Styles
 // React Vertical Timeline
 // import 'react-vertical-timeline-component/style.min.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import 'animate.css'
 
 const MUI_LICENSE_KEY = process.env.NEXT_PUBLIC_MUI_X_LICENSE_KEY ?? ''
 LicenseInfo.setLicenseKey(MUI_LICENSE_KEY)

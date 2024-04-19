@@ -111,11 +111,6 @@ const PageLayout = ({
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={description} />
-        {/* <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-          key="animate.css-4.1.1"
-        /> */}
       </Head>
       <CenterProgress show={centerProgress} />
       {/* <Header/> is using a z-index of 1100 .MuiAppBar-root selector, so this modal should appear above header by over-riding styling. See https://github.com/jossmac/react-images/issues/315#issuecomment-527159930. */}
