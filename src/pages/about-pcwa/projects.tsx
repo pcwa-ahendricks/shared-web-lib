@@ -558,6 +558,86 @@ const ProjectsPage = () => {
               <ProjectChild>
                 <ConstructionProject>
                   <Type variant="h3" gutterBottom color="primary">
+                    Covey Road Pipeline Replacement
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Description
+                    </Type>
+                    <Type paragraph>
+                      The project will consist of replacing the approximately
+                      660 LF of existing 10” techite water distribution main
+                      within Covey Road, beginning west of Bridgeview Drive, up
+                      to the intersection with Edgehill Lane. The 15 existing
+                      service lines and meters will be replaced, and a new fire
+                      hydrant installed along Covey Road.
+                    </Type>
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      The project is located near the City of Auburn, along
+                      Covey Road to Edgehill Lane.
+                    </Type>
+                    <Spacing />
+                    <Type variant="subtitle1">Project Schedule</Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Spring 2024" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="End Construction - Fall 2024" />
+                      </TimelineListItem>
+                    </List>
+                  </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Spring Valley Flume Replacement
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Description
+                    </Type>
+                    <Type paragraph>
+                      The project consists of replacing a 50-foot section of
+                      elevated wooden flume section on the Boardman Canal with a
+                      new steel substructure and half round metal flume that
+                      conveys raw water.
+                    </Type>
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      The project is located near the City of Colfax, along Ben
+                      Taylor Road.
+                    </Type>
+                    <Spacing />
+                    <Type variant="subtitle1">Project Schedule</Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Spring 2024" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="End Construction - Fall 2024" />
+                      </TimelineListItem>
+                    </List>
+                  </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
                     Bickford Ranch Water Tank and Pump Station
                   </Type>
                   <Spacing>
@@ -1065,6 +1145,66 @@ const ProjectsPage = () => {
                       </TimelineListItem>
                       <TimelineListItem>
                         <ListItemText primary="End Construction - Fall 2024" />
+                      </TimelineListItem>
+                    </List>
+                    <Spacing size="x-small" />
+                    <Type variant="body2" color="primary">
+                      <strong>
+                        Sunset Blvd. (
+                        <em>Whitney to RR crossing. Not shown on map</em>)
+                      </strong>
+                    </Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Design Completion - Winter 2024" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Advertise/Award - Winter 2024" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Spring 2025" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="End Construction - Winter 2025" />
+                      </TimelineListItem>
+                    </List>
+                  </article>
+                </ConstructionProject>
+              </ProjectChild>
+              <ProjectChild>
+                <ConstructionProject>
+                  <Type variant="h3" gutterBottom color="primary">
+                    Bowman Water Treatment Plant Improvements- Phase 3
+                  </Type>
+                  <Spacing>
+                    <Divider />
+                  </Spacing>
+                  <article>
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Description
+                    </Type>
+                    <Type paragraph>
+                      The project will consist of replacing six new vertical
+                      flocculators, installing a new automatic intake screen,
+                      and replacing a section of raw water influent piping.
+                    </Type>
+                    <Spacing />
+                    <Type variant="subtitle1" gutterBottom>
+                      Project Location
+                    </Type>
+                    <Type paragraph>
+                      The project is located at the Bowman Water Treatment
+                      Plant, located near the City of Auburn, off Christian
+                      Valley Road.
+                    </Type>
+                    <Spacing />
+                    <Type variant="subtitle1">Project Schedule</Type>
+                    <List disablePadding>
+                      <TimelineListItem>
+                        <ListItemText primary="Begin Construction - Spring 2024" />
+                      </TimelineListItem>
+                      <TimelineListItem>
+                        <ListItemText primary="End Construction - Spring 2025" />
                       </TimelineListItem>
                     </List>
                   </article>
