@@ -173,7 +173,7 @@ const CrossControlPreventionPage = () => {
                       rel="noopener noreferrer"
                       underline="hover"
                     >
-                      PCWA's Backflow Testing Policy
+                      PCWA's Backflow Policy
                     </Link>
                   }
                 />
