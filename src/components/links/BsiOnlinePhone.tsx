@@ -5,8 +5,8 @@ type Props = Partial<LinkProps>
 
 const BsiOnlinePhone = ({...rest}: Props) => {
   return (
-    <Link href="tel:800-414-4990" noWrap underline="hover" {...rest}>
-      (800) 414-4990
+    <Link href="tel:888-966-6050" noWrap underline="hover" {...rest}>
+      (888) 966-6050
     </Link>
   )
 }
