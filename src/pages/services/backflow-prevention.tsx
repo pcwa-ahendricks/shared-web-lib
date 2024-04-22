@@ -251,7 +251,7 @@ const CrossControlPreventionPage = () => {
                   }
                 />
               </CompactListItem>
-              <CompactListItem>
+              {/* <CompactListItem>
                 <ListItemText
                   primary={
                     <Link
@@ -265,7 +265,7 @@ const CrossControlPreventionPage = () => {
                     </Link>
                   }
                 />
-              </CompactListItem>
+              </CompactListItem> */}
             </List>
           </Box>
         </NarrowContainer>
