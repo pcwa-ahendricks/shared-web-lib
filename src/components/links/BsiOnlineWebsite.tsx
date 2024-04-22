@@ -6,13 +6,13 @@ import {Link, LinkProps} from '@mui/material'
 const BsiOnlineWebsite = ({...rest}: LinkProps) => {
   return (
     <Link
-      href="https://www.bsionlinetracking.com"
+      href="https://bsionline.com/"
       rel="noopener noreferrer"
       target="_blank"
       underline="hover"
       {...rest}
     >
-      www.bsionlinetracking.com
+      https://bsionline.com
     </Link>
   )
 }

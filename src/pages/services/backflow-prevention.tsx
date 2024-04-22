@@ -145,7 +145,11 @@ const CrossControlPreventionPage = () => {
 
             <Type paragraph>
               For questions regarding your required backflow device testing
-              contact BSI Online at <BsiOnlinePhone /> or <BsiOnlineWebsite />.
+              contact BSI Online at <BsiOnlinePhone />, or via email at{' '}
+              <Link href="mailto:support@backflow.com">
+                support@backflow.com
+              </Link>
+              . For more information visit <BsiOnlineWebsite />.
             </Type>
             <Type paragraph>
               For more information regarding the Cross-Connection Control
