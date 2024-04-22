@@ -25,6 +25,7 @@ import Spacing from '@components/boxes/Spacing'
 import Image from 'next/legacy/image'
 import imgixLoader from '@lib/imageLoader'
 import {Theme} from '@lib/material-theme'
+import BackflowPhone from '@components/links/BackflowPhone'
 
 const CrossControlPreventionPage = () => {
   const theme = useTheme<Theme>()
@@ -153,8 +154,8 @@ const CrossControlPreventionPage = () => {
             </Type>
             <Type paragraph>
               For more information regarding the Cross-Connection Control
-              Program contact PCWA Customer Services at <MainPhone />,{' '}
-              <EightHundredPhone /> or email <BackflowEmail />.
+              Program contact PCWA Customer Services at <BackflowPhone /> or
+              email <BackflowEmail />.
             </Type>
           </Box>
           <Box mb={6} mt={6}>
@@ -169,7 +170,21 @@ const CrossControlPreventionPage = () => {
                 <ListItemText
                   primary={
                     <Link
-                      href="https://www.waterboards.ca.gov/drinking_water/certlic/drinkingwater/documents/lawbook/dwregulations-2016-09-23.pdf"
+                      href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/customer-service/Backflow%20Policy%20-%20JAN%202017-1.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      underline="hover"
+                    >
+                      PCWA's Backflow Testing Policy
+                    </Link>
+                  }
+                />
+              </CompactListItem>
+              <CompactListItem>
+                <ListItemText
+                  primary={
+                    <Link
+                      href="https://www.waterboards.ca.gov/drinking_water/certlic/drinkingwater/documents/lawbook/dwregulations-2017-04-10.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       underline="hover"
@@ -194,7 +209,7 @@ const CrossControlPreventionPage = () => {
                   }
                 />
               </CompactListItem>
-              <CompactListItem>
+              {/* <CompactListItem>
                 <ListItemText
                   primary={
                     <Link
@@ -205,6 +220,20 @@ const CrossControlPreventionPage = () => {
                     >
                       Tester List for Western Placer County - County of
                       Sacramento, Environmental Management Department
+                    </Link>
+                  }
+                />
+              </CompactListItem> */}
+              <CompactListItem>
+                <ListItemText
+                  primary={
+                    <Link
+                      href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/customer-service/Backflow%20Testing%20Companies.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      underline="hover"
+                    >
+                      Backflow Testing Companies
                     </Link>
                   }
                 />
