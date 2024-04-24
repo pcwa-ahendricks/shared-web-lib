@@ -31,7 +31,7 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
           <RowBox responsive flexSpacing={4}>
             <ChildBox flex="55%">
               <Type variant="h3" gutterBottom color="primary">
-                Let mother nature do your watering this winter
+                Let Mother Nature do your watering this winter
               </Type>
               <Type paragraph sx={{fontSize: '15pt'}}>
                 With winter's shorter and colder days, your yard should need
