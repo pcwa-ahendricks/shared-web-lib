@@ -37,6 +37,6 @@ config.gypi
 .now
 .vercel
 
-./.idea
+.idea/
 
 tsconfig.tsbuildinfo
