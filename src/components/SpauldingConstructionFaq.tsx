@@ -1,0 +1,308 @@
+import React, {useState, useCallback, SyntheticEvent} from 'react'
+import BulletIcon from 'mdi-material-ui/CircleSmall'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Typography as Type,
+  Box,
+  useTheme,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import {ColumnBox} from '@components/MuiSleazebox'
+import {Theme} from '@lib/material-theme'
+
+const SpauldingConstructionFaq = () => {
+  const theme = useTheme<Theme>()
+  const style = {
+    expansionPanel: {
+      backgroundColor: theme.palette.common.white
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(18)
+      // flexBasis: '33.33%',
+      // flexShrink: 0
+    }
+  }
+  const [expanded, setExpanded] = useState<string | false>(false)
+
+  const handleChange = useCallback(
+    (panel: string) =>
+      (_event: SyntheticEvent<Element, Event>, isExpanded: boolean) => {
+        setExpanded(isExpanded ? panel : false)
+      },
+    []
+  )
+
+  return (
+    <Box>
+      <Box
+        bgcolor={theme.palette.primary.light}
+        color={theme.palette.common.white}
+        p={2}
+        pl={3}
+        borderRadius="4px 4px 0px 0px"
+      >
+        <Type variant="subtitle1" color="inherit">
+          Frequently Asked Questions
+        </Type>
+      </Box>
+      <Accordion
+        expanded={expanded === 'panel1'}
+        onChange={handleChange('panel1')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+        >
+          <Type variant="subtitle2">What happened?</Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              PCWA is facing a water delivery problem caused by a failure in
+              Pacific Gas & Electric’s (PG&E) Drum-Spaulding hydroelectric
+              system. Corrosion and cavitation have caused leakage in a large
+              pipe inside PG&E’s Spaulding #1 Powerhouse. This pipe needs to be
+              repaired, but that can only be done by forcing an “outage” to stop
+              the flow of water through this powerhouse. The problem is that
+              about 85% of the water we provide comes from this source.
+            </Type>
+            <Type variant="body2" paragraph>
+              The leaking pipe is part of PG&E’s hydroelectric system that moves
+              water from Lake Spaulding, through a series of tunnels and
+              conduits, into Rollins Reservoir. From here, it is delivered to
+              PCWA’s delivery points along the Bear River Canal and to the
+              Nevada Irrigation District (NID).
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+      {/* <Accordion
+        expanded={expanded === 'panel2'}
+        onChange={handleChange('panel2')}
+        classes={{root: classes.expansionPanel}}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2bh-content"
+          id="panel2bh-header"
+        >
+          <Type variant="subtitle2">When will monthly billing begin?</Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              The transition will begin this summer and take two to four months
+              depending on your current billing cycle. During the transition
+              period, some bi-monthly bills may reflect more or less than 60
+              days of service, and some monthly bills may reflect more or less
+              than 30 days of service. (Customers in several PCWA service areas,
+              including Bianchi Estates, Alta, Colfax, Monte Vista and
+              Applegate, transitioned to monthly billing in 2017. Their billing
+              schedule will remain unchanged).
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion> */}
+
+      <Accordion
+        expanded={expanded === 'panel3'}
+        onChange={handleChange('panel3')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <Type variant="subtitle2">
+            Will I still be able to pay my bill online?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              Yes, you will be able to view and pay your monthly bills online.
+              PCWA also plans to present a paperless (e-bill) option this year.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === 'panel4'}
+        onChange={handleChange('panel4')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
+        >
+          <Type variant="subtitle2">
+            If I set up recurring payments (i.e. bill paid automatically from
+            your checking account), do I need to change anything?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              If your recurring payments are set up through PCWA Automatic Bill
+              Payments, you do not need to change anything – your payments will
+              automatically adjust. However, if you established recurring
+              payments through your personal banking website, you will likely
+              need to adjust the payment per the monthly due date reflected on
+              your bill.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === 'panel5'}
+        onChange={handleChange('panel5')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel5bh-content"
+          id="panel5bh-header"
+        >
+          <Type variant="subtitle2">What changes can I expect on my bill?</Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              Your water charges cover a period of one month instead of two, and
+              bill payment is now due monthly rather than bi-monthly (check the
+              top right corner of your bill for the due date).
+            </Type>
+            <Type paragraph variant="body2">
+              The meter reading and the consumption history show approximately
+              30 days. However, depending on the read date, your new bill will
+              typically reflect usage in a range of 28 to 32 days of service.
+              (Note that during the transition to monthly billing, bills will
+              likely include more or even fewer days than this range until the
+              billing cycles and readings are entirely transitioned over to the
+              30-day billing period.)
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === 'panel6'}
+        onChange={handleChange('panel6')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel6bh-content"
+          id="panel6bh-header"
+        >
+          <Type variant="subtitle2">
+            What are the benefits of monthly billing?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              Benefits of monthly billing include:
+            </Type>
+            <List dense disablePadding>
+              <ListItem>
+                <ListItemIcon>
+                  <BulletIcon />
+                </ListItemIcon>
+                <ListItemText primary="Smaller, manageable payments." />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <BulletIcon />
+                </ListItemIcon>
+                <ListItemText primary="More efficient household budgeting: Your water bill will now arrive at a similar frequency with most other utility bills such as gas and electric, making your monthly budget that much simpler." />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <BulletIcon />
+                </ListItemIcon>
+                <ListItemText primary="Timely water use information: Monitoring your water use can help you understand consumption habits and manage water costs." />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <BulletIcon />
+                </ListItemIcon>
+                <ListItemText primary="Detect possible water leaks quickly: With more timely information, you’ll easily notice if your water use is different from normal. This allows for the early detection and prompt repair of leaks, reducing the possibility of a high water bill." />
+              </ListItem>
+            </List>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === 'panel7'}
+        onChange={handleChange('panel7')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel7bh-content"
+          id="panel7bh-header"
+        >
+          <Type variant="subtitle2">
+            How is PCWA making sure customers are notified about the transition
+            to monthly billing?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              PCWA is posting information on our website and social media, and
+              reaching out to customers via newsletter, e-mail, bill messages,
+              and postcards.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+      {/* <Accordion
+        expanded={expanded === 'panel8'}
+        onChange={handleChange('panel8')}
+        classes={{root: classes.expansionPanel}}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel8bh-content"
+          id="panel8bh-header"
+        >
+          <Type variant="subtitle2">Can I pick the date my bill is due?</Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              No, you cannot pick the date that your bill is due. Check the top
+              right corner of your bill for the due date.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion> */}
+    </Box>
+  )
+}
+export default SpauldingConstructionFaq

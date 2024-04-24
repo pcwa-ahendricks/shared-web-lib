@@ -22,7 +22,7 @@ const dona = localFont({
   ]
 })
 
-const kiperman = localFont({
+export const kiperman = localFont({
   src: [
     {
       path: '../fonts/Kiperman/Kiperman-Regular-c63eb9630d.woff2',
