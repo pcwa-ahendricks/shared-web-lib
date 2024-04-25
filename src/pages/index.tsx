@@ -25,6 +25,9 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
 import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import Link from '@components/Link'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -484,6 +487,39 @@ const Index = ({
         </Type>
         <Spacing size="small" />
         <RecentNewsBar fallbackData={initialNewsBlurbsData} />
+        <Spacing />
+        <Link variant="h3" href="/newsroom/pge-water-delivery-2024">
+          Click here to find out more about PG&E Water Delivery impacts for
+          PCWA, and to see our Frequently Asked Questions
+        </Link>
+        <Box>
+          <Grid container>
+            <Grid xs={12} sm={3.95}>
+              <Image
+                src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Seasonal%20Canal%20Water%20Reductions%20_5x7_Page_2.png"
+                alt="Voluntary Raw Water Reduction Flier"
+                loader={imgixUrlLoader}
+                layout="responsive"
+                style={{objectFit: 'cover', width: '100%'}}
+                sizes="(max-width: 600px) 60vw, 40vw"
+                width={1080}
+                height={1659}
+              />
+            </Grid>
+            <Grid xs={12} sm={8.05}>
+              <Image
+                src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg"
+                alt="Lake Spaulding"
+                loader={imgixUrlLoader}
+                layout="responsive"
+                style={{objectFit: 'cover', width: '100%'}}
+                sizes="(max-width: 600px) 60vw, 40vw"
+                width={1080}
+                height={810}
+              />
+            </Grid>
+          </Grid>
+        </Box>
       </WideContainer>
     </PageLayout>
   )

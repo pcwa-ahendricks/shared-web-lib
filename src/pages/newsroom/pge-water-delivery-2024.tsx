@@ -11,6 +11,7 @@ import MainPhone from '@components/links/MainPhone'
 import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import {kiperman} from '@lib/material-theme'
 import Spacing from '@components/boxes/Spacing'
+import SpauldingConstructionFaq from '@components/SpauldingConstructionFaq'
 
 export default function ResponsiveImageTemplatePage() {
   const theme = useTheme()
@@ -105,6 +106,8 @@ export default function ResponsiveImageTemplatePage() {
               height={3840}
             />
           </Box>
+          <Spacing />
+          <SpauldingConstructionFaq />
         </WideContainer>
       </MainBox>
     </PageLayout>
