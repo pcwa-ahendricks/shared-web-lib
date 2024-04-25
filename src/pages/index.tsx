@@ -28,7 +28,6 @@ import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import Link from '@components/Link'
-import NextLink from 'next/link'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -220,7 +219,7 @@ const Index = ({
         <Spacing size="x-small" />
 
         <Box>
-          <NextLink href="/newsroom/pge-water-delivery-2024">
+          <Link noLinkStyle href="/newsroom/pge-water-delivery-2024">
             <Box>
               <Grid container>
                 <Grid xs={12} sm={3.95}>
@@ -249,7 +248,7 @@ const Index = ({
                 </Grid>
               </Grid>
             </Box>
-          </NextLink>
+          </Link>
         </Box>
 
         <Spacing size="large">
