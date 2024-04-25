@@ -12,6 +12,7 @@ import CustomerServicesEmail from '@components/links/CustomerServicesEmail'
 import {kiperman} from '@lib/material-theme'
 import Spacing from '@components/boxes/Spacing'
 import SpauldingConstructionFaq from '@components/SpauldingConstructionFaq'
+import NewsBlurb from '@components/recent-news/NewsBlurb/NewsBlurb'
 
 export default function ResponsiveImageTemplatePage() {
   const theme = useTheme()
@@ -106,7 +107,24 @@ export default function ResponsiveImageTemplatePage() {
             />
           </Box>
           <Spacing />
-          <SpauldingConstructionFaq />
+          <Grid container spacing={4}>
+            <Grid xs={12} sm={8}>
+              <SpauldingConstructionFaq />
+            </Grid>
+            <Grid xs={12} sm={4}>
+              <Type variant="h5" color="textSecondary" gutterBottom>
+                Recent News
+              </Type>
+              <Spacing size="small">
+                <NewsBlurb
+                  title="PCWA Asks Raw Water Customers for Voluntary Conservation Due to PG&E Water Delivery Problem"
+                  readMoreCaption="Read News Release..."
+                  summary="PCWA is currently facing a water delivery issue from PG&E due to infrastructure problems, and is asking raw water customers to voluntarily reduce or suspend their summer water deliveries. Damages at a PG&E facility disrupt water supply from Lake Spaulding, affecting PCWA's ability to provide water to raw water customers. The agency seeks cooperation from customers now, during the cooler months, to help mitigate the impact before the warmer months arrive."
+                  linkURL="https://www.pcwa.net/newsroom/news-releases/04-23-2024"
+                />
+              </Spacing>
+            </Grid>
+          </Grid>
         </WideContainer>
       </MainBox>
     </PageLayout>
