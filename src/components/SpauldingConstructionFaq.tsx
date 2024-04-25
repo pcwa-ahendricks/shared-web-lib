@@ -60,7 +60,7 @@ const SpauldingConstructionFaq = () => {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Type variant="subtitle2">What happened?</Type>
+          <Type variant="subtitle2">What is causing the outage?</Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
@@ -103,7 +103,7 @@ const SpauldingConstructionFaq = () => {
               At the moment, with no ability to move water from Lake Spaulding
               to Rollins Reservoir, while PG&E repairs their powerhouse, PCWA
               and NID must rely on the water currently sitting in Rollins
-              Reservoir to serve both Agencies' needs. But Rollins Reservoir is
+              Reservoir to serve both Agencies’ needs. But Rollins Reservoir is
               relatively small.
             </Type>
           </ColumnBox>
@@ -130,7 +130,8 @@ const SpauldingConstructionFaq = () => {
           <ColumnBox>
             <Type variant="body2" paragraph>
               We do not anticipate treated water customers will be affected by
-              this.
+              this outage, but we continue to encourage customers to use water
+              wisely
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -155,10 +156,9 @@ const SpauldingConstructionFaq = () => {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              We do not anticipate irrigation water customers will be affected
-              by this. However, to help us all get through this period, we’re
-              asking for voluntary reductions or temporary suspension in canal
-              water deliveries now, while it’s still cool.
+              To help us all get through this period, we’re asking for voluntary
+              reductions or temporary suspension in canal water deliveries now,
+              while it’s still cool.
             </Type>
             <Type variant="body2" paragraph>
               Customers who want to discuss their options to temporarily reduce
@@ -189,13 +189,13 @@ const SpauldingConstructionFaq = () => {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              Thankfully, PCWA’s proactive planning for scenarios like this will
-              play a huge role in getting us by. PCWA has backup supplies from
-              the American River and groundwater, and interties with neighboring
-              water providers.
+              Thankfully, PCWA’s proactive planning for scenarios like this play
+              a significant role in PCWA’s ongoing effort to deliver water
+              reliably. PCWA has backup supplies from the American River and
+              groundwater, and interties with neighboring water providers.
             </Type>
             <Type paragraph variant="body2">
-              So, while we have plans to make up for much of the lost water
+              So, while we have plans to make up for much of the delayed water
               supply, we need your help to ensure that the water currently
               available in Rollins Reservoir lasts through the duration of this
               outage.
@@ -215,7 +215,9 @@ const SpauldingConstructionFaq = () => {
           aria-controls="panel6bh-content"
           id="panel6bh-header"
         >
-          <Type variant="subtitle2">How long will this last?</Type>
+          <Type variant="subtitle2">
+            How long will the water delivery problem last?
+          </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
@@ -283,8 +285,7 @@ const SpauldingConstructionFaq = () => {
           <ColumnBox>
             <Type variant="body2" paragraph>
               We encourage our customers to check back periodically for updates
-              on the ongoing situation and any necessary actions they may need
-              to take.
+              posted on our website.
             </Type>
           </ColumnBox>
         </AccordionDetails>

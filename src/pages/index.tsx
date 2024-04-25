@@ -54,7 +54,8 @@ const imgixImages = [
   'https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg',
   // 'https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5_no_web.jpg',
-  'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg'
+  'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
+  'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg'
 ]
 
 type Props = {
@@ -488,10 +489,15 @@ const Index = ({
         <Spacing size="small" />
         <RecentNewsBar fallbackData={initialNewsBlurbsData} />
         <Spacing />
-        <Link variant="h3" href="/newsroom/pge-water-delivery-2024">
+        <Link
+          gutterBottom
+          variant="h3"
+          href="/newsroom/pge-water-delivery-2024"
+        >
           Click here to find out more about PG&E Water Delivery impacts for
           PCWA, and to see our Frequently Asked Questions
         </Link>
+        <Spacing size="x-small" />
         <Box>
           <Grid container>
             <Grid xs={12} sm={3.95}>

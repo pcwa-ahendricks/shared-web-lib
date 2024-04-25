@@ -26,12 +26,11 @@ export default function ResponsiveImageTemplatePage() {
           />
           <Type paragraph>
             PCWA is currently facing a water supply delivery problem due to
-            infrastructure damages at a PG&E facility. Damages have disrupted
-            the water delivery from Lake Spaulding, impacting our access to
-            water supplies from that source. We request our raw water customers'
-            participation in voluntarily reducing or suspending their summer
-            water deliveries to help mitigate the impact, particularly with the
-            warmer months approaching.
+            infrastructure damage at a PG&E facility. Damage has disrupted the
+            water delivery from Lake Spaulding, impacting our access to water
+            supplies from that source. Customers may voluntarily reduce or
+            suspend their summer water deliveries to help reduce the impact,
+            particularly with the warmer months approaching.
           </Type>
           <Grid container spacing={4}>
             <Grid xs={12} sm={6}>
@@ -81,9 +80,9 @@ export default function ResponsiveImageTemplatePage() {
               >
                 <em>
                   The Boardman Canal is the main artery of PCWA's raw water
-                  conveyance system. The water from PG&E's Drum-Spaulding system
+                  conveyance system. The water from PG&E’s Drum-Spaulding system
                   flows through a series of tunnels, conduits, and lakes to
-                  reach PCWA's canal system.
+                  reach PCWA’s canal system.
                 </em>
               </Type>
             </Grid>
