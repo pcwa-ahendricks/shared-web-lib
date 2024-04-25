@@ -25,6 +25,7 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
 import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
+import Link from '@components/Link'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -484,6 +485,97 @@ const Index = ({
         </Type>
         <Spacing size="small" />
         <RecentNewsBar fallbackData={initialNewsBlurbsData} />
+
+        <Spacing size="large">
+          <Divider />
+        </Spacing>
+
+        <Type variant="h5" color="textSecondary" gutterBottom>
+          Public Notices
+        </Type>
+        <Spacing size="small" />
+        <Grid container spacing={6}>
+          <Grid
+            xs
+            display="flex"
+            justifyContent="center"
+            alignItems="flex-start"
+          >
+            <Box>
+              <Type variant="subtitle2" gutterBottom>
+                NOTICE OF PUBLIC HEARING FOR RESOLUTION AUTHORIZING THE PLACER
+                COUNTY WATER AGENCY TO EXECUTE A MASTER SERVICES AGREEMENT WITH
+                VEOLIA SUSTAINABLE BUILDINGS USA WEST, INC., FOR THE FERGUSON
+                CAMPUS SOLAR PROJECT
+              </Type>
+              <Type variant="body2" paragraph>
+                NOTICE IS HEREBY GIVEN that Placer County Water Agency (PCWA)
+                Board of Directors shall hold a public hearing on May 16, 2024
+                at 2:00 pm at the regularly scheduled meeting of the PCWA Board
+                of Directors, which will be held at its Business Center, for the
+                purposes of presenting certain findings, taking public comment,
+                and considering approving a Resolution adopting the findings and
+                approving a Masters Services Agreement with Veolia Sustainable
+                Buildings USA West, Inc. for the implementation of the Ferguson
+                Campus Solar Project, which include certain energy related
+                improvements to PCWA facilities in accordance with California
+                Government Code Section 4217.10 to 4217.18. The Energy Services
+                Contract shall require that the cost to PCWA to implement the
+                energy related improvements will be less than the anticipated
+                marginal cost to PCWA of thermal, electrical, or other energy
+                that would have been consumed by PCWA in absence of purchasing
+                the energy improvements. The Business Center is located at 144
+                Ferguson Road, Auburn, CA, 95603.
+              </Type>
+              <Type variant="body2" paragraph>
+                CONTACT: Please send your comments on this agreement to: Placer
+                County Water Agency, Attention: Blake Robinson, P.O. Box 6570,
+                Auburn, CA 95604, Phone: (530) 823-2033 or email to{' '}
+                <Link noWrap href="mailto:brobinson@pcwa.net">
+                  brobinson@pcwa.net
+                </Link>
+              </Type>
+            </Box>
+          </Grid>
+          <Grid
+            xs
+            display="flex"
+            justifyContent="center"
+            alignItems="flex-start"
+          >
+            <Box>
+              <Type variant="subtitle2" gutterBottom>
+                NOTICE OF PUBLIC HEARING FOR RESOLUTION AUTHORIZING THE PLACER
+                COUNTY WATER AGENCY TO APPROVE A LOAN AGREEMENT WITH CALIFORNIA
+                ENERGY RESOURCES CONSERVATION AND DEVELOPMENT COMMISSION, FOR
+                THE FERGUSON CAMPUS SOLAR PROJECT
+              </Type>
+              <Type variant="body2" paragraph>
+                NOTICE IS HEREBY GIVEN that Placer County Water Agency (PCWA)
+                Board of Directors shall hold a public hearing on May 16, 2024
+                at 2:00 pm at the regularly scheduled meeting of the PCWA Board
+                of Directors, which will be held at its Business Center, for the
+                purposes of taking public comment, considering a Resolution that
+                adopts findings, and approves a Loan Agreement and related
+                necessary loan documents with California Energy Resources
+                Conservation and Development Commission to fund the
+                implementation of the Ferguson Campus Solar Project, which
+                include certain energy conservation improvements to PCWA
+                facilities in accordance with California Government Code Section
+                4217.10 to 4217.18. The Business Center is located at 144
+                Ferguson Road, Auburn, CA, 95603.
+              </Type>
+              <Type variant="body2" paragraph>
+                CONTACT: Please send your comments on this agreement to: Placer
+                County Water Agency, Attention: Blake Robinson, P.O. Box 6570,
+                Auburn, CA 95604, Phone: (530) 823-2033 or email to{' '}
+                <Link noWrap href="mailto:brobinson@pcwa.net">
+                  brobinson@pcwa.net
+                </Link>
+              </Type>
+            </Box>
+          </Grid>
+        </Grid>
       </WideContainer>
     </PageLayout>
   )
