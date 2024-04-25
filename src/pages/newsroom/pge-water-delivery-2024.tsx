@@ -13,6 +13,7 @@ import {kiperman} from '@lib/material-theme'
 import Spacing from '@components/boxes/Spacing'
 import SpauldingConstructionFaq from '@components/SpauldingConstructionFaq'
 import NewsBlurb from '@components/recent-news/NewsBlurb/NewsBlurb'
+import Blockquote from '@components/typography/Blockquote'
 
 export default function ResponsiveImageTemplatePage() {
   const theme = useTheme()
@@ -88,12 +89,15 @@ export default function ResponsiveImageTemplatePage() {
               </Type>
             </Grid>
           </Grid>
-          <Spacing />
-          <Type paragraph>
-            We encourage our customers to check back periodically for updates on
-            the ongoing situation and any necessary actions they may need to
-            take.
-          </Type>
+          <Spacing size="large" />
+          <Blockquote>
+            <Type paragraph variant="h4">
+              We encourage our customers to check back periodically for updates
+              on the ongoing situation and any necessary actions they may need
+              to take.
+            </Type>
+          </Blockquote>
+          <Spacing size="small" />
           <Box>
             <Image
               src="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/newsroom/pge-lake-spaulding-project-2024/SYC%20Map.png"
