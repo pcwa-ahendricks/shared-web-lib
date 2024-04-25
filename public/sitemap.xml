@@ -344,6 +344,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/newsroom/publications/year-end-report-2023</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/smart-water-use/maidu-fire-station-makeover</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -517,6 +521,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/education-center/documents/American-River-Pump-Station-Brochure</loc>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/news-releases/04-23-2024</loc>
     <changefreq>never</changefreq>
   </url>
   <url>
