@@ -26,6 +26,9 @@ import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
 import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
 import Link from '@components/Link'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import useTheme from '@hooks/useTheme'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -52,7 +55,8 @@ const imgixImages = [
   'https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg',
   // 'https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5_no_web.jpg',
-  'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg'
+  'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
+  'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg'
 ]
 
 type Props = {
@@ -85,6 +89,8 @@ const Index = ({
   // const coverStoryImageRatio = '2/1'
   // const coverStoryImageRatio = '9/4.6' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
+
+  const theme = useTheme()
 
   return (
     <PageLayout
@@ -201,6 +207,65 @@ const Index = ({
         <Spacing size="large">
           <Divider />
         </Spacing>
+
+        <Box
+          sx={{
+            [theme.breakpoints.up('sm')]: {
+              maxWidth: '60vw',
+              textAlign: 'center',
+              margin: 'auto'
+            }
+          }}
+        >
+          <Link
+            gutterBottom
+            variant="h4"
+            href="/newsroom/pge-water-delivery-2024"
+          >
+            Click here to find out more about PG&E Water Delivery impacts for
+            PCWA, and to see our Frequently Asked Questions
+          </Link>
+
+          <Spacing size="small" />
+
+          <Box>
+            <Link noLinkStyle href="/newsroom/pge-water-delivery-2024">
+              <Box>
+                <Grid container>
+                  <Grid xs={4} sm={3.95}>
+                    <Image
+                      src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Seasonal%20Canal%20Water%20Reductions%20_5x7_Page_2.png"
+                      alt="Voluntary Raw Water Reduction Flier"
+                      loader={imgixUrlLoader}
+                      layout="responsive"
+                      style={{objectFit: 'cover', width: '100%'}}
+                      sizes="(max-width: 600px) 60vw, 40vw"
+                      width={1080}
+                      height={1659}
+                    />
+                  </Grid>
+                  <Grid xs={8} sm={8.05}>
+                    <Image
+                      src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg"
+                      alt="Lake Spaulding"
+                      loader={imgixUrlLoader}
+                      layout="responsive"
+                      style={{objectFit: 'cover', width: '100%'}}
+                      sizes="(max-width: 600px) 60vw, 40vw"
+                      width={1080}
+                      height={810}
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+            </Link>
+          </Box>
+        </Box>
+
+        <Spacing size="large">
+          <Divider />
+        </Spacing>
+
         {/* Ross wanted the 4 items center aligned for the time being. When <LatestNewsRelease/> is added back to this page we can cut over to the row wrapping flex box layout. */}
         {/* Ross REALLY wants these centered, no matter what. */}
         <Grid
