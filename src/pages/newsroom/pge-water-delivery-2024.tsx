@@ -100,8 +100,8 @@ export default function ResponsiveImageTemplatePage() {
           <Spacing size="small" />
           <Box>
             <Image
-              src="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/newsroom/pge-lake-spaulding-project-2024/SYC%20Map.png"
-              alt="Water flowing down PCWA's Boardman Canal"
+              src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/South%20Yuba%20Canal%20Map.png"
+              alt="PG&E Mountain Division South Yuba Lower Map"
               loader={imgixUrlLoader}
               layout="responsive"
               style={{objectFit: 'cover', width: '100%'}}

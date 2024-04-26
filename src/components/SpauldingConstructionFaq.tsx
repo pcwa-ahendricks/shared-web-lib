@@ -103,8 +103,7 @@ const SpauldingConstructionFaq = () => {
               At the moment, with no ability to move water from Lake Spaulding
               to Rollins Reservoir, while PG&E repairs their powerhouse, PCWA
               and NID must rely on the water currently sitting in Rollins
-              Reservoir to serve both Agencies’ needs. But Rollins Reservoir is
-              relatively small.
+              Reservoir to serve both Agencies’ needs.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -224,10 +223,9 @@ const SpauldingConstructionFaq = () => {
             <Type variant="body2" paragraph>
               PG&E is moving forward with a plan to partially restore water
               deliveries in mid-June, but full repair of the failed
-              infrastructure isn’t expected until the end of the summer,
-              delaying the full restoration of water supply into late fall,
-              which means that PG&E’s water delivery problem will likely persist
-              through the hot summer months.
+              infrastructure isn’t expected until late fall, which means that
+              PG&E’s water delivery constraint will persist through the hot
+              summer months.
             </Type>
           </ColumnBox>
         </AccordionDetails>
