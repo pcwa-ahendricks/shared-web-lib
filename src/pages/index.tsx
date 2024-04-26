@@ -318,10 +318,10 @@ const Index = ({
                 target: '_blank'
               }}
               // width={tileWidth}
-              title="PCWA 2023 Annual Budget"
-              imgixURL="https://imgix.cosmicjs.com/62748ce0-5fb8-11ed-8cf5-3be6a6f9365d-PCWA-2023-Adopted-Budget-for-Website.pdf"
-              linkHref="https://docs.pcwa.net/pcwa-2023-annual-budget.pdf"
-              alt="Thumbnail and link for PCWA 2023 Annual Budget"
+              title="PCWA 2024 Annual Budget"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/financial/2024%20Adopted%20Agency%20Budget%20for%20Website.pdf"
+              linkHref="https://docs.pcwa.net/pcwa-2024-annual-budget.pdf"
+              alt="Thumbnail and link for PCWA 2024 Annual Budget"
               imgixParams={{crop: 'top'}}
             />
           </Grid>
