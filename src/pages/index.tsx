@@ -204,7 +204,8 @@ const Index = ({
           </Grid>
         </Grid>
 
-        <Spacing size="large">
+        {/* If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block */}
+        {/* <Spacing size="large">
           <Divider />
         </Spacing>
 
@@ -260,7 +261,7 @@ const Index = ({
               </Box>
             </Link>
           </Box>
-        </Box>
+        </Box> */}
 
         <Spacing size="large">
           <Divider />
