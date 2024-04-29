@@ -28,9 +28,9 @@ import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
 import Link from '@components/Link'
 
 // If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (1/3)
-// import Image from 'next/image'
-// import {imgixUrlLoader} from '@lib/imageLoader'
-// import useTheme from '@hooks/useTheme'
+import Image from 'next/image'
+import {imgixUrlLoader} from '@lib/imageLoader'
+import useTheme from '@hooks/useTheme'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -56,7 +56,7 @@ const imgixImages = [
   'https://imgix.cosmicjs.com/c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png',
   'https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg',
   // 'https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg',
-  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5_no_web.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg',
   'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
   'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg'
 ]
@@ -93,7 +93,7 @@ const Index = ({
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
 
   // If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (2/3)
-  // const theme = useTheme()
+  const theme = useTheme()
 
   return (
     <PageLayout
@@ -136,7 +136,7 @@ const Index = ({
               title="Resilient and Beautiful"
               readMore="Learn more"
               linkHref="/smart-water-use/summer-strong"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5_no_web.jpg"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg"
               alt="Margarita BOP Penstemon, Summer Strong Low-Water Use Plant of the Month"
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
@@ -208,7 +208,7 @@ const Index = ({
         </Grid>
 
         {/* If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (3/3)  */}
-        {/* <Spacing size="large">
+        <Spacing size="large">
           <Divider />
         </Spacing>
 
@@ -264,7 +264,7 @@ const Index = ({
               </Box>
             </Link>
           </Box>
-        </Box> */}
+        </Box>
 
         <Spacing size="large">
           <Divider />

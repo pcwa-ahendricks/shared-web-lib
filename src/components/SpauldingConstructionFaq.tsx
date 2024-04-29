@@ -66,12 +66,12 @@ const SpauldingConstructionFaq = () => {
           <ColumnBox>
             <Type variant="body2" paragraph>
               PCWA is facing a water delivery problem caused by a failure in
-              Pacific Gas & Electric’s (PG&E) Drum-Spaulding hydroelectric
-              system. Corrosion and cavitation have caused leakage in a large
-              pipe inside PG&E’s Spaulding #1 Powerhouse. This pipe needs to be
-              repaired, but that can only be done by forcing an “outage” to stop
-              the flow of water through this powerhouse. The problem is that
-              about 85% of the water we provide comes from this source.
+              Pacific Gas and Electric’s (PG&E) Drum-Spaulding hydroelectric
+              system. A leak was discovered in a large pipe inside PG&E's
+              Spaulding #1 Powerhouse. This pipe needs to be repaired, but that
+              can only be done by forcing an “outage” to stop the flow of water
+              through this powerhouse. The problem is that about 85% of the
+              water we provide comes from this source.
             </Type>
             <Type variant="body2" paragraph>
               The leaking pipe is part of PG&E’s hydroelectric system that moves
