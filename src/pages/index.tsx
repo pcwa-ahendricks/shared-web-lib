@@ -26,9 +26,11 @@ import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
 import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
 import Link from '@components/Link'
-import Image from 'next/image'
-import {imgixUrlLoader} from '@lib/imageLoader'
-import useTheme from '@hooks/useTheme'
+
+// If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (1/3)
+// import Image from 'next/image'
+// import {imgixUrlLoader} from '@lib/imageLoader'
+// import useTheme from '@hooks/useTheme'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -90,7 +92,8 @@ const Index = ({
   // const coverStoryImageRatio = '9/4.6' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
 
-  const theme = useTheme()
+  // If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (2/3)
+  // const theme = useTheme()
 
   return (
     <PageLayout
@@ -204,7 +207,7 @@ const Index = ({
           </Grid>
         </Grid>
 
-        {/* If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block */}
+        {/* If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (3/3)  */}
         {/* <Spacing size="large">
           <Divider />
         </Spacing>
