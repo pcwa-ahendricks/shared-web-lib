@@ -14,7 +14,7 @@ import Spacing from '@components/boxes/Spacing'
 import SpauldingConstructionFaq from '@components/SpauldingConstructionFaq'
 import NewsBlurb from '@components/recent-news/NewsBlurb/NewsBlurb'
 import Blockquote from '@components/typography/Blockquote'
-import {GetStaticProps} from 'next'
+import {GetServerSideProps} from 'next'
 
 export default function ResponsiveImageTemplatePage() {
   const theme = useTheme()
@@ -137,7 +137,7 @@ export default function ResponsiveImageTemplatePage() {
 }
 
 // Delete (or comment out) the following function to enable this page at the request of CS. In the meantime it will redirect to the homepage.
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     redirect: {
       destination: '/',
