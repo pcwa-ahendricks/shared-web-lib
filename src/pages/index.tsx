@@ -25,8 +25,8 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
 //import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
+import HeroImage from '@components/hero/HeroImage'
 import Link from '@components/Link'
-import HeroImage from '@components/hero/ParallaxHeroImage'
 
 const FETCHER_TIMEOUT = 2000
 
