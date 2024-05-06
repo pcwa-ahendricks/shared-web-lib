@@ -24,13 +24,9 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
-import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
+//import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
+import HeroImage from '@components/hero/HeroImage'
 import Link from '@components/Link'
-
-// If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (1/3)
-import Image from 'next/image'
-import {imgixUrlLoader} from '@lib/imageLoader'
-import useTheme from '@hooks/useTheme'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -56,8 +52,12 @@ const imgixImages = [
   'https://imgix.cosmicjs.com/c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png',
   'https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg',
   // 'https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg',
+  'https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg',
+  'https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg',
-  'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg',
+  'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg',
+  //'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
   'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg'
 ]
 
@@ -92,8 +92,6 @@ const Index = ({
   // const coverStoryImageRatio = '9/4.6' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
 
-  // If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (2/3)
-  const theme = useTheme()
 
   return (
     <PageLayout
@@ -114,8 +112,8 @@ const Index = ({
         </Box>
       </Link> */}
 
-      {/* <HeroImage /> */}
-      <HeroYearEnd />
+      <HeroImage />
+      {/*<HeroYearEnd />*/}
 
       {/* <Hidden only="xs" implementation="css">
         <TrendingBar />
@@ -133,25 +131,25 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Resilient and Beautiful"
+              title="Your Water Quality Matters"
               readMore="Learn more"
-              linkHref="/smart-water-use/summer-strong"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg"
-              alt="Margarita BOP Penstemon, Summer Strong Low-Water Use Plant of the Month"
-              body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
+              linkHref="/services/water-quality"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg"
+              alt="Water Quality Matters"
+              body="PCWA proudly ensures safe and reliable drinking water that surpasses state and federal standards. The 2023 water quality test results are now available in our Consumer Confidence Reports."
             />
           </Grid>
 
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Mulch Mayhem Coming Soon"
-              readMore="Find out more"
-              linkHref="/smart-water-use/mulch-mayhem-2024"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg"
+              title="2023 Annual Report "
+              readMore="Read our 2023 Year End Report"
+              linkHref="/newsroom/publications/year-end-report"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png"
               // imgixParams={{crop: 'right'}}
-              alt="Mulch Mayhem Event flier"
-              body="Join us for Mulch Mayhem on Saturday, May 4th starting at 8:00 am. Free mulch available on a first-come, first-served basis while supplies last."
+              alt="2023 Annual Report "
+              body="Each year, PCWA compiles a beautifully illustrated report showcasing how Placer County Water Agency continues to serve the community and safeguard our water resources for our future. "
             />
           </Grid>
         </Grid>
@@ -160,13 +158,12 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Paperless Billing Available"
-              readMore="Go paperless today"
-              linkHref="/services/why-go-paperless"
-              imgixURL="https://imgix.cosmicjs.com/4e155de0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_Paperless.jpg"
-              alt="Go paperless"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              body="Customers can now receive bill notifications via text and email. Log into your account through the Paymentus portal and toggle the Paperless option to YES."
+              title="Resilient and Beautiful"
+              readMore="Learn more"
+              linkHref="/smart-water-use/summer-strong"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg"
+              alt="Margarita BOP Penstemon, Summer Strong Low-Water Use Plant of the Month"
+              body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
           </Grid>
 
@@ -206,65 +203,32 @@ const Index = ({
             /> */}
           </Grid>
         </Grid>
+        <Spacing />
+        <Grid container spacing={5}>
+          <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Maximize Your Savings with PCWA Rebates"
+              readMore="Start Saving Today"
+              linkHref="/smart-water-use/rebate-programs"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg"
+              alt="PCWA Rebates"
+              body="Take advantage of Placer County Water Agency's enahnced rebates for water-wise upgrades at your home or business, now offering increased amounts to maximize your conservation efforts effortlessly."
+            />
+          </Grid>
 
-        {/* If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (3/3)  */}
-        <Spacing size="large">
-          <Divider />
-        </Spacing>
-
-        <Box
-          sx={{
-            [theme.breakpoints.up('sm')]: {
-              maxWidth: '60vw',
-              textAlign: 'center',
-              margin: 'auto'
-            }
-          }}
-        >
-          <Link
-            gutterBottom
-            variant="h4"
-            href="/newsroom/pge-water-delivery-2024"
-          >
-            Click here to find out more about PG&E Water Delivery impacts for
-            PCWA, and to see our Frequently Asked Questions
-          </Link>
-
-          <Spacing size="small" />
-
-          <Box>
-            <Link noLinkStyle href="/newsroom/pge-water-delivery-2024">
-              <Box>
-                <Grid container>
-                  <Grid xs={4} sm={3.95}>
-                    <Image
-                      src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Seasonal%20Canal%20Water%20Reductions%20_5x7_Page_2.png"
-                      alt="Voluntary Raw Water Reduction Flier"
-                      loader={imgixUrlLoader}
-                      layout="responsive"
-                      style={{objectFit: 'cover', width: '100%'}}
-                      sizes="(max-width: 600px) 60vw, 40vw"
-                      width={1080}
-                      height={1659}
-                    />
-                  </Grid>
-                  <Grid xs={8} sm={8.05}>
-                    <Image
-                      src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg"
-                      alt="Lake Spaulding"
-                      loader={imgixUrlLoader}
-                      layout="responsive"
-                      style={{objectFit: 'cover', width: '100%'}}
-                      sizes="(max-width: 600px) 60vw, 40vw"
-                      width={1080}
-                      height={810}
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-            </Link>
-          </Box>
-        </Box>
+          <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Voluntary Seasonal Canal Water Reductions"
+              readMore="Learn more"
+              linkHref="/newsroom/pge-water-delivery-2024"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg"
+              alt="Voluntary Seasonal Canal Water Reductions"
+              body="Due to a PG&E infrastructure failure impacting water supply to PCWA, we are offering customers the option to voluntarily, temporarily reduce or suspend canal water deliveries for the summer season."
+            />
+          </Grid>
+        </Grid>
 
         <Spacing size="large">
           <Divider />
