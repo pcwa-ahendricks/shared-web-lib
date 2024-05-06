@@ -54,6 +54,8 @@ const imgixImages = [
   'https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg',
   'https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg',
+  'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg',
   //'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
   'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg'
 ]
@@ -205,25 +207,24 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Your Water Quality Matters"
-              readMore="Learn more"
-              linkHref="/services/water-quality"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg"
-              alt="Water Quality Matters"
-              body="PCWA proudly ensures safe and reliable drinking water that surpasses state and federal standards. The 2023 water quality test results are now available in our Consumer Confidence Reports."
+              title="Maximize Your Savings with PCWA Rebates"
+              readMore="Start Saving Today"
+              linkHref="/smart-water-use/rebate-programs"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg"
+              alt="PCWA Rebates"
+              body="Take advantage of Placer County Water Agency's enahnced rebates for water-wise upgrades at your home or business, now offering increased amounts to maximize your conservation efforts effortlessly."
             />
           </Grid>
 
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="2023 Annual Report "
-              readMore="Read our 2023 Year End Report"
-              linkHref="/newsroom/publications/year-end-report"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png"
-              // imgixParams={{crop: 'right'}}
-              alt="2023 Annual Report "
-              body="Each year, PCWA compiles a beautifully illustrated report showcasing how Placer County Water Agency continues to serve the community and safeguard our water resources for our future. "
+              title="Voluntary Seasonal Canal Water Reductions"
+              readMore="Learn more"
+              linkHref="/newsroom/pge-water-delivery-2024"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg"
+              alt="Voluntary Seasonal Canal Water Reductions"
+              body="Due to a PG&E infrastructure failure impacting water supply to PCWA, we are offering customers the option to voluntarily, temporarily reduce or suspend canal water deliveries for the summer season."
             />
           </Grid>
         </Grid>
