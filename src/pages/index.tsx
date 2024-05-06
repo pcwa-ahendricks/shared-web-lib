@@ -27,11 +27,6 @@ import pTimeout from 'p-timeout'
 import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
 import Link from '@components/Link'
 
-// If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (1/3)
-import Image from 'next/image'
-import {imgixUrlLoader} from '@lib/imageLoader'
-import useTheme from '@hooks/useTheme'
-
 const FETCHER_TIMEOUT = 2000
 
 const imgixImages = [
@@ -94,8 +89,6 @@ const Index = ({
   // const coverStoryImageRatio = '9/4.6' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
 
-  // If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (2/3)
-  const theme = useTheme()
 
   return (
     <PageLayout
@@ -234,65 +227,6 @@ const Index = ({
             />
           </Grid>
         </Grid>
-
-        {/* If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (3/3)  */}
-        <Spacing size="large">
-          <Divider />
-        </Spacing>
-
-        <Box
-          sx={{
-            [theme.breakpoints.up('sm')]: {
-              maxWidth: '60vw',
-              textAlign: 'center',
-              margin: 'auto'
-            }
-          }}
-        >
-          <Link
-            gutterBottom
-            variant="h4"
-            href="/newsroom/pge-water-delivery-2024"
-          >
-            Click here to find out more about PG&E Water Delivery impacts for
-            PCWA, and to see our Frequently Asked Questions
-          </Link>
-
-          <Spacing size="small" />
-
-          <Box>
-            <Link noLinkStyle href="/newsroom/pge-water-delivery-2024">
-              <Box>
-                <Grid container>
-                  <Grid xs={4} sm={3.95}>
-                    <Image
-                      src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Seasonal%20Canal%20Water%20Reductions%20_5x7_Page_2.png"
-                      alt="Voluntary Raw Water Reduction Flier"
-                      loader={imgixUrlLoader}
-                      layout="responsive"
-                      style={{objectFit: 'cover', width: '100%'}}
-                      sizes="(max-width: 600px) 60vw, 40vw"
-                      width={1080}
-                      height={1659}
-                    />
-                  </Grid>
-                  <Grid xs={8} sm={8.05}>
-                    <Image
-                      src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg"
-                      alt="Lake Spaulding"
-                      loader={imgixUrlLoader}
-                      layout="responsive"
-                      style={{objectFit: 'cover', width: '100%'}}
-                      sizes="(max-width: 600px) 60vw, 40vw"
-                      width={1080}
-                      height={810}
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-            </Link>
-          </Box>
-        </Box>
 
         <Spacing size="large">
           <Divider />
