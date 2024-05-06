@@ -207,6 +207,33 @@ const Index = ({
             /> */}
           </Grid>
         </Grid>
+        <Spacing />
+        <Grid container spacing={5}>
+          <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Your Water Quality Matters"
+              readMore="Learn more"
+              linkHref="/services/water-quality"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg"
+              alt="Water Quality Matters"
+              body="PCWA proudly ensures safe and reliable drinking water that surpasses state and federal standards. The 2023 water quality test results are now available in our Consumer Confidence Reports."
+            />
+          </Grid>
+
+          <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="2023 Annual Report "
+              readMore="Read our 2023 Year End Report"
+              linkHref="/newsroom/publications/year-end-report"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png"
+              // imgixParams={{crop: 'right'}}
+              alt="2023 Annual Report "
+              body="Each year, PCWA compiles a beautifully illustrated report showcasing how Placer County Water Agency continues to serve the community and safeguard our water resources for our future. "
+            />
+          </Grid>
+        </Grid>
 
         {/* If CS wants to post the Lake Spaulding PG&E construction page, uncomment the following block. (3/3)  */}
         <Spacing size="large">
