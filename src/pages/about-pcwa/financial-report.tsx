@@ -16,7 +16,7 @@ import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'
 // import Spacing from '@components/boxes/Spacing'
 import Image from 'next/legacy/image'
-import imgixLoader from '@lib/imageLoader'
+import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import Spacing from '@components/boxes/Spacing'
 import useTheme from '@hooks/useTheme'
 
@@ -74,8 +74,8 @@ const EmployeeBenefitsSummaryPage = () => {
               width={{xs: '50vw', sm: 'inherit'}} // Don't let portrait image get too big in small layouts.
             >
               <Image
-                loader={imgixLoader}
-                src="5b811d20-0b0e-11ee-ae37-df4d4894726e-PCWA-2022-Annual-Report-for-Web.pdf"
+                loader={imgixUrlLoader}
+                src="https://pcwa.imgix.net/pcwa-net/financial/acfr/PCWA%2023%20ACFR%20For%20Website.pdf"
                 layout="responsive"
                 sizes="(max-width: 600px) 50vw, 20vw"
                 width={85}
