@@ -16,7 +16,7 @@ import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import FancyButton from '@components/FancyButton/FancyButton'
 // import Spacing from '@components/boxes/Spacing'
 import Image from 'next/legacy/image'
-import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
+import {imgixUrlLoader} from '@lib/imageLoader'
 import Spacing from '@components/boxes/Spacing'
 import useTheme from '@hooks/useTheme'
 
