@@ -264,7 +264,7 @@ const SmartWaterUsePage = () => {
                       <Image
                         layout="responsive"
                         loader={imgixUrlLoader}
-                        src="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg"
+                        src="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_WesternRedbud_8_5.jpg"
                         width={1280}
                         height={800}
                         alt="Margarita BOP Penstemon, Summer Strong Low-Water Use Plant of the Month"

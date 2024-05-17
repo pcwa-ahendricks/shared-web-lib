@@ -54,7 +54,8 @@ const imgixImages = [
   // 'https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg',
   'https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg',
   'https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png',
-  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg',
+  // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_WesternRedbud_8_5.jpg',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg',
   'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg',
   //'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
@@ -91,7 +92,6 @@ const Index = ({
   // const coverStoryImageRatio = '2/1'
   // const coverStoryImageRatio = '9/4.6' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
-
 
   return (
     <PageLayout
@@ -161,8 +161,8 @@ const Index = ({
               title="Resilient and Beautiful"
               readMore="Learn more"
               linkHref="/smart-water-use/summer-strong"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_MargaritaBOP_8.5.jpg"
-              alt="Margarita BOP Penstemon, Summer Strong Low-Water Use Plant of the Month"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_WesternRedbud_8_5.jpg"
+              alt="Western Redbud, Summer Strong Low-Water Use Plant of the Month"
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />
           </Grid>

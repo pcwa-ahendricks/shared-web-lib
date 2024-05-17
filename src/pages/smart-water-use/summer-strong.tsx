@@ -11,11 +11,11 @@ import {
   useTheme,
   TypographyProps
 } from '@mui/material'
-// import LeafIcon from 'mdi-material-ui/Leaf'
+import LeafIcon from 'mdi-material-ui/Leaf'
 // import BirdIcon from 'mdi-material-ui/Bird'
 // import StarsIcon from 'mdi-material-ui/Creation'
 // import SunIcon from 'mdi-material-ui/WhiteBalanceSunny'
-import TitleIcon from '@mui/icons-material/LocalFlorist'
+// import TitleIcon from '@mui/icons-material/LocalFlorist'
 import Image from 'next/legacy/image'
 import NextLink from 'next/link'
 import imgixLoader from '@lib/imageLoader'
@@ -34,6 +34,7 @@ import CrapeMyrtleAccordion from '@components/summer-strong/CrapeMyrtleAccordion
 import VerbenaAccordion from '@components/summer-strong/VerbenaAccordion'
 import SantaBarbaraDaisyAccordion from '@components/summer-strong/SantaBarbaraDaisyAccordion'
 import FuchsiaAccordion from '@components/summer-strong/FuchsiaAccordion'
+import FoothillPenstemonAccordion from '@components/summer-strong/FoothillPenstemonAccordion'
 
 type Props = {
   placeholders: Placeholders
@@ -147,25 +148,25 @@ export default function SummerStrongPage({placeholders}: Props) {
               <Spacing />
               <RowBox>
                 {/* <LeafIcon color="secondary" sx={{marginRight: '8px'}} /> */}
+                <LeafIcon sx={{marginRight: '8px', color: purple[300]}} />
                 {/* <BirdIcon
                   sx={{marginRight: '8px', color: blueGrey[500], fontSize: 32}}
                 /> */}
                 {/* <SunIcon
                   sx={{marginRight: '8px', color: orange[400], fontSize: 32}}
                 /> */}
-                <TitleIcon
+                {/* <TitleIcon
                   sx={{marginRight: '8px', color: purple[300], fontSize: 32}}
-                />
+                /> */}
                 {/* <Type variant="h3" gutterBottom>
                   A Butterfly Buffet!
                 </Type>*/}
                 <Type variant="h3" gutterBottom>
-                  {/* GO NATIVE! */}
-                  SPRING WILDFLOWERS!
+                  {/* GO NATIVE! */}A FOUR-SEASON SENSATION
                 </Type>
               </RowBox>
               {/* <Type variant="h3">Cleveland Sage (and other Salvias)</Type> */}
-              <Type variant="h3">Margarita BOP Penstemon</Type>
+              <Type variant="h3">Western Redbud</Type>
             </ChildBox>
             <ChildBox
               flex="15%"
@@ -182,21 +183,44 @@ export default function SummerStrongPage({placeholders}: Props) {
             <RowBox flexSpacing={6} responsive>
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
-                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/N%20Penstemon%20Margarita%20BOP%204-17.JPG"
-                  mediaName="California Fuchsia wide angle"
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/western_redbud.jpg"
+                  mediaName="Western Redbud"
                   MediaPreviewDialogProps={{
                     ImageProps: {
-                      width: 5184,
-                      height: 3456
+                      width: 1193,
+                      height: 1536
                     }
                   }}
                 >
                   <ImageFancier
-                    alt="California Fuchsia wide angle"
-                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/N%20Penstemon%20Margarita%20BOP%204-17.JPG${imgixArParams}`}
+                    alt="Western Redbud"
+                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/western_redbud.jpg${imgixArParams}`}
                     // 5/4 image aspect ratio
-                    width={1975}
-                    height={1580}
+                    width={1193}
+                    height={954}
+                    defaultGrey
+                    sizes="(max-width: 600px) 100vw, 33vw"
+                    objectFit="contain"
+                  />
+                </MediaDialogOnClick>
+              </ChildBox>
+              <ChildBox flex="0 1 33%">
+                <MediaDialogOnClick
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/western_redbud_bee.jpg"
+                  mediaName="Western Redbud with bee"
+                  MediaPreviewDialogProps={{
+                    ImageProps: {
+                      width: 5044,
+                      height: 3363
+                    }
+                  }}
+                >
+                  <ImageFancier
+                    alt="Western Redbud with bee"
+                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/western_redbud_bee.jpg${imgixArParams}`}
+                    // 5/4 image aspect ratioi
+                    width={4204}
+                    height={3363}
                     defaultGrey
                     sizes="(max-width: 600px) 100vw, 33vw"
                     objectFit="contain"
@@ -209,77 +233,86 @@ export default function SummerStrongPage({placeholders}: Props) {
             </RowBox>
           </Box>
           <Spacing size="x-large" />
-          <Type variant="h4">
-            ‘Margarita BOP’ Penstemon or ‘Margarita BOP’ Foothill Penstemon{' '}
-          </Type>
+          <Type variant="h4">Western redbud</Type>
           <Type variant="subtitle1" gutterBottom>
-            <em>Penstemon heterophyllus ‘Margarita BOP’</em>
+            <em>Cercis occidentalis</em>
           </Type>
           <Spacing size="small" />
           <Type variant="subtitle1" gutterBottom>
-            <em>By Laurie Meyerpeter, Master Gardener</em>
+            <em>By Debbie Arrington, Sacramento Digs Gardening</em>
           </Type>
           <Type paragraph>
-            What's with that name? Margarita BOP? …BOP??!?!! The “BOP” is short
-            for “Bottom Of the Porch”! It's a natural hybrid from Las Pilitas
-            Nursery and it was growing at the “bottom of the porch,” hence the
-            BOP part of its name. The nursery took note of what a heavy bloomer
-            it was and how tough the plant was (despite getting run over by
-            bicycles, skateboards and dogs) and began to propagate it.
+            See purple? Think redbud. Native to the Sierra foothills, the
+            Western redbud (Cercis occidentalis) is the ultimate right plant in
+            the right place for Placer County. With its abundant early spring
+            flowers in shades of pink-purple, it supports native bees,
+            especially leafcutter bees that love its leaves, too. (They line
+            their nests with circles of foliage.)
           </Type>
           <Type paragraph>
-            It's a California native. It's actually a hybrid of probably two
-            native penstemons. One parent is our own local Foothill Penstemon,
-            and it is thought that one grandparent may be{' '}
-            <em>Penstemon laetus</em>, also a California native. Because it’s a
-            hybrid, it exhibits a trait called hybrid vigor and the plant is
-            extremely floriferous. The Placer County Master Gardeners were
-            testing it in their Demo Garden a few years back, alongside a
-            standard Foothill Penstemon, comparing how many pollinators each
-            plant attracted and Margarita BOP Penstemon won hands down, simply
-            because it had more flowers than its more ordinary sibling.
+            Related to peas and legumes, Western redbud is among California’s
+            most popular and showy native shrubs or small trees, offering
+            year-round garden interest. They’re a natural for low-water foothill
+            gardens and often among the first plants to bloom, signaling the
+            coming of spring. Much appreciated by hungry bees, redbud flowers
+            pop before the season’s first robin chirps.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bloom</StrongGrey>: A spring bloomer, ‘Margarita BOP’
-            Penstemon has stalks of clear, sky blue blossoms that change to a
-            stunning purple as they begin to fade. Swoon! If you keep the dead
-            flowers clipped off, it will bloom again.
+            Bright-green heart-shaped leaves emerge after that eye-catching
+            flush of flowers. In fall, rusty red-brown decorative seed pods
+            dangle from the branches, adding more garden flair. Even the bare
+            brown branches are attractive in winter.
+          </Type>
+          <Type paragraph>
+            Once established, Western redbud is as tough as nails, needing only
+            monthly (if any) summer irrigation. They do their best with good
+            drainage—a spot where water doesn’t accumulate or stand, especially
+            in winter—and tolerate both clay and rocky soils.
+          </Type>
+          <Type paragraph>
+            Although they love Placer County, redbuds aren’t for all of
+            California. All redbud varieties need four distinct seasons and a
+            little winter chill to be successful; this plant can’t cope on the
+            coast.
+          </Type>
+          <Type paragraph>
+            <StrongGrey>Bloom</StrongGrey>: With vibrant pink-purple blooms,
+            redbuds flower in big clusters directly on their smooth brown bark
+            in late winter through early spring, February-April.
           </Type>
           <Type paragraph>
             <StrongGrey>Water needs</StrongGrey>: Low to very low, once
             established.
           </Type>
           <Type paragraph>
-            <StrongGrey>Sun</StrongGrey>: Full sun, part shade.
+            <StrongGrey>Sun</StrongGrey>:Full sun; some hybrids can take partial
+            shade.
           </Type>
           <Type paragraph>
-            <StrongGrey>Size</StrongGrey>: ‘Margarita BOP’ is roughly 1-2’ tall
-            with a 2-3’ spread, depending on location.
+            <StrongGrey>Size</StrongGrey>: Western redbud grows as a large
+            deciduous shrub (with multiple trunks); other redbuds such as
+            Oklahoma redbud (C. reniformis) can be shaped into a small tree
+            (with a single trunk). Western redbuds can reach 20 feet tall (with
+            too much water) but usually stay 7 to 10 feet.
           </Type>
           <Type paragraph>
-            <StrongGrey>Care</StrongGrey>: Low water requirements. Snip the dead
-            flowers and you may get a second and third bloom.
+            <StrongGrey>Care</StrongGrey>: Low water requirements after the
+            first two years, once the roots are well established. During winter
+            dormancy after it loses its leaves, prune the tree gently to shape
+            as it matures, removing any dead or diseased wood.
           </Type>
           <Type paragraph>
-            <StrongGrey>Availability</StrongGrey>: ‘Margarita BOP’ Penstemon is
-            seasonally available just about everywhere in the spring. Other
-            penstemons include the native Foothill Penstemon, often available at
-            native plant nurseries and native plant sales, and other hybrid
-            penstemons and cultivars like <em>'Electric Blue'</em>,{' '}
-            <em>'Blue Spring'</em> and
-            <em>'Catherine De La Mare'</em>, also available at seasonally at
-            select local nurseries. Collect them all!
+            <StrongGrey>Availability</StrongGrey>: Western redbud is widely sold
+            at local nurseries such as Green Acres Nursery & Supply. Big-box
+            stores tend to carry other redbud cultivars such as Oklahoma and
+            Eastern redbud hybrids (C. Canadensis), which need more irrigation.
+            All redbuds like Placer County.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bonus plants</StrongGrey>: For your own spring
-            superbloom, combine ‘Margarita BOP’ Penstemon with California native
-            wildflowers. Toss some California poppy seeds around ‘Margarita BOP’
-            in the fall or early spring for a stunning combination. ‘Island
-            Pink’ Yarrow, <em>Achillea millefolium ‘Island Pink’</em> is another
-            native cultivar (and a UC Davis Arboretum All Star) and ‘Margarita
-            BOP’s blue blossoms combine well with the pink yarrow flowers,
-            blooming at roughly the same time. Various yarrows are widely
-            available at local nurseries.
+            <StrongGrey>Bonus plants</StrongGrey>: Western redbud makes a good
+            accent tree or shrub among other low-water California natives such
+            as California lilacs (Ceanothus), California fuchsia (Epilobium
+            canum), or Cleveland sage (Salvia clevelandii).
           </Type>
 
           <Spacing size="large" />
@@ -302,13 +335,13 @@ export default function SummerStrongPage({placeholders}: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="body1"
-                href="https://arboretum.ucdavis.edu/plant/Santa-Margarita-foothill-penstemon"
+                href="https://arboretum.ucdavis.edu/plant/western-redbud"
               >
-                UC Davis Arboretum All Star, Santa Margarita Foothill Penstemon:
+                UC Davis Arboretum All-Star, Western Redbud:
                 (https://arboretum.ucdavis.edu)
               </Link>
             </Type>
-            <Type>
+            {/* <Type>
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
@@ -318,15 +351,15 @@ export default function SummerStrongPage({placeholders}: Props) {
                 UC Davis Arboretum All Star, Island Pink Yarrow:
                 (https://arboretum.ucdavis.edu)
               </Link>
-            </Type>
+            </Type> */}
             <Type>
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="body1"
-                href="https://calscape.org/Penstemon-heterophyllus-'Margarita-BOP'-(Margarita-BOP-Penstemon)?srchcr=sc65e8e23d04376 https://calscape.org/Achillea-millefolium-'Island-Pink'-(Island-Pink-Yarrow)?srchcr=sc65e9319279554"
+                href="https://calscape.org/Cercis-occidentalis-(Western-Redbud)?srchcr=sc662c008b9b052"
               >
-                CalScape, Margarita Bop Penstemon: (https://calscape.org)
+                CalScape, Western Redbud: (https://calscape.org)
               </Link>
             </Type>
           </Box>
@@ -341,6 +374,15 @@ export default function SummerStrongPage({placeholders}: Props) {
           </Type>
           <Spacing />
           <Box>
+            <FoothillPenstemonAccordion
+              imgixArParams={imgixArParams}
+              expanded={expanded === 'panel7'}
+              onChange={handleChange('panel7')}
+              AccordionSummaryProps={{
+                'aria-controls': 'panel7-content',
+                id: 'panel7-header'
+              }}
+            />
             <FuchsiaAccordion
               imgixArParams={imgixArParams}
               expanded={expanded === 'panel1'}
