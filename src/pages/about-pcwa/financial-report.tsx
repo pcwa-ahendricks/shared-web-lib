@@ -418,13 +418,13 @@ const EmployeeBenefitsSummaryPage = () => {
                     >
                       2018
                     </OlderReportLink>
-                    •
+                    {/* •
                     <OlderReportLink
                       title="2019 Water Connection Charge Report Link"
                       href="https://cdn.cosmicjs.com/53d3b450-d871-11ec-bb19-d9085ce408df-Final-Report---2017.pdf"
                     >
                       2017
-                    </OlderReportLink>
+                    </OlderReportLink> */}
                     {/* • */}
                     {/* <OlderReportLink
                       title="2016 Water Connection Charge Report Link"
