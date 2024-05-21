@@ -26,7 +26,6 @@ import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
 //import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
 import HeroImage from '@components/hero/HeroImage'
-import Link from '@components/Link'
 
 const FETCHER_TIMEOUT = 2000
 
@@ -519,7 +518,7 @@ const Index = ({
         <Spacing size="small" />
         <RecentNewsBar fallbackData={initialNewsBlurbsData} />
 
-        <Spacing size="large">
+        {/* <Spacing size="large">
           <Divider />
         </Spacing>
 
@@ -608,7 +607,7 @@ const Index = ({
               </Type>
             </Box>
           </Grid>
-        </Grid>
+        </Grid> */}
       </WideContainer>
     </PageLayout>
   )
