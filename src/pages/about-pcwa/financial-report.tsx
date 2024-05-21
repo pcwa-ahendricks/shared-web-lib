@@ -351,16 +351,16 @@ const EmployeeBenefitsSummaryPage = () => {
                 </Type>
                 <RowBox flexWrap="wrap" flexSpacing={3}>
                   <BudgetDoc
-                    aria-label="View 2022 Lower Zone 6 Report"
-                    href="https://docs.pcwa.net/wcc-annual-report-2022-lower-zone-6.pdf"
+                    aria-label="View 2023 Lower Zone 6 Report"
+                    href="https://docs.pcwa.net/wcc-annual-report-2023-lower-zone-6.pdf"
                   >
-                    2022 Lower Zone 6 Report
+                    2023 Lower Zone 6 Report
                   </BudgetDoc>
                   <BudgetDoc
-                    aria-label="View 2022 Upper Zone 6 Report"
-                    href="https://docs.pcwa.net/wcc-annual-report-2022-upper-zone-6.pdf"
+                    aria-label="View 2023 Upper Zone 6 Report"
+                    href="https://docs.pcwa.net/wcc-annual-report-2023-upper-zone-6.pdf"
                   >
-                    2022 Upper Zone 6 Report
+                    2023 Upper Zone 6 Report
                   </BudgetDoc>
                 </RowBox>
                 <Spacing />
@@ -384,6 +384,13 @@ const EmployeeBenefitsSummaryPage = () => {
                     Older Water Connection Charge Annual Reports
                   </Type>
                   <RowBox alignItems="center" flexWrap="wrap">
+                    <OlderReportLink
+                      title="2022 Water Connection Charge Report Link"
+                      href="https://docs.pcwa.net/wcc-annual-report-2022-zone-6-combined.pdf"
+                    >
+                      2022
+                    </OlderReportLink>
+                    •
                     <OlderReportLink
                       title="2021 Water Connection Charge Report Link"
                       href="https://docs.pcwa.net/wcc-annual-report-2021-zone-6-combined.pdf"
@@ -418,13 +425,13 @@ const EmployeeBenefitsSummaryPage = () => {
                     >
                       2017
                     </OlderReportLink>
-                    •
-                    <OlderReportLink
+                    {/* • */}
+                    {/* <OlderReportLink
                       title="2016 Water Connection Charge Report Link"
                       href="https://cdn.cosmicjs.com/49779300-d871-11ec-bb19-d9085ce408df-Final-Report---2016.pdf"
                     >
                       2016
-                    </OlderReportLink>
+                    </OlderReportLink> */}
                   </RowBox>
                 </Box>
 
