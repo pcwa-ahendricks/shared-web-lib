@@ -1,7 +1,7 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-type SlideInFwdLeftProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type SlideInFwdLeftProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
 const SlideInFwdLeft = ({children, ...rest}: SlideInFwdLeftProps) => {
   return (

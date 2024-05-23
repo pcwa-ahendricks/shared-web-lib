@@ -1,7 +1,7 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-type FadeOutProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type FadeOutProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
 const FadeOut = ({children, ...rest}: FadeOutProps) => {
   return (

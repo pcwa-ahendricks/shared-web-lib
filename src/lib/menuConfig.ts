@@ -265,6 +265,10 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Clearing Your Water Meter',
             href: '/smart-water-use/clearing-water-meter'
+          },
+          {
+            title: 'Loomis Demonstration Garden',
+            href: '/smart-water-use/loomis-demonstration-garden'
           }
         ]
       }

@@ -1,6 +1,7 @@
 import React, {useCallback, useState, AnimationEvent} from 'react'
 import {Box} from '@mui/material'
 import {BoxProps} from '@mui/material/Box'
+
 export type AnimateProps = {
   name: string
   easingFunc?: string
