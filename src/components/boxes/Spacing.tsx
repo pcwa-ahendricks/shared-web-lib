@@ -1,5 +1,6 @@
 import React, {useMemo} from 'react'
-import {Box, BoxProps} from '@mui/material'
+import {Box, BoxProps, useMediaQuery} from '@mui/material'
+import useTheme from '@hooks/useTheme'
 
 type Props = {
   size?: 'medium' | 'x-small' | 'small' | 'large' | 'x-large'
@@ -24,8 +25,13 @@ const Spacing = ({children, factor = 1, size = 'medium', ...rest}: Props) => {
     }
   }, [size, factor])
 
+  const theme = useTheme()
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
+  // shrink vertical spacing on mobile devices
+  const responsiveSpacing = isXS ? spacing * 0.75 : spacing
+
   return (
-    <Box my={spacing} {...rest}>
+    <Box my={responsiveSpacing} {...rest}>
       {children}
     </Box>
   )
