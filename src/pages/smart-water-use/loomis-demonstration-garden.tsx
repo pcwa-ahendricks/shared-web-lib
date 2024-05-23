@@ -269,7 +269,7 @@ const LoomisDemonstrationGardenPage = () => {
                 spacing={isXS ? 0 : 4}
               >
                 <Grid
-                  xs={1.5}
+                  xs={1.25}
                   sm={1.2}
                   md={1.1}
                   lg={1}
@@ -316,6 +316,7 @@ const LoomisDemonstrationGardenPage = () => {
                           href="https://pcmg.ucanr.edu/Demonstration_Garden"
                           rel="noopener noreferrer"
                           target="_blank"
+                          noWrap
                         >
                           https://pcmg.ucanr.edu/Demonstration_Garden
                         </Link>
