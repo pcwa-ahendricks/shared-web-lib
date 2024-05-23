@@ -1,7 +1,7 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-type ScaleInCenterProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type ScaleInCenterProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
 const ScaleInCenter = ({children, ...rest}: ScaleInCenterProps) => {
   return (
