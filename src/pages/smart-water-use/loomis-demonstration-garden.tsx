@@ -58,7 +58,7 @@ const LoomisDemonstrationGardenPage = () => {
               Demonstration Garden replaced over 11,000 square feet of lawn to
               serve as a valuable community resource.
             </Type>
-            <Spacing size="large" factor={2} className="spacing" />
+            <Spacing factor={2} />
             <TileContainer>
               <Tile>
                 <FadeInIntersect animateKey="loomis-demo-garden-img1">
@@ -252,13 +252,7 @@ const LoomisDemonstrationGardenPage = () => {
               </Tile>
             </TileContainer>
             {/* END  */}
-            <Spacing size="large" factor={2}>
-              {/* <Box display="flex"> */}
-              {/* <Box m="auto"> */}
-              {/* <LocalDrinkIcon color="secondary" fontSize="large" /> */}
-              {/* </Box> */}
-              {/* </Box> */}
-            </Spacing>
+            <Spacing factor={2} />
             <Type variant="h3" gutterBottom>
               Visit the Garden
             </Type>
@@ -463,7 +457,12 @@ const SlideInLeftIntersect = ({
 
 const TileContainer = ({children, ...props}: Grid2Props) => {
   return (
-    <Grid container columnSpacing={8} rowSpacing={4} {...props}>
+    <Grid
+      container
+      columnSpacing={8}
+      rowSpacing={{xs: 4 * 0.75, sm: 4}} // responsive
+      {...props}
+    >
       {children}
     </Grid>
   )
@@ -479,7 +478,12 @@ const Tile = ({children, ...props}: Grid2Props) => {
 
 const TileHeaderContainer = ({children, ...props}: Grid2Props) => {
   return (
-    <Grid container spacing={3} sx={{marginBottom: 1}} {...props}>
+    <Grid
+      container
+      columnSpacing={{xs: 3 * 0.75, sm: 3}} // responsive
+      sx={{marginBottom: 1}}
+      {...props}
+    >
       {children}
     </Grid>
   )
