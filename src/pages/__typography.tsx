@@ -28,33 +28,33 @@ const TypographyPage = () => {
         <MainBox>
           <Box>
             <Type variant="h3" gutterBottom>
-              Variants
+              Header Variants
             </Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="caption">Caption</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="button">Button</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="overline">Overline</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="body1">Body1</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="body2">Body2</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="subtitle1">Subtitle1</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="subtitle2">Subtitle2</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="h1">H1 Primary Header</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="h2">H2 Secondary Header</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="h3">H3 Tertiary Header</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="h4">H4 Fourth Header</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="h5">H5 Fifth Header</Type>
-            <Spacing size="x-small" />
+            <Spacing />
             <Type variant="h6">H6 Sixth Header</Type>
           </Box>
 
