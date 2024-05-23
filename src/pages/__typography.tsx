@@ -3,7 +3,6 @@ import {Box, Divider, Typography as Type} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
-import {ColumnBox} from '@components/MuiSleazebox'
 import {useRouter} from 'next/router'
 import {useEffect} from 'react'
 import Spacing from '@components/boxes/Spacing'
@@ -27,7 +26,7 @@ const TypographyPage = () => {
     <PageLayout title="Typography Test">
       <NarrowContainer>
         <MainBox>
-          <ColumnBox>
+          <Box>
             <Type variant="h3" gutterBottom>
               Variants
             </Type>
@@ -57,7 +56,7 @@ const TypographyPage = () => {
             <Type variant="h5">H5 Fifth Header</Type>
             <Spacing size="x-small" />
             <Type variant="h6">H6 Sixth Header</Type>
-          </ColumnBox>
+          </Box>
 
           <Spacing size="x-large">
             <Divider />
