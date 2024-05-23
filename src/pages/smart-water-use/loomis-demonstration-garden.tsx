@@ -11,7 +11,8 @@ import {
   Box,
   Typography as Type,
   Unstable_Grid2 as Grid,
-  Grid2Props
+  Grid2Props,
+  useMediaQuery
 } from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
@@ -37,6 +38,8 @@ const LoomisDemonstrationGardenPage = () => {
   const imgixIconFg = secondaryPalette.main.replace('#', '') // -> 599F46
 
   const LinkComponent = useLinkComponent()
+
+  const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (
     <PageLayout title="Loomis Demonstration Garden" waterSurface>
@@ -260,15 +263,30 @@ const LoomisDemonstrationGardenPage = () => {
               Visit the Garden
             </Type>
             <Box>
-              <Grid container>
-                <Grid xs={1.5} display="flex" alignItems="center">
+              <Grid
+                container
+                flexDirection={isXS ? 'row-reverse' : 'row'}
+                spacing={isXS ? 0 : 4}
+              >
+                <Grid
+                  xs={1.5}
+                  sm={1.2}
+                  md={1.1}
+                  lg={1}
+                  display="flex"
+                  alignItems="center"
+                >
                   <Image
                     loader={imgixUrlLoader}
                     height={1424}
                     width={1424}
-                    style={{objectFit: 'cover', width: '100%', height: 'auto'}}
+                    style={{
+                      objectFit: 'cover',
+                      width: '100%',
+                      height: 'auto'
+                    }}
                     alt="Loomis Library and Community Learning Center Map Marker Graphic"
-                    src="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/DALL%C2%B7E%202024-05-23%2011.15.00%20-%20A%20map%20marker%20icon%20depicting%20a%20garden.%20The%20icon%20should%20be%20round%20with%20a%20green%20outline.%20Inside%20the%20marker,%20there%20should%20be%20a%20stylized%20garden%20scene%20with%20f.png"
+                    src="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Loomis%20Demo%20Garden%20Map%20Marker.png"
                   />
                 </Grid>
                 <Grid xs display="flex" alignItems="center">
@@ -444,7 +462,7 @@ const SlideInLeftIntersect = ({
 
 const TileContainer = ({children, ...props}: Grid2Props) => {
   return (
-    <Grid container spacing={8} {...props}>
+    <Grid container columnSpacing={8} rowSpacing={4} {...props}>
       {children}
     </Grid>
   )
@@ -467,7 +485,7 @@ const TileHeaderContainer = ({children, ...props}: Grid2Props) => {
 }
 const TileHeaderImg = ({children, ...props}: Grid2Props) => {
   return (
-    <Grid xs={3} sm={2.5} display="flex" alignItems="center" {...props}>
+    <Grid xs={2} sm={2.5} display="flex" alignItems="center" {...props}>
       {children}
     </Grid>
   )
