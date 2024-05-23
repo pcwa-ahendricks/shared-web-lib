@@ -58,7 +58,7 @@ const LoomisDemonstrationGardenPage = () => {
               Demonstration Garden replaced over 11,000 square feet of lawn to
               serve as a valuable community resource.
             </Type>
-            <Spacing size="large" factor={2} />
+            <Spacing size="large" factor={2} className="spacing" />
             <TileContainer>
               <Tile>
                 <FadeInIntersect animateKey="loomis-demo-garden-img1">
