@@ -310,7 +310,7 @@ const LoomisDemonstrationGardenPage = () => {
                           href="https://pcmg.ucanr.edu/Demonstration_Garden"
                           rel="noopener noreferrer"
                           target="_blank"
-                          noWrap
+                          noWrap={!isXS}
                         >
                           https://pcmg.ucanr.edu/Demonstration_Garden
                         </Link>
