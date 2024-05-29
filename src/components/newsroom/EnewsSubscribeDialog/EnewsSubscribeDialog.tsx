@@ -123,8 +123,7 @@ const EnewsSubscribeDialog = () => {
           const formTouched = Object.keys(touched).length > 0
 
           return (
-            // translate and placeholder props fixes typescript errors.
-            <Form translate="yes" placeholder={undefined}>
+            <Form>
               <DialogTitle id="form-dialog-title">
                 {!hasMailchimpError
                   ? 'Subscribe to PCWA E-News'
