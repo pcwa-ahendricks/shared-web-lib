@@ -30,6 +30,7 @@ import SlideInLeft, {
 import Link from '@components/Link'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
 import useLinkComponent from '@hooks/useLinkComponent'
+import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 
 const LoomisDemonstrationGardenPage = () => {
   const theme = useTheme<Theme>()
@@ -47,16 +48,17 @@ const LoomisDemonstrationGardenPage = () => {
       <MainBox sx={{overflowX: 'hidden'}}>
         <WideContainer>
           <PageTitle
-            title="Discover the Loomis Demonstration Garden"
+            title="Discover the Master Gardener Demonstration Garden"
             subtitle="Smart Water Use"
           />
           <Type paragraph>
             Explore water-wise landscaping techniques and sustainable gardening
-            practices at Placer County’s newest demonstration garden at the
-            Loomis Library and Community Learning Center. Spearheaded by the UC
-            Master Gardeners of Placer County, the Loomis Demonstration Garden
-            replaced over 11,000 square feet of lawn to serve as a valuable
-            community resource.
+            practices at Placer County’s newest demonstration garden:the UC
+            Master Gardeners of Placer County Demonstration Garden at the Loomis
+            Library and Community Learning Center. . Spearheaded by the UC
+            Master Gardeners of Placer County, the demonstration garden replaced
+            over 11,000 square feet of lawn to serve as a valuable community
+            resource.
           </Type>
           <Spacing factor={2} />
           <TileContainer>
@@ -302,7 +304,16 @@ const LoomisDemonstrationGardenPage = () => {
                   <Type>
                     <Type component="strong">Learn more:</Type>{' '}
                     <Type component="span">
-                      Scan the QR code below, or visit{' '}
+                      <Type
+                        component="span"
+                        sx={{
+                          [theme.breakpoints.only('xs')]: {
+                            display: 'none' // Hide QR code on mobile devices
+                          }
+                        }}
+                      >
+                        Scan the QR code below, or visit
+                      </Type>{' '}
                       <Link
                         href="https://pcmg.ucanr.edu/Demonstration_Garden"
                         rel="noopener noreferrer"
@@ -316,34 +327,88 @@ const LoomisDemonstrationGardenPage = () => {
                 </Box>
               </Grid>
             </Grid>
-
-            <Box sx={{margin: 'auto', maxWidth: 125, marginTop: 2}}>
-              <Box
-                component={LinkComponent}
-                href="https://pcmg.ucanr.edu/Demonstration_Garden"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-describedby="qr-description"
+            <Spacing />
+            <Grid container spacing={{sm: 2, md: 6}}>
+              <Grid
+                sm={3}
+                md={2}
+                sx={{
+                  [theme.breakpoints.only('xs')]: {
+                    // margin: 'auto',
+                    // maxWidth: '40vw' // Set the maxWidth for xs devices
+                    display: 'none' // Hide QR code on mobile devices
+                  }
+                }}
               >
-                <Image
-                  loader={imgixUrlLoader}
-                  src="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/qr-code%20Loomis%20Demo%20Garden.png"
-                  width={800}
-                  height={800}
-                  alt="Loomis Demonstration Garden QR Code"
-                  style={{
-                    objectFit: 'contain',
-                    width: '100%',
-                    height: 'auto'
+                <Box
+                  sx={{
+                    [theme.breakpoints.only('xs')]: {
+                      // margin: 'auto',
+                      // maxWidth: '40vw' // Set the maxWidth for xs devices
+                      display: 'none'
+                    }
                   }}
-                  aria-describedby="qr-description"
-                />
-              </Box>
-              <p id="qr-description" className="sr-only">
-                Scan this QR code with your phone to visit
-                https://pcmg.ucanr.edu/Demonstration_Garden.
-              </p>
-            </Box>
+                >
+                  <Box
+                    component={LinkComponent}
+                    href="https://pcmg.ucanr.edu/Demonstration_Garden"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-describedby="qr-description"
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/qr-code%20Loomis%20Demo%20Garden.png?${new URLSearchParams(
+                        {border: '5,AAAAAA'}
+                      )}`}
+                      width={800}
+                      height={800}
+                      alt="Loomis Demonstration Garden QR Code"
+                      style={{
+                        objectFit: 'contain',
+                        width: '100%',
+                        height: 'auto'
+                      }}
+                      aria-describedby="qr-description"
+                    />
+                  </Box>
+                  <p id="qr-description" className="sr-only">
+                    Scan this QR code with your phone to visit
+                    https://pcmg.ucanr.edu/Demonstration_Garden.
+                  </p>
+                </Box>
+              </Grid>
+              <Grid xs={12} sm={9} md={10}>
+                <Box>
+                  <MediaDialogOnClick
+                    mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Loomis%20Demo%20Garden%20Map.png"
+                    mediaName="Loomis Demonstration Garden Map"
+                    MediaPreviewDialogProps={{
+                      ImageProps: {
+                        width: 1400,
+                        height: 894
+                      }
+                    }}
+                  >
+                    <Image
+                      loader={imgixUrlLoader}
+                      width={1440}
+                      height={894}
+                      alt="Loomis Demonstration Garden Map"
+                      src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Loomis%20Demo%20Garden%20Map.png?${new URLSearchParams(
+                        {border: '1,AAAAAA'}
+                      )}`}
+                      layout="responsive"
+                      style={{
+                        objectFit: 'contain',
+                        width: '100%',
+                        height: 'auto'
+                      }}
+                    />
+                  </MediaDialogOnClick>
+                </Box>
+              </Grid>
+            </Grid>
           </Box>
 
           <Spacing factor={2} />
@@ -443,6 +508,7 @@ const SlideInLeftIntersect = ({
       <SlideInLeft
         animate={shouldAnimate}
         onAnimationEnd={animateDoneHandler}
+        speed="fast"
         {...props}
       >
         {children}
