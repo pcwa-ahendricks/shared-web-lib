@@ -43,7 +43,7 @@ const LoomisDemonstrationGardenPage = () => {
   const isXS = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (
-    <PageLayout title="Loomis Demonstration Garden" waterSurface>
+    <PageLayout title="Master Gardener Demonstration Garden" waterSurface>
       {/* prevent child <Grid/> from overflowing */}
       <MainBox sx={{overflowX: 'hidden'}}>
         <WideContainer>
