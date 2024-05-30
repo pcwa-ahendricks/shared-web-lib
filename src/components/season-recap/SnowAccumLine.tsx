@@ -4,11 +4,16 @@ import round from '@lib/round'
 import {Box, Typography as Type, useTheme} from '@mui/material'
 import SquareIcon from 'mdi-material-ui/Square'
 import {orange, teal, brown, blue} from '@mui/material/colors'
-import {CustomLayer, Serie, ResponsiveLine, Datum} from '@nivo/line'
+import {
+  type CustomLayer,
+  type Serie,
+  type Datum,
+  ResponsiveLine
+} from '@nivo/line'
 import React, {useMemo} from 'react'
 
 type Props = {
-  snowfallDataset: Serie[]
+  snowfallDataset: readonly Serie[]
   lowYear: number | null
   highYear: number | null
 }

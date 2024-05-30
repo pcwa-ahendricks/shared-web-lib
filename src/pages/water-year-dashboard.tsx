@@ -5,7 +5,6 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import WideContainer from '@components/containers/WideContainer'
-import {ResponsiveLine} from '@nivo/line'
 import useSWR from 'swr'
 import {stringify} from 'querystringify'
 import {
@@ -34,11 +33,50 @@ import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 import slugify from 'slugify'
 import Spacing from '@components/boxes/Spacing'
-import PrecipCalendar from '@components/season-recap/PrecipCalendar'
-import TempDiffCalendar from '@components/season-recap/TempDiffCalendar'
-import PrecipAccumLine from '@components/season-recap/PrecipAccumLine'
-import PrecipMonthGroupBar from '@components/season-recap/PrecipMonthGroupBar'
-import TempRangeLine from '@components/season-recap/TempRangeLine'
+// import PrecipCalendar from '@components/season-recap/PrecipCalendar'
+const PrecipCalendar = dynamic(
+  () =>
+    import('@components/season-recap/PrecipCalendar').then(
+      (PrecipCalendar) => PrecipCalendar
+    ),
+  {ssr: false}
+)
+// import TempDiffCalendar from '@components/season-recap/TempDiffCalendar'
+const TempDiffCalendar = dynamic(
+  () =>
+    import('@components/season-recap/TempDiffCalendar').then(
+      (TempDiffCalendar) => TempDiffCalendar
+    ),
+  {ssr: false}
+)
+// import PrecipAccumLine from '@components/season-recap/PrecipAccumLine'
+const PrecipAccumLine = dynamic(
+  () =>
+    import('@components/season-recap/PrecipAccumLine').then(
+      (PrecipAccumLine) => PrecipAccumLine
+    ),
+  {ssr: false}
+)
+// import PrecipMonthGroupBar from '@components/season-recap/PrecipMonthGroupBar'
+const PrecipMonthGroupBar = dynamic(
+  () =>
+    import('@components/season-recap/PrecipMonthGroupBar').then(
+      (PrecipMonthGroupBar) => PrecipMonthGroupBar
+    ),
+  {ssr: false}
+)
+/*
+Note regarding dynamic imports, for some reason TempRangeLine component needs to be dynamically imported as a whole; Errors still occur when just dynamically
+importing ResponsiveLine within <TempRangeLine/>. For consistency, I dynamically imported all responsive nivo components in this manner, at the top-most level.
+*/
+// import TempRangeLine from '@components/season-recap/TempRangeLine'
+const TempRangeLine = dynamic(
+  () =>
+    import('@components/season-recap/TempRangeLine').then(
+      (TempRangeLine) => TempRangeLine
+    ),
+  {ssr: false}
+)
 import fetcher from '@lib/fetcher'
 import toTitleCase from '@lib/toTitleCase'
 import StnMap from '@components/season-recap/StnMap'
@@ -51,6 +89,9 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
 import Link from '@components/Link'
 import FadeIn from '@components/boxes/animate/FadeIn'
+import {type ResponsiveLine} from '@nivo/line'
+import dynamic from 'next/dynamic'
+
 const isDev = process.env.NODE_ENV === 'development'
 
 interface TabPanelProps {

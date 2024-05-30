@@ -16,7 +16,11 @@ import EventIcon from '@mui/icons-material/Event'
 // import WavesIcon from '@mui/icons-material/Waves'
 import {ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
 import {CosmicObjectResponse} from '@lib/services/cosmicService'
-import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
+import Parser, {
+  DOMNode,
+  domToReact,
+  HTMLReactParserOptions
+} from 'html-react-parser'
 import ShowMore from '@components/ShowMore/ShowMore'
 import Spacing from '@components/boxes/Spacing'
 import ClickOrTap from '@components/ClickOrTap/ClickOrTap'
@@ -64,25 +68,25 @@ const options: HTMLReactParserOptions = {
       if (name === 'em') {
         return (
           <Type component="em" variant="body1">
-            {domToReact(children, options)}
+            {domToReact(children as DOMNode[], options)}
           </Type>
         )
       } else if (name === 'u') {
         return (
           <Type variant="h3" component="span">
-            {domToReact(children, options)}
+            {domToReact(children as DOMNode[], options)}
           </Type>
         )
       } else if (name === 'strong') {
         return (
           <Type variant="h6" component="span">
-            {domToReact(children, options)}
+            {domToReact(children as DOMNode[], options)}
           </Type>
         )
       } else if (name === 'p') {
         return (
           <Type variant="body1" paragraph>
-            {domToReact(children, options)}
+            {domToReact(children as DOMNode[], options)}
           </Type>
         )
       }

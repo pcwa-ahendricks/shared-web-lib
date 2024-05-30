@@ -1,7 +1,6 @@
 // cspell:ignore accum
 import React, {useMemo, useState, useEffect} from 'react'
 import {Typography as Type, Divider, Box, Paper} from '@mui/material'
-import SnowfallAccumLine from '@components/season-recap/SnowAccumLine'
 import useSWR from 'swr'
 import slugify from 'slugify'
 import {stringify} from 'querystringify'
@@ -15,9 +14,21 @@ import {
   StationId
 } from '@pages/water-year-dashboard'
 import isNumber from 'is-number'
-import PrecipCalendar from './PrecipCalendar'
-import {ResponsiveLine} from '@nivo/line'
+// import PrecipCalendar from './PrecipCalendar'
+const PrecipCalendar = dynamic(
+  () => import('./PrecipCalendar').then((PrecipCalendar) => PrecipCalendar),
+  {ssr: false}
+)
 import FadeIn from '@components/boxes/animate/FadeIn'
+import {type ResponsiveLine} from '@nivo/line'
+import dynamic from 'next/dynamic'
+const SnowfallAccumLine = dynamic(
+  () =>
+    import('@components/season-recap/SnowAccumLine').then(
+      (SnowfallAccumLine) => SnowfallAccumLine
+    ),
+  {ssr: false}
+)
 
 type LineDataProp = React.ComponentProps<typeof ResponsiveLine>['data']
 type Props = {

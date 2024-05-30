@@ -33,10 +33,18 @@ import {
 } from 'date-fns'
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/water-year-dashboard'
-import ClimateChangeLine from './ClimateChangeLine'
+// import ClimateChangeLine from './ClimateChangeLine'
+const ClimateChangeLine = dynamic(
+  () =>
+    import('./ClimateChangeLine').then(
+      (ClimateChangeLine) => ClimateChangeLine
+    ),
+  {ssr: false}
+)
 import useTheme from '@hooks/useTheme'
 import ScaleInCenter from '@components/boxes/animate/ScaleInCenter'
 import FadeIn from '@components/boxes/animate/FadeIn'
+import dynamic from 'next/dynamic'
 
 type Props = {countyResponse?: CountyMetaResponse; regionalWaterYear: number}
 
@@ -1121,6 +1129,7 @@ export default function RegionalSection({
                   width={1100}
                   alt="Actual Precipitation for California"
                   style={{...style.mediaDialogImg}}
+                  unoptimized // external image provider won't like the query params next adds
                 />
               </MediaDialogOnClick>
               <ColumnBox mt={1} alignItems="center">
@@ -1144,6 +1153,7 @@ export default function RegionalSection({
             width={1100}
             alt="Departure from Normal Precipitation for California"
             className={classes.mediaDialogImg}
+            unoptimized
           />
         </MediaDialogOnClick>
         <ColumnBox mt={1} alignItems="center">
@@ -1169,6 +1179,7 @@ export default function RegionalSection({
                   width={1100}
                   alt="Percent of Normal Precipitation for California"
                   style={{...style.mediaDialogImg}}
+                  unoptimized
                 />
               </MediaDialogOnClick>
               <ColumnBox mt={1} alignItems="center">
@@ -1202,6 +1213,7 @@ export default function RegionalSection({
                 width={1100}
                 alt="Departure from Normal Temperature for California"
                 style={{...style.mediaDialogImg}}
+                unoptimized
               />
             </MediaDialogOnClick>
             <ColumnBox mt={1} alignItems="center">

@@ -1,7 +1,11 @@
 // cspell:ignore focusable
 import React, {useCallback, useEffect, useState} from 'react'
 import {AlertTitle, SvgIcon} from '@mui/material'
-import Parser, {domToReact, HTMLReactParserOptions} from 'html-react-parser'
+import Parser, {
+  DOMNode,
+  domToReact,
+  HTMLReactParserOptions
+} from 'html-react-parser'
 import useSWR from 'swr'
 import {textFetcher} from '@lib/fetcher'
 import BodyParagraph from './BodyParagraph'
@@ -28,7 +32,7 @@ const iconParserOptions: HTMLReactParserOptions = {
           <SvgIcon {...attribs}>
             {/* Recursive parsing un-necessary with <svg/> elements */}
             {/* {domToReact(children, parserOptions)} */}
-            {domToReact(children)}
+            {domToReact(children as DOMNode[])}
           </SvgIcon>
         )
       }
@@ -43,7 +47,7 @@ const headingParserOptions: HTMLReactParserOptions = {
       if (name === 'p') {
         return (
           <Heading attribs={attribs}>
-            {domToReact(children, headingParserOptions)}
+            {domToReact(children as DOMNode[], headingParserOptions)}
           </Heading>
         )
       } else if (name === 'a') {
@@ -58,7 +62,7 @@ const headingParserOptions: HTMLReactParserOptions = {
           >
             {/* Recursive parsing un-necessary with <a/> elements */}
             {/* {domToReact(children, parserOptions)} */}
-            {domToReact(children)}
+            {domToReact(children as DOMNode[])}
           </Link>
         )
       }
@@ -72,7 +76,7 @@ const bodyParserOptions: HTMLReactParserOptions = {
       if (name === 'p') {
         return (
           <BodyParagraph attribs={attribs}>
-            {domToReact(children, bodyParserOptions)}
+            {domToReact(children as DOMNode[], bodyParserOptions)}
           </BodyParagraph>
         )
       } else if (name === 'a') {
@@ -86,7 +90,7 @@ const bodyParserOptions: HTMLReactParserOptions = {
           >
             {/* Recursive parsing un-necessary with <a/> elements */}
             {/* {domToReact(children, parserOptions)} */}
-            {domToReact(children)}
+            {domToReact(children as DOMNode[])}
           </Link>
         )
       }
