@@ -62,8 +62,10 @@ export default function HeroImage() {
           // true
           // )}`,
           alt="A photo of French Meadows Reservoir"
-          objectPosition="center 40%"
-          objectFit={'cover'} // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
+          style={{
+            objectPosition: 'center 40%',
+            objectFit: 'cover' // Original Photo is not very tall, so special treatment is given on smaller devices. Container height is also toggled to help with image display.
+          }}
         />
 
         <JackinBox

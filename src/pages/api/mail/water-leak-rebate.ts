@@ -1,6 +1,6 @@
 // cspell:ignore cbarnhill watersense
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {string, object, array, StringSchema, ArraySchema, SchemaOf} from 'yup'
+import {string, object, array} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
@@ -47,107 +47,94 @@ interface FormDataObj {
   repairPhotos: AttachmentFieldValue[]
 }
 
-const bodySchema = object()
-  .required()
-  .shape({
-    formData: object()
-      .camelCase()
+const bodySchema = object({
+  formData: object({
+    firstName: string().required(),
+    lastName: string().required(),
+    email: string().email().required(),
+    accountNo: string()
+      .matches(/^\d+-\d+$/)
+      .required(),
+    address: string().required(),
+    city: string().required(),
+    otherCity: string().when('city', {
+      is: (city: string | null) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    phone: string().min(10).required(),
+    howDidYouHear: string().required(),
+    otherHowDidYouHear: string().when('howDidYouHear', {
+      is: (howDidYouHear: string | null) =>
+        howDidYouHear && howDidYouHear.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    propertyType: string().required(),
+    leakBeginDate: string().nullable(), // not required, nullable() required so api route doesn't error if no date is given on form
+    leakIdentifyDate: string().required(),
+    leakRepairDate: string().required(),
+    termsAgree: string().required().oneOf(['true']),
+    emailAttachments: string(),
+    signature: string().required(),
+    captcha: string().required(),
+    describe: string().required().max(400),
+    eligibilityRequirements: object()
       .required()
-      .shape({
-        firstName: string().required(),
-        lastName: string().required(),
-        email: string().email().required(),
-        accountNo: string()
-          .matches(/^\d+-\d+$/)
-          .required(),
-        address: string().required(),
-        city: string().required(),
-        otherCity: string().when(
-          'city',
-          (city: string | null, schema: StringSchema) =>
-            city && city.toLowerCase() === 'other' ? schema.required() : schema
-        ),
-        phone: string().required().min(10),
-        howDidYouHear: string().required(),
-        otherHowDidYouHear: string().when(
-          'howDidYouHear',
-          (howDidYouHear: string | null, schema: StringSchema) =>
-            howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-              ? schema.required()
-              : schema
-        ),
-        propertyType: string().required(),
-        leakBeginDate: string().nullable(), // not required, nullable() required so api route doesn't error if no date is given on form
-        leakIdentifyDate: string().required(),
-        leakRepairDate: string().required(),
-        termsAgree: string().required().oneOf(['true']),
-        emailAttachments: string(),
-        signature: string().required(),
-        captcha: string().required(),
-        describe: string().required().max(400),
-        eligibilityRequirements: object()
-          .required()
-          .test(
-            'is-eligible',
-            'You must meet all the requirements to apply for Water Leak Rebate',
-            hasAllTrueValue
-          ),
-        receipts: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) =>
-              emailAttachments === 'true' ? schema : schema.required().min(1)
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        leakPhotos: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) =>
-              emailAttachments === 'true' ? schema : schema.required().min(1)
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        repairPhotos: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) =>
-              emailAttachments === 'true' ? schema : schema.required().min(1)
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          )
+      .test(
+        'is-eligible',
+        'You must meet all the requirements to apply for Water Leak Rebate',
+        hasAllTrueValue
+      ),
+    receipts: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required().min(1)
       })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      ),
+    leakPhotos: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required().min(1)
+      })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      ),
+    repairPhotos: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required().min(1)
+      })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      )
   })
+    .camelCase()
+    .required()
+}).required()
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {

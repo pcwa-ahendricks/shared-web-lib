@@ -1,5 +1,5 @@
 // cspell:ignore addtl cbarnhill truthy conv
-import {string, object, StringSchema, array, SchemaOf, ArraySchema} from 'yup'
+import {string, object, array} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
@@ -41,76 +41,67 @@ interface FormDataObj {
   itemizedReceipts: AttachmentFieldValue[]
 }
 
-const bodySchema = object()
-  .required()
-  .shape({
-    formData: object()
-      .camelCase()
-      .required()
-      .shape({
-        firstName: string().required(),
-        lastName: string().required(),
-        email: string().email().required(),
-        accountNo: string()
-          .matches(/^\d+-\d+$/)
-          .required(),
-        address: string().required(),
-        city: string().required(),
-        otherCity: string().when(
-          'city',
-          (city: string | null, schema: StringSchema) =>
-            city && city.toLowerCase() === 'other' ? schema.required() : schema
-        ),
-        phone: string().required().min(10),
-        propertyType: string().required(),
-        rebateCustomer: string().required().oneOf(['Yes']),
-        projectCompleted: string().required().oneOf(['Yes']),
-        photosTaken: string().required().oneOf(['Yes']),
-        partsReceipts: string().required().oneOf(['Yes']),
-        describe: string().required().max(600),
-        termsAgree: string().required().oneOf(['true']),
-        emailAttachments: string(),
-        postConvPhotos: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) =>
-              emailAttachments === 'true' ? schema : schema.required().min(5)
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        itemizedReceipts: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) =>
-              emailAttachments === 'true' ? schema : schema.required().min(1)
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        inspectAgree: string().required().oneOf(['true']),
-        signature: string().required(),
-        captcha: string().required()
+const bodySchema = object({
+  formData: object({
+    firstName: string().required(),
+    lastName: string().required(),
+    email: string().email().required(),
+    accountNo: string()
+      .matches(/^\d+-\d+$/)
+      .required(),
+    address: string().required(),
+    city: string().required(),
+    otherCity: string().when('city', {
+      is: (city: string | null) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    phone: string().required().min(10),
+    propertyType: string().required(),
+    rebateCustomer: string().required().oneOf(['Yes']),
+    projectCompleted: string().required().oneOf(['Yes']),
+    photosTaken: string().required().oneOf(['Yes']),
+    partsReceipts: string().required().oneOf(['Yes']),
+    describe: string().required().max(600),
+    termsAgree: string().required().oneOf(['true']),
+    emailAttachments: string(),
+    postConvPhotos: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required().min(5)
       })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      ),
+    itemizedReceipts: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required().min(1)
+      })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      ),
+    inspectAgree: string().required().oneOf(['true']),
+    signature: string().required(),
+    captcha: string().required()
   })
+    .camelCase()
+    .required()
+}).required()
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {

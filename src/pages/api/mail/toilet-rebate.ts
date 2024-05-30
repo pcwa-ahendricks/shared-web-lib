@@ -1,14 +1,6 @@
 // cspell:ignore cbarnhill watersense
 // import {attach, splitUpLargeMessage} from '../lib/mailjet-attachments'
-import {
-  string,
-  object,
-  array,
-  StringSchema,
-  number,
-  ArraySchema,
-  SchemaOf
-} from 'yup'
+import {string, object, array, number} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
@@ -56,93 +48,81 @@ interface FormDataObj {
   installPhotos: AttachmentFieldValue[]
 }
 
-const bodySchema = object()
-  .required()
-  .shape({
-    formData: object()
-      .camelCase()
+const bodySchema = object({
+  formData: object({
+    firstName: string().required(),
+    lastName: string().required(),
+    email: string().email().required(),
+    accountNo: string()
+      .matches(/^\d+-\d+$/)
+      .required(),
+    address: string().required(),
+    city: string().required(),
+    otherCity: string().when('city', {
+      is: (city: string | undefined) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    phone: string().min(10).required(),
+    howDidYouHear: string().required(),
+    otherHowDidYouHear: string().when('howDidYouHear', {
+      is: (howDidYouHear: string | undefined) =>
+        howDidYouHear && howDidYouHear.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    propertyType: string().required(),
+    noOfToilets: number().required().moreThan(0),
+    treatedCustomer: string().required().oneOf(['Yes']), // "Yes", "No"
+    builtPriorCutoff: string().required().oneOf(['Yes']), // "Yes", "No"
+    manufacturerModel: array()
       .required()
-      .shape({
-        firstName: string().required(),
-        lastName: string().required(),
-        email: string().email().required(),
-        accountNo: string()
-          .matches(/^\d+-\d+$/)
-          .required(),
-        address: string().required(),
-        city: string().required(),
-        otherCity: string().when(
-          'city',
-          (city: string | undefined, schema: StringSchema) =>
-            city && city.toLowerCase() === 'other' ? schema.required() : schema
-        ),
-        phone: string().min(10).required(),
-        howDidYouHear: string().required(),
-        otherHowDidYouHear: string().when(
-          'howDidYouHear',
-          (howDidYouHear: string | undefined, schema: StringSchema) =>
-            howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-              ? schema.required()
-              : schema
-        ),
-        propertyType: string().required(),
-        noOfToilets: number().required().moreThan(0),
-        treatedCustomer: string().required().oneOf(
-          ['Yes'] // "Yes", "No"
-        ),
-        builtPriorCutoff: string().required().oneOf(
-          ['Yes'] // "Yes", "No"
-        ),
-        manufacturerModel: array()
-          .required()
-          .of(
-            object({
-              manufacturer: string().required(),
-              model: string().required()
-            })
-          ),
-        watersenseApproved: string().required(),
-        termsAgree: string().required().oneOf(['true']),
-        signature: string().required(),
-        captcha: string().required(),
-        comments: string().max(200),
-        emailAttachments: string(),
-        receipts: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) => (emailAttachments === 'true' ? schema : schema.required())
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        installPhotos: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) => (emailAttachments === 'true' ? schema : schema.required())
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          )
+      .of(
+        object({
+          manufacturer: string().required(),
+          model: string().required()
+        })
+      ),
+    watersenseApproved: string().required(),
+    termsAgree: string().required().oneOf(['true']),
+    signature: string().required(),
+    captcha: string().required(),
+    comments: string().max(200),
+    emailAttachments: string(),
+    receipts: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required()
       })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      ),
+    installPhotos: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required()
+      })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      )
   })
+    .camelCase()
+    .required()
+}).required()
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {

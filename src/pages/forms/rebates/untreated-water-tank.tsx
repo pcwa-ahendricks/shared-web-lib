@@ -2,7 +2,7 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Typography as Type} from '@mui/material'
 import {Formik} from 'formik'
-import {string, object, StringSchema} from 'yup'
+import {string, object} from 'yup'
 import {
   postForm,
   UntreatedWaterTankRebateFormData as RebateFormData,
@@ -21,60 +21,57 @@ import FormValidate from '@components/forms/FormValidate/FormValidate'
 
 const SERVICE_URI_PATH = 'untreated-water-tank-rebate'
 
-const formSchema = object()
+const formSchema = object({
+  firstName: string().required().label('First Name'),
+  lastName: string().required().label('Last Name'),
+  email: string().email().required().label('Email'),
+  accountNo: string()
+    .matches(
+      /^\d+-\d+$/,
+      'Account Number must contain a dash ("-") character and should not include any letters or spaces'
+    )
+    .required('An Account Number is required (leading zeros are optional)')
+    .label('Account Number'),
+  address: string().required().label('Billing Address'),
+  city: string().required().label('City'),
+  otherCity: string()
+    .label('City')
+    .when('city', {
+      is: (city: string | null) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+  phone: string().required().min(10).label('Phone Number'),
+  howDidYouHear: string()
+    .required()
+    .label('How Did You Hear About this Rebate Program'),
+  otherHowDidYouHear: string()
+    .label('How Did You Hear About this Rebate Program')
+    .when('howDidYouHear', {
+      is: (howDidYouHear: string | null) =>
+        howDidYouHear && howDidYouHear.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+  propertyType: string().required().label('Property Type'),
+  untreatedCustomer: string().required().label('Untreated Customer').oneOf(
+    ['Yes'], // "Yes", "No"
+    'You must be a current Placer County Water Agency untreated/raw water customer'
+  ),
+  termsAgree: string()
+    .required()
+    .oneOf(['true'], 'Must agree to Terms and Conditions by checking this box')
+    .label('Agree to Terms'),
+  signature: string().required().label('Your signature'),
+  captcha: string()
+    .required('Checking this box is required for security purposes')
+    .label('This checkbox'),
+  comments: string()
+    .max(200, 'Comments must be less than 200 characters.')
+    .label('Comments')
+})
   .camelCase()
   .strict(true)
-  .shape({
-    firstName: string().required().label('First Name'),
-    lastName: string().required().label('Last Name'),
-    email: string().email().required().label('Email'),
-    accountNo: string()
-      .matches(
-        /^\d+-\d+$/,
-        'Account Number must contain a dash ("-") character and should not include any letters or spaces'
-      )
-      .required('An Account Number is required (leading zeros are optional)')
-      .label('Account Number'),
-    address: string().required().label('Billing Address'),
-    city: string().required().label('City'),
-    otherCity: string()
-      .label('City')
-      .when('city', (city: string | null, schema: StringSchema) =>
-        city && city.toLowerCase() === 'other' ? schema.required() : schema
-      ),
-    phone: string().required().min(10).label('Phone Number'),
-    howDidYouHear: string()
-      .required()
-      .label('How Did You Hear About this Rebate Program'),
-    otherHowDidYouHear: string()
-      .label('How Did You Hear About this Rebate Program')
-      .when(
-        'howDidYouHear',
-        (howDidYouHear: string | null, schema: StringSchema) =>
-          howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-            ? schema.required()
-            : schema
-      ),
-    propertyType: string().required().label('Property Type'),
-    untreatedCustomer: string().required().label('Untreated Customer').oneOf(
-      ['Yes'], // "Yes", "No"
-      'You must be a current Placer County Water Agency untreated/raw water customer'
-    ),
-    termsAgree: string()
-      .required()
-      .oneOf(
-        ['true'],
-        'Must agree to Terms and Conditions by checking this box'
-      )
-      .label('Agree to Terms'),
-    signature: string().required().label('Your signature'),
-    captcha: string()
-      .required('Checking this box is required for security purposes')
-      .label('This checkbox'),
-    comments: string()
-      .max(200, 'Comments must be less than 200 characters.')
-      .label('Comments')
-  })
 
 const initialFormValues: RebateFormData = {
   firstName: '',

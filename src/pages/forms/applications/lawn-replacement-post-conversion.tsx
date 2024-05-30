@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Divider, Grid, Typography as Type, Box, useTheme} from '@mui/material'
 import {Formik, Field} from 'formik'
-import {string, object, StringSchema, ArraySchema, SchemaOf, array} from 'yup'
+import {string, object, array} from 'yup'
 import {
   postForm,
   PostConvLawnReplacementRequestBody as RequestBody,
@@ -44,174 +44,157 @@ import {Theme} from '@lib/material-theme'
 
 const SERVICE_URI_PATH = 'lawn-replacement-post-conversion-app'
 
-const formSchema = object()
+const formSchema = object({
+  firstName: string().required().label('First Name'),
+  lastName: string().required().label('Last Name'),
+  email: string().email().required().label('Email'),
+  accountNo: string()
+    .matches(
+      /^\d+-\d+$/,
+      'Account Number must contain a dash ("-") character and should not include any letters or spaces'
+    )
+    .required('An Account Number is required (leading zeros are optional)')
+    .label('Account Number'),
+  address: string().required().label('Billing Address'),
+  city: string().required().label('City'),
+  otherCity: string()
+    .label('City')
+    .when('city', {
+      is: (city: string | null) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+  phone: string().required().min(10).label('Phone Number'),
+  propertyType: string().required().label('Property Type'),
+  rebateCustomer: string()
+    .required()
+    .oneOf(
+      ['Yes'],
+      'You must be currently participating in the Lawn Replacement Rebate Program'
+    )
+    .label('Lawn Replacement Rebate Applicant'),
+  projectCompleted: string()
+    .required()
+    .oneOf(['Yes'], 'Project must be completed')
+    .label('Project Completion'),
+  worksheetCompleted: string()
+    .required()
+    .oneOf(
+      ['Yes'],
+      'Plant Coverage Worksheet is required in order to submit application'
+    )
+    .label('Worksheet Completion'),
+  photosTaken: string()
+    .required()
+    .oneOf(
+      ['Yes'],
+      'Post Conversion photographs (5) are required in order to submit application'
+    )
+    .label('Post Conversion photographs Taken'),
+  artTurfInstalled: string().required().label('Artificial Turf Installed'),
+  approxSqFeet: string().label(
+    'Approximate Square Feet of Installed Artificial Turf'
+  ),
+  partsReceipts: string()
+    .required()
+    .label('Itemized Receipts for Irrigation Parts Installed'),
+  termsAgree: string()
+    .required()
+    .oneOf(['true'], 'Must agree to Terms and Conditions by checking this box')
+    .label('Agree to Terms'),
+  emailAttachments: string().label('Email Attachments'),
+  postConvPhotos: array()
+    .when('emailAttachments', {
+      is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+      then: (schema) => schema,
+      otherwise: (schema) =>
+        schema
+          .required('You must provide 5 photos')
+          .min(5, 'You must provide 5 photos')
+    })
+    .of(
+      object({
+        status: string()
+          .required()
+          .lowercase()
+          .matches(/success/, 'Remove and/or retry un-successful uploads'),
+        url: string().required('Attachment URL is not available').url()
+      })
+    ),
+  worksheetUploads: array()
+    .when('emailAttachments', {
+      is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+      then: (schema) => schema,
+      otherwise: (schema) =>
+        schema
+          .required('You must provide Plant Coverage Worksheet')
+          .min(1, 'You must provide Plant Coverage Worksheet')
+    })
+    .of(
+      object({
+        status: string()
+          .required()
+          .lowercase()
+          .matches(/success/, 'Remove and/or retry un-successful uploads'),
+        url: string().required('Attachment URL is not available').url()
+      })
+    ),
+  checklistUploads: array()
+    .when('emailAttachments', {
+      is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+      then: (schema) => schema,
+      otherwise: (schema) =>
+        schema
+          .required('You must provide Customer Check List')
+          .min(1, 'You must provide Customer Check List')
+    })
+    .of(
+      object({
+        status: string()
+          .required()
+          .lowercase()
+          .matches(/success/, 'Remove and/or retry un-successful uploads'),
+        url: string().required('Attachment URL is not available').url()
+      })
+    ),
+  itemizedReceipts: array()
+    .when('partsReceipts', {
+      is: (partsReceipts: string | undefined) =>
+        partsReceipts?.toLowerCase() === 'yes',
+      then: (schema) =>
+        schema.when('emailAttachments', {
+          is: (emailAttachments: BooleanAsString) =>
+            emailAttachments === 'true',
+          then: (schema) => schema,
+          otherwise: (schema) =>
+            schema
+              .required('Please provide itemized receipt(s)')
+              .min(1, 'Please provide itemized receipt(s)')
+        }),
+      otherwise: (schema) => schema
+    })
+    .of(
+      object({
+        status: string()
+          .lowercase()
+          .matches(/success/, 'Remove and/or retry un-successful uploads'),
+        url: string().required('Attachment URL is not available').url()
+      })
+    ),
+  inspectAgree: string()
+    .required()
+    .oneOf(
+      ['true'],
+      'Must agree to a scheduled site inspection by checking this box'
+    )
+    .label('Agree to Site Inspection'),
+  signature: string().required().label('Your signature'),
+  captcha: string()
+    .required('Checking this box is required for security purposes')
+    .label('This checkbox')
+})
   .camelCase()
   .strict(true)
-  .shape({
-    firstName: string().required().label('First Name'),
-    lastName: string().required().label('Last Name'),
-    email: string().email().required().label('Email'),
-    accountNo: string()
-      .matches(
-        /^\d+-\d+$/,
-        'Account Number must contain a dash ("-") character and should not include any letters or spaces'
-      )
-      .required('An Account Number is required (leading zeros are optional)')
-      .label('Account Number'),
-    address: string().required().label('Billing Address'),
-    city: string().required().label('City'),
-    otherCity: string()
-      .label('City')
-      .when('city', (city: string | null, schema: StringSchema) =>
-        city && city.toLowerCase() === 'other' ? schema.required() : schema
-      ),
-    phone: string().required().min(10).label('Phone Number'),
-    propertyType: string().required().label('Property Type'),
-    rebateCustomer: string()
-      .required()
-      .oneOf(
-        ['Yes'],
-        'You must be currently participating in the Lawn Replacement Rebate Program'
-      )
-      .label('Lawn Replacement Rebate Applicant'),
-    projectCompleted: string()
-      .required()
-      .oneOf(['Yes'], 'Project must be completed')
-      .label('Project Completion'),
-    worksheetCompleted: string()
-      .required()
-      .oneOf(
-        ['Yes'],
-        'Plant Coverage Worksheet is required in order to submit application'
-      )
-      .label('Worksheet Completion'),
-    photosTaken: string()
-      .required()
-      .oneOf(
-        ['Yes'],
-        'Post Conversion photographs (5) are required in order to submit application'
-      )
-      .label('Post Conversion photographs Taken'),
-    artTurfInstalled: string().required().label('Artificial Turf Installed'),
-    approxSqFeet: string().label(
-      'Approximate Square Feet of Installed Artificial Turf'
-    ),
-    partsReceipts: string()
-      .required()
-      .label('Itemized Receipts for Irrigation Parts Installed'),
-    termsAgree: string()
-      .required()
-      .oneOf(
-        ['true'],
-        'Must agree to Terms and Conditions by checking this box'
-      )
-      .label('Agree to Terms'),
-    emailAttachments: string().label('Email Attachments'),
-    postConvPhotos: array()
-      .when(
-        'emailAttachments',
-        (
-          emailAttachments: BooleanAsString,
-          schema: ArraySchema<SchemaOf<string>>
-        ) =>
-          emailAttachments === 'true'
-            ? schema
-            : schema
-                .required('You must provide 5 photos')
-                .min(5, 'You must provide 5 photos')
-      )
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string().required('Attachment URL is not available').url()
-        })
-      ),
-    worksheetUploads: array()
-      .when(
-        'emailAttachments',
-        (
-          emailAttachments: BooleanAsString,
-          schema: ArraySchema<SchemaOf<string>>
-        ) =>
-          emailAttachments === 'true'
-            ? schema
-            : schema
-                .required('You must provide Plant Coverage Worksheet')
-                .min(1, 'You must provide Plant Coverage Worksheet')
-      )
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string().required('Attachment URL is not available').url()
-        })
-      ),
-    checklistUploads: array()
-      .when(
-        'emailAttachments',
-        (
-          emailAttachments: BooleanAsString,
-          schema: ArraySchema<SchemaOf<string>>
-        ) =>
-          emailAttachments === 'true'
-            ? schema
-            : schema
-                .required('You must provide Customer Check List')
-                .min(1, 'You must provide Customer Check List')
-      )
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string().required('Attachment URL is not available').url()
-        })
-      ),
-    itemizedReceipts: array()
-      .when(
-        'partsReceipts',
-        (partsReceipts, schema: ArraySchema<SchemaOf<string>>) =>
-          partsReceipts?.toLowerCase() === 'yes'
-            ? schema.when(
-                'emailAttachments',
-                (
-                  emailAttachments: BooleanAsString,
-                  schema: ArraySchema<SchemaOf<string>>
-                ) =>
-                  emailAttachments === 'true'
-                    ? schema
-                    : schema
-                        .required('Please provide itemized receipt(s)')
-                        .min(1, 'Please provide itemized receipt(s)')
-              )
-            : schema
-      )
-      .of(
-        object({
-          status: string()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string().required('Attachment URL is not available').url()
-        })
-      ),
-    inspectAgree: string()
-      .required()
-      .oneOf(
-        ['true'],
-        'Must agree to a scheduled site inspection by checking this box'
-      )
-      .label('Agree to Site Inspection'),
-    signature: string().required().label('Your signature'),
-    captcha: string()
-      .required('Checking this box is required for security purposes')
-      .label('This checkbox')
-  })
 
 const initialFormValues: RebateFormData = {
   firstName: '',

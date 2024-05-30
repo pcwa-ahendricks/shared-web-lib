@@ -1,13 +1,5 @@
 // cspell:ignore addtl cbarnhill
-import {
-  string,
-  object,
-  array,
-  date,
-  StringSchema,
-  ArraySchema,
-  SchemaOf
-} from 'yup'
+import {string, object, array, date} from 'yup'
 import {parseISO} from 'date-fns'
 import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
@@ -55,93 +47,81 @@ interface FormDataObj {
   addtlSensorPhotos?: AttachmentFieldValue[]
 }
 
-const bodySchema = object()
-  .required()
-  .shape({
-    formData: object()
-      .camelCase()
-      .required()
-      .shape({
-        firstName: string().required(),
-        lastName: string().required(),
-        email: string().email().required(),
-        accountNo: string()
-          .matches(/^\d+-\d+$/)
-          .required(),
-        address: string().required(),
-        city: string().required(),
-        otherCity: string().when(
-          'city',
-          (city: string | undefined, schema: StringSchema) =>
-            city && city.toLowerCase() === 'other' ? schema.required() : schema
-        ),
-        phone: string().min(10).required(),
-        propertyType: string().required(),
-        manufacturer: string().required(),
-        model: string().required(),
-        additional: string(),
-        purchaseDate: date().required(),
-        termsAgree: string().required().oneOf(['true']),
-        signature: string().required(),
-        captcha: string().required(),
-        emailAttachments: string(),
-        receipts: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) => (emailAttachments === 'true' ? schema : schema.required())
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        cntrlPhotos: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) => (emailAttachments === 'true' ? schema : schema.required())
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        addtlSensorPhotos: array()
-          .when(['additional', 'emailAttachments'], {
-            is: (
-              additional: string[] | undefined,
-              emailAttachments: BooleanAsString
-            ) => additional && emailAttachments !== 'true',
-            then: (schema: ArraySchema<SchemaOf<string>>) =>
-              schema.required(
-                'Must provide photo(s) of installed sensor/outdoor cover'
-              ),
-            otherwise: (schema: ArraySchema<SchemaOf<string>>) => schema
-          })
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          )
+const bodySchema = object({
+  formData: object({
+    firstName: string().required(),
+    lastName: string().required(),
+    email: string().email().required(),
+    accountNo: string()
+      .matches(/^\d+-\d+$/)
+      .required(),
+    address: string().required(),
+    city: string().required(),
+    otherCity: string().when('city', {
+      is: (city: string | undefined) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    phone: string().min(10).required(),
+    propertyType: string().required(),
+    manufacturer: string().required(),
+    model: string().required(),
+    additional: string(),
+    purchaseDate: date().required(),
+    termsAgree: string().required().oneOf(['true']),
+    signature: string().required(),
+    captcha: string().required(),
+    emailAttachments: string(),
+    receipts: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required()
       })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      ),
+    cntrlPhotos: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required()
+      })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      ),
+    addtlSensorPhotos: array()
+      .when(['additional', 'emailAttachments'], {
+        is: (additional: string | undefined, emailAttachments: string) =>
+          additional && emailAttachments !== 'true',
+        then: (schema) => schema.required(),
+        otherwise: (schema) => schema
+      })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      )
   })
+    .camelCase()
+    .required()
+}).required()
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {
