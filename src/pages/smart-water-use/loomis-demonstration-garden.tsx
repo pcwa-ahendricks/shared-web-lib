@@ -260,7 +260,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
             </Tile>
 
             <Tile order={{xs: 6, sm: 5}}>
-              <Box sx={{maxWidth: '80%', margin: 'auto'}}>
+              <Box sx={{maxWidth: '85%', margin: 'auto'}}>
                 <MediaDialogOnClick
                   showPopper={false}
                   mediaUrl="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_25_00095923_demo.jpg"
