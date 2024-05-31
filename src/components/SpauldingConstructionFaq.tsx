@@ -227,6 +227,8 @@ const SpauldingConstructionFaq = () => {
               infrastructure isn’t expected until late fall, which means that
               PG&E’s water delivery constraint will persist through the hot
               summer months.
+            </Type>
+            <Type variant="body2" paragraph>
               <em>Update:</em> As of May 30, 2024, PG&E provided the following
               statement: PG&E has informed water agencies that the earlier
               projected [return to service] date of June 19 for the Spaulding 1
