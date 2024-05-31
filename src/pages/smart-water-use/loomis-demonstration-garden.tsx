@@ -260,27 +260,29 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
             </Tile>
 
             <Tile order={{xs: 6, sm: 5}}>
-              <MediaDialogOnClick
-                showPopper={false}
-                mediaUrl="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_25_00095923_demo.jpg"
-                mediaName="Loomis Demonstration Master Gardener Garden photo 2"
-                MediaPreviewDialogProps={{
-                  ImageProps: {
-                    width: 3671,
-                    height: 2160
-                  }
-                }}
-              >
-                <ImageFancier
-                  src="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_25_00095923_demo.jpg"
-                  alt="Loomis Demonstration Master Gardener Garden photo 2"
-                  loader={imgixUrlLoader}
-                  layout="responsive"
-                  sizes="(max-width: 600px) 60vw, 30vw"
-                  width={3670}
-                  height={2160}
-                />
-              </MediaDialogOnClick>
+              <Box sx={{maxWidth: '80%', margin: 'auto'}}>
+                <MediaDialogOnClick
+                  showPopper={false}
+                  mediaUrl="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_25_00095923_demo.jpg"
+                  mediaName="Loomis Demonstration Master Gardener Garden photo 2"
+                  MediaPreviewDialogProps={{
+                    ImageProps: {
+                      width: 3671,
+                      height: 2160
+                    }
+                  }}
+                >
+                  <ImageFancier
+                    src="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_25_00095923_demo.jpg"
+                    alt="Loomis Demonstration Master Gardener Garden photo 2"
+                    loader={imgixUrlLoader}
+                    layout="responsive"
+                    sizes="(max-width: 600px) 60vw, 30vw"
+                    width={3670}
+                    height={2160}
+                  />
+                </MediaDialogOnClick>
+              </Box>
             </Tile>
             <Tile order={{xs: 5, sm: 6}}>
               <FadeInIntersect animateKey="loomis-demo-garden-img5">
