@@ -69,7 +69,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
             title="Discover the Master Gardener Demonstration Garden"
             subtitle="Smart Water Use"
           />
-          <Grid container spacing={8}>
+          <Grid container spacing={{xs: 4, sm: 8}}>
             <Grid xs={12} sm={6}>
               <Type paragraph>
                 Explore water-wise landscaping techniques and sustainable
