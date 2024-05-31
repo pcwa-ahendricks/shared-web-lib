@@ -221,11 +221,16 @@ const SpauldingConstructionFaq = () => {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
+              <br />
               PG&E is moving forward with a plan to partially restore water
               deliveries in mid-June, but full repair of the failed
               infrastructure isn’t expected until late fall, which means that
               PG&E’s water delivery constraint will persist through the hot
               summer months.
+              <em>Update:</em> As of May 30, 2024, PG&E provided the following
+              statement: PG&E has informed water agencies that the earlier
+              projected [return to service] date of June 19 for the Spaulding 1
+              powerhouse is now June 30.
             </Type>
           </ColumnBox>
         </AccordionDetails>
