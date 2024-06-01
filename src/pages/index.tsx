@@ -631,7 +631,7 @@ const Index = ({
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const placeholders = await getImgixBlurHashes(imgixImages)
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const baseUrl = process.env.BASE_URL
     // initialAlertsData broke website in production when I duplicated a news alert in Cosmic at one time. Not sure why.
     const alertsParams = {
       hide_metafields: true,

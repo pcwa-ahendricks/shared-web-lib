@@ -14062,7 +14062,6 @@ populateTimeZones(data);
 ;// CONCATENATED MODULE: ./src/lib/services/cosmicService.ts
 // cspell:ignore Frmt
 
-// generate-sitemap.ts uses this lib and won't tree shake the date-fns libs so import modules this way
 
 
 const TZ = 'America/Los_Angeles';

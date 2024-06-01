@@ -447,7 +447,7 @@ const OutageInformationPage = ({fallbackData}: Props) => {
 // Called at build time.
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const baseUrl = process.env.BASE_URL
     const fallbackData = await fetcher(`${baseUrl}${outagesUrl}`)
     return {
       props: {fallbackData},
