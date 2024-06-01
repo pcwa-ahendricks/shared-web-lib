@@ -1,9 +1,6 @@
 // cspell:ignore Frmt
 import {stringify} from 'querystringify'
-// generate-sitemap.ts uses this lib and won't tree shake the date-fns libs so import modules this way
-import parse from 'date-fns/parse'
-import getYear from 'date-fns/getYear'
-import isValid from 'date-fns/isValid'
+import {parse, getYear, isValid} from 'date-fns'
 import {convertTimeToDate, findTimeZone, setTimeZone} from 'timezone-support'
 const TZ = 'America/Los_Angeles'
 

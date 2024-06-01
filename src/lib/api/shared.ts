@@ -1,4 +1,4 @@
-import {utcToZonedTime, format} from 'date-fns-tz'
+import {toZonedTime, format} from 'date-fns-tz'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -16,10 +16,10 @@ export function dLog(...params: Parameters<(typeof console)['log']>) {
 export const TZ = 'America/Los_Angeles'
 
 export function localDate() {
-  return utcToZonedTime(new Date(), TZ)
+  return toZonedTime(new Date(), TZ)
 }
 export function localDateFrom(props: Date | string | number) {
-  return utcToZonedTime(new Date(props), TZ)
+  return toZonedTime(new Date(props), TZ)
 }
 
 type FormatParameters = Parameters<typeof format>

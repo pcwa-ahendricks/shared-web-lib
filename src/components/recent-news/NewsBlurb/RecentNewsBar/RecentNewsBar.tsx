@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {BoxProps, Box, Unstable_Grid2 as Grid} from '@mui/material'
 import NewsBlurb from '../NewsBlurb'
-import {compareDesc, parseJSON, parse} from 'date-fns'
+import {compareDesc, parse} from 'date-fns'
 import TextProgress from '@components/TextProgress/TextProgress'
 import {isWebUri} from 'valid-url'
 import useSWR from 'swr'
@@ -56,7 +56,7 @@ const RecentNewsBar = ({
   const sortedAndFilteredNews = useMemo(() => {
     const filtered = recentNews.filter((blurb) => !blurb.hide)
     const sortedAndFiltered = filtered.sort((a, b) =>
-      compareDesc(parseJSON(a.releaseDate), parseJSON(b.releaseDate))
+      compareDesc(a.releaseDate, b.releaseDate)
     )
     // Just return a set number of news blurbs.
     return sortedAndFiltered.slice(0, noOfBlurbs)
