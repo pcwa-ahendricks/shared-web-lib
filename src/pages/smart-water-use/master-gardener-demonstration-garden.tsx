@@ -73,8 +73,8 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
             <Grid xs={12} sm={6}>
               <Type paragraph>
                 Explore water-wise landscaping techniques and sustainable
-                gardening practices at Placer County’s newest demonstration
-                garden:the UC Master Gardeners of Placer County Demonstration
+                gardening practices at Placer County's newest demonstration
+                garden: the UC Master Gardeners of Placer County Demonstration
                 Garden at the Loomis Library and Community Learning Center.
                 Spearheaded by the UC Master Gardeners of Placer County, the
                 demonstration garden replaced over 11,000 square feet of lawn to
