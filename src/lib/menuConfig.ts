@@ -272,7 +272,7 @@ const menuConfig: MenuConfig[] = [
           },
           {
             title: 'Master Gardener Demonstration Garden',
-            href: '/smart-water-use/loomis-demonstration-garden'
+            href: '/smart-water-use/master-gardener-demonstration-garden'
           }
         ]
       }
