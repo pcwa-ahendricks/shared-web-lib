@@ -75,7 +75,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
                 Explore water-wise landscaping techniques and sustainable
                 gardening practices at Placer County’s newest demonstration
                 garden:the UC Master Gardeners of Placer County Demonstration
-                Garden at the Loomis Library and Community Learning Center. .
+                Garden at the Loomis Library and Community Learning Center.
                 Spearheaded by the UC Master Gardeners of Placer County, the
                 demonstration garden replaced over 11,000 square feet of lawn to
                 serve as a valuable community resource.
@@ -84,7 +84,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
             <Grid xs={12} sm={6}>
               <MediaDialogOnClick
                 showPopper={false}
-                mediaUrl="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg"
+                mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg"
                 mediaName="Loomis Demonstration Master Gardener Garden photo 1"
                 MediaPreviewDialogProps={{
                   ImageProps: {
@@ -94,7 +94,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
                 }}
               >
                 <ImageFancier
-                  src="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg"
+                  src="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg"
                   alt="Loomis Demonstration Master Gardener Garden photo 1"
                   loader={imgixUrlLoader}
                   layout="responsive"
@@ -271,7 +271,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
               >
                 <MediaDialogOnClick
                   showPopper={false}
-                  mediaUrl="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_25_00095923_demo.jpg"
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_25_00095923_demo.jpg"
                   mediaName="Loomis Demonstration Master Gardener Garden photo 2"
                   MediaPreviewDialogProps={{
                     ImageProps: {
@@ -281,7 +281,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
                   }}
                 >
                   <ImageFancier
-                    src="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_25_00095923_demo.jpg"
+                    src="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_25_00095923_demo.jpg"
                     alt="Loomis Demonstration Master Gardener Garden photo 2"
                     loader={imgixUrlLoader}
                     layout="responsive"
@@ -530,7 +530,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
             <Grid xs={12} sm={4}>
               <MediaDialogOnClick
                 showPopper={false}
-                mediaUrl="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_26_00095946_demo.jpg"
+                mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_26_00095946_demo.jpg"
                 mediaName="Loomis Demonstration Master Gardener Garden photo 4"
                 MediaPreviewDialogProps={{
                   ImageProps: {
@@ -540,7 +540,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
                 }}
               >
                 <ImageFancier
-                  src="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_26_00095946_demo.jpg"
+                  src="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_26_00095946_demo.jpg"
                   alt="Loomis Demonstration Master Gardener Garden photo 4"
                   loader={imgixUrlLoader}
                   layout="responsive"
@@ -553,7 +553,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
             <Grid xs={12} sm={4}>
               <MediaDialogOnClick
                 showPopper={false}
-                mediaUrl="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_06_00094698_demo.jpg"
+                mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_06_00094698_demo.jpg"
                 mediaName="Loomis Demonstration Master Gardener Garden photo 5"
                 MediaPreviewDialogProps={{
                   ImageProps: {
@@ -563,7 +563,7 @@ const LoomisDemonstrationGardenPage = ({placeholders}: Props) => {
                 }}
               >
                 <ImageFancier
-                  src="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/water-efficiency/loomis-demo-garden/Pic_06_00094698_demo.jpg"
+                  src="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_06_00094698_demo.jpg"
                   alt="Loomis Demonstration Master Gardener Garden photo 5"
                   loader={imgixUrlLoader}
                   layout="responsive"

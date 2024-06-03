@@ -49,7 +49,7 @@ const imgixImages = [
   // 'd7b43770-491f-11ee-bfb7-cfc5e4366a0b-LionsTail8x5V3.jpg',
   // 'https://imgix.cosmicjs.com/5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg',
   'https://imgix.cosmicjs.com/c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png',
-  'https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg',
+  // 'https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg',
   // 'https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg',
   'https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg',
   'https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png',
@@ -58,7 +58,8 @@ const imgixImages = [
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg',
   'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg',
   //'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
-  'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg'
+  'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg'
 ]
 
 type Props = {
@@ -169,15 +170,23 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
+              title="Master Gardener Demonstration Garden"
+              readMore="Learn more"
+              linkHref="/smart-water-use/master-gardener-demonstration-garden"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg"
+              alt="Master Gardener Demonstration Garden in Loomis"
+              body="Explore water-wise landscaping techniques and sustainable gardening practices at Placer County’s newest demonstration garden:the UC Master Gardeners of Placer County Demonstration Garden at the Loomis Library and Community Learning Center."
+            />
+
+            {/* <CoverStory
+              aspectRatio={coverStoryImageRatio}
               title="Educational Outreach Program"
               readMore="Learn more"
-              linkHref="/education-center/go-to-school-on-leaks"
+              linkHref="/smart-water-use/go-to-school-on-leaks"
               imgixURL="https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg"
               alt="Go to School on Leaks link, a PCWA educational program"
-              // body="PCWA is taking action to address water supply and environmental concerns resulting from critically dry conditions. PCWA encourages customers to reduce water use by 15 percent."
-              // body="California is experiencing a severe drought. With a hot summer coming, Gov. Newsom has called on all Californians to increase their water conservation efforts and reduce water use by 20 percent."
               body="PCWA offers a fun, interactive educational program for 3rd to 5th grade that teaches students about where their water comes from and trains them to be “Leak Detectives” at home and school."
-            />
+            /> */}
 
             {/*
             <CoverStory
