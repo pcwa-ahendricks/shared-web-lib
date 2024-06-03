@@ -11,11 +11,12 @@ import {
   useTheme,
   TypographyProps
 } from '@mui/material'
-import LeafIcon from 'mdi-material-ui/Leaf'
+// import LeafIcon from 'mdi-material-ui/Leaf'
 // import BirdIcon from 'mdi-material-ui/Bird'
 // import StarsIcon from 'mdi-material-ui/Creation'
 // import SunIcon from 'mdi-material-ui/WhiteBalanceSunny'
 // import TitleIcon from '@mui/icons-material/LocalFlorist'
+import BeeIcon from '@mui/icons-material/EmojiNature'
 import Image from 'next/legacy/image'
 import NextLink from 'next/link'
 import imgixLoader from '@lib/imageLoader'
@@ -27,7 +28,7 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import WideContainer from '@components/containers/WideContainer'
-import {grey, purple} from '@mui/material/colors'
+import {grey} from '@mui/material/colors'
 import ClevSageAccordion from '@components/summer-strong/ClevSageAccordion'
 import LionsTailAccordion from '@components/summer-strong/LionsTailAccordion'
 import CrapeMyrtleAccordion from '@components/summer-strong/CrapeMyrtleAccordion'
@@ -35,6 +36,7 @@ import VerbenaAccordion from '@components/summer-strong/VerbenaAccordion'
 import SantaBarbaraDaisyAccordion from '@components/summer-strong/SantaBarbaraDaisyAccordion'
 import FuchsiaAccordion from '@components/summer-strong/FuchsiaAccordion'
 import FoothillPenstemonAccordion from '@components/summer-strong/FoothillPenstemonAccordion'
+import WesternRedbudAccordion from '@components/summer-strong/WesternRedbudAccordion'
 
 type Props = {
   placeholders: Placeholders
@@ -52,7 +54,11 @@ const imgixImages = [
   'https://imgix.cosmicjs.com/e1ea3320-491f-11ee-bfb7-cfc5e4366a0b-FL-Leonitis-Lions-Tail.JPG',
   'https://imgix.cosmicjs.com/4b4381a0-5e1a-11ee-b975-cb0cfadd93ad-N-Zaushneria-0856-Test-Garden.JPG',
   'https://imgix.cosmicjs.com/dfdbf900-5e1a-11ee-b975-cb0cfadd93ad-3093a-Credit-Garden-Soft.jpg',
-  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/N%20Penstemon%20Margarita%20BOP%204-17.JPG'
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/N%20Penstemon%20Margarita%20BOP%204-17.JPG',
+  // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/ceanothus-clusters.webp',
+  // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp'
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg'
 ]
 
 export const StrongGrey = ({children, sx, ...props}: TypographyProps) => {
@@ -148,7 +154,7 @@ export default function SummerStrongPage({placeholders}: Props) {
               <Spacing />
               <RowBox>
                 {/* <LeafIcon color="secondary" sx={{marginRight: '8px'}} /> */}
-                <LeafIcon sx={{marginRight: '8px', color: purple[300]}} />
+                {/* <LeafIcon sx={{marginRight: '8px', color: purple[300]}} /> */}
                 {/* <BirdIcon
                   sx={{marginRight: '8px', color: blueGrey[500], fontSize: 32}}
                 /> */}
@@ -161,12 +167,15 @@ export default function SummerStrongPage({placeholders}: Props) {
                 {/* <Type variant="h3" gutterBottom>
                   A Butterfly Buffet!
                 </Type>*/}
+                <BeeIcon
+                  sx={{marginRight: '8px', color: grey[700], fontSize: 32}}
+                />
                 <Type variant="h3" gutterBottom>
-                  {/* GO NATIVE! */}A FOUR-SEASON SENSATION
+                  BUZZ-WORTHY NATIVE
                 </Type>
               </RowBox>
               {/* <Type variant="h3">Cleveland Sage (and other Salvias)</Type> */}
-              <Type variant="h3">Western Redbud</Type>
+              <Type variant="h3">‘Valley Violet’ California lilac</Type>
             </ChildBox>
             <ChildBox
               flex="15%"
@@ -182,48 +191,66 @@ export default function SummerStrongPage({placeholders}: Props) {
           <Box>
             <RowBox flexSpacing={6} responsive>
               <ChildBox flex="0 1 33%">
-                <MediaDialogOnClick
-                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/western_redbud.jpg"
-                  mediaName="Western Redbud"
+                {/* <MediaDialogOnClick
+                  // mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp"
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg"
+                  mediaName="‘Valley Violet’ California lilac"
+                  // original dimensions
                   MediaPreviewDialogProps={{
                     ImageProps: {
-                      width: 1193,
-                      height: 1536
+                      // width: 1080,
+                      // height: 798,
+                      width: 300,
+                      height: 300
                     }
                   }}
-                >
-                  <ImageFancier
-                    alt="Western Redbud"
-                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/western_redbud.jpg${imgixArParams}`}
-                    // 5/4 image aspect ratio
-                    width={1193}
-                    height={954}
-                    defaultGrey
-                    sizes="(max-width: 600px) 100vw, 33vw"
-                    objectFit="contain"
-                  />
-                </MediaDialogOnClick>
+                > */}
+                <Image
+                  alt="‘Valley Violet’ California lilac"
+                  // src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp${imgixArParams}`}
+                  src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg${imgixArParams}`}
+                  // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
+                  // width={998}
+                  // height={798}
+                  width={300}
+                  height={240}
+                  // defaultGrey
+                  sizes="(max-width: 600px) 100vw, 33vw"
+                  style={{
+                    objectFit: 'contain'
+                  }}
+                />
+                {/* </MediaDialogOnClick> */}
               </ChildBox>
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
-                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/western_redbud_bee.jpg"
-                  mediaName="Western Redbud with bee"
+                  // mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/ceanothus-clusters.webp"
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg"
+                  mediaName="‘Valley Violet’ California lilac flower close-up"
+                  // original dimensions
                   MediaPreviewDialogProps={{
                     ImageProps: {
-                      width: 5044,
-                      height: 3363
+                      // width: 1440,
+                      // height: 1049,
+                      width: 1000,
+                      height: 662
                     }
                   }}
                 >
                   <ImageFancier
-                    alt="Western Redbud with bee"
-                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/western_redbud_bee.jpg${imgixArParams}`}
-                    // 5/4 image aspect ratioi
-                    width={4204}
-                    height={3363}
+                    alt="‘Valley Violet’ California lilac flower close-up"
+                    // src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/ceanothus-clusters.webp${imgixArParams}`}
+                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg${imgixArParams}`}
+                    // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
+                    // width={1311}
+                    // height={1049}
+                    width={828}
+                    height={662}
                     defaultGrey
                     sizes="(max-width: 600px) 100vw, 33vw"
-                    objectFit="contain"
+                    style={{
+                      objectFit: 'contain'
+                    }}
                   />
                 </MediaDialogOnClick>
               </ChildBox>
@@ -233,86 +260,83 @@ export default function SummerStrongPage({placeholders}: Props) {
             </RowBox>
           </Box>
           <Spacing size="x-large" />
-          <Type variant="h4">Western redbud</Type>
+          <Type variant="h4">‘Valley Violet’ California lilac</Type>
           <Type variant="subtitle1" gutterBottom>
-            <em>Cercis occidentalis</em>
+            <em>Ceanothus maritimus</em>
           </Type>
           <Spacing size="small" />
           <Type variant="subtitle1" gutterBottom>
             <em>By Debbie Arrington, Sacramento Digs Gardening</em>
           </Type>
           <Type paragraph>
-            See purple? Think redbud. Native to the Sierra foothills, the
-            Western redbud (Cercis occidentalis) is the ultimate right plant in
-            the right place for Placer County. With its abundant early spring
-            flowers in shades of pink-purple, it supports native bees,
-            especially leafcutter bees that love its leaves, too. (They line
-            their nests with circles of foliage.)
+            Want happy native bees? Plant California lilacs. As bees wake from
+            winter, their fragrant blooms offer a nectar pick-me-up. Butterflies
+            and moths adore them too. Growing wild throughout our state,
+            California lilacs (Ceanothus spp.) are not true lilacs (Syringa
+            spp.), but their fragrant spring flowers reminded pioneers of lilacs
+            back home.
           </Type>
           <Type paragraph>
-            Related to peas and legumes, Western redbud is among California’s
-            most popular and showy native shrubs or small trees, offering
-            year-round garden interest. They’re a natural for low-water foothill
-            gardens and often among the first plants to bloom, signaling the
-            coming of spring. Much appreciated by hungry bees, redbud flowers
-            pop before the season’s first robin chirps.
+            Also known as “mountain lilac,” ‘Valley Violet’ forms low round
+            evergreen mounds. HOA-friendly and a UC Davis Arboretum All-Star,
+            this native shrub is considered the best small ceanothus for Central
+            Valley and foothill gardens, according to water-wise gardening
+            experts, because of its adaptability, compact growth and easy care.
+            It tolerates almost any soil type including clay.
           </Type>
           <Type paragraph>
-            Bright-green heart-shaped leaves emerge after that eye-catching
-            flush of flowers. In fall, rusty red-brown decorative seed pods
-            dangle from the branches, adding more garden flair. Even the bare
-            brown branches are attractive in winter.
+            The UC Master Gardeners of Placer County Demonstration Garden at the
+            Loomis Library and Community Learning Center features ‘Valley
+            Violet’ as well as three other popular ceanothus: ‘Concha’
+            (Ceanothus ‘Concha’), one of the oldest ceanothus cultivars with
+            intense bright blue flowers; ‘Dark Star’ (Ceanothus ‘Dark Star’), a
+            tough hybrid with small dark green leaves and blue flower clusters;
+            and buckbrush (Ceanothus cuneatus), a pollinator favorite with
+            lavender-tinged white flowers.
+          </Type>
+
+          <Type paragraph>
+            <StrongGrey>Bloom</StrongGrey>: Ceanothus comes in many blue or
+            purple shades (and a few pinks). 'Valley Violet' produces abundant
+            clusters of - you guessed it - dark-violet flowers in late winter or
+            early spring.
           </Type>
           <Type paragraph>
-            Once established, Western redbud is as tough as nails, needing only
-            monthly (if any) summer irrigation. They do their best with good
-            drainage—a spot where water doesn’t accumulate or stand, especially
-            in winter—and tolerate both clay and rocky soils.
+            <StrongGrey>Water needs</StrongGrey>: Low, once established. Needs
+            irrigation once or twice a month. While most ceanothus loathe extra
+            water, ‘Valley Violet’ is unique in that it can withstand weekly
+            irrigation in the home landscape.
           </Type>
           <Type paragraph>
-            Although they love Placer County, redbuds aren’t for all of
-            California. All redbud varieties need four distinct seasons and a
-            little winter chill to be successful; this plant can’t cope on the
-            coast.
+            <StrongGrey>Sun</StrongGrey>: Can take full sun in the foothills,
+            but prefers partial shade, especially at lower elevations. A
+            location with morning sun is ideal.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bloom</StrongGrey>: With vibrant pink-purple blooms,
-            redbuds flower in big clusters directly on their smooth brown bark
-            in late winter through early spring, February-April.
-          </Type>
-          <Type paragraph>
-            <StrongGrey>Water needs</StrongGrey>: Low to very low, once
-            established.
-          </Type>
-          <Type paragraph>
-            <StrongGrey>Sun</StrongGrey>:Full sun; some hybrids can take partial
-            shade.
-          </Type>
-          <Type paragraph>
-            <StrongGrey>Size</StrongGrey>: Western redbud grows as a large
-            deciduous shrub (with multiple trunks); other redbuds such as
-            Oklahoma redbud (C. reniformis) can be shaped into a small tree
-            (with a single trunk). Western redbuds can reach 20 feet tall (with
-            too much water) but usually stay 7 to 10 feet.
+            <StrongGrey>Size</StrongGrey>: ‘Valley Violet’ stays compact – 2
+            feet tall and 3 to 4 feet wide at maturity. Other California lilac
+            varieties can reach 6 to 9 feet tall and 8 to 10 feet wide.
           </Type>
           <Type paragraph>
             <StrongGrey>Care</StrongGrey>: Low water requirements after the
-            first two years, once the roots are well established. During winter
-            dormancy after it loses its leaves, prune the tree gently to shape
-            as it matures, removing any dead or diseased wood.
+            first two years, once the roots are well established. Too much water
+            and poor drainage kills these plants. They can’t take “normal”
+            landscape irrigation, especially in summer; they’ll rot. Ceanothus
+            is best planted in the fall in order to take advantage of winter
+            growth. California lilacs need little pruning; remove any dead wood
+            and gently prune to shape after spring blooms fade.
           </Type>
           <Type paragraph>
-            <StrongGrey>Availability</StrongGrey>: Western redbud is widely sold
-            at local nurseries such as Green Acres Nursery & Supply. Big-box
-            stores tend to carry other redbud cultivars such as Oklahoma and
-            Eastern redbud hybrids (C. Canadensis), which need more irrigation.
-            All redbuds like Placer County.
+            <StrongGrey>Availability</StrongGrey>: More nurseries are offering
+            California lilacs especially those that specialize in low-water
+            shrubs. Find ‘Valley Violet’ at the UC Davis Arboretum Teaching
+            Nursery and other nurseries that specialize in natives.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bonus plants</StrongGrey>: Western redbud makes a good
-            accent tree or shrub among other low-water California natives such
-            as California lilacs (Ceanothus), California fuchsia (Epilobium
-            canum), or Cleveland sage (Salvia clevelandii).
+            <StrongGrey>Bonus plants</StrongGrey>: California lilacs love
+            growing with other low-water California natives such as California
+            fuchsia (Epilobium canum), deer grass (Muhlenbergia rigens), island
+            alum root (Heuchera maxima) or Cleveland sage (Salvia clevelandii).
           </Type>
 
           <Spacing size="large" />
@@ -335,9 +359,9 @@ export default function SummerStrongPage({placeholders}: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="body1"
-                href="https://arboretum.ucdavis.edu/plant/western-redbud"
+                href="https://arboretum.ucdavis.edu/plant/valley-violet-maritime-ceanothus"
               >
-                UC Davis Arboretum All-Star, Western Redbud:
+                UC Davis Arboretum All-Star, ‘Valley Violet’ maritime ceanothus:
                 (https://arboretum.ucdavis.edu)
               </Link>
             </Type>
@@ -357,9 +381,9 @@ export default function SummerStrongPage({placeholders}: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="body1"
-                href="https://calscape.org/Cercis-occidentalis-(Western-Redbud)?srchcr=sc662c008b9b052"
+                href="https://calscape.org/Ceanothus-maritimus-%27Valley-Violet%27-(Valley-Violet-Mountain-Lilac)?srchcr=sc5eaa16b978ac6"
               >
-                CalScape, Western Redbud: (https://calscape.org)
+                Calscape, ‘Valley Violet’ mountain lilac: (https://calscape.org)
               </Link>
             </Type>
           </Box>
@@ -374,6 +398,15 @@ export default function SummerStrongPage({placeholders}: Props) {
           </Type>
           <Spacing />
           <Box>
+            <WesternRedbudAccordion
+              imgixArParams={imgixArParams}
+              expanded={expanded === 'panel8'}
+              onChange={handleChange('panel8')}
+              AccordionSummaryProps={{
+                'aria-controls': 'panel8-content',
+                id: 'panel8-header'
+              }}
+            />
             <FoothillPenstemonAccordion
               imgixArParams={imgixArParams}
               expanded={expanded === 'panel7'}
