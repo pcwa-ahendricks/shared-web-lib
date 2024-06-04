@@ -16,7 +16,7 @@ import NewsBlurb from '@components/recent-news/NewsBlurb/NewsBlurb'
 import Blockquote from '@components/typography/Blockquote'
 // import {GetServerSideProps} from 'next'
 
-export default function PgeWaterDelivery2024Page() {
+export default function NewCustomerServicePortal2024() {
   const theme = useTheme()
   return (
     <PageLayout title="Spaulding Powerhouse No. 1 Outage" waterSurface>
@@ -24,16 +24,14 @@ export default function PgeWaterDelivery2024Page() {
         <WideContainer>
           <PageTitle
             titleProps={{variant: 'h2'}}
-            title="PCWA Addresses PG&E Water Delivery Problem Due to Damaged Infrastructure"
+            title="New Customer Service Portal"
             subtitle="Newsroom"
           />
           <Type paragraph>
-            PCWA is currently facing a water supply delivery problem due to
-            infrastructure damage at a PG&E facility. Damage has disrupted the
-            water delivery from Lake Spaulding, impacting our access to water
-            supplies from that source. Customers may voluntarily reduce or
-            suspend their summer water deliveries to help reduce the impact,
-            particularly with the warmer months approaching.
+            At PCWA, we're always striving to serve you better. Our new utility
+            billing system will integrate various business processes into a
+            single platform, significantly improving our service efficiency and
+            enhancing your customer experience.
           </Type>
           <Grid container spacing={4}>
             <Grid xs={12} sm={6}>
