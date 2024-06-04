@@ -340,7 +340,7 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/education-center/go-to-school-on-leaks</loc>
+    <loc>https://www.pcwa.net/smart-water-use/go-to-school-on-leaks</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
@@ -349,10 +349,6 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/publications/year-end-report-2023</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/smart-water-use/loomis-demonstration-garden</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
@@ -377,6 +373,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/forms/applications/lawn-replacement-post-conversion</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/smart-water-use/master-gardener-demonstration-garden</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
