@@ -13,8 +13,9 @@ export type GlowButtonProps = {
   size?: 'small' | 'medium' | 'large'
 } & ButtonBaseProps<'a'>
 
-const GlowButton = ({children, size = 'medium', ...rest}: GlowButtonProps) => {
+const GlowButton = ({children, size = 'medium', ...props}: GlowButtonProps) => {
   const theme = useTheme<Theme>()
+  const {sx, ...rest} = props
   return (
     <ButtonBase
       component="a"
@@ -28,10 +29,10 @@ const GlowButton = ({children, size = 'medium', ...rest}: GlowButtonProps) => {
           size === 'small'
             ? '4px 8px'
             : size === 'medium'
-            ? '6px 8px'
-            : size === 'large'
-            ? '8px 24px'
-            : 'inherit'
+              ? '6px 8px'
+              : size === 'large'
+                ? '8px 24px'
+                : 'inherit'
       }}
       {...rest}
     >
@@ -50,10 +51,12 @@ const GlowButton = ({children, size = 'medium', ...rest}: GlowButtonProps) => {
             size === 'small'
               ? '0.8125rem'
               : size === 'medium'
-              ? '1rem'
-              : size === 'large'
-              ? '0.9375rem'
-              : 'inherit' // Why is the 'large' button font-size smaller than the medium size button in Material-UI?
+                ? '1rem'
+                : size === 'large'
+                  ? '0.9375rem'
+                  : 'inherit', // Why is the 'large' button font-size smaller than the medium size button in Material-UI?
+
+          ...sx
         }}
       >
         {children}
