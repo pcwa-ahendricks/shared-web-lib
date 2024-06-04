@@ -197,7 +197,7 @@ const CrossControlPreventionPage = () => {
                 <ListItemText
                   primary={
                     <Link
-                      href="https://cdn.cosmicjs.com/c916db10-6b30-11e7-b8ae-eb2280fc8c40-Cross-Connection_Brochure.pdf"
+                      href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/customer-service/Backflow%20Brochure_2024.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       underline="hover"
