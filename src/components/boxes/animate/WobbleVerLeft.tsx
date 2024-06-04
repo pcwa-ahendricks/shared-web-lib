@@ -1,7 +1,7 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-type WobbleVerLeftProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type WobbleVerLeftProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
 const WobbleVerLeft = ({children, ...rest}: WobbleVerLeftProps) => {
   return (

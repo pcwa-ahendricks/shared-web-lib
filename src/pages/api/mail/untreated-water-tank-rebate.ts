@@ -1,4 +1,4 @@
-import {string, object, StringSchema} from 'yup'
+import {string, object} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
@@ -34,45 +34,39 @@ interface FormDataObj {
   comments: string
 }
 
-const bodySchema = object()
-  .required()
-  .shape({
-    formData: object()
-      .camelCase()
-      .required()
-      .shape({
-        firstName: string().required(),
-        lastName: string().required(),
-        email: string().email().required(),
-        accountNo: string()
-          .matches(/^\d+-\d+$/)
-          .required(),
-        address: string().required(),
-        city: string().required(),
-        otherCity: string().when(
-          'city',
-          (city: string | undefined, schema: StringSchema) =>
-            city && city.toLowerCase() === 'other' ? schema.required() : schema
-        ),
-        phone: string().min(10).required(),
-        howDidYouHear: string().required(),
-        otherHowDidYouHear: string().when(
-          'howDidYouHear',
-          (howDidYouHear: string | undefined, schema: StringSchema) =>
-            howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-              ? schema.required()
-              : schema
-        ),
-        propertyType: string().required(),
-        untreatedCustomer: string().required().oneOf(
-          ['Yes'] // "Yes", "No"
-        ),
-        termsAgree: string().required().oneOf(['true']),
-        signature: string().required(),
-        captcha: string().required(),
-        comments: string().max(200)
-      })
+const bodySchema = object({
+  formData: object({
+    firstName: string().required(),
+    lastName: string().required(),
+    email: string().email().required(),
+    accountNo: string()
+      .matches(/^\d+-\d+$/)
+      .required(),
+    address: string().required(),
+    city: string().required(),
+    otherCity: string().when('city', {
+      is: (city: string | undefined) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    phone: string().min(10).required(),
+    howDidYouHear: string().required(),
+    otherHowDidYouHear: string().when('howDidYouHear', {
+      is: (howDidYouHear: string | undefined) =>
+        howDidYouHear && howDidYouHear.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    propertyType: string().required(),
+    untreatedCustomer: string().required().oneOf(['Yes']), // "Yes", "No"
+    termsAgree: string().required().oneOf(['true']),
+    signature: string().required(),
+    captcha: string().required(),
+    comments: string().max(200)
   })
+    .camelCase()
+    .required()
+}).required()
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {

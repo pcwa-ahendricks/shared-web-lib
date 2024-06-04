@@ -202,7 +202,7 @@ const DynamicBoardAgendasPage = ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    //   const urlBase = process.env.NEXT_PUBLIC_BASE_URL
+    //   const urlBase = process.env.BASE_URL
     //   const data = await fetcher<CosmicObjectResponse<AgendaMetadata>>(
     //     `${urlBase}${agendasUrl}`
     //   )
@@ -244,7 +244,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const urlBase = process.env.NEXT_PUBLIC_BASE_URL
+    const urlBase = process.env.BASE_URL
     const data = await fetcher<CosmicObjectResponse<AgendaMetadata>>(
       `${urlBase}${agendasUrl}`
     )

@@ -1,5 +1,5 @@
 // cspell:ignore
-import {string, object, StringSchema} from 'yup'
+import {string, object} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import {
   getRecaptcha,
@@ -32,47 +32,39 @@ interface FormDataObj {
   captcha: string
   applicationTitle: string
 }
-
-const bodySchema = object()
-  .required()
-  .shape({
-    formData: object()
-      .camelCase()
-      .required()
-      .shape({
-        firstName: string().required(),
-        lastName: string().required(),
-        email: string().email().required(),
-        accountNo: string()
-          .matches(/^\d+-\d+$/)
-          .required(),
-        address: string().required(),
-        svcAddress: string().required(),
-        ownerTenant: string().required(),
-        phone: string().required().min(10),
-        treatedCustomer: string().required().oneOf(
-          ['Yes'] // "Yes", "No"
-        ),
-        householdAssist: string().required(),
-        householdIncome: string().when(
-          'householdAssist',
-          (householdAssist: string | null, schema: StringSchema) =>
-            householdAssist && householdAssist.toLowerCase() === 'no'
-              ? schema.oneOf(['Yes'])
-              : schema
-        ),
-        primaryCareCert: string().required(),
-        paymentPlan: string().when(
-          'primaryCareCert',
-          (primaryCareCert: string | null, schema: StringSchema) =>
-            primaryCareCert && primaryCareCert.toLowerCase() === 'yes'
-              ? schema.oneOf(['Yes'])
-              : schema
-        ),
-        signature: string().required(),
-        captcha: string().required()
-      })
+const bodySchema = object({
+  formData: object({
+    firstName: string().required(),
+    lastName: string().required(),
+    email: string().email().required(),
+    accountNo: string()
+      .matches(/^\d+-\d+$/)
+      .required(),
+    address: string().required(),
+    svcAddress: string().required(),
+    ownerTenant: string().required(),
+    phone: string().min(10).required(),
+    treatedCustomer: string().required().oneOf(['Yes']), // "Yes", "No"
+    householdAssist: string().required(),
+    householdIncome: string().when('householdAssist', {
+      is: (householdAssist: string | null) =>
+        householdAssist && householdAssist.toLowerCase() === 'no',
+      then: (schema) => schema.oneOf(['Yes']),
+      otherwise: (schema) => schema
+    }),
+    primaryCareCert: string().required(),
+    paymentPlan: string().when('primaryCareCert', {
+      is: (primaryCareCert: string | null) =>
+        primaryCareCert && primaryCareCert.toLowerCase() === 'yes',
+      then: (schema) => schema.oneOf(['Yes']),
+      otherwise: (schema) => schema
+    }),
+    signature: string().required(),
+    captcha: string().required()
   })
+    .camelCase()
+    .required()
+}).required()
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {

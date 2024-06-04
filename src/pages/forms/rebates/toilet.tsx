@@ -2,15 +2,7 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Typography as Type} from '@mui/material'
 import {Formik} from 'formik'
-import {
-  string,
-  object,
-  array,
-  StringSchema,
-  number,
-  ArraySchema,
-  SchemaOf
-} from 'yup'
+import {string, object, array, number} from 'yup'
 import {
   postForm,
   ToiletRebateFormData as RebateFormData,
@@ -32,130 +24,115 @@ const SERVICE_URI_PATH = 'toilet-rebate'
 export const MAX_TOILETS = 25
 export const MIN_TOILETS = 1
 
-const formSchema = object()
+const formSchema = object({
+  firstName: string().required().label('First Name'),
+  lastName: string().required().label('Last Name'),
+  email: string().email().required().label('Email'),
+  accountNo: string()
+    .matches(
+      /^\d+-\d+$/,
+      'Account Number must contain a dash ("-") character and should not include any letters or spaces'
+    )
+    .required('An Account Number is required (leading zeros are optional)')
+    .label('Account Number'),
+  address: string().required().label('Billing Address'),
+  city: string().required().label('City'),
+  otherCity: string()
+    .label('City')
+    .when('city', {
+      is: (city: string | null) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+  phone: string().required().min(10).label('Phone Number'),
+  howDidYouHear: string()
+    .required()
+    .label('How Did You Hear About this Rebate Program'),
+  otherHowDidYouHear: string()
+    .label('How Did You Hear About this Rebate Program')
+    .when('howDidYouHear', {
+      is: (howDidYouHear: string | null) =>
+        howDidYouHear && howDidYouHear.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+  propertyType: string().required().label('Property Type'),
+  noOfToilets: number()
+    .required(
+      'Number of toilets/urinals installed must be a number that is greater than 0.'
+    )
+    .moreThan(0)
+    .label('Number of toilets/urinals installed'),
+  treatedCustomer: string().required().label('Treated Customer').oneOf(
+    ['Yes'], // "Yes", "No"
+    'You must be a current Placer County Water Agency treated water customer'
+  ),
+  builtPriorCutoff: string()
+    .required()
+    .label('Was your building(s) built prior to 1994?')
+    .oneOf(
+      ['Yes'], // "Yes", "No"
+      'Old toilets replaced must be rated at 3.0 (GPF) or more'
+    ),
+  manufacturerModel: array()
+    .required()
+    .label('Manufacturer and Model')
+    .min(MIN_TOILETS)
+    .max(MAX_TOILETS)
+    .of(
+      object({
+        manufacturer: string().required().label('Toilet/Urinal Manufacturer'),
+        model: string().required().label('Toilet/Urinal Model')
+      })
+    ),
+  watersenseApproved: string().required().label('Watersense Approved'),
+  termsAgree: string()
+    .required()
+    .oneOf(['true'], 'Must agree to Terms and Conditions by checking this box')
+    .label('Agree to Terms'),
+  emailAttachments: string().label('Email Attachments'),
+  signature: string().required().label('Your signature'),
+  captcha: string()
+    .required('Checking this box is required for security purposes')
+    .label('This checkbox'),
+  comments: string()
+    .max(200, 'Comments must be less than 200 characters.')
+    .label('Comments'),
+  receipts: array()
+    .when('emailAttachments', {
+      is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+      then: (schema) => schema,
+      otherwise: (schema) =>
+        schema.required('Must provide receipt(s) or proof of purchase')
+    })
+    .of(
+      object({
+        status: string()
+          .required()
+          .lowercase()
+          .matches(/success/, 'Remove and/or retry un-successful uploads'),
+        url: string().required('Attachment URL is not available').url()
+      })
+    ),
+  installPhotos: array()
+    .when('emailAttachments', {
+      is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+      then: (schema) => schema,
+      otherwise: (schema) =>
+        schema.required('Must provide photo(s) of installed toilet')
+    })
+    .of(
+      object({
+        status: string()
+          .required()
+          .lowercase()
+          .matches(/success/, 'Remove and/or retry un-successful uploads'),
+        url: string().required('Attachment URL is not available').url()
+      })
+    )
+})
   .camelCase()
   .strict(true)
-  .shape({
-    firstName: string().required().label('First Name'),
-    lastName: string().required().label('Last Name'),
-    email: string().email().required().label('Email'),
-    accountNo: string()
-      .matches(
-        /^\d+-\d+$/,
-        'Account Number must contain a dash ("-") character and should not include any letters or spaces'
-      )
-      .required('An Account Number is required (leading zeros are optional)')
-      .label('Account Number'),
-    address: string().required().label('Billing Address'),
-    city: string().required().label('City'),
-    otherCity: string()
-      .label('City')
-      .when('city', (city: string | null, schema: StringSchema) =>
-        city && city.toLowerCase() === 'other' ? schema.required() : schema
-      ),
-    phone: string().required().min(10).label('Phone Number'),
-    howDidYouHear: string()
-      .required()
-      .label('How Did You Hear About this Rebate Program'),
-    otherHowDidYouHear: string()
-      .label('How Did You Hear About this Rebate Program')
-      .when(
-        'howDidYouHear',
-        (howDidYouHear: string | null, schema: StringSchema) =>
-          howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-            ? schema.required()
-            : schema
-      ),
-    propertyType: string().required().label('Property Type'),
-    noOfToilets: number()
-      .required(
-        'Number of toilets/urinals installed must be a number that is greater than 0.'
-      )
-      .moreThan(0)
-      .label('Number of toilets/urinals installed'),
-    treatedCustomer: string().required().label('Treated Customer').oneOf(
-      ['Yes'], // "Yes", "No"
-      'You must be a current Placer County Water Agency treated water customer'
-    ),
-    builtPriorCutoff: string()
-      .required()
-      .label('Was your building(s) built prior to 1994?')
-      .oneOf(
-        ['Yes'], // "Yes", "No"
-        'Old toilets replaced must be rated at 3.0 (GPF) or more'
-      ),
-    manufacturerModel: array()
-      .required()
-      .label('Manufacturer and Model')
-      .min(MIN_TOILETS)
-      .max(MAX_TOILETS)
-      .of(
-        object({
-          manufacturer: string().required().label('Toilet/Urinal Manufacturer'),
-          model: string().required().label('Toilet/Urinal Model')
-        })
-      ),
-    watersenseApproved: string().required().label('Watersense Approved'),
-    // .oneOf(
-    //   [''], // "Yes", "No"
-    //   ''
-    // ),
-    termsAgree: string()
-      .required()
-      .oneOf(
-        ['true'],
-        'Must agree to Terms and Conditions by checking this box'
-      )
-      .label('Agree to Terms'),
-    emailAttachments: string().label('Email Attachments'),
-    signature: string().required().label('Your signature'),
-    captcha: string()
-      .required('Checking this box is required for security purposes')
-      .label('This checkbox'),
-    comments: string()
-      .max(200, 'Comments must be less than 200 characters.')
-      .label('Comments'),
-    receipts: array()
-      .when(
-        'emailAttachments',
-        (
-          emailAttachments: BooleanAsString,
-          schema: ArraySchema<SchemaOf<string>>
-        ) =>
-          emailAttachments === 'true'
-            ? schema
-            : schema.required('Must provide receipt(s) or proof of purchase')
-      )
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string().required('Attachment URL is not available').url()
-        })
-      ),
-    installPhotos: array()
-      .when(
-        'emailAttachments',
-        (
-          emailAttachments: BooleanAsString,
-          schema: ArraySchema<SchemaOf<string>>
-        ) =>
-          emailAttachments === 'true'
-            ? schema
-            : schema.required('Must provide photo(s) of installed toilet')
-      )
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string().required('Attachment URL is not available').url()
-        })
-      )
-  })
 
 const initialFormValues: RebateFormData = {
   firstName: '',

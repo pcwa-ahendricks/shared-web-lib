@@ -352,6 +352,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/smart-water-use/loomis-demonstration-garden</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/smart-water-use/maidu-fire-station-makeover</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -7113,6 +7117,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/education-center/videos/water-in-action</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/education-center/videos/informational</loc>
     <changefreq>daily</changefreq>
   </url>
 </urlset>

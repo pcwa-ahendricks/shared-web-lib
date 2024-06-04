@@ -796,7 +796,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const baseUrl = process.env.BASE_URL
 
     const publicationParam = paramToStr(params?.publication)
 

@@ -265,6 +265,14 @@ const menuConfig: MenuConfig[] = [
           {
             title: 'Clearing Your Water Meter',
             href: '/smart-water-use/clearing-water-meter'
+          },
+          {
+            title: 'Go to School on Leaks - Educational Program',
+            href: '/smart-water-use/go-to-school-on-leaks'
+          },
+          {
+            title: 'Master Gardener Demonstration Garden',
+            href: '/smart-water-use/master-gardener-demonstration-garden'
           }
         ]
       }

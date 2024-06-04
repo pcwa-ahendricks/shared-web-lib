@@ -2,7 +2,7 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Box, Divider, Grid, Typography as Type, Button} from '@mui/material'
 import {Formik, Field} from 'formik'
-import {string, object, StringSchema} from 'yup'
+import {string, object} from 'yup'
 import {
   postForm,
   Sb998SelfCertFormData,
@@ -38,62 +38,60 @@ import useTheme from '@hooks/useTheme'
 // import Recaptcha from '@components/DynamicRecaptcha/DynamicRecaptcha'
 
 const SERVICE_URI_PATH = 'sb998-application'
-
-const formSchema = object()
+const formSchema = object({
+  firstName: string().required().label('First Name'),
+  lastName: string().required().label('Last Name'),
+  email: string().email().required().label('Email'),
+  accountNo: string()
+    .matches(
+      /^\d+-\d+$/,
+      'Account Number must contain a dash ("-") character and should not include any letters or spaces'
+    )
+    .required('An Account Number is required (leading zeros are optional)')
+    .label('Account Number'),
+  address: string().required().label('Billing Address'),
+  svcAddress: string().required().label('Service Address'),
+  ownerTenant: string().required().label('Owner or Tenant'),
+  phone: string().required().min(10).label('Phone Number'),
+  treatedCustomer: string().required().label('Treated Customer').oneOf(
+    ['Yes'], // "Yes", "No"
+    'You must be a current Placer County Water Agency treated water customer'
+  ),
+  householdAssist: string().required().label('Household Assistance Program'),
+  householdIncome: string()
+    .label('Household Annual Income')
+    .when('householdAssist', {
+      is: (householdAssist: string | null) =>
+        householdAssist && householdAssist.toLowerCase() === 'no',
+      then: (schema) =>
+        schema.oneOf(
+          ['Yes'],
+          'Specific income conditions must be met to avoid service interruption under the Water Shutoff Protection Act'
+        ),
+      otherwise: (schema) => schema
+    }),
+  primaryCareCert: string()
+    .required()
+    .label('Certification of a Primary Care Provider'),
+  paymentPlan: string()
+    .label('Payment Plan')
+    .when('primaryCareCert', {
+      is: (primaryCareCert: string | null) =>
+        primaryCareCert && primaryCareCert.toLowerCase() === 'yes',
+      then: (schema) =>
+        schema.oneOf(
+          ['Yes'],
+          'WSPA requires a customer be willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment'
+        ),
+      otherwise: (schema) => schema
+    }),
+  signature: string().required().label('Your signature'),
+  captcha: string()
+    .required('Checking this box is required for security purposes')
+    .label('This checkbox')
+})
   .camelCase()
   .strict(true)
-  .shape({
-    firstName: string().required().label('First Name'),
-    lastName: string().required().label('Last Name'),
-    email: string().email().required().label('Email'),
-    accountNo: string()
-      .matches(
-        /^\d+-\d+$/,
-        'Account Number must contain a dash ("-") character and should not include any letters or spaces'
-      )
-      .required('An Account Number is required (leading zeros are optional)')
-      .label('Account Number'),
-    address: string().required().label('Billing Address'),
-    svcAddress: string().required().label('Service Address'),
-    ownerTenant: string().required().label('Owner or Tenant'),
-    phone: string().required().min(10).label('Phone Number'),
-    treatedCustomer: string().required().label('Treated Customer').oneOf(
-      ['Yes'], // "Yes", "No"
-      'You must be a current Placer County Water Agency treated water customer'
-    ),
-    householdAssist: string().required().label('Household Assistance Program'),
-    householdIncome: string()
-      .label('Household Annual Income')
-      .when(
-        'householdAssist',
-        (householdAssist: string | null, schema: StringSchema) =>
-          householdAssist && householdAssist.toLowerCase() === 'no'
-            ? schema.oneOf(
-                ['Yes'],
-                'Specific income conditions must be met to avoid service interruption under the Water Shutoff Protection Act'
-              )
-            : schema
-      ),
-    primaryCareCert: string()
-      .required()
-      .label('Certification of a Primary Care Provider'),
-    paymentPlan: string()
-      .label('Payment Plan')
-      .when(
-        'primaryCareCert',
-        (primaryCareCert: string | null, schema: StringSchema) =>
-          primaryCareCert && primaryCareCert.toLowerCase() === 'yes'
-            ? schema.oneOf(
-                ['Yes'],
-                'WSPA requires a customer be willing to enter an amortization agreement, alternative payment schedule, or plan for a deferred or reduced payment'
-              )
-            : schema
-      ),
-    signature: string().required().label('Your signature'),
-    captcha: string()
-      .required('Checking this box is required for security purposes')
-      .label('This checkbox')
-  })
 
 const initialFormValues: Sb998SelfCertFormData = {
   firstName: '',

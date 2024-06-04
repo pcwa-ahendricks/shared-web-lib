@@ -1,5 +1,4 @@
 import {compareDesc} from 'date-fns'
-import {utcToZonedTime} from 'date-fns-tz'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {stringify} from 'querystringify'
 // Won't work with Vercel. Path mappings in tsconfig not supported. See https://vercel.com/docs/runtimes#official-runtimes/node-js/using-typescript-with-the-node-js-runtime for more info.
@@ -7,7 +6,7 @@ import {stringify} from 'querystringify'
 // import lambdaUrl from '@api-lib/lambdaUrl'
 import lambdaUrl from '@lib/api/lambdaUrl'
 import {CosmicGetMediaResponse, GetMedia} from '@lib/api/cosmic'
-import {TZ} from '@lib/api/shared'
+import {localDateFrom} from '@lib/api/shared'
 
 const MEDIA_FOLDER = 'csv'
 
@@ -32,8 +31,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       : [media]
 
     const sortedMedia = filteredMedia.sort((left, right) => {
-      const leftCreated = utcToZonedTime(new Date(left.created), TZ)
-      const rightCreated = utcToZonedTime(new Date(right.created), TZ)
+      const leftCreated = localDateFrom(left.created)
+      const rightCreated = localDateFrom(right.created)
       return compareDesc(leftCreated, rightCreated)
     })
 

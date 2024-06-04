@@ -217,7 +217,7 @@ const DynamicNewsReleasePage = ({media, err}: Props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    // const baseUrl = process.env.BASE_URL
     // const data: PickedMediaResponses | undefined = await fetcher(
     //   `${baseUrl}${newsReleasesUrl}`
     // )
@@ -269,7 +269,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const baseUrl = process.env.BASE_URL
     const data: NewsReleaseMediaResponses | undefined = await fetcher(
       `${baseUrl}${newsReleasesUrl}`
     )

@@ -1,6 +1,11 @@
 // cspell:ignore accum rnge nrml clim arry
 import {grey, lightBlue, orange} from '@mui/material/colors'
-import {ComputedSerie, CustomLayer, ResponsiveLine, Serie} from '@nivo/line'
+import {
+  type ComputedSerie,
+  type CustomLayer,
+  type Serie,
+  ResponsiveLine
+} from '@nivo/line'
 import React, {useMemo} from 'react'
 import {Box, useTheme, Typography as Type, useMediaQuery} from '@mui/material'
 import SquareIcon from 'mdi-material-ui/Square'

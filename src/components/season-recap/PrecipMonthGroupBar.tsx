@@ -1,7 +1,7 @@
 // cspell:ignore accum
 import SquareIcon from 'mdi-material-ui/Square'
 import {orange, teal, brown, blue} from '@mui/material/colors'
-import {BarDatum, ResponsiveBar} from '@nivo/bar'
+import {type BarDatum, ResponsiveBar} from '@nivo/bar'
 import React, {useMemo} from 'react'
 import {Box, useTheme, alpha, Typography as Type} from '@mui/material'
 import {ChildBox, ColumnBox, RowBox} from '@components/MuiSleazebox'

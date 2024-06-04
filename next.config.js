@@ -463,6 +463,18 @@ const legacyRedirects = [
 // ]
 
 module.exports = {
+  env: {
+    BASE_URL:
+      process.env.VERCEL_ENV !== 'development'
+        ? 'https://www.pcwa.net'
+        : 'http://localhost:3000'
+  },
+  logging: {
+    fetches: {
+      fullUrl: true
+    }
+  },
+  reactStrictMode: true,
   // Fix error w/ Vercel and d3, fix error w/ swr and IE11
   transpilePackages: ['d3-shape', 'swr'],
   // https://github.com/martpie/next-transpile-modules/releases/tag/7.0.0

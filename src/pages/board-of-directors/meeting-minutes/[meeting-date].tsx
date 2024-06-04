@@ -231,7 +231,7 @@ const DynamicBoardMinutesPage = ({media, err, meetingDate}: Props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    // const urlBase = process.env.NEXT_PUBLIC_BASE_URL
+    // const urlBase = process.env.BASE_URL
     // const data: PickedMediaResponses | undefined = await fetcher(
     //   `${urlBase}${boardMinutesUrl}`
     // )
@@ -283,7 +283,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const urlBase = process.env.NEXT_PUBLIC_BASE_URL
+    const urlBase = process.env.BASE_URL
     const data: bodMinutesMediaResponses | undefined = await fetcher(
       `${urlBase}${boardMinutesUrl}`
     )

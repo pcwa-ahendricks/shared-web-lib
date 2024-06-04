@@ -1,5 +1,5 @@
 // cspell:ignore addtl cbarnhill truthy
-import {string, object, StringSchema, array, SchemaOf, ArraySchema} from 'yup'
+import {string, object, array} from 'yup'
 import {MailJetSendRequest, postMailJetRequest} from '@lib/api/mailjet'
 import isNumber from 'is-number'
 import {
@@ -48,89 +48,80 @@ interface FormDataObj {
   preConvPhotos: AttachmentFieldValue[]
 }
 
-const bodySchema = object()
-  .required()
-  .shape({
-    formData: object()
-      .camelCase()
-      .required()
-      .shape({
-        firstName: string().required(),
-        lastName: string().required(),
-        email: string().email().required(),
-        accountNo: string()
-          .matches(/^\d+-\d+$/)
-          .required(),
-        address: string().required(),
-        city: string().required(),
-        otherCity: string().when(
-          'city',
-          (city: string | undefined, schema: StringSchema) =>
-            city && city.toLowerCase() === 'other' ? schema.required() : schema
-        ),
-        phone: string().min(10).required(),
-        howDidYouHear: string().required(),
-        otherHowDidYouHear: string().when(
-          'howDidYouHear',
-          (howDidYouHear: string | undefined, schema: StringSchema) =>
-            howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-              ? schema.required()
-              : schema
-        ),
-        propertyType: string().required(),
-        treatedCustomer: string().required().oneOf(
-          ['Yes'] // "Yes", "No"
-        ),
-        termsAgree: string().required().oneOf(['true']),
-        emailAttachments: string().label('Email Attachments'),
-        preConvPhotos: array()
-          .when(
-            'emailAttachments',
-            (
-              emailAttachments: BooleanAsString,
-              schema: ArraySchema<SchemaOf<string>>
-            ) =>
-              emailAttachments === 'true' ? schema : schema.required().min(5)
-          )
-          .of(
-            object({
-              status: string()
-                .required()
-                .lowercase()
-                .matches(/success/),
-              url: string().required().url()
-            })
-          ),
-        inspectAgree: string().required().oneOf(['true']),
-        signature: string().required(),
-        captcha: string().required(),
-        describe: string().required().max(300),
-        irrigMethod: string().required().notOneOf(['Hand water']), // Case sensitive
-        useArtTurf: string().required().oneOf(['false']),
-        alreadyStarted: string().required(),
-        approxSqFeet: string()
-          .required()
-          .test(
-            'min-sq-feet',
-            'A minimum of 300 square feet of lawn must be converted',
-            (val) => {
-              const stripped = (val && val.replace(/[^0-9.]/, '')) || ''
-              if (isNumber(stripped)) {
-                const valAsNo = Math.round(parseFloat(stripped))
-                return valAsNo >= 300
-              }
-              return false
-            }
-          ),
-        upgradeLocations: object()
-          .required()
-          .test(
-            'has-one-location-option',
-            'upgradeLocations has no truth',
-            hasTrueValue
-          )
+const bodySchema = object({
+  formData: object({
+    firstName: string().required(),
+    lastName: string().required(),
+    email: string().email().required(),
+    accountNo: string()
+      .matches(/^\d+-\d+$/)
+      .required(),
+    address: string().required(),
+    city: string().required(),
+    otherCity: string().when('city', {
+      is: (city: string | undefined) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    phone: string().min(10).required(),
+    howDidYouHear: string().required(),
+    otherHowDidYouHear: string().when('howDidYouHear', {
+      is: (howDidYouHear: string | undefined) =>
+        howDidYouHear && howDidYouHear.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+    propertyType: string().required(),
+    treatedCustomer: string().required().oneOf(['Yes']), // "Yes", "No"
+    termsAgree: string().required().oneOf(['true']),
+    emailAttachments: string().label('Email Attachments'),
+    preConvPhotos: array()
+      .when('emailAttachments', {
+        is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+        then: (schema) => schema,
+        otherwise: (schema) => schema.required().min(5)
       })
+      .of(
+        object({
+          status: string()
+            .required()
+            .lowercase()
+            .matches(/success/),
+          url: string().required().url()
+        })
+      ),
+    inspectAgree: string().required().oneOf(['true']),
+    signature: string().required(),
+    captcha: string().required(),
+    describe: string().required().max(300),
+    irrigMethod: string().required().notOneOf(['Hand water']), // Case sensitive
+    useArtTurf: string().required().oneOf(['false']),
+    alreadyStarted: string().required(),
+    approxSqFeet: string()
+      .required()
+      .test(
+        'min-sq-feet',
+        'A minimum of 300 square feet of lawn must be converted',
+        (val) => {
+          const stripped = (val && val.replace(/[^0-9.]/g, '')) || ''
+          if (isNumber(stripped)) {
+            const valAsNo = Math.round(parseFloat(stripped))
+            return valAsNo >= 300
+          }
+          return false
+        }
+      ),
+    upgradeLocations: object()
+      .required()
+      .test(
+        'has-one-location-option',
+        'upgradeLocations has no truth',
+        hasTrueValue
+      )
   })
+    .camelCase()
+    .required()
+}).required()
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {

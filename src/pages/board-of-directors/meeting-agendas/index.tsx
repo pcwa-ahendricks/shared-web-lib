@@ -488,7 +488,7 @@ TODO - Not sure why this breaks the page layout under the Upcoming Committee Mee
 // Called at build time.
 // export const getStaticProps: GetStaticProps = async () => {
 //   try {
-//     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+//     const baseUrl = process.env.BASE_URL
 //     const agendaFallbackData = await fetcher<
 //       CosmicObjectResponse<AgendaMetadata>
 //     >(`${baseUrl}${agendasUrl}`)

@@ -220,7 +220,7 @@ const UnclaimedPropertyPage = ({fallbackData}: Props) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const baseUrl = process.env.BASE_URL
     const fallbackData = await fetcher(`${baseUrl}${csvDataUrl}`)
     return {
       props: {fallbackData},

@@ -1,11 +1,11 @@
 // cspell:ignore accum rnge nrml
 import {brown, green, red, blue, blueGrey as grey} from '@mui/material/colors'
 import {
-  Serie,
-  CustomLayer,
-  CustomLayerProps,
-  ResponsiveLine,
-  Point
+  type Serie,
+  type CustomLayer,
+  type CustomLayerProps,
+  type Point,
+  ResponsiveLine
 } from '@nivo/line'
 import React, {useCallback, useMemo} from 'react'
 import {Defs} from '@nivo/core'
@@ -19,7 +19,7 @@ import {LegendProps} from '@nivo/legends'
 import isNumber from 'is-number'
 
 type Props = {
-  tempDataset: Serie[]
+  tempDataset: readonly Serie[]
 }
 type PointDataMeta = Point['data'] & {historicalYear?: string}
 
@@ -390,8 +390,8 @@ export default function TempRangeLine({tempDataset}: Props) {
             const historicalYear = isHistoricalHigh
               ? historicalHighYear
               : isHistoricalLow
-              ? historicalLowYear
-              : ''
+                ? historicalLowYear
+                : ''
             // if (isHistoricalHigh) {
             //   console.log('slice', slice)
             //   console.log('point', point)

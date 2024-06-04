@@ -5,8 +5,8 @@ import {blue, brown, deepOrange} from '@mui/material/colors'
 import SquareIcon from 'mdi-material-ui/Square'
 import React from 'react'
 import {
-  CalendarDatum,
-  TimeRangeSvgProps,
+  type CalendarDatum,
+  type TimeRangeSvgProps,
   ResponsiveTimeRange
 } from '@nivo/calendar'
 

@@ -2,7 +2,7 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react'
 import {Divider, Grid, Typography as Type, Box, useTheme} from '@mui/material'
 import {Formik, Field} from 'formik'
-import {string, object, StringSchema, ArraySchema, SchemaOf, array} from 'yup'
+import {string, object, array} from 'yup'
 import {
   postForm,
   IrrigationEfficienciesRequestBody as RequestBody,
@@ -54,113 +54,106 @@ import {Theme} from '@lib/material-theme'
 
 const SERVICE_URI_PATH = 'irrigation-efficiencies-rebate'
 
-const formSchema = object()
+const formSchema = object({
+  firstName: string().required().label('First Name'),
+  lastName: string().required().label('Last Name'),
+  email: string().email().required().label('Email'),
+  accountNo: string()
+    .matches(
+      /^\d+-\d+$/,
+      'Account Number must contain a dash ("-") character and should not include any letters or spaces'
+    )
+    .required('An Account Number is required (leading zeros are optional)')
+    .label('Account Number'),
+  address: string().required().label('Billing Address'),
+  city: string().required().label('City'),
+  otherCity: string()
+    .label('City')
+    .when('city', {
+      is: (city: string | null) => city && city.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+  phone: string().required().min(10).label('Phone Number'),
+  howDidYouHear: string()
+    .required()
+    .label('How Did You Hear About this Rebate Program'),
+  otherHowDidYouHear: string()
+    .label('How Did You Hear About this Rebate Program')
+    .when('howDidYouHear', {
+      is: (howDidYouHear: string | null) =>
+        howDidYouHear && howDidYouHear.toLowerCase() === 'other',
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema
+    }),
+  propertyType: string().required().label('Property Type'),
+  treatedCustomer: string().required().label('Treated Customer').oneOf(
+    ['Yes'], // "Yes", "No"
+    'You must be a current Placer County Water Agency treated water customer'
+  ),
+  termsAgree: string()
+    .required()
+    .oneOf(['true'], 'Must agree to Terms and Conditions by checking this box')
+    .label('Agree to Terms'),
+  emailAttachments: string().label('Email Attachments'),
+  preConvPhotos: array()
+    .when('emailAttachments', {
+      is: (emailAttachments: BooleanAsString) => emailAttachments === 'true',
+      then: (schema) => schema,
+      otherwise: (schema) =>
+        schema
+          .required(
+            'Must provide 5 photos of your pre-converted irrigation system'
+          )
+          .length(
+            5,
+            'Must provide 5 photos of your pre-converted irrigation system'
+          )
+    })
+    .of(
+      object({
+        status: string()
+          .required()
+          .lowercase()
+          .matches(/success/, 'Remove and/or retry un-successful uploads'),
+        url: string().required('Attachment URL is not available').url()
+      })
+    ),
+  inspectAgree: string()
+    .required()
+    .oneOf(
+      ['true'],
+      'Must agree to a scheduled site inspection by checking this box'
+    )
+    .label('Agree to Site Inspection'),
+  signature: string().required().label('Your signature'),
+  captcha: string()
+    .required('Checking this box is required for security purposes')
+    .label('This checkbox'),
+  describe: string()
+    .max(300, 'Description must be less than 300 characters.')
+    .label('Description'),
+  irrigMethod: string().required().label('Irrigation Method').notOneOf(
+    ['Hand water'], // Case sensitive
+    'The Irrigation Efficiencies Rebates are only available to improve existing in-ground irrigation systems'
+  ),
+  upgradeLocations: object()
+    .required()
+    .test(
+      'has-one-location-option',
+      'You must select at least one location option',
+      hasTrueValue
+    ),
+  upgradeOpts: object()
+    .required()
+    .test(
+      'has-one-upgrade-option',
+      'You must select at least one upgrade option',
+      hasTrueValue
+    )
+})
   .camelCase()
   .strict(true)
-  .shape({
-    firstName: string().required().label('First Name'),
-    lastName: string().required().label('Last Name'),
-    email: string().email().required().label('Email'),
-    accountNo: string()
-      .matches(
-        /^\d+-\d+$/,
-        'Account Number must contain a dash ("-") character and should not include any letters or spaces'
-      )
-      .required('An Account Number is required (leading zeros are optional)')
-      .label('Account Number'),
-    address: string().required().label('Billing Address'),
-    city: string().required().label('City'),
-    otherCity: string()
-      .label('City')
-      .when('city', (city: string | null, schema: StringSchema) =>
-        city && city.toLowerCase() === 'other' ? schema.required() : schema
-      ),
-    phone: string().required().min(10).label('Phone Number'),
-    howDidYouHear: string()
-      .required()
-      .label('How Did You Hear About this Rebate Program'),
-    otherHowDidYouHear: string()
-      .label('How Did You Hear About this Rebate Program')
-      .when(
-        'howDidYouHear',
-        (howDidYouHear: string | null, schema: StringSchema) =>
-          howDidYouHear && howDidYouHear.toLowerCase() === 'other'
-            ? schema.required()
-            : schema
-      ),
-    propertyType: string().required().label('Property Type'),
-    treatedCustomer: string().required().label('Treated Customer').oneOf(
-      ['Yes'], // "Yes", "No"
-      'You must be a current Placer County Water Agency treated water customer'
-    ),
-    termsAgree: string()
-      .required()
-      .oneOf(
-        ['true'],
-        'Must agree to Terms and Conditions by checking this box'
-      )
-      .label('Agree to Terms'),
-    emailAttachments: string().label('Email Attachments'),
-    preConvPhotos: array()
-      .when(
-        'emailAttachments',
-        (
-          emailAttachments: BooleanAsString,
-          schema: ArraySchema<SchemaOf<string>>
-        ) =>
-          emailAttachments === 'true'
-            ? schema
-            : schema
-                .required(
-                  'Must provide 5 photos of your pre-converted irrigation system'
-                )
-                .length(
-                  5,
-                  'Must provide 5 photos of your pre-converted irrigation system'
-                )
-      )
-      .of(
-        object({
-          status: string()
-            .required()
-            .lowercase()
-            .matches(/success/, 'Remove and/or retry un-successful uploads'),
-          url: string().required('Attachment URL is not available').url()
-        })
-      ),
-    inspectAgree: string()
-      .required()
-      .oneOf(
-        ['true'],
-        'Must agree to a scheduled site inspection by checking this box'
-      )
-      .label('Agree to Site Inspection'),
-    signature: string().required().label('Your signature'),
-    captcha: string()
-      .required('Checking this box is required for security purposes')
-      .label('This checkbox'),
-    describe: string()
-      .max(300, 'Description must be less than 300 characters.')
-      .label('Description'),
-    irrigMethod: string().required().label('Irrigation Method').notOneOf(
-      ['Hand water'], // Case sensitive
-      'The Irrigation Efficiencies Rebates are only available to improve existing in-ground irrigation systems'
-    ),
-    upgradeLocations: object()
-      .required()
-      .test(
-        'has-one-location-option',
-        'You must select at least one location option',
-        hasTrueValue
-      ),
-    upgradeOpts: object()
-      .required()
-      .test(
-        'has-one-upgrade-option',
-        'You must select at least one upgrade option',
-        hasTrueValue
-      )
-  })
 
 const initialFormValues: RebateFormData = {
   firstName: '',

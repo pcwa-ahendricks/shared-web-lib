@@ -1,7 +1,7 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-type ShakeBottomProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type ShakeBottomProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
 const ShakeBottom = ({children, ...rest}: ShakeBottomProps) => {
   return (

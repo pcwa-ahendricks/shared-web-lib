@@ -222,8 +222,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                         n.derivedFilenameAttr?.date === '12-20-2022'
                           ? 'https://docs.pcwa.net/mosquito-fire-update-pcwa-has-filed-suit-against-pacific-gas-electric-company.pdf'
                           : n.derivedFilenameAttr?.date === '01-17-2023'
-                          ? 'https://docs.pcwa.net/pcwa-files-suit-against-pge-for-breach-of-contract.pdf'
-                          : '/newsroom/news-releases/[release-date]'
+                            ? 'https://docs.pcwa.net/pcwa-files-suit-against-pge-for-breach-of-contract.pdf'
+                            : '/newsroom/news-releases/[release-date]'
                       }
                       as={
                         n.derivedFilenameAttr?.date === '12-20-2022' ||
@@ -303,7 +303,7 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
 // Called at build time.
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const baseUrl = process.env.BASE_URL
     const fallbackData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
     return {
       props: {fallbackData},

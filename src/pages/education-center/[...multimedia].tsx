@@ -582,7 +582,7 @@ const ResourceLibraryPage = ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    // const baseUrl = process.env.BASE_URL
 
     // const multimedia$: Promise<MultimediaList | undefined> = fetcher(
     //   `${baseUrl}${multimediaUrl}`
@@ -688,7 +688,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const galleryParam = multimedia?.[1] ?? null
     const lightboxIndexParam = multimedia?.[2] ?? null
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const baseUrl = process.env.BASE_URL
 
     const multimedia$: Promise<
       Array<PickedVideoResponse | PickedPhotoResponse> | undefined
