@@ -132,8 +132,8 @@ const RowBox = ({
   const wrapSpacing = !isFlexWrap
     ? undefined
     : typeof wrapSpacingProp === 'number'
-    ? wrapSpacingProp
-    : flexSpacing
+      ? wrapSpacingProp
+      : flexSpacing
 
   return (
     <FlexBox

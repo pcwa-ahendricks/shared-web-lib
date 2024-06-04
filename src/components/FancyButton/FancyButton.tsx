@@ -63,8 +63,8 @@ const FancyButton = ({
             transition !== 'slideUp'
               ? 'none'
               : isHovering
-              ? 'translateY(0)'
-              : 'translateY(50px)',
+                ? 'translateY(0)'
+                : 'translateY(50px)',
           transition: `all ${transitionDuration} ease`,
           transitionProperty: 'opacity, transform'
         }}
@@ -80,8 +80,8 @@ const FancyButton = ({
             transition !== 'slideUp'
               ? 'none'
               : isHovering
-              ? 'translateY(-50px)'
-              : 'translateY(0)',
+                ? 'translateY(-50px)'
+                : 'translateY(0)',
           transition: `all ${transitionDuration} ease`,
           transitionProperty: 'opacity, transform'
         }}

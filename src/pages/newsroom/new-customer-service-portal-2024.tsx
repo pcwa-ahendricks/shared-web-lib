@@ -13,8 +13,8 @@ import {kiperman} from '@lib/material-theme'
 import Spacing from '@components/boxes/Spacing'
 import SpauldingConstructionFaq from '@components/SpauldingConstructionFaq'
 import NewsBlurb from '@components/recent-news/NewsBlurb/NewsBlurb'
-import Blockquote from '@components/typography/Blockquote'
-// import {GetServerSideProps} from 'next'
+import Link from '@components/Link'
+import NewUtilityBillSystemFaq from '@components/NewUtilityBillSystemFaq'
 
 export default function NewCustomerServicePortal2024() {
   const theme = useTheme()
@@ -33,22 +33,122 @@ export default function NewCustomerServicePortal2024() {
             single platform, significantly improving our service efficiency and
             enhancing your customer experience.
           </Type>
+          <Type paragraph>
+            This upgrade replaces our outdated software, which has been in use
+            for 25 years and is no longer supported. You'll enjoy a more
+            intuitive and user-friendly experience. The new portal will make
+            managing your account easier than ever before.
+          </Type>
+          <Spacing />
+          <Type variant="h3" color="primary">
+            Enhanced Customer Portal
+          </Type>
+          <Box component="ul" sx={{marginTop: 1}}>
+            <Type component="li">
+              <strong>24/7 Access:</strong> Login from your desktop, tablet, or
+              phone.
+            </Type>
+            <Type component="li">
+              <strong>Water Use Review:</strong> Keep track of your water usage
+              effortlessly.
+            </Type>
+            <Type component="li">
+              <strong>Billing and Payments:</strong> Receive and pay bills, and
+              view your billing and payment history.
+            </Type>
+            <Type component="li">
+              <strong>Autopay Registration:</strong> Sign up for autopay with
+              ease.
+            </Type>
+            <Type component="li">
+              <strong>Service Requests:</strong> Request new service or transfer
+              your service online.
+            </Type>
+            <Type component="li">
+              <strong>Rebate Requests:</strong> Submit rebate requests directly
+              through the portal.
+            </Type>
+            <Type component="li">
+              <strong>Customer Service Contact:</strong> Reach out to our
+              customer service team through the portal's self-service feature.
+            </Type>
+          </Box>
+
+          <Spacing />
+          <Type variant="h4">
+            <em>Key Dates to Remember</em>
+          </Type>
+
+          <Spacing size="small" />
+          <Type variant="h4">July 2024:</Type>
+          <Box component="ul" sx={{marginTop: 1}}>
+            <Type component="li">
+              <strong>New Account Numbers:</strong> All PCWA account numbers
+              will change. Look out for your new account number in the mail with
+              instructions on how and when to use it.
+            </Type>
+          </Box>
+
+          <Spacing size="small" />
+          <Type variant="h4">August 2024:</Type>
+          <Box component="ul" sx={{marginTop: 1}}>
+            <Type component="li">
+              <strong>New Customer Portal Launch:</strong> Our new portal will
+              go live! Access it through the [“New Customer Portal”] or{' '}
+              <Link
+                aria-label="Paymentus web payment link"
+                href="https://ipn.paymentus.com/cp/plco"
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="always"
+                sx={{color: 'primary.dark'}}
+              >
+                Pay My Bill
+              </Link>{' '}
+              at PCWA.net.
+            </Type>
+            <Type component="li">
+              <strong>Payment Options:</strong> Use your new account number to
+              make payments online, by check, or by phone.
+            </Type>
+            <Type component="li">
+              <strong>Autopay Sign-Up:</strong> Customers currently on autopay
+              will need to re-register in the new portal.
+            </Type>
+            <Type component="li">
+              <strong>Update Third-Party Bill Pay:</strong> Ensure your new
+              account number is updated with your bank bill pay services, if
+              applicable.
+            </Type>
+            <Type component="li">
+              <strong>New Bill Statements:</strong> Enjoy a new, easier-to-read
+              bill statement. This new bill statement will also include your new
+              account number.
+            </Type>
+          </Box>
+
+          <Spacing />
+          <Type variant="h4">Need Assistance?</Type>
+          <Type>
+            Our customer service team is here to help with any questions or
+            concerns. Feel free to email us at <CustomerServicesEmail /> or call{' '}
+            <MainPhone />.
+          </Type>
+
+          <Spacing />
+
+          <Type variant="h4" paragraph>
+            Thank you for being a valued PCWA customer. We look forward to
+            serving you with our new ERP system!
+          </Type>
+
+          <Spacing factor={2} />
+
+          <NewUtilityBillSystemFaq />
+
           <Grid container spacing={4}>
             <Grid xs={12} sm={6}>
-              <Type paragraph>
-                At a recent board meeting on April 18, the PCWA Board of
-                Directors took action in response to this unforeseen event
-                beyond our control. They approved a variance that extends the
-                conservation opportunity to even the smallest raw-water
-                customers, demonstrating our commitment to finding solutions
-                amid such circumstances.
-              </Type>
-              <Type paragraph>
-                Customers who want to discuss their options to temporarily
-                reduce or suspend raw water deliveries are encouraged to contact
-                our Customer Services Department at <MainPhone /> or{' '}
-                <CustomerServicesEmail />.
-              </Type>
+              ++++
             </Grid>
             <Grid
               xs={12}
@@ -89,27 +189,7 @@ export default function NewCustomerServicePortal2024() {
             </Grid>
           </Grid>
           <Spacing size="large" />
-          <Blockquote>
-            <Type paragraph variant="h4">
-              We encourage our customers to check back periodically for updates
-              on the ongoing situation and any necessary actions they may need
-              to take.
-            </Type>
-          </Blockquote>
-          <Spacing size="small" />
-          <Box>
-            <Image
-              src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/South%20Yuba%20Canal%20Map.png"
-              alt="PG&E Mountain Division South Yuba Lower Map"
-              loader={imgixUrlLoader}
-              layout="responsive"
-              style={{objectFit: 'cover', width: '100%'}}
-              sizes="(max-width: 600px) 60vw, 40vw"
-              width={5760}
-              height={3840}
-            />
-          </Box>
-          <Spacing />
+
           <Grid container spacing={4}>
             <Grid xs={12} sm={8}>
               <SpauldingConstructionFaq />

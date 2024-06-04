@@ -33,28 +33,28 @@ export type JackinBoxProps = {
 } & BoxProps
 
 export default function JackinBox({
-                                    children,
-                                    className: classNameProp,
-                                    animate = true,
-                                    name,
-                                    // version = VERSION,
-                                    prefix = PREFIX,
-                                    hideUntilAnimate = false,
-                                    noDisplayUntilAnimate = false,
-                                    hideAfterAnimate = false,
-                                    noDisplayAfterAnimate = false,
-                                    delayBy = '1s',
-                                    speedBy = '1s',
-                                    repeatBy = 1,
-                                    speed,
-                                    infinite,
-                                    delay: delayProp = false,
-                                    repeat: repeatProp = false,
-                                    onAnimateEnd,
-                                    onAnimateStart,
-                                    sx,
-                                    ...rest
-                                  }: JackinBoxProps) {
+  children,
+  className: classNameProp,
+  animate = true,
+  name,
+  // version = VERSION,
+  prefix = PREFIX,
+  hideUntilAnimate = false,
+  noDisplayUntilAnimate = false,
+  hideAfterAnimate = false,
+  noDisplayAfterAnimate = false,
+  delayBy = '1s',
+  speedBy = '1s',
+  repeatBy = 1,
+  speed,
+  infinite,
+  delay: delayProp = false,
+  repeat: repeatProp = false,
+  onAnimateEnd,
+  onAnimateStart,
+  sx,
+  ...rest
+}: JackinBoxProps) {
   const delay = delayProp === true ? 1 : delayProp
   const repeat = repeatProp === true ? 1 : repeatProp
   // Use animate value to determine when the element should be visible

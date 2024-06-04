@@ -6,6 +6,7 @@ import {
   useTheme
 } from '@mui/material'
 import {Theme} from '@lib/material-theme'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 // color prop is for Typography, not Button. size prop is not covered by ButtonBase, but by custom styling that uses similar naming for accepted values.
 export type GlowButtonProps = {
@@ -13,12 +14,19 @@ export type GlowButtonProps = {
   size?: 'small' | 'medium' | 'large'
 } & ButtonBaseProps<'a'>
 
-const GlowButton = ({children, size = 'medium', ...props}: GlowButtonProps) => {
+const GlowButton = ({
+  children,
+  size = 'medium',
+  href,
+  ...props
+}: GlowButtonProps) => {
   const theme = useTheme<Theme>()
   const {sx, ...rest} = props
+  const LinkComponent = useLinkComponent()
   return (
     <ButtonBase
-      component="a"
+      LinkComponent={LinkComponent}
+      href={href}
       sx={{
         // color: theme.palette.primary.main,
         color: 'inherit',

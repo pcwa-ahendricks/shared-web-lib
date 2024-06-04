@@ -28,7 +28,7 @@
     "@types/file-saver": "^2.0.6",
     "@types/is-number": "^7.0.4",
     "@types/multer": "^1.4.9",
-    "@types/node": "^20.13.0",
+    "@types/node": "^20.14.1",
     "@types/react": "18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/smoothscroll-polyfill": "^0.3.4",
@@ -41,7 +41,7 @@
     "eslint-config-prettier": "^9.0.0",
     "globby": "<12.0.0",
     "postcss": "^8.4.38",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.0",
     "rimraf": "^5.0.7",
     "typescript": "5.2.2"
   },

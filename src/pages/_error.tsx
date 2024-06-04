@@ -87,8 +87,8 @@ ErrorPage.getInitialProps = ({res, err}: NextPageContext) => {
     res && res.statusCode
       ? res.statusCode
       : err && err.statusCode
-      ? err.statusCode
-      : 500
+        ? err.statusCode
+        : 500
   return {statusCode}
 }
 

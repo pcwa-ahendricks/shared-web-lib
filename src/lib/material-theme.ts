@@ -108,13 +108,13 @@ const theme = responsiveFontSizes(
         // fontFamily: ['Open Sans', ...systemFonts].join(',')
         // fontFamily: ['Kiperman', ...systemFonts].join(','),
         fontFamily: [kiperman.style.fontFamily, ...systemFonts].join(','),
-        fontSize: '1.1rem' // Default: 0.875rem
+        fontSize: '1.15rem' // Default: 0.875rem
       },
       body1: {
         // fontFamily: ['Open Sans', ...systemFonts].join(',')
         // fontFamily: ['Kiperman', ...systemFonts].join(','),
         fontFamily: [kiperman.style.fontFamily, ...systemFonts].join(','),
-        fontSize: '1.2rem' // Default: 1rem
+        fontSize: '1.22rem' // Default: 1rem
       },
       button: {
         // fontFamily: ['Asap Condensed', ...systemFonts].join(','),

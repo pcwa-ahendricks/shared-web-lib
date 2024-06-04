@@ -60,8 +60,8 @@ const MultimediaLightboxFooter = ({
           ? '20px 15px 15px'
           : '5px 0'
         : isModal
-        ? '30px 20px 20px'
-        : '10px 0',
+          ? '30px 20px 20px'
+          : '10px 0',
       '& *:focus': {
         outline: '1.5px solid orange'
       }

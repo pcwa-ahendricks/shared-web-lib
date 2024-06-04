@@ -62,8 +62,8 @@ const ThumbPreview = ({
           uploadStatus === 'success'
             ? theme.palette.error.main
             : uploadStatus === 'unknown'
-            ? theme.palette.text.disabled
-            : theme.palette.text.primary
+              ? theme.palette.text.disabled
+              : theme.palette.text.primary
       },
       thumb: {
         display: 'inline-flex',

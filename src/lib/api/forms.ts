@@ -56,8 +56,8 @@ const emailRecipientsContactUs = (subject: string) =>
   isDev
     ? [{Name: 'PCWA Web Test User', Email: DEV_EMAIL}]
     : subject.toLowerCase() === 'clerk to the board'
-    ? [{Email: 'clerk@pcwa.net', Name: 'Clerk'}]
-    : [{Email: 'customerservices@pcwa.net', Name: 'Customer Services'}]
+      ? [{Email: 'clerk@pcwa.net', Name: 'Clerk'}]
+      : [{Email: 'customerservices@pcwa.net', Name: 'Customer Services'}]
 
 const emailRecipientsSysAdmin: MailJetMessage['Bcc'] = isDev
   ? [{Name: 'Abe', Email: 'ahendricks@pcwa.net'}]

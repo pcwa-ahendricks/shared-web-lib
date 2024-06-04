@@ -77,8 +77,8 @@ const SecondaryHeader = () => {
       <GlowButton
         size="small"
         aria-label="New Customer Service Portal"
-        href="https://ipn.paymentus.com/cp/plco"
-        sx={{color: red['400']}}
+        href="/newsroom/new-customer-service-portal-2024"
+        sx={{color: red['700']}}
       >
         <em>New Customer Service Portal</em>
       </GlowButton>
