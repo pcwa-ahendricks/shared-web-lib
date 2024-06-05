@@ -292,7 +292,7 @@ const SlideInLeftIntersect = ({
   }, [intersection, intersected])
 
   const theme = useTheme()
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
+  const isMdUp = useMediaQuery(theme.breakpoints.up('lg'))
 
   const shouldAnimate = intersected && !previouslyAnimated && isMdUp
 
