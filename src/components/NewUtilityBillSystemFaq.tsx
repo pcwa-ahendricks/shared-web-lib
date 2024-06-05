@@ -10,8 +10,6 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {ColumnBox} from '@components/MuiSleazebox'
 import {Theme} from '@lib/material-theme'
-import MainPhone from './links/MainPhone'
-import CustomerServicesEmail from './links/CustomerServicesEmail'
 
 const NewUtilityBillSystemFaq = () => {
   const theme = useTheme<Theme>()
@@ -162,12 +160,13 @@ const NewUtilityBillSystemFaq = () => {
               Key dates for the transition include:
             </Type>
             <Type variant="body2" paragraph>
-              July 2024: New account numbers will be mailed to all customers.
+              <strong>July 2024</strong>: New account numbers will be mailed to
+              all customers.
             </Type>
             <Type variant="body2" paragraph>
-              August 2024: New account numbers will take effect, and the new
-              customer portal will go live. The old payment system interface
-              will no longer be available.
+              <strong>August 2024</strong>: New account numbers will take
+              effect, and the new customer portal will go live. The old payment
+              system interface will no longer be available.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -186,22 +185,16 @@ const NewUtilityBillSystemFaq = () => {
           id="panel5bh-header"
         >
           <Type variant="subtitle2">
-            Does PCWA have other sources of water?
+            Will my current account number change?
           </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              Thankfully, PCWA’s proactive planning for scenarios like this play
-              a significant role in PCWA’s ongoing effort to deliver water
-              reliably. PCWA has backup supplies from the American River and
-              groundwater, and interties with neighboring water providers.
-            </Type>
-            <Type paragraph variant="body2">
-              So, while we have plans to make up for much of the delayed water
-              supply, we need your help to ensure that the water currently
-              available in Rollins Reservoir lasts through the duration of this
-              outage.
+              Yes, all PCWA account numbers will change. You will receive your
+              new account number in the mail in July 2024. Your new account
+              number will also appear on your first bill after we transition to
+              the new system in August.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -219,24 +212,20 @@ const NewUtilityBillSystemFaq = () => {
           id="panel6bh-header"
         >
           <Type variant="subtitle2">
-            How long will the water delivery problem last?
+            What actions should I take as a customer?
           </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              <br />
-              PG&E is moving forward with a plan to partially restore water
-              deliveries in mid-June, but full repair of the failed
-              infrastructure isn’t expected until late fall, which means that
-              PG&E’s water delivery constraint will persist through the hot
-              summer months.
+              July 2024: Look for your new account number in the mail and follow
+              the instructions to set up your account in the new system.
             </Type>
             <Type variant="body2" paragraph>
-              <em>Update:</em> As of May 30, 2024, PG&E provided the following
-              statement: PG&E has informed water agencies that the earlier
-              projected [return to service] date of June 19 for the Spaulding 1
-              powerhouse is now June 30.
+              August 2024: Use your new account number to access the new
+              customer portal through the [“New Customer Portal”] or [“Pay My
+              Bill”] link at pcwa.net. Sign up for autopay and update any
+              third-party bill pay services with your new account number.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -253,23 +242,17 @@ const NewUtilityBillSystemFaq = () => {
           aria-controls="panel7bh-content"
           id="panel7bh-header"
         >
-          <Type variant="subtitle2">Do we have to conserve water?</Type>
+          <Type variant="subtitle2">
+            What will happen to my autopay settings?
+          </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              To help us all get through this period, we’re asking for voluntary
-              reductions or temporary suspension in canal water deliveries now,
-              while it’s still cool. We also ask all customers to be mindful of
-              their water use and conservation in general, to preserve what we
-              have, keeping demand under control now, to avoid facing a serious
-              shortage later in the summer.
-            </Type>
-            <Type variant="body2" paragraph>
-              Customers who want to discuss their options to temporarily reduce
-              or suspend raw water deliveries are encouraged to contact our
-              Customer Services Department at <MainPhone /> or{' '}
-              <CustomerServicesEmail />.
+              If you are currently on autopay, you will need to re-register in
+              the new customer portal once it goes live in August 2024. To do
+              this, go to the [“New Customer Portal”] or [“Pay My Bill”] and
+              login with your new account number. Select the auto-pay feature.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -287,14 +270,15 @@ const NewUtilityBillSystemFaq = () => {
           id="panel8bh-header"
         >
           <Type variant="subtitle2">
-            How will you notify customers of future updates?
+            Will I need to update my bank bill pay service?
           </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              We encourage our customers to check back periodically for updates
-              posted on our website.
+              Yes. Once we go live in August you will need to update any
+              third-party bill pay services you use to ensure seamless payment
+              processing.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -312,46 +296,61 @@ const NewUtilityBillSystemFaq = () => {
           id="panel9bh-header"
         >
           <Type variant="subtitle2">
-            What is the history of the Drum-Spaulding System?
+            What are the benefits of the new utility billing system for PCWA’s
+            internal operations?
           </Type>
         </AccordionSummary>
         <AccordionDetails>
-          <ColumnBox>
-            <Type variant="body2" paragraph>
-              The Drum-Spaulding system is the primary water supply for parts of
-              west Placer County. This water is delivered from a historic canal
-              system that begins at a reservoir in the Yuba watershed and
-              meanders through Placer County.
+          <Box component="ul" sx={{marginTop: 1}}>
+            <Type component="li">
+              <strong>Streamlined Operations</strong>: By integrating functions
+              like billing, customer service, maintenance, and financials into a
+              single platform, the new system reduces redundancy and improves
+              coordination. Routine tasks such as billing and reporting will be
+              automated, saving time and reducing human error.
             </Type>
-            <Type variant="body2" paragraph>
-              From the time PG&E purchased the gold rush-era reservoirs on the
-              South Yuba River in the early 1900s, until 1967, PG&E was the
-              primary water retailer in Placer County. During that time, the
-              Placer County region was one of the leading producers of tree
-              fruits in the nation. The same canals that were originally used to
-              transport water to the productive lands of the county also became
-              part of PG&E’s Drum-Spaulding hydroelectric facilities.
+            <Type component="li">
+              <strong>Real-Time Data Management</strong>: With real-time access
+              to data, PCWA can make more timely and informed decisions, helping
+              to ensure faster and more accurate responses to customer needs.
             </Type>
-            <Type variant="body2" paragraph>
-              In 1967, PG&E decided to exit the retail water business, and PCWA
-              purchased its western water system with overwhelming support from
-              voters. We did this to bring more affordable water to our
-              customers and to ensure the water system received the best
-              possible operation and maintenance.
+            <Type component="li">
+              <strong>Improved Coordination</strong>: The integration of
+              different functions enhances communication and coordination
+              between departments, leading to a more cohesive and productive
+              operation.
             </Type>
-            <Type variant="body2" paragraph>
-              Then, in 1983, PG&E sold the upper portion of their retail system,
-              from Alta to Auburn, to PCWA. By this time, PG&E had exited the
-              retail water business, and PCWA took over the duty to continue
-              delivering water to the people of Placer County.
+            <Type component="li">
+              <strong>Scalability and Flexibility</strong>: The new system is
+              designed to accommodate PCWA's growing customer base and service
+              area. It can also adapt swiftly to evolving business needs and
+              integrate with emerging technologies like Advanced Metering
+              Infrastructure (AMI) and Automated Meter Reading (AMR).
             </Type>
-            <Type variant="body2" paragraph>
-              Importantly, through both of these water system sales, PG&E has
-              been bound by long-term contracts to ensure the continued delivery
-              of water from the Drum-Spaulding system to PCWA, in order to
-              supply the same customers and lands historically served by PG&E.
+            <Type component="li">
+              <strong>Enhanced Customer Service</strong>: Better coordination
+              and real-time data management will enable our customer service
+              team to address inquiries and issues more promptly and accurately,
+              improving overall customer satisfaction.
             </Type>
-          </ColumnBox>
+            <Type component="li">
+              <strong>Increased Efficiency</strong>: Automating routine tasks
+              reduces the risk of human error and frees up staff time for more
+              critical activities, leading to higher efficiency and better
+              service delivery.
+            </Type>
+            <Type component="li">
+              <strong>Data Security and Compliance</strong>: The new ERP system
+              includes advanced security features to protect critical data and
+              ensure compliance with regulations, safeguarding both PCWA and its
+              customers from potential security breaches and legal issues.
+            </Type>
+          </Box>
+          <Type paragraph>
+            If you have any other questions, please feel free to reach out to
+            our customer service team. We’re here to ensure a smooth transition
+            and to help you make the most of the new system.
+          </Type>
         </AccordionDetails>
       </Accordion>
     </Box>

@@ -21,7 +21,6 @@ import {
   setEnewsDialogOpen,
   NewsroomContext
 } from '@components/newsroom/NewsroomStore'
-import {red} from '@mui/material/colors'
 
 const SecondaryHeader = () => {
   const theme = useTheme<Theme>()
@@ -74,14 +73,14 @@ const SecondaryHeader = () => {
       >
         Board Meetings
       </NextGlowButton> */}
-      <GlowButton
+      {/* <GlowButton
         size="small"
         aria-label="New Customer Service Portal"
         href="/newsroom/new-customer-service-portal-2024"
         sx={{color: red['700']}}
       >
         <em>New Customer Service Portal</em>
-      </GlowButton>
+      </GlowButton> */}
       <GlowButton
         size="small"
         aria-label="Paymentus web payment link"

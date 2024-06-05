@@ -1,6 +1,18 @@
 export default function homepage() {
   return (
     <>
+      <Grid xs={12} sm={6}>
+        <CoverStory
+          aspectRatio={coverStoryImageRatio}
+          title="2023 Annual Report"
+          readMore="Read our 2023 Year End Report"
+          linkHref="/newsroom/publications/year-end-report"
+          imgixURL="https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png"
+          // imgixParams={{crop: 'right'}}
+          alt="2023 Annual Report "
+          body="Each year, PCWA compiles a beautifully illustrated report showcasing how Placer County Water Agency continues to serve the community and safeguard our water resources for our future. "
+        />
+      </Grid>
       {/* <ChildBox flex="0 0 50%">
             <CoverStory
               aspectRatio={coverStoryImageRatio}
