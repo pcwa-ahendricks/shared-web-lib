@@ -6,6 +6,7 @@ import {
   useTheme
 } from '@mui/material'
 import {Theme} from '@lib/material-theme'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 // color prop is for Typography, not Button. size prop is not covered by ButtonBase, but by custom styling that uses similar naming for accepted values.
 export type GlowButtonProps = {
@@ -13,11 +14,19 @@ export type GlowButtonProps = {
   size?: 'small' | 'medium' | 'large'
 } & ButtonBaseProps<'a'>
 
-const GlowButton = ({children, size = 'medium', ...rest}: GlowButtonProps) => {
+const GlowButton = ({
+  children,
+  size = 'medium',
+  href,
+  ...props
+}: GlowButtonProps) => {
   const theme = useTheme<Theme>()
+  const {sx, ...rest} = props
+  const LinkComponent = useLinkComponent()
   return (
     <ButtonBase
-      component="a"
+      LinkComponent={LinkComponent}
+      href={href}
       sx={{
         // color: theme.palette.primary.main,
         color: 'inherit',
@@ -28,10 +37,10 @@ const GlowButton = ({children, size = 'medium', ...rest}: GlowButtonProps) => {
           size === 'small'
             ? '4px 8px'
             : size === 'medium'
-            ? '6px 8px'
-            : size === 'large'
-            ? '8px 24px'
-            : 'inherit'
+              ? '6px 8px'
+              : size === 'large'
+                ? '8px 24px'
+                : 'inherit'
       }}
       {...rest}
     >
@@ -50,10 +59,12 @@ const GlowButton = ({children, size = 'medium', ...rest}: GlowButtonProps) => {
             size === 'small'
               ? '0.8125rem'
               : size === 'medium'
-              ? '1rem'
-              : size === 'large'
-              ? '0.9375rem'
-              : 'inherit' // Why is the 'large' button font-size smaller than the medium size button in Material-UI?
+                ? '1rem'
+                : size === 'large'
+                  ? '0.9375rem'
+                  : 'inherit', // Why is the 'large' button font-size smaller than the medium size button in Material-UI?
+
+          ...sx
         }}
       >
         {children}

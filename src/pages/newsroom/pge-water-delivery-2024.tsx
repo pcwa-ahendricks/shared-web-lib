@@ -16,7 +16,7 @@ import NewsBlurb from '@components/recent-news/NewsBlurb/NewsBlurb'
 import Blockquote from '@components/typography/Blockquote'
 // import {GetServerSideProps} from 'next'
 
-export default function ResponsiveImageTemplatePage() {
+export default function PgeWaterDelivery2024Page() {
   const theme = useTheme()
   return (
     <PageLayout title="Spaulding Powerhouse No. 1 Outage" waterSurface>

@@ -118,10 +118,10 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       serviceAddress && serviceCity
         ? `${serviceAddress}, ${serviceCity}`
         : !serviceAddress && serviceCity
-        ? serviceCity
-        : !serviceCity && serviceAddress
-        ? serviceAddress
-        : ''
+          ? serviceCity
+          : !serviceCity && serviceAddress
+            ? serviceAddress
+            : ''
 
     // "PCWA-No-Spam: webmaster@pcwa.net" is a email Header that is used to bypass Barracuda Spam filter.
     // We add it to all emails so that they don"t get caught.  The header is explicitly added to the

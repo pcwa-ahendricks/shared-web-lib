@@ -22,7 +22,8 @@
 @font-face {
   font-family: 'weathericons';
   src: url('/static/fonts/WeatherIcons/weathericons-regular-webfont.eot');
-  src: url('/static/fonts/WeatherIcons/weathericons-regular-webfont.eot?#iefix')
+  src:
+    url('/static/fonts/WeatherIcons/weathericons-regular-webfont.eot?#iefix')
       format('embedded-opentype'),
     url('/static/fonts/WeatherIcons/weathericons-regular-webfont.woff2')
       format('woff2'),

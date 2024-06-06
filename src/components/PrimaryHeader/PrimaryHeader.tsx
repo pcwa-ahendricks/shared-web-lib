@@ -142,8 +142,8 @@ const PrimaryHeader = () => {
               ? alpha(theme.palette.background.paper, 0.98)
               : theme.palette.primary.main
             : isXS
-            ? theme.palette.primary.main
-            : theme.palette.background.default,
+              ? theme.palette.primary.main
+              : theme.palette.background.default,
 
           transition:
             !isXS__ && !isXS

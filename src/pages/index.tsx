@@ -24,7 +24,6 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
-//import HeroYearEnd from '@components/hero-year-end-report/HeroYearEnd'
 import HeroImage from '@components/hero/HeroImage'
 
 const FETCHER_TIMEOUT = 2000
@@ -58,7 +57,8 @@ const imgixImages = [
   'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg',
   //'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
   'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg',
-  'https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg'
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg',
+  'https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png'
 ]
 
 type Props = {
@@ -113,6 +113,7 @@ const Index = ({
 
       <HeroImage />
       {/*<HeroYearEnd />*/}
+      {/* <HeroNewUtilityBill /> */}
 
       {/* <Hidden only="xs" implementation="css">
         <TrendingBar />
@@ -130,25 +131,23 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
+              title="New Customer Portal Coming Soon"
+              readMore="See Our Frequently Asked Questions"
+              linkHref="/newsroom/new-customer-service-portal-2024"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png"
+              alt="New Customer Portal Brochure"
+              body="We're excited to announce our new utility billing system for improved efficiency and a better customer experience. This upgrade offers a more intuitive and user-friendly portal to manage your account, track water usage, and handle billing with ease. Stay tuned for new account numbers in July 2024 and the launch of our enhanced customer portal in August 2024."
+            />
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
               title="Your Water Quality Matters"
               readMore="Learn more"
               linkHref="/services/water-quality"
               imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg"
               alt="Water Quality Matters"
               body="PCWA proudly ensures safe and reliable drinking water that surpasses state and federal standards. The 2023 water quality test results are now available in our Consumer Confidence Reports."
-            />
-          </Grid>
-
-          <Grid xs={12} sm={6}>
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="2023 Annual Report "
-              readMore="Read our 2023 Year End Report"
-              linkHref="/newsroom/publications/year-end-report"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png"
-              // imgixParams={{crop: 'right'}}
-              alt="2023 Annual Report "
-              body="Each year, PCWA compiles a beautifully illustrated report showcasing how Placer County Water Agency continues to serve the community and safeguard our water resources for our future. "
             />
           </Grid>
         </Grid>
@@ -288,6 +287,17 @@ const Index = ({
               }}
             />
           </ChildBox> */}
+
+          <Grid xs={6} sm={4} md={3}>
+            <CoverTile
+              // width={tileWidth}
+              title="Year End Report for 2023"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png"
+              linkHref="/newsroom/publications/year-end-report"
+              imgixParams={{fit: 'fill', bg: '#013769'}}
+              alt="Year End Report for 2023"
+            />
+          </Grid>
 
           <Grid xs={6} sm={4} md={3}>
             <CoverTile

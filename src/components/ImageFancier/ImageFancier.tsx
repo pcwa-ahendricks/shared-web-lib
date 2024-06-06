@@ -118,7 +118,7 @@ const ImageFancier = ({
         width={width}
         style={{
           transition: 'transform 150ms ease 0s',
-          transform: isHover ? 'scale3d(1.1, 1.1, 1.1)' : 'scale3d(1, 1, 1)',
+          transform: isHover ? 'scale3d(1.06, 1.06, 1.06)' : 'scale3d(1, 1, 1)',
           ...style
         }}
         onLoadingComplete={loadingCompleteHandler}

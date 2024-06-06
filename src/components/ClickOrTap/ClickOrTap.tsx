@@ -14,8 +14,8 @@ const ClickOrTap = ({titlecase = false, uppercase = false, ...rest}: Props) => {
   const formattedText = uppercase
     ? text.toUpperCase()
     : titlecase
-    ? toTitleCase(text)
-    : text
+      ? toTitleCase(text)
+      : text
   return (
     <Type variant="inherit" color="inherit" component="span" {...rest}>
       {formattedText}
