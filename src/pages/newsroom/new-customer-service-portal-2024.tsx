@@ -210,8 +210,8 @@ export default function NewCustomerServicePortal2024() {
                     autopay will need to re-register in the new portal.
                   </Type>
                   <Type component="li">
-                    <strong>Update Bill Pay:</strong> Ensure your bank bill pay
-                    services are updated with your new account number, if
+                    <strong>Update Bank Bill Pay:</strong> Ensure your bank bill
+                    pay services are updated with your new account number, if
                     applicable.
                   </Type>
                   <Type component="li">
