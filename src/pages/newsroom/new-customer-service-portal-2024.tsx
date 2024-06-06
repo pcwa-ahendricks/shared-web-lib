@@ -43,28 +43,26 @@ export default function NewCustomerServicePortal2024() {
         <WideContainer>
           <PageTitle
             titleProps={{variant: 'h2'}}
-            title="New Customer Service Portal"
-            subtitle="Newsroom"
+            title="Enhanced Customer Experience with New Customer Service Portal"
+            // subtitle="Newsroom"
           />
           <Grid container spacing={{xs: 3, sm: 4}}>
             <Grid xs={12} sm={5}>
               <Type paragraph>
                 At PCWA, we're always striving to serve you better. Our new
                 utility billing system will integrate various business processes
-                into a single platform, significantly improving our service
-                efficiency and enhancing your customer experience.
+                into a single platform, enhancing your customer experience and
+                improving our service efficiency.
               </Type>
               <Type paragraph>
-                This upgrade replaces our outdated software, which has been in
-                use for 25 years and is no longer supported. You'll enjoy a more
-                intuitive and user-friendly experience. The new portal will make
-                managing your account easier than ever before.
+                The new portal will make managing your account easier than ever
+                before.
               </Type>
             </Grid>
             <Grid xs={12} sm={7}>
               <MediaDialogOnClick
                 // showPopper={false}
-                mediaUrl="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20no%20logo.png"
+                mediaUrl="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20no%20logo.png"
                 mediaName="SMUD rice fields flooding"
                 MediaPreviewDialogProps={{
                   ImageProps: {
@@ -98,16 +96,16 @@ export default function NewCustomerServicePortal2024() {
               phone.
             </Type>
             <Type component="li">
-              <strong>Water Use Review</strong>: Keep track of your water usage
-              effortlessly.
+              <strong>Autopay Registration</strong>: Sign up for autopay with
+              ease.
             </Type>
             <Type component="li">
               <strong>Billing and Payments</strong>: Receive and pay bills, and
               view your billing and payment history.
             </Type>
             <Type component="li">
-              <strong>Autopay Registration</strong>: Sign up for autopay with
-              ease.
+              <strong>Water Use Review</strong>: Keep track of your water usage
+              effortlessly.
             </Type>
             <Type component="li">
               <strong>Service Requests</strong>: Request new service or transfer
@@ -154,7 +152,7 @@ export default function NewCustomerServicePortal2024() {
                       animateKey="cust-portal-arrow1-out"
                       delay={3000}
                     >
-                      <Box sx={{position: 'absolute', left: -90, top: -16}}>
+                      <Box sx={{position: 'absolute', left: -75, top: -18}}>
                         <ArrowIcon sx={{fontSize: 60, color: orange['700']}} />
                       </Box>
                     </FadeOutIntersect>
@@ -181,7 +179,7 @@ export default function NewCustomerServicePortal2024() {
                       animateKey="cust-portal-arrow2-out"
                       delay={5000}
                     >
-                      <Box sx={{position: 'absolute', left: -90, top: -16}}>
+                      <Box sx={{position: 'absolute', left: -75, top: -18}}>
                         <ArrowIcon sx={{fontSize: 60, color: orange['700']}} />
                       </Box>
                     </FadeOutIntersect>
@@ -191,9 +189,8 @@ export default function NewCustomerServicePortal2024() {
                 <Box component="ul" sx={{marginTop: 1}}>
                   <Type component="li">
                     <strong>New Customer Portal Launch:</strong> Our new portal
-                    will go live! Access it through the [“New Customer Portal”]
-                    or{' '}
-                    <Link
+                    will go live! Keep an eye out for more details to come!
+                    {/* <Link
                       aria-label="Paymentus web payment link"
                       href="https://ipn.paymentus.com/cp/plco"
                       target="_blank"
@@ -203,7 +200,7 @@ export default function NewCustomerServicePortal2024() {
                     >
                       Pay My Bill
                     </Link>{' '}
-                    at PCWA.net.
+                    at PCWA.net. */}
                   </Type>
                   <Type component="li">
                     <strong>Payment Options:</strong> Use your new account
@@ -214,9 +211,9 @@ export default function NewCustomerServicePortal2024() {
                     autopay will need to re-register in the new portal.
                   </Type>
                   <Type component="li">
-                    <strong>Update Third-Party Bill Pay:</strong> Ensure your
-                    new account number is updated with your bank bill pay
-                    services, if applicable.
+                    <strong>Update Bill Pay:</strong> Ensure your bank bill pay
+                    services are updated with your new account number, if
+                    applicable.
                   </Type>
                   <Type component="li">
                     <strong>New Bill Statements:</strong> Enjoy a new,
@@ -292,7 +289,7 @@ const SlideInLeftIntersect = ({
   }, [intersection, intersected])
 
   const theme = useTheme()
-  const isMdUp = useMediaQuery(theme.breakpoints.up('lg'))
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
 
   const shouldAnimate = intersected && !previouslyAnimated && isMdUp
 

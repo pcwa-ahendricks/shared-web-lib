@@ -43,10 +43,10 @@ const NewUtilityBillSystemFaq = () => {
         borderRadius="4px 4px 0px 0px"
       >
         <Type variant="subtitle1" color="inherit">
-          Frequently Asked Questions
+          Frequently Asked Questions About PCWA's New Utility Billing System
         </Type>
       </Box>
-      <Accordion
+      {/* <Accordion
         expanded={expanded === 'panel1'}
         onChange={handleChange('panel1')}
         sx={{
@@ -71,30 +71,158 @@ const NewUtilityBillSystemFaq = () => {
             </Type>
           </ColumnBox>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
+
       <Accordion
-        expanded={expanded === 'panel2'}
-        onChange={handleChange('panel2')}
+        expanded={expanded === 'panel4'}
+        onChange={handleChange('panel4')}
         sx={{
           ...style.expansionPanel
         }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
         >
           <Type variant="subtitle2">
-            Why is PCWA transitioning to a new utility billing system?
+            When will the new utility billing system be implemented?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" gutterBottom>
+              Key dates for the transition include:
+            </Type>
+            <Type variant="body2" paragraph>
+              <strong>July 2024</strong>: New account numbers will be mailed to
+              all customers.
+            </Type>
+            <Type variant="body2" paragraph>
+              <strong>August 2024</strong>: New account numbers will take
+              effect, and the new customer portal will go live. The old payment
+              system interface will no longer be available. More details will be
+              provided once we get closer to the launch of the new system.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === 'panel5'}
+        onChange={handleChange('panel5')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel5bh-content"
+          id="panel5bh-header"
+        >
+          <Type variant="subtitle2">
+            Will my current account number change?
           </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              Our current software has been in use for about 25 years, and our
-              version will no longer be supported with updates. The new system
-              will streamline operations, enhance data management, and provide a
-              more intuitive and user-friendly customer experience.
+              Yes, all PCWA account numbers will change. You will receive your
+              new account number in the mail in July 2024. Your new account
+              number will also appear on your first bill after we transition to
+              the new system in August.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === 'panel6'}
+        onChange={handleChange('panel6')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel6bh-content"
+          id="panel6bh-header"
+        >
+          <Type variant="subtitle2">
+            What actions should I take as a customer?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              July 2024: Look for your new account number in the mail and follow
+              any instructions that apply to your chosen payment method.
+            </Type>
+            <Type variant="body2" paragraph>
+              August 2024: Use your new account number to make payments and
+              access your account in the new customer portal once it goes live.
+              You will be able to access the portal through the “Pay My Bill”
+              link at pcwa.net. Sign up for autopay and update any bank bill pay
+              services with your new account number, if applicable. More updates
+              will be provided once we get closer to the launch date for the new
+              system.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === 'panel7'}
+        onChange={handleChange('panel7')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel7bh-content"
+          id="panel7bh-header"
+        >
+          <Type variant="subtitle2">
+            What will happen to my autopay settings?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              If you are currently on autopay, your current autopay will be
+              cancelled once we transfer to the new system. You will need to
+              re-register in the new customer portal once it goes live in August
+              2024 to resume autopay settings. To do this, you will go to the
+              new customer portal once it goes live, and login with your new
+              account number.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === 'panel8'}
+        onChange={handleChange('panel8')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel8bh-content"
+          id="panel8bh-header"
+        >
+          <Type variant="subtitle2">
+            Will I need to update my bank bill pay service?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2" paragraph>
+              Yes. Once we go live in August you will need to update any
+              third-party bill pay services you use to ensure seamless payment
+              processing.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -131,7 +259,7 @@ const NewUtilityBillSystemFaq = () => {
               receive your new account number in the mail in July 2024. Your new
               account number will also appear on your first bill after we
               transition to the new system in August. The system will also
-              generate a new bill statement design, which we think you’ll find
+              generate a new bill statement design, which we think you'll find
               easier to read.
             </Type>
           </ColumnBox>
@@ -139,150 +267,32 @@ const NewUtilityBillSystemFaq = () => {
       </Accordion>
 
       <Accordion
-        expanded={expanded === 'panel4'}
-        onChange={handleChange('panel4')}
+        expanded={expanded === 'panel2'}
+        onChange={handleChange('panel2')}
         sx={{
           ...style.expansionPanel
         }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
+          aria-controls="panel2bh-content"
+          id="panel2bh-header"
         >
           <Type variant="subtitle2">
-            When will the new utility billing system be implemented?
+            Why is PCWA transitioning to a new utility billing system?
           </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
-            <Type variant="body2" gutterBottom>
-              Key dates for the transition include:
-            </Type>
             <Type variant="body2" paragraph>
-              <strong>July 2024</strong>: New account numbers will be mailed to
-              all customers.
-            </Type>
-            <Type variant="body2" paragraph>
-              <strong>August 2024</strong>: New account numbers will take
-              effect, and the new customer portal will go live. The old payment
-              system interface will no longer be available.
+              The new system will streamline operations, enhance data
+              management, and provide a more intuitive and user-friendly
+              customer experience.
             </Type>
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion
-        expanded={expanded === 'panel5'}
-        onChange={handleChange('panel5')}
-        sx={{
-          ...style.expansionPanel
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel5bh-content"
-          id="panel5bh-header"
-        >
-          <Type variant="subtitle2">
-            Will my current account number change?
-          </Type>
-        </AccordionSummary>
-        <AccordionDetails>
-          <ColumnBox>
-            <Type variant="body2" paragraph>
-              Yes, all PCWA account numbers will change. You will receive your
-              new account number in the mail in July 2024. Your new account
-              number will also appear on your first bill after we transition to
-              the new system in August.
-            </Type>
-          </ColumnBox>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === 'panel6'}
-        onChange={handleChange('panel6')}
-        sx={{
-          ...style.expansionPanel
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel6bh-content"
-          id="panel6bh-header"
-        >
-          <Type variant="subtitle2">
-            What actions should I take as a customer?
-          </Type>
-        </AccordionSummary>
-        <AccordionDetails>
-          <ColumnBox>
-            <Type variant="body2" paragraph>
-              July 2024: Look for your new account number in the mail and follow
-              the instructions to set up your account in the new system.
-            </Type>
-            <Type variant="body2" paragraph>
-              August 2024: Use your new account number to access the new
-              customer portal through the [“New Customer Portal”] or [“Pay My
-              Bill”] link at pcwa.net. Sign up for autopay and update any
-              third-party bill pay services with your new account number.
-            </Type>
-          </ColumnBox>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === 'panel7'}
-        onChange={handleChange('panel7')}
-        sx={{
-          ...style.expansionPanel
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel7bh-content"
-          id="panel7bh-header"
-        >
-          <Type variant="subtitle2">
-            What will happen to my autopay settings?
-          </Type>
-        </AccordionSummary>
-        <AccordionDetails>
-          <ColumnBox>
-            <Type variant="body2" paragraph>
-              If you are currently on autopay, you will need to re-register in
-              the new customer portal once it goes live in August 2024. To do
-              this, go to the [“New Customer Portal”] or [“Pay My Bill”] and
-              login with your new account number. Select the auto-pay feature.
-            </Type>
-          </ColumnBox>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === 'panel8'}
-        onChange={handleChange('panel8')}
-        sx={{
-          ...style.expansionPanel
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel8bh-content"
-          id="panel8bh-header"
-        >
-          <Type variant="subtitle2">
-            Will I need to update my bank bill pay service?
-          </Type>
-        </AccordionSummary>
-        <AccordionDetails>
-          <ColumnBox>
-            <Type variant="body2" paragraph>
-              Yes. Once we go live in August you will need to update any
-              third-party bill pay services you use to ensure seamless payment
-              processing.
-            </Type>
-          </ColumnBox>
-        </AccordionDetails>
-      </Accordion>
       <Accordion
         expanded={expanded === 'panel9'}
         onChange={handleChange('panel9')}
@@ -301,6 +311,10 @@ const NewUtilityBillSystemFaq = () => {
           </Type>
         </AccordionSummary>
         <AccordionDetails>
+          <Type gutterBottom>
+            The new utility billing system will significantly enhance PCWA's
+            internal operations in several key ways:
+          </Type>
           <Box component="ul" sx={{marginTop: 1}}>
             <Type component="li">
               <strong>Streamlined Operations</strong>: By integrating functions
@@ -348,7 +362,7 @@ const NewUtilityBillSystemFaq = () => {
           </Box>
           <Type paragraph>
             If you have any other questions, please feel free to reach out to
-            our customer service team. We’re here to ensure a smooth transition
+            our customer service team. We're here to ensure a smooth transition
             and to help you make the most of the new system.
           </Type>
         </AccordionDetails>
