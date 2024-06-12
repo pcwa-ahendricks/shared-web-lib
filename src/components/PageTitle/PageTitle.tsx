@@ -49,7 +49,7 @@ const PageTitle = ({
       <Type variant="h1" color="primary" {...titleProps}>
         {title}
       </Type>
-      <Box my={4}>{dividerEl}</Box>
+      <Box my={hideDivider ? 0 : 4}>{dividerEl}</Box>
     </Box>
   )
 }

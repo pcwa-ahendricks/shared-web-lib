@@ -1,6 +1,13 @@
 // cspell:ignore Einar Maisch
 import React from 'react'
-import {Box, Divider, Typography as Type, List, ListItem} from '@mui/material'
+import {
+  Box,
+  Divider,
+  Typography as Type,
+  List,
+  ListItem,
+  alpha
+} from '@mui/material'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
@@ -17,6 +24,7 @@ import ClerkToBoardPhone from '@components/links/ClerkToBoardPhone'
 import PublicAffairsPhone from '@components/links/PublicAffairsPhone'
 import ImageParallaxBanner from '@components/ImageParallaxBanner/ImageParallaxBanner'
 import {imgixUrlLoader} from '@lib/imageLoader'
+import useTheme from '@hooks/useTheme'
 
 // const useStyles = makeStyles(() =>
 //   createStyles({
@@ -25,7 +33,14 @@ import {imgixUrlLoader} from '@lib/imageLoader'
 
 const GeneralInfoPage = () => {
   // const classes = useStyles()
-  // const theme = useTheme<Theme>()
+  const theme = useTheme()
+
+  const backgroundImage = `linear-gradient(
+          to top,
+          ${alpha(theme.palette.background.default, 1)} 5%,
+          ${alpha(theme.palette.background.default, 0.75)} 15%,
+          ${alpha(theme.palette.background.default, 0)} 80%
+        )`
 
   return (
     <PageLayout title="About PCWA" waterSurface>
@@ -113,6 +128,7 @@ const GeneralInfoPage = () => {
               outMaxHeight={7000}
               inShowMoreTitle="Click to read more"
               outShowMoreTitle="Click to read less"
+              backgroundImage={backgroundImage}
             >
               <article>
                 <Type variant="h2" color="primary" gutterBottom>

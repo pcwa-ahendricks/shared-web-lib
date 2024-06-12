@@ -332,7 +332,6 @@ const OutageInformationPage = ({fallbackData}: Props) => {
                   outMaxHeight={7000}
                   inShowMoreTitle="Click to read more"
                   outShowMoreTitle="Click to read less"
-                  backgroundImageRGB="245,245,245"
                 >
                   <article>
                     <Type variant="subtitle2" gutterBottom color="textPrimary">

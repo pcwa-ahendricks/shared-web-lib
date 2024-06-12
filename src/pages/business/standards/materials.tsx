@@ -67,7 +67,7 @@ const MaterialsListUpdatesPage = () => {
   }
   return (
     <PageLayout title="Approved Materials List Updates" waterSurface>
-      <Box bgcolor={theme.palette.grey['100']}>
+      <Box bgcolor={theme.palette.grey['50']}>
         <NarrowContainer>
           <Breadcrumbs
             aria-label="breadcrumb"

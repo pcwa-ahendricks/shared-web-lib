@@ -356,6 +356,7 @@ const PublicationsPage = ({
       <MainBox>
         <WideContainer>
           <PageTitle title="Publications" subtitle="Newsroom" hideDivider />
+          <Spacing />
           <AppBar
             position="relative"
             color="default"
