@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {Box, Button, Typography as Type, alpha} from '@mui/material'
+import {Box, Button, alpha} from '@mui/material'
 import useTheme from '@hooks/useTheme'
 
 /*
