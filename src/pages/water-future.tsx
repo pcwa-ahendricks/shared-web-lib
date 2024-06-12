@@ -7,12 +7,12 @@ import {Typography as Type, Unstable_Grid2 as Grid, Box} from '@mui/material'
 import Image from 'next/image'
 import imgixLoader from '@lib/imageLoader'
 
-export default function ResponsiveImageTemplatePage() {
+export default function WaterFuturePage() {
   return (
-    <PageLayout title="Page Template" waterSurface>
+    <PageLayout title="Water Future" waterSurface>
       <MainBox>
         <NarrowContainer>
-          <PageTitle title="Responsive Image" subtitle="Page Subtitle" />
+          <PageTitle title="Water Future" />
           <Grid container spacing={{xs: 4.5, sm: 6}}>
             <Grid xs={12} sm={7}>
               <Type paragraph>...</Type>
