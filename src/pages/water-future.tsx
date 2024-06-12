@@ -17,7 +17,6 @@ import {useIntersection} from 'react-use'
 import FadeInToTop, {
   FadeInToTopProps
 } from '@components/boxes/animate/FadeInToTop'
-import TextFocusInOpaque from '@components/boxes/animate/TextFocusInOpaque'
 
 export default function WaterFuturePage() {
   return (
@@ -136,24 +135,25 @@ const FadeInToTopIntersect = ({
 
   const shouldAnimate = intersected && !previouslyAnimated
   // syncronizing duration makes assigning onAnimationEnd prop easier
-  const duration = 700
+  // const duration = 700
   return (
     <Box ref={ref}>
       <FadeInToTop
         transparentUntilAnimate={!previouslyAnimated}
         animate={shouldAnimate}
-        duration={duration}
+        // duration={duration}
+        speed="fast"
         // just call this once
         onAnimationEnd={animateDoneHandler}
         {...props}
       >
-        <TextFocusInOpaque
+        {/* <TextFocusInOpaque
           animate={shouldAnimate}
           duration={duration}
           {...props}
-        >
-          {children}
-        </TextFocusInOpaque>
+        > */}
+        {children}
+        {/* </TextFocusInOpaque> */}
       </FadeInToTop>
     </Box>
   )
