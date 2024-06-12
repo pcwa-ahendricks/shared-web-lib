@@ -28,6 +28,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/water-future</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/business/cwmp</loc>
     <changefreq>daily</changefreq>
   </url>
