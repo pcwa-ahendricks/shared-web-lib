@@ -144,7 +144,7 @@ const StandardDrawingsUpdatesPage = () => {
   }
   return (
     <PageLayout title="Standard Drawing Updates" waterSurface>
-      <Box bgcolor={theme.palette.grey['100']}>
+      <Box bgcolor={theme.palette.grey['50']}>
         <NarrowContainer>
           <Breadcrumbs
             aria-label="breadcrumb"

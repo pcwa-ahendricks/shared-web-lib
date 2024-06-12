@@ -82,7 +82,7 @@ const SpecificationUpdatesPage = () => {
   }
   return (
     <PageLayout title="Standard Specification Updates" waterSurface>
-      <Box bgcolor={theme.palette.grey['100']}>
+      <Box bgcolor={theme.palette.grey['50']}>
         <WideContainer>
           <Breadcrumbs
             aria-label="breadcrumb"

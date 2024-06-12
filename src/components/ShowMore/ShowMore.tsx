@@ -1,5 +1,6 @@
 import React, {useState, useCallback} from 'react'
-import {Box, Typography as Type} from '@mui/material'
+import {Box, Button, Typography as Type, alpha} from '@mui/material'
+import useTheme from '@hooks/useTheme'
 
 /*
   [Note] outMaxHeight should show all the content on the small width device. But setting it too large will affect how the duration is timed with outDuration so it should not be set exceedingly high.
@@ -13,7 +14,7 @@ type Props = {
   inDuration?: number // ms,
   inShowMoreTitle?: string
   outShowMoreTitle?: string
-  backgroundImageRGB?: string
+  backgroundImage?: string
 }
 
 const ShowMore = ({
@@ -24,8 +25,18 @@ const ShowMore = ({
   inDuration = 250,
   inShowMoreTitle = 'Show Me More',
   outShowMoreTitle = 'Show Me Less',
-  backgroundImageRGB = '250, 250, 250'
+  backgroundImage: backgroundImageProp
 }: Props) => {
+  const theme = useTheme()
+  const backgroundImage =
+    backgroundImageProp ||
+    `linear-gradient(
+          to top,
+          ${alpha(theme.palette.common.white, 1)} 5%,
+          ${alpha(theme.palette.common.white, 0.75)} 15%,
+          ${alpha(theme.palette.common.white, 0)} 80%
+        )`
+
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
   const style = {
     root: {
@@ -52,12 +63,7 @@ const ShowMore = ({
       width: '100%',
       pointerEvents: 'none', // So the text is still selectable.
       transition: `opacity ${isExpanded ? outDuration : inDuration}ms ease-out`,
-      backgroundImage: `linear-gradient(
-          to top,
-          rgba(${backgroundImageRGB}, 1) 5%,
-          rgba(${backgroundImageRGB}, 0.75) 15%,
-          rgba(${backgroundImageRGB}, 0) 80%
-        )`
+      backgroundImage
     }
   }
 
@@ -77,14 +83,14 @@ const ShowMore = ({
           {children}
         </Box>
       </Box>
-      <Type
-        component="em"
-        variant="body1"
+      <Button
+        // component="em"
+        // variant="body1"
         color="primary"
-        sx={{fontSize: '1.1em'}}
+        // sx={{fontSize: '1.1em'}}
       >
         {isExpanded ? outShowMoreTitle : inShowMoreTitle}
-      </Type>
+      </Button>
     </Box>
   )
 }

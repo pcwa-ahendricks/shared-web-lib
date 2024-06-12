@@ -12,7 +12,10 @@ export default function WaterFuturePage() {
     <PageLayout title="Water Future" waterSurface>
       <MainBox>
         <NarrowContainer>
-          <PageTitle title="Water Future" />
+          <PageTitle title="Water for Our Future" hideDivider />
+          <Type variant="h3" color="primary">
+            Reliable, Sustainable Water Supplies for Placer County
+          </Type>
           <Grid container spacing={{xs: 4.5, sm: 6}}>
             <Grid xs={12} sm={7}>
               <Type paragraph>...</Type>
