@@ -100,6 +100,23 @@ export default function WaterFuturePage() {
               projected impacts of climate change.
             </Type>
           </FadeInToTopIntersect>
+          <Spacing size="x-large" />
+          <Type variant="h3" gutterBottom>
+            At PCWA, stewardship is at the core of everything we do.
+          </Type>
+          <FadeInToTopIntersect animateKey="water-future-txt2">
+            <Type paragraph>
+              We champion the health of our watershed and water supply
+              reliability through forestry management initiatives that mitigate
+              wildfire risks and safeguard our water sources. Additionally, we
+              actively engage the community through educational programs and
+              water efficiency initiatives, empowering customers to contribute
+              to a sustainable, water-wise Placer County. Our rebate programs
+              support you in implementing water-wise practices at home and work,
+              demonstrating our commitment to promoting sustainable water use
+              and resilience in our community.
+            </Type>
+          </FadeInToTopIntersect>
         </NarrowContainer>
       </MainBox>
     </PageLayout>
