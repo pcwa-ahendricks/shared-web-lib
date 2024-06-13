@@ -40,3 +40,7 @@ config.gypi
 .idea/
 
 tsconfig.tsbuildinfo
+
+# python
+.venv
+temp_pdf_page.jpg

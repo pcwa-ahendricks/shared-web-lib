@@ -1,0 +1,8 @@
+pdfplumber
+requests
+python-dotenv
+pylint
+pytesseract
+pillow
+pdf2image
+reportlab
