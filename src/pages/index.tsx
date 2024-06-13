@@ -56,7 +56,8 @@ const imgixImages = [
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg',
   'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg',
   //'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
-  'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg',
+  // 'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg',
+  'https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake%20Spaulding.jpg',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg',
   'https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png'
 ]
@@ -226,11 +227,11 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Voluntary Seasonal Canal Water Reductions"
+              title="Water Delivery Challenges: Lake Spaulding"
               readMore="Learn more"
               linkHref="/media/pge-water-delivery-2024"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg"
-              alt="Voluntary Seasonal Canal Water Reductions"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake%20Spaulding.jpg"
+              alt="Lake Spaulding and dam"
               body="Due to a PG&E infrastructure failure impacting water supply to PCWA, we are offering customers the option to voluntarily, temporarily reduce or suspend canal water deliveries for the summer season."
             />
           </Grid>
