@@ -228,8 +228,8 @@ const Index = ({
               aspectRatio={coverStoryImageRatio}
               title="Voluntary Seasonal Canal Water Reductions"
               readMore="Learn more"
-              linkHref="/newsroom/pge-water-delivery-2024"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg"
+              linkHref="/media/pge-water-delivery-2024"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg"
               alt="Voluntary Seasonal Canal Water Reductions"
               body="Due to a PG&E infrastructure failure impacting water supply to PCWA, we are offering customers the option to voluntarily, temporarily reduce or suspend canal water deliveries for the summer season."
             />
