@@ -18,7 +18,7 @@ type Props = {
   placeholders: Placeholders
 }
 
-const imgixImages = ['image-assets/PCWA_MotherNature_1088x682.jpg']
+const imgixImages = ['water-efficiency/PCWA_MotherNature_1088x682.jpg']
 
 export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
   usePlaceholders(placeholders)
@@ -67,7 +67,7 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
               width={{xs: '90vw', sm: '100%'}} // Don't let portrait image get too big in small layouts.
             >
               <MediaDialogOnClick
-                mediaUrl="https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg"
+                mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/PCWA_MotherNature_1088x682.jpg"
                 mediaName="PCWA staff speaking with children in classroom"
                 MediaPreviewDialogProps={{
                   ImageProps: {
@@ -77,7 +77,7 @@ export default function GoToSchoolOnLeaksPage({placeholders}: Props) {
                 }}
               >
                 <ImageFancier
-                  src="image-assets/PCWA_MotherNature_1088x682.jpg"
+                  src="water-efficiency/PCWA_MotherNature_1088x682.jpg"
                   alt="PCWA staff speaking with children in classroom"
                   loader={imgixLoaderDO}
                   layout="responsive"

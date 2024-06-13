@@ -49,7 +49,7 @@ const imgixImages = [
   // 'https://imgix.cosmicjs.com/5109d1b0-5e1b-11ee-b975-cb0cfadd93ad-Fuchsia_8x5_V3.jpg',
   'https://imgix.cosmicjs.com/c78993d0-66da-11ee-b27c-e13e14dddc51-wfmmc-final-report-09-2023_pg1.png',
   // 'https://imgix.cosmicjs.com/4e2144c0-79c7-11ee-962a-5d7b9c281fe2-PCWA_WebsiteAd_School.jpg',
-  // 'https://pcwa.imgix.net/pcwa-net/image-assets/PCWA_MotherNature_1088x682.jpg',
+  // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/PCWA_MotherNature_1088x682.jpg',
   'https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg',
   'https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_ValleyViolet_8x5.jpg',
