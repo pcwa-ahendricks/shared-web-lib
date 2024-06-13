@@ -252,6 +252,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/media/pge-water-delivery-2024</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/smart-water-use/summer-strong</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -281,10 +285,6 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/smart-water-use/water-wise-home</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://www.pcwa.net/newsroom/pge-water-delivery-2024</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
