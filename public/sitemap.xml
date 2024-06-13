@@ -104,10 +104,6 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/water-future</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
     <loc>https://www.pcwa.net/smart-water-use/trees</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -289,6 +285,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/smart-water-use/water-wise-home</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/media/water-future/ophir-project</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
