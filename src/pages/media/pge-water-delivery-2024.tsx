@@ -25,7 +25,7 @@ export default function PgeWaterDelivery2024Page() {
           <PageTitle
             titleProps={{variant: 'h2'}}
             title="PCWA Addresses PG&E Water Delivery Problem Due to Damaged Infrastructure"
-            subtitle="Newsroom"
+            // subtitle=""
           />
           <Type paragraph>
             PCWA is currently facing a water supply delivery problem due to
@@ -63,7 +63,7 @@ export default function PgeWaterDelivery2024Page() {
               }}
             >
               <Image
-                src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/The%20Boardman%20Canal%20is%20the%20main%20artery%20of%20PCWA's%20raw%20water%20conveyance%20system..jpg"
+                src="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/The%20Boardman%20Canal%20is%20the%20main%20artery%20of%20PCWA's%20raw%20water%20conveyance%20system..jpg"
                 alt="Water flowing down PCWA's Boardman Canal"
                 loader={imgixUrlLoader}
                 layout="responsive"
@@ -101,7 +101,7 @@ export default function PgeWaterDelivery2024Page() {
           <Spacing size="small" />
           <Box>
             <Image
-              src="https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/South%20Yuba%20Canal%20Map.png"
+              src="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/South%20Yuba%20Canal%20Map.png"
               alt="PG&E Mountain Division South Yuba Lower Map"
               loader={imgixUrlLoader}
               layout="responsive"
