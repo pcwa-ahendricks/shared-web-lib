@@ -1,4 +1,5 @@
 import {createTheme, responsiveFontSizes} from '@mui/material'
+import {breakpoints, pxSpacing} from './theme-config'
 import localFont from 'next/font/local'
 // import {indigo, green, red} from '@mui/material/colors'
 
@@ -72,6 +73,10 @@ Note - specificity for css font-size prop is required when using sx with typogra
 */
 const theme = responsiveFontSizes(
   createTheme({
+    breakpoints: {
+      values: breakpoints
+    },
+    spacing: pxSpacing,
     typography: {
       // Use the system font instead of the default Roboto font.
       // fontFamily: ['Asap', ...systemFonts].join(','),
