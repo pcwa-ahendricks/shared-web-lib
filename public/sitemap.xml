@@ -28,10 +28,6 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/water-future</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
     <loc>https://www.pcwa.net/business/cwmp</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -68,6 +64,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/media/water-future</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/recreation/rafting</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -101,6 +101,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/about-pcwa/directions</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/water-future</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>

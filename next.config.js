@@ -488,6 +488,11 @@ module.exports = {
   },
   async rewrites() {
     return [
+      // Christina Kohn request
+      {
+        source: '/waterfuture(\\.html)?',
+        destination: '/media/water-future'
+      },
       {
         source: `/docs/hr-frequently-asked-questions${fileExtRe}`,
         destination:
