@@ -467,6 +467,10 @@ module.exports = {
     BASE_URL:
       process.env.VERCEL_ENV !== 'development'
         ? 'https://www.pcwa.net'
+        : 'http://localhost:3000',
+    BASE_URL2:
+      (process.env.VERCEL_ENV || 'development') !== 'development'
+        ? 'https://www.pcwa.net'
         : 'http://localhost:3000'
   },
   logging: {
