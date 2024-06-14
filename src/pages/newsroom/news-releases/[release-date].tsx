@@ -16,13 +16,13 @@ import slugify from 'slugify'
 import {setCenterProgress, UiContext} from '@components/ui/UiStore'
 import useTheme from '@hooks/useTheme'
 import Link from '@components/Link'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 import {type AwsObjectExt} from '@lib/types/aws'
 import {getFileExtension} from '@lib/util'
 
-const ReactPdfPage = dynamic(() => import('@components/PDFPage/ReactPdfPage'), {
-  ssr: false
-})
+// const ReactPdfPage = dynamic(() => import('@components/PDFPage/ReactPdfPage'), {
+//   ssr: false
+// })
 
 type Props = {
   err?: any
@@ -131,7 +131,7 @@ const DynamicNewsReleasePage = ({media, err, publishedOn}: Props) => {
             />
           </ChildBox>
         </RowBox>
-        <ReactPdfPage url={media?.url} />
+        {/* <ReactPdfPage url={media?.url} /> */}
       </MainBox>
     </PageLayout>
   )
