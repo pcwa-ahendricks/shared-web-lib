@@ -93,23 +93,12 @@ const Index = ({
   // const coverStoryImageRatio = '9/4.6' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
 
-  const baseURL2_client =
-    (process.env.VERCEL_ENV || 'development') !== 'development'
-      ? 'https://www.pcwa.net'
-      : 'http://localhost:3000'
-
   console.log('process.env.BASE_URL', process.env.BASE_URL)
-  console.log('process.env.BASE_URL2', process.env.BASE_URL2)
-  console.log('BASE_URL2 client', baseURL2_client)
   console.log('process.env.VERCEL_ENV', process.env.VERCEL_ENV)
 
   console.log(
     'process.env.NEXT_PUBLIC_VERCEL_ENV: ',
     process.env.NEXT_PUBLIC_VERCEL_ENV
-  )
-  console.log(
-    'process.env.NEXT_PUBLIC_VERCEL_URL: ',
-    process.env.NEXT_PUBLIC_VERCEL_URL
   )
 
   return (

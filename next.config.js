@@ -462,16 +462,17 @@ const legacyRedirects = [
 // }
 // ]
 
+const vercelEnv = process.env.NEXT_PUBLIC_VERCEL_ENV || 'development'
+
 module.exports = {
   env: {
+    // see https://vercel.com/docs/projects/environment-variables/system-environment-variables for more info.
     BASE_URL:
-      process.env.VERCEL_ENV !== 'development'
+      vercelEnv === 'production'
         ? 'https://www.pcwa.net'
-        : 'http://localhost:3000',
-    BASE_URL2:
-      (process.env.VERCEL_ENV || 'development') !== 'development'
-        ? 'https://www.pcwa.net'
-        : 'http://localhost:3000'
+        : vercelEnv === 'preview'
+          ? 'https://neu-web-git-develop-pcwa.vercel.app'
+          : 'http://localhost:3000'
   },
   logging: {
     fetches: {
