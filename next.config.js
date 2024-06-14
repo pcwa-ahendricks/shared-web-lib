@@ -464,9 +464,8 @@ const legacyRedirects = [
 
 module.exports = {
   env: {
-    // not sure why process.env.VERCEL_ENV is undefined an dev mode, but it will cause BASE_URL to become the prod string if it is
     BASE_URL:
-      (process.env.VERCEL_ENV || 'development') !== 'development'
+      process.env.VERCEL_ENV !== 'development'
         ? 'https://www.pcwa.net'
         : 'http://localhost:3000'
   },
@@ -641,8 +640,6 @@ module.exports = {
   // ignoreBuildErrors: true
   // },
   webpack: (config, {isServer}) => {
-    // for react-pdf (see https://www.npmjs.com/package/react-pdf?activeTab=readme for more info)
-    config.resolve.alias.canvas = false
     // Generate sitemap.xml automatically
     if (isServer) {
       require('./scripts/generate-sitemap')

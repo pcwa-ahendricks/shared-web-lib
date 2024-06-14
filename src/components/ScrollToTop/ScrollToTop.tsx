@@ -56,20 +56,13 @@ const ScrollToTop = () => {
   return (
     <Zoom in={trigger}>
       <Box
-        sx={{
-          position: 'fixed',
-          right: 20,
-          bottom: 20
-        }}
+        position="fixed"
+        right={20}
+        bottom={20}
         role="presentation"
         onClick={clickHandler}
       >
-        <Fab
-          sx={{zIndex: 99}}
-          size={fabSize}
-          color="secondary"
-          aria-label="Scroll To Top"
-        >
+        <Fab size={fabSize} color="secondary" aria-label="Scroll To Top">
           <KeyboardArrowUp fontSize={iconFontSize} />
         </Fab>
       </Box>
