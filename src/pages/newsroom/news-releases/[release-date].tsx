@@ -161,7 +161,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const mediaList: AwsObjectExt[] = await fetcher(url)
 
     const media = mediaList?.filter(
-      (item) => getFileExtension(item.Key).toLowerCase() === 'pdf'
+      (item) => getFileExtension(item.Key)?.toLowerCase() === 'pdf'
     )[0]
 
     // if (!media || !publishedOn) {
