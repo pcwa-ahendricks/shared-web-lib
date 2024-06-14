@@ -642,7 +642,7 @@ module.exports = {
   // },
   webpack: (config, {isServer}) => {
     // for react-pdf (see https://www.npmjs.com/package/react-pdf?activeTab=readme for more info)
-    config.resolve.alias.canvas = false
+    // config.resolve.alias.canvas = false
     // Generate sitemap.xml automatically
     if (isServer) {
       require('./scripts/generate-sitemap')
