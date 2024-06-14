@@ -15,18 +15,12 @@ import {
 } from '@pages/water-year-dashboard'
 import isNumber from 'is-number'
 // import PrecipCalendar from './PrecipCalendar'
-const PrecipCalendar = dynamic(
-  () => import('./PrecipCalendar').then((PrecipCalendar) => PrecipCalendar),
-  {ssr: false}
-)
+const PrecipCalendar = dynamic(() => import('./PrecipCalendar'), {ssr: false})
 import FadeIn from '@components/boxes/animate/FadeIn'
 import {type ResponsiveLine} from '@nivo/line'
 import dynamic from 'next/dynamic'
 const SnowfallAccumLine = dynamic(
-  () =>
-    import('@components/season-recap/SnowAccumLine').then(
-      (SnowfallAccumLine) => SnowfallAccumLine
-    ),
+  () => import('@components/season-recap/SnowAccumLine'),
   {ssr: false}
 )
 

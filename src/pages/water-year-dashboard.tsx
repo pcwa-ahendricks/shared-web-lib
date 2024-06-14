@@ -35,34 +35,23 @@ import slugify from 'slugify'
 import Spacing from '@components/boxes/Spacing'
 // import PrecipCalendar from '@components/season-recap/PrecipCalendar'
 const PrecipCalendar = dynamic(
-  () =>
-    import('@components/season-recap/PrecipCalendar').then(
-      (PrecipCalendar) => PrecipCalendar
-    ),
+  () => import('@components/season-recap/PrecipCalendar'),
   {ssr: false}
 )
 // import TempDiffCalendar from '@components/season-recap/TempDiffCalendar'
 const TempDiffCalendar = dynamic(
-  () =>
-    import('@components/season-recap/TempDiffCalendar').then(
-      (TempDiffCalendar) => TempDiffCalendar
-    ),
+  () => import('@components/season-recap/TempDiffCalendar'),
+
   {ssr: false}
 )
 // import PrecipAccumLine from '@components/season-recap/PrecipAccumLine'
 const PrecipAccumLine = dynamic(
-  () =>
-    import('@components/season-recap/PrecipAccumLine').then(
-      (PrecipAccumLine) => PrecipAccumLine
-    ),
+  () => import('@components/season-recap/PrecipAccumLine'),
   {ssr: false}
 )
 // import PrecipMonthGroupBar from '@components/season-recap/PrecipMonthGroupBar'
 const PrecipMonthGroupBar = dynamic(
-  () =>
-    import('@components/season-recap/PrecipMonthGroupBar').then(
-      (PrecipMonthGroupBar) => PrecipMonthGroupBar
-    ),
+  () => import('@components/season-recap/PrecipMonthGroupBar'),
   {ssr: false}
 )
 /*
@@ -71,10 +60,7 @@ importing ResponsiveLine within <TempRangeLine/>. For consistency, I dynamically
 */
 // import TempRangeLine from '@components/season-recap/TempRangeLine'
 const TempRangeLine = dynamic(
-  () =>
-    import('@components/season-recap/TempRangeLine').then(
-      (TempRangeLine) => TempRangeLine
-    ),
+  () => import('@components/season-recap/TempRangeLine'),
   {ssr: false}
 )
 import fetcher from '@lib/fetcher'
