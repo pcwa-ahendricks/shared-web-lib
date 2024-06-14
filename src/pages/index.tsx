@@ -23,10 +23,7 @@ import QuickLinksMobileBar from '@components/QuickLinksMobileBar/QuickLinksMobil
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
-import pTimeout from 'p-timeout'
 import HeroImage from '@components/hero/HeroImage'
-
-const FETCHER_TIMEOUT = 10000
 
 const imgixImages = [
   'https://imgix.cosmicjs.com/cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
@@ -663,9 +660,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const alertsQs = stringify(alertsParams, true)
     const alertsUrl = `${baseUrl}/api/cosmic/objects${alertsQs}`
-    const initialAlertsData = await pTimeout(fetcher(alertsUrl), {
-      milliseconds: FETCHER_TIMEOUT
-    })
+    const initialAlertsData = await fetcher(alertsUrl)
     /* */
     const newsBlurbsParams = {
       hide_metafields: true,
@@ -677,9 +672,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const newsBlurbsQs = stringify(newsBlurbsParams, true)
 
     const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
-    const initialNewsBlurbsData = await pTimeout(fetcher(newsBlurbsUrl), {
-      milliseconds: FETCHER_TIMEOUT
-    })
+    const initialNewsBlurbsData = await fetcher(newsBlurbsUrl)
     /* */
     return {
       props: {initialAlertsData, initialNewsBlurbsData, placeholders}
