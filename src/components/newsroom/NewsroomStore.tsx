@@ -1,6 +1,7 @@
 // cspell:ignore mediachimp
 import React, {createContext, useReducer} from 'react'
 import {CosmicMediaMeta} from '@lib/services/cosmicService'
+import {AwsObjectExt} from '@lib/types/aws'
 
 interface State {
   newsReleaseYear?: number
@@ -30,12 +31,14 @@ export type GroupedNewsletters = Array<{
   >[]
 }>
 
+export type GroupedNewsReleaseVal = AwsObjectExt & {
+  pubYear: number
+  nextLinkAs: string
+  title: string
+}
 export type GroupedNewsReleases = Array<{
   year: number
-  values: Pick<
-    CosmicMediaMeta,
-    'id' | 'original_name' | 'url' | 'imgix_url' | 'derivedFilenameAttr'
-  >[]
+  values: GroupedNewsReleaseVal[]
 }>
 
 // State

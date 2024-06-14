@@ -8,11 +8,13 @@ import useTheme from '@hooks/useTheme'
 type Props = {
   fileSize?: CosmicMedia['size']
   caption?: string
+  ext?: string
 } & Partial<FabProps>
 
 const DownloadResourceFab = ({
   fileSize,
   caption = 'Download Resource',
+  ext,
   ...rest
 }: Props) => {
   const theme = useTheme()
@@ -51,7 +53,13 @@ const DownloadResourceFab = ({
               paddingLeft: theme.spacing(1)
             })}
           >
-            {/* Don't use ?? here since it won't catch NaN parameter. */}(
+            (
+            {ext ? (
+              <Type component="span" variant="caption" color="textSecondary">
+                {ext},{' '}
+              </Type>
+            ) : null}
+            {/* Don't use ?? here since it won't catch NaN parameter. */}
             {prettyBytes(Number(fileSize) || 0)})
           </Type>
         ) : null}

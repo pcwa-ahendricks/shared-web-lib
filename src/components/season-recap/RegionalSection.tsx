@@ -34,13 +34,9 @@ import {
 import WeatherIcon from '@components/WeatherIcon/WeatherIcon'
 import {CountyMetaResponse} from '@pages/water-year-dashboard'
 // import ClimateChangeLine from './ClimateChangeLine'
-const ClimateChangeLine = dynamic(
-  () =>
-    import('./ClimateChangeLine').then(
-      (ClimateChangeLine) => ClimateChangeLine
-    ),
-  {ssr: false}
-)
+const ClimateChangeLine = dynamic(() => import('./ClimateChangeLine'), {
+  ssr: false
+})
 import useTheme from '@hooks/useTheme'
 import ScaleInCenter from '@components/boxes/animate/ScaleInCenter'
 import FadeIn from '@components/boxes/animate/FadeIn'
