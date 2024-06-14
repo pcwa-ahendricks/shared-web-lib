@@ -462,11 +462,16 @@ const legacyRedirects = [
 // }
 // ]
 
+// Note, process.env.VERCEL_ENV is not populating in dev mode or on Vercel deployments, not sure why, maybe due to an update.
+// Use Next (framework) env variables instead.
+// NEXT_PUBLIC_VERCEL_ENV is not populating in dev mode, may be related to https://github.com/vercel/vercel/issues/11633. Workaround is
+// to use 'development' as fallback, but this REQUIRES that NEXT_PUBLIC_VERCEL_ENV populates on the Vercel platform or the website will
+// infinitely re-render and become unusable. With that being said...
+// !! MUST expose system variables in Vercel Project. See https://vercel.com/docs/projects/environment-variables/system-environment-variables for more info.
 const vercelEnv = process.env.NEXT_PUBLIC_VERCEL_ENV || 'development'
 
 module.exports = {
   env: {
-    // Must expose system variables in Vercel Project. See https://vercel.com/docs/projects/environment-variables/system-environment-variables for more info.
     BASE_URL:
       vercelEnv === 'development'
         ? 'http://localhost:3000'

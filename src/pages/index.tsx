@@ -93,14 +93,6 @@ const Index = ({
   // const coverStoryImageRatio = '9/4.6' // summer of savings image
   // const coverStoryImageRatio = '31/14' // 555w / 250h = 2.22, or 31:14
 
-  console.log('process.env.BASE_URL', process.env.BASE_URL)
-  console.log('process.env.VERCEL_ENV', process.env.VERCEL_ENV)
-
-  console.log(
-    'process.env.NEXT_PUBLIC_VERCEL_ENV: ',
-    process.env.NEXT_PUBLIC_VERCEL_ENV
-  )
-
   return (
     <PageLayout
       initialAlertsData={initialAlertsData}

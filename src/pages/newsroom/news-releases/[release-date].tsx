@@ -128,6 +128,7 @@ const DynamicNewsReleasePage = ({media, err, publishedOn}: Props) => {
               size={isSMDown ? 'small' : 'medium'}
               href={`${media?.url}?dl=${downloadAs}`}
               fileSize={media?.Size}
+              ext="pdf"
             />
           </ChildBox>
         </RowBox>
