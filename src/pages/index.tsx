@@ -649,7 +649,6 @@ const Index = ({
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    console.log('vercel env: ', process.env.VERCEL_ENV)
     const baseUrl = process.env.BASE_URL
     const placeholders = await getImgixBlurHashes(imgixImages)
 
