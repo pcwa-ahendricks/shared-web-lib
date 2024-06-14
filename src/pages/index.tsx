@@ -26,7 +26,7 @@ import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
 import HeroImage from '@components/hero/HeroImage'
 
-const FETCHER_TIMEOUT = 2000
+const FETCHER_TIMEOUT = 10000
 
 const imgixImages = [
   'https://imgix.cosmicjs.com/cb26bd70-207c-11ec-99dc-57488d0e52ad-PCWAFrench-Meadows-Reservoirwebsite-banner.jpg',
@@ -649,8 +649,9 @@ const Index = ({
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const placeholders = await getImgixBlurHashes(imgixImages)
     const baseUrl = process.env.BASE_URL
+    const placeholders = await getImgixBlurHashes(imgixImages)
+
     // initialAlertsData broke website in production when I duplicated a news alert in Cosmic at one time. Not sure why.
     const alertsParams = {
       hide_metafields: true,
@@ -674,6 +675,7 @@ export const getStaticProps: GetStaticProps = async () => {
       })
     }
     const newsBlurbsQs = stringify(newsBlurbsParams, true)
+
     const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
     const initialNewsBlurbsData = await pTimeout(fetcher(newsBlurbsUrl), {
       milliseconds: FETCHER_TIMEOUT
