@@ -218,25 +218,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                     <NextLink
                       scroll
                       key={n.id}
-                      href={
-                        n.derivedFilenameAttr?.date === '12-20-2022'
-                          ? 'https://docs.pcwa.net/mosquito-fire-update-pcwa-has-filed-suit-against-pacific-gas-electric-company.pdf'
-                          : n.derivedFilenameAttr?.date === '01-17-2023'
-                            ? 'https://docs.pcwa.net/pcwa-files-suit-against-pge-for-breach-of-contract.pdf'
-                            : '/newsroom/news-releases/[release-date]'
-                      }
-                      as={
-                        n.derivedFilenameAttr?.date === '12-20-2022' ||
-                        n.derivedFilenameAttr?.date === '01-17-2023'
-                          ? undefined
-                          : `/newsroom/news-releases/${n.derivedFilenameAttr?.date}`
-                      }
-                      target={
-                        n.derivedFilenameAttr?.date === '12-20-2022' ||
-                        n.derivedFilenameAttr?.date === '01-17-2023'
-                          ? '_blank'
-                          : undefined
-                      }
+                      href="/newsroom/news-releases/[release-date]"
+                      as={`/newsroom/news-releases/${n.derivedFilenameAttr?.date}`}
                     >
                       <ListItemButton>
                         <ListItemAvatar>

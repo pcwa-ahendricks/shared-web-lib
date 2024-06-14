@@ -36,8 +36,8 @@ import {
 } from '@lib/types/multimedia'
 
 export const spacesRe = /(\s|%20)+/g
-const websiteUrl = 'https://www.pcwa.net'
-const apiBaseUrl = process.env.NEXT_PUBLIC_BASE_URL
+// when using Next pages router, the nextjs BASE_URL env varible will now work here, work around is to set base url to prod
+const baseUrl = 'https://www.pcwa.net'
 
 function addPage(page: string, changefreq = 'daily') {
   const path = page
@@ -53,7 +53,7 @@ function addPage(page: string, changefreq = 'daily') {
   const route = path.replace(/^(.*)(\/index)$/, '$1')
 
   return `  <url>
-    <loc>${`${websiteUrl}${route}`}</loc>
+    <loc>${`${baseUrl}${route}`}</loc>
     <changefreq>${changefreq}</changefreq>
   </url>`
 }
@@ -90,7 +90,7 @@ async function generateSitemap() {
   ].map((p) => `/newsroom/publications/${p}`)
 
   const documents: PublicationList | undefined = await fetcher(
-    `${apiBaseUrl}${publicationUrl}`
+    `${baseUrl}${publicationUrl}`
   )
 
   const documentPages =
@@ -107,7 +107,7 @@ async function generateSitemap() {
       : []
 
   const agendas = await fetcher<CosmicObjectResponse<AgendaMetadata>>(
-    `${apiBaseUrl}${agendasUrl}`
+    `${baseUrl}${agendasUrl}`
   )
 
   const agendaPages =
@@ -121,7 +121,7 @@ async function generateSitemap() {
       : []
 
   const newsReleases: NewsReleaseMediaResponses | undefined = await fetcher(
-    `${apiBaseUrl}${newsReleasesUrl}`
+    `${baseUrl}${newsReleasesUrl}`
   )
 
   const newsReleasesPages =
@@ -140,7 +140,7 @@ async function generateSitemap() {
       : []
 
   const newsletters: NewsletterMediaResponses | undefined = await fetcher(
-    `${apiBaseUrl}${newslettersUrl}`
+    `${baseUrl}${newslettersUrl}`
   )
   const newslettersPages =
     newsletters && Array.isArray(newsletters)
@@ -158,7 +158,7 @@ async function generateSitemap() {
       : []
 
   const data: bodMinutesMediaResponses | undefined = await fetcher(
-    `${apiBaseUrl}${boardMinutesUrl}`
+    `${baseUrl}${boardMinutesUrl}`
   )
   const bodMinutesPages =
     data && Array.isArray(data)
@@ -176,7 +176,7 @@ async function generateSitemap() {
       : []
 
   const multimedia: PhotoList | VideoList | undefined = await fetcher(
-    `${apiBaseUrl}${multimediaUrl}`
+    `${baseUrl}${multimediaUrl}`
   )
 
   const filteredPhotoMultimedia =
@@ -190,9 +190,8 @@ async function generateSitemap() {
       : []
 
   const multimediaPhotoPages = [
-    ...groupBy<MappedPhoto, string>(
-      filteredPhotoMultimedia,
-      (a) => a.metadata?.gallery?.toLowerCase().trim()
+    ...groupBy<MappedPhoto, string>(filteredPhotoMultimedia, (a) =>
+      a.metadata?.gallery?.toLowerCase().trim()
     )
   ]
     .map(([gallery, photos]) =>
