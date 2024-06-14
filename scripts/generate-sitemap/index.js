@@ -14314,6 +14314,7 @@ const publicationsUrl = `/api/cosmic/media${publicationsQs}`;
 
 
 const spacesRe = /(\s|%20)+/g;
+// when using Next pages router, the nextjs BASE_URL env varible will now work here, work around is to set base url to prod
 const baseUrl = 'https://www.pcwa.net';
 function addPage(page, changefreq = 'daily') {
     const path = page
