@@ -1,9 +1,9 @@
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {
+  TZ,
   getFileExtension,
   isImgixInputMimeType,
   localDate,
-  localDateFrom,
   paramToStr,
   startsWithAnyPrefix
 } from '@lib/api/shared'
@@ -15,6 +15,7 @@ import {
 import path from 'path'
 import {type AwsObjectExt} from '@lib/types/aws'
 import {parse} from 'date-fns'
+import {fromZonedTime} from 'date-fns-tz'
 
 const awsRegion = process.env.NODE_AWS_REGION || ''
 const accessKeyId = process.env.NODE_AWS_ACCESS_KEY_ID || ''
@@ -75,8 +76,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
               0,
               filename.indexOf(parsePubDateSep)
             )
-            pubDate = localDateFrom(
-              parse(pubDateStr, parsePubDate, localDate())
+            pubDate = fromZonedTime(
+              parse(pubDateStr, parsePubDate, localDate()),
+              TZ
             ).toJSON()
           }
           const ext = getFileExtension(item.Key)
