@@ -213,7 +213,6 @@
     "yuba",
     "zeit"
   ],
-  "eslint.packageManager": "yarn",
   "npm.packageManager": "yarn",
   "files.exclude": {
     "**/.next/**": true,
