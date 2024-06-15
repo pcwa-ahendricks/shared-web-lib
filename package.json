@@ -46,7 +46,7 @@
     "typescript": "5.2.2"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.596.0",
+    "@aws-sdk/client-s3": "^3.598.0",
     "@cosmicjs/sdk": "^1.0.10",
     "@emotion/cache": "^11.10.5",
     "@emotion/react": "^11.11.4",

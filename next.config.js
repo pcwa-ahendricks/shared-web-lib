@@ -8,6 +8,12 @@ const isDev = process.env.NODE_ENV === 'development'
 const fileExtRe = '(.[a-z]{1,4})?'
 
 const miscRedirects = [
+  // Use new News release URLs for AWS/Digital Ocean Spaces pdfs, instead of Cosmic pdfs. (A. Hendricks, 6/15/2024)
+  {
+    source: '/newsroom/news-releases/:month(\\d{2})-:day(\\d{2})-:year(\\d{4})',
+    destination: '/newsroom/news-releases/:year-:month-:day',
+    permanent: true
+  },
   // Classic (Brenda's www.pcwa.net) stop leaks page.
   {
     source: '/water-use-efficiency/stop-leaks(\\.html)?',
