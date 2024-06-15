@@ -3,6 +3,7 @@ import {
   getFileExtension,
   isImgixInputMimeType,
   localDate,
+  localDateFrom,
   paramToStr,
   startsWithAnyPrefix
 } from '@lib/api/shared'
@@ -74,7 +75,9 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
               0,
               filename.indexOf(parsePubDateSep)
             )
-            pubDate = parse(pubDateStr, parsePubDate, localDate()).toJSON()
+            pubDate = localDateFrom(
+              parse(pubDateStr, parsePubDate, localDate())
+            ).toJSON()
           }
           const ext = getFileExtension(item.Key)
           const shouldAddImgixUrl = isImgixInputMimeType(ext)
