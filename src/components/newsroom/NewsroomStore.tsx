@@ -31,14 +31,22 @@ export type GroupedNewsletters = Array<{
   >[]
 }>
 
-export type GroupedNewsReleaseVal = AwsObjectExt & {
+export type GroupedNewsReleases = Array<{
+  year: number
+  values: Pick<
+    CosmicMediaMeta,
+    'id' | 'original_name' | 'url' | 'imgix_url' | 'derivedFilenameAttr'
+  >[]
+}>
+
+export type NewGroupedNewsReleaseVal = AwsObjectExt & {
   pubYear: number
   nextLinkAs: string
   title: string
 }
-export type GroupedNewsReleases = Array<{
+export type NewGroupedNewsReleases = Array<{
   year: number
-  values: GroupedNewsReleaseVal[]
+  values: NewGroupedNewsReleaseVal[]
 }>
 
 // State

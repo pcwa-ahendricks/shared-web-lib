@@ -3,12 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {
-  fileNameUtil,
-  CosmicMediaMeta,
-  CosmicMediaResponse
-} from '@lib/services/cosmicService'
-import {compareDesc, parseJSON, format, parseISO} from 'date-fns'
+import {compareDesc, parseJSON, format, getYear} from 'date-fns'
 import groupBy from '@lib/groupBy'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import {
@@ -28,32 +23,33 @@ import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSideba
 import NextLink from 'next/link'
 import Spacing from '@components/boxes/Spacing'
 import {
-  GroupedNewsReleases,
+  NewGroupedNewsReleaseVal as GroupedNewsReleaseVal,
+  NewGroupedNewsReleases as GroupedNewsReleases,
   NewsroomContext,
   setNewsReleaseYear
 } from '@components/newsroom/NewsroomStore'
 import {GetStaticProps} from 'next'
-import {stringify} from 'querystringify'
 import useSWR from 'swr'
 import fetcher from '@lib/fetcher'
 import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
-const DATE_FNS_FORMAT = 'MM-dd-yyyy'
+import {getFileExtension} from '@lib/util'
+import {AwsObjectExt} from '@lib/types/aws'
+import toTitleCase from '@lib/toTitleCase'
+
+const baseUrl = process.env.BASE_URL
+const qs = new URLSearchParams({
+  folderPath: `pcwa-net/newsroom/news-releases/`,
+  parsePubDate: 'yyyy-MM-dd',
+  parsePubDateSep: '_'
+}).toString()
+const apiUrl = `/api/aws/media?${qs}`
+const newsReleasesUrl = `${baseUrl}${apiUrl}`
 
 type Props = {
-  fallbackData?: CosmicMediaResponse
+  fallbackData?: AwsObjectExt[]
 }
-
-const cosmicGetMediaProps = {
-  props: 'id,original_name,url,imgix_url'
-}
-const params = {
-  folder: 'news-releases',
-  ...cosmicGetMediaProps
-}
-const qs = stringify({...params}, true)
-const newsReleasesUrl = `/api/cosmic/media${qs}`
 
 const NewsReleasesPage = ({fallbackData}: Props) => {
   const theme = useTheme()
@@ -61,27 +57,38 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
   const newsroomDispatch = newsroomContext.dispatch
   const {newsReleaseYear} = newsroomContext.state
 
-  const {data: newsReleasesData} = useSWR<CosmicMediaResponse>(
-    newsReleasesUrl,
-    {fallbackData}
-  )
+  const {data: newsReleasesData} = useSWR<AwsObjectExt[]>(newsReleasesUrl, {
+    fallbackData
+  })
 
   const newsReleases: GroupedNewsReleases = useMemo(
     () =>
       newsReleasesData && Array.isArray(newsReleasesData)
         ? [
             // Group objects by derived Year into JS Map.
-            ...groupBy<CosmicMediaMeta, number>(
+            ...groupBy<GroupedNewsReleaseVal, number>(
               newsReleasesData
-                .map((nr) => ({
-                  ...nr,
-                  derivedFilenameAttr: fileNameUtil(
-                    nr.original_name,
-                    DATE_FNS_FORMAT
-                  )
-                }))
-                .filter((nr) => nr.derivedFilenameAttr.date), // Don't list links that will ultimately 404.
-              (mnr) => mnr.derivedFilenameAttr?.publishedYear
+                .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
+                .map((item) => {
+                  // start with \s when you don't want to force lowercase/uppercase a work at the beginning of the sentence, and \b when you do
+                  const forceLowercaseRe =
+                    /\sas\s|\son\s|\sat\s|\sin\s|\sof\s|\sthe\s|\sto\s|\sand\s|\sfor\s|\sits\s|\swith\s/gi
+                  const forceUppercaseRe =
+                    /\bgm\s|\bu\.s\.\s|\bnid\s|\bpcwa\s|\bpg&e\s|\bpge\s|\bkvie\s|\bpbs\s|\bmfpfa\s/gi
+
+                  return {
+                    ...item,
+                    pubYear: getYear(parseJSON(item.pubDate)),
+                    nextLinkAs: `/newsroom/news-releases/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`,
+                    title: toTitleCase(getNewsReleaseTitle(item.filename))
+                      .replace(forceLowercaseRe, (match) => match.toLowerCase())
+                      .replace(forceUppercaseRe, (match) => match.toUpperCase())
+                      .replace(/\bpcwas\b/gi, "PCWA's")
+                      .replace(/\bpge\b/gi, 'PG&E')
+                      .replace(/\boped\b/gi, 'Op-Ed')
+                  }
+                }),
+              (item) => item.pubYear
             )
           ] // Spreading Map will convert Map into an Array.
             // Sort individual media objects by published date property.
@@ -89,8 +96,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
               year,
               values: values.sort((a, b) =>
                 compareDesc(
-                  parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
-                  parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
+                  parseJSON(a.pubDate ?? ''),
+                  parseJSON(b.pubDate ?? '')
                 )
               )
             }))
@@ -218,25 +225,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                     <NextLink
                       scroll
                       key={n.id}
-                      href={
-                        n.derivedFilenameAttr?.date === '12-20-2022'
-                          ? 'https://docs.pcwa.net/mosquito-fire-update-pcwa-has-filed-suit-against-pacific-gas-electric-company.pdf'
-                          : n.derivedFilenameAttr?.date === '01-17-2023'
-                            ? 'https://docs.pcwa.net/pcwa-files-suit-against-pge-for-breach-of-contract.pdf'
-                            : '/newsroom/news-releases/[release-date]'
-                      }
-                      as={
-                        n.derivedFilenameAttr?.date === '12-20-2022' ||
-                        n.derivedFilenameAttr?.date === '01-17-2023'
-                          ? undefined
-                          : `/newsroom/news-releases/${n.derivedFilenameAttr?.date}`
-                      }
-                      target={
-                        n.derivedFilenameAttr?.date === '12-20-2022' ||
-                        n.derivedFilenameAttr?.date === '01-17-2023'
-                          ? '_blank'
-                          : undefined
-                      }
+                      href="/newsroom/news-releases/[release-date]"
+                      as={n.nextLinkAs}
                     >
                       <ListItemButton>
                         <ListItemAvatar>
@@ -258,17 +248,15 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                               width={850}
                               height={1100}
                               objectFit="cover"
-                              src={n.imgix_url}
-                              alt={`Thumbnail image for ${n.derivedFilenameAttr?.date} News Release`}
+                              src={n.imgixUrl}
+                              alt={`Thumbnail image for ${format(parseJSON(n.pubDate ?? ''), 'yyyy-MM-dd')} News Release`}
                             />
                           </Box>
                         </ListItemAvatar>
                         <ListItemText
-                          primary={n.derivedFilenameAttr?.title}
+                          primary={n.title}
                           secondary={format(
-                            parseISO(
-                              n.derivedFilenameAttr?.publishedDate ?? ''
-                            ),
+                            parseJSON(n.pubDate ?? ''),
                             'MMMM do'
                           )}
                         />
@@ -303,10 +291,16 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
 // Called at build time.
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const baseUrl = process.env.BASE_URL
-    const fallbackData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
+    const mediaList: AwsObjectExt[] = await fetcher(newsReleasesUrl)
+
+    const media = mediaList?.filter(
+      (item) => getFileExtension(item.Key)?.toLowerCase() === 'pdf'
+    )
+
     return {
-      props: {fallbackData},
+      props: {
+        fallbackData: media
+      },
       revalidate: 5
     }
   } catch (error) {
@@ -316,3 +310,18 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 export default NewsReleasesPage
+
+function getNewsReleaseTitle(input = ''): string {
+  // Remove the file extension
+  const withoutExtension = input.replace(/\.[^/.]+$/, '')
+
+  // Remove all characters up to and including the first underscore
+  const withoutPrefix = withoutExtension.substring(
+    withoutExtension.indexOf('_') + 1
+  )
+
+  // Replace all remaining underscores with spaces
+  const transformed = withoutPrefix.replace(/_/g, ' ')
+
+  return transformed
+}

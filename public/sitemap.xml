@@ -200,6 +200,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/newsroom/news-releases-new</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/smart-water-use/stop-leaks</loc>
     <changefreq>daily</changefreq>
   </url>
