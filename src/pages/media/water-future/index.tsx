@@ -26,8 +26,22 @@ import FadeInToTop, {
   FadeInToTopProps
 } from '@components/boxes/animate/FadeInToTop'
 import useLinkComponent from '@hooks/useLinkComponent'
+import Image from 'next/image'
+import {GetStaticProps} from 'next'
+import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
+import {Placeholders} from '@components/imageBlur/ImageBlurStore'
+import usePlaceholders from '@components/imageBlur/usePlaceholders'
 
-export default function WaterFuturePage() {
+const imgixImages = [
+  'https://pcwa.imgix.net/pcwa-net/media/water-future/PCWA_WebBG2.jpg'
+]
+
+type Props = {
+  placeholders: Placeholders
+}
+
+export default function WaterFuturePage({placeholders}: Props) {
+  usePlaceholders(placeholders)
   const LinkComponent = useLinkComponent()
 
   return (
@@ -114,6 +128,14 @@ export default function WaterFuturePage() {
               projected impacts of climate change.
             </Type>
           </FadeInToTopIntersect>
+          <Spacing size="x-large" />
+          <Image
+            alt="Water for our Future"
+            src="https://pcwa.imgix.net/pcwa-net/media/water-future/PCWA_WebBG2.jpg"
+            width={1920}
+            height={1080}
+            style={{width: '100%', height: 'auto'}}
+          />
           <Spacing size="x-large" />
           <Type variant="h3" gutterBottom>
             At PCWA, stewardship is at the core of everything we do.
@@ -280,4 +302,16 @@ export const FadeInToTopIntersect = ({
       </FadeInToTop>
     </Box>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const placeholders = await getImgixBlurHashes(imgixImages)
+    return {
+      props: {placeholders}
+    }
+  } catch (error) {
+    console.log('There was an error fetching blurhashes', error)
+    return {props: {}}
+  }
 }
