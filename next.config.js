@@ -8,6 +8,12 @@ const isDev = process.env.NODE_ENV === 'development'
 const fileExtRe = '(.[a-z]{1,4})?'
 
 const miscRedirects = [
+  // Old link C. Kohn used, not sure if it was published anywhere (4/14/2024)
+  {
+    source: '/education-center/go-to-school-on-leaks',
+    destination: '/smart-water-use/go-to-school-on-leaks',
+    permanent: true
+  },
   // Use new News release URLs for AWS/Digital Ocean Spaces pdfs, instead of Cosmic pdfs. (A. Hendricks, 6/15/2024)
   {
     source: '/newsroom/news-releases/:month(\\d{2})-:day(\\d{2})-:year(\\d{4})',

@@ -9,7 +9,15 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import NarrowContainer from '@components/containers/NarrowContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type, Box} from '@mui/material'
+import {
+  Typography as Type,
+  Box,
+  List,
+  ListItemText,
+  ListItemButton,
+  Unstable_Grid2 as Grid,
+  Divider
+} from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
 import BlockQuote from '@components/water-future/block-quote'
 import {UiContext, setAnimateDone} from '@components/ui/UiStore'
@@ -17,16 +25,22 @@ import {useIntersection} from 'react-use'
 import FadeInToTop, {
   FadeInToTopProps
 } from '@components/boxes/animate/FadeInToTop'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 export default function WaterFuturePage() {
+  const LinkComponent = useLinkComponent()
+
   return (
     <PageLayout title="Water Future" waterSurface>
       <MainBox>
         <NarrowContainer>
           <PageTitle title="Water for Our Future" hideDivider />
-          <Type variant="h3" color="primary">
+          <Type sx={{mt: 1}} variant="h3" color="primary">
             Reliable, Sustainable Water Supplies for Placer County
           </Type>
+          <Box sx={{my: 4}}>
+            <Divider />
+          </Box>
           {/* <Grid container spacing={{xs: 4.5, sm: 6}}>
             <Grid xs={12} sm={7}>
               <Type paragraph>
@@ -59,7 +73,7 @@ export default function WaterFuturePage() {
               </Box>
             </Grid>
           </Grid> */}
-          <Spacing factor={2} size="x-large" />
+          <Spacing factor={2} size="large" />
           {/* <Type paragraph>
             Water is not just essential for our daily lives; it's the
             cornerstone of Placer County's future. "Water for Our Future"
@@ -117,13 +131,105 @@ export default function WaterFuturePage() {
               and resilience in our community.
             </Type>
           </FadeInToTopIntersect>
+          <Spacing size="x-large" />
+          <Type variant="h3">
+            Learn more about PCWA's commitment to providing Water for our
+            Future:
+          </Type>
+          <Spacing />
+          <Grid container spacing={2}>
+            <Grid
+              xs={12}
+              sm={6}
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-start"
+              sx={{textAlign: 'center'}}
+            >
+              <Type variant="subtitle1" gutterBottom color="primary">
+                Water Supply Reliability and Infrastructure
+              </Type>
+            </Grid>
+            <Grid
+              xs={12}
+              sm={6}
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-start"
+              sx={{textAlign: 'center'}}
+            >
+              <Type variant="subtitle1" gutterBottom color="primary">
+                Stewardship
+              </Type>
+            </Grid>
+          </Grid>
+          <Grid container spacing={2}>
+            <Grid xs={12} sm={6}>
+              <List dense>
+                <ListItemButton
+                  href="/media/water-future/supporting-our-growing-communities"
+                  LinkComponent={LinkComponent}
+                >
+                  <ListItemText
+                    primary={
+                      <Type variant="inherit">
+                        Empowering Our Water Future: PCWA's Role in Supporting
+                        our Growing Communities{' '}
+                        <em>(General Manager’s Report—Jan-Feb 2024)</em>
+                      </Type>
+                    }
+                  />
+                </ListItemButton>
+                <ListItemButton
+                  href="/media/water-future/ophir-project"
+                  LinkComponent={LinkComponent}
+                >
+                  <ListItemText primary="The Ophir Project" />
+                </ListItemButton>
+                <ListItemButton
+                  href="https://www.riverarcproject.com"
+                  LinkComponent={LinkComponent}
+                >
+                  <ListItemText primary="RiverArc Project" />
+                </ListItemButton>
+              </List>
+            </Grid>
+            <Grid xs={12} sm={6}>
+              <List dense>
+                <ListItemButton
+                  href="/smart-water-use/rebate-programs"
+                  LinkComponent={LinkComponent}
+                >
+                  <ListItemText primary="Rebate Programs" />
+                </ListItemButton>
+                <ListItemButton
+                  href="/smart-water-use/house-calls"
+                  LinkComponent={LinkComponent}
+                >
+                  <ListItemText primary="Water Wise House Calls" />
+                </ListItemButton>
+                <ListItemButton
+                  href="/smart-water-use/master-gardener-demonstration-garden"
+                  LinkComponent={LinkComponent}
+                >
+                  <ListItemText primary="UC Master Gardeners of Placer County Demonstration Garden at the Loomis Library and Community Learning Center" />
+                </ListItemButton>
+                <ListItemButton
+                  href="/smart-water-use/go-to-school-on-leaks"
+                  LinkComponent={LinkComponent}
+                >
+                  <ListItemText primary="School Outreach Programs" />
+                </ListItemButton>
+              </List>
+            </Grid>
+          </Grid>
         </NarrowContainer>
       </MainBox>
     </PageLayout>
   )
 }
 
-const FadeInToTopIntersect = ({
+export const FadeInToTopIntersect = ({
   children,
   animateKey,
   ...props
