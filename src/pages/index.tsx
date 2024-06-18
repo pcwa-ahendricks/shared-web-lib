@@ -59,7 +59,8 @@ const imgixImages = [
   // 'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake%20Spaulding%20supplies%2090%20percent%20of%20PCWA%20water%20supply.jpg',
   'https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake%20Spaulding.jpg',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg',
-  'https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png'
+  'https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png',
+  'https://pcwa.imgix.net/pcwa-net/media/water-future/PCWA_WebBG.jpg'
 ]
 
 type Props = {
@@ -132,16 +133,17 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="New Customer Portal Coming Soon"
-              readMore="See Our Frequently Asked Questions"
-              linkHref="/newsroom/new-customer-service-portal-2024"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png"
-              alt="New Customer Portal Brochure"
-              body="We're excited to announce our new utility billing system for improved efficiency and a better customer experience. This upgrade offers a more intuitive and user-friendly portal to manage your account, track water usage, and handle billing with ease. Stay tuned for new account numbers in July 2024 and the launch of our enhanced customer portal in August 2024."
+              title="Water for Our Future"
+              readMore="For more information, visit PCWA Water Future."
+              linkHref="/waterfuture"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/media/water-future/PCWA_WebBG.jpg"
+              alt="Water for Our Future"
+              body="At PCWA, we are dedicated to securing a sustainable water future for Placer County. By leveraging American River water rights and projects like Ophir and RiverArc, we ensure reliable water supply and climate adaptation. Our efforts, including effective forest management and community engagement, underscore our commitment to a water-wise and resilient Placer County."
+              imgixParams={{crop: 'right'}}
             />
           </Grid>
           <Grid xs={12} sm={6}>
-            <CoverStory
+            {/* <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Your Water Quality Matters"
               readMore="Learn more"
@@ -149,6 +151,15 @@ const Index = ({
               imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg"
               alt="Water Quality Matters"
               body="PCWA proudly ensures safe and reliable drinking water that surpasses state and federal standards. The 2023 water quality test results are now available in our Consumer Confidence Reports."
+            /> */}
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="New Customer Portal Coming Soon"
+              readMore="See Our Frequently Asked Questions"
+              linkHref="/newsroom/new-customer-service-portal-2024"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png"
+              alt="New Customer Portal Brochure"
+              body="We're excited to announce our new utility billing system for improved efficiency and a better customer experience. This upgrade offers a more intuitive and user-friendly portal to manage your account, track water usage, and handle billing with ease. Stay tuned for new account numbers in July 2024 and the launch of our enhanced customer portal in August 2024."
             />
           </Grid>
         </Grid>
@@ -288,6 +299,16 @@ const Index = ({
               }}
             />
           </ChildBox> */}
+          <Grid xs={6} sm={4} md={3}>
+            <CoverTile
+              // width={tileWidth}
+              title="Water Quality Reports for 2023"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg"
+              linkHref="/services/water-quality"
+              imgixParams={{fit: 'fill', bg: '#013769'}}
+              alt="Water Quality Reports for 2023"
+            />
+          </Grid>
 
           <Grid xs={6} sm={4} md={3}>
             <CoverTile
