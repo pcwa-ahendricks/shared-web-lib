@@ -107,25 +107,30 @@ export default function WaterFuturePage({placeholders}: Props) {
               residential and business growth in our region.
             </Type>
             <Type paragraph>
-              As our communities, including Roseville, Rocklin, Loomis, and
-              Lincoln, experience rapid growth, we recognize the challenges and
-              opportunities it brings. While PCWA doesn't have a role in
-              approving or denying new development, our responsibility lies in
-              making sure there's enough water to support planned growth and
-              delivering it where it's needed.
+              As our communities in West Placer County, including Roseville,
+              Rocklin, Loomis, and Lincoln, experience rapid growth, we
+              recognize the challenges and opportunities it brings. While PCWA
+              doesn't have a role in approving or denying new development, our
+              responsibility lies in making sure there's enough water to support
+              planned growth and delivering it where it's needed.
             </Type>
             <Type paragraph>
               To fulfill this commitment, we're investing in long-term
               infrastructure projects like the Ophir Project. This initiative
               will enhance our treatment capacity and our pipeline network to
-              deliver treated water to homes and businesses in West Placer
-              County. Scheduled to begin construction in 2025, the Ophir Project
-              demonstrates our dedication to meeting evolving community needs.
+              deliver treated water to homes and businesses in the western part
+              of the county. Scheduled to begin construction of a new water
+              treatment plant in 2025, the Ophir Project demonstrates our
+              dedication to meeting evolving community needs.
             </Type>
             <Type paragraph>
               The RiverArc Project is another cornerstone water reliability
               project, essential to enhancing our water portfolio to address the
-              projected impacts of climate change.
+              projected impacts of climate change. It improves our region's
+              water supply reliability by better balancing supplies from its two
+              major surface water sources—reducing pressure off the American
+              River and harnessing the opportunities from the much larger
+              Sacramento River.
             </Type>
           </FadeInToTopIntersect>
           <Spacing size="x-large" />
