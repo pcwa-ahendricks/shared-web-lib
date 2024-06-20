@@ -138,7 +138,7 @@ const Index = ({
               linkHref="/waterfuture"
               imgixURL="https://pcwa.imgix.net/pcwa-net/media/water-future/PCWA_WebBG.jpg"
               alt="Water for Our Future"
-              body="At PCWA, we are dedicated to securing a sustainable water future for Placer County. By leveraging backup water supplies and proactive planning, American River water rights and projects like Ophir and RiverArc, we ensure reliable water supply and climate adaptation. Our efforts, including effective forest management and community engagement, underscore our commitment to a water-wise and resilient Placer County."
+              body="At PCWA, we are dedicated to securing a sustainable water future for Placer County. By leveraging backup water supplies and proactive planning, like American River water rights and projects like Ophir and RiverArc, we ensure reliable water supply and climate adaptation. Our efforts, including effective forest management and community engagement, underscore our commitment to a water-wise and resilient Placer County."
               imgixParams={{crop: 'right'}}
             />
           </Grid>
