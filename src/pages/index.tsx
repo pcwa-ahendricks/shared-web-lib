@@ -60,7 +60,8 @@ const imgixImages = [
   'https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake%20Spaulding.jpg',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg',
   'https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png',
-  'https://pcwa.imgix.net/pcwa-net/media/water-future/PCWA_WebBG.jpg'
+  'https://pcwa.imgix.net/pcwa-net/media/water-future/PCWA_WebBG.jpg',
+  'https://pcwa.imgix.net/pcwa-net/customer-service/erp/PCWA_BillingPlatform_Graphic.jpg'
 ]
 
 type Props = {
@@ -192,7 +193,8 @@ const Index = ({
               title="New Customer Portal Postponed"
               readMore="See Our Frequently Asked Questions"
               linkHref="/newsroom/new-customer-service-portal-2024"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/erp/PCWA_BillingPlatform_Graphic.jpg"
+              imgixParams={{crop: 'top'}}
               alt="New Customer Portal Brochure"
               body="We're excited to announce our new utility billing system for improved efficiency and a better customer experience. This upgrade offers a more intuitive and user-friendly portal to manage your account, track water usage, and handle billing with ease. While we’ve had to postpone the launch, we're working hard to ensure everything is perfect. Stay tuned for updates!"
             />

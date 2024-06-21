@@ -1,20 +1,17 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import React from // useEffect, // useContext, // useCallback,
+// useRef,
+// useState
+'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
 import {
   Typography as Type,
   Unstable_Grid2 as Grid,
-  Box,
-  Paper,
-  alpha,
-  useMediaQuery
+  Box
+  // Paper,
+  // alpha,
+  // useMediaQuery
 } from '@mui/material'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
@@ -24,16 +21,16 @@ import Spacing from '@components/boxes/Spacing'
 import NewUtilityBillSystemFaq from '@components/NewUtilityBillSystemFaq'
 import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 import ImageFancier from '@components/ImageFancier/ImageFancier'
-import {grey, orange, yellow} from '@mui/material/colors'
-import ArrowIcon from '@mui/icons-material/ArrowRightAlt'
-import CalIcon from '@mui/icons-material/EventAvailable'
-import SlideInLeft, {
-  SlideInLeftProps
-} from '@components/boxes/animate/SlideInLeft'
-import {useIntersection} from 'react-use'
-import {UiContext, setAnimateDone} from '@components/ui/UiStore'
-import FadeOut, {FadeOutProps} from '@components/boxes/animate/FadeOut'
-import useTheme from '@hooks/useTheme'
+// import {grey, orange, yellow} from '@mui/material/colors'
+// import ArrowIcon from '@mui/icons-material/ArrowRightAlt'
+// import CalIcon from '@mui/icons-material/EventAvailable'
+// import SlideInLeft, {
+//   SlideInLeftProps
+// } from '@components/boxes/animate/SlideInLeft'
+// import {useIntersection} from 'react-use'
+// import {UiContext, setAnimateDone} from '@components/ui/UiStore'
+// import FadeOut, {FadeOutProps} from '@components/boxes/animate/FadeOut'
+// import useTheme from '@hooks/useTheme'
 
 export default function NewCustomerServicePortal2024() {
   return (
@@ -61,20 +58,25 @@ export default function NewCustomerServicePortal2024() {
             <Grid xs={12} sm={7}>
               <MediaDialogOnClick
                 // showPopper={false}
-                mediaUrl="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20no%20logo.png"
+                // mediaUrl="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20no%20logo.png"
+                mediaUrl="https://pcwa.imgix.net/pcwa-net/customer-service/erp/PCWA_BillingPlatform_Graphic.jpg"
                 mediaName="SMUD rice fields flooding"
                 MediaPreviewDialogProps={{
                   ImageProps: {
                     width: 3840,
-                    height: 2742
+                    // height: 2742
+                    height: 2560
                   }
                 }}
               >
                 <ImageFancier
-                  src="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png"
+                  // src="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png"
+                  src="https://pcwa.imgix.net/pcwa-net/customer-service/erp/PCWA_BillingPlatform_Graphic.jpg"
                   width={3840}
-                  height={2742}
-                  alt="SMUD rice fields flooding"
+                  // height={2742}
+                  height={2560}
+                  // alt="SMUD rice fields flooding"
+                  alt="PCWA New Billing System graphic"
                   loader={imgixUrlLoader}
                   sizes="(max-width: 600px) 100vw, 50vw"
                   style={{
@@ -120,7 +122,7 @@ export default function NewCustomerServicePortal2024() {
             </Type>
           </Box>
 
-          <Spacing />
+          {/* <Spacing />
           <Box>
             <Paper
               variant="elevation"
@@ -189,17 +191,6 @@ export default function NewCustomerServicePortal2024() {
                   <Type component="li">
                     <strong>New Customer Portal Launch:</strong> Our new portal
                     will go live! Keep an eye out for more details to come!
-                    {/* <Link
-                      aria-label="Paymentus web payment link"
-                      href="https://ipn.paymentus.com/cp/plco"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      underline="always"
-                      sx={{color: 'primary.dark'}}
-                    >
-                      Pay My Bill
-                    </Link>{' '}
-                    at PCWA.net. */}
                   </Type>
                   <Type component="li">
                     <strong>Payment Options:</strong> Use your new account
@@ -222,7 +213,7 @@ export default function NewCustomerServicePortal2024() {
                 </Box>
               </Box>
             </Paper>
-          </Box>
+          </Box> */}
 
           <Spacing size="x-large" />
           <Type variant="h4" gutterBottom>
@@ -260,92 +251,92 @@ export default function NewCustomerServicePortal2024() {
 //   }
 // }
 
-const SlideInLeftIntersect = ({
-  children,
-  animateKey,
-  ...props
-}: SlideInLeftProps & {animateKey: string}) => {
-  const uiContext = useContext(UiContext)
-  const {state: uiState, dispatch: uiDispatch} = uiContext
+// const SlideInLeftIntersect = ({
+//   children,
+//   animateKey,
+//   ...props
+// }: SlideInLeftProps & {animateKey: string}) => {
+//   const uiContext = useContext(UiContext)
+//   const {state: uiState, dispatch: uiDispatch} = uiContext
 
-  const {[animateKey]: previouslyAnimated} = uiState.animateDone
-  const animateDoneHandler = useCallback(() => {
-    uiDispatch(setAnimateDone(animateKey, true))
-  }, [uiDispatch, animateKey])
+//   const {[animateKey]: previouslyAnimated} = uiState.animateDone
+//   const animateDoneHandler = useCallback(() => {
+//     uiDispatch(setAnimateDone(animateKey, true))
+//   }, [uiDispatch, animateKey])
 
-  const ref = useRef<HTMLDivElement>(null)
-  const [intersected, setIntersected] = useState(false)
-  const intersection = useIntersection(ref, {
-    root: null,
-    rootMargin: '0px'
-  })
+//   const ref = useRef<HTMLDivElement>(null)
+//   const [intersected, setIntersected] = useState(false)
+//   const intersection = useIntersection(ref, {
+//     root: null,
+//     rootMargin: '0px'
+//   })
 
-  useEffect(() => {
-    const animate = intersection?.isIntersecting
-    if (animate && !intersected) {
-      setIntersected(true)
-    }
-  }, [intersection, intersected])
+//   useEffect(() => {
+//     const animate = intersection?.isIntersecting
+//     if (animate && !intersected) {
+//       setIntersected(true)
+//     }
+//   }, [intersection, intersected])
 
-  const theme = useTheme()
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
+//   const theme = useTheme()
+//   const isMdUp = useMediaQuery(theme.breakpoints.up('md'))
 
-  const shouldAnimate = intersected && !previouslyAnimated && isMdUp
+//   const shouldAnimate = intersected && !previouslyAnimated && isMdUp
 
-  return (
-    <Box ref={ref}>
-      <SlideInLeft
-        animate={shouldAnimate}
-        onAnimationEnd={animateDoneHandler}
-        {...props}
-      >
-        {children}
-      </SlideInLeft>
-    </Box>
-  )
-}
+//   return (
+//     <Box ref={ref}>
+//       <SlideInLeft
+//         animate={shouldAnimate}
+//         onAnimationEnd={animateDoneHandler}
+//         {...props}
+//       >
+//         {children}
+//       </SlideInLeft>
+//     </Box>
+//   )
+// }
 
-const FadeOutIntersect = ({
-  children,
-  animateKey,
-  fadeOutDelay = 3000,
-  ...props
-}: FadeOutProps & {animateKey: string; fadeOutDelay?: number}) => {
-  const uiContext = useContext(UiContext)
-  const {state: uiState, dispatch: uiDispatch} = uiContext
+// const FadeOutIntersect = ({
+//   children,
+//   animateKey,
+//   fadeOutDelay = 3000,
+//   ...props
+// }: FadeOutProps & {animateKey: string; fadeOutDelay?: number}) => {
+//   const uiContext = useContext(UiContext)
+//   const {state: uiState, dispatch: uiDispatch} = uiContext
 
-  const {[animateKey]: previouslyAnimated} = uiState.animateDone
-  const animateDoneHandler = useCallback(() => {
-    uiDispatch(setAnimateDone(animateKey, true))
-  }, [uiDispatch, animateKey])
+//   const {[animateKey]: previouslyAnimated} = uiState.animateDone
+//   const animateDoneHandler = useCallback(() => {
+//     uiDispatch(setAnimateDone(animateKey, true))
+//   }, [uiDispatch, animateKey])
 
-  const ref = useRef<HTMLDivElement>(null)
-  const [intersected, setIntersected] = useState(false)
-  const intersection = useIntersection(ref, {
-    root: null,
-    rootMargin: '0px'
-  })
+//   const ref = useRef<HTMLDivElement>(null)
+//   const [intersected, setIntersected] = useState(false)
+//   const intersection = useIntersection(ref, {
+//     root: null,
+//     rootMargin: '0px'
+//   })
 
-  useEffect(() => {
-    const animate = intersection?.isIntersecting
-    if (animate && !intersected) {
-      setIntersected(true)
-    }
-  }, [intersection, intersected, fadeOutDelay])
+//   useEffect(() => {
+//     const animate = intersection?.isIntersecting
+//     if (animate && !intersected) {
+//       setIntersected(true)
+//     }
+//   }, [intersection, intersected, fadeOutDelay])
 
-  const shouldAnimate = intersected && !previouslyAnimated
+//   const shouldAnimate = intersected && !previouslyAnimated
 
-  return (
-    <Box ref={ref}>
-      <FadeOut
-        animate={shouldAnimate}
-        onAnimationEnd={animateDoneHandler}
-        // not sure why this is necessary
-        sx={{...(previouslyAnimated && {opacity: 0})}}
-        {...props}
-      >
-        {children}
-      </FadeOut>
-    </Box>
-  )
-}
+//   return (
+//     <Box ref={ref}>
+//       <FadeOut
+//         animate={shouldAnimate}
+//         onAnimationEnd={animateDoneHandler}
+//         // not sure why this is necessary
+//         sx={{...(previouslyAnimated && {opacity: 0})}}
+//         {...props}
+//       >
+//         {children}
+//       </FadeOut>
+//     </Box>
+//   )
+// }

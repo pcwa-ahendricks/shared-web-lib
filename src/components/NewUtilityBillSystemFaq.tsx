@@ -73,7 +73,7 @@ const NewUtilityBillSystemFaq = () => {
         </AccordionDetails>
       </Accordion> */}
 
-      <Accordion
+      {/* <Accordion
         expanded={expanded === 'panel4'}
         onChange={handleChange('panel4')}
         sx={{
@@ -106,7 +106,7 @@ const NewUtilityBillSystemFaq = () => {
             </Type>
           </ColumnBox>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
 
       <Accordion
         expanded={expanded === 'panel5'}
