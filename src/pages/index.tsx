@@ -196,7 +196,7 @@ const Index = ({
               imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/erp/PCWA_BillingPlatform_Graphic.jpg"
               imgixParams={{crop: 'top'}}
               alt="New Customer Portal Brochure"
-              body="We're excited to announce our new utility billing system for improved efficiency and a better customer experience. This upgrade offers a more intuitive and user-friendly portal to manage your account, track water usage, and handle billing with ease. While we’ve had to postpone the launch, we're working hard to ensure everything is perfect. Stay tuned for updates!"
+              body="We're excited to announce our new utility billing system for improved efficiency and a better customer experience. This upgrade offers a more intuitive and user-friendly portal to manage your account, track water usage, and handle billing with ease. We're working hard to ensure everything is perfect for a smooth transition. Stay tuned for updates!"
             />
 
             {/* <CoverStory
