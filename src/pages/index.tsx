@@ -131,7 +131,7 @@ const Index = ({
       <WideContainer>
         <Grid container spacing={5}>
           <Grid xs={12} sm={6}>
-            <CoverStory
+            {/* <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Water for Our Future"
               readMore="For more information, visit PCWA Water Future."
@@ -140,9 +140,27 @@ const Index = ({
               alt="Water for Our Future"
               body="At PCWA, we are dedicated to securing a sustainable water future for Placer County. By leveraging backup water supplies and proactive planning, like American River water rights and projects like Ophir and RiverArc, we ensure reliable water supply and climate adaptation. Our efforts, including effective forest management and community engagement, underscore our commitment to a water-wise and resilient Placer County."
               imgixParams={{crop: 'right'}}
+            /> */}
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Water Delivery Challenges: Lake Spaulding"
+              readMore="Learn more"
+              linkHref="/media/pge-water-delivery-2024"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake%20Spaulding.jpg"
+              alt="Lake Spaulding and dam"
+              body="Due to a PG&E infrastructure failure impacting water supply to PCWA, we are offering customers the option to voluntarily, temporarily reduce or suspend canal water deliveries for the summer season."
             />
           </Grid>
           <Grid xs={12} sm={6}>
+            <CoverStory
+              aspectRatio={coverStoryImageRatio}
+              title="Maximize Your Savings with PCWA Rebates"
+              readMore="Start Saving Today"
+              linkHref="/smart-water-use/rebate-programs"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg"
+              alt="PCWA Rebates"
+              body="Take advantage of Placer County Water Agency's enahnced rebates for water-wise upgrades at your home or business, now offering increased amounts to maximize your conservation efforts effortlessly."
+            />
             {/* <CoverStory
               aspectRatio={coverStoryImageRatio}
               title="Your Water Quality Matters"
@@ -152,15 +170,6 @@ const Index = ({
               alt="Water Quality Matters"
               body="PCWA proudly ensures safe and reliable drinking water that surpasses state and federal standards. The 2023 water quality test results are now available in our Consumer Confidence Reports."
             /> */}
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="New Customer Portal Coming Soon"
-              readMore="See Our Frequently Asked Questions"
-              linkHref="/newsroom/new-customer-service-portal-2024"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png"
-              alt="New Customer Portal Brochure"
-              body="We're excited to announce our new utility billing system for improved efficiency and a better customer experience. This upgrade offers a more intuitive and user-friendly portal to manage your account, track water usage, and handle billing with ease. Stay tuned for new account numbers in July 2024 and the launch of our enhanced customer portal in August 2024."
-            />
           </Grid>
         </Grid>
         <Spacing />
@@ -180,12 +189,12 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Master Gardener Demonstration Garden"
-              readMore="Learn more"
-              linkHref="/smart-water-use/master-gardener-demonstration-garden"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg"
-              alt="Master Gardener Demonstration Garden in Loomis"
-              body="Explore water-wise landscaping techniques and sustainable gardening practices at Placer County’s newest demonstration garden:the UC Master Gardeners of Placer County Demonstration Garden at the Loomis Library and Community Learning Center."
+              title="New Customer Portal Postponed"
+              readMore="See Our Frequently Asked Questions"
+              linkHref="/newsroom/new-customer-service-portal-2024"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png"
+              alt="New Customer Portal Brochure"
+              body="We're excited to announce our new utility billing system for improved efficiency and a better customer experience. This upgrade offers a more intuitive and user-friendly portal to manage your account, track water usage, and handle billing with ease. While we’ve had to postpone the launch, we're working hard to ensure everything is perfect. Stay tuned for updates!"
             />
 
             {/* <CoverStory
@@ -223,27 +232,19 @@ const Index = ({
         </Grid>
         <Spacing />
         <Grid container spacing={5}>
-          <Grid xs={12} sm={6}>
-            <CoverStory
-              aspectRatio={coverStoryImageRatio}
-              title="Maximize Your Savings with PCWA Rebates"
-              readMore="Start Saving Today"
-              linkHref="/smart-water-use/rebate-programs"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg"
-              alt="PCWA Rebates"
-              body="Take advantage of Placer County Water Agency's enahnced rebates for water-wise upgrades at your home or business, now offering increased amounts to maximize your conservation efforts effortlessly."
-            />
-          </Grid>
+          {/* <Grid xs={12} sm={6}>
+
+          </Grid> */}
 
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="Water Delivery Challenges: Lake Spaulding"
+              title="Master Gardener Demonstration Garden"
               readMore="Learn more"
-              linkHref="/media/pge-water-delivery-2024"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake%20Spaulding.jpg"
-              alt="Lake Spaulding and dam"
-              body="Due to a PG&E infrastructure failure impacting water supply to PCWA, we are offering customers the option to voluntarily, temporarily reduce or suspend canal water deliveries for the summer season."
+              linkHref="/smart-water-use/master-gardener-demonstration-garden"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg"
+              alt="Master Gardener Demonstration Garden in Loomis"
+              body="Explore water-wise landscaping techniques and sustainable gardening practices at Placer County’s newest demonstration garden:the UC Master Gardeners of Placer County Demonstration Garden at the Loomis Library and Community Learning Center."
             />
           </Grid>
         </Grid>
