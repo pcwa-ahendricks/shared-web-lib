@@ -190,7 +190,7 @@ const Index = ({
           <Grid xs={12} sm={6}>
             <CoverStory
               aspectRatio={coverStoryImageRatio}
-              title="New Customer Portal Postponed"
+              title="New Customer Portal Coming soon"
               readMore="See Our Frequently Asked Questions"
               linkHref="/newsroom/new-customer-service-portal-2024"
               imgixURL="https://pcwa.imgix.net/pcwa-net/customer-service/erp/PCWA_BillingPlatform_Graphic.jpg"
