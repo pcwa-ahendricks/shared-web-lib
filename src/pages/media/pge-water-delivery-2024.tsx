@@ -30,25 +30,29 @@ export default function PgeWaterDelivery2024Page() {
           <Type paragraph>
             PCWA is currently facing a water supply delivery problem due to
             infrastructure damage at a PG&E facility. Damage has disrupted the
-            water delivery from Lake Spaulding, impacting our access to water
-            supplies from that source. Customers may voluntarily reduce or
-            suspend their summer water deliveries to help reduce the impact,
-            particularly with the warmer months approaching.
+            water delivery from Lake Spaulding, impacting PG&E’s water
+            deliveries from that source since March. PG&E has run into several
+            unanticipated schedule delays that have pushed the return of service
+            from early June to the latest report of July 30th.
           </Type>
           <Grid container spacing={4}>
             <Grid xs={12} sm={6}>
               <Type paragraph>
-                At a recent board meeting on April 18, the PCWA Board of
-                Directors took action in response to this unforeseen event
-                beyond our control. They approved a variance that extends the
-                conservation opportunity to even the smallest raw-water
-                customers, demonstrating our commitment to finding solutions
-                amid such circumstances.
+                PCWA is currently facing a water supply delivery problem due to
+                infrastructure damage at a PG&E facility. Damage has disrupted
+                the water delivery from Lake Spaulding, impacting PG&E’s water
+                deliveries from that source since March. PG&E has run into
+                several unanticipated schedule delays that have pushed the
+                return of service from early June to the latest report of July
+                30th.
               </Type>
               <Type paragraph>
-                Customers who want to discuss their options to temporarily
-                reduce or suspend raw water deliveries are encouraged to contact
-                our Customer Services Department at <MainPhone /> or{' '}
+                With the recent delay, the PG&E supply in Rollins Reservoir is
+                expected to be depleted in mid-July under current demand
+                projections if no conservation measures are taken. Customers who
+                want to discuss their options to temporarily reduce or suspend
+                raw water deliveries are encouraged to contact our Customer
+                Services Department at <MainPhone /> or{' '}
                 <CustomerServicesEmail />.
               </Type>
             </Grid>

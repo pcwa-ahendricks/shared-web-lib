@@ -128,10 +128,17 @@ const SpauldingConstructionFaq = () => {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              We do not anticipate treated water customers will be affected by
-              this outage, but we continue to encourage customers to use water
-              wisely
+              All customers are being asked to reduce water use by 20 percent.
+              Here are some things customers can do to help achieve this goal:
             </Type>
+            <Box component="ul" sx={{marginTop: 1}}>
+              <Type component="li">
+                Reduce landscape watering (while prioritizing water for trees)
+              </Type>
+              <Type component="li">Stop sprinkler runoff</Type>
+              <Type component="li">Water only early in the day</Type>
+              <Type component="li">Fix household leaks</Type>
+            </Box>
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
@@ -155,9 +162,12 @@ const SpauldingConstructionFaq = () => {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              To help us all get through this period, we’re asking for voluntary
-              reductions or temporary suspension in canal water deliveries now,
-              while it’s still cool.
+              To help us all get through this period, untreated water customers
+              who have not already voluntarily reduced deliveries for the season
+              will have their orifice reduced by approximately 20 percent. We’re
+              also continuing to ask for voluntary reductions or temporary
+              suspension in canal water deliveries. All customers are asked to
+              reduce water use by 20 percent.
             </Type>
             <Type variant="body2" paragraph>
               Customers who want to discuss their options to temporarily reduce
@@ -221,7 +231,6 @@ const SpauldingConstructionFaq = () => {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              <br />
               PG&E is moving forward with a plan to partially restore water
               deliveries in mid-June, but full repair of the failed
               infrastructure isn’t expected until late fall, which means that
@@ -234,10 +243,16 @@ const SpauldingConstructionFaq = () => {
               projected [return to service] date of June 19 for the Spaulding 1
               powerhouse is now June 30.
             </Type>
+            <Type variant="body2" paragraph>
+              <em>Update:</em> As of June 7, 2024, PG&E provided the following
+              statement: Due to the unforeseen delays in repairs at the
+              Spaulding 1 powerhouse, PG&E has extended the earlier restoration
+              date of late June to late July. 
+            </Type>
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
-      <Accordion
+      {/* <Accordion
         expanded={expanded === 'panel7'}
         onChange={handleChange('panel7')}
         sx={{
@@ -269,7 +284,7 @@ const SpauldingConstructionFaq = () => {
             </Type>
           </ColumnBox>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
       <Accordion
         expanded={expanded === 'panel8'}
         onChange={handleChange('panel8')}

@@ -149,7 +149,7 @@ const Index = ({
               linkHref="/media/pge-water-delivery-2024"
               imgixURL="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake%20Spaulding.jpg"
               alt="Lake Spaulding and dam"
-              body="Due to a PG&E infrastructure failure impacting water supply to PCWA, we are offering customers the option to voluntarily, temporarily reduce or suspend canal water deliveries for the summer season."
+              body="Due to a PG&E infrastructure failure impacting water delivery to PCWA, we are asking customers to reduce water use by 20%. Conservation will help us preserve existing water supplies until PG&E repairs are completed and water delivery is restored."
             />
           </Grid>
           <Grid xs={12} sm={6}>
