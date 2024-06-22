@@ -38,13 +38,13 @@ export default function PgeWaterDelivery2024Page() {
           <Grid container spacing={4}>
             <Grid xs={12} sm={6}>
               <Type paragraph>
-                PCWA is currently facing a water supply delivery problem due to
-                infrastructure damage at a PG&E facility. Damage has disrupted
-                the water delivery from Lake Spaulding, impacting PG&E’s water
-                deliveries from that source since March. PG&E has run into
-                several unanticipated schedule delays that have pushed the
-                return of service from early June to the latest report of July
-                30th.
+                Prior to this most recent notification of delay, the estimate of
+                PG&E water available in Rollins Reservoir was sufficient to
+                avoid interruptions to PCWA’s treated and raw water customers.
+                PCWA is now asking all customers to reduce water use by 20%.
+                Your actions to conserve will help us preserve our existing
+                water supply until PG&E repairs are completed and water delivery
+                is restored.
               </Type>
               <Type paragraph>
                 With the recent delay, the PG&E supply in Rollins Reservoir is
