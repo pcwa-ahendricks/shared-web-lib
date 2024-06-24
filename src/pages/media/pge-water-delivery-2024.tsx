@@ -2,12 +2,7 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {
-  Typography as Type,
-  Unstable_Grid2 as Grid,
-  Box,
-  Divider
-} from '@mui/material'
+import {Typography as Type, Unstable_Grid2 as Grid, Box} from '@mui/material'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
