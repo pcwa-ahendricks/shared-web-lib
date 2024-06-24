@@ -2,7 +2,12 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type, Unstable_Grid2 as Grid, Box} from '@mui/material'
+import {
+  Typography as Type,
+  Unstable_Grid2 as Grid,
+  Box,
+  Divider
+} from '@mui/material'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
@@ -124,14 +129,22 @@ export default function PgeWaterDelivery2024Page() {
               <Type variant="h5" color="textSecondary" gutterBottom>
                 Recent News
               </Type>
-              <Spacing size="small">
-                <NewsBlurb
-                  title="PCWA Asks Raw Water Customers for Voluntary Conservation Due to PG&E Water Delivery Problem"
-                  readMoreCaption="Read News Release..."
-                  summary="PCWA is currently facing a water delivery issue from PG&E due to infrastructure problems, and is asking raw water customers to voluntarily reduce or suspend their summer water deliveries. Damages at a PG&E facility disrupt water supply from Lake Spaulding, affecting PCWA's ability to provide water to raw water customers. The agency seeks cooperation from customers now, during the cooler months, to help mitigate the impact before the warmer months arrive."
-                  linkURL="https://www.pcwa.net/newsroom/news-releases/04-23-2024"
-                />
-              </Spacing>
+              <Spacing size="small" />
+              <Type variant="caption">6/24/2024</Type>
+              <NewsBlurb
+                title="Conservation Ahead for PCWA Customers Due to PG&E Delivery Issue"
+                readMoreCaption="Read News Release..."
+                summary="Customers served by PCWA are urged to reduce their water use to help manage an ongoing water delivery problem caused by damaged Pacific Gas and Electric Company (PG&E) facilities. PG&E has run into several unanticipated schedule delays that have pushed their return of service date from June to July 30th, more than 50 days beyond the original estimate."
+                linkURL="https://www.pcwa.net/newsroom/news-releases/2024-06-24"
+              />
+              <Spacing />
+              <Type variant="caption">4/23/2024</Type>
+              <NewsBlurb
+                title="PCWA Asks Raw Water Customers for Voluntary Conservation Due to PG&E Water Delivery Problem"
+                readMoreCaption="Read News Release..."
+                summary="PCWA is currently facing a water delivery issue from PG&E due to infrastructure problems, and is asking raw water customers to voluntarily reduce or suspend their summer water deliveries. Damages at a PG&E facility disrupt water supply from Lake Spaulding, affecting PCWA's ability to provide water to raw water customers. The agency seeks cooperation from customers now, during the cooler months, to help mitigate the impact before the warmer months arrive."
+                linkURL="https://www.pcwa.net/newsroom/news-releases/2024-04-23"
+              />
             </Grid>
           </Grid>
         </WideContainer>
