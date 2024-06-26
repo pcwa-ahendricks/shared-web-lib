@@ -36,7 +36,7 @@ import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
 import {getFileExtension} from '@lib/util'
 import {AwsObjectExt} from '@lib/types/aws'
-import toTitleCase from '@lib/toTitleCase'
+import {getNewsReleaseTitle} from '@lib/newReleaseTitle'
 
 const baseUrl = process.env.BASE_URL
 const qs = new URLSearchParams({
@@ -69,25 +69,12 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
             ...groupBy<GroupedNewsReleaseVal, number>(
               newsReleasesData
                 .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
-                .map((item) => {
-                  // start with \s when you don't want to force lowercase/uppercase a work at the beginning of the sentence, and \b when you do
-                  const forceLowercaseRe =
-                    /\sa\s|\sas\s|\son\s|\sat\s|\sin\s|\sof\s|\sthe\s|\sto\s|\sand\s|\sfor\s|\sits\s|\swith\s/gi
-                  const forceUppercaseRe =
-                    /\bgm\s|\bu\.s\.\s|\bnid\s|\bpcwa\s|\bpg&e\s|\bpge\s|\bkvie\s|\bpbs\s|\bmfpfa\s/gi
-
-                  return {
-                    ...item,
-                    pubYear: getYear(parseJSON(item.pubDate)),
-                    nextLinkAs: `/newsroom/news-releases/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`,
-                    title: toTitleCase(getNewsReleaseTitle(item.filename))
-                      .replace(forceLowercaseRe, (match) => match.toLowerCase())
-                      .replace(forceUppercaseRe, (match) => match.toUpperCase())
-                      .replace(/\bpcwas\b/gi, "PCWA's")
-                      .replace(/\bpge\b/gi, 'PG&E')
-                      .replace(/\boped\b/gi, 'Op-Ed')
-                  }
-                }),
+                .map((item) => ({
+                  ...item,
+                  pubYear: getYear(parseJSON(item.pubDate)),
+                  nextLinkAs: `/newsroom/news-releases/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`,
+                  title: getNewsReleaseTitle(item.filename)
+                })),
               (item) => item.pubYear
             )
           ] // Spreading Map will convert Map into an Array.
@@ -310,18 +297,3 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 export default NewsReleasesPage
-
-function getNewsReleaseTitle(input = ''): string {
-  // Remove the file extension
-  const withoutExtension = input.replace(/\.[^/.]+$/, '')
-
-  // Remove all characters up to and including the first underscore
-  const withoutPrefix = withoutExtension.substring(
-    withoutExtension.indexOf('_') + 1
-  )
-
-  // Replace all remaining underscores with spaces
-  const transformed = withoutPrefix.replace(/_/g, ' ')
-
-  return transformed
-}

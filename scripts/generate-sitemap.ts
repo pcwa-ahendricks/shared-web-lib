@@ -8,11 +8,6 @@ import {
   fileNameUtil,
   CosmicObjectResponse
 } from '../src/lib/services/cosmicService'
-import {
-  newsReleasesUrl,
-  NewsReleaseMediaResponses,
-  newsReleaseDateFrmt
-} from '@lib/types/newsReleases'
 import {agendasUrl, AgendaMetadata} from '@lib/types/agenda'
 import {
   newsletterDateFrmt,
@@ -34,9 +29,12 @@ import {
   PublicationList,
   VideoList
 } from '@lib/types/multimedia'
+import {AwsObjectExt} from '@lib/types/aws'
+import {getFileExtension} from '@lib/api/shared'
+import {format, parseJSON} from 'date-fns'
 
 export const spacesRe = /(\s|%20)+/g
-// when using Next pages router, the nextjs BASE_URL env varible will now work here, work around is to set base url to prod
+// when using Next pages router, the nextjs BASE_URL env variable will now work here, work around is to set base url to prod
 const baseUrl = 'https://www.pcwa.net'
 
 function addPage(page: string, changefreq = 'daily') {
@@ -120,23 +118,26 @@ async function generateSitemap() {
           .map((p) => `/board-of-directors/meeting-agendas/${p}`)
       : []
 
-  const newsReleases: NewsReleaseMediaResponses | undefined = await fetcher(
-    `${baseUrl}${newsReleasesUrl}`
+  const qs = new URLSearchParams({
+    folderPath: `pcwa-net/newsroom/news-releases/`,
+    parsePubDate: 'yyyy-MM-dd',
+    parsePubDateSep: '_'
+  }).toString()
+  const apiUrl = `/api/aws/media?${qs}`
+  const newsReleasesUrl = `${baseUrl}${apiUrl}`
+  const newsReleasesMediaList: AwsObjectExt[] = await fetcher(newsReleasesUrl)
+  const newsReleases = newsReleasesMediaList?.filter(
+    (item) => getFileExtension(item.Key)?.toLowerCase() === 'pdf'
   )
 
   const newsReleasesPages =
     newsReleases && Array.isArray(newsReleases)
       ? newsReleases
-          .map((nr) => ({
-            ...nr,
-            derivedFilenameAttr: fileNameUtil(
-              nr.original_name,
-              newsReleaseDateFrmt
-            )
-          }))
-          .filter((nr) => nr.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-          .map((nr) => nr.derivedFilenameAttr.date)
-          .map((nr) => `/newsroom/news-releases/${nr}`)
+          .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
+          .map(
+            (item) =>
+              `/newsroom/news-releases/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`
+          )
       : []
 
   const newsletters: NewsletterMediaResponses | undefined = await fetcher(
@@ -239,11 +240,11 @@ ${pages
 ${piPages.map((p) => addPage(p, 'always')).join('\n')}
 ${bodPages.map((p) => addPage(p, 'monthly')).join('\n')}
 ${pubPages.map((p) => addPage(p, 'daily')).join('\n')}
-${documentPages.map((p) => addPage(p, 'never')).join('\n')}
-${newsReleasesPages.map((p) => addPage(p, 'never')).join('\n')}
-${agendaPages.map((p) => addPage(p, 'never')).join('\n')}
-${newslettersPages.map((p) => addPage(p, 'never')).join('\n')}
-${bodMinutesPages.map((p) => addPage(p, 'never')).join('\n')}
+${documentPages.map((p) => addPage(p, 'yearly')).join('\n')}
+${newsReleasesPages.map((p) => addPage(p, 'yearly')).join('\n')}
+${agendaPages.map((p) => addPage(p, 'yearly')).join('\n')}
+${newslettersPages.map((p) => addPage(p, 'yearly')).join('\n')}
+${bodMinutesPages.map((p) => addPage(p, 'yearly')).join('\n')}
 ${multimediaPhotoPages.map((p) => addPage(p, 'daily')).join('\n')}
 ${multimediaVideoPages.map((p) => addPage(p, 'daily')).join('\n')}
 </urlset>`
