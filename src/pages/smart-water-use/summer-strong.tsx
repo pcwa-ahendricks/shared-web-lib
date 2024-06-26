@@ -16,7 +16,7 @@ import {
 // import StarsIcon from 'mdi-material-ui/Creation'
 // import SunIcon from 'mdi-material-ui/WhiteBalanceSunny'
 // import TitleIcon from '@mui/icons-material/LocalFlorist'
-import BeeIcon from '@mui/icons-material/EmojiNature'
+// import BeeIcon from '@mui/icons-material/EmojiNature'
 import Image from 'next/legacy/image'
 import NextLink from 'next/link'
 import imgixLoader from '@lib/imageLoader'
