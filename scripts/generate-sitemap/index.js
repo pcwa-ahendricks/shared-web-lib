@@ -15803,7 +15803,7 @@ function parseJSON(dateStr) {
 ;// CONCATENATED MODULE: ./src/lib/fileExtension.ts
 const fileExtension = (filename = '') => {
     // Extract the part after the last dot
-    const parts = filename.split('.');
+    const parts = filename?.split('.');
     return parts.length > 1 ? parts.pop()?.toLowerCase() || null : null;
 };
 
