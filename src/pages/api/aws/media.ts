@@ -2,7 +2,6 @@ import {VercelRequest, VercelResponse} from '@vercel/node'
 import {
   TZ,
   getFileExtension,
-  isImgixInputMimeType,
   localDate,
   paramToStr,
   startsWithAnyPrefix
@@ -16,6 +15,7 @@ import path from 'path'
 import {type AwsObjectExt} from '@lib/types/aws'
 import {parse} from 'date-fns'
 import {fromZonedTime} from 'date-fns-tz'
+import {isImgixInputMimeType} from '@lib/imgixInputMimeType'
 
 const awsRegion = process.env.NODE_AWS_REGION || ''
 const accessKeyId = process.env.NODE_AWS_ACCESS_KEY_ID || ''
