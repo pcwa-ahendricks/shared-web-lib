@@ -70,18 +70,18 @@
     "@smithy/util-utf8" "^2.0.0"
     tslib "^2.6.2"
 
-"@aws-sdk/client-s3@^3.598.0":
-  version "3.598.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.598.0.tgz#04f594cb7e36b3551898c656715f94785ca8acf0"
-  integrity sha512-UMxftsgF6j1vzm4Qd9vQJHs2he1NQCWWV8esZfmNFq23OpUC2BPMxkqi13ZQ9tnTAZUNs7yFT/x4Zsi/wpRZEw==
+"@aws-sdk/client-s3@^3.600.0":
+  version "3.600.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.600.0.tgz#3ce415d9257b8d1c8385bc26c6c86e6403aff83c"
+  integrity sha512-iYoKbJTputbf+ubkX6gSK/y/4uJEBRaXZ18jykLdBQ8UJuGrk2gqvV8h7OlGAhToCeysmmMqM0vDWyLt6lP8nw==
   dependencies:
     "@aws-crypto/sha1-browser" "5.2.0"
     "@aws-crypto/sha256-browser" "5.2.0"
     "@aws-crypto/sha256-js" "5.2.0"
-    "@aws-sdk/client-sso-oidc" "3.598.0"
-    "@aws-sdk/client-sts" "3.598.0"
+    "@aws-sdk/client-sso-oidc" "3.600.0"
+    "@aws-sdk/client-sts" "3.600.0"
     "@aws-sdk/core" "3.598.0"
-    "@aws-sdk/credential-provider-node" "3.598.0"
+    "@aws-sdk/credential-provider-node" "3.600.0"
     "@aws-sdk/middleware-bucket-endpoint" "3.598.0"
     "@aws-sdk/middleware-expect-continue" "3.598.0"
     "@aws-sdk/middleware-flexible-checksums" "3.598.0"
@@ -134,16 +134,16 @@
     "@smithy/util-waiter" "^3.0.1"
     tslib "^2.6.2"
 
-"@aws-sdk/client-sso-oidc@3.598.0":
-  version "3.598.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sso-oidc/-/client-sso-oidc-3.598.0.tgz#17ad1acd1c616ccbd36cda2db1ee80d63ad0aff5"
-  integrity sha512-jfdH1pAO9Tt8Nkta/JJLoUnwl7jaRdxToQTJfUtE+o3+0JP5sA4LfC2rBkJSWcU5BdAA+kyOs5Lv776DlN04Vg==
+"@aws-sdk/client-sso-oidc@3.600.0":
+  version "3.600.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sso-oidc/-/client-sso-oidc-3.600.0.tgz#37966020af55a052822b9ef21adc38d2afcb0f34"
+  integrity sha512-7+I8RWURGfzvChyNQSyj5/tKrqRbzRl7H+BnTOf/4Vsw1nFOi5ROhlhD4X/Y0QCTacxnaoNcIrqnY7uGGvVRzw==
   dependencies:
     "@aws-crypto/sha256-browser" "5.2.0"
     "@aws-crypto/sha256-js" "5.2.0"
-    "@aws-sdk/client-sts" "3.598.0"
+    "@aws-sdk/client-sts" "3.600.0"
     "@aws-sdk/core" "3.598.0"
-    "@aws-sdk/credential-provider-node" "3.598.0"
+    "@aws-sdk/credential-provider-node" "3.600.0"
     "@aws-sdk/middleware-host-header" "3.598.0"
     "@aws-sdk/middleware-logger" "3.598.0"
     "@aws-sdk/middleware-recursion-detection" "3.598.0"
@@ -224,16 +224,16 @@
     "@smithy/util-utf8" "^3.0.0"
     tslib "^2.6.2"
 
-"@aws-sdk/client-sts@3.598.0":
-  version "3.598.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.598.0.tgz#5b3c082ac14b3f0b7a4c964eb4ba2b320988e1e4"
-  integrity sha512-bXhz/cHL0iB9UH9IFtMaJJf4F8mV+HzncETCRFzZ9SyUMt5rP9j8A7VZknqGYSx/6mI8SsB1XJQkWSbhn6FiSQ==
+"@aws-sdk/client-sts@3.600.0":
+  version "3.600.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.600.0.tgz#8a437f8cf626cf652f99628105576213dbba48b2"
+  integrity sha512-KQG97B7LvTtTiGmjlrG1LRAY8wUvCQzrmZVV5bjrJ/1oXAU7DITYwVbSJeX9NWg6hDuSk0VE3MFwIXS2SvfLIA==
   dependencies:
     "@aws-crypto/sha256-browser" "5.2.0"
     "@aws-crypto/sha256-js" "5.2.0"
-    "@aws-sdk/client-sso-oidc" "3.598.0"
+    "@aws-sdk/client-sso-oidc" "3.600.0"
     "@aws-sdk/core" "3.598.0"
-    "@aws-sdk/credential-provider-node" "3.598.0"
+    "@aws-sdk/credential-provider-node" "3.600.0"
     "@aws-sdk/middleware-host-header" "3.598.0"
     "@aws-sdk/middleware-logger" "3.598.0"
     "@aws-sdk/middleware-recursion-detection" "3.598.0"
@@ -325,10 +325,10 @@
     "@smithy/types" "^3.1.0"
     tslib "^2.6.2"
 
-"@aws-sdk/credential-provider-node@3.598.0":
-  version "3.598.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-node/-/credential-provider-node-3.598.0.tgz#b24173cf9ae33718c6273c9bac996791c73d9359"
-  integrity sha512-sXTlqL5I/awlF9Dg2MQ17SfrEaABVnsj2mf4jF5qQrIRhfbvQOIYdEqdy8Rn1AWlJMz/N450SGzc0XJ5owxxqw==
+"@aws-sdk/credential-provider-node@3.600.0":
+  version "3.600.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-node/-/credential-provider-node-3.600.0.tgz#33b32364972bd7167d000cdded92b9398346a3ca"
+  integrity sha512-1pC7MPMYD45J7yFjA90SxpR0yaSvy+yZiq23aXhAPZLYgJBAxHLu0s0mDCk/piWGPh8+UGur5K0bVdx4B1D5hw==
   dependencies:
     "@aws-sdk/credential-provider-env" "3.598.0"
     "@aws-sdk/credential-provider-http" "3.598.0"
@@ -1185,30 +1185,30 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@mui/x-date-pickers-pro@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers-pro/-/x-date-pickers-pro-7.7.0.tgz#e2f26e893ed5c9cdac58a4020782e0faaac65dae"
-  integrity sha512-kIP6LzzhEWE281vXSIWO3W7IdW9G6mZ4EKAEGYWE+nZ+vnCopC7xHlDOtPDi/7ag7vWZDjB12gmo+19kM+brug==
+"@mui/x-date-pickers-pro@^7.7.1":
+  version "7.7.1"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers-pro/-/x-date-pickers-pro-7.7.1.tgz#e682da08d5a5b73454f623fa51189f40ab9b8f06"
+  integrity sha512-+E11dpc4nf1k+SB/bU6veYU7kt6n84n2HZCiRSjr1w5hkPBWiSsioejxzgcTsn+EiZ1TnrygivF4wbxiImp/ng==
   dependencies:
     "@babel/runtime" "^7.24.7"
     "@mui/base" "^5.0.0-beta.40"
-    "@mui/system" "^5.15.15"
-    "@mui/utils" "^5.15.14"
-    "@mui/x-date-pickers" "7.7.0"
-    "@mui/x-license" "7.7.0"
+    "@mui/system" "^5.15.20"
+    "@mui/utils" "^5.15.20"
+    "@mui/x-date-pickers" "7.7.1"
+    "@mui/x-license" "7.7.1"
     clsx "^2.1.1"
     prop-types "^15.8.1"
     react-transition-group "^4.4.5"
 
-"@mui/x-date-pickers@7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.7.0.tgz#d07138776c10e4ab9292bca8a3c071c058a80b8c"
-  integrity sha512-huyoA22Vi8iCkee6ro0sX7CcFIcPV/Fl7ZGWwaQC8PTAheXhz823DjMYAiwRU/imF+UFYfUInWQ4XZCIkM+2Dw==
+"@mui/x-date-pickers@7.7.1":
+  version "7.7.1"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.7.1.tgz#34c0cef5936b75d395a74faf34355cda0a986613"
+  integrity sha512-p7/TY8QcdQd6RelNqzW5q89GeUFctvZnDHTfQVEC0l0nAy7ArE6u21uNF8QWGrijZoJXCM+OlIRzlZADaUPpWA==
   dependencies:
     "@babel/runtime" "^7.24.7"
     "@mui/base" "^5.0.0-beta.40"
-    "@mui/system" "^5.15.15"
-    "@mui/utils" "^5.15.14"
+    "@mui/system" "^5.15.20"
+    "@mui/utils" "^5.15.20"
     "@types/react-transition-group" "^4.4.10"
     clsx "^2.1.1"
     prop-types "^15.8.1"
@@ -1222,13 +1222,13 @@
     "@babel/runtime" "^7.22.6"
     "@mui/utils" "^5.13.7"
 
-"@mui/x-license@7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mui/x-license/-/x-license-7.7.0.tgz#a7e8c808973121035c097b8e8cb9c03fe1c62a3c"
-  integrity sha512-lslSjrgD0XmzSokYbuOZ2qiQmbEcq9w8SY4B8fnzVfwUa/pnaIFD0FmKOQRAsozwYD/P21PuXJ9r9jNAHVvc7w==
+"@mui/x-license@7.7.1":
+  version "7.7.1"
+  resolved "https://registry.yarnpkg.com/@mui/x-license/-/x-license-7.7.1.tgz#6320b68297cd0d704d6882d980bfccf730ed60da"
+  integrity sha512-8Ycgidva5dmBHy5Uhf1X+Rqr7zuU9u3i8hefufT44Z5xYAVR0AJWKt75cTmBclyg0hpA55m6hRZwxP0W0cYN6A==
   dependencies:
     "@babel/runtime" "^7.24.7"
-    "@mui/utils" "^5.15.14"
+    "@mui/utils" "^5.15.20"
 
 "@next/env@14.2.4":
   version "14.2.4"
@@ -2222,7 +2222,7 @@
   dependencies:
     "@types/express" "*"
 
-"@types/node@*", "@types/node@^20.14.2":
+"@types/node@*":
   version "20.14.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.2.tgz#a5f4d2bcb4b6a87bffcaa717718c5a0f208f4a18"
   integrity sha512-xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==
@@ -2233,6 +2233,13 @@
   version "16.18.11"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.11.tgz#cbb15c12ca7c16c85a72b6bdc4d4b01151bb3cae"
   integrity sha512-3oJbGBUWuS6ahSnEq1eN2XrCyf4YsWI8OyCvo7c64zQJNplk3mO84t53o8lfTk+2ji59g5ycfc6qQ3fdHliHuA==
+
+"@types/node@^20.14.9":
+  version "20.14.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.9.tgz#12e8e765ab27f8c421a1820c99f5f313a933b420"
+  integrity sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==
+  dependencies:
+    undici-types "~5.26.4"
 
 "@types/parse-json@^4.0.0":
   version "4.0.2"
@@ -2443,10 +2450,10 @@
   resolved "https://registry.yarnpkg.com/@vercel/ncc/-/ncc-0.38.1.tgz#13f08738111e1d9e8a22fd6141f3590e54d9a60e"
   integrity sha512-IBBb+iI2NLu4VQn3Vwldyi2QwaXt5+hTyh58ggAMoCGE6DJmPvwL3KPBWcJl1m9LYPChBLE980Jw+CS4Wokqxw==
 
-"@vercel/next@4.2.17":
-  version "4.2.17"
-  resolved "https://registry.yarnpkg.com/@vercel/next/-/next-4.2.17.tgz#65160fdf8ff016742b90e31f42a9737cc3b28dcd"
-  integrity sha512-b1ZwH/3sL4+CrrIjncZLAqjd+ts0KyVGL0HEOWU340OI3hXmQQAN+2k0MWlqm8Vu8rFGfk9VEQ9yJG/pmPx6mg==
+"@vercel/next@4.2.18":
+  version "4.2.18"
+  resolved "https://registry.yarnpkg.com/@vercel/next/-/next-4.2.18.tgz#0e173ccc8c0780788c1341c280f1134e0259bec7"
+  integrity sha512-sxm2/lHsM7ZuMPMzo5wIGuVe3bEk9GN4sKJcfe2RfI139Vfl++40sQTTDJ44UYixbulRM5FBQ7zwnVFHgwaAIQ==
   dependencies:
     "@vercel/nft" "0.27.2"
 
@@ -2486,10 +2493,10 @@
     node-gyp-build "^4.2.2"
     resolve-from "^5.0.0"
 
-"@vercel/node@3.1.7", "@vercel/node@^3.1.7":
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/@vercel/node/-/node-3.1.7.tgz#7728ff798f7b52a0af35d7f2bbe63fdd92b9e22d"
-  integrity sha512-EYSHEt0Up70cOlawkSzb5CFHyHoOMuJG9Q/hWU+4zIpnXefZSanR/oaZMd+UFoaAKDVryBz35FVV7gNo6HxX9A==
+"@vercel/node@3.2.0", "@vercel/node@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@vercel/node/-/node-3.2.0.tgz#f45a9d959d0fa1a81eaca0e75bed23e8372e3be3"
+  integrity sha512-AZ/xcH5/llJ9SHaW5+TLOQmNzMeKgDafAC9fSdPOW8TUkhFLM+D2CPz6OUnRXDnGE21EvTEIqtDY+Z96dnf8Xw==
   dependencies:
     "@edge-runtime/node-utils" "2.3.0"
     "@edge-runtime/primitives" "4.1.0"
@@ -2510,7 +2517,7 @@
     ts-morph "12.0.0"
     ts-node "10.9.1"
     typescript "4.9.5"
-    undici "5.26.5"
+    undici "5.28.4"
 
 "@vercel/python@4.3.0":
   version "4.3.0"
@@ -2526,10 +2533,10 @@
     "@vercel/routing-utils" "3.1.0"
     semver "6.3.1"
 
-"@vercel/remix-builder@2.1.7":
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/@vercel/remix-builder/-/remix-builder-2.1.7.tgz#67fc9fda0aa879afb96997951037966a1683741d"
-  integrity sha512-OGd7aod8wz3uMabGGzmDtNQaSz5+8ZJOmUzhMPxqHwmkTOYntIEPCXhAsi26kf+IuDP7Zj2Md7gUAJGsq5QNSg==
+"@vercel/remix-builder@2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@vercel/remix-builder/-/remix-builder-2.1.8.tgz#c5ebac2f15b38c4fb82ea1139664c167a61d2680"
+  integrity sha512-8SyVgKwtIGgxb5w2VLt9tilDmOg6k8KFeqUYL2D6i6z4Ju7qT3OVXqpWG7b6a334lkSvkyqvvMPnPLRhNW/sUg==
   dependencies:
     "@vercel/error-utils" "2.0.2"
     "@vercel/nft" "0.27.2"
@@ -8234,10 +8241,10 @@ undici-types@~5.26.4:
   resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-5.26.5.tgz#bcd539893d00b56e964fd2657a4866b221a65617"
   integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
 
-undici@5.26.5:
-  version "5.26.5"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.26.5.tgz#f6dc8c565e3cad8c4475b187f51a13e505092838"
-  integrity sha512-cSb4bPFd5qgR7qr2jYAi0hlX9n5YKK2ONKkLFkxl+v/9BvC0sOpZjBHDBSXc5lWAf5ty9oZdRXytBIHzgUcerw==
+undici@5.28.4:
+  version "5.28.4"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.28.4.tgz#6b280408edb6a1a604a9b20340f45b422e373068"
+  integrity sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==
   dependencies:
     "@fastify/busboy" "^2.0.0"
 
@@ -8341,20 +8348,20 @@ valid-url@^1.0.9:
   resolved "https://registry.yarnpkg.com/valid-url/-/valid-url-1.0.9.tgz#1c14479b40f1397a75782f115e4086447433a200"
   integrity sha512-QQDsV8OnSf5Uc30CKSwG9lnhMPe6exHtTXLRYX8uMwKENy640pU+2BgBL0LRbDh/eYRahNCS7aewCx0wf3NYVA==
 
-vercel@^34.2.7:
-  version "34.2.7"
-  resolved "https://registry.yarnpkg.com/vercel/-/vercel-34.2.7.tgz#9bcb472325b3a1dbf725a2e4058e2e752117d234"
-  integrity sha512-cc6NmaPeLhg7UJuuI6jKu92xppVYbuZRtQib/hDEaEPFSZgiUNw0sbtRfbzvXUZjxzJeLNeSGKLwazBbpXOvkQ==
+vercel@^34.2.8:
+  version "34.2.8"
+  resolved "https://registry.yarnpkg.com/vercel/-/vercel-34.2.8.tgz#a5f2bb18e11949c4196edfe07944787fc2bb2fd7"
+  integrity sha512-wz02u/GdG+XyUd09edvTSzVBaph71qRlbMq8zb23J0lPhCm5RJCXEJJcbakseTiHuuQ1KZyETu74AYKyXDOIRA==
   dependencies:
     "@vercel/build-utils" "8.2.2"
     "@vercel/fun" "1.1.0"
     "@vercel/go" "3.1.1"
     "@vercel/hydrogen" "1.0.2"
-    "@vercel/next" "4.2.17"
-    "@vercel/node" "3.1.7"
+    "@vercel/next" "4.2.18"
+    "@vercel/node" "3.2.0"
     "@vercel/python" "4.3.0"
     "@vercel/redwood" "2.0.10"
-    "@vercel/remix-builder" "2.1.7"
+    "@vercel/remix-builder" "2.1.8"
     "@vercel/ruby" "2.1.0"
     "@vercel/static-build" "2.5.11"
     chokidar "3.3.1"
