@@ -16,7 +16,6 @@ import {useMediaQuery, Typography as Type, Box} from '@mui/material'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'
-import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/MultimediaGalleryCard'
 import {useRouter} from 'next/router'
 import FilePlayer from 'react-player'
@@ -30,6 +29,7 @@ import {
 import {galleryCrossFadeDuration} from '@pages/_app'
 import useTheme from '@hooks/useTheme'
 import YouTubeVid from './YouTubeVid'
+import {fileExtension} from '@lib/fileExtension'
 
 type Props = {
   multimedia?: VideoList
@@ -109,7 +109,7 @@ const MultimediaVideoGalleries = ({multimedia = []}: Props) => {
   const galleries: MultimediaVideoGallery[] = useMemo(() => {
     const filteredMappedMultimedia = mappedMultimedia.filter(
       (p) =>
-        fileExtension(p.name) === 'mp4' && // Only videos.
+        fileExtension(p.name)?.toLowerCase() === 'mp4' && // Only videos.
         p.metadata?.['video-poster'] !== 'true' && // No video posters
         p.metadata?.gallery // No videos w/o gallery metadata.
     )

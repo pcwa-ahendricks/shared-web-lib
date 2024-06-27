@@ -18,7 +18,7 @@ import useTheme from '@hooks/useTheme'
 import Link from '@components/Link'
 import dynamic from 'next/dynamic'
 import {type AwsObjectExt} from '@lib/types/aws'
-import {getFileExtension} from '@lib/util'
+import {fileExtension} from '@lib/fileExtension'
 
 const ReactPdfPage = dynamic(() => import('@components/PDFPage/ReactPdfPage'), {
   ssr: false
@@ -161,7 +161,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const mediaList: AwsObjectExt[] = await fetcher(url)
 
     const media = mediaList?.filter(
-      (item) => getFileExtension(item.Key)?.toLowerCase() === 'pdf'
+      (item) => fileExtension(item.Key)?.toLowerCase() === 'pdf'
     )[0]
 
     // if (!media || !publishedOn) {

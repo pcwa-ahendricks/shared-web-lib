@@ -16,7 +16,7 @@ import {
 // import StarsIcon from 'mdi-material-ui/Creation'
 // import SunIcon from 'mdi-material-ui/WhiteBalanceSunny'
 // import TitleIcon from '@mui/icons-material/LocalFlorist'
-import BeeIcon from '@mui/icons-material/EmojiNature'
+// import BeeIcon from '@mui/icons-material/EmojiNature'
 import Image from 'next/legacy/image'
 import NextLink from 'next/link'
 import imgixLoader from '@lib/imageLoader'
@@ -37,6 +37,7 @@ import SantaBarbaraDaisyAccordion from '@components/summer-strong/SantaBarbaraDa
 import FuchsiaAccordion from '@components/summer-strong/FuchsiaAccordion'
 import FoothillPenstemonAccordion from '@components/summer-strong/FoothillPenstemonAccordion'
 import WesternRedbudAccordion from '@components/summer-strong/WesternRedbudAccordion'
+import ValleyVioletLilacAccordion from '@components/summer-strong/ValleyVioletLilacAccordion'
 
 type Props = {
   placeholders: Placeholders
@@ -58,7 +59,8 @@ const imgixImages = [
   // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/ceanothus-clusters.webp',
   // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp'
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg',
-  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg'
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg'
 ]
 
 export const StrongGrey = ({children, sx, ...props}: TypographyProps) => {
@@ -167,15 +169,15 @@ export default function SummerStrongPage({placeholders}: Props) {
                 {/* <Type variant="h3" gutterBottom>
                   A Butterfly Buffet!
                 </Type>*/}
-                <BeeIcon
+                {/* <BeeIcon
                   sx={{marginRight: '8px', color: grey[700], fontSize: 32}}
-                />
+                /> */}
                 <Type variant="h3" gutterBottom>
-                  BUZZ-WORTHY NATIVE
+                  GOLDEN STANDOUT IN SUMMER, FALL
                 </Type>
               </RowBox>
               {/* <Type variant="h3">Cleveland Sage (and other Salvias)</Type> */}
-              <Type variant="h3">‘Valley Violet’ California lilac</Type>
+              <Type variant="h3">California goldenrod</Type>
             </ChildBox>
             <ChildBox
               flex="15%"
@@ -190,8 +192,8 @@ export default function SummerStrongPage({placeholders}: Props) {
 
           <Box>
             <RowBox flexSpacing={6} responsive>
-              <ChildBox flex="0 1 33%">
-                {/* <MediaDialogOnClick
+              {/* <ChildBox flex="0 1 33%"> */}
+              {/* <MediaDialogOnClick
                   // mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp"
                   mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg"
                   mediaName="‘Valley Violet’ California lilac"
@@ -205,7 +207,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                     }
                   }}
                 > */}
-                <Image
+              {/* <Image
                   alt="‘Valley Violet’ California lilac"
                   // src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp${imgixArParams}`}
                   src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg${imgixArParams}`}
@@ -219,33 +221,27 @@ export default function SummerStrongPage({placeholders}: Props) {
                   style={{
                     objectFit: 'contain'
                   }}
-                />
-                {/* </MediaDialogOnClick> */}
-              </ChildBox>
+                /> */}
+              {/* </MediaDialogOnClick> */}
+              {/* </ChildBox> */}
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
-                  // mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/ceanothus-clusters.webp"
-                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg"
-                  mediaName="‘Valley Violet’ California lilac flower close-up"
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg"
+                  mediaName="california goldenrod"
                   // original dimensions
                   MediaPreviewDialogProps={{
                     ImageProps: {
-                      // width: 1440,
-                      // height: 1049,
-                      width: 1000,
-                      height: 662
+                      width: 680,
+                      height: 820
                     }
                   }}
                 >
                   <ImageFancier
-                    alt="‘Valley Violet’ California lilac flower close-up"
-                    // src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/ceanothus-clusters.webp${imgixArParams}`}
-                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg${imgixArParams}`}
+                    alt="california goldenrod"
+                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg${imgixArParams}`}
                     // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
-                    // width={1311}
-                    // height={1049}
-                    width={828}
-                    height={662}
+                    width={680}
+                    height={544}
                     defaultGrey
                     sizes="(max-width: 600px) 100vw, 33vw"
                     style={{
@@ -260,83 +256,89 @@ export default function SummerStrongPage({placeholders}: Props) {
             </RowBox>
           </Box>
           <Spacing size="x-large" />
-          <Type variant="h4">‘Valley Violet’ California lilac</Type>
+          <Type variant="h4">California goldenrod</Type>
           <Type variant="subtitle1" gutterBottom>
-            <em>Ceanothus maritimus</em>
+            <em>Solidago velutina ssp. californica</em>
           </Type>
           <Spacing size="small" />
           <Type variant="subtitle1" gutterBottom>
             <em>By Debbie Arrington, Sacramento Digs Gardening</em>
           </Type>
           <Type paragraph>
-            Want happy native bees? Plant California lilacs. As bees wake from
-            winter, their fragrant blooms offer a nectar pick-me-up. Butterflies
-            and moths adore them too. Growing wild throughout our state,
-            California lilacs (Ceanothus spp.) are not true lilacs (Syringa
-            spp.), but their fragrant spring flowers reminded pioneers of lilacs
-            back home.
+            Not all California wildflowers tolerate “captivity.” But California
+            goldenrod would love a place in your Placer County garden. Local
+            wildlife would appreciate it, too.
           </Type>
           <Type paragraph>
-            Also known as “mountain lilac,” ‘Valley Violet’ forms low round
-            evergreen mounds. HOA-friendly and a UC Davis Arboretum All-Star,
-            this native shrub is considered the best small ceanothus for Central
-            Valley and foothill gardens, according to water-wise gardening
-            experts, because of its adaptability, compact growth and easy care.
-            It tolerates almost any soil type including clay.
+            Our native goldenrod (Solidago velutina ssp. californica) is easy to
+            spot in valley and foothill meadows. In the grasslands surrounding
+            oaks, this native perennial blooms when few other wildflowers can be
+            seen—July through November.
           </Type>
           <Type paragraph>
-            The UC Master Gardeners of Placer County Demonstration Garden at the
-            Loomis Library and Community Learning Center features ‘Valley
-            Violet’ as well as three other popular ceanothus: ‘Concha’
-            (Ceanothus ‘Concha’), one of the oldest ceanothus cultivars with
-            intense bright blue flowers; ‘Dark Star’ (Ceanothus ‘Dark Star’), a
-            tough hybrid with small dark green leaves and blue flower clusters;
-            and buckbrush (Ceanothus cuneatus), a pollinator favorite with
-            lavender-tinged white flowers.
+            California goldenrod is well adapted to our climate; it needs winter
+            rain but little summer water. It dependably comes back year after
+            year.
+          </Type>
+          <Type paragraph>
+            A sunflower cousin, goldenrod lives up to its name. Covering the
+            tips of 3-foot-tall stalks, the flowerheads are made up of dozens,
+            sometimes hundreds, of tiny yellow blooms. The clusters get so
+            heavy, their weight eventually curves the stalks into crooks.
+            Surrounded by native grasses, the stalks look like golden
+            exclamation points and question marks.
+          </Type>
+          <Type paragraph>
+            Besides its attractive looks, goldenrod supports wildlife for
+            months. Bees and other beneficial insects love its pollen and nectar
+            in late summer and fall. Birds gobble its seeds throughout fall and
+            winter.
+          </Type>
+          <Type paragraph>
+            See California goldenrod in the hedgerow at the UC Master Gardeners
+            of Placer County Demonstration Garden at the Loomis Library and
+            Community Learning Center.
           </Type>
 
           <Type paragraph>
-            <StrongGrey>Bloom</StrongGrey>: Ceanothus comes in many blue or
-            purple shades (and a few pinks). 'Valley Violet' produces abundant
-            clusters of - you guessed it - dark-violet flowers in late winter or
-            early spring.
+            <StrongGrey>Bloom</StrongGrey>: California goldenrod produces tall
+            stalks covered with tiny, bright yellow flowers from late summer
+            through fall.
           </Type>
           <Type paragraph>
-            <StrongGrey>Water needs</StrongGrey>: Low, once established. Needs
-            irrigation once or twice a month. While most ceanothus loathe extra
-            water, ‘Valley Violet’ is unique in that it can withstand weekly
-            irrigation in the home landscape.
+            <StrongGrey>Water needs</StrongGrey>: Low to very low, once
+            established. Irrigate deeply once or twice a month.
           </Type>
           <Type paragraph>
-            <StrongGrey>Sun</StrongGrey>: Can take full sun in the foothills,
-            but prefers partial shade, especially at lower elevations. A
-            location with morning sun is ideal.
+            <StrongGrey>Sun</StrongGrey>: Prefers full sun or an open spot near
+            an oak tree.
           </Type>
           <Type paragraph>
-            <StrongGrey>Size</StrongGrey>: ‘Valley Violet’ stays compact – 2
-            feet tall and 3 to 4 feet wide at maturity. Other California lilac
-            varieties can reach 6 to 9 feet tall and 8 to 10 feet wide.
+            <StrongGrey>Size</StrongGrey>: California goldenrod generally
+            reaches 2 to 3 feet tall in summer, then dies back to the ground. It
+            spreads by underground roots (and can become a garden thug), so make
+            sure it has plenty of room.
           </Type>
           <Type paragraph>
-            <StrongGrey>Care</StrongGrey>: Low water requirements after the
-            first two years, once the roots are well established. Too much water
-            and poor drainage kills these plants. They can’t take “normal”
-            landscape irrigation, especially in summer; they’ll rot. Ceanothus
-            is best planted in the fall in order to take advantage of winter
-            growth. California lilacs need little pruning; remove any dead wood
-            and gently prune to shape after spring blooms fade.
+            <StrongGrey>Care</StrongGrey>: Low to very low water requirements
+            after the first year, once the roots are well established.
+            California goldenrod needs little care; cut stalks to the ground
+            after the plant dies back in winter to control the spread of seeds
+            (or leave them for the birds). Goldenrod prefers a mostly dry
+            summer, but can tolerate extra water – as well as poor soil.
           </Type>
           <Type paragraph>
-            <StrongGrey>Availability</StrongGrey>: More nurseries are offering
-            California lilacs especially those that specialize in low-water
-            shrubs. Find ‘Valley Violet’ at the UC Davis Arboretum Teaching
-            Nursery and other nurseries that specialize in natives.
+            <StrongGrey>Availability</StrongGrey>: Native plant nurseries offer
+            California goldenrod including the SacValley CNPS Nursery at Soil
+            Born Farms in Rancho Cordova, Cornflower Farms in Elk Grove and
+            Nevada County Native Plants in Nevada City.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bonus plants</StrongGrey>: California lilacs love
-            growing with other low-water California natives such as California
-            fuchsia (Epilobium canum), deer grass (Muhlenbergia rigens), island
-            alum root (Heuchera maxima) or Cleveland sage (Salvia clevelandii).
+            <StrongGrey>Bonus plants</StrongGrey>: California goldenrod thrives
+            with other low-water natives such as deergrass (Muhlenbergia
+            rigens), manzanita (Arctostaphylos sp.), Cleveland sage (Salvia
+            clevelandii) and local oaks – valley oak (Quercus lobata) , blue oak
+            (Q. douglasii) and interior live oak (Q. wislizeni).
           </Type>
 
           <Spacing size="large" />
@@ -354,7 +356,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                 WUCOLS (https://ucanr.edu)
               </Link>
             </Type>
-            <Type>
+            {/* <Type>
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
@@ -363,6 +365,17 @@ export default function SummerStrongPage({placeholders}: Props) {
               >
                 UC Davis Arboretum All-Star, ‘Valley Violet’ maritime ceanothus:
                 (https://arboretum.ucdavis.edu)
+              </Link>
+            </Type> */}
+            <Type>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="body1"
+                href="https://www.sacvalleycnps.org/product/solidago-velutina-ssp-californica"
+              >
+                SacValley CNPS, California goldenrod:
+                (https://www.sacvalleycnps.org)
               </Link>
             </Type>
             {/* <Type>
@@ -381,9 +394,9 @@ export default function SummerStrongPage({placeholders}: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="body1"
-                href="https://calscape.org/Ceanothus-maritimus-%27Valley-Violet%27-(Valley-Violet-Mountain-Lilac)?srchcr=sc5eaa16b978ac6"
+                href="https://calscape.org/Solidago-velutina-ssp.-californica-(California-Goldenrod)"
               >
-                Calscape, ‘Valley Violet’ mountain lilac: (https://calscape.org)
+                Calscape, California goldenrod: (https://calscape.org)
               </Link>
             </Type>
           </Box>
@@ -398,6 +411,15 @@ export default function SummerStrongPage({placeholders}: Props) {
           </Type>
           <Spacing />
           <Box>
+            <ValleyVioletLilacAccordion
+              imgixArParams={imgixArParams}
+              expanded={expanded === 'panel9'}
+              onChange={handleChange('panel9')}
+              AccordionSummaryProps={{
+                'aria-controls': 'panel9-content',
+                id: 'panel9-header'
+              }}
+            />
             <WesternRedbudAccordion
               imgixArParams={imgixArParams}
               expanded={expanded === 'panel8'}

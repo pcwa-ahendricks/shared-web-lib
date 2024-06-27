@@ -2,11 +2,10 @@ import React from 'react'
 import {Fab, FabProps, Typography as Type} from '@mui/material'
 import prettyBytes from 'pretty-bytes'
 import DownloadIcon from '@mui/icons-material/CloudDownload'
-import {CosmicMedia} from '@lib/services/cosmicService'
 import useTheme from '@hooks/useTheme'
 
 type Props = {
-  fileSize?: CosmicMedia['size']
+  fileSize?: number
   caption?: string
   ext?: string
 } & Partial<FabProps>

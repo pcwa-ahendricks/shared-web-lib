@@ -23,10 +23,10 @@ import {
   Accept
 } from 'react-dropzone'
 import {DroppedFile, UploadedFileAttr} from './types'
-import extension from '@lib/fileExtension'
 import {sequenceArray} from '@lib/util'
 import slugify from 'slugify'
 import {Theme} from '@lib/material-theme'
+import {fileExtension} from '@lib/fileExtension'
 
 type Props = {
   onUploadedChange?: (files: any) => void
@@ -197,7 +197,7 @@ const DropzoneUploader: React.ForwardRefRenderFunction<
             previewUrl: file.previewUrl,
             lastModified: file.lastModified,
             serverResponse: {...response},
-            ext: extension(file.name)
+            ext: fileExtension(file.name)
           }
 
           setUploadedFiles((prevUploadedFiles) => [
@@ -284,7 +284,7 @@ const DropzoneUploader: React.ForwardRefRenderFunction<
         // Add image preview urls.
         // [TODO] - Confirm this works in IE 11 and remove eslint comment
         newBlobFile.previewUrl = URL.createObjectURL(newBlobFile as any)
-        newBlobFile.ext = extension(newBlobFile.name)
+        newBlobFile.ext = fileExtension(newBlobFile.name)
         return newBlobFile as DroppedFile
       })
 

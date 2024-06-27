@@ -204,10 +204,6 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://www.pcwa.net/newsroom/news-releases-old</loc>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
     <loc>https://www.pcwa.net/smart-water-use/stop-leaks</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -3337,6 +3333,14 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/board-of-directors/meeting-agendas/2024-05-29-NID-PCWA-Water-Committee</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-agendas/2024-07-08-Finance-Committee</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/newsroom/publications/newsletters/2024-07-08</loc>
     <changefreq>yearly</changefreq>
   </url>
   <url>

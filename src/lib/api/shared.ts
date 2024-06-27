@@ -36,7 +36,7 @@ export const startsWithAnyPrefix = (
 }
 
 // see https://support.imgix.com/hc/en-us/articles/204280985-Supported-image-formats for more info
-export const isImgixInputMimeType = (extension?: string): Boolean => {
+export const isImgixInputMimeType = (extension = ''): Boolean => {
   const mimeTypes: {[key: string]: string} = {
     jpg: 'image/jpeg',
     jpeg: 'image/jpeg',
@@ -57,7 +57,7 @@ export const isImgixInputMimeType = (extension?: string): Boolean => {
     psd: 'image/vnd.adobe.photoshop'
   }
 
-  return Boolean(mimeTypes[extension?.toLowerCase()] || null)
+  return Boolean(mimeTypes[extension.toLowerCase()] || null)
 }
 
 export const getFileExtension = (filename = ''): string | null => {

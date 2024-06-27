@@ -17,7 +17,6 @@ import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import groupBy from '@lib/groupBy'
 import toTitleCase from '@lib/toTitleCase'
-import fileExtension from '@lib/fileExtension'
 import MultimediaGalleryCard from '@components/multimedia/MultimediaGalleryCard/MultimediaGalleryCard'
 import MultimediaLightbox from '@components/multimedia/MultimediaLightbox/MultimediaLightbox'
 import {useRouter} from 'next/router'
@@ -31,6 +30,7 @@ import {
 } from '@lib/types/multimedia'
 import {galleryCrossFadeDuration} from '@pages/_app'
 import useTheme from '@hooks/useTheme'
+import {fileExtension} from '@lib/fileExtension'
 
 type Props = {
   multimedia?: PhotoList
@@ -185,7 +185,7 @@ const MultimediaPhotoGalleries = ({multimedia = []}: Props) => {
   const galleries: MultimediaPhotoGallery[] = useMemo(() => {
     const filteredMappedMultimedia = mappedMultimedia.filter(
       (p) =>
-        fileExtension(p.name) !== 'mp4' && // No videos.
+        fileExtension(p.name)?.toLowerCase() !== 'mp4' && // No videos.
         p.metadata?.['video-poster'] !== 'true' && // No video posters
         p.metadata?.gallery // No photos w/o gallery metadata.
     )
