@@ -63,10 +63,10 @@ import FancierCardActionArea from '@components/FancierCardActionArea/FancierCard
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {Placeholders} from '@components/imageBlur/ImageBlurStore'
-import fileExtension from '@lib/fileExtension'
 import useTheme from '@hooks/useTheme'
 import {LinkProps} from '@components/Link'
 import useLinkComponent from '@hooks/useLinkComponent'
+import {fileExtension} from '@lib/fileExtension'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -703,7 +703,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     // Placeholder images
     const multimediaImages = initialMultimediaData
       .filter(
-        (p) => fileExtension(p.name) !== 'mp4' // omit videos
+        (p) => fileExtension(p.name)?.toLowerCase() !== 'mp4' // omit videos
       )
       .map((p) => p.imgix_url.replace('https://imgix.cosmicjs.com/', ''))
 

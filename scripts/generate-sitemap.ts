@@ -19,7 +19,6 @@ import {
   bodMinutesDateFrmt,
   bodMinutesMediaResponses
 } from '@lib/types/bodMinutes'
-import fileExtension from '@lib/fileExtension'
 import groupBy from '@lib/groupBy'
 import {
   MappedPhoto,
@@ -32,6 +31,7 @@ import {
 import {AwsObjectExt} from '@lib/types/aws'
 import {getFileExtension} from '@lib/api/shared'
 import {format, parseJSON} from 'date-fns'
+import {fileExtension} from '@lib/fileExtension'
 
 export const spacesRe = /(\s|%20)+/g
 // when using Next pages router, the nextjs BASE_URL env variable will now work here, work around is to set base url to prod
@@ -184,7 +184,7 @@ async function generateSitemap() {
     multimedia && Array.isArray(multimedia)
       ? (multimedia as PhotoList).filter(
           (p) =>
-            fileExtension(p.name) !== 'mp4' && // No videos.
+            fileExtension(p.name)?.toLowerCase() !== 'mp4' && // No videos.
             p.metadata?.['video-poster'] !== 'true' && // No video posters
             p.metadata?.gallery // No photos w/o gallery metadata.
         )
@@ -210,7 +210,7 @@ async function generateSitemap() {
     multimedia && Array.isArray(multimedia)
       ? (multimedia as VideoList).filter(
           (p) =>
-            fileExtension(p.name) === 'mp4' && // Only videos.
+            fileExtension(p.name)?.toLowerCase() === 'mp4' && // Only videos.
             p.metadata?.['video-poster'] !== 'true' && // No video posters
             p.metadata?.gallery // No videos w/o gallery metadata
         )

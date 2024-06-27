@@ -52,7 +52,7 @@ const imgixImages = [
   // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/PCWA_MotherNature_1088x682.jpg',
   'https://pcwa.imgix.net/pcwa-net/customer-service/ccr/Consumer_Confidence_Reports_2024_1920x1280.jpg',
   'https://pcwa.imgix.net/pcwa-net/home/PCWA_Year%20End%20Report_2023_cover_thumbnail2_1920x1280.png',
-  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_Goldenrod_8.5.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_Goldenrod_8_5.jpg',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/Rebates_Get-the-drop-on-Savings-Ad_2024_1920x1280.jpg',
   'https://pcwa.imgix.net/pcwa-net/newsroom/pge-lake-spaulding-project-2024/Lake_Spaulding_with_overlay_1920x1280.jpg',
   //'https://pcwa.imgix.net/pcwa-net/customer-service/mulch-madness/PCWA_MM_May4_1920x1280_2.jpg',
@@ -181,7 +181,7 @@ const Index = ({
               title="Resilient and Beautiful"
               readMore="Learn more"
               linkHref="/smart-water-use/summer-strong"
-              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_Goldenrod_8.5.jpg"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_Goldenrod_8_5.jpg"
               alt="Western Redbud, Summer Strong Low-Water Use Plant of the Month"
               body="PCWA in partnership with the UC Master Gardeners of Placer County are highlighting plants that are not only beautiful but perfectly suited for our region's climate."
             />

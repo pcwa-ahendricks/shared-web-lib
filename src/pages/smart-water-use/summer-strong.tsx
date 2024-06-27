@@ -59,7 +59,8 @@ const imgixImages = [
   // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/ceanothus-clusters.webp',
   // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp'
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg',
-  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg'
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg'
 ]
 
 export const StrongGrey = ({children, sx, ...props}: TypographyProps) => {
@@ -191,8 +192,8 @@ export default function SummerStrongPage({placeholders}: Props) {
 
           <Box>
             <RowBox flexSpacing={6} responsive>
-              <ChildBox flex="0 1 33%">
-                {/* <MediaDialogOnClick
+              {/* <ChildBox flex="0 1 33%"> */}
+              {/* <MediaDialogOnClick
                   // mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp"
                   mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg"
                   mediaName="‘Valley Violet’ California lilac"
@@ -206,7 +207,7 @@ export default function SummerStrongPage({placeholders}: Props) {
                     }
                   }}
                 > */}
-                <Image
+              {/* <Image
                   alt="‘Valley Violet’ California lilac"
                   // src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp${imgixArParams}`}
                   src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg${imgixArParams}`}
@@ -220,33 +221,27 @@ export default function SummerStrongPage({placeholders}: Props) {
                   style={{
                     objectFit: 'contain'
                   }}
-                />
-                {/* </MediaDialogOnClick> */}
-              </ChildBox>
+                /> */}
+              {/* </MediaDialogOnClick> */}
+              {/* </ChildBox> */}
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
-                  // mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/ceanothus-clusters.webp"
-                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg"
-                  mediaName="‘Valley Violet’ California lilac flower close-up"
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg"
+                  mediaName="california goldenrod"
                   // original dimensions
                   MediaPreviewDialogProps={{
                     ImageProps: {
-                      // width: 1440,
-                      // height: 1049,
-                      width: 1000,
-                      height: 662
+                      width: 680,
+                      height: 820
                     }
                   }}
                 >
                   <ImageFancier
-                    alt="‘Valley Violet’ California lilac flower close-up"
-                    // src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/ceanothus-clusters.webp${imgixArParams}`}
-                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg${imgixArParams}`}
+                    alt="california goldenrod"
+                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg${imgixArParams}`}
                     // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
-                    // width={1311}
-                    // height={1049}
-                    width={828}
-                    height={662}
+                    width={680}
+                    height={544}
                     defaultGrey
                     sizes="(max-width: 600px) 100vw, 33vw"
                     style={{

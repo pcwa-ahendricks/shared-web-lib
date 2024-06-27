@@ -44,9 +44,3 @@ export const openInNewTab = (url: string): void => {
 export const devLog = (...params: Parameters<(typeof console)['log']>) => {
   isDev && console.log(params)
 }
-
-export const getFileExtension = (filename = ''): string | null => {
-  // Extract the part after the last dot
-  const parts = filename.split('.')
-  return parts.length > 1 ? parts.pop()?.toLowerCase() || null : null
-}

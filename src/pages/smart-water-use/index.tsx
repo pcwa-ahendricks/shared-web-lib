@@ -264,10 +264,10 @@ const SmartWaterUsePage = () => {
                       <Image
                         layout="responsive"
                         loader={imgixUrlLoader}
-                        src="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_WesternRedbud_8_5.jpg"
-                        width={1280}
-                        height={800}
-                        alt="Margarita BOP Penstemon, Summer Strong Low-Water Use Plant of the Month"
+                        src="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_Goldenrod_8_5.jpg"
+                        width={1920}
+                        height={1200}
+                        alt="California Goldenrod, Summer Strong Low-Water Use Plant of the Month"
                         sizes="(max-width: 600px) 100vw, 70vw"
                       />
                       <Box padding={2}>

@@ -14,12 +14,12 @@ import {
 } from '@mui/material'
 import DownloadIcon from '@mui/icons-material/CloudDownload'
 import {format} from 'date-fns'
-import fileExtension from '@lib/fileExtension'
 import ImageFancier from '@components/ImageFancier/ImageFancier'
 import slugify from 'slugify'
 import {stringify} from 'querystringify'
 import {ImageProps} from 'next/legacy/image'
 import useTheme from '@hooks/useTheme'
+import {fileExtension} from '@lib/fileExtension'
 
 export type PublicationCardProps = {
   title: string

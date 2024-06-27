@@ -1,15 +1,5 @@
-function fileExtension(filename: string, lowercase = true) {
-  if (!filename || typeof filename !== 'string') {
-    return ''
-  }
-  const fileName = filename.split('.')
-  const ext = fileName.pop() || ''
-  const extTrimmed = ext.trim()
-  if (lowercase) {
-    return extTrimmed.toLowerCase()
-  } else {
-    return extTrimmed
-  }
+export const fileExtension = (filename = ''): string | null => {
+  // Extract the part after the last dot
+  const parts = filename.split('.')
+  return parts.length > 1 ? parts.pop()?.toLowerCase() || null : null
 }
-
-export default fileExtension

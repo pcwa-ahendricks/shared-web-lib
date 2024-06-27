@@ -14245,23 +14245,6 @@ const bodMinutes_cosmicGetMediaProps = {
 const bodMinutes_qs = (0,querystringify/* stringify */.P)({ ...bodMinutes_cosmicGetMediaProps, folder: 'board-minutes' }, true);
 const boardMinutesUrl = `/api/cosmic/media${bodMinutes_qs}`;
 
-;// CONCATENATED MODULE: ./src/lib/fileExtension.ts
-function fileExtension(filename, lowercase = true) {
-    if (!filename || typeof filename !== 'string') {
-        return '';
-    }
-    const fileName = filename.split('.');
-    const ext = fileName.pop() || '';
-    const extTrimmed = ext.trim();
-    if (lowercase) {
-        return extTrimmed.toLowerCase();
-    }
-    else {
-        return extTrimmed;
-    }
-}
-/* harmony default export */ const lib_fileExtension = (fileExtension);
-
 ;// CONCATENATED MODULE: ./src/lib/groupBy.ts
 const groupBy = (list, keyGetter) => {
     const map = new Map();
@@ -15547,7 +15530,7 @@ const startsWithAnyPrefix = (str, prefixes) => {
     return prefixes.some((prefix) => str.startsWith(prefix));
 };
 // see https://support.imgix.com/hc/en-us/articles/204280985-Supported-image-formats for more info
-const isImgixInputMimeType = (extension) => {
+const isImgixInputMimeType = (extension = '') => {
     const mimeTypes = {
         jpg: 'image/jpeg',
         jpeg: 'image/jpeg',
@@ -15567,7 +15550,7 @@ const isImgixInputMimeType = (extension) => {
         pjpg: 'image/pjpeg',
         psd: 'image/vnd.adobe.photoshop'
     };
-    return Boolean(mimeTypes[extension?.toLowerCase()] || null);
+    return Boolean(mimeTypes[extension.toLowerCase()] || null);
 };
 const getFileExtension = (filename = '') => {
     // Extract the part after the last dot
@@ -17103,6 +17086,13 @@ function parseJSON(dateStr) {
 // Fallback for modularized imports:
 /* harmony default export */ const date_fns_parseJSON = ((/* unused pure expression or super */ null && (parseJSON)));
 
+;// CONCATENATED MODULE: ./src/lib/fileExtension.ts
+const fileExtension = (filename = '') => {
+    // Extract the part after the last dot
+    const parts = filename.split('.');
+    return parts.length > 1 ? parts.pop()?.toLowerCase() || null : null;
+};
+
 ;// CONCATENATED MODULE: ./scripts/generate-sitemap.ts
 
 
@@ -17223,7 +17213,7 @@ async function generateSitemap() {
         : [];
     const multimedia = await lib_fetcher(`${baseUrl}${multimediaUrl}`);
     const filteredPhotoMultimedia = multimedia && Array.isArray(multimedia)
-        ? multimedia.filter((p) => lib_fileExtension(p.name) !== 'mp4' && // No videos.
+        ? multimedia.filter((p) => fileExtension(p.name)?.toLowerCase() !== 'mp4' && // No videos.
             p.metadata?.['video-poster'] !== 'true' && // No video posters
             p.metadata?.gallery // No photos w/o gallery metadata.
         )
@@ -17238,7 +17228,7 @@ async function generateSitemap() {
     // Video Paths
     // Use the same filters used in <MultimediaPhotoGalleries/>.
     const filteredVideoMultimedia = multimedia && Array.isArray(multimedia)
-        ? multimedia.filter((p) => lib_fileExtension(p.name) === 'mp4' && // Only videos.
+        ? multimedia.filter((p) => fileExtension(p.name)?.toLowerCase() === 'mp4' && // Only videos.
             p.metadata?.['video-poster'] !== 'true' && // No video posters
             p.metadata?.gallery // No videos w/o gallery metadata
         )

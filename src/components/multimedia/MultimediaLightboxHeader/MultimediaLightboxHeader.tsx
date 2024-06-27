@@ -10,8 +10,8 @@ import {CommonProps, ViewType} from 'react-images'
 import {Box, IconButton, Tooltip, Menu, MenuItem} from '@mui/material'
 import {MultimediaContext, setLvDownloadMenuOpen} from '../MultimediaStore'
 import {PhotoLibraryMetadata} from '@lib/types/multimedia'
-import fileExtension from '@lib/fileExtension'
 import slugify from 'slugify'
+import {fileExtension} from '@lib/fileExtension'
 
 const MultimediaLightboxHeader = ({
   innerProps,

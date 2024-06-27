@@ -23,8 +23,8 @@ import NewsroomSidebar from '@components/newsroom/NewsroomSidebar/NewsroomSideba
 import NextLink from 'next/link'
 import Spacing from '@components/boxes/Spacing'
 import {
-  NewGroupedNewsReleaseVal as GroupedNewsReleaseVal,
-  NewGroupedNewsReleases as GroupedNewsReleases,
+  GroupedNewsReleaseVal,
+  GroupedNewsReleases,
   NewsroomContext,
   setNewsReleaseYear
 } from '@components/newsroom/NewsroomStore'
@@ -34,9 +34,9 @@ import fetcher from '@lib/fetcher'
 import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
-import {getFileExtension} from '@lib/util'
 import {AwsObjectExt} from '@lib/types/aws'
 import {getNewsReleaseTitle} from '@lib/newReleaseTitle'
+import {fileExtension} from '@lib/fileExtension'
 
 const baseUrl = process.env.BASE_URL
 const qs = new URLSearchParams({
@@ -281,7 +281,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const mediaList: AwsObjectExt[] = await fetcher(newsReleasesUrl)
 
     const media = mediaList?.filter(
-      (item) => getFileExtension(item.Key)?.toLowerCase() === 'pdf'
+      (item) => fileExtension(item.Key)?.toLowerCase() === 'pdf'
     )
 
     return {
