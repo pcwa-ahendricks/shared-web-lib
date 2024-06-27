@@ -1,5 +1,6 @@
-export const fileExtension = (filename: string | null = ''): string | null => {
+export const fileExtension = (filename = ''): string | null => {
+  filename = filename || ''
   // Extract the part after the last dot
-  const parts = filename?.split('.')
+  const parts = filename.split('.')
   return parts.length > 1 ? parts.pop()?.toLowerCase() || null : null
 }
