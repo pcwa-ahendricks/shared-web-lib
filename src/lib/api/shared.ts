@@ -57,7 +57,7 @@ export const isImgixInputMimeType = (extension = ''): Boolean => {
     psd: 'image/vnd.adobe.photoshop'
   }
 
-  return Boolean(mimeTypes[extension.toLowerCase()] || null)
+  return Boolean(mimeTypes[extension?.toLowerCase()] || null)
 }
 
 export const getFileExtension = (filename = ''): string | null => {
