@@ -50,7 +50,6 @@ const ReactPdfPage = ({url}: Props) => {
                   <>
                     <Page
                       loading={showLoadingCaption ? 'Loading page...' : ''} // just show loading page for first pg
-                      // renderTextLayer={false}
                       width={width >= 900 ? 900 : width}
                       key={`page_${index + 1}`}
                       pageNumber={index + 1}
