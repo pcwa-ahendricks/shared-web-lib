@@ -106,7 +106,8 @@ const DynamicNewslettersPage = ({media, err, publishedOn}: Props) => {
               <Link
                 color="inherit"
                 sx={{...style.bcLink}}
-                href="/newsroom/publications/newsletters"
+                href="/newsroom/publications/[publication]"
+                as="/newsroom/publications/newsletters"
               >
                 <>
                   <UndoIcon sx={{...style.bcIcon}} />
