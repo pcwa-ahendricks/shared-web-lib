@@ -302,7 +302,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     return {
       props: {media, meetingDate},
-      revalidate: 10
+      revalidate: 5
     }
   } catch (error) {
     console.log(error)
