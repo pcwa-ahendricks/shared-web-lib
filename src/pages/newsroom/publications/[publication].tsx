@@ -10,19 +10,15 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {
-  fileNameUtil,
-  CosmicMediaMeta,
-  CosmicMediaResponse,
-  CosmicObjectResponse
-} from '@lib/services/cosmicService'
+import {CosmicObjectResponse} from '@lib/services/cosmicService'
 import {
   compareDesc,
   parseJSON,
   format,
   // parseISO,
   parse,
-  addMonths
+  addMonths,
+  getYear
 } from 'date-fns'
 import NextLink from 'next/link'
 import groupBy from '@lib/groupBy'
@@ -54,7 +50,8 @@ import {
   NewsroomContext,
   GroupedNewsletters,
   setNewsletterYear,
-  setEnewsDialogOpen
+  setEnewsDialogOpen,
+  GroupedNewsletterVal
 } from '@components/newsroom/NewsroomStore'
 import {isWebUri} from 'valid-url'
 import Image from 'next/legacy/image'
@@ -71,8 +68,8 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import useTheme from '@hooks/useTheme'
 import {LinkProps} from '@components/Link'
 import useLinkComponent from '@hooks/useLinkComponent'
-
-const DATE_FNS_FORMAT = 'yyyy-MM-dd'
+import {AwsObjectExt} from '@lib/types/aws'
+import {getNewsReleaseTitle} from '@lib/newReleaseTitle'
 
 const imgixImages = [
   'https://imgix.cosmicjs.com/21555930-fbc6-11eb-9a4d-af05155ef55d-FireWater8.5x11LOW2021.pdf',
@@ -101,20 +98,19 @@ interface TabPanelProps {
 type Props = {
   publicationParam?: string
   initialEnewsBlasts?: CosmicObjectResponse<EnewsBlastMetadata>
-  initialNewsletters?: CosmicMediaResponse
+  initialNewsletters?: AwsObjectExt[]
   err?: {statusCode: number}
   placeholders?: Placeholders
 }
 
-const cosmicGetMediaProps = {
-  props: 'id,original_name,imgix_url'
-}
-const newslettersParams = {
-  folder: 'newsletters',
-  ...cosmicGetMediaProps
-}
-const newslettersQs = stringify({...newslettersParams}, true)
-const newslettersUrl = `/api/cosmic/media${newslettersQs}`
+const baseUrl = process.env.BASE_URL
+
+const newslettersQs = new URLSearchParams({
+  folderPath: `pcwa-net/newsroom/newsletters/`,
+  parsePubDate: 'yyyy-MM-dd',
+  parsePubDateSep: '_'
+}).toString()
+const newslettersUrl = `${baseUrl}/api/aws/media?${newslettersQs}`
 
 const enewsParams = {
   props: 'id,content,metadata,slug,status,title',
@@ -158,7 +154,7 @@ const PublicationsPage = ({
 
   usePlaceholders(placeholders)
 
-  const {data: newslettersData} = useSWR<CosmicMediaResponse>(newslettersUrl, {
+  const {data: newslettersData} = useSWR<AwsObjectExt[]>(newslettersUrl, {
     fallbackData: initialNewsletters
   })
 
@@ -196,17 +192,16 @@ const PublicationsPage = ({
       newslettersData && Array.isArray(newslettersData)
         ? [
             // Group objects by derived Year into JS Map.
-            ...groupBy<CosmicMediaMeta, number>(
+            ...groupBy<GroupedNewsletterVal, number>(
               newslettersData
-                .map((nr) => ({
-                  ...nr,
-                  derivedFilenameAttr: fileNameUtil(
-                    nr.original_name,
-                    DATE_FNS_FORMAT
-                  )
-                }))
-                .filter((nr) => nr.derivedFilenameAttr.date), // Don't list links that will ultimately 404.
-              (mnr) => mnr.derivedFilenameAttr?.publishedYear
+                .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
+                .map((item) => ({
+                  ...item,
+                  pubYear: getYear(parseJSON(item.pubDate)),
+                  nextLinkAs: `/newsroom/publications/newsletters/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`,
+                  title: getNewsReleaseTitle(item.filename)
+                })),
+              (item) => item.pubYear
             )
           ] // Spreading Map will convert Map into an Array.
             // Sort individual media objects by published date property.
@@ -214,8 +209,8 @@ const PublicationsPage = ({
               year,
               values: values.sort((a, b) =>
                 compareDesc(
-                  parseJSON(a.derivedFilenameAttr?.publishedDate ?? ''),
-                  parseJSON(b.derivedFilenameAttr?.publishedDate ?? '')
+                  parseJSON(a.pubDate ?? ''),
+                  parseJSON(b.pubDate ?? '')
                 )
               )
             }))
@@ -459,7 +454,7 @@ const PublicationsPage = ({
                       <Box key={n.id} mb={2}>
                         <NextLink
                           href="/newsroom/publications/newsletters/[publish-date]"
-                          as={`/newsroom/publications/newsletters/${n.derivedFilenameAttr?.date}`}
+                          as={n.nextLinkAs}
                           scroll
                         >
                           <ListItemButton sx={{...style.listItem}}>
@@ -481,13 +476,13 @@ const PublicationsPage = ({
                                   width={850}
                                   height={1100}
                                   objectFit="cover"
-                                  src={n.imgix_url}
-                                  alt={`Thumbnail image for ${n.derivedFilenameAttr?.date} Newsletter`}
+                                  src={n.imgixUrl}
+                                  alt={`Thumbnail image for ${format(parseJSON(n.pubDate ?? ''), 'yyyy-MM-dd')} Newsletter`}
                                 />
                               </ColumnBox>
                             </ListItemAvatar>
                             <ListItemText
-                              primary={n.derivedFilenameAttr?.title}
+                              primary={n.title}
                               secondary={formatNewsletterDate(n)}
                             />
                           </ListItemButton>
@@ -797,19 +792,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const baseUrl = process.env.BASE_URL
-
     const publicationParam = paramToStr(params?.publication)
 
-    const [initialNewslettersData, initialEnewsBlasts] = await Promise.all([
-      fetcher(`${baseUrl}${newslettersUrl}`),
+    const [initialNewsletters, initialEnewsBlasts] = await Promise.all([
+      fetcher<AwsObjectExt[]>(newslettersUrl),
       fetcher(`${baseUrl}${enewsBlastsUrl}`)
     ])
     // Placeholder images
     const placeholders = await getImgixBlurHashes(imgixImages)
     return {
       props: {
-        initialNewslettersData,
+        initialNewsletters,
         publicationParam,
         initialEnewsBlasts,
         placeholders

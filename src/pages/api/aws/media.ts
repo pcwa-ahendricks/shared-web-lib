@@ -50,7 +50,8 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const shouldParsePubDate = Boolean(parsePubDate)
 
     const validPrefixPath = startsWithAnyPrefix(folderPath, [
-      'pcwa-net/newsroom/news-releases/'
+      'pcwa-net/newsroom/news-releases/',
+      'pcwa-net/newsroom/newsletters/'
     ])
 
     if (!validPrefixPath) {
