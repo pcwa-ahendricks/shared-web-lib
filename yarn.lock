@@ -70,16 +70,16 @@
     "@smithy/util-utf8" "^2.0.0"
     tslib "^2.6.2"
 
-"@aws-sdk/client-s3@^3.600.0":
-  version "3.600.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.600.0.tgz#3ce415d9257b8d1c8385bc26c6c86e6403aff83c"
-  integrity sha512-iYoKbJTputbf+ubkX6gSK/y/4uJEBRaXZ18jykLdBQ8UJuGrk2gqvV8h7OlGAhToCeysmmMqM0vDWyLt6lP8nw==
+"@aws-sdk/client-s3@^3.606.0":
+  version "3.606.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.606.0.tgz#ff9d7e029591387522783b7aae3d458d4cb0b473"
+  integrity sha512-IGM/E8kVk/NY/kZwLdmGRsX1QYtuPljoNutM5kBRdtGahQL5VwVAve5PElPUArcsTkfTyW+LfXpznDeeHxMCcA==
   dependencies:
     "@aws-crypto/sha1-browser" "5.2.0"
     "@aws-crypto/sha256-browser" "5.2.0"
     "@aws-crypto/sha256-js" "5.2.0"
-    "@aws-sdk/client-sso-oidc" "3.600.0"
-    "@aws-sdk/client-sts" "3.600.0"
+    "@aws-sdk/client-sso-oidc" "3.606.0"
+    "@aws-sdk/client-sts" "3.606.0"
     "@aws-sdk/core" "3.598.0"
     "@aws-sdk/credential-provider-node" "3.600.0"
     "@aws-sdk/middleware-bucket-endpoint" "3.598.0"
@@ -134,14 +134,13 @@
     "@smithy/util-waiter" "^3.0.1"
     tslib "^2.6.2"
 
-"@aws-sdk/client-sso-oidc@3.600.0":
-  version "3.600.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sso-oidc/-/client-sso-oidc-3.600.0.tgz#37966020af55a052822b9ef21adc38d2afcb0f34"
-  integrity sha512-7+I8RWURGfzvChyNQSyj5/tKrqRbzRl7H+BnTOf/4Vsw1nFOi5ROhlhD4X/Y0QCTacxnaoNcIrqnY7uGGvVRzw==
+"@aws-sdk/client-sso-oidc@3.606.0":
+  version "3.606.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sso-oidc/-/client-sso-oidc-3.606.0.tgz#19d4818b9d04e5d1b6a7fe50a86b0c98a2b30c42"
+  integrity sha512-gL1FHPS6hwgMNS/A+Qh5bUyHOeRVOqdb7c6+i+9gR3wtGvt2lvoSm8w5DhS08Xiiacz2AqYRDEapp0xuyCrbBQ==
   dependencies:
     "@aws-crypto/sha256-browser" "5.2.0"
     "@aws-crypto/sha256-js" "5.2.0"
-    "@aws-sdk/client-sts" "3.600.0"
     "@aws-sdk/core" "3.598.0"
     "@aws-sdk/credential-provider-node" "3.600.0"
     "@aws-sdk/middleware-host-header" "3.598.0"
@@ -224,14 +223,14 @@
     "@smithy/util-utf8" "^3.0.0"
     tslib "^2.6.2"
 
-"@aws-sdk/client-sts@3.600.0":
-  version "3.600.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.600.0.tgz#8a437f8cf626cf652f99628105576213dbba48b2"
-  integrity sha512-KQG97B7LvTtTiGmjlrG1LRAY8wUvCQzrmZVV5bjrJ/1oXAU7DITYwVbSJeX9NWg6hDuSk0VE3MFwIXS2SvfLIA==
+"@aws-sdk/client-sts@3.606.0":
+  version "3.606.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.606.0.tgz#81d61a6240761230fbb0e36ac782485c535ac4a2"
+  integrity sha512-b11mAhjrkm3MMiAPoMGcmd6vsaz2120lg8rHG/NZCo9vB1K6Kc7WP+a1Q05TRMseer2egTtpWJfn44aVO97VqA==
   dependencies:
     "@aws-crypto/sha256-browser" "5.2.0"
     "@aws-crypto/sha256-js" "5.2.0"
-    "@aws-sdk/client-sso-oidc" "3.600.0"
+    "@aws-sdk/client-sso-oidc" "3.606.0"
     "@aws-sdk/core" "3.598.0"
     "@aws-sdk/credential-provider-node" "3.600.0"
     "@aws-sdk/middleware-host-header" "3.598.0"
@@ -1087,15 +1086,15 @@
     clsx "^2.1.0"
     prop-types "^15.8.1"
 
-"@mui/core-downloads-tracker@^5.15.20":
-  version "5.15.20"
-  resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.15.20.tgz#6ede705770797c32f5a4fc0d3002ad0b758d23e8"
-  integrity sha512-DoL2ppgldL16utL8nNyj/P12f8mCNdx/Hb/AJnX9rLY4b52hCMIx1kH83pbXQ6uMy6n54M3StmEbvSGoj2OFuA==
+"@mui/core-downloads-tracker@^5.15.21":
+  version "5.15.21"
+  resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.15.21.tgz#15ffc56cef7009479229b55126176f988afba96b"
+  integrity sha512-dp9lXBaJZzJYeJfQY3Ow4Rb49QaCEdkl2KKYscdQHQm6bMJ+l4XPY3Cd9PCeeJTsHPIDJ60lzXbeRgs6sx/rpw==
 
-"@mui/icons-material@^5.15.20":
-  version "5.15.20"
-  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.15.20.tgz#dbd45d635d82b034fb10dadb5c258c26e3311618"
-  integrity sha512-oGcKmCuHaYbAAoLN67WKSXtHmEgyWcJToT1uRtmPyxMj9N5uqwc/mRtEnst4Wj/eGr+zYH2FiZQ79v9k7kSk1Q==
+"@mui/icons-material@^5.15.21":
+  version "5.15.21"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.15.21.tgz#1e29e1bdb90916be5b66c95c45951f441821f34a"
+  integrity sha512-yqkq1MbdkmX5ZHyvZTBuAaA6RkvoqkoAgwBSx9Oh0L0jAfj9T/Ih/NhMNjkl8PWVSonjfDUkKroBnjRyo/1M9Q==
   dependencies:
     "@babel/runtime" "^7.23.9"
 
@@ -1119,14 +1118,14 @@
   dependencies:
     "@babel/runtime" "^7.23.9"
 
-"@mui/material@^5.15.20":
-  version "5.15.20"
-  resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.15.20.tgz#87737404603ca2802a8e074b059f8329e013e615"
-  integrity sha512-tVq3l4qoXx/NxUgIx/x3lZiPn/5xDbdTE8VrLczNpfblLYZzlrbxA7kb9mI8NoBF6+w9WE9IrxWnKK5KlPI2bg==
+"@mui/material@^5.15.21":
+  version "5.15.21"
+  resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.15.21.tgz#b2c8d756af570a61cb4975acf0e71dafb110b001"
+  integrity sha512-nTyCcgduKwHqiuQ/B03EQUa+utSMzn2sQp0QAibsnYe4tvc3zkMbO0amKpl48vhABIY3IvT6w9615BFIgMt0YA==
   dependencies:
     "@babel/runtime" "^7.23.9"
     "@mui/base" "5.0.0-beta.40"
-    "@mui/core-downloads-tracker" "^5.15.20"
+    "@mui/core-downloads-tracker" "^5.15.21"
     "@mui/system" "^5.15.20"
     "@mui/types" "^7.2.14"
     "@mui/utils" "^5.15.20"
@@ -1185,25 +1184,25 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@mui/x-date-pickers-pro@^7.7.1":
-  version "7.7.1"
-  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers-pro/-/x-date-pickers-pro-7.7.1.tgz#e682da08d5a5b73454f623fa51189f40ab9b8f06"
-  integrity sha512-+E11dpc4nf1k+SB/bU6veYU7kt6n84n2HZCiRSjr1w5hkPBWiSsioejxzgcTsn+EiZ1TnrygivF4wbxiImp/ng==
+"@mui/x-date-pickers-pro@^7.8.0":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers-pro/-/x-date-pickers-pro-7.8.0.tgz#7322471ddb5691dd54bd9b842d9ade85d5a18797"
+  integrity sha512-5bVbl7jmmgrAXexsRt6RTNaD1xUEOl2QOYOmod+cz/r8Icumjc3wGlsZlu5srxOPNVkBDLhzJD2HoIVsMqugWA==
   dependencies:
     "@babel/runtime" "^7.24.7"
     "@mui/base" "^5.0.0-beta.40"
     "@mui/system" "^5.15.20"
     "@mui/utils" "^5.15.20"
-    "@mui/x-date-pickers" "7.7.1"
-    "@mui/x-license" "7.7.1"
+    "@mui/x-date-pickers" "7.8.0"
+    "@mui/x-license" "7.8.0"
     clsx "^2.1.1"
     prop-types "^15.8.1"
     react-transition-group "^4.4.5"
 
-"@mui/x-date-pickers@7.7.1":
-  version "7.7.1"
-  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.7.1.tgz#34c0cef5936b75d395a74faf34355cda0a986613"
-  integrity sha512-p7/TY8QcdQd6RelNqzW5q89GeUFctvZnDHTfQVEC0l0nAy7ArE6u21uNF8QWGrijZoJXCM+OlIRzlZADaUPpWA==
+"@mui/x-date-pickers@7.8.0":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.8.0.tgz#d25c1379da8715a3d9e431cac37bfcf557a69057"
+  integrity sha512-SkolW0vZ4XiUeD5FBevG9NQ3pAgfNYlJA5XFhSLFD/swNQRO4EYOUXw38O/ccOh1lkAcwVR+rrGPCoT4/0YGEg==
   dependencies:
     "@babel/runtime" "^7.24.7"
     "@mui/base" "^5.0.0-beta.40"
@@ -1222,10 +1221,10 @@
     "@babel/runtime" "^7.22.6"
     "@mui/utils" "^5.13.7"
 
-"@mui/x-license@7.7.1":
-  version "7.7.1"
-  resolved "https://registry.yarnpkg.com/@mui/x-license/-/x-license-7.7.1.tgz#6320b68297cd0d704d6882d980bfccf730ed60da"
-  integrity sha512-8Ycgidva5dmBHy5Uhf1X+Rqr7zuU9u3i8hefufT44Z5xYAVR0AJWKt75cTmBclyg0hpA55m6hRZwxP0W0cYN6A==
+"@mui/x-license@7.8.0":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-license/-/x-license-7.8.0.tgz#4f1c2808ed836ff2f872371933fc749729d6d0e0"
+  integrity sha512-qfh9Dfr3jFvsF2UKe64lyLtc9Mmurn6je4zYx5FbH2QGpXQUCrFkFT7AuldgrhSpp7jXapcHukrapQzyId/dgg==
   dependencies:
     "@babel/runtime" "^7.24.7"
     "@mui/utils" "^5.15.20"
