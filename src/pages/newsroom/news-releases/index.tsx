@@ -265,7 +265,6 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
 
 // export const getServerSideProps: GetServerSideProps = async ({res, req}) => {
 //   try {
-//     const baseUrl = lambdaUrl(req)
 //     const fallbackData = await fetcher(`${baseUrl}${newsReleasesUrl}`)
 //     return {props: {fallbackData}}
 //   } catch (error) {

@@ -2,7 +2,7 @@
 
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {format, parse, subDays, isFuture} from 'date-fns'
-import lastTenWaterYears from '@lib/api/lastTenWaterYears'
+import lastTenWaterYears from '@lib/lastTenWaterYears'
 import {localDate} from '@lib/localDate'
 import {maxmissing} from '@lib/api/acis'
 import {kv} from '@vercel/kv'

@@ -1,7 +1,7 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid maxmissing prec annl mnthly
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {format, parse, isFuture} from 'date-fns'
-import lastTenWaterYears from '@lib/api/lastTenWaterYears'
+import lastTenWaterYears from '@lib/lastTenWaterYears'
 import {ACCEPT_SIDS, maxmissing} from '@lib/api/acis'
 import {localDate} from '@lib/localDate'
 import {kv} from '@vercel/kv'

@@ -434,7 +434,6 @@ const OutageInformationPage = ({fallbackData}: Props) => {
 
 // export const getServerSideProps: GetServerSideProps = async ({req}) => {
 //   try {
-//     const urlBase = lambdaUrl(req)
 //     const fallbackData = await fetcher(`${urlBase}${outagesUrl}`)
 //     return {props: {fallbackData}}
 //   } catch (error) {

@@ -658,7 +658,6 @@ const Index = ({
 
 // export const getServerSideProps: GetServerSideProps = async ({req}) => {
 //   try {
-//     const urlBase = lambdaUrl(req)
 //     const data = await recentNewsFetcher(
 //       `${urlBase}/api/cosmic/objects`,
 //       'news-blurbs',
