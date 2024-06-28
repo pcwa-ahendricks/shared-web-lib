@@ -121,7 +121,6 @@ const enewsParamsQs = stringify({...enewsParams}, true)
 const enewsBlastsUrl = `/api/cosmic/objects${enewsParamsQs}`
 
 const PublicationsPage = ({
-  err,
   initialEnewsBlasts,
   initialNewsletters,
   publicationParam = '',
