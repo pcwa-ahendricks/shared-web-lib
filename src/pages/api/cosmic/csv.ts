@@ -6,7 +6,7 @@ import {stringify} from 'querystringify'
 // import lambdaUrl from '@api-lib/lambdaUrl'
 import lambdaUrl from '@lib/api/lambdaUrl'
 import {CosmicGetMediaResponse, GetMedia} from '@lib/api/cosmic'
-import {localDateFrom} from '@lib/api/shared'
+import {localDateFrom} from '@lib/localDate'
 
 const MEDIA_FOLDER = 'csv'
 

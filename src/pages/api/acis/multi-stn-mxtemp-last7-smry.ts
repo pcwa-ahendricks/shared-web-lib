@@ -2,9 +2,11 @@
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {parse, subDays, isFuture} from 'date-fns'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
-import {dLog, localDate, localFormat, paramToStr} from '@lib/api/shared'
+import {localDate, localFormat} from '@lib/localDate'
 import {maxmissing} from '@lib/api/acis'
 import {kv} from '@vercel/kv'
+import paramToStr from '@lib/paramToStr'
+import {dLog} from '@lib/dLog'
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {

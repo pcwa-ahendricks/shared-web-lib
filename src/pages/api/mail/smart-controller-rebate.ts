@@ -11,7 +11,7 @@ import {
 } from '@lib/api/forms'
 
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import {localDate, localFormat} from '@lib/api/shared'
+import {localDate, localFormat} from '@lib/localDate'
 import {BooleanAsString} from '@lib/safeCastBoolean'
 const isDev = process.env.NODE_ENV === 'development'
 

@@ -12,7 +12,7 @@ import {
   validateSchema
 } from '@lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import {localDate, localFormat} from '@lib/api/shared'
+import {localDate, localFormat} from '@lib/localDate'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''

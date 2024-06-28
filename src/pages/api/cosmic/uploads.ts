@@ -1,6 +1,6 @@
 // import {VercelRequest, VercelResponse} from '@vercel/node'
 import {createBucketClient} from '@cosmicjs/sdk'
-import {dLog} from '@lib/api/shared'
+import {dLog} from '@lib/dLog'
 import multer from 'multer'
 import prettyBytes from 'pretty-bytes'
 

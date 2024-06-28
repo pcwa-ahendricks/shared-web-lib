@@ -24,7 +24,7 @@ import ErrorPage from '@pages/_error'
 import MinutesIcon from '@mui/icons-material/UndoOutlined'
 import DocIcon from '@mui/icons-material/DescriptionOutlined'
 import fetcher from '@lib/fetcher'
-import {paramToStr} from '@lib/queryParamToStr'
+import paramToStr from '@lib/paramToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import slugify from 'slugify'
 import {

@@ -1,12 +1,5 @@
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {
-  TZ,
-  getFileExtension,
-  localDate,
-  paramToStr,
-  startsWithAnyPrefix
-} from '@lib/api/shared'
-import {
   S3Client,
   ListObjectsV2Command,
   ListObjectsV2CommandOutput
@@ -15,7 +8,11 @@ import path from 'path'
 import {type AwsObjectExt} from '@lib/types/aws'
 import {parse} from 'date-fns'
 import {fromZonedTime} from 'date-fns-tz'
-import {isImgixInputMimeType} from '@lib/imgixInputMimeType'
+import isImgixInputMimeType from '@lib/imgixInputMimeType'
+import {startsWithAnyPrefix} from '@lib/api/startsWithAnyPrefix'
+import paramToStr from '@lib/paramToStr'
+import {fileExtension} from '@lib/fileExtension'
+import {TZ, localDate} from '@lib/localDate'
 
 const awsRegion = process.env.NODE_AWS_REGION || ''
 const accessKeyId = process.env.NODE_AWS_ACCESS_KEY_ID || ''
@@ -81,7 +78,7 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
               TZ
             ).toJSON()
           }
-          const ext = getFileExtension(item.Key)
+          const ext = fileExtension(item.Key)
           const shouldAddImgixUrl = isImgixInputMimeType(ext)
           const imgixUrl = new URL(`${imgixEndpoint}/${item.Key}`).toString()
           const url = new URL(`${originEndpoint}/${item.Key}`).toString()

@@ -12,7 +12,8 @@ import {
   emailRecipientsSysAdmin
 } from '@lib/api/forms'
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import {dLog, localDate, localFormat} from '@lib/api/shared'
+import {localDate, localFormat} from '@lib/localDate'
+import {dLog} from '@lib/dLog'
 const isDev = process.env.NODE_ENV === 'development'
 
 const MAILJET_SENDER = process.env.NODE_MAILJET_SENDER || ''

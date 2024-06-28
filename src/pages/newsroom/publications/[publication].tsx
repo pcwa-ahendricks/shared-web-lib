@@ -46,7 +46,7 @@ import {
   ListItemButton
 } from '@mui/material'
 import {GetStaticProps, GetStaticPaths} from 'next'
-import {paramToStr} from '@lib/queryParamToStr'
+import paramToStr from '@lib/paramToStr'
 import ErrorPage from '@pages/_error'
 import {ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'

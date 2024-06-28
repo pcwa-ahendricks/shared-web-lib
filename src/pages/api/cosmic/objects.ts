@@ -1,7 +1,7 @@
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {createBucketClient} from '@cosmicjs/sdk'
-import {paramToStr} from '@lib/api/shared'
 import {getObjectMethodDefaults} from '@lib/api/cosmic'
+import paramToStr from '@lib/paramToStr'
 
 // const isDev = process.env.NODE_ENV === 'development'
 

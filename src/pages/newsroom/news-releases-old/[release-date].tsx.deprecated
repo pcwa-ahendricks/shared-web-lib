@@ -30,7 +30,7 @@ import UndoIcon from '@mui/icons-material/UndoOutlined'
 import DocIcon from '@mui/icons-material/DescriptionOutlined'
 import {useRouter} from 'next/router'
 import fetcher from '@lib/fetcher'
-import {paramToStr} from '@lib/queryParamToStr'
+import paramToStr from '@lib/paramToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import slugify from 'slugify'
 import {

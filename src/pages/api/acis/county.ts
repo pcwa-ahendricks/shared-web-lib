@@ -1,6 +1,6 @@
 // cspell:ignore promisify weathercode OPENWEATHERMAP ondigitalocean appid maxmissing mcnt
 import {VercelRequest, VercelResponse} from '@vercel/node'
-import {dLog} from '@lib/api/shared'
+import {dLog} from '@lib/dLog'
 import {kv} from '@vercel/kv'
 
 const mainHandler = async (_req: VercelRequest, res: VercelResponse) => {

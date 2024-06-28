@@ -1,8 +1,9 @@
 // cspell:ignore promisify hgetall hmset weathercode OPENWEATHERMAP ondigitalocean appid climdiv
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {ACCEPT_SIDS} from '@lib/api/acis'
-import {dLog, paramToStr} from '@lib/api/shared'
 import {kv} from '@vercel/kv'
+import {dLog} from '@lib/dLog'
+import paramToStr from '@lib/paramToStr'
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {

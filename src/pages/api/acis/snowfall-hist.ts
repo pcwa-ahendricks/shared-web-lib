@@ -3,8 +3,10 @@ import {VercelRequest, VercelResponse} from '@vercel/node'
 import {format, parse, subDays, isFuture} from 'date-fns'
 import lastTenWaterYears from '@lib/api/lastTenWaterYears'
 import {ACCEPT_SIDS} from '@lib/api/acis'
-import {dLog, paramToStr, localDate} from '@lib/api/shared'
+import {localDate} from '@lib/localDate'
 import {kv} from '@vercel/kv'
+import paramToStr from '@lib/paramToStr'
+import {dLog} from '@lib/dLog'
 
 const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
   try {

@@ -1,7 +1,7 @@
 // see https://support.imgix.com/hc/en-us/articles/204280985-Supported-image-formats for more info
-export const isImgixInputMimeType = (
+export default function isImgixInputMimeType(
   extension: string | null = ''
-): boolean => {
+): boolean {
   const mimeTypes: {[key: string]: string} = {
     jpg: 'image/jpeg',
     jpeg: 'image/jpeg',

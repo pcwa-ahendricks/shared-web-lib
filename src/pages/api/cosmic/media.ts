@@ -1,7 +1,7 @@
 import {CosmicGetMediaResponse} from '../../../lib/api/cosmic'
 import {VercelRequest, VercelResponse} from '@vercel/node'
 import {createBucketClient} from '@cosmicjs/sdk'
-import {paramToStr} from '@lib/api/shared'
+import paramToStr from '@lib/paramToStr'
 
 const COSMIC_BUCKET = 'pcwa-net'
 const COSMIC_READ_ACCESS_KEY = process.env.NODE_COSMIC_READ_ACCESS_KEY || ''
