@@ -43,7 +43,6 @@ import {
 } from '@mui/material'
 import {GetStaticProps, GetStaticPaths} from 'next'
 import paramToStr from '@lib/paramToStr'
-import ErrorPage from '@pages/_error'
 import {ChildBox, RowBox, ColumnBox} from '@components/MuiSleazebox'
 import Spacing from '@components/boxes/Spacing'
 import {
@@ -342,9 +341,9 @@ const PublicationsPage = ({
     return ''
   }, [])
 
-  if (err?.statusCode) {
-    return <ErrorPage statusCode={err.statusCode} />
-  }
+  // if (err?.statusCode) {
+  //   return <ErrorPage statusCode={err.statusCode} />
+  // }
 
   return (
     <PageLayout title="Publications" waterSurface>
