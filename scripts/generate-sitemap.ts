@@ -10,11 +10,6 @@ import {
 } from '../src/lib/services/cosmicService'
 import {agendasUrl, AgendaMetadata} from '@lib/types/agenda'
 import {
-  newsletterDateFrmt,
-  NewsletterMediaResponses,
-  newslettersUrl
-} from '@lib/types/newsletters'
-import {
   boardMinutesUrl,
   bodMinutesDateFrmt,
   bodMinutesMediaResponses
