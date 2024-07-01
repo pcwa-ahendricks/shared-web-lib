@@ -264,7 +264,7 @@ const SmartWaterUsePage = () => {
                       <Image
                         layout="responsive"
                         loader={imgixUrlLoader}
-                        src="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_Goldenrod_8_5.jpg"
+                        src="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/SS_SB_Goldenrod_8_5_v2.jpg"
                         width={1920}
                         height={1200}
                         alt="California Goldenrod, Summer Strong Low-Water Use Plant of the Month"
