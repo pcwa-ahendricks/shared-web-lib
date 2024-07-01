@@ -117,13 +117,12 @@ async function generateSitemap() {
           .map((p) => `/board-of-directors/meeting-agendas/${p}`)
       : []
 
-  const qs = new URLSearchParams({
+  const newsReleasesQs = new URLSearchParams({
     folderPath: `pcwa-net/newsroom/news-releases/`,
     parsePubDate: 'yyyy-MM-dd',
     parsePubDateSep: '_'
   }).toString()
-  const apiUrl = `/api/aws/media?${qs}`
-  const newsReleasesUrl = `${baseUrl}${apiUrl}`
+  const newsReleasesUrl = `${baseUrl}/api/aws/media?${newsReleasesQs}`
   const newsReleasesMediaList: AwsObjectExt[] = await fetcher(newsReleasesUrl)
   const newsReleases = newsReleasesMediaList?.filter(
     (item) => fileExtension(item.Key)?.toLowerCase() === 'pdf'
@@ -139,22 +138,25 @@ async function generateSitemap() {
           )
       : []
 
-  const newsletters: NewsletterMediaResponses | undefined = await fetcher(
-    `${baseUrl}${newslettersUrl}`
+  const newslettersQs = new URLSearchParams({
+    folderPath: `pcwa-net/newsroom/newsletters/`,
+    parsePubDate: 'yyyy-MM-dd',
+    parsePubDateSep: '_'
+  }).toString()
+  const newslettersUrl = `${baseUrl}/api/aws/media?${newslettersQs}`
+  const newsletterssMediaList: AwsObjectExt[] = await fetcher(newslettersUrl)
+  const newsletters = newsletterssMediaList?.filter(
+    (item) => fileExtension(item.Key)?.toLowerCase() === 'pdf'
   )
+
   const newslettersPages =
     newsletters && Array.isArray(newsletters)
       ? newsletters
-          .map((nl) => ({
-            ...nl,
-            derivedFilenameAttr: fileNameUtil(
-              nl.original_name,
-              newsletterDateFrmt
-            )
-          }))
-          .filter((nl) => nl.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-          .map((nl) => nl.derivedFilenameAttr.date)
-          .map((nl) => `/newsroom/publications/newsletters/${nl}`)
+          .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
+          .map(
+            (item) =>
+              `/newsroom/publications/newsletters/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`
+          )
       : []
 
   const data: bodMinutesMediaResponses | undefined = await fetcher(
