@@ -14227,15 +14227,6 @@ const params = {
 const agenda_qs = (0,querystringify/* stringify */.P)({ ...params }, true);
 const agendasUrl = `/api/cosmic/objects${agenda_qs}`;
 
-;// CONCATENATED MODULE: ./src/lib/types/newsletters.ts
-
-const newsletterDateFrmt = 'yyyy-MM-dd';
-const newsletters_cosmicGetMediaProps = {
-    props: 'original_name,imgix_url,derivedFilenameAttr,size,url'
-};
-const newsletters_qs = (0,querystringify/* stringify */.P)({ ...newsletters_cosmicGetMediaProps, folder: 'newsletters' }, true);
-const newslettersUrl = `/api/cosmic/media${newsletters_qs}`;
-
 ;// CONCATENATED MODULE: ./src/lib/types/bodMinutes.ts
 
 const bodMinutesDateFrmt = 'MM-dd-yyyy';
@@ -15822,7 +15813,6 @@ const fileExtension = (filename = '') => {
 
 
 
-
 const spacesRe = /(\s|%20)+/g;
 // when using Next pages router, the nextjs BASE_URL env variable will now work here, work around is to set base url to prod
 const baseUrl = 'https://www.pcwa.net';
@@ -15889,13 +15879,12 @@ async function generateSitemap() {
             .map((a) => slugify_default()(`${a.metadata.date} - ${a.title}`))
             .map((p) => `/board-of-directors/meeting-agendas/${p}`)
         : [];
-    const qs = new URLSearchParams({
+    const newsReleasesQs = new URLSearchParams({
         folderPath: `pcwa-net/newsroom/news-releases/`,
         parsePubDate: 'yyyy-MM-dd',
         parsePubDateSep: '_'
     }).toString();
-    const apiUrl = `/api/aws/media?${qs}`;
-    const newsReleasesUrl = `${baseUrl}${apiUrl}`;
+    const newsReleasesUrl = `${baseUrl}/api/aws/media?${newsReleasesQs}`;
     const newsReleasesMediaList = await lib_fetcher(newsReleasesUrl);
     const newsReleases = newsReleasesMediaList?.filter((item) => fileExtension(item.Key)?.toLowerCase() === 'pdf');
     const newsReleasesPages = newsReleases && Array.isArray(newsReleases)
@@ -15903,16 +15892,18 @@ async function generateSitemap() {
             .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
             .map((item) => `/newsroom/news-releases/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`)
         : [];
-    const newsletters = await lib_fetcher(`${baseUrl}${newslettersUrl}`);
+    const newslettersQs = new URLSearchParams({
+        folderPath: `pcwa-net/newsroom/newsletters/`,
+        parsePubDate: 'yyyy-MM-dd',
+        parsePubDateSep: '_'
+    }).toString();
+    const newslettersUrl = `${baseUrl}/api/aws/media?${newslettersQs}`;
+    const newsletterssMediaList = await lib_fetcher(newslettersUrl);
+    const newsletters = newsletterssMediaList?.filter((item) => fileExtension(item.Key)?.toLowerCase() === 'pdf');
     const newslettersPages = newsletters && Array.isArray(newsletters)
         ? newsletters
-            .map((nl) => ({
-            ...nl,
-            derivedFilenameAttr: fileNameUtil(nl.original_name, newsletterDateFrmt)
-        }))
-            .filter((nl) => nl.derivedFilenameAttr.date) // Don't allow empty since those will cause runtime errors in development and errors during Vercel deploy.
-            .map((nl) => nl.derivedFilenameAttr.date)
-            .map((nl) => `/newsroom/publications/newsletters/${nl}`)
+            .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
+            .map((item) => `/newsroom/publications/newsletters/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`)
         : [];
     const data = await lib_fetcher(`${baseUrl}${boardMinutesUrl}`);
     const bodMinutesPages = data && Array.isArray(data)
