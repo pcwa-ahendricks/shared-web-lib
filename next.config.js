@@ -668,9 +668,9 @@ module.exports = {
     // for react-pdf (see https://www.npmjs.com/package/react-pdf?activeTab=readme for more info)
     config.resolve.alias.canvas = false
     // Generate sitemap.xml automatically
-    if (isServer) {
-      require('./scripts/generate-sitemap')
-    }
+    // if (isServer) {
+    //   require('./scripts/generate-sitemap')
+    // }
 
     return config
   }
