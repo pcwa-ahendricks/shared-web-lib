@@ -257,11 +257,6 @@ const legacyRedirects = [
     permanent: true
   },
   {
-    source: '/stewardship(.*)',
-    destination: '/smart-water-use',
-    permanent: true
-  },
-  {
     source: '/newsroom/publication',
     destination: '/newsroom/publications',
     permanent: true
@@ -379,11 +374,6 @@ const legacyRedirects = [
   {
     source: '/stewardship/stop-leaks',
     destination: '/smart-water-use/stop-leaks',
-    permanent: true
-  },
-  {
-    source: '/stewardship(.*)',
-    destination: '/smart-water-use',
     permanent: true
   },
   {

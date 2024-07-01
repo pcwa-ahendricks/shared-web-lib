@@ -34,11 +34,11 @@ const Blockquote = ({
       <Type
         component="blockquote"
         paragraph
-        sx={{fontSize: '1.3rem', ...sx}}
+        sx={{fontSize: '1.4rem', ...sx}}
         {...rest}
       >
         {italic ? (
-          <Box component="em" sx={{fontSize: '1.3rem'}}>
+          <Box component="em" sx={{fontSize: '1.4rem'}}>
             {children}
           </Box>
         ) : (

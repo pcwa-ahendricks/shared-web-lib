@@ -109,7 +109,7 @@ export default function homepage() {
               title="PCWA Secures Permanent Water Contract With U.S. Bureau Of Reclamation"
               readMore="See Story..."
               linkHref="/newsroom/news-releases/[release-date]"
-              linkProps={{as: '/newsroom/news-releases/03-03-2020'}}
+              linkProps={{as: '/newsroom/news-releases/2020-03-03'}}
               imgixURL="https://imgix.cosmicjs.com/19d91520-6234-11ea-9b83-bbd594758415-PCWA-signs-USBR-contract002.jpg"
               imgixFancyProps={{
                 htmlAttributes: {alt: 'Thumbnail photo of French Meadows'}

@@ -212,6 +212,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/stewardship/consolidations</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/about-pcwa/financial-report</loc>
     <changefreq>daily</changefreq>
   </url>
