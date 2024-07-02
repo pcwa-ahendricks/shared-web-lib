@@ -136,13 +136,12 @@ export default function ConsolidationsPage() {
               </Type>
             </Grid>
           </Grid>
-          <Spacing size="x-large" />
+          <Spacing factor={2} />
           <Blockquote>
             Consolidation efforts aim to bring safe, reliable water supplies to
             underserved communities throughout Placer County.
           </Blockquote>
-
-          <Spacing />
+          <Spacing factor={2} />
           <Type variant="h4">Benefits extend to all PCWA customers</Type>
           <Spacing size="small" />
           <Type paragraph>
