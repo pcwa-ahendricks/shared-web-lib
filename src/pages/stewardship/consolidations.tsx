@@ -102,6 +102,7 @@ export default function ConsolidationsPage() {
                 <Box sx={{margin: 'auto', textAlign: 'center'}}>
                   <Type variant="caption">
                     <Link
+                      sx={{display: 'block'}}
                       variant="inherit"
                       href="https://pcwa.imgix.net/pcwa-net/stewardship/consolidations/consolidationsMap.png"
                     >
