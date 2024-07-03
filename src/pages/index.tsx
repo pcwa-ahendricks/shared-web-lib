@@ -61,7 +61,8 @@ const imgixImages = [
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/loomis-demo-garden/Pic_23_00095707_demo.jpg',
   'https://pcwa.imgix.net/pcwa-net/customer-service/erp/New%20Customer%20Portal%20-%20Postcard%20-%20short%20no%20logo%20.png',
   'https://pcwa.imgix.net/pcwa-net/media/water-future/PCWA_WebBG.jpg',
-  'https://pcwa.imgix.net/pcwa-net/customer-service/erp/PCWA_BillingPlatform_Graphic.jpg'
+  'https://pcwa.imgix.net/pcwa-net/customer-service/erp/PCWA_BillingPlatform_Graphic.jpg',
+  'https://pcwa.imgix.net/pcwa-net/energy/biomass/PPT%20Background-Biomass%20Supply-1.png'
 ]
 
 type Props = {
@@ -302,6 +303,17 @@ const Index = ({
               }}
             />
           </ChildBox> */}
+
+          <Grid xs={6} sm={4} md={3}>
+            <CoverTile
+              title="Biomass Supply Symposium Event"
+              imgixURL="https://pcwa.imgix.net/pcwa-net/energy/biomass/PPT%20Background-Biomass%20Supply-1.png"
+              linkHref="/energy/biomass-supply"
+              alt="Biomass Supply Symposium Event"
+              imgixParams={{crop: 'top'}}
+            />
+          </Grid>
+
           <Grid xs={6} sm={4} md={3}>
             <CoverTile
               // width={tileWidth}
