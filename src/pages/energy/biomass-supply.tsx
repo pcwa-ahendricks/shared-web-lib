@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {CSSProperties} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 // import PageTitle from '@components/PageTitle/PageTitle'
@@ -27,11 +27,20 @@ const ReactPdfPage = dynamic(
   }
 )
 
-export default function BasicTemplatePage() {
+export default function BiomassSupplyPage() {
   const LinkComponent = useLinkComponent({
     target: '_blank',
     rel: 'noopener noreferrer'
   })
+
+  const speakerImgStyle: CSSProperties = {
+    width: '100%',
+    height: 'auto',
+    objectFit: 'cover',
+    maxWidth: '50vw',
+    marginBottom: '16px' // adds a extra space when bios contain photos (note, <Image/> doesn't use mui 8x spacing)
+  }
+
   return (
     <PageLayout title="Biomass Supply" marginTop={0}>
       <Box sx={{display: 'flex', flexDirection: 'column'}}>
@@ -183,7 +192,7 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <Spacing factor={2} />
           <Box>
             <Type variant="h3" color="primary">
               Reports and Resources
@@ -255,20 +264,21 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <Spacing factor={2} />
+
           <Box>
             <Type variant="h3" color="primary">
               Speakers
             </Type>
             <Spacing />
             <Box>
-              <Grid container spacing={8}>
+              <Grid container columnSpacing={8}>
                 <Grid xs={12} sm={8}>
                   <Type variant="h4" gutterBottom>
                     Joshua Alpine
                   </Type>
                   <Type variant="h5">PCWA Board Director, District 5</Type>
-                  <Spacing />
+                  <SpeakerBioDivider />
                   <Type paragraph variant="body2">
                     Elected in November 2012 to the PCWA Board of Directors, Mr.
                     Alpine represents{' '}
@@ -287,9 +297,9 @@ export default function BasicTemplatePage() {
                 </Grid>
               </Grid>
             </Box>
-
+            <Spacing />
             <Box>
-              <Grid container spacing={8}>
+              <Grid container columnSpacing={8}>
                 <Grid xs={12} sm={8}>
                   <Type variant="h4" gutterBottom>
                     Lori Parlin
@@ -297,7 +307,7 @@ export default function BasicTemplatePage() {
                   <Type variant="h5">
                     El Dorado County Supervisor of District 4
                   </Type>
-                  <Spacing />
+                  <SpeakerBioDivider />
                   <Type paragraph variant="body2">
                     Lori Parlin is the El Dorado County Supervisor of District
                     IV, which is the northern portion of the county and includes
@@ -312,10 +322,10 @@ export default function BasicTemplatePage() {
                 </Grid>
               </Grid>
             </Box>
-            <Spacing />
+            <SpeakerDivider />
 
             <Box>
-              <Grid container spacing={8}>
+              <Grid container columnSpacing={8}>
                 <Grid xs={12} sm={8}>
                   <Type variant="h4" gutterBottom>
                     Tom Ivy
@@ -324,7 +334,7 @@ export default function BasicTemplatePage() {
                     Grass Valley Planning Commission and Grass Valley Council
                     Member
                   </Type>
-                  <Spacing />
+                  <SpeakerBioDivider />
                   <Type paragraph variant="body2">
                     Tom runs a small, efficiency-minded, general and plumbing
                     contracting business out of Grass Valley, originally started
@@ -346,11 +356,9 @@ export default function BasicTemplatePage() {
                 </Grid>
               </Grid>
             </Box>
-            <Spacing />
-            <Divider variant="inset" />
-            <Spacing />
+            <SpeakerPanelDivider />
             <Box>
-              <Grid container spacing={8}>
+              <Grid container columnSpacing={8}>
                 <Grid xs={12} sm={8}>
                   <Type variant="h4" gutterBottom>
                     Steve Monaghan
@@ -359,7 +367,7 @@ export default function BasicTemplatePage() {
                     Director, Information and General Services Agency, Nevada
                     County
                   </Type>
-                  <Spacing />
+                  <SpeakerBioDivider />
                   <Type paragraph variant="body2">
                     As Director of the Information and General Services Agency
                     for Nevada County, Steve oversees nine county business
@@ -385,14 +393,16 @@ export default function BasicTemplatePage() {
                     alt="Steve Monaghan"
                     loader={imgixUrlLoader}
                     src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Stephen%20Monaghan.jpg"
-                    style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                    style={{
+                      ...speakerImgStyle
+                    }}
                   />
                 </Grid>
               </Grid>
             </Box>
-            <Spacing />
+            <SpeakerDivider />
             <Box>
-              <Grid container spacing={8}>
+              <Grid container columnSpacing={8}>
                 <Grid xs={12} sm={8}>
                   <Type variant="h4" gutterBottom>
                     Mark Egbert
@@ -400,7 +410,7 @@ export default function BasicTemplatePage() {
                   <Type variant="h5">
                     District Manager, El Dorado & Georgetown Divide RCD
                   </Type>
-                  <Spacing />
+                  <SpeakerBioDivider />
                   <Type paragraph variant="body2">
                     Mark Egbert is an experienced Resource Management Specialist
                     and has over 25 years of experience working with all levels
@@ -425,15 +435,17 @@ export default function BasicTemplatePage() {
                     alt="Mark Egbert"
                     loader={imgixUrlLoader}
                     src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Mark%20Egbert%20Headshot.JPG"
-                    style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                    style={{
+                      ...speakerImgStyle
+                    }}
                   />
                 </Grid>
               </Grid>
             </Box>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Josh Huntsinger
@@ -442,7 +454,7 @@ export default function BasicTemplatePage() {
                   Director of Agriculture, Parks, and Natural Resources, Placer
                   County
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Josh, inspired by his farming grandparents and relatives,
                   pursued agriculture through high school and college, working
@@ -466,17 +478,16 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
-          <Divider variant="inset" />
-          <Spacing />
+
+          <SpeakerPanelDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Matt Dias
                 </Type>
                 <Type variant="h5">President/CEO at Calforests</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Matt Dias, President/CEO of the California Forestry
                   Association (Calforests) graduated from Humboldt State
@@ -496,14 +507,16 @@ export default function BasicTemplatePage() {
                   alt="Matt Dias"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Matt%20Dias.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Jamie Jones
@@ -511,7 +524,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Executive Director, Fire Safe Council of Nevada County
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Jamie Jones, Executive Director of the Fire Safe Council of
                   Nevada County, is a native of Nevada City, California. Jamie
@@ -541,15 +554,15 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   John McCarthy
                 </Type>
                 <Type variant="h5">Cal Fire, Wood products and Bioenergy</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   John is a Registered Professional Forester and the Program
                   Manager for Wood Products and Bioenergy at the California
@@ -570,17 +583,18 @@ export default function BasicTemplatePage() {
                   alt="John Mccarthy"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/John%20Mccarthy.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
-          <Divider variant="inset" />
-          <Spacing />
+
+          <SpeakerPanelDivider />
 
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Chris Quijano
@@ -588,7 +602,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Director of Operations, IHI Power Services Corp.
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   With over 17 years of experience in the biomass power
                   generation industry, Chris has served in various roles such as
@@ -616,21 +630,23 @@ export default function BasicTemplatePage() {
                   alt="Chris Quijano"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Chris%20Quijano.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
 
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Mark Shaffer
                 </Type>
                 <Type variant="h5">Fuel Manager, Honey Lake Power Company</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Mark is a California Registered Professional Forester # 2485,
                   with over 34 years of experience in the field of Forest
@@ -655,14 +671,16 @@ export default function BasicTemplatePage() {
                   alt="Mark Shaffer"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Mark%20Shaffer.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Jim Turner
@@ -670,7 +688,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Director of Operations-Tahoe Forest Products
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Jim started his career at Sierra Pacific Industries and during
                   the 35 year stint worked on both the lumber production side
@@ -700,18 +718,16 @@ export default function BasicTemplatePage() {
             </Grid>
           </Box>
 
-          <Spacing />
-          <Divider variant="inset" />
-          <Spacing />
+          <SpeakerPanelDivider />
 
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Les Day
                 </Type>
                 <Type variant="h5">New Business, Mountain F. Enterprises</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Hollis W. Day, commonly known as Les, is the Corporate Safety
                   Director at Mountain F. Enterprises, a leading utility tree
@@ -744,21 +760,23 @@ export default function BasicTemplatePage() {
                   alt="Les Day"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Les%20Day%20Pic.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
 
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Madison Thompson
                 </Type>
                 <Type variant="h5">Lands Manager, The CHY Company</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Madison Thomson is a Registered Professional Forester
                   (RPF#2947) with over 16 years of experience managing
@@ -792,20 +810,22 @@ export default function BasicTemplatePage() {
                   alt="Madison Thompson"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Madison%20Picture.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Joe Griggs
                 </Type>
                 <Type variant="h5">Robinson Enterprises</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Joe's work experience began with a summer job at Robinson
                   Enterprises (REI) in 1974. After being officially hired and
@@ -826,12 +846,10 @@ export default function BasicTemplatePage() {
             </Grid>
           </Box>
 
-          <Spacing />
-          <Divider variant="inset" />
-          <Spacing />
+          <SpeakerPanelDivider />
 
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Carl Rudeen
@@ -839,7 +857,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Geospatial Analysist, Spatial Informatics Group
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Carl joined the SIG team after 13 years working for the U.S.
                   Air Force. He brings significant experience as a biologist,
@@ -867,9 +885,9 @@ export default function BasicTemplatePage() {
             </Grid>
           </Box>
 
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Rob Lawson
@@ -877,7 +895,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Planscape Go-to-market and Partnership Lead, SIG
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Rob leads partnerships and go-to-market strategy for
                   Planscape, the decision support tool for wildfire resilience.
@@ -896,15 +914,15 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Camille Swezy
                 </Type>
                 <Type variant="h5">Mule Ears Consulting</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Camille has been working at the intersection of biomass
                   utilization and forest restoration for a decade. Some examples
@@ -926,17 +944,18 @@ export default function BasicTemplatePage() {
                   alt="Camille Swezy"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Camille%20headshot.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
 
-          <Spacing />
-          <Divider variant="inset" />
-          <Spacing />
+          <SpeakerPanelDivider />
+
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Martin Twer
@@ -944,7 +963,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Biomass Program Director, The Watershed Center
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Martin Twer is the Biomass Program Director for the Watershed
                   Research and Training Center, a non-profit organization that
@@ -975,15 +994,15 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Christiana Darlington
                 </Type>
                 <Type variant="h5">Lawyer and Owner, CLERE INC</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   A native of South Lake Tahoe, Christiana has a longstanding
                   dedication to innovations that respect our forests and other
@@ -1007,9 +1026,9 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Sam Uden
@@ -1018,7 +1037,7 @@ export default function BasicTemplatePage() {
                   Director of Climate and Energy Policy, Conservation Strategy
                   Group
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Sam Uden is the Director of Climate and Energy Policy at
                   Conservation Strategy Group, an environmental policy firm
@@ -1033,15 +1052,15 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Josiah Hunt
                 </Type>
                 <Type variant="h5">CEO, Pacific Biochar</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Josiah Hunt has, since 2008, helped to innovate methods for
                   biochar production, processing, and application in carbon
@@ -1057,15 +1076,17 @@ export default function BasicTemplatePage() {
                   alt="Josiah Hunt"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Josiah%20Hunt%20Headshot.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
 
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   David Lach
@@ -1074,7 +1095,7 @@ export default function BasicTemplatePage() {
                   Director of Natural Climate Solutions, Avoided wildfire
                   Emissions
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   David Lach serves as Director of Natural Climate Solutions at
                   Anew. Working primarily on ecologically restorative carbon
@@ -1094,18 +1115,18 @@ export default function BasicTemplatePage() {
                   alt="David Lach"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/David%20Lach.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
 
-          <Spacing />
-          <Divider variant="inset" />
-          <Spacing />
+          <SpeakerPanelDivider />
 
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Michael Maguire
@@ -1113,7 +1134,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Associate Planner, Wood product Innovation, OPR
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Michael is an Associate Planner for Wood Product Innovation
                   and has been with OPR since 2015. Michael manages the Woody
@@ -1144,15 +1165,15 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Kerri Timmer
                 </Type>
                 <Type variant="h5">County of Placer</Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Joined Placer County as Regional Forest Health Coordinator in
                   May 202 after spending 14 years in senior management positions
@@ -1180,14 +1201,16 @@ export default function BasicTemplatePage() {
                   alt="Kerri Timmer"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Kerri%20Timmer%20headshot.pdf"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Tony Firenzi
@@ -1195,7 +1218,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Director of Strategic Affairs, Placer County Water Agency
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Tony Firenzi is a Professional Engineer and Director of
                   Strategic Affairs at Placer County Water Agency (PCWA), where
@@ -1219,12 +1242,10 @@ export default function BasicTemplatePage() {
             </Grid>
           </Box>
 
-          <Spacing />
-          <Divider variant="inset" />
-          <Spacing />
+          <SpeakerPanelDivider />
 
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Catherine Silvester
@@ -1232,7 +1253,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Landmark Consultant and Owner of Point View Environmental
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Catherine Silvester is the owner of Point View Environmental.
                   She has over 17 years of experience in environmental
@@ -1246,9 +1267,9 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Amy Lapin
@@ -1256,7 +1277,7 @@ export default function BasicTemplatePage() {
                 <Type variant="h5">
                   Economic and Planning Systems, INC. (EPS)
                 </Type>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Since joining EPS in 2003, Amy has helped clients answer key
                   questions to advance sustainable development and public
@@ -1297,18 +1318,18 @@ export default function BasicTemplatePage() {
                   alt="Amy Lapin"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Amy%20Lapin.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
 
-          <Spacing />
-          <Divider variant="inset" />
-          <Spacing />
+          <SpeakerPanelDivider />
 
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Elizabeth Betancourt
@@ -1319,7 +1340,7 @@ export default function BasicTemplatePage() {
                 <Link href="mailto:Elizabeth.betancout@conservation.ca.gov">
                   Elizabeth.betancout@conservation.ca.gov
                 </Link>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Elizabeth Betancourt has been finding unconventional ways to
                   achieve successes in natural and working lands management,
@@ -1337,9 +1358,9 @@ export default function BasicTemplatePage() {
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Emily Blackmer
@@ -1350,7 +1371,7 @@ export default function BasicTemplatePage() {
                 <Link href="mailto:Emily.Blackmer@sierranevada.ca.gov">
                   Emily.Blackmer@sierranevada.ca.gov
                 </Link>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Emily Blackmer works on natural resource and climate policy in
                   California’s Sierra Nevada and Cascade region. She is
@@ -1371,15 +1392,17 @@ export default function BasicTemplatePage() {
                   alt="Emily Blackmer"
                   loader={imgixUrlLoader}
                   src="https://pcwa.imgix.net/pcwa-net/energy/biomass/speaker-bio/Emily%20Blackmer_headshot.jpg"
-                  style={{width: '100%', height: 'auto', objectFit: 'cover'}}
+                  style={{
+                    ...speakerImgStyle
+                  }}
                 />
               </Grid>
             </Grid>
           </Box>
-          <Spacing />
+          <SpeakerDivider />
 
           <Box>
-            <Grid container spacing={8}>
+            <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
                 <Type variant="h4" gutterBottom>
                   Katie Harrell
@@ -1392,7 +1415,7 @@ export default function BasicTemplatePage() {
                 <Link href="mailto:katie.harrell@bof.ca.gov">
                   katie.harrell@bof.ca.gov
                 </Link>
-                <Spacing />
+                <SpeakerBioDivider />
                 <Type paragraph variant="body2">
                   Katie Harrell has been working on California forest health
                   issues for over 20 years. She is the program administrator for
@@ -1418,4 +1441,20 @@ export default function BasicTemplatePage() {
       </MainBox>
     </PageLayout>
   )
+}
+
+const SpeakerPanelDivider = () => {
+  return (
+    <Box sx={{pt: 3, pb: 5}}>
+      <Divider variant="middle" sx={{mx: 8}} />
+    </Box>
+  )
+}
+
+const SpeakerDivider = () => {
+  return <Spacing />
+}
+
+const SpeakerBioDivider = () => {
+  return <Spacing size="small" />
 }
