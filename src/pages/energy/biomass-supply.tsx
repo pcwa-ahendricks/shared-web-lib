@@ -23,6 +23,7 @@ import dynamic from 'next/dynamic'
 import useLinkComponent from '@hooks/useLinkComponent'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import Link from '@components/Link'
+import FadeIn from '@components/boxes/animate/FadeIn'
 const ReactPdfPage = dynamic(
   () => import('@components/PDFPage/ReactPdfSinglePage'),
   {
@@ -198,6 +199,10 @@ export default function BiomassSupplyPage() {
                       slotProps={{
                         DocumentProps: {
                           loading: <></>
+                        },
+                        PageProps: {
+                          renderTextLayer: false,
+                          pageNumber: agendaPg
                         }
                       }}
                       url="https://pcwa.sfo3.digitaloceanspaces.com/pcwa-net/energy/biomass/2024_Biomass_Symposium_Final_Agenda.pdf"
