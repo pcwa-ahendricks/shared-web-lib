@@ -61,7 +61,7 @@ export default function BiomassSupplyPage() {
         />
       </Box>
       <Spacing factor={2} />
-      <MainBox>
+      <MainBox sx={{maxWidth: '100%', overflow: 'hidden'}}>
         <WideContainer>
           <Type variant="h3">June 26, 2024</Type>
           <Type variant="h2">Biomass Supply Symposium Event</Type>
