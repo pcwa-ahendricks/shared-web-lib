@@ -23,7 +23,6 @@ import dynamic from 'next/dynamic'
 import useLinkComponent from '@hooks/useLinkComponent'
 import ImageThumbLink from '@components/ImageThumbLink/ImageThumbLink'
 import Link from '@components/Link'
-import FadeIn from '@components/boxes/animate/FadeIn'
 const ReactPdfPage = dynamic(
   () => import('@components/PDFPage/ReactPdfSinglePage'),
   {
