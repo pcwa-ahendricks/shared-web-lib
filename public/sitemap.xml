@@ -104,6 +104,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/energy/biomass-supply</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/smart-water-use/trees</loc>
     <changefreq>daily</changefreq>
   </url>
@@ -129,6 +133,10 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/services/water-quality</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/stewardship/recreation</loc>
     <changefreq>daily</changefreq>
   </url>
   <url>
