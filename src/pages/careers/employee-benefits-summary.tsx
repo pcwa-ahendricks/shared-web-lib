@@ -43,7 +43,7 @@ const EmployeeBenefitsSummaryPage = () => {
     )
   }
 
-  const tlsOpts = {style: 'currency', currency: 'USD'}
+  const tlsOpts: Intl.NumberFormatOptions = {style: 'currency', currency: 'USD'}
 
   return (
     <PageLayout title="Employee Benefits Summary" waterSurface={false}>
