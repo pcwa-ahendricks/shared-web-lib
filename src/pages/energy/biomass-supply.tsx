@@ -82,20 +82,6 @@ export default function BiomassSupplyPage() {
                   <ListItemButton
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/energy/biomass/speaker-slides/A%20Look%20Ahead%20for%20Cal%20FRAME%20in%20the%20Tahoe-Central%20Sierra%20by%20Christiana%20Darlington.pptx"
-                  >
-                    <ListItemText primary="A Look Ahead for Cal FRAME in the Tahoe-Central Sierra by Christiana Darlington (PPT, 13 MB)" />
-                  </ListItemButton>
-                  <ListItemButton
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/energy/biomass/speaker-slides/OPR%20Cal%20FRAME%20Woody%20Feedstock%20Pilots%20Overviewby%20Michael%20Maguire.pptx"
-                  >
-                    <ListItemText primary="OPR Cal FRAME Woody Feedstock Pilots Overview by Michael Maguire (PPT, 7 MB)" />
-                  </ListItemButton>
-                  <ListItemButton
-                    target="_blank"
-                    rel="noopener noreferrer"
                     href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/energy/biomass/speaker-slides/Panel%201-Biomass%20Collection%20Carried%20Out%20by%20Local%20Government.pptx"
                   >
                     <ListItemText primary="Panel 1 - Biomass Collection Carried Out by Local Government (PPT, 33 MB)" />
@@ -138,6 +124,13 @@ export default function BiomassSupplyPage() {
                   <ListItemButton
                     target="_blank"
                     rel="noopener noreferrer"
+                    href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/energy/biomass/speaker-slides/OPR%20Cal%20FRAME%20Woody%20Feedstock%20Pilots%20Overviewby%20Michael%20Maguire.pptx"
+                  >
+                    <ListItemText primary="OPR Cal FRAME Woody Feedstock Pilots Overview by Michael Maguire (PPT, 7 MB)" />
+                  </ListItemButton>
+                  <ListItemButton
+                    target="_blank"
+                    rel="noopener noreferrer"
                     href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/energy/biomass/speaker-slides/Panel%207-TCS%20CAL%20FRAME%20Panel%201.pptx"
                   >
                     <ListItemText primary="Panel 7 - TCS CAL FRAME Panel 1 (PPT, 37 MB)" />
@@ -148,6 +141,13 @@ export default function BiomassSupplyPage() {
                     href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/energy/biomass/speaker-slides/Panel%208-Panel%207-TCS%20CAL%20FRAME%20Panel%202.pptx"
                   >
                     <ListItemText primary="Panel 8 - TCS CAL FRAME Panel 2 (PPT, 19 MB)" />
+                  </ListItemButton>
+                  <ListItemButton
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/energy/biomass/speaker-slides/A%20Look%20Ahead%20for%20Cal%20FRAME%20in%20the%20Tahoe-Central%20Sierra%20by%20Christiana%20Darlington.pptx"
+                  >
+                    <ListItemText primary="A Look Ahead for Cal FRAME in the Tahoe-Central Sierra by Christiana Darlington (PPT, 13 MB)" />
                   </ListItemButton>
                   <ListItemButton
                     target="_blank"
@@ -1165,7 +1165,7 @@ export default function BiomassSupplyPage() {
               </Grid>
             </Grid>
           </Box>
-          <SpeakerDivider />
+          <SpeakerPanelDivider />
           <Box>
             <Grid container columnSpacing={8}>
               <Grid xs={12} sm={8}>
