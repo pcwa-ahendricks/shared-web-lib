@@ -1,4 +1,4 @@
-import React, {CSSProperties} from 'react'
+import React, {CSSProperties, useCallback, useState} from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 // import PageTitle from '@components/PageTitle/PageTitle'
@@ -12,9 +12,12 @@ import {
   ListItemText,
   ListItemButton,
   Button,
-  Divider
+  Divider,
+  ButtonGroup
 } from '@mui/material'
 import Spacing from '@components/boxes/Spacing'
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
+import NavigatePrevIcon from '@mui/icons-material/NavigateBefore'
 import WideContainer from '@components/containers/WideContainer'
 import dynamic from 'next/dynamic'
 import useLinkComponent from '@hooks/useLinkComponent'
@@ -40,6 +43,16 @@ export default function BiomassSupplyPage() {
     maxWidth: '50vw',
     marginBottom: '16px' // adds a extra space when bios contain photos (note, <Image/> doesn't use mui 8x spacing)
   }
+
+  const [agendaPg, setAgendaPg] = useState(1)
+
+  const nextPgClickHandler = useCallback(() => {
+    setAgendaPg(2)
+  }, [])
+
+  const prevPgClickHander = useCallback(() => {
+    setAgendaPg(1)
+  }, [])
 
   return (
     <PageLayout title="Biomass Supply" marginTop={0}>
@@ -183,11 +196,37 @@ export default function BiomassSupplyPage() {
                   >
                     <ReactPdfPage
                       slotProps={{
-                        PageProps: {renderTextLayer: false, pageNumber: 1}
+                        DocumentProps: {
+                          loading: <></>
+                        }
                       }}
                       url="https://pcwa.sfo3.digitaloceanspaces.com/pcwa-net/energy/biomass/2024_Biomass_Symposium_Final_Agenda.pdf"
                     />
                   </Box>
+                  <ButtonGroup
+                    variant="text"
+                    aria-label="Basic button group"
+                    fullWidth
+                  >
+                    <Button
+                      tabIndex={-1}
+                      startIcon={<NavigatePrevIcon />}
+                      fullWidth
+                      onClick={prevPgClickHander}
+                      disabled={agendaPg === 1}
+                    >
+                      Prev
+                    </Button>
+                    <Button
+                      tabIndex={-1}
+                      endIcon={<NavigateNextIcon />}
+                      fullWidth
+                      onClick={nextPgClickHandler}
+                      disabled={agendaPg === 2}
+                    >
+                      Next
+                    </Button>
+                  </ButtonGroup>
                 </Box>
               </Grid>
             </Grid>

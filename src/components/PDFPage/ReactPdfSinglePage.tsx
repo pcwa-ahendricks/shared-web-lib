@@ -18,6 +18,9 @@ const ReactPdfSinglePage = ({url, slotProps = {}}: Props) => {
   const [ref, {width}] = useMeasure()
 
   const {DocumentProps = {}, PageProps = {}} = slotProps
+  const {pageNumber = 1, ...restPageProps} = PageProps
+
+  const maxWidth = 900
 
   return (
     <Box position="relative">
@@ -40,9 +43,10 @@ const ReactPdfSinglePage = ({url, slotProps = {}}: Props) => {
               {...DocumentProps}
             >
               <Page
-                width={width >= 900 ? 900 : width}
-                key={`page_1`}
-                {...PageProps}
+                width={width ? Math.min(width, maxWidth) : maxWidth}
+                key={`page_${pageNumber}`}
+                pageNumber={pageNumber}
+                {...restPageProps}
               />
             </Document>
           </Box>
