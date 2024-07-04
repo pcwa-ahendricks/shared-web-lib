@@ -23,14 +23,11 @@ const ReactPdfSinglePage = ({url, slotProps = {}}: Props) => {
 
   const maxWidth = 900
   const [pageNumber, setPageNumber] = useState(1)
-  const [renderedPageNumber, setRenderedPageNumber] = useState(null)
   const [numPages, setNumPages] = useState(null)
 
   function documentLoadSuccessHandler({numPages}) {
     setNumPages(numPages)
   }
-
-  const isLoading = renderedPageNumber !== pageNumber
 
   function changePage(offset) {
     setPageNumber((prevPageNumber) => prevPageNumber + offset)
@@ -65,19 +62,10 @@ const ReactPdfSinglePage = ({url, slotProps = {}}: Props) => {
               onLoadSuccess={documentLoadSuccessHandler}
               {...DocumentProps}
             >
-              {isLoading && renderedPageNumber ? (
-                <Page
-                  key={renderedPageNumber}
-                  className="prevPage"
-                  pageNumber={renderedPageNumber}
-                  width={400}
-                />
-              ) : null}
               <Page
                 width={width ? Math.min(width, maxWidth) : maxWidth}
                 key={`page_${pageNumber}`}
                 pageNumber={pageNumber}
-                onRenderSuccess={() => setRenderedPageNumber(pageNumber)}
                 {...PageProps}
               />
             </Document>

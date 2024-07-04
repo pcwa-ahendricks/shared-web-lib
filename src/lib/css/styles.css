@@ -113,8 +113,3 @@ a:not([class^='Mui']):active {
   white-space: nowrap; /* Added to prevent text wrapping */
   border: 0;
 }
-
-.react-pdf__Page.prevPage {
-  position: absolute !important;
-  z-index: 1;
-}
