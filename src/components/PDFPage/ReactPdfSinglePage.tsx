@@ -1,6 +1,8 @@
-import React from 'react'
-import {Box} from '@mui/material'
+import React, {useCallback, useState} from 'react'
+import {Box, Button, ButtonGroup} from '@mui/material'
 import {useMeasure} from 'react-use'
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
+import NavigatePrevIcon from '@mui/icons-material/NavigateBefore'
 import {Document, DocumentProps, Page, PageProps, pdfjs} from 'react-pdf'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
@@ -18,9 +20,29 @@ const ReactPdfSinglePage = ({url, slotProps = {}}: Props) => {
   const [ref, {width}] = useMeasure()
 
   const {DocumentProps = {}, PageProps = {}} = slotProps
-  const {pageNumber = 1, ...restPageProps} = PageProps
 
   const maxWidth = 900
+  const [pageNumber, setPageNumber] = useState(1)
+  const [renderedPageNumber, setRenderedPageNumber] = useState(null)
+  const [numPages, setNumPages] = useState(null)
+
+  function documentLoadSuccessHandler({numPages}) {
+    setNumPages(numPages)
+  }
+
+  const isLoading = renderedPageNumber !== pageNumber
+
+  function changePage(offset) {
+    setPageNumber((prevPageNumber) => prevPageNumber + offset)
+  }
+
+  const nextPgClickHandler = useCallback(() => {
+    changePage(1)
+  }, [])
+
+  const prevPgClickHander = useCallback(() => {
+    changePage(-1)
+  }, [])
 
   return (
     <Box position="relative">
@@ -40,18 +62,54 @@ const ReactPdfSinglePage = ({url, slotProps = {}}: Props) => {
             <Document
               file={url}
               onLoadError={(e) => console.log(e)}
+              onLoadSuccess={documentLoadSuccessHandler}
               {...DocumentProps}
             >
+              {isLoading && renderedPageNumber ? (
+                <Page
+                  key={renderedPageNumber}
+                  className="prevPage"
+                  pageNumber={renderedPageNumber}
+                  width={400}
+                />
+              ) : null}
               <Page
                 width={width ? Math.min(width, maxWidth) : maxWidth}
                 key={`page_${pageNumber}`}
                 pageNumber={pageNumber}
-                {...restPageProps}
+                onRenderSuccess={() => setRenderedPageNumber(pageNumber)}
+                {...PageProps}
               />
             </Document>
           </Box>
         </Box>
       ) : null}
+      <Box>
+        <ButtonGroup
+          variant="text"
+          aria-label="PDF Pagination Buttons"
+          fullWidth
+        >
+          <Button
+            tabIndex={-1}
+            startIcon={<NavigatePrevIcon />}
+            fullWidth
+            onClick={prevPgClickHander}
+            disabled={pageNumber === 1}
+          >
+            Prev
+          </Button>
+          <Button
+            tabIndex={-1}
+            endIcon={<NavigateNextIcon />}
+            fullWidth
+            onClick={nextPgClickHandler}
+            disabled={pageNumber === numPages}
+          >
+            Next
+          </Button>
+        </ButtonGroup>
+      </Box>
     </Box>
   )
 }
