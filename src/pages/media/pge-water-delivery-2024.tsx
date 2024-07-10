@@ -105,7 +105,7 @@ export default function PgeWaterDelivery2024Page() {
           <Spacing size="small" />
           <Box>
             <Image
-              src="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/South%20Yuba%20Canal%20Map.png"
+              src="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/South%20Yuba%20Canal%20Map_v2.png"
               alt="PG&E Mountain Division South Yuba Lower Map"
               loader={imgixUrlLoader}
               layout="responsive"
