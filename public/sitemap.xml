@@ -3352,6 +3352,10 @@
     <changefreq>yearly</changefreq>
   </url>
   <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-agendas/2024-07-22-City-of-Lincoln-PCWA-Water-Committee</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2002-01-12</loc>
     <changefreq>yearly</changefreq>
   </url>
@@ -4161,6 +4165,14 @@
   </url>
   <url>
     <loc>https://www.pcwa.net/newsroom/publications/newsletters/2024-07-08</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/06-06-2024</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.pcwa.net/board-of-directors/meeting-minutes/05-16-2024</loc>
     <changefreq>yearly</changefreq>
   </url>
   <url>

@@ -8,20 +8,30 @@ const StrongEmphasis = ({
 }: TypographyProps & {
   slotProps?: {em?: Partial<TypographyProps>; strong?: Partial<TypographyProps>}
 }) => {
+  const {em: emProps = {}, strong: strongProps = {}} = slotProps || {}
+  const {sx: emSx = {}, ...emRest} = emProps
+  const {sx: strongSx = {}, ...strongRest} = strongProps
   return (
     <Type
       component="strong"
       color="inherit"
       variant="inherit"
+      sx={{
+        ...strongSx
+      }}
       {...rest}
-      {...slotProps?.strong}
+      {...strongRest}
     >
       <Type
         component="em"
         color="inherit"
         variant="inherit"
+        sx={{
+          fontStyle: 'italic',
+          ...emSx
+        }}
         {...rest}
-        {...slotProps?.em}
+        {...emRest}
       >
         {children}
       </Type>
