@@ -82,10 +82,13 @@ export default function RecreationPage() {
             </Grid>
           </Grid>
           <Spacing />
-          <Grid container columnSpacing={8} rowSpacing={4}>
-            <Grid xs={12} sm={6}>
+          <Grid container spacing={{xs: 2, sm: 6}}>
+            <Grid xs={12} sm={5}>
               <FadeInIntersect animateKey="recreation-1">
-                <Paper sx={{bgcolor: 'common.white'}} square={false}>
+                <Paper
+                  sx={{bgcolor: 'common.white', height: '100%'}}
+                  square={false}
+                >
                   <Box sx={{py: 2, px: 3}}>
                     <Box display="flex" alignItems="center">
                       <HikingIcon color="secondary" />
@@ -94,24 +97,37 @@ export default function RecreationPage() {
                       </Type>
                     </Box>
                     <Spacing size="small" />
-                    <Type paragraph variant="body2">
-                      Enjoy thrilling whitewater rafting with flow schedules and
-                      access points for all experience levels. Fish for trout in
-                      pristine reservoirs like French Meadows and Hell Hole,
-                      stocked annually by the Department of Fish and Wildlife.
-                      Explore scenic trails for hiking, mountain biking, and
-                      horseback riding, suitable for all ages and skill levels.
-                      Find perfect spots for tent, RV, and group camping across
-                      beautiful campgrounds managed in partnership with state
-                      and federal agencies. Experience exhilarating off-road
-                      adventures with trails and staging areas in the Tahoe
-                      National Forest.
-                    </Type>
+
+                    <Box component="ul" sx={{marginTop: 1}}>
+                      <Type component="li" variant="body2">
+                        Enjoy thrilling whitewater rafting with flow schedules
+                        and access points for all experience levels.
+                      </Type>
+                      <Type component="li" variant="body2">
+                        Fish for trout in pristine reservoirs like French
+                        Meadows and Hell Hole, stocked annually by the
+                        Department of Fish and Wildlife.
+                      </Type>
+                      <Type component="li" variant="body2">
+                        Explore scenic trails for hiking, mountain biking, and
+                        horseback riding, suitable for all ages and skill
+                        levels.
+                      </Type>
+                      <Type component="li" variant="body2">
+                        Find perfect spots for tent, RV, and group camping
+                        across beautiful campgrounds managed in partnership with
+                        state and federal agencies.
+                      </Type>
+                      <Type component="li" variant="body2">
+                        Experience exhilarating off-road adventures with trails
+                        and staging areas in the Tahoe National Forest.
+                      </Type>
+                    </Box>
                   </Box>
                 </Paper>
               </FadeInIntersect>
             </Grid>
-            <Grid xs={12} sm={6}>
+            <Grid xs={12} sm={7}>
               <FadeInIntersect animateKey="recreation-2">
                 <Paper sx={{bgcolor: 'common.white'}} square={false}>
                   <Box sx={{py: 2, px: 3}}>
@@ -133,9 +149,9 @@ export default function RecreationPage() {
                   </Box>
                 </Paper>
               </FadeInIntersect>
-            </Grid>
 
-            <Grid xs={12} sm={6}>
+              <Box sx={{my: 2}} />
+
               <FadeInIntersect animateKey="recreation-3">
                 <Paper sx={{bgcolor: 'common.white'}} square={false}>
                   <Box sx={{py: 2, px: 3}}>
@@ -155,8 +171,9 @@ export default function RecreationPage() {
                   </Box>
                 </Paper>
               </FadeInIntersect>
-            </Grid>
-            <Grid xs={12} sm={6}>
+
+              <Box sx={{my: 2}} />
+
               <FadeInIntersect animateKey="recreation-4">
                 <Paper sx={{bgcolor: 'common.white'}} square={false}>
                   <Box sx={{py: 2, px: 3}}>

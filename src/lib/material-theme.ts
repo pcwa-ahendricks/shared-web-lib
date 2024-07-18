@@ -3,7 +3,7 @@ import {breakpoints, pxSpacing} from './theme-config'
 import localFont from 'next/font/local'
 // import {indigo, green, red} from '@mui/material/colors'
 
-const dona = localFont({
+export const dona = localFont({
   src: [
     {
       path: '../fonts/Dona/Dona-Regular.woff2',

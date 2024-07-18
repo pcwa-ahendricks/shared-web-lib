@@ -19,7 +19,6 @@ import useLinkComponent from '@hooks/useLinkComponent'
 
 export default function ConsolidationsPage() {
   const LinkComponent = useLinkComponent()
-
   return (
     <PageLayout title="Consolidations" waterSurface>
       <MainBox>
@@ -56,11 +55,48 @@ export default function ConsolidationsPage() {
                 aging infrastructure. Consequently, consolidation has emerged as
                 a practical solution.
               </Type>
+              <Type paragraph>
+                PCWA’s consolidation program has evolved significantly over the
+                years. Historically, PCWA provided support to small, non-PCWA
+                water systems in lower Placer County. As part of its ongoing
+                stewardship efforts, PCWA’s consolidation program continues to
+                expand at the request of small water systems and through its
+                partnership with the State Water Resource Control Board’s Safe
+                and Affordable Funding for Equity and Resilience program. In
+                addition, PCWA provides support and resources for non-PCWA
+                public water systems in Placer County through its{' '}
+                <Link href="/business/cwmp">Financial Assistance Program</Link>{' '}
+                and <Link href="/business/cwmp">County-Wide Master Plan</Link>.
+              </Type>
+              <Type paragraph>
+                A 2022 regional study identified the necessity for
+                interconnection and improved water reliability among 19 small
+                water systems that are concentrated along Interstate 80,
+                including some disadvantaged or severely disadvantaged
+                communities and individual customers relying on bottled water.
+                These include nearly 4,300 connections, serving a population of
+                approximately 12,525 people.
+              </Type>
             </Grid>
             <Grid xs={12} sm={5}>
-              <Paper sx={{bgcolor: 'common.white'}}>
-                <Box sx={{p: 2}}>
-                  <Type variant="subtitle1">
+              <Paper
+                sx={{
+                  backgroundColor: 'primary.main',
+                  color: 'background.default',
+                  mx: 'auto',
+                  // Don't let portrait image get too big in small layouts.
+                  maxWidth: {
+                    xs: '75vw',
+                    sm: '350px'
+                  }
+                }}
+              >
+                <Box
+                  sx={{
+                    p: 2
+                  }}
+                >
+                  <Type variant="subtitle2">
                     Consolidation refers to the process of allowing smaller
                     community water systems to connect to larger, adjacent water
                     systems. PCWA views consolidation as an integral part of its
@@ -69,18 +105,14 @@ export default function ConsolidationsPage() {
                   </Type>
                 </Box>
               </Paper>
-            </Grid>
-          </Grid>
-          <Spacing />
-          <Grid container spacing={{xs: 4.5, sm: 6}}>
-            <Grid xs={12} sm={4} order={{xs: 1, sm: 0}}>
+              <Spacing size="x-large" />
               <Box
                 sx={{
                   mx: 'auto',
                   // Don't let portrait image get too big in small layouts.
-                  width: {
-                    xs: '60vw',
-                    sm: '100%'
+                  maxWidth: {
+                    xs: '40vw',
+                    sm: '200px'
                   }
                 }}
               >
@@ -112,31 +144,8 @@ export default function ConsolidationsPage() {
                 </Box>
               </Box>
             </Grid>
-            <Grid xs={12} sm={8} order={{xs: 0, sm: 1}}>
-              <Type paragraph>
-                PCWA’s consolidation program has evolved significantly over the
-                years. Historically, PCWA provided support to small, non-PCWA
-                water systems in lower Placer County. As part of its ongoing
-                stewardship efforts, PCWA’s consolidation program continues to
-                expand at the request of small water systems and through its
-                partnership with the State Water Resource Control Board’s Safe
-                and Affordable Funding for Equity and Resilience program. In
-                addition, PCWA provides support and resources for non-PCWA
-                public water systems in Placer County through its{' '}
-                <Link href="/business/cwmp">Financial Assistance Program</Link>{' '}
-                and <Link href="/business/cwmp">County-Wide Master Plan</Link>.
-              </Type>
-              <Type paragraph>
-                A 2022 regional study identified the necessity for
-                interconnection and improved water reliability among 19 small
-                water systems that are concentrated along Interstate 80,
-                including some disadvantaged or severely disadvantaged
-                communities and individual customers relying on bottled water.
-                These include nearly 4,300 connections, serving a population of
-                approximately 12,525 people.
-              </Type>
-            </Grid>
           </Grid>
+
           <Spacing factor={2} />
           <Blockquote>
             Consolidation efforts aim to bring safe, reliable water supplies to
