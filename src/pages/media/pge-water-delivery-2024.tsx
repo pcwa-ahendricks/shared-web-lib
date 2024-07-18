@@ -133,6 +133,14 @@ export default function PgeWaterDelivery2024Page() {
                 linkURL="https://www.pcwa.net/newsroom/news-releases/2024-06-24"
               />
               <Spacing />
+              <Type variant="caption">6/13/2024</Type>
+              <NewsBlurb
+                title="PG&E Repair Delays Worsen Water Delivery Challenges: PCWA and NID Respond"
+                readMoreCaption="Read News Release..."
+                summary="PCWA and Nevada Irrigation District (NID) have issued the following statement in response to the Pacific Gas & Electric (PG&E) company’s recent announcement regarding further delays in repairing essential water delivery infrastructure at their Spaulding #1 Powerhouse. Initially scheduled for completion by early June."
+                linkURL="https://www.pcwa.net/newsroom/news-releases/2024-06-13"
+              />
+              <Spacing />
               <Type variant="caption">4/23/2024</Type>
               <NewsBlurb
                 title="PCWA Asks Raw Water Customers for Voluntary Conservation Due to PG&E Water Delivery Problem"
