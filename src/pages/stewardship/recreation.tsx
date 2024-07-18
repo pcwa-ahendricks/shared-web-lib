@@ -83,8 +83,8 @@ export default function RecreationPage() {
           </Grid>
           <Spacing />
           <Grid container spacing={{xs: 2, sm: 6}}>
-            <Grid xs={12} sm={5}>
-              <FadeInIntersect animateKey="recreation-1">
+            <Grid xs={12} sm={5} sx={{display: 'flex'}}>
+              <FadeInIntersect animateKey="recreation-1" sx={{display: 'flex'}}>
                 <Paper
                   sx={{bgcolor: 'common.white', height: '100%'}}
                   square={false}
@@ -99,26 +99,26 @@ export default function RecreationPage() {
                     <Spacing size="small" />
 
                     <Box component="ul" sx={{marginTop: 1}}>
-                      <Type component="li" variant="body2">
+                      <Type component="li" variant="body2" gutterBottom>
                         Enjoy thrilling whitewater rafting with flow schedules
                         and access points for all experience levels.
                       </Type>
-                      <Type component="li" variant="body2">
+                      <Type component="li" variant="body2" gutterBottom>
                         Fish for trout in pristine reservoirs like French
                         Meadows and Hell Hole, stocked annually by the
                         Department of Fish and Wildlife.
                       </Type>
-                      <Type component="li" variant="body2">
+                      <Type component="li" variant="body2" gutterBottom>
                         Explore scenic trails for hiking, mountain biking, and
                         horseback riding, suitable for all ages and skill
                         levels.
                       </Type>
-                      <Type component="li" variant="body2">
+                      <Type component="li" variant="body2" gutterBottom>
                         Find perfect spots for tent, RV, and group camping
                         across beautiful campgrounds managed in partnership with
                         state and federal agencies.
                       </Type>
-                      <Type component="li" variant="body2">
+                      <Type component="li" variant="body2" gutterBottom>
                         Experience exhilarating off-road adventures with trails
                         and staging areas in the Tahoe National Forest.
                       </Type>
@@ -319,7 +319,7 @@ const FadeInIntersect = ({
   const shouldAnimate = intersected && !previouslyAnimated
 
   return (
-    <Box ref={ref}>
+    <Box ref={ref} sx={{display: 'inherit'}}>
       <FadeIn
         transparentUntilAnimate={!previouslyAnimated}
         animate={shouldAnimate}

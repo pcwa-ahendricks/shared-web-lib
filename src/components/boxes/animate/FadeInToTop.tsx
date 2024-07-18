@@ -3,10 +3,11 @@ import Animate, {AnimateProps} from './Animate'
 
 export type FadeInToTopProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
-const FadeInToTop = ({children, ...rest}: FadeInToTopProps) => {
+const FadeInToTop = ({children, ...props}: FadeInToTopProps) => {
+  const {sx, ...rest} = props || {}
   return (
     <Animate
-      sx={{willChange: 'opacity'}} // hinting the browser for optimization
+      sx={{willChange: 'opacity', ...sx}} // hinting the browser for optimization
       name="fade-in-to-top"
       easingFunc="linear"
       duration={1200}
