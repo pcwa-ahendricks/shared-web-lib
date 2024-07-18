@@ -84,7 +84,10 @@ export default function RecreationPage() {
           <Spacing />
           <Grid container spacing={{xs: 2, sm: 6}}>
             <Grid xs={12} sm={5} sx={{display: 'flex'}}>
-              <FadeInIntersect animateKey="recreation-1" sx={{display: 'flex'}}>
+              <FadeInIntersect
+                animateKey="recreation-1"
+                sx={{display: 'flex', height: '100%'}}
+              >
                 <Paper
                   sx={{bgcolor: 'common.white', height: '100%'}}
                   square={false}
