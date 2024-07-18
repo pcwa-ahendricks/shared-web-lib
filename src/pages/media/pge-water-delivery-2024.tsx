@@ -14,10 +14,14 @@ import Spacing from '@components/boxes/Spacing'
 import SpauldingConstructionFaq from '@components/SpauldingConstructionFaq'
 import NewsBlurb from '@components/recent-news/NewsBlurb/NewsBlurb'
 import Blockquote from '@components/typography/Blockquote'
+import Link from '@components/Link'
+import useLinkComponent from '@hooks/useLinkComponent'
+import MediaDialogOnClick from '@components/MediaDialogOnClick/MediaDialogOnClick'
 // import {GetServerSideProps} from 'next'
 
 export default function PgeWaterDelivery2024Page() {
   const theme = useTheme()
+  const LinkComponent = useLinkComponent()
   return (
     <PageLayout title="Spaulding Powerhouse No. 1 Outage" waterSurface>
       <MainBox>
@@ -27,16 +31,18 @@ export default function PgeWaterDelivery2024Page() {
             title="PCWA Addresses PG&E Water Delivery Problem Due to Damaged Infrastructure"
             // subtitle=""
           />
-          <Type paragraph>
-            PCWA is currently facing a water supply delivery problem due to
-            infrastructure damage at a PG&E facility. Damage has disrupted the
-            water delivery from Lake Spaulding, impacting PG&E’s water
-            deliveries from that source since March. PG&E has run into several
-            unanticipated schedule delays that have pushed the return of service
-            from early June to the latest report of July 30th.
-          </Type>
+
           <Grid container spacing={4}>
             <Grid xs={12} sm={6}>
+              <Type paragraph>
+                PCWA is currently facing a water supply delivery problem due to
+                infrastructure damage at a PG&E facility. Damage has disrupted
+                the water delivery from Lake Spaulding, impacting PG&E’s water
+                deliveries from that source since March. PG&E has run into
+                several unanticipated schedule delays that have pushed the
+                return of service from early June to the latest report of July
+                30th.
+              </Type>
               <Type paragraph>
                 Prior to this most recent notification of delay, the estimate of
                 PG&E water available in Rollins Reservoir was sufficient to
@@ -56,44 +62,56 @@ export default function PgeWaterDelivery2024Page() {
                 <CustomerServicesEmail />.
               </Type>
             </Grid>
-            <Grid
-              xs={12}
-              sm={6}
-              sx={{
-                [theme.breakpoints.only('xs')]: {
-                  margin: 'auto',
-                  maxWidth: '80vw' // Don't let portrait image get too big in small layouts.
-                }
-              }}
-            >
-              <Image
-                src="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/The%20Boardman%20Canal%20is%20the%20main%20artery%20of%20PCWA's%20raw%20water%20conveyance%20system..jpg"
-                alt="Water flowing down PCWA's Boardman Canal"
-                loader={imgixUrlLoader}
-                layout="responsive"
-                style={{objectFit: 'cover', width: '100%'}}
-                sizes="(max-width: 600px) 60vw, 40vw"
-                width={5760}
-                height={3840}
-              />
-              <Type
-                variant="caption"
-                display="inline-flex"
+            <Grid xs={12} sm={6}>
+              <Box
+                component={LinkComponent}
+                href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/media/pge-lake-spaulding-project-2024/PCWA_ConserveWaterTogetherTips.pdf"
                 sx={{
-                  fontFamily: kiperman.style.fontFamily,
-                  lineHeight: 1.5,
-                  fontSize: '1.1rem'
+                  [theme.breakpoints.only('xs')]: {
+                    margin: 'auto',
+                    maxWidth: '80vw' // Don't let portrait image get too big in small layouts.
+                  }
                 }}
               >
-                <em>
-                  The Boardman Canal is the main artery of PCWA's raw water
-                  conveyance system. The water from PG&E’s Drum-Spaulding system
-                  flows through a series of tunnels, conduits, and lakes to
-                  reach PCWA’s canal system.
-                </em>
-              </Type>
+                <Image
+                  src="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/PCWA_ConserveWaterTogetherTips.pdf"
+                  alt="Water flowing down PCWA's Boardman Canal"
+                  loader={imgixUrlLoader}
+                  layout="responsive"
+                  style={{
+                    objectFit: 'cover',
+                    width: '100%'
+                  }}
+                  sizes="(max-width: 600px) 60vw, 40vw"
+                  width={5760}
+                  height={3840}
+                />
+              </Box>
+              <Spacing size="x-small" />
+              <Box sx={{width: '100%', textAlign: 'center'}}>
+                <Link
+                  href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/media/pge-lake-spaulding-project-2024/PCWA_ConserveWaterTogetherTips.pdf"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  variant="caption"
+                  display="inline-flex"
+                  sx={{
+                    fontFamily: kiperman.style.fontFamily,
+                    lineHeight: 1.5,
+                    fontSize: '1.1rem'
+                  }}
+                >
+                  Click to Download PDF
+                </Link>
+              </Box>
             </Grid>
           </Grid>
+          {/* <Grid container spacing={4}> */}
+          {/* <Grid xs={12} sm={6}>
+
+            </Grid> */}
+
+          {/* </Grid> */}
           <Spacing size="large" />
           <Blockquote>
             <Type paragraph variant="h4">
@@ -102,19 +120,82 @@ export default function PgeWaterDelivery2024Page() {
               to take.
             </Type>
           </Blockquote>
-          <Spacing size="small" />
-          <Box>
-            <Image
-              src="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/South%20Yuba%20Canal%20Map_v2.png"
-              alt="PG&E Mountain Division South Yuba Lower Map"
-              loader={imgixUrlLoader}
-              layout="responsive"
-              style={{objectFit: 'cover', width: '100%'}}
-              sizes="(max-width: 600px) 60vw, 40vw"
-              width={5760}
-              height={3840}
-            />
-          </Box>
+
+          <Spacing />
+
+          <Grid container spacing={{xs: 3, sm: 6}}>
+            <Grid xs={12} sm={8}>
+              <Box>
+                <MediaDialogOnClick
+                  popperMessage="Click to View Larger Graphic"
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/South%20Yuba%20Canal%20Map.png"
+                  mediaName="PG&E Mountain Division South Yuba Lower Map"
+                  MediaPreviewDialogProps={{
+                    ImageProps: {
+                      width: 5760,
+                      height: 3840
+                    }
+                  }}
+                >
+                  <Image
+                    src="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/South%20Yuba%20Canal%20Map.png"
+                    alt="PG&E Mountain Division South Yuba Lower Map"
+                    loader={imgixUrlLoader}
+                    layout="responsive"
+                    style={{objectFit: 'cover', width: '100%'}}
+                    sizes="(max-width: 600px) 60vw, 40vw"
+                    width={5760}
+                    height={3840}
+                  />
+                </MediaDialogOnClick>
+              </Box>
+            </Grid>
+            <Grid xs={12} sm={4}>
+              <Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    margin: 'auto',
+                    maxWidth: '350px',
+                    [theme.breakpoints.only('xs')]: {
+                      margin: 'auto',
+                      maxWidth: '80vw' // Don't let portrait image get too big in small layouts.
+                    }
+                  }}
+                >
+                  <Image
+                    src="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/The%20Boardman%20Canal%20is%20the%20main%20artery%20of%20PCWA's%20raw%20water%20conveyance%20system..jpg"
+                    alt="Water flowing down PCWA's Boardman Canal"
+                    loader={imgixUrlLoader}
+                    layout="responsive"
+                    style={{objectFit: 'cover', width: '100%'}}
+                    sizes="(max-width: 600px) 60vw, 40vw"
+                    width={5760}
+                    height={3840}
+                  />
+                </Box>
+                <Spacing size="small" />
+                <Type
+                  variant="caption"
+                  display="inline-flex"
+                  sx={{
+                    fontFamily: kiperman.style.fontFamily,
+                    lineHeight: 1.5,
+                    fontSize: '1.1rem'
+                  }}
+                >
+                  <em>
+                    The Boardman Canal is the main artery of PCWA's raw water
+                    conveyance system. The water from PG&E’s Drum-Spaulding
+                    system flows through a series of tunnels, conduits, and
+                    lakes to reach PCWA’s canal system.
+                  </em>
+                </Type>
+              </Box>
+            </Grid>
+          </Grid>
+
           <Spacing />
           <Grid container spacing={4}>
             <Grid xs={12} sm={8}>
