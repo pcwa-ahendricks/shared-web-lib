@@ -121,13 +121,13 @@ export default function ConsolidationsPage() {
                   href="https://pcwa.imgix.net/pcwa-net/stewardship/consolidations/consolidationsMap.png"
                 >
                   <ImageFancier
-                    src="https://pcwa.imgix.net/pcwa-net/stewardship/consolidations/consolidations-inset.jpg"
+                    src="https://pcwa.imgix.net/pcwa-net/stewardship/consolidations/consolidationsMap.png"
                     alt="Consolidations Inset Map"
                     loader={imgixUrlLoader}
                     layout="responsive"
                     sizes="(max-width: 600px) 60vw, 40vw"
-                    width={2050}
-                    height={2856}
+                    width={2550}
+                    height={3300}
                   />
                 </Box>
                 <Spacing size="x-small" />
