@@ -156,7 +156,7 @@ export default function NewCustomerServicePortal2024() {
                 </Box>
 
                 <Spacing />
-                <Box sx={{position: 'relative'}}>
+                {/* <Box sx={{position: 'relative'}}>
                   <SlideInLeftIntersect
                     animateKey="cust-portal-arrow1-in"
                     transparentUntilAnimate
@@ -171,17 +171,17 @@ export default function NewCustomerServicePortal2024() {
                     </FadeOutIntersect>
                   </SlideInLeftIntersect>
 
-                  <Type variant="h4">August 2024:</Type>
-                </Box>
-                <Box component="ul" sx={{marginTop: 1}}>
+                  <Type variant="h4">September 2024:</Type>
+                </Box> */}
+                {/* <Box component="ul" sx={{marginTop: 1}}>
                   <Type component="li">
                     <strong>New Account Numbers:</strong> All PCWA account
                     numbers will change. Look out for your new account number in
                     the mail with instructions on how and when to use it.
                   </Type>
-                </Box>
+                </Box> */}
 
-                <Spacing size="small" />
+                {/* <Spacing size="small" /> */}
                 <Box sx={{position: 'relative'}}>
                   <SlideInLeftIntersect
                     animateKey="cust-portal-arrow2-in"
@@ -200,6 +200,11 @@ export default function NewCustomerServicePortal2024() {
                   <Type variant="h4">September 2024:</Type>
                 </Box>
                 <Box component="ul" sx={{marginTop: 1}}>
+                  <Type component="li">
+                    <strong>New Account Numbers:</strong> All PCWA account
+                    numbers will change. Look out for your new account number in
+                    the mail with instructions on how and when to use it.
+                  </Type>
                   <Type component="li">
                     <strong>New Customer Portal Launch:</strong> Our new portal
                     will go live! Keep an eye out for more details to come!

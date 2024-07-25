@@ -128,7 +128,7 @@ const NewUtilityBillSystemFaq = () => {
           <ColumnBox>
             <Type variant="body2" paragraph>
               Yes, all PCWA account numbers will change. You will receive your
-              new account number in the mail in August 2024. Your new account
+              new account number in the mail in September 2024. Your new account
               number will also appear on your first bill after we transition to
               the new system in September.
             </Type>
@@ -154,15 +154,17 @@ const NewUtilityBillSystemFaq = () => {
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
-            <Type variant="body2" paragraph>
-              August 2024: Look for your new account number in the mail and
+            {/* <Type variant="body2" paragraph>
+              September 2024:Look for your new account number in the mail and
               follow any instructions that apply to your chosen payment method.
-            </Type>
+            </Type> */}
             <Type variant="body2" paragraph>
-              September 2024: Use your new account number to make payments and
-              access your account in the new customer portal once it goes live.
-              You will be able to access the portal through the “Pay My Bill”
-              link at pcwa.net. Sign up for autopay and update any bank bill pay
+              In September 2024, look for your new account number in the mail
+              and follow any instructions that apply to your chosen payment
+              method. Use your new account number to make payments and access
+              your account in the new customer portal once it goes live. You
+              will be able to access the portal through the “Pay My Bill” link
+              at pcwa.net. Sign up for autopay and update any bank bill pay
               services with your new account number, if applicable. More updates
               will be provided once we get closer to the launch date for the new
               system.
@@ -256,9 +258,9 @@ const NewUtilityBillSystemFaq = () => {
             </Type>
             <Type variant="body2" paragraph>
               In addition, all PCWA account numbers will change. You will
-              receive your new account number in the mail in August 2024. Your
-              new account number will also appear on your first bill after we
-              transition to the new system in September. The system will also
+              receive your new account number in the mail in September 2024.
+              Your new account number will also appear on your first bill after
+              we transition to the new system in September. The system will also
               generate a new bill statement design, which we think you'll find
               easier to read.
             </Type>
