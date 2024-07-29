@@ -205,6 +205,14 @@ export default function PgeWaterDelivery2024Page() {
               <Type variant="h5" color="textSecondary" gutterBottom>
                 Recent News
               </Type>
+              <Type variant="caption">7/29/2024</Type>
+              <NewsBlurb
+                title="PG&E Spaulding Powerhouse is Back in Partial Service Ahead of Scheduled July 30 Completion Date"
+                readMoreCaption="Read News Release..."
+                summary="Following a recent update from Pacific Gas and Electric Company (PG&E), PCWA is pleased to share that a partial fix to PG&E Company’s infrastructure at Lake Spaulding has resulted in resumed deliveries of water into PCWA’s system. The current fix will allow approximately 50% of normal water flow until the remainder of the infrastructure is repaired."
+                linkURL="https://www.pcwa.net/newsroom/news-releases/2024-07-29"
+              />
+              <Spacing />
               <Spacing size="small" />
               <Type variant="caption">6/24/2024</Type>
               <NewsBlurb
