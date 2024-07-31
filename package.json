@@ -28,7 +28,7 @@
     "@types/file-saver": "^2.0.6",
     "@types/is-number": "^7.0.4",
     "@types/multer": "^1.4.9",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.0.1",
     "@types/react": "18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/smoothscroll-polyfill": "^0.3.4",
@@ -46,16 +46,16 @@
     "typescript": "5.5.4"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.620.0",
+    "@aws-sdk/client-s3": "^3.621.0",
     "@cosmicjs/sdk": "^1.0.10",
     "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.13.0",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^5.16.5",
+    "@mui/icons-material": "^5.16.6",
     "@mui/lab": "^5.0.0-alpha.173",
-    "@mui/material": "^5.16.5",
-    "@mui/material-nextjs": "^5.16.4",
+    "@mui/material": "^5.16.6",
+    "@mui/material-nextjs": "^5.16.6",
     "@mui/x-date-pickers-pro": "^7.11.1",
     "@mui/x-license-pro": "^6.0.3",
     "@nivo/bar": "0.87.0",
@@ -107,7 +107,7 @@
     "trendline": "^1.0.0",
     "use-debounce": "^10.0.2",
     "valid-url": "^1.0.9",
-    "vercel": "^35.2.1",
+    "vercel": "^35.2.2",
     "yup": "^1.4.0"
   }
 }
