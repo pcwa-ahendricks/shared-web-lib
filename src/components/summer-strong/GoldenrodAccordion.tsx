@@ -30,53 +30,29 @@ export default function GoldenrodAccordion({
         expandIcon={<ExpandMoreIcon />}
         {...AccordionSummaryProps}
       >
-        <Type variant="h4">Valley Violet California lilac</Type>
+        <Type variant="h4">California goldenrod</Type>
       </AccordionSummary>
       <AccordionDetails>
         <Box>
           <Grid container spacing={{xs: 4, sm: 6}}>
             <Grid xs={12} sm={4}>
-              {/* <MediaDialogOnClick
-                mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg"
-                mediaName="Valley Violet California lilac"
+              <MediaDialogOnClick
+                mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg"
+                mediaName="California goldenrod"
                 MediaPreviewDialogProps={{
                   // original dimensions
                   ImageProps: {
-                    width: *,
-                    height: *
-                  }
-                }}
-              >*/}
-              <ImageFancier
-                alt="Valley Violet California lilac"
-                src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg${imgixArParams}`}
-                // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
-                width={300}
-                height={240}
-                defaultGrey
-                sizes="(max-width: 600px) 100vw, 33vw"
-                objectFit="cover"
-              />
-              {/* </MediaDialogOnClick> */}
-            </Grid>
-            <Grid xs={12} sm={4}>
-              <MediaDialogOnClick
-                mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg"
-                mediaName="Valley Violet California lilac close-up"
-                MediaPreviewDialogProps={{
-                  // orig dimensions
-                  ImageProps: {
-                    width: 1000,
-                    height: 662
+                    width: 680,
+                    height: 820
                   }
                 }}
               >
                 <ImageFancier
-                  alt="Valley Violet California lilac close-up"
-                  src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg${imgixArParams}`}
+                  alt="California goldenrod"
+                  src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg${imgixArParams}`}
                   // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
-                  width={828}
-                  height={662}
+                  width={680}
+                  height={544}
                   defaultGrey
                   sizes="(max-width: 600px) 100vw, 33vw"
                   objectFit="cover"
@@ -85,9 +61,9 @@ export default function GoldenrodAccordion({
             </Grid>
           </Grid>
           <Spacing size="x-large" />
-          <Type variant="h4">Valley Violet California lilac</Type>
+          <Type variant="h4">California goldenrod</Type>
           <Type variant="subtitle1" gutterBottom color="textSecondary">
-            <em>Ceanothus maritimus</em>
+            <em>Solidago velutina ssp. californica</em>
           </Type>
           <Spacing size="small" />
           <Type variant="subtitle1" gutterBottom>

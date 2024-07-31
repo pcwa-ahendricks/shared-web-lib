@@ -38,6 +38,7 @@ import FuchsiaAccordion from '@components/summer-strong/FuchsiaAccordion'
 import FoothillPenstemonAccordion from '@components/summer-strong/FoothillPenstemonAccordion'
 import WesternRedbudAccordion from '@components/summer-strong/WesternRedbudAccordion'
 import ValleyVioletLilacAccordion from '@components/summer-strong/ValleyVioletLilacAccordion'
+import GoldenrodAccordion from '@components/summer-strong/GoldenrodAccordion'
 
 type Props = {
   placeholders: Placeholders
@@ -411,6 +412,15 @@ export default function SummerStrongPage({placeholders}: Props) {
           </Type>
           <Spacing />
           <Box>
+            <GoldenrodAccordion
+              imgixArParams={imgixArParams}
+              expanded={expanded === 'panel10'}
+              onChange={handleChange('panel10')}
+              AccordionSummaryProps={{
+                'aria-controls': 'panel10-content',
+                id: 'panel10-header'
+              }}
+            />
             <ValleyVioletLilacAccordion
               imgixArParams={imgixArParams}
               expanded={expanded === 'panel9'}
