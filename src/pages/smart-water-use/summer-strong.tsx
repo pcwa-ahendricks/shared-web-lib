@@ -38,6 +38,7 @@ import FuchsiaAccordion from '@components/summer-strong/FuchsiaAccordion'
 import FoothillPenstemonAccordion from '@components/summer-strong/FoothillPenstemonAccordion'
 import WesternRedbudAccordion from '@components/summer-strong/WesternRedbudAccordion'
 import ValleyVioletLilacAccordion from '@components/summer-strong/ValleyVioletLilacAccordion'
+import GoldenrodAccordion from '@components/summer-strong/GoldenrodAccordion'
 
 type Props = {
   placeholders: Placeholders
@@ -60,7 +61,9 @@ const imgixImages = [
   // 'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp'
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg',
   'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/1000_F_435874585_H4ui8yCFHnprmInZvYmj7NnnOLstT6Mb.jpg',
-  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg'
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/buckwheat_shuttershock.jpg',
+  'https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/buckwheat.jpg'
 ]
 
 export const StrongGrey = ({children, sx, ...props}: TypographyProps) => {
@@ -173,11 +176,11 @@ export default function SummerStrongPage({placeholders}: Props) {
                   sx={{marginRight: '8px', color: grey[700], fontSize: 32}}
                 /> */}
                 <Type variant="h3" gutterBottom>
-                  GOLDEN STANDOUT IN SUMMER, FALL
+                  NATURE’S POM POMS
                 </Type>
               </RowBox>
               {/* <Type variant="h3">Cleveland Sage (and other Salvias)</Type> */}
-              <Type variant="h3">California goldenrod</Type>
+              <Type variant="h3">Red-flowered buckwheat</Type>
             </ChildBox>
             <ChildBox
               flex="15%"
@@ -192,56 +195,50 @@ export default function SummerStrongPage({placeholders}: Props) {
 
           <Box>
             <RowBox flexSpacing={6} responsive>
-              {/* <ChildBox flex="0 1 33%"> */}
-              {/* <MediaDialogOnClick
-                  // mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp"
-                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg"
-                  mediaName="‘Valley Violet’ California lilac"
-                  // original dimensions
-                  MediaPreviewDialogProps={{
-                    ImageProps: {
-                      // width: 1080,
-                      // height: 798,
-                      width: 300,
-                      height: 300
-                    }
-                  }}
-                > */}
-              {/* <Image
-                  alt="‘Valley Violet’ California lilac"
-                  // src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/valley-violet.webp${imgixArParams}`}
-                  src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/Ceanothus%20maritimus%20%E2%80%98Valley%20Violet%E2%80%99.jpg${imgixArParams}`}
-                  // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
-                  // width={998}
-                  // height={798}
-                  width={300}
-                  height={240}
-                  // defaultGrey
-                  sizes="(max-width: 600px) 100vw, 33vw"
-                  style={{
-                    objectFit: 'contain'
-                  }}
-                /> */}
-              {/* </MediaDialogOnClick> */}
-              {/* </ChildBox> */}
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
-                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg"
-                  mediaName="california goldenrod"
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/buckwheat_shuttershock.jpg"
+                  mediaName="Red-flowered buckwheat"
                   // original dimensions
                   MediaPreviewDialogProps={{
                     ImageProps: {
-                      width: 680,
-                      height: 820
+                      width: 5184,
+                      height: 3456
+                    }
+                  }}
+                >
+                  <Image
+                    alt="Red-flowered buckwheat"
+                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/buckwheat_shuttershock.jpg${imgixArParams}`}
+                    // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
+                    width={4320}
+                    height={3456}
+                    // defaultGrey
+                    sizes="(max-width: 600px) 100vw, 33vw"
+                    style={{
+                      objectFit: 'contain'
+                    }}
+                  />
+                </MediaDialogOnClick>
+              </ChildBox>
+              <ChildBox flex="0 1 33%">
+                <MediaDialogOnClick
+                  mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/buckwheat.jpg"
+                  mediaName="Red-flowered buckwheat close-up with bee"
+                  // original dimensions
+                  MediaPreviewDialogProps={{
+                    ImageProps: {
+                      width: 1414,
+                      height: 2121
                     }
                   }}
                 >
                   <ImageFancier
-                    alt="california goldenrod"
-                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/california.goldenrod-1.jpeg${imgixArParams}`}
+                    alt="Red-flowered buckwheat close-up with bee"
+                    src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/buckwheat.jpg${imgixArParams}`}
                     // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
-                    width={680}
-                    height={544}
+                    width={1414}
+                    height={1131}
                     defaultGrey
                     sizes="(max-width: 600px) 100vw, 33vw"
                     style={{
@@ -250,95 +247,79 @@ export default function SummerStrongPage({placeholders}: Props) {
                   />
                 </MediaDialogOnClick>
               </ChildBox>
-              {/* <ChildBox flex="0 1 33%">
-
-              </ChildBox> */}
             </RowBox>
           </Box>
           <Spacing size="x-large" />
-          <Type variant="h4">California goldenrod</Type>
+          <Type variant="h4">Red-flowered buckwheat</Type>
           <Type variant="subtitle1" gutterBottom>
-            <em>Solidago velutina ssp. californica</em>
+            <em>Eriogonum grande var. rubescens</em>
           </Type>
           <Spacing size="small" />
           <Type variant="subtitle1" gutterBottom>
             <em>By Debbie Arrington, Sacramento Digs Gardening</em>
           </Type>
           <Type paragraph>
-            Not all California wildflowers tolerate “captivity.” But California
-            goldenrod would love a place in your Placer County garden. Local
-            wildlife would appreciate it, too.
+            Bees, butterflies, birds—they all love this California native. And
+            so do Placer County gardeners. Red-flowered buckwheat (Eriogonum
+            grande var. rubescens) has found a home in water-wise gardens
+            throughout the state. With rosy-red clusters of flowers above
+            low-growing foliage, this attractive variety stays compact and is
+            perfect for small gardens. A perennial, it prefers life on the dry
+            side, but appreciates a little summer water (especially in full
+            sun). As they age, buckwheat flowerheads turn dark mahogany red and
+            add more color to the fall garden.
           </Type>
           <Type paragraph>
-            Our native goldenrod (Solidago velutina ssp. californica) is easy to
-            spot in valley and foothill meadows. In the grasslands surrounding
-            oaks, this native perennial blooms when few other wildflowers can be
-            seen—July through November.
-          </Type>
-          <Type paragraph>
-            California goldenrod is well adapted to our climate; it needs winter
-            rain but little summer water. It dependably comes back year after
-            year.
-          </Type>
-          <Type paragraph>
-            A sunflower cousin, goldenrod lives up to its name. Covering the
-            tips of 3-foot-tall stalks, the flowerheads are made up of dozens,
-            sometimes hundreds, of tiny yellow blooms. The clusters get so
-            heavy, their weight eventually curves the stalks into crooks.
-            Surrounded by native grasses, the stalks look like golden
-            exclamation points and question marks.
-          </Type>
-          <Type paragraph>
-            Besides its attractive looks, goldenrod supports wildlife for
-            months. Bees and other beneficial insects love its pollen and nectar
-            in late summer and fall. Birds gobble its seeds throughout fall and
+            Red-flowered buckwheat is particularly well adapted to rock gardens,
+            growing on slopes or in the front borders of pollinator gardens.
+            Butterflies adore its nectar-rich flowers. Bees can’t get enough
+            native buckwheat, considered the state’s most important native
+            source of honey. Buckwheat also provides seed for birds in fall and
             winter.
           </Type>
           <Type paragraph>
-            See California goldenrod in the hedgerow at the UC Master Gardeners
-            of Placer County Demonstration Garden at the Loomis Library and
-            Community Learning Center.
+            Besides red-flowered buckwheat, the Placer County Master Gardener
+            Demonstration Garden at the Loomis Library also features the
+            white-flowered (and shrub-sized) California buckwheat (Eriogonum
+            fasciculatum), which reaches 4 to 5 feet tall and wide, and coast
+            buckwheat (Eriogonum latifolium), a compact shrubby perennial that
+            stays under 1 foot tall. Coast buckwheat has woolly leaves and
+            white-pink flowers that fade to copper in fall.
           </Type>
-
           <Type paragraph>
-            <StrongGrey>Bloom</StrongGrey>: California goldenrod produces tall
-            stalks covered with tiny, bright yellow flowers from late summer
-            through fall.
+            <StrongGrey>Bloom</StrongGrey>: Red-flowered buckwheat blooms from
+            May through October.
           </Type>
           <Type paragraph>
             <StrongGrey>Water needs</StrongGrey>: Low to very low, once
-            established. Irrigate deeply once or twice a month.
+            established. Needs irrigation once a month.
           </Type>
           <Type paragraph>
-            <StrongGrey>Sun</StrongGrey>: Prefers full sun or an open spot near
-            an oak tree.
+            <StrongGrey>Sun</StrongGrey>: Can take full sun; a spot on a rocky
+            slope is ideal.
           </Type>
           <Type paragraph>
-            <StrongGrey>Size</StrongGrey>: California goldenrod generally
-            reaches 2 to 3 feet tall in summer, then dies back to the ground. It
-            spreads by underground roots (and can become a garden thug), so make
-            sure it has plenty of room.
+            <StrongGrey>Size</StrongGrey>: Red-flowered buckwheat stays small;
+            flower stalks are only 1 foot tall. The evergreen clump of foliage
+            gradually spreads to 2 to 3 feet across.
           </Type>
           <Type paragraph>
-            <StrongGrey>Care</StrongGrey>: Low to very low water requirements
-            after the first year, once the roots are well established.
-            California goldenrod needs little care; cut stalks to the ground
-            after the plant dies back in winter to control the spread of seeds
-            (or leave them for the birds). Goldenrod prefers a mostly dry
-            summer, but can tolerate extra water – as well as poor soil.
+            <StrongGrey>Care</StrongGrey>: Low water requirements after the
+            first year, once the roots are well established. Red-flowered
+            buckwheat needs little if any maintenance.
           </Type>
           <Type paragraph>
-            <StrongGrey>Availability</StrongGrey>: Native plant nurseries offer
-            California goldenrod including the SacValley CNPS Nursery at Soil
-            Born Farms in Rancho Cordova, Cornflower Farms in Elk Grove and
-            Nevada County Native Plants in Nevada City.
+            <StrongGrey>Availability</StrongGrey>: Find native buckwheats at
+            nurseries that specialize in California natives such as Cornflower
+            Farms in Elk Grove and SacValley CNPS Nursery at Soil Born Farms in
+            Rancho Cordova.
           </Type>
           <Type paragraph>
-            <StrongGrey>Bonus plants</StrongGrey>: California goldenrod thrives
-            with other low-water natives such as deergrass (Muhlenbergia
-            rigens), manzanita (Arctostaphylos sp.), Cleveland sage (Salvia
-            clevelandii) and local oaks – valley oak (Quercus lobata) , blue oak
-            (Q. douglasii) and interior live oak (Q. wislizeni).
+            <StrongGrey>Bonus plants</StrongGrey>: Red-flowered buckwheat mixes
+            well with other low-water pollinator plants as well as California
+            natives, especially those that also have their roots in the Channel
+            Islands. That includes Island alum root (Heuchera maxima) and Island
+            ceanothus (Ceanothus arboreus).
           </Type>
 
           <Spacing size="large" />
@@ -372,9 +353,9 @@ export default function SummerStrongPage({placeholders}: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="body1"
-                href="https://www.sacvalleycnps.org/product/solidago-velutina-ssp-californica"
+                href="https://www.sacvalleycnps.org/product/eriogonum-grande-ssp-rubescens"
               >
-                SacValley CNPS, California goldenrod:
+                SacValley CNPS Nursery, red-flowered buckwheat
                 (https://www.sacvalleycnps.org)
               </Link>
             </Type>
@@ -394,9 +375,9 @@ export default function SummerStrongPage({placeholders}: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="body1"
-                href="https://calscape.org/Solidago-velutina-ssp.-californica-(California-Goldenrod)"
+                href="https://calscape.org/Eriogonum-grande-var.-rubescens-(Red-flowered-Buckwheat)"
               >
-                Calscape, California goldenrod: (https://calscape.org)
+                Calscape, red-flowered buckwheat (https://calscape.org)
               </Link>
             </Type>
           </Box>
@@ -411,6 +392,15 @@ export default function SummerStrongPage({placeholders}: Props) {
           </Type>
           <Spacing />
           <Box>
+            <GoldenrodAccordion
+              imgixArParams={imgixArParams}
+              expanded={expanded === 'panel10'}
+              onChange={handleChange('panel10')}
+              AccordionSummaryProps={{
+                'aria-controls': 'panel10-content',
+                id: 'panel10-header'
+              }}
+            />
             <ValleyVioletLilacAccordion
               imgixArParams={imgixArParams}
               expanded={expanded === 'panel9'}
