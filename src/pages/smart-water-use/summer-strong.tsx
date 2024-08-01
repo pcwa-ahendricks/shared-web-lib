@@ -207,13 +207,13 @@ export default function SummerStrongPage({placeholders}: Props) {
                     }
                   }}
                 >
-                  <Image
+                  <ImageFancier
                     alt="Red-flowered buckwheat"
                     src={`https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/buckwheat_shuttershock.jpg${imgixArParams}`}
                     // 5/4 image aspect ratio dimensions (?ar=5%3A4&fit=crop&crop=top)
                     width={4320}
                     height={3456}
-                    // defaultGrey
+                    defaultGrey
                     sizes="(max-width: 600px) 100vw, 33vw"
                     style={{
                       objectFit: 'contain'
