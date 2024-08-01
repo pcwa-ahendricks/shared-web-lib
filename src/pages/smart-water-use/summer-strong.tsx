@@ -197,6 +197,7 @@ export default function SummerStrongPage({placeholders}: Props) {
             <RowBox flexSpacing={6} responsive>
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
+                  showPopper={false}
                   mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/buckwheat_shuttershock.jpg"
                   mediaName="Red-flowered buckwheat"
                   // original dimensions
@@ -223,6 +224,7 @@ export default function SummerStrongPage({placeholders}: Props) {
               </ChildBox>
               <ChildBox flex="0 1 33%">
                 <MediaDialogOnClick
+                  showPopper={false}
                   mediaUrl="https://pcwa.imgix.net/pcwa-net/water-efficiency/summer-strong/buckwheat.jpg"
                   mediaName="Red-flowered buckwheat close-up with bee"
                   // original dimensions
