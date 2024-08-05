@@ -85,7 +85,7 @@ export default function PgeWaterDelivery2024Page() {
                 essential as we navigate the hot summer months and work towards
                 a stable water source at Rollins Reservoir. The reduced
                 deliveries of untreated water will continue until Rollins
-                reservoir recovers.
+                Reservoir recovers.
               </Type>
             </Grid>
             <Grid xs={12} md={6}>
