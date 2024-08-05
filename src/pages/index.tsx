@@ -151,7 +151,7 @@ const Index = ({
               linkHref="/media/pge-water-delivery-2024"
               imgixURL="https://pcwa.imgix.net/pcwa-net/media/pge-lake-spaulding-project-2024/Lake%20Spaulding.jpg"
               alt="Lake Spaulding and dam"
-              body="Due to a PG&E infrastructure failure impacting water delivery to PCWA, we are asking customers to reduce water use by 20%. Conservation will help us preserve existing water supplies until PG&E repairs are completed and water delivery is restored."
+              body="A partial fix to PG&E’s infrastructure at Lake Spaulding has restarted water deliveries into PCWA’s system. However, conservation is still requested as Rollins Reservoir recovers and refills over the next several months."
             />
           </Grid>
           <Grid xs={12} sm={6}>
