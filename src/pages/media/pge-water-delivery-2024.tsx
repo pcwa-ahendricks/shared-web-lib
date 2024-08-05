@@ -33,8 +33,8 @@ export default function PgeWaterDelivery2024Page() {
           />
 
           <Grid container spacing={4}>
-            <Grid xs={12} sm={6}>
-              <Type paragraph>
+            <Grid xs={12} md={6}>
+              {/* <Type paragraph>
                 PCWA is currently facing a water supply delivery problem due to
                 infrastructure damage at a PG&E facility. Damage has disrupted
                 the water delivery from Lake Spaulding, impacting PG&E’s water
@@ -60,9 +60,35 @@ export default function PgeWaterDelivery2024Page() {
                 raw water deliveries are encouraged to contact our Customer
                 Services Department at <MainPhone /> or{' '}
                 <CustomerServicesEmail />.
+              </Type> */}
+
+              <Type paragraph>
+                Following a recent update from Pacific Gas and Electric Company
+                (PG&E), the Placer County Water Agency (PCWA) is pleased to
+                share that a partial fix to PG&E’s infrastructure at Lake
+                Spaulding has resulted in resumed deliveries of water into
+                PCWA’s system. The current fix will allow approximately 50% of
+                normal water flow until the remainder of the infrastructure is
+                repaired.
+              </Type>
+              <Type paragraph>
+                This is a positive development, but it is only the beginning of
+                our journey toward full recovery. As water begins to refill
+                Rollins Reservoir, we will closely monitor its levels and
+                continue evaluating the situation. At current delivery rates, we
+                anticipate Rollins Reservoir will not fully refill until late in
+                the Fall.
+              </Type>
+              <Type paragraph>
+                PCWA asks all customers to maintain their conservation efforts
+                and reduce water use through at least mid-September. This is
+                essential as we navigate the hot summer months and work towards
+                a stable water source at Rollins Reservoir. The reduced
+                deliveries of untreated water will continue until Rollins
+                reservoir recovers.
               </Type>
             </Grid>
-            <Grid xs={12} sm={6}>
+            <Grid xs={12} md={6}>
               <Box
                 component={LinkComponent}
                 href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/media/pge-lake-spaulding-project-2024/PCWA_ConserveWaterTogetherTips.pdf"
@@ -88,7 +114,7 @@ export default function PgeWaterDelivery2024Page() {
                 />
               </Box>
               <Spacing size="x-small" />
-              <Box sx={{width: '100%', textAlign: 'center'}}>
+              <Box sx={{width: '100%', textAlign: 'center', marginBottom: 3}}>
                 <Link
                   href="https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/media/pge-lake-spaulding-project-2024/PCWA_ConserveWaterTogetherTips.pdf"
                   rel="noopener noreferrer"
@@ -106,13 +132,25 @@ export default function PgeWaterDelivery2024Page() {
               </Box>
             </Grid>
           </Grid>
+
+          <Type paragraph>
+            We extend our gratitude to our customers for their cooperation in
+            conserving water. Voluntary reductions and canal water delivery
+            adjustments have significantly contributed to our efforts.
+          </Type>
+          <Type paragraph>
+            Customers experiencing hardships as a result of adjusted canal
+            deliveries are encouraged to contact PCWA at <MainPhone /> or email{' '}
+            <CustomerServicesEmail /> for assistance.
+          </Type>
+
           {/* <Grid container spacing={4}> */}
           {/* <Grid xs={12} sm={6}>
 
             </Grid> */}
 
           {/* </Grid> */}
-          <Spacing size="large" />
+          <Spacing factor={2} />
           <Blockquote>
             <Type paragraph variant="h4">
               We encourage our customers to check back periodically for updates
@@ -121,7 +159,7 @@ export default function PgeWaterDelivery2024Page() {
             </Type>
           </Blockquote>
 
-          <Spacing />
+          <Spacing factor={2} />
 
           <Grid container spacing={{xs: 3, sm: 6}}>
             <Grid xs={12} sm={8}>
