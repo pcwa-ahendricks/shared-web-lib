@@ -499,6 +499,19 @@ const PublicationsPage = ({
                 >
                   <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
+                      title="Fire & Water - 2024"
+                      publishedDate={parse(
+                        '08/01/2024',
+                        'MM/dd/yyyy',
+                        new Date()
+                      )}
+                      imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/publications/fire-and-water/Fire%20&%20Water%20-%202024.pdf"
+                      objectPosition="top center"
+                    />
+                  </ChildBox>
+
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
+                    <PubCard
                       title="Fire & Water - 2022"
                       publishedDate={parse(
                         '09/01/2022',
