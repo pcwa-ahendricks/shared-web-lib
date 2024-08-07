@@ -546,7 +546,7 @@ const PublicationsPage = ({
                       objectPosition="center center"
                     />
                   </ChildBox>
-                  {/* <ChildBox  width={isXS ? '100%' : 'auto'}>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="Fire & Water - 2019"
                       publishedDate={parse(
@@ -557,7 +557,7 @@ const PublicationsPage = ({
                       imgixURL="https://imgix.cosmicjs.com/088f4270-a25f-11e9-8d2c-2b0caf998b3e-Fire-and-water-2019-Final.pdf"
                     />
                   </ChildBox>
-                  <ChildBox  width={isXS ? '100%' : 'auto'}>
+                  <ChildBox width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="Fire & Water - 2018"
                       publishedDate={parse(
@@ -567,9 +567,10 @@ const PublicationsPage = ({
                       )}
                       imgixURL="https://imgix.cosmicjs.com/50f7b4e0-8c64-11e9-a2aa-e111fd002881-Fire-and-Water-2018.pdf"
                       thumbImgixURL="https://imgix.cosmicjs.com/1c9bd360-4871-11ea-83cb-8f40f59ef2f9-fire-water-2018-thumbnail.png"
-                      imgixCropMode="bottom"
+                      // imgixCropMode="bottom"
                     />
                   </ChildBox>
+                  {/*
                   <ChildBox  width={isXS ? '100%' : 'auto'}>
                     <PubCard
                       title="Fire & Water - 2017"
