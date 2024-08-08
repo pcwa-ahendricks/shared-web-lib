@@ -80,6 +80,12 @@ const SpauldingConstructionFaq = () => {
               PCWA’s delivery points along the Bear River Canal and to the
               Nevada Irrigation District (NID).
             </Type>
+
+            <Type variant="body2" paragraph>
+              <strong>Update</strong>: A partial fix has resumed water
+              deliveries at approximately 50% of normal flow, but full repairs
+              are still needed to restore the system completely.
+            </Type>
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
@@ -100,10 +106,11 @@ const SpauldingConstructionFaq = () => {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              At the moment, with no ability to move water from Lake Spaulding
-              to Rollins Reservoir, while PG&E repairs their powerhouse, PCWA
-              and NID must rely on the water currently sitting in Rollins
-              Reservoir to serve both Agencies’ needs.
+              Initially, with no ability to move water from Lake Spaulding to
+              Rollins Reservoir, while PG&E repaired their powerhouse, PCWA and
+              NID had to rely on the water currently sitting in Rollins
+              Reservoir to serve both Agencies' needs. Now, a partial fix has
+              resumed water deliveries at about 50% of normal flow.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -128,8 +135,10 @@ const SpauldingConstructionFaq = () => {
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              All customers are being asked to reduce water use by 20 percent.
-              Here are some things customers can do to help achieve this goal:
+              All customers are being asked to maintain their conservation
+              efforts and reduce water use by 20 percent through at least
+              mid-September. Here are some things customers can do to help
+              achieve this goal:
             </Type>
             <Box component="ul" sx={{marginTop: 1}}>
               <Type component="li">
@@ -178,7 +187,6 @@ const SpauldingConstructionFaq = () => {
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
-
       <Accordion
         expanded={expanded === 'panel5'}
         onChange={handleChange('panel5')}
@@ -192,22 +200,19 @@ const SpauldingConstructionFaq = () => {
           id="panel5bh-header"
         >
           <Type variant="subtitle2">
-            Does PCWA have other sources of water?
+            Why are customers still being asked to conserve water?
           </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
-              Thankfully, PCWA’s proactive planning for scenarios like this play
-              a significant role in PCWA’s ongoing effort to deliver water
-              reliably. PCWA has backup supplies from the American River and
-              groundwater, and interties with neighboring water providers.
-            </Type>
-            <Type paragraph variant="body2">
-              So, while we have plans to make up for much of the delayed water
-              supply, we need your help to ensure that the water currently
-              available in Rollins Reservoir lasts through the duration of this
-              outage.
+              We are still asking customers to conserve water because the
+              partial fix to PG&E’s infrastructure at Lake Spaulding only allows
+              approximately 50% of normal water flow. Full recovery of our water
+              system is not expected to be achieved until late Fall.
+              Conservation efforts are essential to help ensure that the limited
+              water currently available can meet everyone's needs through the
+              hot summer months and until full water deliveries are restored.
             </Type>
           </ColumnBox>
         </AccordionDetails>
@@ -225,12 +230,51 @@ const SpauldingConstructionFaq = () => {
           id="panel6bh-header"
         >
           <Type variant="subtitle2">
-            How long will the water delivery problem last?
+            Does PCWA have other sources of water?
           </Type>
         </AccordionSummary>
         <AccordionDetails>
           <ColumnBox>
             <Type variant="body2" paragraph>
+              Thankfully, PCWA’s proactive planning for scenarios like this play
+              a significant role in PCWA’s ongoing effort to deliver water
+              reliably. PCWA has backup supplies from the American River and
+              groundwater, and interties with neighboring water providers.
+            </Type>
+            <Type paragraph variant="body2">
+              So, while we have plans to make up for much of the delayed water
+              supply, we need your help to ensure that the water currently
+              available in Rollins Reservoir lasts through the duration of the
+              reservoir's recovery.
+            </Type>
+          </ColumnBox>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === 'panel7'}
+        onChange={handleChange('panel7')}
+        sx={{
+          ...style.expansionPanel
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel7bh-content"
+          id="panel7bh-header"
+        >
+          <Type variant="subtitle2">
+            How long will the water delivery problem last?
+          </Type>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ColumnBox>
+            <Type variant="body2">
+              <strong>Update</strong>: As of July 29, 2024, a partial fix to
+              PG&E’s infrastructure at Lake Spaulding has resulted in resumed
+              deliveries of water into PCWA’s system at approximately 50% of
+              normal flow. Full repairs are still expected by late Fall.
+            </Type>
+            {/* <Type variant="body2" paragraph>
               PG&E is moving forward with a plan to partially restore water
               deliveries in mid-June, but full repair of the failed
               infrastructure isn’t expected until late fall, which means that
@@ -248,7 +292,7 @@ const SpauldingConstructionFaq = () => {
               statement: Due to the unforeseen delays in repairs at the
               Spaulding 1 powerhouse, PG&E has extended the earlier restoration
               date of late June to late July. 
-            </Type>
+            </Type> */}
           </ColumnBox>
         </AccordionDetails>
       </Accordion>
