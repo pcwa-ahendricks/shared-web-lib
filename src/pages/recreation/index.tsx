@@ -24,9 +24,9 @@ const recreationMapImgixUrl =
 const recreationMapAlt = 'Recreation Area Map'
 
 const exploringTheMfUrl =
-  'https://pcwa.sfo3.cdn.digitaloceanspaces.com/middleforkfun/PCWA-MFP-Rec-Brochure.pdf'
+  'https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/stewardship/recreation/PCWA-MFP-Rec-Brochure.pdf'
 const exploringTheMfImgixUrl =
-  'https://pcwa.imgix.net/middleforkfun/PCWA-MFP-Rec-Brochure.pdf'
+  'https://pcwa.imgix.net/pcwa-net/stewardship/recreation/PCWA-MFP-Rec-Brochure.pdf'
 const exploringTheMfCoverImgixUrl =
   'https://imgix.cosmicjs.com/4e56e830-70b5-11e8-b214-8b4449b867c7-PCWA%20MFP%20Rec%20Brochure%20v1%20-%20cover.jpg'
 const exploringTheMfAlt =
