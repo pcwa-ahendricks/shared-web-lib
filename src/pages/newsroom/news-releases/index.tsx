@@ -35,7 +35,7 @@ import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
 import {AwsObjectExt} from '@lib/types/aws'
-import {getNewsReleaseTitle} from '@lib/newReleaseTitle'
+import newsReleaseTitle from '@lib/newsReleaseTitle'
 import {fileExtension} from '@lib/fileExtension'
 
 const baseUrl = process.env.BASE_URL
@@ -73,7 +73,7 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                   ...item,
                   pubYear: getYear(parseJSON(item.pubDate)),
                   nextLinkAs: `/newsroom/news-releases/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`,
-                  title: getNewsReleaseTitle(item.filename)
+                  title: newsReleaseTitle(item.filename)
                 })),
               (item) => item.pubYear
             )
