@@ -68,7 +68,7 @@ import useTheme from '@hooks/useTheme'
 import {LinkProps} from '@components/Link'
 import useLinkComponent from '@hooks/useLinkComponent'
 import {AwsObjectExt} from '@lib/types/aws'
-import {getNewsReleaseTitle} from '@lib/newReleaseTitle'
+import publicationTitle from '@lib/publicationTitle'
 
 const imgixImages = [
   'https://imgix.cosmicjs.com/21555930-fbc6-11eb-9a4d-af05155ef55d-FireWater8.5x11LOW2021.pdf',
@@ -197,7 +197,7 @@ const PublicationsPage = ({
                   ...item,
                   pubYear: getYear(parseJSON(item.pubDate)),
                   nextLinkAs: `/newsroom/publications/newsletters/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`,
-                  title: getNewsReleaseTitle(item.filename)
+                  title: publicationTitle(item.filename)
                 })),
               (item) => item.pubYear
             )
