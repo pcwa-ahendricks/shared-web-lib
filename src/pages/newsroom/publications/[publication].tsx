@@ -67,7 +67,7 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import useTheme from '@hooks/useTheme'
 import {LinkProps} from '@components/Link'
 import useLinkComponent from '@hooks/useLinkComponent'
-import {AwsObjectExt} from '@lib/types/aws'
+import {type AwsNewsletter} from '@lib/types/aws'
 import publicationTitle from '@lib/publicationTitle'
 
 const imgixImages = [
@@ -97,7 +97,7 @@ interface TabPanelProps {
 type Props = {
   publicationParam?: string
   initialEnewsBlasts?: CosmicObjectResponse<EnewsBlastMetadata>
-  initialNewsletters?: AwsObjectExt[]
+  initialNewsletters?: AwsNewsletter[]
   err?: {statusCode: number}
   placeholders?: Placeholders
 }
@@ -106,8 +106,9 @@ const baseUrl = process.env.BASE_URL
 
 const newslettersQs = new URLSearchParams({
   folderPath: `pcwa-net/newsroom/newsletters/`,
-  parsePubDate: 'yyyy-MM-dd',
-  parsePubDateSep: '_'
+  parsePubDatePrfx: 'yyyy-MM-dd',
+  parsePubDatePrfxSep: '_',
+  omitHidden: 'true'
 }).toString()
 const newslettersUrl = `${baseUrl}/api/aws/media?${newslettersQs}`
 
@@ -152,7 +153,7 @@ const PublicationsPage = ({
 
   usePlaceholders(placeholders)
 
-  const {data: newslettersData} = useSWR<AwsObjectExt[]>(newslettersUrl, {
+  const {data: newslettersData} = useSWR<AwsNewsletter[]>(newslettersUrl, {
     fallbackData: initialNewsletters
   })
 
@@ -192,11 +193,11 @@ const PublicationsPage = ({
             // Group objects by derived Year into JS Map.
             ...groupBy<GroupedNewsletterVal, number>(
               newslettersData
-                .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
+                .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
                 .map((item) => ({
                   ...item,
-                  pubYear: getYear(parseJSON(item.pubDate)),
-                  nextLinkAs: `/newsroom/publications/newsletters/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`,
+                  pubYear: getYear(parseJSON(item.metadata.pubdate)),
+                  nextLinkAs: `/newsroom/publications/newsletters/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`,
                   title: publicationTitle(item.filename)
                 })),
               (item) => item.pubYear
@@ -207,8 +208,8 @@ const PublicationsPage = ({
               year,
               values: values.sort((a, b) =>
                 compareDesc(
-                  parseJSON(a.pubDate ?? ''),
-                  parseJSON(b.pubDate ?? '')
+                  parseJSON(a.metadata.pubdate ?? ''),
+                  parseJSON(b.metadata.pubdate ?? '')
                 )
               )
             }))
@@ -475,12 +476,12 @@ const PublicationsPage = ({
                                   height={1100}
                                   objectFit="cover"
                                   src={n.imgixUrl}
-                                  alt={`Thumbnail image for ${format(parseJSON(n.pubDate ?? ''), 'yyyy-MM-dd')} Newsletter`}
+                                  alt={`Thumbnail image for ${format(parseJSON(n.metadata.pubdate ?? ''), 'yyyy-MM-dd')} Newsletter`}
                                 />
                               </ColumnBox>
                             </ListItemAvatar>
                             <ListItemText
-                              primary={n.title}
+                              primary={n.metadata.title}
                               secondary={formatNewsletterDate(n)}
                             />
                           </ListItemButton>
@@ -807,7 +808,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     const publicationParam = paramToStr(params?.publication)
 
     const [initialNewsletters, initialEnewsBlasts] = await Promise.all([
-      fetcher<AwsObjectExt[]>(newslettersUrl),
+      fetcher<AwsNewsletter[]>(newslettersUrl),
       fetcher(`${baseUrl}${enewsBlastsUrl}`)
     ])
     // Placeholder images

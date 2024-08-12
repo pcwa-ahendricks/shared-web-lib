@@ -15835,10 +15835,10 @@ function addPage(page, changefreq = 'daily') {
 async function generateSitemap() {
     const pages = await globby_default()([
         'src/pages/**/*{.tsx,.mdx}',
-        '!src/pages/_*.tsx',
-        '!src/pages/**/__*.tsx',
-        '!src/pages/api',
-        '!src/pages/**/[*.tsx',
+        '!src/pages/_*.tsx', // ignore Next.js specific files (e.g., _app.tsx) and API routes
+        '!src/pages/**/__*.tsx', // ignore debug pages
+        '!src/pages/api', // ignore api routes
+        '!src/pages/**/[*.tsx', // ignore dynamic pages (manually added below)
         '!src/pages/board-of-directors/meeting-dates-subject-to-change.tsx' // for internal use only
     ]);
     const piPages = gage_config.filter((g) => !g.disabled) // No disabled gages.
@@ -15882,28 +15882,30 @@ async function generateSitemap() {
     const newsReleasesQs = new URLSearchParams({
         folderPath: `pcwa-net/newsroom/news-releases/`,
         parsePubDate: 'yyyy-MM-dd',
-        parsePubDateSep: '_'
+        parsePubDateSep: '_',
+        omitHidden: 'true'
     }).toString();
     const newsReleasesUrl = `${baseUrl}/api/aws/media?${newsReleasesQs}`;
     const newsReleasesMediaList = await lib_fetcher(newsReleasesUrl);
     const newsReleases = newsReleasesMediaList?.filter((item) => fileExtension(item.Key)?.toLowerCase() === 'pdf');
     const newsReleasesPages = newsReleases && Array.isArray(newsReleases)
         ? newsReleases
-            .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
-            .map((item) => `/newsroom/news-releases/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`)
+            .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
+            .map((item) => `/newsroom/news-releases/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`)
         : [];
     const newslettersQs = new URLSearchParams({
         folderPath: `pcwa-net/newsroom/newsletters/`,
         parsePubDate: 'yyyy-MM-dd',
-        parsePubDateSep: '_'
+        parsePubDateSep: '_',
+        omitHidden: 'true'
     }).toString();
     const newslettersUrl = `${baseUrl}/api/aws/media?${newslettersQs}`;
     const newsletterssMediaList = await lib_fetcher(newslettersUrl);
     const newsletters = newsletterssMediaList?.filter((item) => fileExtension(item.Key)?.toLowerCase() === 'pdf');
     const newslettersPages = newsletters && Array.isArray(newsletters)
         ? newsletters
-            .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
-            .map((item) => `/newsroom/publications/newsletters/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`)
+            .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
+            .map((item) => `/newsroom/publications/newsletters/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`)
         : [];
     const data = await lib_fetcher(`${baseUrl}${boardMinutesUrl}`);
     const bodMinutesPages = data && Array.isArray(data)

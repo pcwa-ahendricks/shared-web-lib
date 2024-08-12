@@ -2,7 +2,8 @@ import {VercelRequest, VercelResponse} from '@vercel/node'
 import {
   S3Client,
   ListObjectsV2Command,
-  ListObjectsV2CommandOutput
+  ListObjectsV2CommandOutput,
+  HeadObjectCommand
 } from '@aws-sdk/client-s3'
 import path from 'path'
 import {type AwsObjectExt} from '@lib/types/aws'
@@ -39,15 +40,24 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
     const {query} = req
     let {
       folderPath: folderPathParam,
-      parsePubDate: parsePubDateParam,
-      parsePubDateSep: parsePubDateSepParam
+      parsePubDatePrfx: parsePubDatePrfxParam,
+      parsePubDatePrfxSep: parsePubDateSepPrfxParam,
+      filterRootPath: filterRootPathParam,
+      metadata: metadataParam,
+      omitHidden: omitHiddenParam
     } = query // using request query
 
     const folderPath = paramToStr(folderPathParam)
-    const parsePubDate = paramToStr(parsePubDateParam)
-    const parsePubDateSep = paramToStr(parsePubDateSepParam) || '_' // default to underscore
+    const parsePubDatePrfx = paramToStr(parsePubDatePrfxParam)
+    const parsePubDatePrfxSep = paramToStr(parsePubDateSepPrfxParam) || '_' // default to underscore
+    const filterRootPath =
+      paramToStr(filterRootPathParam)?.toLowerCase() === 'false' ? false : true // default to true
+    const metadata =
+      paramToStr(metadataParam)?.toLowerCase() === 'false' ? false : true // default to true
+    const omitHidden =
+      paramToStr(omitHiddenParam)?.toLowerCase() === 'true' ? true : false // default to false
 
-    const shouldParsePubDate = Boolean(parsePubDate)
+    const shouldParsePubDatePrfx = !!parsePubDatePrfx
 
     const validPrefixPath = startsWithAnyPrefix(folderPath, [
       'pcwa-net/newsroom/news-releases/',
@@ -68,16 +78,17 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
       const files =
         data.Contents?.map((item) => {
           const filename = path.basename(item.Key)
-          let pubDate: string
-          if (shouldParsePubDate) {
-            const pubDateStr = filename.substring(
+          const basePath = path.dirname(item.Key)
+          let pubDatePrfx: Date | null = null
+          if (shouldParsePubDatePrfx) {
+            const pubDatePrfxStr = filename.substring(
               0,
-              filename.indexOf(parsePubDateSep)
+              filename.indexOf(parsePubDatePrfxSep)
             )
-            pubDate = fromZonedTime(
-              parse(pubDateStr, parsePubDate, localDate()),
+            pubDatePrfx = fromZonedTime(
+              parse(pubDatePrfxStr, parsePubDatePrfx, localDate()),
               TZ
-            ).toJSON()
+            )
           }
           const ext = fileExtension(item.Key)
           const shouldAddImgixUrl = isImgixInputMimeType(ext)
@@ -87,14 +98,43 @@ const mainHandler = async (req: VercelRequest, res: VercelResponse) => {
           return {
             ...item,
             filename,
+            basePath,
             // Boolean check will prevent null values from being added when using null date strings (ie. bad parsePubDateSep)
-            ...(shouldParsePubDate && Boolean(pubDate) && {pubDate}),
+            ...(shouldParsePubDatePrfx && !!pubDatePrfx && {pubDatePrfx}),
             url,
             cdnUrl,
             ...(shouldAddImgixUrl && {imgixUrl})
           }
+        }).filter((item) => {
+          // don't return an object for the folder we requested if filterRootPath is truthy (default)
+          if (filterRootPath && item?.Key) {
+            return item.Key.toLowerCase() !== folderPath.toLowerCase()
+          }
+          return true
         }) || []
 
+      if (metadata) {
+        const metadataPromises = files.map(async (object) => {
+          const headCommand = new HeadObjectCommand({
+            Bucket: bucketName,
+            Key: object.Key
+          })
+
+          const headResponse = await s3Client.send(headCommand)
+          // console.log(`Metadata for ${object.Key}:`, headResponse.Metadata)
+          return {...object, metadata: headResponse.Metadata}
+        })
+
+        const filesWithMetadata = await Promise.all(metadataPromises)
+        // dLog('filesWithMetadata: ', filesWithMetadata[0].metadata)
+        return filesWithMetadata.filter((item) => {
+          // don't return hidden objects if omitHidden is truthy (default: false)
+          if (omitHidden) {
+            return item.metadata?.['hidden'] !== 'true'
+          }
+          return true
+        })
+      }
       return files
     }
 

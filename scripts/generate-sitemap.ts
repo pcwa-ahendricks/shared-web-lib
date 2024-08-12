@@ -23,7 +23,7 @@ import {
   PublicationList,
   VideoList
 } from '@lib/types/multimedia'
-import {AwsObjectExt} from '@lib/types/aws'
+import {type AwsNewsletter, type AwsNewsRelease} from '@lib/types/aws'
 import {format, parseJSON} from 'date-fns'
 import {fileExtension} from '@lib/fileExtension'
 
@@ -115,10 +115,11 @@ async function generateSitemap() {
   const newsReleasesQs = new URLSearchParams({
     folderPath: `pcwa-net/newsroom/news-releases/`,
     parsePubDate: 'yyyy-MM-dd',
-    parsePubDateSep: '_'
+    parsePubDateSep: '_',
+    omitHidden: 'true'
   }).toString()
   const newsReleasesUrl = `${baseUrl}/api/aws/media?${newsReleasesQs}`
-  const newsReleasesMediaList: AwsObjectExt[] = await fetcher(newsReleasesUrl)
+  const newsReleasesMediaList: AwsNewsRelease[] = await fetcher(newsReleasesUrl)
   const newsReleases = newsReleasesMediaList?.filter(
     (item) => fileExtension(item.Key)?.toLowerCase() === 'pdf'
   )
@@ -126,20 +127,21 @@ async function generateSitemap() {
   const newsReleasesPages =
     newsReleases && Array.isArray(newsReleases)
       ? newsReleases
-          .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
+          .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
           .map(
             (item) =>
-              `/newsroom/news-releases/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`
+              `/newsroom/news-releases/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`
           )
       : []
 
   const newslettersQs = new URLSearchParams({
     folderPath: `pcwa-net/newsroom/newsletters/`,
     parsePubDate: 'yyyy-MM-dd',
-    parsePubDateSep: '_'
+    parsePubDateSep: '_',
+    omitHidden: 'true'
   }).toString()
   const newslettersUrl = `${baseUrl}/api/aws/media?${newslettersQs}`
-  const newsletterssMediaList: AwsObjectExt[] = await fetcher(newslettersUrl)
+  const newsletterssMediaList: AwsNewsletter[] = await fetcher(newslettersUrl)
   const newsletters = newsletterssMediaList?.filter(
     (item) => fileExtension(item.Key)?.toLowerCase() === 'pdf'
   )
@@ -147,10 +149,10 @@ async function generateSitemap() {
   const newslettersPages =
     newsletters && Array.isArray(newsletters)
       ? newsletters
-          .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
+          .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
           .map(
             (item) =>
-              `/newsroom/publications/newsletters/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`
+              `/newsroom/publications/newsletters/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`
           )
       : []
 
