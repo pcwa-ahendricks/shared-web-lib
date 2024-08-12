@@ -6,7 +6,7 @@ const forceLowercaseRe =
 const forceUppercaseRe =
   /\bgm\s|\bu\.s\.\s|\bnid\s|\bpcwa\s|\bpg&e\s|\bpge\s|\bkvie\s|\bpbs\s|\bmfpfa\s/gi
 
-export default function newsReleaseTitle(input = ''): string {
+export default function publicationTitle(input = ''): string {
   // Remove the file extension
   const withoutExtension = input.replace(/\.[^/.]+$/, '')
 

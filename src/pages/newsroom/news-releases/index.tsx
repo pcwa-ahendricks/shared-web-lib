@@ -34,21 +34,22 @@ import fetcher from '@lib/fetcher'
 import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
-import {AwsObjectExt} from '@lib/types/aws'
-import newsReleaseTitle from '@lib/newsReleaseTitle'
+import {AwsNewsRelease, AwsObjectExt} from '@lib/types/aws'
+import publicationTitle from '@lib/publicationTitle'
 import {fileExtension} from '@lib/fileExtension'
 
 const baseUrl = process.env.BASE_URL
 const qs = new URLSearchParams({
   folderPath: `pcwa-net/newsroom/news-releases/`,
-  parsePubDate: 'yyyy-MM-dd',
-  parsePubDateSep: '_'
+  parsePubDatePrfx: 'yyyy-MM-dd',
+  parsePubDatePrfxSep: '_',
+  omitHidden: 'true'
 }).toString()
 const apiUrl = `/api/aws/media?${qs}`
 const newsReleasesUrl = `${baseUrl}${apiUrl}`
 
 type Props = {
-  fallbackData?: AwsObjectExt[]
+  fallbackData?: AwsNewsRelease[]
 }
 
 const NewsReleasesPage = ({fallbackData}: Props) => {
@@ -57,7 +58,7 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
   const newsroomDispatch = newsroomContext.dispatch
   const {newsReleaseYear} = newsroomContext.state
 
-  const {data: newsReleasesData} = useSWR<AwsObjectExt[]>(newsReleasesUrl, {
+  const {data: newsReleasesData} = useSWR<AwsNewsRelease[]>(newsReleasesUrl, {
     fallbackData
   })
 
@@ -68,12 +69,12 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
             // Group objects by derived Year into JS Map.
             ...groupBy<GroupedNewsReleaseVal, number>(
               newsReleasesData
-                .filter((item) => Boolean(item.pubDate)) // Don't list links that will ultimately 404.
+                .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
                 .map((item) => ({
                   ...item,
-                  pubYear: getYear(parseJSON(item.pubDate)),
-                  nextLinkAs: `/newsroom/news-releases/${format(parseJSON(item.pubDate), 'yyyy-MM-dd')}`,
-                  title: newsReleaseTitle(item.filename)
+                  pubYear: getYear(parseJSON(item.metadata.pubdate)),
+                  nextLinkAs: `/newsroom/news-releases/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`,
+                  title: publicationTitle(item.filename)
                 })),
               (item) => item.pubYear
             )
@@ -83,8 +84,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
               year,
               values: values.sort((a, b) =>
                 compareDesc(
-                  parseJSON(a.pubDate ?? ''),
-                  parseJSON(b.pubDate ?? '')
+                  parseJSON(a.metadata.pubdate ?? ''),
+                  parseJSON(b.metadata.pubdate ?? '')
                 )
               )
             }))
@@ -236,14 +237,14 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                               height={1100}
                               objectFit="cover"
                               src={n.imgixUrl}
-                              alt={`Thumbnail image for ${format(parseJSON(n.pubDate ?? ''), 'yyyy-MM-dd')} News Release`}
+                              alt={`Thumbnail image for ${format(parseJSON(n.metadata.pubdate ?? ''), 'yyyy-MM-dd')} News Release`}
                             />
                           </Box>
                         </ListItemAvatar>
                         <ListItemText
-                          primary={n.title}
+                          primary={n.metadata.title}
                           secondary={format(
-                            parseJSON(n.pubDate ?? ''),
+                            parseJSON(n.metadata.pubdate ?? ''),
                             'MMMM do'
                           )}
                         />

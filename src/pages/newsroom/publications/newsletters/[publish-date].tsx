@@ -17,7 +17,7 @@ import {setCenterProgress, UiContext} from '@components/ui/UiStore'
 import useTheme from '@hooks/useTheme'
 import Link from '@components/Link'
 import dynamic from 'next/dynamic'
-import {type AwsObjectExt} from '@lib/types/aws'
+import {type AwsNewsletter} from '@lib/types/aws'
 import {fileExtension} from '@lib/fileExtension'
 
 const ReactPdfPage = dynamic(() => import('@components/PDFPage/ReactPdfPage'), {
@@ -26,7 +26,7 @@ const ReactPdfPage = dynamic(() => import('@components/PDFPage/ReactPdfPage'), {
 
 type Props = {
   err?: any
-  media?: AwsObjectExt
+  media?: AwsNewsletter
   publishedOn: string
 }
 
@@ -55,14 +55,14 @@ const DynamicNewslettersPage = ({media, err, publishedOn}: Props) => {
   }
 
   const newsletterDateFormatted = useMemo(() => {
-    if (!media?.pubDate) {
+    if (!media?.metadata?.pubdate) {
       return ''
     }
-    const parsedPubDate = parseJSON(media?.pubDate)
+    const parsedPubDate = parseJSON(media.metadata.pubdate)
     return isValid(parsedPubDate)
       ? format(parsedPubDate, "EEEE',' MMMM do',' yyyy")
       : ''
-  }, [media?.pubDate])
+  }, [media?.metadata?.pubdate])
 
   // console.log('media', media)
   // console.log('err', err)
@@ -153,12 +153,13 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     const qs = new URLSearchParams({
       folderPath: `pcwa-net/newsroom/newsletters/${publishedOn}`,
-      parsePubDate: 'yyyy-MM-dd',
-      parsePubDateSep: '_'
+      parsePubDatePrfx: 'yyyy-MM-dd',
+      parsePubDatePrfxSep: '_',
+      omitHidden: 'true'
     }).toString()
     const apiUrl = `/api/aws/media?${qs}`
     const url = `${baseUrl}${apiUrl}`
-    const mediaList: AwsObjectExt[] = await fetcher(url)
+    const mediaList: AwsNewsletter[] = await fetcher(url)
 
     const media = mediaList?.filter(
       (item) => fileExtension(item.Key)?.toLowerCase() === 'pdf'

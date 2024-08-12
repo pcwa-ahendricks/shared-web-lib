@@ -1,6 +1,6 @@
 // cspell:ignore mediachimp
 import React, {createContext, useReducer} from 'react'
-import {AwsObjectExt} from '@lib/types/aws'
+import {type AwsNewsletter, type AwsNewsRelease} from '@lib/types/aws'
 
 interface State {
   newsReleaseYear?: number
@@ -22,20 +22,18 @@ export interface EnewsBlast {
   distributionDate: Date
 }
 
-export type GroupedNewsletterVal = AwsObjectExt & {
+export type GroupedNewsletterVal = AwsNewsletter & {
   pubYear: number
   nextLinkAs: string
-  title: string
 }
 export type GroupedNewsletters = Array<{
   year: number
   values: GroupedNewsletterVal[]
 }>
 
-export type GroupedNewsReleaseVal = AwsObjectExt & {
+export type GroupedNewsReleaseVal = AwsNewsRelease & {
   pubYear: number
   nextLinkAs: string
-  title: string
 }
 export type GroupedNewsReleases = Array<{
   year: number
