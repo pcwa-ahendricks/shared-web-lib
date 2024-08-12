@@ -69,11 +69,11 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
             // Group objects by derived Year into JS Map.
             ...groupBy<GroupedNewsReleaseVal, number>(
               newsReleasesData
-                .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
+                .filter((item) => Boolean(item?.metadata?.['published-at'])) // Don't list links that will ultimately 404.
                 .map((item) => ({
                   ...item,
-                  pubYear: getYear(parseJSON(item.metadata.pubdate)),
-                  nextLinkAs: `/newsroom/news-releases/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`,
+                  pubYear: getYear(parseJSON(item.metadata['published-at'])),
+                  nextLinkAs: `/newsroom/news-releases/${format(parseJSON(item.metadata['published-at']), 'yyyy-MM-dd')}`,
                   title: publicationTitle(item.filename)
                 })),
               (item) => item.pubYear
@@ -84,8 +84,8 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
               year,
               values: values.sort((a, b) =>
                 compareDesc(
-                  parseJSON(a.metadata.pubdate ?? ''),
-                  parseJSON(b.metadata.pubdate ?? '')
+                  parseJSON(a.metadata['published-at'] ?? ''),
+                  parseJSON(b.metadata['published-at'] ?? '')
                 )
               )
             }))
@@ -237,14 +237,14 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                               height={1100}
                               objectFit="cover"
                               src={n.imgixUrl}
-                              alt={`Thumbnail image for ${format(parseJSON(n.metadata.pubdate ?? ''), 'yyyy-MM-dd')} News Release`}
+                              alt={`Thumbnail image for ${format(parseJSON(n.metadata['published-at'] ?? ''), 'yyyy-MM-dd')} News Release`}
                             />
                           </Box>
                         </ListItemAvatar>
                         <ListItemText
                           primary={n.metadata.title}
                           secondary={format(
-                            parseJSON(n.metadata.pubdate ?? ''),
+                            parseJSON(n.metadata['published-at'] ?? ''),
                             'MMMM do'
                           )}
                         />

@@ -127,10 +127,10 @@ async function generateSitemap() {
   const newsReleasesPages =
     newsReleases && Array.isArray(newsReleases)
       ? newsReleases
-          .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
+          .filter((item) => Boolean(item?.metadata?.['published-at'])) // Don't list links that will ultimately 404.
           .map(
             (item) =>
-              `/newsroom/news-releases/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`
+              `/newsroom/news-releases/${format(parseJSON(item.metadata['published-at']), 'yyyy-MM-dd')}`
           )
       : []
 
@@ -149,10 +149,10 @@ async function generateSitemap() {
   const newslettersPages =
     newsletters && Array.isArray(newsletters)
       ? newsletters
-          .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
+          .filter((item) => Boolean(item?.metadata?.['published-at'])) // Don't list links that will ultimately 404.
           .map(
             (item) =>
-              `/newsroom/publications/newsletters/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`
+              `/newsroom/publications/newsletters/${format(parseJSON(item.metadata['published-at']), 'yyyy-MM-dd')}`
           )
       : []
 

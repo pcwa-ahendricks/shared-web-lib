@@ -55,14 +55,14 @@ const DynamicNewslettersPage = ({media, err, publishedOn}: Props) => {
   }
 
   const newsletterDateFormatted = useMemo(() => {
-    if (!media?.metadata?.pubdate) {
+    if (!media?.metadata?.['published-at']) {
       return ''
     }
-    const parsedPubDate = parseJSON(media.metadata.pubdate)
+    const parsedPubDate = parseJSON(media.metadata['published-at'])
     return isValid(parsedPubDate)
       ? format(parsedPubDate, "EEEE',' MMMM do',' yyyy")
       : ''
-  }, [media?.metadata?.pubdate])
+  }, [media?.metadata])
 
   // console.log('media', media)
   // console.log('err', err)

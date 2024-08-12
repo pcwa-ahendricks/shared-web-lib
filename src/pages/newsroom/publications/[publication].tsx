@@ -193,11 +193,11 @@ const PublicationsPage = ({
             // Group objects by derived Year into JS Map.
             ...groupBy<GroupedNewsletterVal, number>(
               newslettersData
-                .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
+                .filter((item) => Boolean(item?.metadata?.['published-at'])) // Don't list links that will ultimately 404.
                 .map((item) => ({
                   ...item,
-                  pubYear: getYear(parseJSON(item.metadata.pubdate)),
-                  nextLinkAs: `/newsroom/publications/newsletters/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`,
+                  pubYear: getYear(parseJSON(item.metadata['published-at'])),
+                  nextLinkAs: `/newsroom/publications/newsletters/${format(parseJSON(item.metadata['published-at']), 'yyyy-MM-dd')}`,
                   title: publicationTitle(item.filename)
                 })),
               (item) => item.pubYear
@@ -208,8 +208,8 @@ const PublicationsPage = ({
               year,
               values: values.sort((a, b) =>
                 compareDesc(
-                  parseJSON(a.metadata.pubdate ?? ''),
-                  parseJSON(b.metadata.pubdate ?? '')
+                  parseJSON(a.metadata['published-at'] ?? ''),
+                  parseJSON(b.metadata['published-at'] ?? '')
                 )
               )
             }))
@@ -476,7 +476,7 @@ const PublicationsPage = ({
                                   height={1100}
                                   objectFit="cover"
                                   src={n.imgixUrl}
-                                  alt={`Thumbnail image for ${format(parseJSON(n.metadata.pubdate ?? ''), 'yyyy-MM-dd')} Newsletter`}
+                                  alt={`Thumbnail image for ${format(parseJSON(n.metadata['published-at'] ?? ''), 'yyyy-MM-dd')} Newsletter`}
                                 />
                               </ColumnBox>
                             </ListItemAvatar>

@@ -13,7 +13,7 @@ export interface AwsObjectExt extends _Object {
 export interface AwsNewsRelease extends AwsObjectExt {
   metadata?: {
     hidden?: string // 'true' or 'false'
-    pubdate?: string
+    'published-at'?: string
     title?: string
   }
 }
@@ -21,7 +21,7 @@ export interface AwsNewsRelease extends AwsObjectExt {
 export interface AwsNewsletter extends AwsObjectExt {
   metadata?: {
     hidden?: string // 'true' or 'false'
-    pubdate?: string
+    'published-at'?: string
     title?: string
   }
 }

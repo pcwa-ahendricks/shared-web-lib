@@ -15890,8 +15890,8 @@ async function generateSitemap() {
     const newsReleases = newsReleasesMediaList?.filter((item) => fileExtension(item.Key)?.toLowerCase() === 'pdf');
     const newsReleasesPages = newsReleases && Array.isArray(newsReleases)
         ? newsReleases
-            .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
-            .map((item) => `/newsroom/news-releases/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`)
+            .filter((item) => Boolean(item?.metadata?.['published-at'])) // Don't list links that will ultimately 404.
+            .map((item) => `/newsroom/news-releases/${format(parseJSON(item.metadata['published-at']), 'yyyy-MM-dd')}`)
         : [];
     const newslettersQs = new URLSearchParams({
         folderPath: `pcwa-net/newsroom/newsletters/`,
@@ -15904,8 +15904,8 @@ async function generateSitemap() {
     const newsletters = newsletterssMediaList?.filter((item) => fileExtension(item.Key)?.toLowerCase() === 'pdf');
     const newslettersPages = newsletters && Array.isArray(newsletters)
         ? newsletters
-            .filter((item) => Boolean(item?.metadata?.pubdate)) // Don't list links that will ultimately 404.
-            .map((item) => `/newsroom/publications/newsletters/${format(parseJSON(item.metadata.pubdate), 'yyyy-MM-dd')}`)
+            .filter((item) => Boolean(item?.metadata?.['published-at'])) // Don't list links that will ultimately 404.
+            .map((item) => `/newsroom/publications/newsletters/${format(parseJSON(item.metadata['published-at']), 'yyyy-MM-dd')}`)
         : [];
     const data = await lib_fetcher(`${baseUrl}${boardMinutesUrl}`);
     const bodMinutesPages = data && Array.isArray(data)
