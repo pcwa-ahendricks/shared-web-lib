@@ -26,10 +26,7 @@ const RateAdjustPage = () => {
     <PageLayout title="Multiyear Rate Adjustment" waterSurface>
       <MainBox>
         <WideContainer>
-          <PageTitle
-            title="2023 Multiyear Rate Adjustment"
-            subtitle="Services"
-          />
+          <PageTitle title="Multiyear Rate Adjustment" subtitle="Services" />
           {/* <Type variant="h2" color="primary">
             2023 Rate Adjustment
           </Type> */}
@@ -55,6 +52,14 @@ const RateAdjustPage = () => {
                 with the Proposition 218 process was approved by the Board on
                 March 3, 2022, and the process concluded with a public hearing
                 on May 9, 2022.
+              </Type>
+              <Type paragraph>
+                The proposed rates and charges for delivery of treated and
+                untreated water are intended to increase by 8.0% in 2023, 8.0%
+                in 2024, 7.0% in 2025, 7.0% in 2026, and 6.0% in 2027. The
+                change in monthly charges for water service for each customer
+                will vary depending upon meter size, volume of water used, and
+                customer classification.
               </Type>
               {/* <Box bgcolor={yellow[50]} paddingY={2} paddingX={4}>
                 <Type variant="h5" sx={{color: brown[800]}} gutterBottom>

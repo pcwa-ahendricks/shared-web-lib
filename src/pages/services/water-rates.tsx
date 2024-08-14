@@ -21,6 +21,7 @@ import Image from 'next/legacy/image'
 import useTheme from '@hooks/useTheme'
 import imgixLoader from '@lib/imageLoader'
 import Spacing from '@components/boxes/Spacing'
+import Link from '@components/Link'
 
 function createData(tier: string, cost: number) {
   return {tier, cost}
@@ -237,7 +238,13 @@ const WaterRatesPage = () => {
               </Type>
               <Type paragraph>
                 These rates below are based on a perfect 30 days, each billing
-                cycle can range from 25-35 days
+                cycle can range from 25-35 days. For details on upcoming rate
+                adjustments, effective starting in 2023, please visit our page
+                on{' '}
+                <Link href="/services/rate-adjust">
+                  Multi-year Rate Adjustment
+                </Link>{' '}
+                page.
               </Type>
             </article>
             <Box mt={3}>
