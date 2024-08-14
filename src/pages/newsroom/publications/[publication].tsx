@@ -120,7 +120,7 @@ const enewsBlastsUrl = `/api/cosmic/objects${enewsParamsQs}`
 
 const PublicationsPage = ({
   initialEnewsBlasts,
-  initialNewsletters: newslettersData,
+  initialNewsletters,
   publicationParam = '',
   placeholders
 }: Props) => {
@@ -153,6 +153,13 @@ const PublicationsPage = ({
   // const {data: newslettersData} = useSWR<AwsNewsletter[]>(newslettersUrl, {
   //   fallbackData: initialNewsletters
   // })
+
+  const {data: newslettersData} = useSWR<NewsletterRow[]>(
+    '/api/db/newsletters',
+    {
+      fallbackData: initialNewsletters
+    }
+  )
 
   useEffect(() => {
     // console.log('publicationParam: ', publicationParam)

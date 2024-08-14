@@ -34,6 +34,7 @@ import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
 import {sql} from '@vercel/postgres'
 import {type NewsReleaseResultRow} from 'src/@types/pg'
+import useSWR from 'swr'
 
 export type NewsReleaseRow = Omit<
   NewsReleaseResultRow,
@@ -44,15 +45,18 @@ type Props = {
   fallbackData?: NewsReleaseRow[]
 }
 
-const NewsReleasesPage = ({fallbackData: newsReleasesData}: Props) => {
+const NewsReleasesPage = ({fallbackData}: Props) => {
   const theme = useTheme()
   const newsroomContext = useContext(NewsroomContext)
   const newsroomDispatch = newsroomContext.dispatch
   const {newsReleaseYear} = newsroomContext.state
 
-  // const {data: newsReleasesData} = useSWR<NewsReleaseResultRow[]>(newsReleasesUrl, {
-  //   fallbackData
-  // })
+  const {data: newsReleasesData} = useSWR<NewsReleaseRow[]>(
+    '/api/db/news-releases',
+    {
+      fallbackData
+    }
+  )
 
   const newsReleases: GroupedNewsReleases = useMemo(
     () =>
