@@ -4,12 +4,11 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import {useMediaQuery, Typography as Type, Breadcrumbs} from '@mui/material'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
-import {format, parseJSON, isValid} from 'date-fns'
+import {format, parseJSON} from 'date-fns'
 import ErrorPage from '@pages/_error'
 import UndoIcon from '@mui/icons-material/UndoOutlined'
 import DocIcon from '@mui/icons-material/DescriptionOutlined'
 import {useRouter} from 'next/router'
-import fetcher from '@lib/fetcher'
 import paramToStr from '@lib/paramToStr'
 import DownloadResourceFab from '@components/dynamicImgixPage/DownloadResourceFab'
 import slugify from 'slugify'
@@ -17,20 +16,37 @@ import {setCenterProgress, UiContext} from '@components/ui/UiStore'
 import useTheme from '@hooks/useTheme'
 import Link from '@components/Link'
 import dynamic from 'next/dynamic'
-import {type AwsNewsletter} from '@lib/types/aws'
-import {fileExtension} from '@lib/fileExtension'
+import {type NewsletterResultRow} from 'src/@types/pg'
+// IMPORTANT - only use sql in getStaticProps, getServerSideProps, and getStaticPaths
+import {sql} from '@vercel/postgres'
 
 const ReactPdfPage = dynamic(() => import('@components/PDFPage/ReactPdfPage'), {
   ssr: false
 })
 
-type Props = {
-  err?: any
-  media?: AwsNewsletter
-  publishedOn: string
+export type NewsletterRow = Omit<
+  NewsletterResultRow,
+  'modified_at' | 'created_at' | 'published_at' | 'hidden'
+> & {published_at: string}
+
+const dateRegex = /^\d{4}-\d{2}-\d{2}$/
+function isValidDate(date: string): boolean {
+  return dateRegex.test(date)
 }
 
-const DynamicNewslettersPage = ({media, err, publishedOn}: Props) => {
+type Props = {
+  err?: any
+  media?: NewsletterRow
+}
+
+const DynamicNewslettersPage = ({media: mediaParam, err}: Props) => {
+  const media = useMemo(
+    () => ({
+      ...mediaParam,
+      ...(mediaParam && {published_at: parseJSON(mediaParam.published_at)})
+    }),
+    [mediaParam]
+  )
   const theme = useTheme()
   const uiContext = useContext(UiContext)
   const {dispatch: uiDispatch} = uiContext
@@ -55,14 +71,12 @@ const DynamicNewslettersPage = ({media, err, publishedOn}: Props) => {
   }
 
   const newsletterDateFormatted = useMemo(() => {
-    if (!media?.metadata?.['published-at']) {
+    if (!media) {
       return ''
     }
-    const parsedPubDate = parseJSON(media.metadata['published-at'])
-    return isValid(parsedPubDate)
-      ? format(parsedPubDate, "EEEE',' MMMM do',' yyyy")
-      : ''
-  }, [media?.metadata])
+    const parsedPubDate = media.published_at
+    return format(parsedPubDate, "EEEE',' MMMM do',' yyyy")
+  }, [media])
 
   // console.log('media', media)
   // console.log('err', err)
@@ -87,8 +101,11 @@ const DynamicNewslettersPage = ({media, err, publishedOn}: Props) => {
     return <ErrorPage statusCode={404} />
   }
 
-  const pageTitle = publishedOn ? `Newsletter ${publishedOn}` : ''
-  const downloadAs = slugify(media?.filename ?? '')
+  const pageTitle = `Newsletter ${format(media.published_at, 'yyyy-MM-dd')}`
+  const downloadAs = slugify(media.title)
+
+  const originUrl = `https://pcwa.sfo3.digitaloceanspaces.com/${media.s3_key}`
+  const imgixUrl = `https://pcwa.imgix.net/${media.s3_key}`
 
   return (
     <PageLayout title={pageTitle}>
@@ -126,13 +143,13 @@ const DynamicNewslettersPage = ({media, err, publishedOn}: Props) => {
               caption="Download Newsletter"
               aria-label="Download Newsletter"
               size={isSMDown ? 'small' : 'medium'}
-              href={`${media?.url}?dl=${downloadAs}`}
-              fileSize={media?.Size}
+              href={`${imgixUrl}?dl=${downloadAs}`}
+              // fileSize={media?.Size}
               ext="pdf"
             />
           </ChildBox>
         </RowBox>
-        <ReactPdfPage url={media?.url} />
+        <ReactPdfPage url={originUrl} />
       </MainBox>
     </PageLayout>
   )
@@ -141,40 +158,39 @@ const DynamicNewslettersPage = ({media, err, publishedOn}: Props) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
-    fallback: true
+    // fallback: true' not working with sql on hard page refreshes
+    fallback: 'blocking'
   }
 }
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const baseUrl = process.env.BASE_URL
-
     const publishedOn = paramToStr(params?.['publish-date'])
 
-    const qs = new URLSearchParams({
-      folderPath: `pcwa-net/newsroom/newsletters/${publishedOn}`,
-      parsePubDatePrfx: 'yyyy-MM-dd',
-      parsePubDatePrfxSep: '_',
-      omitHidden: 'true'
-    }).toString()
-    const apiUrl = `/api/aws/media?${qs}`
-    const url = `${baseUrl}${apiUrl}`
-    const mediaList: AwsNewsletter[] = await fetcher(url)
+    if (!isValidDate(publishedOn)) {
+      throw 'Invalid date parameter'
+    }
 
-    const media = mediaList?.filter(
-      (item) => fileExtension(item.Key)?.toLowerCase() === 'pdf'
-    )[0]
+    // retrieve data (single row) from pg db, and pdfs only (likely isn't necessary)
+    const {
+      rowCount,
+      rows: [row]
+    } = await sql<NewsletterRow>`
+        SELECT s3_key, title, published_at::text as published_at, id
+        FROM newsletters
+        WHERE s3_key ILIKE '%.pdf' AND hidden != True AND published_at::date = ${publishedOn}
+        LIMIT 1
+      `
 
-    // if (!media || !publishedOn) {
-    //   throw 'No media or no publish date'
-    // }
+    if (!rowCount) {
+      throw 'No Newsletter data'
+    }
 
     return {
       props: {
-        media,
-        publishedOn
+        media: row
       },
-      revalidate: 5
+      revalidate: 10
     }
   } catch (error) {
     console.log(error)

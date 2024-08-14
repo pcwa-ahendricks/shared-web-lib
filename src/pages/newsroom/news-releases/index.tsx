@@ -3,7 +3,7 @@ import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import WideContainer from '@components/containers/WideContainer'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {compareDesc, parseJSON, format, getYear} from 'date-fns'
+import {compareDesc, format, getYear, parseJSON} from 'date-fns'
 import groupBy from '@lib/groupBy'
 import {RowBox, ChildBox} from '@components/MuiSleazebox'
 import {
@@ -29,38 +29,30 @@ import {
   setNewsReleaseYear
 } from '@components/newsroom/NewsroomStore'
 import {GetStaticProps} from 'next'
-import useSWR from 'swr'
-import fetcher from '@lib/fetcher'
 import Image from 'next/legacy/image'
 import imgixLoader, {imgixUrlLoader} from '@lib/imageLoader'
 import useTheme from '@hooks/useTheme'
-import {AwsNewsRelease, AwsObjectExt} from '@lib/types/aws'
-import publicationTitle from '@lib/publicationTitle'
-import {fileExtension} from '@lib/fileExtension'
+import {sql} from '@vercel/postgres'
+import {type NewsReleaseResultRow} from 'src/@types/pg'
 
-const baseUrl = process.env.BASE_URL
-const qs = new URLSearchParams({
-  folderPath: `pcwa-net/newsroom/news-releases/`,
-  parsePubDatePrfx: 'yyyy-MM-dd',
-  parsePubDatePrfxSep: '_',
-  omitHidden: 'true'
-}).toString()
-const apiUrl = `/api/aws/media?${qs}`
-const newsReleasesUrl = `${baseUrl}${apiUrl}`
+export type NewsReleaseRow = Omit<
+  NewsReleaseResultRow,
+  'modified_at' | 'created_at' | 'published_at' | 'hidden'
+> & {published_at: string}
 
 type Props = {
-  fallbackData?: AwsNewsRelease[]
+  fallbackData?: NewsReleaseRow[]
 }
 
-const NewsReleasesPage = ({fallbackData}: Props) => {
+const NewsReleasesPage = ({fallbackData: newsReleasesData}: Props) => {
   const theme = useTheme()
   const newsroomContext = useContext(NewsroomContext)
   const newsroomDispatch = newsroomContext.dispatch
   const {newsReleaseYear} = newsroomContext.state
 
-  const {data: newsReleasesData} = useSWR<AwsNewsRelease[]>(newsReleasesUrl, {
-    fallbackData
-  })
+  // const {data: newsReleasesData} = useSWR<NewsReleaseResultRow[]>(newsReleasesUrl, {
+  //   fallbackData
+  // })
 
   const newsReleases: GroupedNewsReleases = useMemo(
     () =>
@@ -69,12 +61,14 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
             // Group objects by derived Year into JS Map.
             ...groupBy<GroupedNewsReleaseVal, number>(
               newsReleasesData
-                .filter((item) => Boolean(item?.metadata?.['published-at'])) // Don't list links that will ultimately 404.
+                .filter((item) => Boolean(item?.published_at)) // Don't list links that will ultimately 404.
                 .map((item) => ({
                   ...item,
-                  pubYear: getYear(parseJSON(item.metadata['published-at'])),
-                  nextLinkAs: `/newsroom/news-releases/${format(parseJSON(item.metadata['published-at']), 'yyyy-MM-dd')}`,
-                  title: publicationTitle(item.filename)
+                  published_at: parseJSON(item.published_at),
+                  pubYear: getYear(item.published_at),
+                  nextLinkAs: `/newsroom/news-releases/${format(item.published_at, 'yyyy-MM-dd')}`,
+                  title: item.title,
+                  imgixUrl: `https://pcwa.imgix.net/${item.s3_key}`
                 })),
               (item) => item.pubYear
             )
@@ -83,10 +77,7 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
             .map(([year, values]) => ({
               year,
               values: values.sort((a, b) =>
-                compareDesc(
-                  parseJSON(a.metadata['published-at'] ?? ''),
-                  parseJSON(b.metadata['published-at'] ?? '')
-                )
+                compareDesc(a.published_at, b.published_at)
               )
             }))
             .sort((a, b) => b.year - a.year) // Sort grouped database by Year.
@@ -237,16 +228,13 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
                               height={1100}
                               objectFit="cover"
                               src={n.imgixUrl}
-                              alt={`Thumbnail image for ${format(parseJSON(n.metadata['published-at'] ?? ''), 'yyyy-MM-dd')} News Release`}
+                              alt={`Thumbnail image for ${format(n.published_at, 'yyyy-MM-dd')} News Release`}
                             />
                           </Box>
                         </ListItemAvatar>
                         <ListItemText
-                          primary={n.metadata.title}
-                          secondary={format(
-                            parseJSON(n.metadata['published-at'] ?? ''),
-                            'MMMM do'
-                          )}
+                          primary={n.title}
+                          secondary={format(n.published_at, 'MMMM do')}
                         />
                       </ListItemButton>
                     </NextLink>
@@ -278,15 +266,13 @@ const NewsReleasesPage = ({fallbackData}: Props) => {
 // Called at build time.
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const mediaList: AwsObjectExt[] = await fetcher(newsReleasesUrl)
-
-    const media = mediaList?.filter(
-      (item) => fileExtension(item.Key)?.toLowerCase() === 'pdf'
-    )
+    // retrieve data from pg db, and pdfs only (likely isn't necessary)
+    const {rows} =
+      await sql<NewsReleaseRow>`SELECT s3_key, title, published_at::text as published_at, id FROM news_releases WHERE s3_key ILIKE '%.pdf' AND hidden != True`
 
     return {
       props: {
-        fallbackData: media
+        fallbackData: rows
       },
       revalidate: 5
     }

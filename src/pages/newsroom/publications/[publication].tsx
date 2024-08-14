@@ -67,8 +67,8 @@ import {Placeholders} from '@components/imageBlur/ImageBlurStore'
 import useTheme from '@hooks/useTheme'
 import {LinkProps} from '@components/Link'
 import useLinkComponent from '@hooks/useLinkComponent'
-import {type AwsNewsletter} from '@lib/types/aws'
-import publicationTitle from '@lib/publicationTitle'
+import {type NewsletterResultRow} from 'src/@types/pg'
+import {sql} from '@vercel/postgres'
 
 const imgixImages = [
   'https://imgix.cosmicjs.com/21555930-fbc6-11eb-9a4d-af05155ef55d-FireWater8.5x11LOW2021.pdf',
@@ -82,6 +82,11 @@ const imgixImages = [
   'https://imgix.cosmicjs.com/7f7c0030-f4ab-11eb-af9b-23a6e756c49c-2021-Strategic-PlanFINAL.pdf',
   'https://pcwa.imgix.net/pcwa-net/newsroom/publications/year-end/PCWA%20Year%20End%20Report%202023.pdf'
 ]
+
+export type NewsletterRow = Omit<
+  NewsletterResultRow,
+  'modified_at' | 'created_at' | 'published_at' | 'hidden'
+> & {published_at: string}
 
 interface EnewsBlastMetadata {
   mailchimpURL?: string
@@ -97,20 +102,12 @@ interface TabPanelProps {
 type Props = {
   publicationParam?: string
   initialEnewsBlasts?: CosmicObjectResponse<EnewsBlastMetadata>
-  initialNewsletters?: AwsNewsletter[]
+  initialNewsletters?: NewsletterRow[]
   err?: {statusCode: number}
   placeholders?: Placeholders
 }
 
 const baseUrl = process.env.BASE_URL
-
-const newslettersQs = new URLSearchParams({
-  folderPath: `pcwa-net/newsroom/newsletters/`,
-  parsePubDatePrfx: 'yyyy-MM-dd',
-  parsePubDatePrfxSep: '_',
-  omitHidden: 'true'
-}).toString()
-const newslettersUrl = `${baseUrl}/api/aws/media?${newslettersQs}`
 
 const enewsParams = {
   props: 'id,content,metadata,slug,status,title',
@@ -123,7 +120,7 @@ const enewsBlastsUrl = `/api/cosmic/objects${enewsParamsQs}`
 
 const PublicationsPage = ({
   initialEnewsBlasts,
-  initialNewsletters,
+  initialNewsletters: newslettersData,
   publicationParam = '',
   placeholders
 }: Props) => {
@@ -153,9 +150,9 @@ const PublicationsPage = ({
 
   usePlaceholders(placeholders)
 
-  const {data: newslettersData} = useSWR<AwsNewsletter[]>(newslettersUrl, {
-    fallbackData: initialNewsletters
-  })
+  // const {data: newslettersData} = useSWR<AwsNewsletter[]>(newslettersUrl, {
+  //   fallbackData: initialNewsletters
+  // })
 
   useEffect(() => {
     // console.log('publicationParam: ', publicationParam)
@@ -193,12 +190,14 @@ const PublicationsPage = ({
             // Group objects by derived Year into JS Map.
             ...groupBy<GroupedNewsletterVal, number>(
               newslettersData
-                .filter((item) => Boolean(item?.metadata?.['published-at'])) // Don't list links that will ultimately 404.
+                .filter((item) => Boolean(item?.published_at)) // Don't list links that will ultimately 404.
                 .map((item) => ({
                   ...item,
-                  pubYear: getYear(parseJSON(item.metadata['published-at'])),
-                  nextLinkAs: `/newsroom/publications/newsletters/${format(parseJSON(item.metadata['published-at']), 'yyyy-MM-dd')}`,
-                  title: publicationTitle(item.filename)
+                  published_at: parseJSON(item.published_at),
+                  pubYear: getYear(item.published_at),
+                  nextLinkAs: `/newsroom/publications/newsletters/${format(item.published_at, 'yyyy-MM-dd')}`,
+                  title: item.title,
+                  imgixUrl: `https://pcwa.imgix.net/${item.s3_key}`
                 })),
               (item) => item.pubYear
             )
@@ -207,10 +206,7 @@ const PublicationsPage = ({
             .map(([year, values]) => ({
               year,
               values: values.sort((a, b) =>
-                compareDesc(
-                  parseJSON(a.metadata['published-at'] ?? ''),
-                  parseJSON(b.metadata['published-at'] ?? '')
-                )
+                compareDesc(a.published_at, b.published_at)
               )
             }))
             .sort((a, b) => b.year - a.year) // Sort grouped database by Year.
@@ -476,12 +472,12 @@ const PublicationsPage = ({
                                   height={1100}
                                   objectFit="cover"
                                   src={n.imgixUrl}
-                                  alt={`Thumbnail image for ${format(parseJSON(n.metadata['published-at'] ?? ''), 'yyyy-MM-dd')} Newsletter`}
+                                  alt={`Thumbnail image for ${format(n.published_at, 'yyyy-MM-dd')} Newsletter`}
                                 />
                               </ColumnBox>
                             </ListItemAvatar>
                             <ListItemText
-                              primary={n.metadata.title}
+                              primary={n.title}
                               secondary={formatNewsletterDate(n)}
                             />
                           </ListItemButton>
@@ -807,15 +803,22 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
     const publicationParam = paramToStr(params?.publication)
 
-    const [initialNewsletters, initialEnewsBlasts] = await Promise.all([
-      fetcher<AwsNewsletter[]>(newslettersUrl),
-      fetcher(`${baseUrl}${enewsBlastsUrl}`)
-    ])
+    // retrieve data from pg db, and pdfs only (likely isn't necessary)
+    const {rows} =
+      await sql<NewsletterRow>`SELECT s3_key, title, published_at::text as published_at, id FROM newsletters WHERE s3_key ILIKE '%.pdf' AND hidden != True`
+
+    // const [initialNewsletters, initialEnewsBlasts] = await Promise.all([
+    //   fetcher<AwsNewsletter[]>(newslettersUrl),
+    //   fetcher(`${baseUrl}${enewsBlastsUrl}`)
+    // ])
+
+    const initialEnewsBlasts = await fetcher(`${baseUrl}${enewsBlastsUrl}`)
+
     // Placeholder images
     const placeholders = await getImgixBlurHashes(imgixImages)
     return {
       props: {
-        initialNewsletters,
+        initialNewsletters: rows,
         publicationParam,
         initialEnewsBlasts,
         placeholders

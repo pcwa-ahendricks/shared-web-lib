@@ -1,6 +1,9 @@
 // cspell:ignore mediachimp
 import React, {createContext, useReducer} from 'react'
-import {type AwsNewsletter, type AwsNewsRelease} from '@lib/types/aws'
+import {
+  type NewsletterResultRow,
+  type NewsReleaseResultRow
+} from 'src/@types/pg'
 
 interface State {
   newsReleaseYear?: number
@@ -22,18 +25,26 @@ export interface EnewsBlast {
   distributionDate: Date
 }
 
-export type GroupedNewsletterVal = AwsNewsletter & {
+export type GroupedNewsletterVal = Omit<
+  NewsletterResultRow,
+  'modified_at' | 'created_at' | 'hidden'
+> & {
   pubYear: number
   nextLinkAs: string
+  imgixUrl: string
 }
 export type GroupedNewsletters = Array<{
   year: number
   values: GroupedNewsletterVal[]
 }>
 
-export type GroupedNewsReleaseVal = AwsNewsRelease & {
+export type GroupedNewsReleaseVal = Omit<
+  NewsReleaseResultRow,
+  'modified_at' | 'created_at' | 'hidden'
+> & {
   pubYear: number
   nextLinkAs: string
+  imgixUrl: string
 }
 export type GroupedNewsReleases = Array<{
   year: number

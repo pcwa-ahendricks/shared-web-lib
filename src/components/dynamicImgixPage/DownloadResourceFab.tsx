@@ -52,14 +52,24 @@ const DownloadResourceFab = ({
               paddingLeft: theme.spacing(1)
             })}
           >
-            (
-            {ext ? (
-              <Type component="span" variant="caption" color="textSecondary">
-                {ext},{' '}
-              </Type>
-            ) : null}
-            {/* Don't use ?? here since it won't catch NaN parameter. */}
-            {prettyBytes(Number(fileSize) || 0)})
+            <Type component="span" variant="caption" color="textSecondary">
+              ({ext ? <>{ext}, </> : null}
+              {/* Don't use ?? here since it won't catch NaN parameter. */}
+              {prettyBytes(Number(fileSize) || 0)})
+            </Type>
+          </Type>
+        ) : ext ? (
+          <Type
+            component="span"
+            variant="caption"
+            color="textSecondary"
+            sx={(theme) => ({
+              paddingLeft: theme.spacing(1)
+            })}
+          >
+            <Type component="span" variant="caption" color="textSecondary">
+              ({ext})
+            </Type>
           </Type>
         ) : null}
       </>
