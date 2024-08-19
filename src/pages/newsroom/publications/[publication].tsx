@@ -511,6 +511,7 @@ const PublicationsPage = ({
                       )}
                       imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/publications/fire-and-water/Fire%20and%20Water%20-%202024.pdf"
                       objectPosition="top center"
+                      linkUrl="/newsroom/publications/fire-and-water/2024"
                     />
                   </ChildBox>
 

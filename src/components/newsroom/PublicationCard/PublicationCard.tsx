@@ -20,6 +20,7 @@ import {stringify} from 'querystringify'
 import {ImageProps} from 'next/legacy/image'
 import useTheme from '@hooks/useTheme'
 import {fileExtension} from '@lib/fileExtension'
+import useLinkComponent from '@hooks/useLinkComponent'
 
 export type PublicationCardProps = {
   title: string
@@ -76,13 +77,14 @@ const PublicationCard = ({
     ? 'subtitle1'
     : 'subtitle2'
 
+  const LinkComponent = useLinkComponent()
+
   return (
     <Box width={cardMediaWidth} {...rest}>
       <Card>
         <CardActionArea
+          LinkComponent={LinkComponent}
           href={linkUrl || imgixURL}
-          target="_blank"
-          rel="noopener noreferrer"
           onMouseEnter={enterHandler}
           onMouseLeave={leaveHandler}
         >
