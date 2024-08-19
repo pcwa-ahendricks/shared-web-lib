@@ -509,7 +509,7 @@ const PublicationsPage = ({
                         'MM/dd/yyyy',
                         new Date()
                       )}
-                      imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/publications/fire-and-water/Fire%20&%20Water%20-%202024.pdf"
+                      imgixURL="https://pcwa.imgix.net/pcwa-net/newsroom/publications/fire-and-water/Fire%20and%20Water%20-%202024.pdf"
                       objectPosition="top center"
                     />
                   </ChildBox>
