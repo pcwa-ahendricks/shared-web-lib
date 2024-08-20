@@ -10,11 +10,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    await res.revalidate('/newsroom/publications/newsletters')
+    await res.revalidate('/')
     return res.json({revalidated: true})
   } catch (err) {
-    return res
-      .status(500)
-      .json({error: 'Failed to revalidate /newsroom/publications/newsletters'})
+    return res.status(500).json({error: 'Failed to revalidate /'})
   }
 }
