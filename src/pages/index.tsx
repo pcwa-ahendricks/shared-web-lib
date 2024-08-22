@@ -12,7 +12,7 @@ import WideContainer from '@components/containers/WideContainer'
 import CoverStory from '@components/CoverStory/CoverStory'
 import CoverTile from '@components/CoverTile/CoverTile'
 import RecentNewsBar, {
-  RecentNewsBarProps
+  type NewsBlurbRow
 } from '@components/recent-news/NewsBlurb/RecentNewsBar/RecentNewsBar'
 import {GetStaticProps} from 'next'
 import fetcher from '@lib/fetcher'
@@ -25,6 +25,8 @@ import usePlaceholders from '@components/imageBlur/usePlaceholders'
 import {getImgixBlurHashes} from '@components/imageBlur/ImageBlur'
 import pTimeout from 'p-timeout'
 import HeroImage from '@components/hero/HeroImage'
+import {sql} from '@vercel/postgres'
+import type {NewsBlurbResultRow} from 'src/@types/pg'
 
 const FETCHER_TIMEOUT = 10000
 
@@ -68,16 +70,12 @@ const imgixImages = [
 
 type Props = {
   initialAlertsData?: AlertsProps['fallbackData']
-  initialNewsBlurbsData?: RecentNewsBarProps['fallbackData']
+  newsBlurbsData?: NewsBlurbRow[]
   placeholders: Placeholders
 }
 // 'https://imgix.cosmicjs.com/01ef4800-d28a-11ea-a151-53cec96789fd-Video-thumbnail1280x72012-Bridges.jpg',
 
-const Index = ({
-  initialAlertsData,
-  initialNewsBlurbsData,
-  placeholders
-}: Props) => {
+const Index = ({initialAlertsData, newsBlurbsData, placeholders}: Props) => {
   usePlaceholders(placeholders)
   // const theme = useTheme()
   // const isLGUp = useMediaQuery(theme.breakpoints.up('lg'))
@@ -572,7 +570,7 @@ const Index = ({
           Recent News
         </Type>
         <Spacing size="small" />
-        <RecentNewsBar fallbackData={initialNewsBlurbsData} />
+        <RecentNewsBar newsBlurbsData={newsBlurbsData} />
 
         {/* <Spacing size="large">
           <Divider />
@@ -702,23 +700,15 @@ export const getStaticProps: GetStaticProps = async () => {
     const initialAlertsData = await pTimeout(fetcher(alertsUrl), {
       milliseconds: FETCHER_TIMEOUT
     })
-    /* */
-    const newsBlurbsParams = {
-      hide_metafields: true,
-      props: 'id,metadata,status,title',
-      query: JSON.stringify({
-        type: 'news-blurbs'
-      })
-    }
-    const newsBlurbsQs = stringify(newsBlurbsParams, true)
 
-    const newsBlurbsUrl = `${baseUrl}/api/cosmic/objects${newsBlurbsQs}`
-    const initialNewsBlurbsData = await pTimeout(fetcher(newsBlurbsUrl), {
-      milliseconds: FETCHER_TIMEOUT
-    })
-    /* */
+    // retrieve data from pg db
+    const {rows: newsBlurbsData} =
+      await sql<NewsBlurbResultRow>`SELECT id, body, title, link_url, cta_caption, published_at::text as published_at
+                                    FROM news_blurbs
+                                    WHERE env_production = TRUE AND visible = TRUE`
+
     return {
-      props: {initialAlertsData, initialNewsBlurbsData, placeholders}
+      props: {initialAlertsData, newsBlurbsData, placeholders}
       // revalidate: 5
     }
   } catch (error) {

@@ -4,65 +4,74 @@ import NewsBlurb from '../NewsBlurb'
 import {compareDesc, parse} from 'date-fns'
 import TextProgress from '@components/TextProgress/TextProgress'
 import {isWebUri} from 'valid-url'
+import {Descendant, Node} from 'slate'
 import useSWR from 'swr'
-import {stringify} from 'querystringify'
-import {CosmicObjectResponse} from '@lib/services/cosmicService'
-import {NewsBlurbMetadata} from '@components/recent-news/RecentNews'
+import type {NewsBlurbResultRow} from 'src/@types/pg'
+
+function slateValueToPlainText(value: Descendant[]): string {
+  return value.map((node) => Node.string(node)).join('\n')
+}
+
+export type NewsBlurbRow = Omit<
+  NewsBlurbResultRow,
+  | 'modified_at'
+  | 'created_at'
+  | 'published_at'
+  | 'visible'
+  | 'env_production'
+  | 'env_preview'
+  | 'env_development'
+> & {published_at: string}
 
 export type RecentNewsBarProps = {
   noOfBlurbs?: number
-  fallbackData?: CosmicObjectResponse<NewsBlurbMetadata>
+  newsBlurbsData?: NewsBlurbRow[]
 } & BoxProps
 
-const params = {
-  hide_metafields: true,
-  props: 'id,metadata,status,title',
-  query: JSON.stringify({
-    type: 'news-blurbs'
-  })
-}
-const qs = stringify({...params}, true)
-const recentNewsBlurbsUrl = `/api/cosmic/objects${qs}`
-
 const RecentNewsBar = ({
-  fallbackData,
+  newsBlurbsData,
   noOfBlurbs = 4,
   ...rest
 }: RecentNewsBarProps) => {
-  const {data: recentNewsBlurbs} = useSWR<
-    CosmicObjectResponse<NewsBlurbMetadata>
-  >(recentNewsBlurbsUrl, {fallbackData})
+  // const {data: recentNewsBlurbs} = useSWR<
+  //   CosmicObjectResponse<NewsBlurbMetadata>
+  // >(recentNewsBlurbsUrl, {fallbackData})
+
+  const {data: recentNewsBlurbs} = useSWR<NewsBlurbRow[]>(
+    '/api/db/news-blurbs',
+    {
+      fallbackData: newsBlurbsData
+    }
+  )
 
   const recentNews = useMemo(
     () =>
-      recentNewsBlurbs && Array.isArray(recentNewsBlurbs.objects)
-        ? recentNewsBlurbs.objects.map((blurb) => ({
+      recentNewsBlurbs && Array.isArray(recentNewsBlurbs)
+        ? recentNewsBlurbs.map((blurb) => ({
             id: blurb.id,
             releaseDate: parse(
-              blurb.metadata.releaseDate,
+              blurb.published_at,
               "yyyy'-'MM'-'dd'",
               new Date()
             ),
-            hide: blurb.metadata.hide,
-            linkURL: isWebUri(blurb.metadata.linkURL ?? '') ?? '', // isWebUri returns undefined on failure.
-            title: blurb.metadata.title,
-            summary: blurb.metadata.summary,
-            readMoreCaption: blurb.metadata.readMoreCaption
+            linkURL: isWebUri(blurb.link_url ?? '') ?? '', // isWebUri returns undefined on failure.
+            title: slateValueToPlainText(blurb.title),
+            summary: slateValueToPlainText(blurb.body),
+            readMoreCaption: blurb.cta_caption
           }))
         : [],
     [recentNewsBlurbs]
   )
 
   const sortedAndFilteredNews = useMemo(() => {
-    const filtered = recentNews.filter((blurb) => !blurb.hide)
-    const sortedAndFiltered = filtered.sort((a, b) =>
+    const sortedAndFiltered = recentNews.sort((a, b) =>
       compareDesc(a.releaseDate, b.releaseDate)
     )
     // Just return a set number of news blurbs.
     return sortedAndFiltered.slice(0, noOfBlurbs)
   }, [recentNews, noOfBlurbs])
 
-  if (!recentNewsBlurbs) {
+  if (!newsBlurbsData) {
     return <TextProgress caption="Loading Recent News..." />
   }
 
