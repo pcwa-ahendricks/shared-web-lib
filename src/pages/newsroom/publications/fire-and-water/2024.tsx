@@ -25,14 +25,14 @@ export default function FireAndWater2024Page() {
             caption="Download Fire & Water - 2024"
             aria-label="Download Fire & Water - 2024"
             size={isSMDown ? 'small' : 'medium'}
-            href={`https://pcwa.imgix.net/pcwa-net/newsroom/publications/fire-and-water/Fire%20and%20Water%20-%202024.pdf?dl=${downloadAs}`}
+            href={`https://pcwa.sfo3.cdn.digitaloceanspaces.com/pcwa-net/newsroom/publications/fire-and-water/FIRE%20&%20WATER%202024%20compressed.pdf?dl=${downloadAs}`}
             // fileSize={media?.Size}
             ext="pdf"
           />
         </Box>
         {/* <WideContainer> */}
         {/* <PageTitle title="Basic Template" subtitle="Page Subtitle" /> */}
-        <ReactPdfPage url="https://pcwa.sfo3.digitaloceanspaces.com/pcwa-net/newsroom/publications/fire-and-water/Fire%20and%20Water%20-%202024.pdf" />
+        <ReactPdfPage url="https://pcwa.sfo3.digitaloceanspaces.com/pcwa-net/newsroom/publications/fire-and-water/FIRE%20&%20WATER%202024%20compressed.pdf" />
         {/* </WideContainer> */}
       </MainBox>
     </PageLayout>
