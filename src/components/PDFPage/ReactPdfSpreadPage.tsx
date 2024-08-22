@@ -29,6 +29,8 @@ const ReactPdfSpreadPage = ({url, slotProps = {}}: Props) => {
 
   const {DocumentProps = {}, PageProps = {}} = slotProps
 
+  const spreadLength = Math.ceil((numPages - 1) / 2)
+
   return (
     <Box position="relative">
       {url ? (
@@ -63,7 +65,7 @@ const ReactPdfSpreadPage = ({url, slotProps = {}}: Props) => {
                   <Page pageNumber={1} width={width * 0.45} />
                 </Box>
                 {/* Render remaining pages in two-page spreads */}
-                {numPages > 0 ? (
+                {numPages > 1 && (
                   <Box
                     sx={{
                       display: 'flex',
@@ -71,38 +73,38 @@ const ReactPdfSpreadPage = ({url, slotProps = {}}: Props) => {
                       justifyContent: 'center'
                     }}
                   >
-                    {Array.from(new Array(numPages - 1), (_el, index) => {
-                      // const showDivider = index < numPages - 1 && numPages > 1
+                    {Array.from({length: spreadLength}).map((_, index) => {
+                      // just show loading page for first pg
                       const showLoadingCaption = index === 0
+
+                      const firstPage = index * 2 + 2
+                      const secondPage = firstPage + 1
+
                       return (
-                        <>
-                          <Box
-                            sx={{marginBottom: 3, display: 'flex'}}
-                            key={`page_${index + 2}`}
-                          >
+                        <Box
+                          sx={{marginBottom: 3, display: 'flex'}}
+                          key={`spread_${index}`}
+                        >
+                          <Page
+                            pageNumber={firstPage}
+                            loading={
+                              showLoadingCaption ? 'Loading page...' : ''
+                            }
+                            width={width * 0.45} // Half of the available width
+                            {...PageProps}
+                          />
+                          {secondPage <= numPages && (
                             <Page
-                              loading={
-                                showLoadingCaption ? 'Loading page...' : ''
-                              } // just show loading page for first pg
-                              pageNumber={index + 2}
-                              // width={width >= 900 ? 900 : width}
+                              pageNumber={secondPage}
                               width={width * 0.45} // Half of the available width
                               {...PageProps}
                             />
-                            {/* Check if there's a next page to render the second half of the spread */}
-                            {index + 3 <= numPages && (
-                              <Page
-                                pageNumber={index + 3}
-                                width={width * 0.45} // Half of the available width
-                              />
-                            )}
-                            {/* {showDivider && <Divider />} */}
-                          </Box>
-                        </>
+                          )}
+                        </Box>
                       )
                     })}
                   </Box>
-                ) : null}
+                )}
               </>
             </Document>
           </Box>
