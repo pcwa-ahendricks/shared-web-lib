@@ -1,5 +1,5 @@
-import React, {useState, useCallback} from 'react'
-import {Box} from '@mui/material'
+import React, {useState, useCallback, useEffect} from 'react'
+import {Box, LinearProgress} from '@mui/material'
 import {useMeasure} from 'react-use'
 import {Document, DocumentProps, Page, PageProps, pdfjs} from 'react-pdf'
 import {OnDocumentLoadSuccess} from 'react-pdf/dist/cjs/shared/types'
@@ -13,6 +13,22 @@ type Props = {
     DocumentProps?: Partial<DocumentProps>
     PageProps?: Partial<PageProps>
   }
+}
+const LoadingProgress = () => {
+  return (
+    <LinearProgress
+      sx={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 9999,
+        height: '3px' // default is 4px
+      }}
+      variant="indeterminate"
+      color="secondary"
+    />
+  )
 }
 
 const ReactPdfSpreadPage = ({url, slotProps = {}}: Props) => {
@@ -31,8 +47,21 @@ const ReactPdfSpreadPage = ({url, slotProps = {}}: Props) => {
 
   const spreadLength = Math.ceil((numPages - 1) / 2)
 
+  const [pagesRendered, setPagesRendered] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(true)
+  const onRenderSuccess = useCallback(() => {
+    setPagesRendered((prev) => prev + 1)
+  }, [])
+  // When all pages are rendered, set loading to false
+  useEffect(() => {
+    if (numPages > 0 && pagesRendered === numPages) {
+      setLoading(false)
+    }
+  }, [pagesRendered, numPages])
+
   return (
     <Box position="relative">
+      {loading && <LoadingProgress />}
       {url ? (
         <Box
           ref={ref}
@@ -62,7 +91,11 @@ const ReactPdfSpreadPage = ({url, slotProps = {}}: Props) => {
                     justifyContent: 'center'
                   }}
                 >
-                  <Page pageNumber={1} width={width * 0.45} />
+                  <Page
+                    pageNumber={1}
+                    width={width * 0.45}
+                    onRenderSuccess={onRenderSuccess}
+                  />
                 </Box>
                 {/* Render remaining pages in two-page spreads */}
                 {numPages > 1 && (
@@ -74,9 +107,6 @@ const ReactPdfSpreadPage = ({url, slotProps = {}}: Props) => {
                     }}
                   >
                     {Array.from({length: spreadLength}).map((_, index) => {
-                      // just show loading page for first pg
-                      const showLoadingCaption = index === 0
-
                       const firstPage = index * 2 + 2
                       const secondPage = firstPage + 1
 
@@ -87,15 +117,14 @@ const ReactPdfSpreadPage = ({url, slotProps = {}}: Props) => {
                         >
                           <Page
                             pageNumber={firstPage}
-                            loading={
-                              showLoadingCaption ? 'Loading page...' : ''
-                            }
+                            onRenderSuccess={onRenderSuccess}
                             width={width * 0.45} // Half of the available width
                             {...PageProps}
                           />
                           {secondPage <= numPages && (
                             <Page
                               pageNumber={secondPage}
+                              onRenderSuccess={onRenderSuccess}
                               width={width * 0.45} // Half of the available width
                               {...PageProps}
                             />
