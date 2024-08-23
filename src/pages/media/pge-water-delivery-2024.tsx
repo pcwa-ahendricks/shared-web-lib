@@ -243,6 +243,14 @@ export default function PgeWaterDelivery2024Page() {
               <Type variant="h5" color="textSecondary" gutterBottom>
                 Recent News
               </Type>
+              <Type variant="caption">8/19/2024</Type>
+              <NewsBlurb
+                title="PCWA Asks Customers to Continue Conserving Water as Repairs to Crucial PG&E Facility Are Further Identified"
+                readMoreCaption="Read News Release..."
+                summary="PCWA is urging customers to continue conserving water into the coming winter months, due to new challenges at a crucial facility owned and operated by Pacific Gas and Electric Company (PG&E) at Spaulding Reservoir."
+                linkURL="https://www.pcwa.net/newsroom/news-releases/2024-08-19"
+              />
+              <Spacing />
               <Type variant="caption">7/29/2024</Type>
               <NewsBlurb
                 title="PG&E Spaulding Powerhouse is Back in Partial Service Ahead of Scheduled July 30 Completion Date"
