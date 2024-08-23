@@ -2,7 +2,12 @@ import React from 'react'
 import PageLayout from '@components/PageLayout/PageLayout'
 import MainBox from '@components/boxes/MainBox'
 import PageTitle from '@components/PageTitle/PageTitle'
-import {Typography as Type, Unstable_Grid2 as Grid, Box} from '@mui/material'
+import {
+  Typography as Type,
+  Unstable_Grid2 as Grid,
+  Box,
+  Divider
+} from '@mui/material'
 import Image from 'next/image'
 import {imgixUrlLoader} from '@lib/imageLoader'
 import WideContainer from '@components/containers/WideContainer'
@@ -250,7 +255,7 @@ export default function PgeWaterDelivery2024Page() {
                 summary="PCWA is urging customers to continue conserving water into the coming winter months, due to new challenges at a crucial facility owned and operated by Pacific Gas and Electric Company (PG&E) at Spaulding Reservoir."
                 linkURL="https://www.pcwa.net/newsroom/news-releases/2024-08-19"
               />
-              <Spacing />
+              <Divider sx={{marginY: 2}} />
               <Type variant="caption">7/29/2024</Type>
               <NewsBlurb
                 title="PG&E Spaulding Powerhouse is Back in Partial Service Ahead of Scheduled July 30 Completion Date"
@@ -258,7 +263,7 @@ export default function PgeWaterDelivery2024Page() {
                 summary="Following a recent update from Pacific Gas and Electric Company (PG&E), PCWA is pleased to share that a partial fix to PG&E Company’s infrastructure at Lake Spaulding has resulted in resumed deliveries of water into PCWA’s system. The current fix will allow approximately 50% of normal water flow until the remainder of the infrastructure is repaired."
                 linkURL="https://www.pcwa.net/newsroom/news-releases/2024-07-29"
               />
-              <Spacing />
+              <Divider sx={{marginY: 2}} />
               <Spacing size="small" />
               <Type variant="caption">6/24/2024</Type>
               <NewsBlurb
@@ -267,7 +272,7 @@ export default function PgeWaterDelivery2024Page() {
                 summary="Customers served by PCWA are urged to reduce their water use to help manage an ongoing water delivery problem caused by damaged Pacific Gas and Electric Company (PG&E) facilities. PG&E has run into several unanticipated schedule delays that have pushed their return of service date from June to July 30th, more than 50 days beyond the original estimate."
                 linkURL="https://www.pcwa.net/newsroom/news-releases/2024-06-24"
               />
-              <Spacing />
+              <Divider sx={{marginY: 2}} />
               <Type variant="caption">6/13/2024</Type>
               <NewsBlurb
                 title="PG&E Repair Delays Worsen Water Delivery Challenges: PCWA and NID Respond"
@@ -275,7 +280,7 @@ export default function PgeWaterDelivery2024Page() {
                 summary="PCWA and Nevada Irrigation District (NID) have issued the following statement in response to the Pacific Gas & Electric (PG&E) company’s recent announcement regarding further delays in repairing essential water delivery infrastructure at their Spaulding #1 Powerhouse. Initially scheduled for completion by early June."
                 linkURL="https://www.pcwa.net/newsroom/news-releases/2024-06-13"
               />
-              <Spacing />
+              <Divider sx={{marginY: 2}} />
               <Type variant="caption">4/23/2024</Type>
               <NewsBlurb
                 title="PCWA Asks Raw Water Customers for Voluntary Conservation Due to PG&E Water Delivery Problem"
