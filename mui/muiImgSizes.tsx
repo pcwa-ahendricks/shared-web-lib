@@ -1,6 +1,22 @@
 import {preciseFloat} from '../_core/preciseFloat'
 
-const defaultBreakpoints = {
+export interface MediaBreakpoints {
+  xs: number
+  sm: number
+  md: number
+  lg: number
+  xl: number
+}
+
+export interface GridSizes {
+  xs?: number
+  sm?: number
+  md?: number
+  lg?: number
+  xl?: number
+}
+
+const defaultBreakpoints: MediaBreakpoints = {
   // values: {
   // mui defaults
   // extra-small
@@ -14,14 +30,6 @@ const defaultBreakpoints = {
   // extra-large
   xl: 1536
   // }
-}
-
-interface GridSizes {
-  xs?: number
-  sm?: number
-  md?: number
-  lg?: number
-  xl?: number
 }
 
 /**
@@ -126,6 +134,8 @@ export default function muiImgSizes(
   }
   // Return the sizes string, joining with commas up until the first missing flag
   const sizesStr = getSubstringBeforePipe(sizeArray.join(', '))
+
+  // dLog(sizesStr)
   return sizesStr
 }
 
