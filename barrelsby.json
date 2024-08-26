@@ -10,7 +10,6 @@
   ],
   "delete": true,
   "exportDefault": true,
-  "flat": true,
   "extensions": [".ts", ".tsx"],
   "singleQuotes": true,
   "location": "top"
