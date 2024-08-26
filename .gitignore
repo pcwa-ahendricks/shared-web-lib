@@ -3,8 +3,6 @@ node_modules/
 # Yarn v2 Plug'n'Play
 .yarn/*
 .pnp.*
-# Yarn modern lockfile
-yarn.lock
 
 # TypeScript cache/output
 dist/
@@ -62,17 +60,12 @@ jspm_packages/
 .DS_Store
 
 # TypeScript compiled output
-*.js
-*.jsx
-*.d.ts
 *.d.ts.map
 *.js.map
 *.jsx.map
 *.ts.map
 *.tsx.map
 
-# TypeScript declaration files
-*.d.ts
 
 # Optional npm cache directory
 .npm
