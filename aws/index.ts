@@ -4,8 +4,8 @@
 
 export {default as createSafeS3Filename} from './createSafeS3Filename'
 export * from './createSafeS3Filename'
-export {default as deleteS3Media} from './deleteS3Media'
-export * from './deleteS3Media'
+export {default as deleteS3Object} from './deleteS3Object'
+export * from './deleteS3Object'
 export {default as getS3Media} from './getS3Media'
 export * from './getS3Media'
 export {default as isObjectPublic} from './isObjectPublic'
