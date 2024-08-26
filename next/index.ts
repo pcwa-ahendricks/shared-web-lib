@@ -1,1 +1,1 @@
-export {default as imageLoader} from './imageLoader'
+export * from './imageLoader'

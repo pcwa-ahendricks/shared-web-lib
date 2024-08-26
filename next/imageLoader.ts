@@ -64,5 +64,4 @@ const imgixUrlLoader: ImageLoader = ({src, width, quality}) => {
   return url
 }
 
-export default cosmicJsLoader
-export {imgixUrlLoader, awsImgixLoader}
+export {imgixUrlLoader, awsImgixLoader, cosmicJsLoader}
