@@ -1,5 +1,5 @@
 import {Typography} from '@mui/material'
-import type {CustomRenderElementProps} from '../../slate/types/slate'
+import type {CustomRenderElementProps} from '../../slate/types'
 
 /**
  * A `SimpleElement` component that renders a Slate.js element using Material-UI's `Typography` component.

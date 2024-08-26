@@ -8,7 +8,6 @@ import {
 } from '@aws-sdk/client-s3'
 import {parse} from 'date-fns'
 import {fromZonedTime} from 'date-fns-tz'
-import {TZ, localDate} from '../date-fns'
 import path from 'path'
 import {
   endpoint,
@@ -20,10 +19,11 @@ import {
   originEndpoint,
   cdnEndpoint
 } from './options'
-import type {AwsObjectExt} from './types/aws'
-import isImgixInputMimeType  from '../_core/isImgixInputMimeType'
+import type {AwsObjectExt} from './types'
+import isImgixInputMimeType from '../_core/isImgixInputMimeType'
 import fileExtension from '../_core/fileExtension'
-
+import localDate from '../date-fns/tz/localDate'
+import {TZ} from '../date-fns/tz/options'
 
 export interface getS3MediaParams {
   folderPath?: string

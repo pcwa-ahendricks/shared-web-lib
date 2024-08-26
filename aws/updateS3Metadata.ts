@@ -12,7 +12,7 @@ import {
   secretAccessKey,
   bucketName
 } from './options'
-import type {AwsObjectExt} from './types/aws'
+import type {AwsObjectExt} from './types'
 
 /**
  * Updates the metadata of an existing S3 object.

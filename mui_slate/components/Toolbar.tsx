@@ -20,7 +20,7 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic'
 import FormatUnderlineIcon from '@mui/icons-material/FormatUnderlined'
 import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough'
 import FormatCodeIcon from '@mui/icons-material/Code'
-import {useIsEditorFocused} from '../../slate'
+import useIsEditorFocused from '../../slate/hooks/useIsEditorFocused'
 
 type Props = {
   historyGroup?: boolean

@@ -25,5 +25,3 @@ export interface AwsNewsletter extends AwsObjectExt {
     title?: string
   }
 }
-
-export default undefined // for barrelsby

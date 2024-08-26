@@ -47,5 +47,3 @@ export type CustomRenderLeafProps = RenderLeafProps & {
 export type CustomRenderElementProps = RenderElementProps & {
   element: CustomElement
 } & TypographyProps
-
-export default undefined // for barrelsby

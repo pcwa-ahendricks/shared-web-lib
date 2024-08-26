@@ -6,7 +6,7 @@ import {
   secretAccessKey,
   bucketName
 } from './options'
-import type {AwsObjectExt} from './types/aws'
+import type {AwsObjectExt} from './types'
 
 /**
  * Deletes an object from an S3 bucket.

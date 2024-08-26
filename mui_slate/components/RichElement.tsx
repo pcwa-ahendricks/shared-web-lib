@@ -3,7 +3,7 @@ import type {
   CustomElement,
   CustomRenderElementProps,
   HeadingElement
-} from '../../slate/types/slate'
+} from '../../slate/types'
 
 /**
  * Type guard function to check if a given element is a HeadingElement; aka, Type guard to narrow element to HeadingElement.

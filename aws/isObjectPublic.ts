@@ -8,7 +8,7 @@ import {
   secretAccessKey,
   bucketName
 } from './options'
-import type {AwsObjectExt} from './types/aws'
+import type {AwsObjectExt} from './types'
 
 /**
  * Checks whether an object in an S3 bucket is publicly accessible.

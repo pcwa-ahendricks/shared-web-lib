@@ -12,7 +12,7 @@ import {
   endpoint,
   secretAccessKey
 } from './options'
-import type {AwsObjectExt} from './types/aws'
+import type {AwsObjectExt} from './types'
 import isObjectPublic from './isObjectPublic'
 import path from 'path'
 import createSafeS3Filename from './createSafeS3Filename'

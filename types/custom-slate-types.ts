@@ -1,7 +1,7 @@
 import {BaseEditor} from 'slate'
 import {ReactEditor} from 'slate-react'
 import {type HistoryEditor} from 'slate-history'
-import {type CustomElement, type CustomText} from '../slate'
+import {type CustomElement, type CustomText} from '../slate/types'
 
 declare module 'slate' {
   interface CustomTypes {

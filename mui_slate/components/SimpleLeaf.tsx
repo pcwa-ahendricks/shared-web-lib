@@ -1,5 +1,5 @@
 import {Typography} from '@mui/material'
-import type {CustomRenderLeafProps} from '../../slate/types/slate'
+import type {CustomRenderLeafProps} from '../../slate/types'
 
 /**
  * A `SimpleLeaf` component that renders a Slate.js leaf node using Material-UI's `Typography` component.

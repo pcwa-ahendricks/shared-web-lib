@@ -1,7 +1,5 @@
 {
   "scripts": {
-    "generate-barrels": "barrelsby --config barrelsby.json",
-    "postgenerate-barrels": "yarn run format",
     "format": "prettier --config .prettierrc --write './**/*.{ts,tsx,css}'",
     "type-check": "tsc --noEmit -p .",
     "type-check:watch": "yarn type-check -- --watch"
@@ -10,7 +8,6 @@
     "@types/node": "^22.5.0",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
-    "barrelsby": "^2.8.1",
     "prettier": "^3.3.3"
   },
   "dependencies": {
