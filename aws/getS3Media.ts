@@ -10,7 +10,6 @@ import {parse} from 'date-fns'
 import {fromZonedTime} from 'date-fns-tz'
 import {TZ, localDate} from '../date-fns'
 import path from 'path'
-import {fileExtension, isImgixInputMimeType} from '../_core'
 import {
   endpoint,
   awsRegion,
@@ -22,6 +21,9 @@ import {
   cdnEndpoint
 } from './options'
 import type {AwsObjectExt} from './types/aws'
+import isImgixInputMimeType  from '../_core/isImgixInputMimeType'
+import fileExtension from '../_core/fileExtension'
+
 
 export interface getS3MediaParams {
   folderPath?: string
