@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "generate-barrels": "barrelsby"
+  },
+  "devDependencies": {
+    "barrelsby": "^2.8.1"
+  }
+}
