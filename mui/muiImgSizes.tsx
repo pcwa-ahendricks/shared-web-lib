@@ -1,20 +1,5 @@
 import preciseFloat from '../_core/preciseFloat'
-
-export interface MediaBreakpoints {
-  xs: number
-  sm: number
-  md: number
-  lg: number
-  xl: number
-}
-
-export interface GridSizes {
-  xs?: number
-  sm?: number
-  md?: number
-  lg?: number
-  xl?: number
-}
+import {GridSizes, MediaBreakpoints} from './types'
 
 const defaultBreakpoints: MediaBreakpoints = {
   // values: {
