@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "generate-barrels": "barrelsby"
+    "generate-barrels": "barrelsby --config barrelsby.json"
   },
   "devDependencies": {
-    "barrelsby": "^2.8.1"
+    "barrelsby": "^2.8.1",
+    "prettier": "^3.3.3"
   }
 }
