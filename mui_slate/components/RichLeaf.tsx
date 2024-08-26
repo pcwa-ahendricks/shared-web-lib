@@ -1,7 +1,7 @@
 import {type SxProps, type Theme, Typography} from '@mui/material'
-import Strong from '@/share/mui/components/Strong'
-import {CustomRenderLeafProps} from '@/types/slate'
-import Code from '@/share/mui/components/Code'
+import Strong from '../../mui/components/Strong'
+import Code from '../../mui/components/Code'
+import type {CustomRenderLeafProps} from '../../slate/types/slate'
 
 /**
  * A `RichLeaf` component that renders styled text based on Slate.js leaf properties.

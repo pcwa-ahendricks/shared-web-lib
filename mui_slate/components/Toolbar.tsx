@@ -20,7 +20,7 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic'
 import FormatUnderlineIcon from '@mui/icons-material/FormatUnderlined'
 import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough'
 import FormatCodeIcon from '@mui/icons-material/Code'
-import useIsEditorFocused from '@/share/slate/hooks/useIsEditorFocused'
+import {useIsEditorFocused} from '../../slate'
 
 type Props = {
   historyGroup?: boolean
@@ -269,7 +269,7 @@ export default function Toolbar({
           size="small"
           value={formats}
           aria-label="Text Formatting Button Group"
-          onChange={(_e, newFormats) => setFormats(newFormats)}
+          onChange={(_e: React.MouseEvent, value: any) => setFormats(value)}
         >
           {formattingOptions.bold ? (
             <Tooltip title="Bold" placement="top">

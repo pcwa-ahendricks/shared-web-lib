@@ -1,9 +1,9 @@
-import {
-  type HeadingElement,
-  type CustomElement,
-  type CustomRenderElementProps
-} from '@/types/slate'
 import {SxProps, Theme, Typography} from '@mui/material'
+import type {
+  CustomElement,
+  CustomRenderElementProps,
+  HeadingElement
+} from '../../slate/types/slate'
 
 /**
  * Type guard function to check if a given element is a HeadingElement; aka, Type guard to narrow element to HeadingElement.

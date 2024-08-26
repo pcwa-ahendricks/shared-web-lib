@@ -1,4 +1,4 @@
-import {preciseFloat} from '../_core/preciseFloat'
+import {preciseFloat} from '../_core'
 
 export interface MediaBreakpoints {
   xs: number

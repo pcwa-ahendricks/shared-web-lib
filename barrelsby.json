@@ -1,5 +1,6 @@
 {
   "directory": [
+    "_core",
     "aws",
     "date-fns",
     "mui",
@@ -12,5 +13,6 @@
   "exportDefault": true,
   "extensions": [".ts", ".tsx"],
   "singleQuotes": true,
+  "noSemicolon": true,
   "location": "top"
 }

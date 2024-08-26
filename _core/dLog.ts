@@ -22,7 +22,7 @@ import isDev from './isDev'
  * dLog('CUSTOM PREFIX', 'Custom prefix message');
  * // Logs 'CUSTOM PREFIX Custom prefix message' to the console if in development mode.
  */
-export function dLog(
+export default function dLog(
   prefix: string = '[DEV]',
   ...params: Parameters<typeof console.log>
 ): void {

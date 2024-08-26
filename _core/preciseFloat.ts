@@ -16,6 +16,9 @@
  * const result = preciseFloat(123.456789, 4);
  * console.log(result); // 123.4568
  */
-export function preciseFloat(num: number, precision: number = 2): number {
+export default function preciseFloat(
+  num: number,
+  precision: number = 2
+): number {
   return parseFloat(num.toFixed(precision))
 }
