@@ -25,3 +25,11 @@ export interface AwsNewsletter extends AwsObjectExt {
     title?: string
   }
 }
+
+export interface AwsMfpfaAgenda extends AwsObjectExt {
+  metadata?: {
+    hidden?: string // 'true' or 'false'
+    'published-at'?: string
+    title?: string
+  }
+}
