@@ -1,4 +1,4 @@
-export {default as muiImgSizes} from './muiImgSizes'
+export {default as imgSizes} from './imgSizes'
 export {default as Animate} from './animate/components/Animate'
 export {default as FadeIn} from './animate/components/FadeIn'
 export {default as FadeOut} from './animate/components/FadeOut'

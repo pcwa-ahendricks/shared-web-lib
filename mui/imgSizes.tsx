@@ -26,11 +26,11 @@ const defaultBreakpoints: MediaBreakpoints = {
  * @returns {string} A string that can be used as the `sizes` attribute in an HTML `<img>` tag.
  *
  * @example
- * const sizes = muiImgSizes({ xs: 6, sm: 4, md: 3 }, 1200);
+ * const sizes = imgSizes({ xs: 6, sm: 4, md: 3 }, 1200);
  * console.log(sizes);
  * // Outputs: "(max-width: 600px) 50vw, (min-width: 600px) 33.33vw, (min-width: 900px) 25vw, min(1200px, 25vw)"
  */
-export default function muiImgSizes(
+export default function imgSizes(
   gridSizes: GridSizes,
   maxWidth: number | string = '100vw', // can be a string or number as pixels
   breakpoints = defaultBreakpoints
