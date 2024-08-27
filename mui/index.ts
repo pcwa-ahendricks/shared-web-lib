@@ -12,4 +12,7 @@ export {default as Code} from './components/Code'
 export {default as Spacing} from './components/Spacing'
 export {default as Strong} from './components/Strong'
 export {default as useMatchesIe} from './hooks/useMatchesIe'
+export {default as IeOnly} from './components/IeOnly'
+export {default as IeNever} from './components/IeNever'
+
 export type {GridSizes, MediaBreakpoints} from './types'
