@@ -1,4 +1,5 @@
 'use client'
+
 import React, {useState, useRef} from 'react'
 import {
   Box,
@@ -13,7 +14,6 @@ import MediaPreviewDialog, {
   type MediaPreviewDialogProps
 } from './MediaPreviewDialog'
 import {styled} from '@mui/system'
-import colorAlpha from 'color-alpha'
 
 type Props = {
   mediaName: string
@@ -143,7 +143,7 @@ const MediaDialogOnClick = ({
                     p: 1,
                     m: 1,
                     fontStyle: 'italic',
-                    bgcolor: colorAlpha(theme.palette.background.paper, 1),
+                    bgcolor: 'background.paper',
                     cursor: 'pointer'
                   }}
                 >
