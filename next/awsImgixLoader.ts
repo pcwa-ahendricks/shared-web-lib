@@ -5,7 +5,8 @@ import {ImageLoader} from 'next/image'
 /**
  * Custom ImageLoader for AWS Imgix, hosted on Digital Ocean Spaces.
  *
- * This loader generates an Imgix URL for images hosted on AWS and processed by Imgix.
+ * This loader generates an Imgix URL for images hosted on AWS and processed by Imgix. For more info
+ * see https://nextjs.org/docs/app/api-reference/next-config-js/images#example-loader-configuration.
  *
  * @param {object} params - The parameters for the image loader.
  * @param {string} params.src - The source path of the image.

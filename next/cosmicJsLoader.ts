@@ -5,7 +5,8 @@ import {type ImageLoader} from 'next/image'
 /**
  * Custom ImageLoader for CosmicJS.
  *
- * This loader generates an Imgix URL for images hosted on CosmicJS.
+ * This loader generates an Imgix URL for images hosted on CosmicJS. For more info see
+ * https://nextjs.org/docs/app/api-reference/next-config-js/images#example-loader-configuration.
  *
  * @param {object} params - The parameters for the image loader.
  * @param {string} params.src - The source path of the image.
