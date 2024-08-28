@@ -1,4 +1,4 @@
-import Link, {LinkProps} from '../components/Link'
+import Link, {LinkProps} from '../../next/components/Link'
 import {forwardRef, useMemo} from 'react'
 
 /**

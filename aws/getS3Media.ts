@@ -22,8 +22,8 @@ import {
 import type {AwsObjectExt} from './types'
 import isImgixInputMimeType from '../_core/isImgixInputMimeType'
 import fileExtension from '../_core/fileExtension'
-import localDate from '../date-fns/tz/localDate'
-import {TZ} from '../date-fns/tz/options'
+import localDate from '../date-fns/localDate'
+import {TZ} from '../date-fns/options'
 
 export interface getS3MediaParams {
   folderPath?: string

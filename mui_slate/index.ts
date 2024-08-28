@@ -1,6 +1,0 @@
-export {default as Placeholder} from './components/Placeholder'
-export {default as RichElement} from './components/RichElement'
-export {default as RichLeaf} from './components/RichLeaf'
-export {default as SimpleElement} from './components/SimpleElement'
-export {default as SimpleLeaf} from './components/SimpleLeaf'
-export {default as Toolbar} from './components/Toolbar'

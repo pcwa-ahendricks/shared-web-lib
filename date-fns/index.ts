@@ -1,4 +1,4 @@
-export {default as localDate} from './tz/localDate'
-export {default as localDateFrom} from './tz/localDateFrom'
-export {default as localFormat} from './tz/localFormat'
-export {TZ} from './tz/options'
+export {default as localDate} from './localDate'
+export {default as localDateFrom} from './localDateFrom'
+export {default as localFormat} from './localFormat'
+export {TZ} from './options'
