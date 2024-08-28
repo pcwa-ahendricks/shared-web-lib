@@ -1346,6 +1346,25 @@ clsx@^2.1.0, clsx@^2.1.1:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
   integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
 
+color-alpha@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/color-alpha/-/color-alpha-2.0.0.tgz#ffaf6661022a2cb7ef566c224f57fc3d6534ae64"
+  integrity sha512-AFicJNV27HMw2l3KZPngmoL9euIe+7YDVprQHuJbChyh1x/R4AjKdL9WKvfE5/nXIok+WfYhm+I6GsXaFgB7Xg==
+  dependencies:
+    color-parse "^2.0.0"
+
+color-name@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/color-name/-/color-name-2.0.0.tgz#03ff6b1b5aec9bb3cf1ed82400c2790dfcd01d2d"
+  integrity sha512-SbtvAMWvASO5TE2QP07jHBMXKafgdZz8Vrsrn96fiL+O92/FN/PLARzUW5sKt013fjAprK2d2iCn2hk2Xb5oow==
+
+color-parse@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/color-parse/-/color-parse-2.0.2.tgz#37b46930424924060988edf25b24e6ffb4a1dc3f"
+  integrity sha512-eCtOz5w5ttWIUcaKLiktF+DxZO1R9KLNY/xhbV6CkhM7sR3GhVghmt6X6yOnzeaM24po+Z9/S1apbXMwA3Iepw==
+  dependencies:
+    color-name "^2.0.0"
+
 compute-scroll-into-view@^3.0.2:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/compute-scroll-into-view/-/compute-scroll-into-view-3.1.0.tgz#753f11d972596558d8fe7c6bcbc8497690ab4c87"

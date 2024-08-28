@@ -1,5 +1,6 @@
-import {alpha, Typography as Type, TypographyProps} from '@mui/material'
+import {Typography as Type, TypographyProps} from '@mui/material'
 import {grey} from '@mui/material/colors'
+import alpha from 'color-alpha'
 
 /**
  * A custom `Code` component that wraps MUI's `Typography` component, rendering text with code styling.
@@ -21,6 +22,7 @@ export default function Code({children, sx, ...rest}: TypographyProps) {
     <Type
       component="code"
       sx={{
+        // mui alpha requires 'use client' directive so we are just using color-alpha instead
         backgroundColor: alpha(grey['200'], 0.95),
         fontFamily: 'monospace',
         paddingY: '1px',
