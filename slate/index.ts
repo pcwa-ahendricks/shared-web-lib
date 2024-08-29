@@ -9,6 +9,7 @@ export {default as SimpleElement} from './components/SimpleElement'
 export {default as SimpleLeaf} from './components/SimpleLeaf'
 export {default as Toolbar} from './components/Toolbar'
 export {default as Readable} from './components/Readable'
+export {default as SimpleHtml} from './components/SimpleHtml'
 
 export type {
   HeadingElement,
