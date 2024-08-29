@@ -8,7 +8,7 @@ export {default as RichLeaf} from './components/RichLeaf'
 export {default as SimpleElement} from './components/SimpleElement'
 export {default as SimpleLeaf} from './components/SimpleLeaf'
 export {default as Toolbar} from './components/Toolbar'
-export {default as Slated} from './components/Slated'
+export {default as Readable} from './components/Readable'
 
 export type {
   HeadingElement,

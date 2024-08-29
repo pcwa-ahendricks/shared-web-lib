@@ -28,15 +28,15 @@ const defaultDefaultValue: Descendant[] = [
 //   textOverflow: 'ellipsis'
 // } as const
 
-export default function Slated({
+export default function Readable({
   data = defaultDefaultValue,
   showHtmlTitle = false,
-  simple = false,
+  rich = true,
   ...props
 }: {
   data?: Descendant[]
   showHtmlTitle?: boolean
-  simple?: boolean
+  rich?: boolean
 } & EditableProps) {
   // use a sensible default value with title (note, postgres creates a similar jsonb value by default when new rows are added so this isn't necessary, though, good practice)
   const {tabIndex} = props
@@ -45,13 +45,13 @@ export default function Slated({
 
   const renderElement = useCallback(
     (props: CustomRenderElementProps) =>
-      simple ? <SimpleElement {...props} /> : <RichElement {...props} />,
-    [simple]
+      !rich ? <SimpleElement {...props} /> : <RichElement {...props} />,
+    [rich]
   )
   const renderLeaf = useCallback(
     (props: CustomRenderLeafProps) =>
-      simple ? <SimpleLeaf {...props} /> : <RichLeaf {...props} />,
-    [simple]
+      !rich ? <SimpleLeaf {...props} /> : <RichLeaf {...props} />,
+    [rich]
   )
 
   useEffect(() => {
