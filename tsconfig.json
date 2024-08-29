@@ -22,9 +22,15 @@
       "@components/*": ["src/components/*"],
       "@store/*": ["src/store/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@pages/*": ["src/pages/*"]
-      // "../../src/lib/api/*": ["src/lib/api/*"]
+      "@pages/*": ["src/pages/*"],
+      "@/*": ["./src/*"],
+      "@/share": ["./src/share/_core"],
+      "@/share/*": [
+        "./src/share/_core/*", // Fallback to _core for direct imports
+        "./src/share/*" // For subfolder imports like @share/some-subfolder/*
+      ]
     },
+    "typeRoots": ["./src/@types", "./node_modules/@types", "./src/share/types"],
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
