@@ -1,6 +1,7 @@
 import {type TypographyProps} from '@mui/material'
 import {type BaseText, type BaseElement} from 'slate'
 import {type RenderElementProps, type RenderLeafProps} from 'slate-react'
+import {type Url} from 'url'
 
 type BlockType =
   | 'paragraph'
@@ -16,15 +17,11 @@ type BlockType =
 type HeadingLevel = 'one' | 'two' | 'three' | 'four' | 'five' | 'six' // Use consistent level naming
 
 // Extend the BaseElement to include type and style
-interface CustomBaseElement extends BaseElement {
+export interface CustomElement extends BaseElement {
   type: BlockType
   style?: React.CSSProperties
-}
-
-// Extend the CustomBaseElement to include level for headings
-export interface HeadingElement extends CustomBaseElement {
-  type: 'heading'
   level?: HeadingLevel
+  url?: string
 }
 
 // Extend BaseText to include custom formatting properties
@@ -36,9 +33,6 @@ export interface CustomText extends BaseText {
   code?: boolean
   style?: React.CSSProperties
 }
-
-// Union of different element types
-export type CustomElement = HeadingElement | CustomBaseElement
 
 export type CustomRenderLeafProps = RenderLeafProps & {
   leaf: CustomText

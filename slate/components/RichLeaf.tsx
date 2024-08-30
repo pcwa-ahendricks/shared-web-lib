@@ -37,23 +37,39 @@ export default function RichLeaf({
   }
 
   if (leaf.bold) {
-    children = <Strong weight="600">{children}</Strong>
+    children = (
+      <Strong variant="inherit" weight="600">
+        {children}
+      </Strong>
+    )
   }
 
   if (leaf.code) {
-    children = <Code>{children}</Code>
+    children = <Code variant="inherit">{children}</Code>
   }
 
   if (leaf.italic) {
-    children = <em>{children}</em>
+    children = (
+      <Typography variant="inherit" component="em">
+        {children}
+      </Typography>
+    )
   }
 
   if (leaf.underline) {
-    children = <u>{children}</u>
+    children = (
+      <Typography variant="inherit" component="u">
+        {children}
+      </Typography>
+    )
   }
 
   if (leaf.strikethrough) {
-    children = <s>{children}</s>
+    children = (
+      <Typography variant="inherit" component="s">
+        {children}
+      </Typography>
+    )
   }
 
   return (

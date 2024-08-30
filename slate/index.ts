@@ -10,9 +10,9 @@ export {default as SimpleLeaf} from './components/SimpleLeaf'
 export {default as Toolbar} from './components/Toolbar'
 export {default as Readable} from './components/Readable'
 export {default as SimpleHtml} from './components/SimpleHtml'
+export {default as RichHtml} from './components/RichHtml'
 
 export type {
-  HeadingElement,
   CustomText,
   CustomElement,
   CustomRenderElementProps,
