@@ -9,7 +9,6 @@ export {default as Section} from './components/Section'
 export {default as Main} from './components/Main'
 export {default as SeoOnly} from './components/SeoOnly'
 export {default as Nav} from './components/Nav'
-export {default as useLinkComponent} from './hooks/useLinkComponent'
 export {default as MediaPreviewDialog} from './components/MediaPreviewDialog'
 export {default as MediaDialogOnClick} from './components/MediaDialogOnClick'
 
