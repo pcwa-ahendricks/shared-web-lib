@@ -2,6 +2,7 @@ import {type SxProps, type Theme, Typography} from '@mui/material'
 import Strong from '../../mui/components/Strong'
 import Code from '../../mui/components/Code'
 import type {CustomRenderLeafProps} from '../../slate/types'
+import {Em} from '../../mui'
 
 /**
  * A `RichLeaf` component that renders styled text based on Slate.js leaf properties.
@@ -37,11 +38,7 @@ export default function RichLeaf({
   }
 
   if (leaf.bold) {
-    children = (
-      <Strong variant="inherit" weight="600">
-        {children}
-      </Strong>
-    )
+    children = <Strong variant="inherit">{children}</Strong>
   }
 
   if (leaf.code) {
@@ -49,11 +46,7 @@ export default function RichLeaf({
   }
 
   if (leaf.italic) {
-    children = (
-      <Typography variant="inherit" component="em">
-        {children}
-      </Typography>
-    )
+    children = <Em variant="inherit">{children}</Em>
   }
 
   if (leaf.underline) {

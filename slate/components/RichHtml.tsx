@@ -1,7 +1,7 @@
 import React from 'react'
 import {Descendant, Text} from 'slate'
 import DOMPurify from 'isomorphic-dompurify'
-import {Code, Strong} from '../../mui'
+import {Code, Em, Strong} from '../../mui'
 import {Typography, type TypographyProps} from '@mui/material'
 import {Link, LinkProps} from '../../next'
 
@@ -41,47 +41,51 @@ export default function RichHtml({
     if (Text.isText(node)) {
       // Sanitize the text content to ensure it's safe
       const cleanContent = DOMPurify.sanitize(node.text)
+
+      let textNode = <>{cleanContent}</>
+
       if (node.bold) {
-        return (
-          <Strong variant="inherit" weight="600" {...props}>
-            {cleanContent}
+        textNode = (
+          <Strong variant="inherit" {...props}>
+            {textNode}
           </Strong>
         )
       }
 
       if (node.code) {
-        return (
+        textNode = (
           <Code variant="inherit" {...props}>
-            {cleanContent}
+            {textNode}
           </Code>
         )
       }
 
       if (node.italic) {
-        return (
-          <Typography variant="inherit" component="em" {...props}>
-            {cleanContent}
-          </Typography>
+        textNode = (
+          <Em variant="inherit" {...props}>
+            {textNode}
+          </Em>
         )
       }
 
       if (node.underline) {
-        return (
+        textNode = (
           <Typography variant="inherit" component="u" {...props}>
-            {cleanContent}
+            {textNode}
           </Typography>
         )
       }
 
       if (node.strikethrough) {
-        return (
+        textNode = (
           <Typography variant="inherit" component="s" {...props}>
-            {cleanContent}
+            {textNode}
           </Typography>
         )
       }
 
-      return <>{cleanContent}</>
+      // Return the fully constructed text node
+      return textNode
     }
 
     let children = <></>
