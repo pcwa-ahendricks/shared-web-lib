@@ -25,8 +25,9 @@ export default function Code({children, sx, ...rest}: TypographyProps) {
         // mui alpha requires 'use client' directive so we are just using color-alpha instead
         backgroundColor: alpha(grey['200'], 0.95),
         fontFamily: 'monospace',
-        paddingY: '1px',
+        paddingY: '1.5px',
         paddingX: '3px',
+        borderRadius: 1,
         ...sx
       }}
       variant="inherit"
