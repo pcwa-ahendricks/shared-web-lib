@@ -1,7 +1,6 @@
 import {type TypographyProps} from '@mui/material'
 import {type BaseText, type BaseElement} from 'slate'
 import {type RenderElementProps, type RenderLeafProps} from 'slate-react'
-import {type Url} from 'url'
 
 type BlockType =
   | 'paragraph'
