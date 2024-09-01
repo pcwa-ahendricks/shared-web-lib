@@ -378,3 +378,5 @@ export default function Toolbar({
     </Box>
   )
 }
+
+export type {Props as ToolbarProps}
