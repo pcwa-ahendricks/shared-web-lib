@@ -3,6 +3,18 @@ import {type Descendant, type BaseEditor} from 'slate'
 import {type ReactEditor} from 'slate-react'
 import {useDebouncedCallback} from 'use-debounce'
 
+type Props = {
+  editor: BaseEditor & ReactEditor
+  updateHandler?: (value: Descendant[]) => void
+  debouncedUpdateHandler?: (value: Descendant[]) => void
+  initChangeHandler?: (value: Descendant[]) => void
+  wait?: number
+  maxWait?: number
+  flushOnUnmount?: boolean
+  cancelOnUnmount?: boolean
+}
+export {type Props as useSlateDebouncedChangeHandlerProps}
+
 /**
  * A custom hook that creates a debounced change handler for Slate.js editors, combining immediate and debounced updates.
  *
@@ -42,16 +54,7 @@ export default function useSlateDebouncedChangeHandler({
   maxWait = 2000,
   flushOnUnmount = true,
   cancelOnUnmount = true
-}: {
-  editor: BaseEditor & ReactEditor
-  updateHandler?: (value: Descendant[]) => void
-  debouncedUpdateHandler?: (value: Descendant[]) => void
-  initChangeHandler?: (value: Descendant[]) => void
-  wait?: number
-  maxWait?: number
-  flushOnUnmount?: boolean
-  cancelOnUnmount?: boolean
-}) {
+}: Props) {
   // Wrap saveHandler with useDebouncedCallback
   const debouncedUpdateHandler = useDebouncedCallback(
     debouncedUpdateHandlerParam,
