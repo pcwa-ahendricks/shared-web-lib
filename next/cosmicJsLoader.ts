@@ -15,7 +15,7 @@ import {type ImageLoader} from 'next/image'
  * @returns {string} The URL to the image with the appropriate transformations applied.
  */
 const cosmicJsLoader: ImageLoader = ({src, width, quality}) => {
-  return `https://imgix.cosmicjs.com/${src}?auto=compress&w=${width}&q=${
+  return `https://imgix.cosmicjs.com/${src}?auto=compress&auto=format&w=${width}&q=${
     quality || 75
   }`
 }

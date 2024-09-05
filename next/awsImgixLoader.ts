@@ -15,7 +15,7 @@ import {ImageLoader} from 'next/image'
  * @returns {string} The URL to the image with the appropriate transformations applied.
  */
 const awsImgixLoader: ImageLoader = ({src, width, quality}) => {
-  return `https://pcwa.imgix.net/pcwa-net/${src}?auto=compress&w=${width}&q=${
+  return `https://pcwa.imgix.net/pcwa-net/${src}?auto=compress&auto=format&w=${width}&q=${
     quality || 75
   }`
 }

@@ -26,6 +26,7 @@ const imgixUrlLoader: ImageLoader = ({src, width, quality}) => {
 
   // Add the desired transformations
   searchParams.append('auto', 'compress')
+  searchParams.append('auto', 'format')
   searchParams.append('w', width.toString())
   searchParams.append('q', (quality || 75).toString())
 
