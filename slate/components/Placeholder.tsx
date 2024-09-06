@@ -1,4 +1,11 @@
-import {Box, BoxProps, Typography as Type, TypographyProps} from '@mui/material'
+import {
+  Box,
+  BoxProps,
+  Typography as Type,
+  TypographyProps,
+  useTheme
+} from '@mui/material'
+import colorAlpha from 'color-alpha'
 import {type RenderPlaceholderProps} from 'slate-react'
 
 /**
@@ -29,17 +36,30 @@ export default function Placeholder({
   slotProps?: {container?: BoxProps; placeholder?: TypographyProps}
 }) {
   const {container, placeholder} = slotProps ?? {}
+  const theme = useTheme()
+  const {style, ...restAttributes} = attributes
   return (
-    <Box {...container} {...attributes}>
+    <Box
+      {...container}
+      style={{
+        ...style,
+        opacity: 1 // defaults to 0.333, see https://github.com/ianstormtaylor/slate/blob/main/packages/slate-react/src/components/leaf.tsx for more info.
+      }}
+      {...restAttributes}
+    >
       <Type
         {...placeholder}
-        // doesn't seem like any of this in necessary (as it is with Lexical)
-        // sx={{
-        //   pointerEvents: 'none', // Prevent interaction with the placeholder
-        //   whiteSpace: 'nowrap',
-        //   overflow: 'hidden',
-        //   textOverflow: 'ellipsis'
-        // }}
+        sx={{
+          color: colorAlpha(theme.palette.text.primary, 0.6),
+          position: 'absolute',
+          paddingY: theme.spacing(1.5),
+          pointerEvents: 'none', // Disable events so it doesn't interfere with typing
+          fontFamily: theme.typography.fontFamily,
+          fontSize: theme.typography.body1.fontSize,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        }}
       >
         {children}
       </Type>
