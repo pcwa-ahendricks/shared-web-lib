@@ -232,24 +232,28 @@ export default function Toolbar({
           aria-label="Redo and Undo Button Group"
         >
           <Tooltip title="Undo" placement="top">
-            <ToolbarButton
-              value={false}
-              aria-label="Undo"
-              selected={false}
-              onClick={undoHandler}
-            >
-              <UndoIcon />
-            </ToolbarButton>
+            <Box component="span">
+              <ToolbarButton
+                value={false}
+                aria-label="Undo"
+                selected={false}
+                onClick={undoHandler}
+              >
+                <UndoIcon />
+              </ToolbarButton>
+            </Box>
           </Tooltip>
           <Tooltip title="Redo" placement="top">
-            <ToolbarButton
-              value={false}
-              aria-label="Redo"
-              selected={false}
-              onClick={redoHandler}
-            >
-              <RedoIcon />
-            </ToolbarButton>
+            <Box component="span">
+              <ToolbarButton
+                value={false}
+                aria-label="Redo"
+                selected={false}
+                onClick={redoHandler}
+              >
+                <RedoIcon />
+              </ToolbarButton>
+            </Box>
           </Tooltip>
         </StyledToggleButtonGroup>
         <Divider
@@ -273,62 +277,72 @@ export default function Toolbar({
         >
           {formattingOptions.bold ? (
             <Tooltip title="Bold" placement="top">
-              <ToolbarButton
-                value="bold"
-                aria-label="Bold Format"
-                onClick={() => toggleMark('bold')}
-                selected={formats.includes('bold')}
-              >
-                <FormatBoldIcon />
-              </ToolbarButton>
+              <Box component="span">
+                <ToolbarButton
+                  value="bold"
+                  aria-label="Bold Format"
+                  onClick={() => toggleMark('bold')}
+                  selected={formats.includes('bold')}
+                >
+                  <FormatBoldIcon />
+                </ToolbarButton>
+              </Box>
             </Tooltip>
           ) : null}
           {formattingOptions.italic ? (
             <Tooltip title="Italic" placement="top">
-              <ToolbarButton
-                value="italic"
-                aria-label="Italic Format"
-                onClick={() => toggleMark('italic')}
-                selected={formats.includes('italic')}
-              >
-                <FormatItalicIcon />
-              </ToolbarButton>
+              <Box component="span">
+                <ToolbarButton
+                  value="italic"
+                  aria-label="Italic Format"
+                  onClick={() => toggleMark('italic')}
+                  selected={formats.includes('italic')}
+                >
+                  <FormatItalicIcon />
+                </ToolbarButton>
+              </Box>
             </Tooltip>
           ) : null}
           {formattingOptions.underline ? (
             <Tooltip title="Underline" placement="top">
-              <ToolbarButton
-                value="underline"
-                aria-label="Underline Format"
-                onClick={() => toggleMark('underline')}
-                selected={formats.includes('underline')}
-              >
-                <FormatUnderlineIcon />
-              </ToolbarButton>
+              <Box component="span">
+                <ToolbarButton
+                  value="underline"
+                  aria-label="Underline Format"
+                  onClick={() => toggleMark('underline')}
+                  selected={formats.includes('underline')}
+                >
+                  <FormatUnderlineIcon />
+                </ToolbarButton>
+              </Box>
             </Tooltip>
           ) : null}
           {formattingOptions.strikethrough ? (
             <Tooltip title="Strike-through" placement="top">
-              <ToolbarButton
-                value="strikethrough"
-                aria-label="Strike-through Format"
-                onClick={() => toggleMark('strikethrough')}
-                selected={formats.includes('strikethrough')}
-              >
-                <FormatStrikethroughIcon />
-              </ToolbarButton>
+              <Box component="span">
+                <ToolbarButton
+                  value="strikethrough"
+                  aria-label="Strike-through Format"
+                  onClick={() => toggleMark('strikethrough')}
+                  selected={formats.includes('strikethrough')}
+                >
+                  <FormatStrikethroughIcon />
+                </ToolbarButton>
+              </Box>
             </Tooltip>
           ) : null}
           {formattingOptions.code ? (
             <Tooltip title="Code Block" placement="top">
-              <ToolbarButton
-                value="code"
-                aria-label="Code block Format"
-                onClick={() => toggleMark('code')}
-                selected={formats.includes('code')}
-              >
-                <FormatCodeIcon />
-              </ToolbarButton>
+              <Box component="span">
+                <ToolbarButton
+                  value="code"
+                  aria-label="Code block Format"
+                  onClick={() => toggleMark('code')}
+                  selected={formats.includes('code')}
+                >
+                  <FormatCodeIcon />
+                </ToolbarButton>
+              </Box>
             </Tooltip>
           ) : null}
         </StyledToggleButtonGroup>

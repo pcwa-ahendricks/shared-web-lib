@@ -17,7 +17,7 @@ import RichLeaf from './RichLeaf'
 
 const defaultDefaultValue: Descendant[] = [
   {
-    type: 'unknown',
+    type: 'undefined',
     children: [{text: ''}]
   }
 ]

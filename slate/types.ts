@@ -11,7 +11,7 @@ type BlockType =
   | 'numbered-list'
   | 'code-block'
   | 'link'
-  | 'unknown' // fallback
+  | 'undefined' // fallback
 
 type HeadingLevel = 'one' | 'two' | 'three' | 'four' | 'five' | 'six' // Use consistent level naming
 
