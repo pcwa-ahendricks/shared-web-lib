@@ -3,6 +3,7 @@ import {
   Box,
   createTheme,
   Divider,
+  Fade,
   Paper,
   Popper,
   styled,
@@ -487,11 +488,19 @@ export default function Toolbar({
             disablePortal
             open={isEditorFocused}
             anchorEl={anchorRef.current}
-            sx={{
-              backdropFilter: 'blur(4px)'
-            }}
+            transition
           >
-            {toolbarContent}
+            {({TransitionProps}) => (
+              <Fade {...TransitionProps} timeout={350}>
+                <Box
+                  sx={{
+                    backdropFilter: 'blur(4px)'
+                  }}
+                >
+                  {toolbarContent}
+                </Box>
+              </Fade>
+            )}
           </Popper>
         </Box>
       </ThemeProvider>
