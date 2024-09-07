@@ -1,23 +1,29 @@
 import {
+  alpha,
   Box,
+  createTheme,
   Divider,
   Paper,
+  Popper,
   styled,
   Theme,
+  ThemeProvider,
   ToggleButton,
   ToggleButtonGroup,
   toggleButtonGroupClasses,
   ToggleButtonProps,
   Tooltip
 } from '@mui/material'
-import {useCallback, useEffect, useState, forwardRef, useMemo} from 'react'
-import {Editor, Range} from 'slate'
 import {
-  useSlate,
-  useSlateSelection,
-  useFocused,
-  useSlateSelector
-} from 'slate-react'
+  useCallback,
+  useEffect,
+  useState,
+  forwardRef,
+  useMemo,
+  useRef
+} from 'react'
+import {Editor, Range} from 'slate'
+import {useSlate, useSlateSelection, useFocused} from 'slate-react'
 import UndoIcon from '@mui/icons-material/Undo'
 import RedoIcon from '@mui/icons-material/Redo'
 import FormatBoldIcon from '@mui/icons-material/FormatBold'
@@ -27,6 +33,7 @@ import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough'
 import FormatCodeIcon from '@mui/icons-material/Code'
 
 type Props = {
+  floating?: boolean
   historyGroup?: boolean
   formattingGroup?: boolean
   formattingOptions?: Partial<{
@@ -114,23 +121,17 @@ const ToolbarButton = forwardRef<HTMLButtonElement, ToggleButtonProps>(
 )
 ToolbarButton.displayName = 'ToolbarButton'
 
-/**
- * Toolbar is a component that renders a toolbar with history (undo/redo) and text formatting options (bold, italic, underline, strikethrough, code).
- *
- * It utilizes Slate.js and MUI to provide a rich text editing toolbar that interacts with the Slate editor.
- *
- * @param {Props} props - The props for configuring the toolbar.
- * @param {boolean} [props.historyGroup] - Whether to show the undo/redo button group.
- * @param {boolean} [props.formattingGroup] - Whether to show the text formatting button group.
- * @param {object} [props.formattingOptions] - Which formatting options should be available (bold, italic, underline, strikethrough, code).
- * @returns {JSX.Element} The rendered toolbar component.
- *
- * @example
- * <MuiToolbar historyGroup={true} formattingGroup={true} />
- */
+// Create MUI dark theme
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark'
+  }
+})
+
 export default function Toolbar({
-  historyGroup,
-  formattingGroup,
+  floating = false,
+  historyGroup = true,
+  formattingGroup = false,
   formattingOptions = {
     bold: true,
     italic: true,
@@ -232,14 +233,20 @@ export default function Toolbar({
     editor.redo()
   }, [editor])
 
-  return (
+  const anchorRef = useRef<HTMLDivElement>(null)
+
+  const toolbarContent = (
     <Box sx={{display: 'flex'}}>
       <Paper
         elevation={0}
         sx={{
           display: 'flex',
           border: (theme: Theme) => `1px solid ${theme.palette.divider}`,
-          flexWrap: 'wrap'
+          flexWrap: 'wrap',
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'dark'
+              ? alpha(theme.palette.background.paper, 0.75) // Apply alpha only in dark mode
+              : theme.palette.background.paper // No alpha in light mode
         }}
       >
         <StyledToggleButtonGroup
@@ -411,6 +418,45 @@ export default function Toolbar({
       </Paper>
     </Box>
   )
+
+  // Floating Toolbar with Popper
+  if (floating) {
+    return (
+      <ThemeProvider theme={darkTheme}>
+        <Box
+          sx={{
+            position: 'relative'
+          }}
+        >
+          <Box
+            ref={anchorRef}
+            sx={{
+              position: 'absolute',
+              width: 0,
+              height: 0,
+              top: 0,
+              left: 0
+            }}
+          />
+
+          <Popper
+            // id="popper"
+            placement="top-start"
+            disablePortal
+            open={isEditorFocused}
+            anchorEl={anchorRef.current}
+            sx={{
+              backdropFilter: 'blur(4px)'
+            }}
+          >
+            {toolbarContent}
+          </Popper>
+        </Box>
+      </ThemeProvider>
+    )
+  }
+
+  return <>{toolbarContent}</>
 }
 
 export type {Props as ToolbarProps}
