@@ -128,6 +128,45 @@ const darkTheme = createTheme({
   }
 })
 
+/**
+ * Props defines the shape of the component's properties, which are:
+ * @typedef {Object} Props
+ * @property {boolean} [floating=false] - Whether the toolbar should float using a Popper.
+ * @property {boolean} [historyGroup=true] - Whether to show the undo/redo button group.
+ * @property {boolean} [formattingGroup=false] - Whether to show the text formatting button group.
+ * @property {Object} [formattingOptions] - Available formatting options (bold, italic, underline, strikethrough, code).
+ * @property {boolean} [formattingOptions.bold=true] - Enable or disable the bold formatting option.
+ * @property {boolean} [formattingOptions.italic=true] - Enable or disable the italic formatting option.
+ * @property {boolean} [formattingOptions.underline=true] - Enable or disable the underline formatting option.
+ * @property {boolean} [formattingOptions.strikethrough=true] - Enable or disable the strikethrough formatting option.
+ * @property {boolean} [formattingOptions.code=true] - Enable or disable the code formatting option.
+ */
+
+/**
+ * Format is a union type that represents the supported text formatting options.
+ * @typedef {'bold' | 'italic' | 'underline' | 'strikethrough' | 'code'} Format
+ */
+
+/**
+ * StyledToggleButtonGroup is a styled version of MUI's ToggleButtonGroup with custom styles for grouped buttons.
+ * @returns {JSX.Element} The styled toggle button group component.
+ */
+
+/**
+ * ToolbarButton is a forwardRef wrapper around MUI's ToggleButton component,
+ * with default behavior to prevent the default mouse down event to keep the Slate editor's selection intact.
+ * @param {ToggleButtonProps} props - The properties passed to the component.
+ * @param {React.Ref<HTMLButtonElement>} ref - The reference to the HTML button element.
+ * @returns {JSX.Element} The toolbar button component.
+ */
+
+/**
+ * Toolbar is a toolbar component for text formatting and undo/redo actions in a Slate editor.
+ * It provides buttons for text formatting (bold, italic, underline, etc.) and history control (undo/redo).
+ * The toolbar can be floating or inline based on the `floating` prop.
+ * @param {Props} props - The properties passed to the component.
+ * @returns {JSX.Element} The toolbar component.
+ */
 export default function Toolbar({
   floating = false,
   historyGroup = true,
