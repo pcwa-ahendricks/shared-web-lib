@@ -10,9 +10,14 @@ import {
   ToggleButtonProps,
   Tooltip
 } from '@mui/material'
-import {useCallback, useEffect, useState, forwardRef} from 'react'
+import {useCallback, useEffect, useState, forwardRef, useMemo} from 'react'
 import {Editor, Range} from 'slate'
-import {useSlate, useSlateSelection} from 'slate-react'
+import {
+  useSlate,
+  useSlateSelection,
+  useFocused,
+  useSlateSelector
+} from 'slate-react'
 import UndoIcon from '@mui/icons-material/Undo'
 import RedoIcon from '@mui/icons-material/Redo'
 import FormatBoldIcon from '@mui/icons-material/FormatBold'
@@ -20,7 +25,6 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic'
 import FormatUnderlineIcon from '@mui/icons-material/FormatUnderlined'
 import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough'
 import FormatCodeIcon from '@mui/icons-material/Code'
-import useIsEditorFocused from '../../slate/hooks/useIsEditorFocused'
 
 type Props = {
   historyGroup?: boolean
@@ -137,7 +141,7 @@ export default function Toolbar({
   const editor = useSlate()
   const selection = useSlateSelection() // Get the current selection
   const [formats, setFormats] = useState<Format[]>([])
-  const isEditorFocused = useIsEditorFocused()
+  const isEditorFocused = useFocused()
 
   useEffect(() => {
     if (!isEditorFocused) {
@@ -153,39 +157,54 @@ export default function Toolbar({
     [editor]
   )
 
+  const isSelectionActive = useMemo(() => {
+    if (!selection) {
+      return false
+    }
+    return !Range.isCollapsed(selection)
+  }, [selection])
+
+  const removeAllMarks = useCallback(() => {
+    const allMarks = Editor.marks(editor)
+    if (allMarks) {
+      Object.keys(allMarks).forEach((mark) => {
+        Editor.removeMark(editor, mark)
+      })
+    }
+  }, [editor])
+
   useEffect(() => {
-    if (selection) {
+    if (formattingGroup) {
       // only set formats if there is a selection, eg. two or more characters selected
-      if (formattingGroup) {
-        if (!Range.isCollapsed(selection)) {
-          let newFormats: Format[] = []
-          const isBold = isMarkActive('bold')
-          if (isBold) {
-            newFormats = [...newFormats, 'bold']
-          }
-          const isItalic = isMarkActive('italic')
-          if (isItalic) {
-            newFormats = [...newFormats, 'italic']
-          }
-          const isUnderline = isMarkActive('underline')
-          if (isUnderline) {
-            newFormats = [...newFormats, 'underline']
-          }
-          const isStrikeThrough = isMarkActive('strikethrough')
-          if (isStrikeThrough) {
-            newFormats = [...newFormats, 'strikethrough']
-          }
-          const isCode = isMarkActive('code')
-          if (isCode) {
-            newFormats = [...newFormats, 'code']
-          }
-          setFormats(newFormats)
-          return
+      if (isSelectionActive) {
+        let newFormats: Format[] = []
+        const isBold = isMarkActive('bold')
+        if (isBold) {
+          newFormats = [...newFormats, 'bold']
         }
+        const isItalic = isMarkActive('italic')
+        if (isItalic) {
+          newFormats = [...newFormats, 'italic']
+        }
+        const isUnderline = isMarkActive('underline')
+        if (isUnderline) {
+          newFormats = [...newFormats, 'underline']
+        }
+        const isStrikeThrough = isMarkActive('strikethrough')
+        if (isStrikeThrough) {
+          newFormats = [...newFormats, 'strikethrough']
+        }
+        const isCode = isMarkActive('code')
+        if (isCode) {
+          newFormats = [...newFormats, 'code']
+        }
+        setFormats(newFormats)
+      } else {
+        removeAllMarks()
         setFormats([])
       }
     }
-  }, [selection, isMarkActive, formattingGroup])
+  }, [isMarkActive, formattingGroup, removeAllMarks, isSelectionActive])
 
   const toggleMark = useCallback(
     (format: Format) => {
@@ -266,7 +285,7 @@ export default function Toolbar({
           orientation="vertical"
         />
         <StyledToggleButtonGroup
-          disabled={!isEditorFocused}
+          disabled={!isEditorFocused || !isSelectionActive}
           sx={{
             ...(!formattingGroup && {display: 'none'})
           }}
