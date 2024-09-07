@@ -79,12 +79,13 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({theme}) => ({
     [`&.${toggleButtonGroupClasses.disabled}`]: {
       border: 0
     }
-  },
-  [`& .${toggleButtonGroupClasses.middleButton},& .${toggleButtonGroupClasses.lastButton}`]:
-    {
-      marginLeft: -1,
-      borderLeft: '1px solid transparent'
-    }
+  }
+  // not sure why the example on mui.com uses the following cause it causes the width to change slightly when disabled toggles.
+  // [`& .${toggleButtonGroupClasses.middleButton},& .${toggleButtonGroupClasses.lastButton}`]:
+  // {
+  // marginLeft: -1,
+  // borderLeft: '1px solid transparent'
+  // }
 }))
 
 /**
