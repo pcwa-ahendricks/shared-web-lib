@@ -46,13 +46,9 @@ import FormatCodeIcon from '@mui/icons-material/Code'
  * }>} [formattingOptions] - Options for enabling/disabling specific text formatting options.
  */
 type Props = {
-  /** Whether the toolbar is floating. */
   floating?: boolean
-  /** Whether to show the undo/redo history group. */
   historyGroup?: boolean
-  /** Whether to show the text formatting group. */
   formattingGroup?: boolean
-  /** Options for enabling/disabling specific text formatting options. */
   formattingOptions?: Partial<{
     bold: boolean
     italic: boolean
