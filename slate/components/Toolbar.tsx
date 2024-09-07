@@ -32,10 +32,27 @@ import FormatUnderlineIcon from '@mui/icons-material/FormatUnderlined'
 import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough'
 import FormatCodeIcon from '@mui/icons-material/Code'
 
+/**
+ * Props for the Toolbar component.
+ * @property {boolean} [floating=false] - Whether the toolbar is floating.
+ * @property {boolean} [historyGroup=true] - Whether to show the undo/redo history group.
+ * @property {boolean} [formattingGroup=false] - Whether to show the text formatting group.
+ * @property {Partial<{
+ *   bold: boolean,
+ *   italic: boolean,
+ *   underline: boolean,
+ *   strikethrough: boolean,
+ *   code: boolean
+ * }>} [formattingOptions] - Options for enabling/disabling specific text formatting options.
+ */
 type Props = {
+  /** Whether the toolbar is floating. */
   floating?: boolean
+  /** Whether to show the undo/redo history group. */
   historyGroup?: boolean
+  /** Whether to show the text formatting group. */
   formattingGroup?: boolean
+  /** Options for enabling/disabling specific text formatting options. */
   formattingOptions?: Partial<{
     bold: boolean
     italic: boolean
@@ -98,6 +115,10 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({theme}) => ({
 /**
  * ToolbarButton is a forwardRef wrapper around MUI's ToggleButton component,
  * with default behavior to prevent the default mouse down event to keep the Slate editor's selection intact.
+ *
+ * @param {ToggleButtonProps} props - The props passed to the ToolbarButton component.
+ * @param {React.ReactNode} children - The content to display inside the button.
+ * @returns {JSX.Element} The rendered toolbar button component.
  */
 const ToolbarButton = forwardRef<HTMLButtonElement, ToggleButtonProps>(
   ({children, ...props}, ref) => {
@@ -129,43 +150,15 @@ const darkTheme = createTheme({
 })
 
 /**
- * Props defines the shape of the component's properties, which are:
- * @typedef {Object} Props
- * @property {boolean} [floating=false] - Whether the toolbar should float using a Popper.
- * @property {boolean} [historyGroup=true] - Whether to show the undo/redo button group.
- * @property {boolean} [formattingGroup=false] - Whether to show the text formatting button group.
- * @property {Object} [formattingOptions] - Available formatting options (bold, italic, underline, strikethrough, code).
- * @property {boolean} [formattingOptions.bold=true] - Enable or disable the bold formatting option.
- * @property {boolean} [formattingOptions.italic=true] - Enable or disable the italic formatting option.
- * @property {boolean} [formattingOptions.underline=true] - Enable or disable the underline formatting option.
- * @property {boolean} [formattingOptions.strikethrough=true] - Enable or disable the strikethrough formatting option.
- * @property {boolean} [formattingOptions.code=true] - Enable or disable the code formatting option.
- */
-
-/**
- * Format is a union type that represents the supported text formatting options.
- * @typedef {'bold' | 'italic' | 'underline' | 'strikethrough' | 'code'} Format
- */
-
-/**
- * StyledToggleButtonGroup is a styled version of MUI's ToggleButtonGroup with custom styles for grouped buttons.
- * @returns {JSX.Element} The styled toggle button group component.
- */
-
-/**
- * ToolbarButton is a forwardRef wrapper around MUI's ToggleButton component,
- * with default behavior to prevent the default mouse down event to keep the Slate editor's selection intact.
- * @param {ToggleButtonProps} props - The properties passed to the component.
- * @param {React.Ref<HTMLButtonElement>} ref - The reference to the HTML button element.
- * @returns {JSX.Element} The toolbar button component.
- */
-
-/**
- * Toolbar is a toolbar component for text formatting and undo/redo actions in a Slate editor.
- * It provides buttons for text formatting (bold, italic, underline, etc.) and history control (undo/redo).
- * The toolbar can be floating or inline based on the `floating` prop.
- * @param {Props} props - The properties passed to the component.
- * @returns {JSX.Element} The toolbar component.
+ * Toolbar component for Slate editor, providing formatting options and undo/redo functionality.
+ *
+ * @param {Props} props - The properties object containing configuration options.
+ * @param {boolean} props.floating - Whether the toolbar is floating.
+ * @param {boolean} props.historyGroup - Whether to show the undo/redo history group.
+ * @param {boolean} props.formattingGroup - Whether to show the text formatting group.
+ * @param {Partial<{ bold: boolean, italic: boolean, underline: boolean, strikethrough: boolean, code: boolean }>} props.formattingOptions - Options for enabling/disabling specific text formatting options.
+ *
+ * @returns {JSX.Element} The rendered toolbar component.
  */
 export default function Toolbar({
   floating = false,
@@ -190,6 +183,12 @@ export default function Toolbar({
     }
   }, [isEditorFocused])
 
+  /**
+   * Checks if the specified text format is currently active in the editor.
+   *
+   * @param {Format} format - The format to check.
+   * @returns {boolean} Whether the format is active.
+   */
   const isMarkActive = useCallback(
     (format: Format) => {
       const marks = Editor.marks(editor)
@@ -205,6 +204,9 @@ export default function Toolbar({
     return !Range.isCollapsed(selection)
   }, [selection])
 
+  /**
+   * Removes all marks (text formatting) from the current selection.
+   */
   const removeAllMarks = useCallback(() => {
     const allMarks = Editor.marks(editor)
     if (allMarks) {
@@ -247,6 +249,11 @@ export default function Toolbar({
     }
   }, [isMarkActive, formattingGroup, removeAllMarks, isSelectionActive])
 
+  /**
+   * Toggles the specified text formatting mark in the editor.
+   *
+   * @param {Format} format - The format to toggle.
+   */
   const toggleMark = useCallback(
     (format: Format) => {
       const isActive = isMarkActive(format)
