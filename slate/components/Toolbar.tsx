@@ -520,6 +520,14 @@ export default function Toolbar({
             open={isEditorFocused}
             anchorEl={anchorRef.current}
             transition
+            modifiers={[
+              {
+                name: 'offset',
+                options: {
+                  offset: [0, parseFloat(theme.spacing(1))] // X and Y offset values (just use number, not "XXpx")
+                }
+              }
+            ]}
           >
             {({TransitionProps}) => (
               <Fade {...TransitionProps} timeout={350}>
@@ -538,7 +546,7 @@ export default function Toolbar({
     )
   }
 
-  return <>{toolbarContent}</>
+  return <Box sx={{marginBottom: 1}}>{toolbarContent}</Box>
 }
 
 export type {Props as ToolbarProps}

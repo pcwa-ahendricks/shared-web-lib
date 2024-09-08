@@ -1,4 +1,9 @@
-import {Typography as Type, TypographyProps} from '@mui/material'
+import {
+  SxProps,
+  Theme,
+  Typography as Type,
+  TypographyProps
+} from '@mui/material'
 import {type RenderPlaceholderProps} from 'slate-react'
 
 /**
@@ -16,13 +21,28 @@ import {type RenderPlaceholderProps} from 'slate-react'
  * @returns {JSX.Element} A MUI `Typography` component that serves as the placeholder for the Slate editor.
  */
 export default function Placeholder({
+  sx: sxProp,
   children,
   attributes,
   ...rest
 }: RenderPlaceholderProps & TypographyProps) {
   const {style, ...restAttributes} = attributes
+  const sx = {...sxProp} as const
   return (
     <Type
+      sx={(theme) => ({
+        color: 'text.disabled',
+        position: 'absolute',
+        paddingY: 1.5,
+        paddingRight: 3, // this one seems squishy, adjust as needed
+        pointerEvents: 'none', // Disable events so it doesn't interfere with typing
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        fontFamily: theme.typography.body1.fontFamily,
+        fontSize: theme.typography.body1.fontSize,
+        ...sx
+      })}
       style={{
         ...style,
         opacity: 1 // defaults to 0.333, see https://github.com/ianstormtaylor/slate/blob/main/packages/slate-react/src/components/leaf.tsx for more info.
