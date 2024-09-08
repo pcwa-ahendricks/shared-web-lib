@@ -13,7 +13,8 @@ import {
   ToggleButtonGroup,
   toggleButtonGroupClasses,
   ToggleButtonProps,
-  Tooltip
+  Tooltip,
+  useTheme
 } from '@mui/material'
 import {
   useCallback,
@@ -117,34 +118,50 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({theme}) => ({
  * @param {React.ReactNode} children - The content to display inside the button.
  * @returns {JSX.Element} The rendered toolbar button component.
  */
-const ToolbarButton = forwardRef<HTMLButtonElement, ToggleButtonProps>(
-  ({children, ...props}, ref) => {
-    return (
-      <ToggleButton
-        {...props}
-        ref={ref}
-        onMouseDown={(event) => {
-          /*  preventDefault is necessary in order to persist the slate selection after button press.
+const ToolbarButton = forwardRef<
+  HTMLButtonElement,
+  ToggleButtonProps & {floating: boolean}
+>(({children, floating, ...props}, ref) => {
+  const {sx, ...rest} = props || {}
+  const theme = useTheme()
+  // note - this component is actually used within a flipped theme
+  const globalMode = theme.palette.mode === 'dark' ? 'light' : 'dark'
+  return (
+    <ToggleButton
+      {...rest}
+      sx={{
+        ...sx,
+        // floating buttons should stand out a bit more
+        ...(floating && {
+          '&.Mui-selected': {
+            backgroundColor:
+              globalMode === 'light'
+                ? alpha(
+                    theme.palette.common.white,
+                    theme.palette.action.selectedOpacity * 1.3
+                  )
+                : alpha(
+                    theme.palette.common.black,
+                    theme.palette.action.selectedOpacity * 1.3
+                  )
+          }
+        })
+      }}
+      ref={ref}
+      onMouseDown={(event) => {
+        /*  preventDefault is necessary in order to persist the slate selection after button press.
               Without this, the selection is cleared on format and selects all text when un-formatted.
               stopPropagation may not be necessary, and it's not used in the Slate Rich Text example.
               See https://github.com/ianstormtaylor/slate/blob/main/site/examples/richtext.tsx for more info.
           */
-          event.preventDefault()
-        }}
-      >
-        {children}
-      </ToggleButton>
-    )
-  }
-)
-ToolbarButton.displayName = 'ToolbarButton'
-
-// Create MUI dark theme
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark'
-  }
+        event.preventDefault()
+      }}
+    >
+      {children}
+    </ToggleButton>
+  )
 })
+ToolbarButton.displayName = 'ToolbarButton'
 
 /**
  * Toolbar component for Slate editor, providing formatting options and undo/redo functionality.
@@ -282,15 +299,14 @@ export default function Toolbar({
     <Box sx={{display: 'flex'}}>
       <Paper
         elevation={0}
-        sx={{
+        sx={(theme) => ({
           display: 'flex',
-          border: (theme: Theme) => `1px solid ${theme.palette.divider}`,
+          border: `1px solid ${theme.palette.divider}`,
           flexWrap: 'wrap',
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'dark'
-              ? alpha(theme.palette.background.paper, 0.75) // Apply alpha only in dark mode
-              : theme.palette.background.paper // No alpha in light mode
-        }}
+          ...(floating && {
+            backgroundColor: alpha(theme.palette.background.paper, 0.7)
+          })
+        })}
       >
         <StyledToggleButtonGroup
           disabled={!isEditorFocused}
@@ -304,6 +320,7 @@ export default function Toolbar({
           <Tooltip title="Undo" placement="top">
             <Box component="span">
               <ToolbarButton
+                floating={floating}
                 value={false}
                 aria-label="Undo"
                 selected={false}
@@ -316,6 +333,7 @@ export default function Toolbar({
           <Tooltip title="Redo" placement="top">
             <Box component="span">
               <ToolbarButton
+                floating={floating}
                 value={false}
                 aria-label="Redo"
                 selected={false}
@@ -349,6 +367,7 @@ export default function Toolbar({
             <Tooltip title="Bold" placement="top">
               <Box component="span">
                 <ToolbarButton
+                  floating={floating}
                   value="bold"
                   aria-label="Bold Format"
                   onClick={() => toggleMark('bold')}
@@ -363,6 +382,7 @@ export default function Toolbar({
             <Tooltip title="Italic" placement="top">
               <Box component="span">
                 <ToolbarButton
+                  floating={floating}
                   value="italic"
                   aria-label="Italic Format"
                   onClick={() => toggleMark('italic')}
@@ -377,6 +397,7 @@ export default function Toolbar({
             <Tooltip title="Underline" placement="top">
               <Box component="span">
                 <ToolbarButton
+                  floating={floating}
                   value="underline"
                   aria-label="Underline Format"
                   onClick={() => toggleMark('underline')}
@@ -391,6 +412,7 @@ export default function Toolbar({
             <Tooltip title="Strike-through" placement="top">
               <Box component="span">
                 <ToolbarButton
+                  floating={floating}
                   value="strikethrough"
                   aria-label="Strike-through Format"
                   onClick={() => toggleMark('strikethrough')}
@@ -405,6 +427,7 @@ export default function Toolbar({
             <Tooltip title="Code Block" placement="top">
               <Box component="span">
                 <ToolbarButton
+                  floating={floating}
                   value="code"
                   aria-label="Code block Format"
                   onClick={() => toggleMark('code')}
@@ -462,10 +485,18 @@ export default function Toolbar({
     </Box>
   )
 
+  // Create MUI dark theme
+  const theme = useTheme()
+  const flipTheme = createTheme({
+    palette: {
+      mode: theme.palette.mode === 'light' ? 'dark' : 'light'
+    }
+  })
+
   // Floating Toolbar with Popper
   if (floating) {
     return (
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={flipTheme}>
         <Box
           sx={{
             position: 'relative'
