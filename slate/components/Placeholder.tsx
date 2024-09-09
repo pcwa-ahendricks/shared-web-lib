@@ -1,9 +1,4 @@
-import {
-  SxProps,
-  Theme,
-  Typography as Type,
-  TypographyProps
-} from '@mui/material'
+import {Typography as Type, TypographyProps} from '@mui/material'
 import {type RenderPlaceholderProps} from 'slate-react'
 
 /**

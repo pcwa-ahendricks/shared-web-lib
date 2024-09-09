@@ -7,7 +7,6 @@ import {
   Paper,
   Popper,
   styled,
-  Theme,
   ThemeProvider,
   ToggleButton,
   ToggleButtonGroup,
@@ -121,13 +120,15 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({theme}) => ({
 const ToolbarButton = forwardRef<
   HTMLButtonElement,
   ToggleButtonProps & {floating: boolean}
->(({children, floating, ...props}, ref) => {
+>(({children, floating, value, ...props}, ref) => {
   const {sx, ...rest} = props || {}
   const theme = useTheme()
   // note - this component is actually used within a flipped theme
   const globalMode = theme.palette.mode === 'dark' ? 'light' : 'dark'
   return (
     <ToggleButton
+      value={value}
+      component="button"
       {...rest}
       sx={{
         ...sx,
@@ -148,7 +149,9 @@ const ToolbarButton = forwardRef<
         })
       }}
       ref={ref}
-      onMouseDown={(event) => {
+      onMouseDown={(
+        event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+      ) => {
         /*  preventDefault is necessary in order to persist the slate selection after button press.
               Without this, the selection is cleared on format and selects all text when un-formatted.
               stopPropagation may not be necessary, and it's not used in the Slate Rich Text example.
