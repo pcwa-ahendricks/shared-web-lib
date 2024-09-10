@@ -49,7 +49,7 @@ export default function SimpleHtml({
   }
 
   // Concatenate all serialized nodes into a single string and wrap it with Typography
-  const serializedContent = data.map(serialize).join('')
+  const serializedContent = data?.map(serialize).join('')
 
   return (
     <Typography variant="inherit" component="div" {...props}>
