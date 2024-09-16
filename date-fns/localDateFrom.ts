@@ -8,10 +8,6 @@ import {TZ} from './options'
  * @returns {Date} The converted date object in the specified time zone.
  * @throws {Error} If the provided date, string, or number cannot be converted to a valid date.
  */
-export default function localDateFrom(props: Date | string | number): Date {
-  const date = new Date(props)
-  if (isNaN(date.getTime())) {
-    throw new Error('Invalid date provided')
-  }
-  return toZonedTime(date, TZ)
+export default function localDateFrom(props: Date | string | number) {
+  return toZonedTime(new Date(props), TZ)
 }
