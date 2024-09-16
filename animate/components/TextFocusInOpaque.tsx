@@ -1,9 +1,9 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-export type TextFocusInProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type TextFocusInOpaqueProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
-const TextFocusInOpaque = ({children, ...rest}: TextFocusInProps) => {
+const TextFocusInOpaque = ({children, ...rest}: TextFocusInOpaqueProps) => {
   return (
     <Animate
       name="text-focus-in-opaque"

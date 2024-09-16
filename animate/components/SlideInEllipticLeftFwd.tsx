@@ -1,7 +1,10 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-type SlideInEllipticLeftFwdProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type SlideInEllipticLeftFwdProps = Omit<
+  AnimateProps,
+  'name' | 'easingFunc'
+>
 
 const SlideInEllipticLeftFwd = ({
   children,
