@@ -1,16 +1,16 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-type FadeInProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type TextFocusInProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
-const FadeIn = ({children, ...props}: FadeInProps) => {
+const TextFocusIn = ({children, ...props}: TextFocusInProps) => {
   const {sx, ...rest} = props || {}
   return (
     <Animate
       sx={{willChange: 'opacity', ...sx}} // hinting the browser for optimization
-      name="fade-in"
-      easingFunc="cubic-bezier(0.390, 0.575, 0.565, 1.000)"
-      duration={1200}
+      name="text-focus-in"
+      easingFunc="cubic-bezier(0.550, 0.085, 0.680, 0.530)"
+      duration={1000}
       transparentUntilAnimate
       {...rest}
     >
@@ -19,4 +19,4 @@ const FadeIn = ({children, ...props}: FadeInProps) => {
   )
 }
 
-export default FadeIn
+export default TextFocusIn

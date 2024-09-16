@@ -1,16 +1,17 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-type FadeInProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type FadeInToTopProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
-const FadeIn = ({children, ...props}: FadeInProps) => {
+const FadeInToTop = ({children, ...props}: FadeInToTopProps) => {
   const {sx, ...rest} = props || {}
   return (
     <Animate
       sx={{willChange: 'opacity', ...sx}} // hinting the browser for optimization
-      name="fade-in"
-      easingFunc="cubic-bezier(0.390, 0.575, 0.565, 1.000)"
+      name="fade-in-to-top"
+      easingFunc="linear"
       duration={1200}
+      fillMode="forwards"
       transparentUntilAnimate
       {...rest}
     >
@@ -19,4 +20,4 @@ const FadeIn = ({children, ...props}: FadeInProps) => {
   )
 }
 
-export default FadeIn
+export default FadeInToTop

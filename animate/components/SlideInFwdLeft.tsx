@@ -8,7 +8,7 @@ const SlideInFwdLeft = ({children, ...rest}: SlideInFwdLeftProps) => {
     <Animate
       name="slide-in-fwd-left"
       easingFunc="cubic-bezier(0.250, 0.460, 0.450, 0.940)"
-      duration={400}
+      duration={500}
       animate3d
       {...rest}
     >
