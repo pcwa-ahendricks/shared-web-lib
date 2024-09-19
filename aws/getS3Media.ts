@@ -7,7 +7,6 @@ import {
   HeadObjectCommand
 } from '@aws-sdk/client-s3'
 import {parse} from 'date-fns'
-import {fromZonedTime} from 'date-fns-tz'
 import path from 'path'
 import {
   endpoint,
@@ -22,8 +21,7 @@ import {
 import type {AwsObjectExt} from './types'
 import isImgixInputMimeType from '../_core/isImgixInputMimeType'
 import fileExtension from '../_core/fileExtension'
-import localDate from '../date-fns/localDate'
-import {TZ} from '../date-fns/options'
+import {tz} from '@date-fns/tz'
 
 export interface getS3MediaParams {
   folderPath?: string
@@ -90,9 +88,13 @@ export default async function getS3Media({
                 0,
                 filename.indexOf(parsePubDatePrfxSep)
               )
-              pubDatePrfx = fromZonedTime(
-                parse(pubDatePrfxStr, parsePubDatePrfx, localDate()),
-                TZ
+              pubDatePrfx = parse(
+                pubDatePrfxStr,
+                parsePubDatePrfx,
+                new Date(),
+                {
+                  in: tz('America/Los_Angeles')
+                }
               )
             }
             const ext = fileExtension(item.Key)
