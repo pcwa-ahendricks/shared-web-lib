@@ -21,7 +21,7 @@ import {
 import type {AwsObjectExt} from './types'
 import isImgixInputMimeType from '../_core/isImgixInputMimeType'
 import fileExtension from '../_core/fileExtension'
-import {tz} from '@date-fns/tz'
+import {LocalDate, localTz} from '../date-fns'
 
 export interface getS3MediaParams {
   folderPath?: string
@@ -91,9 +91,9 @@ export default async function getS3Media({
               pubDatePrfx = parse(
                 pubDatePrfxStr,
                 parsePubDatePrfx,
-                new Date(),
+                new LocalDate(),
                 {
-                  in: tz('America/Los_Angeles')
+                  in: localTz
                 }
               )
             }
