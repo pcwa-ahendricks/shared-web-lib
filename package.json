@@ -6,27 +6,27 @@
   },
   "devDependencies": {
     "@types/node": "^22.5.5",
-    "@types/react": "^18.3.8",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
     "prettier": "^3.3.3"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.654.0",
-    "@date-fns/tz": "^1.0.2",
-    "@mui/icons-material": "^6.1.1",
-    "@mui/material": "^6.1.1",
+    "@aws-sdk/client-s3": "^3.674.0",
+    "@date-fns/tz": "^1.1.2",
+    "@mui/icons-material": "^6.1.4",
+    "@mui/material": "^6.1.4",
     "color-alpha": "^2.0.0",
     "date-fns": "^4.1.0",
     "filenamify": "^6.0.0",
-    "isomorphic-dompurify": "^2.15.0",
-    "next": "^14.2.12",
+    "isomorphic-dompurify": "^2.16.0",
+    "next": "^14.2.15",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-use": "^17.5.1",
-    "slate": "^0.103.0",
+    "slate": "^0.110.2",
     "slate-history": "^0.109.0",
-    "slate-react": "^0.110.1",
-    "use-debounce": "^10.0.3"
+    "slate-react": "^0.110.2",
+    "use-debounce": "^10.0.4"
   },
   "packageManager": "yarn@4.5.0"
 }
