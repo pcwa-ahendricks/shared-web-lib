@@ -1,3 +1,5 @@
+// See https://www.iana.org/assignments/media-types/media-types.xhtml for more info
+
 export type MimeTypes =
   | 'application/1d-interleaved-parityfec'
   | 'application/3gpdash-qoe-report+xml'
