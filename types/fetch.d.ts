@@ -8,10 +8,12 @@ type PreparedHeaders = Partial<{
   Authorization: `Bearer ${string}`
 }>
 
-declare function fetch<ResponseType = any>(
-  input: RequestInfo | URL,
-  init?: TypedRequestInit
-): Promise<TypedResponse<ResponseType>>
+declare global {
+  function fetch<ResponseType = any>(
+    input: RequestInfo | URL,
+    init?: TypedRequestInit
+  ): Promise<TypedResponse<ResponseType>>
+}
 
 type HttpVerbs =
   | 'POST'
