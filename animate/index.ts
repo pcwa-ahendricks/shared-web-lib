@@ -11,6 +11,12 @@ export {default as SlideInEllipticLeftFwd} from './components/SlideInEllipticLef
 export {default as SlideInFwdLeft} from './components/SlideInFwdLeft'
 export {default as SlideInLeft} from './components/SlideInLeft'
 export {default as WobbleVerLeft} from './components/WobbleVerLeft'
+export {
+  AnimateContext,
+  AnimateProvider
+} from './components/intersect/AnimateContext'
+export {default as FadeInIntersect} from './components/intersect/FadeInIntersect'
+export {default as SlideInLeftIntersect} from './components/intersect/SlideInLeftIntersect'
 
 export {type AnimateProps} from './components/Animate'
 export {type FadeInProps} from './components/FadeIn'
@@ -25,3 +31,5 @@ export {type SlideInEllipticLeftFwdProps} from './components/SlideInEllipticLeft
 export {type SlideInFwdLeftProps} from './components/SlideInFwdLeft'
 export {type SlideInLeftProps} from './components/SlideInLeft'
 export {type WobbleVerLeftProps} from './components/WobbleVerLeft'
+export {type FadeInIntersectProps} from './components/intersect/FadeInIntersect'
+export {type SlideInLeftIntersectProps} from './components/intersect/SlideInLeftIntersect'
