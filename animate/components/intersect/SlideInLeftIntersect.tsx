@@ -1,11 +1,10 @@
 'use client'
 
 import {useCallback, useContext, useEffect, useRef, useState} from 'react'
-import FadeIn, {type FadeInProps} from '../FadeIn'
 import {Box} from '@mui/material'
 import {useIntersection} from 'react-use'
 import {AnimateContext, setAnimateDone} from './AnimateContext'
-import SlideInLeft from '../SlideInLeft'
+import SlideInLeft, {type SlideInLeftProps} from '../SlideInLeft'
 
 /**
  * Props for the `SlideInLeftIntersect` component, extending `FadeInProps`.
@@ -15,7 +14,7 @@ import SlideInLeft from '../SlideInLeft'
  * @property {string} [rootMargin='0px'] - Margin around the root element for intersection calculations.
  * @property {boolean} [alwaysAnimate=false] - If true, forces the animation to play every time it enters view, regardless of context state.
  */
-export interface SlideInLeftIntersectProps extends FadeInProps {
+export interface SlideInLeftIntersectProps extends SlideInLeftProps {
   animateKey: string
   root?: Element | null
   rootMargin?: string
