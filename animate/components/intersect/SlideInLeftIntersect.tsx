@@ -70,7 +70,7 @@ const SlideInLeftIntersect = ({
   const shouldAnimate = intersected && (alwaysAnimate || !previouslyAnimated)
 
   return (
-    <Box ref={ref}>
+    <Box ref={ref} sx={{display: 'inherit'}}>
       <SlideInLeft
         animate={shouldAnimate}
         onAnimationEnd={animateDoneHandler}

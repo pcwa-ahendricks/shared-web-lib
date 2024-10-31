@@ -69,7 +69,7 @@ const FadeInIntersect = ({
   const shouldAnimate = intersected && (alwaysAnimate || !previouslyAnimated)
 
   return (
-    <Box ref={ref}>
+    <Box ref={ref} sx={{display: 'inherit'}}>
       <FadeIn
         transparentUntilAnimate={!previouslyAnimated}
         animate={shouldAnimate}
