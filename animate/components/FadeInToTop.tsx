@@ -10,7 +10,7 @@ const FadeInToTop = ({children, ...props}: FadeInToTopProps) => {
       sx={{willChange: 'opacity', ...sx}} // hinting the browser for optimization
       name="fade-in-to-top"
       easingFunc="linear"
-      duration={1200}
+      duration={800}
       fillMode="forwards"
       transparentUntilAnimate
       {...rest}

@@ -1,24 +1,27 @@
 'use client'
 
-import {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import FadeIn, {type FadeInProps} from '../FadeIn'
 import {Box} from '@mui/material'
-import {useIntersection} from 'react-use'
-import {AnimateContext, setAnimateDone} from './AnimateContext'
+import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
 
 /**
  * Props for the `FadeInIntersect` component, extending `FadeInProps`.
- * @interface FadeInIntersectProps
- * @property {string} animateKey - Unique key to identify the animation state in the context.
- * @property {Element | null} [root] - Optional root element for the intersection observer.
- * @property {string} [rootMargin='0px'] - Margin around the root element for intersection calculations.
- * @property {boolean} [alwaysAnimate=false] - If true, forces the animation to play every time it enters view, regardless of context state.
+ *
+ * @typedef {Object} SlideInLeftIntersectProps
+ * @property {string} animateKey - Unique key for tracking animation status.
+ * @property {Element|null} [root=null] - The root element for the intersection observer.
+ * @property {string} [rootMargin='0px'] - Margin around the root for intersection.
+ * @property {boolean} [alwaysAnimate=false] - Whether to always animate on intersect, regardless of previous animation status.
+ * @property {boolean} [noDelayOnIntersects=false] - If true, removes delay when the element intersects for the first time.
+ * @property {boolean} [animate=true] - Whether to allow animation.
+ * @property {number} [delay] - Delay before starting the animation, in milliseconds.
  */
 export interface FadeInIntersectProps extends FadeInProps {
   animateKey: string
   root?: Element | null
   rootMargin?: string
   alwaysAnimate?: boolean
+  noDelayOnIntersects?: boolean | number
 }
 
 /**
@@ -35,45 +38,28 @@ const FadeInIntersect = ({
   root = null,
   rootMargin = '0px',
   alwaysAnimate = false,
+  animate: animateParam = true,
+  noDelayOnIntersects = false,
+  delay: delayParam,
   ...props
 }: FadeInIntersectProps) => {
-  const animateContext = useContext(AnimateContext)
-  if (!animateContext)
-    throw new Error('AnimateContext must be used within AnimateProvider')
-
-  const {state, dispatch} = animateContext
-
-  const previouslyAnimated = state.animateDone?.[animateKey] ?? false
-
-  const animateDoneHandler = useCallback(() => {
-    if (!alwaysAnimate) {
-      dispatch(setAnimateDone(animateKey, true))
-    }
-  }, [dispatch, animateKey, alwaysAnimate])
-
-  const ref = useRef<HTMLDivElement>(null)
-  const [intersected, setIntersected] = useState(false)
-  const intersection = useIntersection(ref, {
-    root,
-    rootMargin
-  })
-
-  useEffect(() => {
-    const animate = intersection?.isIntersecting
-    if (animate && !intersected) {
-      setIntersected(true)
-    }
-  }, [intersection, intersected])
-
-  // whether the component should animate, based on intersection and override logic. */
-  const shouldAnimate = intersected && (alwaysAnimate || !previouslyAnimated)
+  const {ref, shouldAnimate, delay, animateDoneHandler, previouslyAnimated} =
+    useIntersectionAnimation({
+      animateKey,
+      root,
+      rootMargin,
+      alwaysAnimate,
+      noDelayOnIntersects,
+      delayParam
+    })
 
   return (
     <Box ref={ref} sx={{display: 'inherit'}}>
       <FadeIn
-        transparentUntilAnimate={!previouslyAnimated}
+        transparentUntilAnimate={alwaysAnimate || !previouslyAnimated}
         animate={shouldAnimate}
         onAnimationEnd={animateDoneHandler}
+        delay={delay}
         {...props}
       >
         {children}

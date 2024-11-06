@@ -1,11 +1,11 @@
 'use client'
 
 import {Box} from '@mui/material'
-import SlideInLeft, {type SlideInLeftProps} from '../SlideInLeft'
+import FadeOut, {FadeOutProps} from '../FadeOut'
 import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
 
 /**
- * Properties for the `SlideInLeftIntersect` component, extending `SlideInLeftProps`.
+ * Props for the `FadeOutIntersect` component, extending `FadeOutProps`.
  *
  * @typedef {Object} SlideInLeftIntersectProps
  * @property {string} animateKey - Unique key for tracking animation status.
@@ -16,7 +16,7 @@ import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
  * @property {boolean} [animate=true] - Whether to allow animation.
  * @property {number} [delay] - Delay before starting the animation, in milliseconds.
  */
-export interface SlideInLeftIntersectProps extends SlideInLeftProps {
+export interface FadeOutIntersectProps extends FadeOutProps {
   animateKey: string
   root?: Element | null
   rootMargin?: string
@@ -25,13 +25,14 @@ export interface SlideInLeftIntersectProps extends SlideInLeftProps {
 }
 
 /**
- * A component that triggers a "slide-in-left" animation when it intersects with the viewport.
- * Uses intersection observer to determine when to animate and manages animation state in context.
+ * `FadeOutIntersect` component that triggers a fade-in animation from the left
+ * when the component intersects with the viewport. The animation can be forced to
+ * show every time with the `alwaysAnimate` prop.
  *
- * @param {SlideInLeftIntersectProps} props - Properties for configuring the component.
- * @returns {JSX.Element} Rendered `SlideInLeftIntersect` component.
+ * @param {FadeOutIntersectProps} props - The props for the component.
+ * @returns {JSX.Element} The `FadeOutIntersect` component.
  */
-const SlideInLeftIntersect = ({
+const FadeOutIntersect = ({
   children,
   animateKey,
   root = null,
@@ -41,7 +42,7 @@ const SlideInLeftIntersect = ({
   noDelayOnIntersects = false,
   delay: delayParam,
   ...props
-}: SlideInLeftIntersectProps) => {
+}: FadeOutIntersectProps) => {
   const {ref, shouldAnimate, delay, animateDoneHandler} =
     useIntersectionAnimation({
       animateKey,
@@ -54,16 +55,19 @@ const SlideInLeftIntersect = ({
 
   return (
     <Box ref={ref} sx={{display: 'inherit'}}>
-      <SlideInLeft
+      <FadeOut
         animate={shouldAnimate}
         onAnimationEnd={animateDoneHandler}
         delay={delay}
+        // I don't think this is necessary if alwaysAnimate prop is used. Effectively, the children should not display (ie fully transparent) when navigating back to the page containing the element.
+        // Sets opacity to 0 after animation completes if `alwaysAnimate` is false and animation has run previously
+        // sx={{...(!alwaysAnimate && previouslyAnimated && {opacity: 0}), ...sx}}
         {...props}
       >
         {children}
-      </SlideInLeft>
+      </FadeOut>
     </Box>
   )
 }
 
-export default SlideInLeftIntersect
+export default FadeOutIntersect

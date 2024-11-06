@@ -1,11 +1,11 @@
 'use client'
 
 import {Box} from '@mui/material'
-import SlideInLeft, {type SlideInLeftProps} from '../SlideInLeft'
+import FadeInToTop, {type FadeInToTopProps} from '../FadeInToTop'
 import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
 
 /**
- * Properties for the `SlideInLeftIntersect` component, extending `SlideInLeftProps`.
+ * Properties for the `FadeInToTopIntersect` component, extending `FadeInToTopProps`.
  *
  * @typedef {Object} SlideInLeftIntersectProps
  * @property {string} animateKey - Unique key for tracking animation status.
@@ -16,7 +16,7 @@ import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
  * @property {boolean} [animate=true] - Whether to allow animation.
  * @property {number} [delay] - Delay before starting the animation, in milliseconds.
  */
-export interface SlideInLeftIntersectProps extends SlideInLeftProps {
+export interface FadeInToTopIntersectProps extends FadeInToTopProps {
   animateKey: string
   root?: Element | null
   rootMargin?: string
@@ -25,13 +25,13 @@ export interface SlideInLeftIntersectProps extends SlideInLeftProps {
 }
 
 /**
- * A component that triggers a "slide-in-left" animation when it intersects with the viewport.
- * Uses intersection observer to determine when to animate and manages animation state in context.
+ * A component that triggers a "fade-in-to-top" animation when intersecting with the viewport.
+ * Manages animation state and triggers `onAnimationEnd` after completion.
  *
- * @param {SlideInLeftIntersectProps} props - Properties for configuring the component.
- * @returns {JSX.Element} Rendered `SlideInLeftIntersect` component.
+ * @param {FadeInToTopIntersectProps} props - The properties to configure the component.
+ * @returns {JSX.Element} Rendered `FadeInToTopIntersect` component.
  */
-const SlideInLeftIntersect = ({
+const FadeInToTopIntersect = ({
   children,
   animateKey,
   root = null,
@@ -41,8 +41,8 @@ const SlideInLeftIntersect = ({
   noDelayOnIntersects = false,
   delay: delayParam,
   ...props
-}: SlideInLeftIntersectProps) => {
-  const {ref, shouldAnimate, delay, animateDoneHandler} =
+}: FadeInToTopIntersectProps) => {
+  const {ref, shouldAnimate, delay, animateDoneHandler, previouslyAnimated} =
     useIntersectionAnimation({
       animateKey,
       root,
@@ -54,16 +54,17 @@ const SlideInLeftIntersect = ({
 
   return (
     <Box ref={ref} sx={{display: 'inherit'}}>
-      <SlideInLeft
+      <FadeInToTop
+        transparentUntilAnimate={alwaysAnimate || !previouslyAnimated}
         animate={shouldAnimate}
         onAnimationEnd={animateDoneHandler}
         delay={delay}
         {...props}
       >
         {children}
-      </SlideInLeft>
+      </FadeInToTop>
     </Box>
   )
 }
 
-export default SlideInLeftIntersect
+export default FadeInToTopIntersect
