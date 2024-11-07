@@ -1,17 +1,16 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-export type FadeOutToTopProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type FadeOutFromTopProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
-/* TODO - I haven't tested this component */
-const FadeOutToTop = ({children, ...props}: FadeOutToTopProps) => {
+const FadeOutFromTop = ({children, ...props}: FadeOutFromTopProps) => {
   const {sx, ...rest} = props || {}
   return (
     <Animate
       sx={{willChange: 'opacity', ...sx}} // hinting the browser for optimization
-      name="fade-out-to-top"
-      easingFunc="linear"
-      duration={1000}
+      name="fade-out-from-top"
+      easingFunc="ease"
+      duration={800}
       fillMode="forwards"
       transparentUntilAnimate
       {...rest}
@@ -21,4 +20,4 @@ const FadeOutToTop = ({children, ...props}: FadeOutToTopProps) => {
   )
 }
 
-export default FadeOutToTop
+export default FadeOutFromTop

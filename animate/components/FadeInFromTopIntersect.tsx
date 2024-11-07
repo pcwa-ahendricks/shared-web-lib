@@ -1,23 +1,26 @@
 'use client'
 
 import {Box} from '@mui/material'
-import FadeInToTop, {type FadeInToTopProps} from './FadeInToTop'
+import FadeInFromTop, {type FadeInFromTopProps} from './FadeInFromTop'
 import useIntersectionAnimation, {
   type IntersectionAnimationProps
 } from '../hooks/useIntersectAnimation'
 import useInitialAnimationTransparency from '../hooks/useInitialAnimationTransparency'
+import {useScrollDirection} from '../../react-use'
+import FadeInFromBottom from './FadeInFromBottom'
 
-export interface FadeInToTopIntersectProps
-  extends FadeInToTopProps,
+export interface FadeInFromTopIntersectProps
+  extends FadeInFromTopProps,
     IntersectionAnimationProps {
   animateKey: string
   root?: Element | null
   rootMargin?: string
   alwaysAnimate?: boolean
   noDelayOnIntersected?: boolean | number
+  reverseOnScrollUp?: boolean
 }
 
-const FadeInToTopIntersect = ({
+const FadeInFromTopIntersect = ({
   children,
   animateKey,
   root = null,
@@ -26,8 +29,9 @@ const FadeInToTopIntersect = ({
   animate: animateParam = true,
   noDelayOnIntersected = false,
   delay: delayParam,
+  reverseOnScrollUp = true,
   ...props
-}: FadeInToTopIntersectProps) => {
+}: FadeInFromTopIntersectProps) => {
   const {ref, shouldAnimate, delay, animateDoneHandler, previouslyAnimated} =
     useIntersectionAnimation({
       animateKey,
@@ -44,9 +48,27 @@ const FadeInToTopIntersect = ({
     previouslyAnimated
   })
 
+  const scrollDirection = useScrollDirection()
+
+  if (reverseOnScrollUp && scrollDirection === 'up') {
+    return (
+      <Box ref={ref} sx={{display: 'inherit'}}>
+        <FadeInFromBottom
+          transparentUntilAnimate={startTransparent}
+          animate={shouldAnimate}
+          onAnimationEnd={animateDoneHandler}
+          delay={delay}
+          {...props}
+        >
+          {children}
+        </FadeInFromBottom>
+      </Box>
+    )
+  }
+
   return (
     <Box ref={ref} sx={{display: 'inherit'}}>
-      <FadeInToTop
+      <FadeInFromTop
         transparentUntilAnimate={startTransparent}
         animate={shouldAnimate}
         onAnimationEnd={animateDoneHandler}
@@ -54,9 +76,9 @@ const FadeInToTopIntersect = ({
         {...props}
       >
         {children}
-      </FadeInToTop>
+      </FadeInFromTop>
     </Box>
   )
 }
 
-export default FadeInToTopIntersect
+export default FadeInFromTopIntersect

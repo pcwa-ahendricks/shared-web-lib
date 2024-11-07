@@ -62,10 +62,10 @@
 
 /**
  * ----------------------------------------
- * animation fade-in-to-top (custom w/ mask)
+ * animation fade-in-from-top (custom w/ mask)
  * ----------------------------------------
  */
-@keyframes fade-in-to-top {
+@keyframes fade-in-from-top {
   0% {
     opacity: 0;
     mask-image: linear-gradient(to top, transparent 0%, black 100%);
@@ -78,10 +78,10 @@
 
 /**
  * ----------------------------------------
- * animation fade-out-to-top (custom w/ mask)
+ * animation fade-out-from-top (custom w/ mask)
  * ----------------------------------------
  */
-@keyframes fade-out-to-top {
+@keyframes fade-out-from-top {
   0% {
     opacity: 1;
     mask-image: linear-gradient(to top, black 0%, black 100%);
@@ -89,6 +89,38 @@
   100% {
     opacity: 0;
     mask-image: linear-gradient(to top, transparent 0%, black 100%);
+  }
+}
+
+/**
+ * ----------------------------------------
+ * animation fade-in-from-bottom (custom w/ mask)
+ * ----------------------------------------
+ */
+@keyframes fade-in-from-bottom {
+  0% {
+    opacity: 0;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+  }
+  100% {
+    opacity: 1;
+    mask-image: linear-gradient(to bottom, black 0%, black 100%);
+  }
+}
+
+/**
+ * ----------------------------------------
+ * animation fade-out-from-bottom (custom w/ mask)
+ * ----------------------------------------
+ */
+@keyframes fade-out-from-bottom {
+  0% {
+    opacity: 1;
+    mask-image: linear-gradient(to bottom, black 0%, black 100%);
+  }
+  100% {
+    opacity: 0;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
   }
 }
 
