@@ -2,7 +2,9 @@
 
 import {Box} from '@mui/material'
 import SlideInLeft, {type SlideInLeftProps} from '../SlideInLeft'
-import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
+import useIntersectionAnimation, {
+  type IntersectionAnimationProps
+} from '../../hooks/useIntersectAnimation'
 
 /**
  * Properties for the `SlideInLeftIntersect` component, extending `SlideInLeftProps`.
@@ -16,7 +18,9 @@ import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
  * @property {boolean} [animate=true] - Whether to allow animation.
  * @property {number} [delay] - Delay before starting the animation, in milliseconds.
  */
-export interface SlideInLeftIntersectProps extends SlideInLeftProps {
+export interface SlideInLeftIntersectProps
+  extends SlideInLeftProps,
+    IntersectionAnimationProps {
   animateKey: string
   root?: Element | null
   rootMargin?: string
@@ -40,6 +44,7 @@ const SlideInLeftIntersect = ({
   animate: animateParam = true,
   noDelayOnIntersects = false,
   delay: delayParam,
+  onScrollDownOnly,
   ...props
 }: SlideInLeftIntersectProps) => {
   const {ref, shouldAnimate, delay, animateDoneHandler} =
@@ -49,7 +54,8 @@ const SlideInLeftIntersect = ({
       rootMargin,
       alwaysAnimate,
       noDelayOnIntersects,
-      delayParam
+      delayParam,
+      onScrollDownOnly
     })
 
   return (

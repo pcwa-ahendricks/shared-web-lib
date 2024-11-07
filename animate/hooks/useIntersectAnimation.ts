@@ -4,6 +4,7 @@ import {
   AnimateContext,
   setAnimateDone
 } from '../components/intersect/AnimateContext'
+import useScrollDirection from '../../react-use/useScrollDirection'
 
 /**
  * Properties for configuring the `useIntersectionAnimation` hook.
@@ -18,7 +19,7 @@ import {
  * @property {number} [delayParam] - Delay before starting the animation, in milliseconds.
  * @property {boolean} [onScrollDownOnly=true] - Whether the animation should only trigger when scrolling down.
  */
-interface IntersectionAnimationProps {
+export interface IntersectionAnimationProps {
   animateKey: string
   root?: Element | null
   rootMargin?: string
@@ -41,7 +42,7 @@ interface IntersectionAnimationProps {
  * @property {Function} animateDoneHandler - Handler to set the animation as completed.
  * @property {boolean} previouslyAnimated - Indicates if the element has previously animated.
  */
-export const useIntersectionAnimation = ({
+const useIntersectionAnimation = ({
   animateKey,
   root = null,
   rootMargin = '0px',
@@ -73,11 +74,18 @@ export const useIntersectionAnimation = ({
     rootMargin
   })
 
-  useEffect(() => {
-    const animate = intersection?.isIntersecting
+  const scrollDirection = useScrollDirection() // Track scroll direction
 
-    // Only trigger animation if intersecting, not previously animated
-    if (animate && !intersected) {
+  useEffect(() => {
+    const isIntersecting = intersection?.isIntersecting
+    // const isScrollingDown = scrollDirection === 'down'
+
+    // Only trigger animation if intersecting, not previously animated, and scrolling down if the prop is true
+    if (
+      isIntersecting &&
+      !intersected //&&
+      // (!onScrollDownOnly || isScrollingDown || scrollDirection === null)
+    ) {
       setIntersected(true)
       if (noDelayOnIntersects && delay && delay > 0) {
         const adjustedDelay =
@@ -87,7 +95,14 @@ export const useIntersectionAnimation = ({
         setDelay(adjustedDelay)
       }
     }
-  }, [intersection, intersected, noDelayOnIntersects, delay])
+  }, [
+    intersection,
+    intersected,
+    noDelayOnIntersects,
+    delay,
+    scrollDirection,
+    onScrollDownOnly
+  ])
 
   const shouldAnimate =
     animateParam && intersected && (alwaysAnimate || !previouslyAnimated)
@@ -97,6 +112,9 @@ export const useIntersectionAnimation = ({
     shouldAnimate,
     delay,
     animateDoneHandler,
-    previouslyAnimated
+    previouslyAnimated,
+    scrollDirection
   }
 }
+
+export default useIntersectionAnimation

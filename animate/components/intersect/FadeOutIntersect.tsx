@@ -2,7 +2,9 @@
 
 import {Box} from '@mui/material'
 import FadeOut, {FadeOutProps} from '../FadeOut'
-import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
+import useIntersectionAnimation, {
+  type IntersectionAnimationProps
+} from '../../hooks/useIntersectAnimation'
 
 /**
  * Props for the `FadeOutIntersect` component, extending `FadeOutProps`.
@@ -16,7 +18,9 @@ import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
  * @property {boolean} [animate=true] - Whether to allow animation.
  * @property {number} [delay] - Delay before starting the animation, in milliseconds.
  */
-export interface FadeOutIntersectProps extends FadeOutProps {
+export interface FadeOutIntersectProps
+  extends FadeOutProps,
+    IntersectionAnimationProps {
   animateKey: string
   root?: Element | null
   rootMargin?: string
@@ -41,6 +45,7 @@ const FadeOutIntersect = ({
   animate: animateParam = true,
   noDelayOnIntersects = false,
   delay: delayParam,
+  onScrollDownOnly,
   ...props
 }: FadeOutIntersectProps) => {
   const {ref, shouldAnimate, delay, animateDoneHandler} =
@@ -50,7 +55,8 @@ const FadeOutIntersect = ({
       rootMargin,
       alwaysAnimate,
       noDelayOnIntersects,
-      delayParam
+      delayParam,
+      onScrollDownOnly
     })
 
   return (

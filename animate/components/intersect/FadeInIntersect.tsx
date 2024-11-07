@@ -2,7 +2,9 @@
 
 import FadeIn, {type FadeInProps} from '../FadeIn'
 import {Box} from '@mui/material'
-import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
+import useIntersectionAnimation, {
+  type IntersectionAnimationProps
+} from '../../hooks/useIntersectAnimation'
 
 /**
  * Props for the `FadeInIntersect` component, extending `FadeInProps`.
@@ -16,7 +18,9 @@ import {useIntersectionAnimation} from '../../hooks/useIntersectAnimation'
  * @property {boolean} [animate=true] - Whether to allow animation.
  * @property {number} [delay] - Delay before starting the animation, in milliseconds.
  */
-export interface FadeInIntersectProps extends FadeInProps {
+export interface FadeInIntersectProps
+  extends FadeInProps,
+    IntersectionAnimationProps {
   animateKey: string
   root?: Element | null
   rootMargin?: string
@@ -41,17 +45,25 @@ const FadeInIntersect = ({
   animate: animateParam = true,
   noDelayOnIntersects = false,
   delay: delayParam,
+  onScrollDownOnly,
   ...props
 }: FadeInIntersectProps) => {
-  const {ref, shouldAnimate, delay, animateDoneHandler, previouslyAnimated} =
-    useIntersectionAnimation({
-      animateKey,
-      root,
-      rootMargin,
-      alwaysAnimate,
-      noDelayOnIntersects,
-      delayParam
-    })
+  const {
+    ref,
+    shouldAnimate,
+    delay,
+    animateDoneHandler,
+    previouslyAnimated
+    // scrollDirection
+  } = useIntersectionAnimation({
+    animateKey,
+    root,
+    rootMargin,
+    alwaysAnimate,
+    noDelayOnIntersects,
+    delayParam,
+    onScrollDownOnly
+  })
 
   return (
     <Box ref={ref} sx={{display: 'inherit'}}>
