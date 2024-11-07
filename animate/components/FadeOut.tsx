@@ -7,6 +7,7 @@ const FadeOut = ({children, ...props}: FadeOutProps) => {
   const {sx, ...rest} = props || {}
   return (
     <Animate
+      transparentAfterAnimate
       sx={{willChange: 'opacity', ...sx}} // hinting the browser for optimization
       name="fade-out"
       easingFunc="ease-out"

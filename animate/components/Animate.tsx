@@ -17,6 +17,7 @@ export type AnimateProps = {
   direction?: 'normal' | 'reverse' | 'alternate' | 'alternate-reverse'
   fillMode?: 'both' | 'backwards' | 'forwards' | 'none'
   transparentUntilAnimate?: boolean
+  transparentAfterAnimate?: boolean
   hiddenUntilAnimate?: boolean
   animationEnded?: boolean
   speed?: 'fast' | 'faster' | 'fastest' | 'slow' | 'slower' | 'slowest'
@@ -48,6 +49,7 @@ const Animate = ({
   animate3d = false, // some components won't use translate
   name,
   transparentUntilAnimate = false,
+  transparentAfterAnimate = false,
   hiddenUntilAnimate = false,
   onAnimationStart,
   onAnimationEnd,
@@ -59,7 +61,7 @@ const Animate = ({
   const {sx, ...restBoxProps} = rest
   const animate3dSuffix = animate3d ? '-3d' : ''
   const [animationStarted, setAnimationStarted] = useState(false)
-  const [_animationEnded, setAnimationEnded] = useState(false)
+  const [animationEnded, setAnimationEnded] = useState(false)
 
   if (speed) {
     switch (speed) {
@@ -111,6 +113,9 @@ const Animate = ({
   // Only start transparent if: User specified, and the animation has not started
   const shouldStartTransparent = transparentUntilAnimate && !animationStarted
 
+  // Only end transparent if: User specified, and the animation has ended
+  const shouldEndTransparent = transparentAfterAnimate && animationEnded
+
   // Only start transparent if: User specified, and the animation has not started
   const shouldStartHidden = hiddenUntilAnimate && !animationStarted
 
@@ -135,6 +140,9 @@ const Animate = ({
             visibility: 'hidden'
           }),
           ...(shouldStartTransparent && {
+            opacity: 0
+          }),
+          ...(shouldEndTransparent && {
             opacity: 0
           }),
           ...(animate && {

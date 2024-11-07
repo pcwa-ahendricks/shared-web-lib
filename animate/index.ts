@@ -11,14 +11,11 @@ export {default as SlideInEllipticLeftFwd} from './components/SlideInEllipticLef
 export {default as SlideInFwdLeft} from './components/SlideInFwdLeft'
 export {default as SlideInLeft} from './components/SlideInLeft'
 export {default as WobbleVerLeft} from './components/WobbleVerLeft'
-export {
-  AnimateContext,
-  AnimateProvider
-} from './components/intersect/AnimateContext'
-export {default as FadeInIntersect} from './components/intersect/FadeInIntersect'
-export {default as SlideInLeftIntersect} from './components/intersect/SlideInLeftIntersect'
-export {default as FadeInToTopIntersect} from './components/intersect/FadeInToTopIntersect'
-export {default as FadeOutIntersect} from './components/intersect/FadeOutIntersect'
+export {AnimateContext, AnimateProvider} from './components/AnimateContext'
+export {default as FadeInIntersect} from './components/FadeInIntersect'
+export {default as SlideInLeftIntersect} from './components/SlideInLeftIntersect'
+export {default as FadeInToTopIntersect} from './components/FadeInToTopIntersect'
+export {default as FadeOutIntersect} from './components/FadeOutIntersect'
 
 export {type AnimateProps} from './components/Animate'
 export {type FadeInProps} from './components/FadeIn'
@@ -33,7 +30,7 @@ export {type SlideInEllipticLeftFwdProps} from './components/SlideInEllipticLeft
 export {type SlideInFwdLeftProps} from './components/SlideInFwdLeft'
 export {type SlideInLeftProps} from './components/SlideInLeft'
 export {type WobbleVerLeftProps} from './components/WobbleVerLeft'
-export {type FadeInIntersectProps} from './components/intersect/FadeInIntersect'
-export {type SlideInLeftIntersectProps} from './components/intersect/SlideInLeftIntersect'
-export {type FadeInToTopIntersectProps} from './components/intersect/FadeInToTopIntersect'
-export {type FadeOutIntersectProps} from './components/intersect/FadeOutIntersect'
+export {type FadeInIntersectProps} from './components/FadeInIntersect'
+export {type SlideInLeftIntersectProps} from './components/SlideInLeftIntersect'
+export {type FadeInToTopIntersectProps} from './components/FadeInToTopIntersect'
+export {type FadeOutIntersectProps} from './components/FadeOutIntersect'
