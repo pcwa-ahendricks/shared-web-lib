@@ -1,6 +1,7 @@
 import {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import {useIntersection} from 'react-use'
 import {AnimateContext, setAnimateDone} from '../components/AnimateContext'
+import {useScrollDirection} from '../../react-use'
 
 export interface IntersectionAnimationProps {
   animateKey: string
@@ -43,13 +44,17 @@ const useIntersectionAnimation = ({
     rootMargin
   })
 
+  const scrollDirection = useScrollDirection()
+  const hasScrolled = !!scrollDirection
+
   useEffect(() => {
     const isIntersecting = intersection?.isIntersecting
 
-    // Only trigger animation if intersecting and not previously animated, and scrolling down if the prop is true
+    // Only trigger animation if intersecting and not previously animated
     if (isIntersecting && !intersected) {
       setIntersected(true)
-      if (noDelayOnIntersected && delay && delay > 0) {
+      // Only adjust delay if noDelayOnIntersected was specified and user has scrolled (down or up) and delay is greater than 0
+      if (noDelayOnIntersected && hasScrolled && delay && delay > 0) {
         const calcDelay =
           typeof noDelayOnIntersected === 'number'
             ? Math.max(0, delay - noDelayOnIntersected)
@@ -57,7 +62,7 @@ const useIntersectionAnimation = ({
         setAdjustedDelay(calcDelay)
       }
     }
-  }, [intersection, intersected, noDelayOnIntersected, delay])
+  }, [intersection, intersected, noDelayOnIntersected, delay, hasScrolled])
 
   // only animate if the following is true:
   // The animate prop is true (the default for all components)
