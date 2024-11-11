@@ -123,8 +123,6 @@ const ToolbarButton = forwardRef<
 >(({children, floating, value, ...props}, ref) => {
   const {sx, ...rest} = props || {}
   const theme = useTheme()
-  // note - this component is actually used within a flipped theme
-  const globalMode = theme.palette.mode === 'dark' ? 'light' : 'dark'
   return (
     <ToggleButton
       value={value}
@@ -135,16 +133,16 @@ const ToolbarButton = forwardRef<
         // floating buttons should stand out a bit more
         ...(floating && {
           '&.Mui-selected': {
-            backgroundColor:
-              globalMode === 'light'
-                ? alpha(
-                    theme.palette.common.white,
-                    theme.palette.action.selectedOpacity * 1.3
-                  )
-                : alpha(
-                    theme.palette.common.black,
-                    theme.palette.action.selectedOpacity * 1.3
-                  )
+            backgroundColor: alpha(
+              theme.palette.common.white,
+              theme.palette.action.selectedOpacity * 1.3
+            ),
+            ...theme.applyStyles('dark', {
+              backgroundColor: alpha(
+                theme.palette.common.black,
+                theme.palette.action.selectedOpacity * 1.3
+              )
+            })
           }
         })
       }}
@@ -531,16 +529,16 @@ export default function Toolbar({
                 }
               }
             ]}
+            sx={{
+              backdropFilter: 'blur(4px)',
+              ...theme.applyStyles('dark', {
+                backdropFilter: 'blur(3px)'
+              })
+            }}
           >
             {({TransitionProps}) => (
               <Fade {...TransitionProps} timeout={350}>
-                <Box
-                  sx={{
-                    backdropFilter: 'blur(4px)'
-                  }}
-                >
-                  {toolbarContent}
-                </Box>
+                <Box>{toolbarContent}</Box>
               </Fade>
             )}
           </Popper>
