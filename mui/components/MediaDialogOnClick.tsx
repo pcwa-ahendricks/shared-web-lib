@@ -15,7 +15,7 @@ import MediaPreviewDialog, {
 } from './MediaPreviewDialog'
 import {styled} from '@mui/system'
 
-type Props = {
+export type MediaDialogOnClickProps = {
   mediaName: string
   mediaUrl: string
   children: React.ReactNode
@@ -72,7 +72,7 @@ const MediaDialogOnClick = ({
   mediaDialogOpen: mediaDialogOpenProp = false,
   showPopper = true,
   ...rest
-}: Props) => {
+}: MediaDialogOnClickProps) => {
   const theme = useTheme<Theme>()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 

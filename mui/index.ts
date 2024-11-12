@@ -12,6 +12,14 @@ export {default as Span} from './components/Span'
 export {default as SeoOnly} from './components/SeoOnly'
 export {default as Nav} from './components/Nav'
 export {default as MediaPreviewDialog} from './components/MediaPreviewDialog'
-export {default as MediaDialogOnClick} from './components/MediaDialogOnClick'
+export {
+  default as MediaDialogOnClick,
+  type MediaDialogOnClickProps
+} from './components/MediaDialogOnClick'
+export {
+  default as Paragraph,
+  P,
+  type ParagraphProps
+} from './components/Paragraph'
 
 export type {GridSizes, MediaBreakpoints} from './types'
