@@ -1,5 +1,5 @@
 import React from 'react'
-import {Typography, TypographyProps} from '@mui/material'
+import {Typography, type TypographyProps} from '@mui/material'
 import {styled} from '@mui/system'
 
 /**
@@ -8,11 +8,6 @@ import {styled} from '@mui/system'
 const StyledParagraph = styled(Typography)<TypographyProps>(({theme}) => ({
   marginBottom: theme.spacing(2) // Adds a bottom margin of 16px
 }))
-
-/**
- * Props for the Paragraph component. Inherits all MUI TypographyProps.
- */
-export interface ParagraphProps extends TypographyProps {}
 
 /**
  * A reusable component that renders text as a paragraph (`<p>` tag) with built-in spacing.
@@ -30,12 +25,12 @@ export interface ParagraphProps extends TypographyProps {}
  * // Renders a div with the same styles
  * <Paragraph component="div">This is a div with paragraph styling.</Paragraph>
  *
- * @param {ParagraphProps} props - The props for the Paragraph component.
+ * @param {TypographyProps} props - The props for the Paragraph component.
  * @param {React.ReactNode} props.children - The content to be displayed within the paragraph.
  * @param {'p' | 'div' | 'span'} [props.component='p'] - The HTML element to render.
  * @returns {JSX.Element} The rendered paragraph element.
  */
-const Paragraph: React.FC<ParagraphProps> = ({component = 'p', ...props}) => {
+const Paragraph: React.FC<TypographyProps> = ({component = 'p', ...props}) => {
   return <StyledParagraph component={component} {...props} />
 }
 
