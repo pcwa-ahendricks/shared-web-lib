@@ -1,5 +1,8 @@
 type FetchParameters = Parameters<typeof fetch>
 
+const DEPLOY_ENV = process.env.DEPLOY_ENV
+const BYPASS_SECRET = process.env.VERCEL_AUTOMATION_BYPASS_SECRET
+
 /**
  * A generic fetcher function that performs a fetch request and returns the JSON-parsed response.
  *
@@ -62,5 +65,52 @@ const textFetcher = (...args: FetchParameters) =>
     return res.text() as Promise<string>
   })
 
-export default fetcher
-export {textFetcher, multiFetcher}
+/**
+ * Fetches data from the specified URL with support for bypassing Vercel protection headers
+ * in the preview environment.
+ *
+ * @template T - The expected response type.
+ * @param {RequestInfo} url - The URL to fetch data from.
+ * @param {RequestInit} [options={}] - Optional fetch options (method, headers, body, etc.).
+ * @returns {Promise<T>} - A promise that resolves to the JSON response of type `T`.
+ * @throws {Response} - Throws the response object if the response status is not OK.
+ */
+const fetcherWithBypass = async <T>(
+  url: RequestInfo,
+  options: RequestInit = {}
+): Promise<T> => {
+  // Define default options with conditional headers
+  const defaultOptions: RequestInit =
+    DEPLOY_ENV === 'preview' && BYPASS_SECRET
+      ? {headers: {'x-vercel-protection-bypass': BYPASS_SECRET}}
+      : {}
+
+  // Merge user-provided options with the default options
+  const mergedOptions: RequestInit = {
+    ...defaultOptions,
+    ...options,
+    headers: {
+      ...defaultOptions.headers,
+      ...options.headers
+    }
+  }
+
+  // Perform the fetch request
+  const res = await fetch(url, mergedOptions)
+
+  // Handle non-OK responses
+  if (!res.ok) {
+    throw res
+  }
+
+  // Return the JSON response
+  return res.json() as Promise<T>
+}
+
+export {
+  fetcher,
+  fetcher as default,
+  textFetcher,
+  multiFetcher,
+  fetcherWithBypass
+}

@@ -1,6 +1,11 @@
 export {default as containsAny} from './containsAny'
 export {default as dLog} from './dLog'
-export {default as fetcher} from './fetcher'
+export {
+  default as fetcher,
+  textFetcher,
+  multiFetcher,
+  fetcherWithBypass
+} from './fetcher'
 export {default as fileExtension} from './fileExtension'
 export {default as getInitials} from './getInitials'
 export {default as groupBy} from './groupBy'
