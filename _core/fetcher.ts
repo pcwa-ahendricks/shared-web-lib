@@ -57,13 +57,19 @@ const multiFetcher = <T>(...urls: string[]) => {
  * @example
  * textFetcher('/api/text').then(text => console.log(text));
  */
-const textFetcher = (...args: FetchParameters) =>
+const textFetcher = (...args: FetchParameters): Promise<string> =>
   fetch(...args).then((res) => {
     if (!res.ok) {
       throw res
     }
-    return res.text() as Promise<string>
+    return res.text()
   })
+
+// Define default options with conditional bypass headers
+const defaultBypassOptions: RequestInit =
+  DEPLOY_ENV === 'preview' && BYPASS_SECRET
+    ? {headers: {'x-vercel-protection-bypass': BYPASS_SECRET}}
+    : {}
 
 /**
  * Fetches data from the specified URL with support for bypassing Vercel protection headers
@@ -79,18 +85,12 @@ const fetcherWithBypass = async <T>(
   url: RequestInfo,
   options: RequestInit = {}
 ): Promise<T> => {
-  // Define default options with conditional headers
-  const defaultOptions: RequestInit =
-    DEPLOY_ENV === 'preview' && BYPASS_SECRET
-      ? {headers: {'x-vercel-protection-bypass': BYPASS_SECRET}}
-      : {}
-
   // Merge user-provided options with the default options
   const mergedOptions: RequestInit = {
-    ...defaultOptions,
+    ...defaultBypassOptions,
     ...options,
     headers: {
-      ...defaultOptions.headers,
+      ...defaultBypassOptions.headers,
       ...options.headers
     }
   }
@@ -107,10 +107,46 @@ const fetcherWithBypass = async <T>(
   return res.json() as Promise<T>
 }
 
+/**
+ * Fetches text data from the specified URL with optional support for bypassing
+ * Vercel protection headers in the preview environment.
+ *
+ * @param {RequestInfo} url - The URL to fetch data from.
+ * @param {RequestInit} [options={}] - Optional fetch options such as method, headers, body, etc.
+ * @returns {Promise<string>} - A promise that resolves to the text response.
+ * @throws {Error} - Throws an error if the response status is not OK.
+ */
+const textFetcherWithBypass = async (
+  url: RequestInfo,
+  options: RequestInit = {}
+): Promise<string> => {
+  // Merge user-provided options with the default options
+  const mergedOptions: RequestInit = {
+    ...defaultBypassOptions,
+    ...options,
+    headers: {
+      ...defaultBypassOptions.headers,
+      ...options.headers
+    }
+  }
+
+  // Perform the fetch request
+  const res = await fetch(url, mergedOptions)
+
+  // Handle non-OK responses
+  if (!res.ok) {
+    throw res
+  }
+
+  // Return the JSON response
+  return res.text()
+}
+
 export {
   fetcher,
   fetcher as default,
   textFetcher,
   multiFetcher,
-  fetcherWithBypass
+  fetcherWithBypass,
+  textFetcherWithBypass
 }

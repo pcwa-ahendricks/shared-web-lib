@@ -4,7 +4,8 @@ export {
   default as fetcher,
   textFetcher,
   multiFetcher,
-  fetcherWithBypass
+  fetcherWithBypass,
+  textFetcherWithBypass
 } from './fetcher'
 export {default as fileExtension} from './fileExtension'
 export {default as getInitials} from './getInitials'
