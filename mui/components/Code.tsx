@@ -1,30 +1,37 @@
-import {Typography as Type, type TypographyProps, styled} from '@mui/material'
-import {grey} from '@mui/material/colors'
-import alpha from 'color-alpha'
-
-const StyledCode = styled(Type)(({theme}) => ({
-  backgroundColor: alpha(grey['200'], 0.95),
-  fontFamily: 'monospace',
-  padding: '1.5px 3px',
-  borderRadius: theme.shape.borderRadius
-}))
+import React from 'react'
+import {Typography, type TypographyProps} from '@mui/material'
 
 /**
- * A custom `Code` component that wraps MUI's `Typography` component, rendering text with code styling.
+ * `Code` is a React component that renders its children with a monospace font style
+ * using Material-UI's `Typography` component. It uses the `sx` prop for styling,
+ * making it compatible with React Server Components (RSC).
  *
- * @param {TypographyProps} props - The props for the component.
+ * @param {TypographyProps} props - The properties passed to the component.
  * @param {React.ReactNode} props.children - The content to be rendered inside the `Code` component.
- * @returns {JSX.Element} The rendered `Code` component with the specified styling.
  *
  * @example
- * <Code>
- *   const x = 10;
- * </Code>
+ * // Usage Example:
+ * <Code>const x = 42;</Code>
+ *
+ * @returns {React.ReactNode} The rendered code block with monospace styling.
  */
-export default function Code({children, ...rest}: TypographyProps) {
+const Code = ({children, sx, ...rest}: TypographyProps) => {
   return (
-    <StyledCode component="code" variant="inherit" {...rest}>
+    <Typography
+      component="code"
+      variant="inherit"
+      sx={{
+        fontFamily: 'monospace',
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        borderRadius: '4px',
+        padding: '2px 4px',
+        ...sx
+      }}
+      {...rest}
+    >
       {children}
-    </StyledCode>
+    </Typography>
   )
 }
+
+export default Code

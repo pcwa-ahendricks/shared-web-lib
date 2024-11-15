@@ -1,40 +1,35 @@
 import React from 'react'
 import {Typography, type TypographyProps} from '@mui/material'
-import {styled} from '@mui/system'
 
 /**
- * Styled MUI Typography component with a default margin-bottom of 16px (mui v5).
- */
-const StyledParagraph = styled(Typography)<TypographyProps>(({theme}) => ({
-  marginBottom: theme.spacing(2) // Adds a bottom margin of 16px
-}))
-
-/**
- * A reusable component that renders text as a paragraph (`<p>` tag) with built-in spacing.
+ * `Paragraph` is a React component that renders its children as a paragraph
+ * using Material-UI's `Typography` component. It uses the `sx` prop to apply
+ * custom styles, making it compatible with React Server Components (RSC).
  *
- * By default, this component renders as a `<p>` element with a margin-bottom of 16px.
- * You can override the HTML element using the `component` prop, which accepts values
- * like `"div"`, `"span"`, etc.
- *
- * @component
- * @example
- * // Renders a paragraph with default spacing
- * <Paragraph>This is a paragraph with spacing.</Paragraph>
+ * @param {TypographyProps} props - The properties passed to the component.
+ * @param {React.ReactNode} props.children - The content to be rendered inside the `Paragraph` component.
  *
  * @example
- * // Renders a div with the same styles
- * <Paragraph component="div">This is a div with paragraph styling.</Paragraph>
+ * // Usage Example:
+ * <Paragraph>This is a paragraph of text styled using Material-UI.</Paragraph>
  *
- * @param {TypographyProps} props - The props for the Paragraph component.
- * @param {React.ReactNode} props.children - The content to be displayed within the paragraph.
- * @param {'p' | 'div' | 'span'} [props.component='p'] - The HTML element to render.
- * @returns {JSX.Element} The rendered paragraph element.
+ * @returns {React.ReactNode} The rendered paragraph with custom styling.
  */
-const Paragraph: React.FC<TypographyProps> = ({component = 'p', ...props}) => {
-  return <StyledParagraph component={component} {...props} />
+const Paragraph = ({children, sx, ...rest}: TypographyProps) => {
+  return (
+    <Typography
+      component="p"
+      variant="inherit"
+      sx={{
+        marginBottom: '1rem',
+        lineHeight: 1.6,
+        ...sx
+      }}
+      {...rest}
+    >
+      {children}
+    </Typography>
+  )
 }
 
-// Export an alias `P` for convenience
-const P = Paragraph
-
-export {Paragraph as default, P}
+export default Paragraph

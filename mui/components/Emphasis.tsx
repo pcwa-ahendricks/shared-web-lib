@@ -1,30 +1,31 @@
-import {Typography as Type, type TypographyProps, styled} from '@mui/material'
-
-const StyledEm = styled(Type)({
-  fontStyle: 'italic'
-})
+import React from 'react'
+import {Typography, type TypographyProps} from '@mui/material'
 
 /**
- * `Em` is a React component that renders its children with an italic font style
- * using Material-UI's `Typography` component. It sets the HTML element to `<em>`
- * and applies an italic font style by default.
+ * `Emphasis` is a React component that renders its children with an italic font style
+ * using Material-UI's `Typography` component. It uses the `sx` prop for styling,
+ * making it compatible with React Server Components (RSC).
  *
  * @param {TypographyProps} props - The properties passed to the component.
- * @param {React.ReactNode} props.children - The content to be rendered inside the `Em` component.
- * @returns {JSX.Element} The rendered `em` element with italic text.
+ * @param {React.ReactNode} props.children - The content to be rendered inside the `Emphasis` component.
  *
  * @example
- * <Em>This text is emphasized and italicized.</Em>
+ * // Usage Example:
+ * <Emphasis>This text will be italicized.</Emphasis>
+ *
+ * @returns {React.ReactNode} The rendered text with italic styling.
  */
-const Emphasis: React.FC<TypographyProps> = ({children, ...rest}) => {
+const Emphasis = ({children, sx, ...rest}: TypographyProps) => {
   return (
-    <StyledEm component="em" variant="inherit" {...rest}>
+    <Typography
+      component="em"
+      variant="inherit"
+      sx={{fontStyle: 'italic', ...sx}}
+      {...rest}
+    >
       {children}
-    </StyledEm>
+    </Typography>
   )
 }
 
-// Export an alias `Em` for convenience
-const Em = Emphasis
-
-export {Emphasis as default, Em}
+export default Emphasis
