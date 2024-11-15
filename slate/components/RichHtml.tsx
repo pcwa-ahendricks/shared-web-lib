@@ -15,7 +15,7 @@ import {Link, LinkProps} from '../../next'
  * @param {Descendant[]} props.data - The Slate.js document to be serialized into HTML.
  * @param {TypographyProps} props - Additional props to be passed to the `Typography` component.
  * @param {Partial<LinkProps>} props - Partial props to be passed to the `Link` component, specifically for handling links.
- * @returns {JSX.Element} The serialized and sanitized HTML content rendered with various HTML tags.
+ * @returns {React.ReactNode} The serialized and sanitized HTML content rendered with various HTML tags.
  *
  * @example
  * const slateData = [
@@ -29,7 +29,8 @@ import {Link, LinkProps} from '../../next'
 export default function RichHtml({
   data,
   ...props
-}: {data: Descendant[]} & TypographyProps & Partial<LinkProps>): JSX.Element {
+}: {data: Descendant[]} & TypographyProps &
+  Partial<LinkProps>): React.ReactNode {
   /**
    * Serializes a Slate.js node into sanitized HTML using `DOMPurify`.
    * Handles different text styles and element types like bold, italic, code, and links.

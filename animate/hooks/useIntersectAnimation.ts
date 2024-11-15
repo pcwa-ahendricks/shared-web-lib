@@ -1,4 +1,11 @@
-import {useCallback, useContext, useEffect, useRef, useState} from 'react'
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type RefObject
+} from 'react'
 import {useIntersection} from 'react-use'
 import {AnimateContext, setAnimateDone} from '../components/AnimateContext'
 import {useScrollDirection} from '../../react-use'
@@ -36,10 +43,11 @@ const useIntersectionAnimation = ({
     }
   }, [dispatch, animateKey, alwaysAnimate])
 
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLElement>(null)
   const [intersected, setIntersected] = useState(false)
   const [adjustedDelay, setAdjustedDelay] = useState(delay)
-  const intersection = useIntersection(ref, {
+  // Cast the ref to RefObject<HTMLElement> when passing it to useIntersection
+  const intersection = useIntersection(ref as RefObject<HTMLElement>, {
     root,
     rootMargin
   })

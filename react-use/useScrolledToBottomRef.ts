@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef} from 'react'
+import {useEffect, useState, useRef, type RefObject} from 'react'
 import {useIntersection} from 'react-use'
 
 /**
@@ -18,11 +18,11 @@ import {useIntersection} from 'react-use'
  * // and use `isBottom` to perform actions when the user scrolls to the bottom.
  */
 const useScrolledToBottomRef = <T extends HTMLElement>(): [
-  React.RefObject<T>,
+  RefObject<T>,
   boolean
 ] => {
   const [isBottom, setIsBottom] = useState(false)
-  const ref = useRef<T>(null)
+  const ref = useRef<T>(null) as RefObject<T>
 
   const intersection = useIntersection(ref, {
     root: ref.current?.parentElement || null

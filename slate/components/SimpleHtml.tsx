@@ -11,7 +11,7 @@ import {Typography, TypographyProps} from '@mui/material'
  * @param {object} props - The properties passed to the component.
  * @param {Descendant[]} props.data - The Slate.js document to be serialized into HTML.
  * @param {TypographyProps} props - Additional props to be passed to the `Typography` component.
- * @returns {JSX.Element} The serialized and sanitized HTML content rendered with Material-UI's `Typography`.
+ * @returns {React.ReactNode} The serialized and sanitized HTML content rendered with Material-UI's `Typography`.
  *
  * @example
  * const slateData = [
@@ -24,7 +24,7 @@ import {Typography, TypographyProps} from '@mui/material'
 export default function SimpleHtml({
   data,
   ...props
-}: {data: Descendant[]} & TypographyProps): JSX.Element {
+}: {data: Descendant[]} & TypographyProps): React.ReactNode {
   /**
    * Serializes a Slate.js node into sanitized HTML using `DOMPurify`.
    * Handles text nodes by sanitizing their content, and concatenates
