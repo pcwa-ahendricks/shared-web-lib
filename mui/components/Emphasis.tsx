@@ -28,4 +28,5 @@ const Emphasis = ({children, sx, ...rest}: TypographyProps) => {
   )
 }
 
-export default Emphasis
+const Em = Emphasis
+export {Em, Emphasis as default}

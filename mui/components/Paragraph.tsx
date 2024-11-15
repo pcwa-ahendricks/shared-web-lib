@@ -32,4 +32,5 @@ const Paragraph = ({children, sx, ...rest}: TypographyProps) => {
   )
 }
 
-export default Paragraph
+const P = Paragraph
+export {P, Paragraph as default}
