@@ -1,42 +1,31 @@
 import React from 'react'
 import {Descendant, Text} from 'slate'
-import DOMPurify from 'isomorphic-dompurify'
+import xss from 'xss'
 import {Typography, TypographyProps} from '@mui/material'
 
 /**
- * `SimpleHtml` is a React component that serializes Slate.js data into sanitized HTML.
- * It renders the content using Material-UI's `Typography` component, ensuring that
- * all text nodes are sanitized for safety.
+ * Renders sanitized HTML content from an array of Slate.js `Descendant` nodes.
+ * This component is designed to safely serialize and display text-based content.
  *
- * @param {object} props - The properties passed to the component.
- * @param {Descendant[]} props.data - The Slate.js document to be serialized into HTML.
- * @param {TypographyProps} props - Additional props to be passed to the `Typography` component.
- * @returns {React.ReactNode} The serialized and sanitized HTML content rendered with Material-UI's `Typography`.
- *
- * @example
- * const slateData = [
- *   { type: 'paragraph', children: [{ text: 'Hello, world!' }] },
- *   { type: 'heading-one', children: [{ text: 'This is a heading.' }] }
- * ];
- *
- * <SimpleHtml data={slateData} variant="body1" />
+ * @param {Object} props - The props for the component.
+ * @param {Descendant[]} props.data - An array of Slate.js `Descendant` nodes representing the content to render.
+ * @param {TypographyProps} props - Additional MUI `Typography` properties for styling the rendered content.
+ * @returns {React.ReactNode} The rendered and sanitized HTML content wrapped in a MUI `Typography` component.
  */
 export default function SimpleHtml({
   data,
   ...props
 }: {data: Descendant[]} & TypographyProps): React.ReactNode {
   /**
-   * Serializes a Slate.js node into sanitized HTML using `DOMPurify`.
-   * Handles text nodes by sanitizing their content, and concatenates
-   * all children into a single string for block elements.
+   * Serializes a Slate.js `Descendant` node into sanitized HTML.
    *
-   * @param {Descendant} node - The Slate.js node to be serialized.
-   * @returns {React.ReactNode} The sanitized HTML content.
+   * @param {Descendant} node - The Slate.js node to serialize.
+   * @returns {React.ReactNode | null} The sanitized content or null if the node is invalid.
    */
   const serialize = (node: Descendant): React.ReactNode => {
     if (Text.isText(node)) {
       // Sanitize the text content to ensure it's safe
-      return DOMPurify.sanitize(node.text)
+      return xss(node.text)
     }
 
     // If the node has children, concatenate their content into a single string

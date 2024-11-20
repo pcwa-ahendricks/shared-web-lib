@@ -1,30 +1,19 @@
 import React from 'react'
 import {Descendant, Text} from 'slate'
-import DOMPurify from 'isomorphic-dompurify'
+import xss from 'xss'
 import {Code, Em, Strong} from '../../mui'
 import {Typography, type TypographyProps} from '@mui/material'
 import {Link, LinkProps} from '../../next'
 
 /**
- * `RichHtml` is a React component that serializes Slate.js data into sanitized HTML.
- * It renders the content using Material-UI's `Typography` component and supports various text styles
- * such as bold, italic, code, underline, and strikethrough. It also handles different element types like
- * headings, lists, paragraphs, and links, ensuring they are properly sanitized and rendered.
+ * Renders rich HTML content from Slate.js `Descendant` nodes.
+ * This component ensures sanitized and styled output for different types of Slate nodes.
  *
- * @param {object} props - The properties passed to the component.
- * @param {Descendant[]} props.data - The Slate.js document to be serialized into HTML.
- * @param {TypographyProps} props - Additional props to be passed to the `Typography` component.
- * @param {Partial<LinkProps>} props - Partial props to be passed to the `Link` component, specifically for handling links.
- * @returns {React.ReactNode} The serialized and sanitized HTML content rendered with various HTML tags.
- *
- * @example
- * const slateData = [
- *   { type: 'paragraph', children: [{ text: 'Hello, world!', bold: true }] },
- *   { type: 'heading-one', children: [{ text: 'This is a heading.' }] },
- *   { type: 'link', url: 'https://example.com', children: [{ text: 'Visit example.com' }] }
- * ];
- *
- * <RichHtml data={slateData} variant="body1" />
+ * @param {Object} props - The props for the component.
+ * @param {Descendant[]} props.data - The Slate.js content to render.
+ * @param {TypographyProps} [props] - Additional MUI Typography properties to style the rendered content.
+ * @param {Partial<LinkProps>} [props] - Additional MUI Link properties to style links in the rendered content.
+ * @returns {React.ReactNode} The rendered HTML content.
  */
 export default function RichHtml({
   data,
@@ -32,16 +21,15 @@ export default function RichHtml({
 }: {data: Descendant[]} & TypographyProps &
   Partial<LinkProps>): React.ReactNode {
   /**
-   * Serializes a Slate.js node into sanitized HTML using `DOMPurify`.
-   * Handles different text styles and element types like bold, italic, code, and links.
+   * Serializes a Slate.js `Descendant` node into a React component.
    *
-   * @param {Descendant} node - The Slate.js node to be serialized.
-   * @returns {React.ReactNode} The sanitized HTML content.
+   * @param {Descendant} node - The Slate.js node to serialize.
+   * @returns {React.ReactNode} The rendered React node.
    */
   const serialize = (node: Descendant): React.ReactNode => {
     if (Text.isText(node)) {
       // Sanitize the text content to ensure it's safe
-      const cleanContent = DOMPurify.sanitize(node.text)
+      const cleanContent = xss(node.text)
       let textNode = <>{cleanContent}</>
 
       if (node.bold) {
@@ -180,7 +168,7 @@ export default function RichHtml({
         )
       case 'link':
         // Ensure URL is treated as a string and sanitize it
-        const sanitizedUrl = DOMPurify.sanitize(node.url ?? '')
+        const sanitizedUrl = xss(node.url ?? '')
         return (
           <Link variant="inherit" href={sanitizedUrl} {...props}>
             {children}
