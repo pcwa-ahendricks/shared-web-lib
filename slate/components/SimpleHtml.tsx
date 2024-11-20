@@ -1,6 +1,6 @@
 import React from 'react'
 import {Descendant, Text} from 'slate'
-// import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify'
 import {Typography, TypographyProps} from '@mui/material'
 
 /**
@@ -36,8 +36,7 @@ export default function SimpleHtml({
   const serialize = (node: Descendant): React.ReactNode => {
     if (Text.isText(node)) {
       // Sanitize the text content to ensure it's safe
-      // return DOMPurify.sanitize(node.text)
-      return node.text
+      return DOMPurify.sanitize(node.text)
     }
 
     // If the node has children, concatenate their content into a single string

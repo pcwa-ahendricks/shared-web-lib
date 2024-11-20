@@ -1,6 +1,6 @@
 import React from 'react'
 import {Descendant, Text} from 'slate'
-// import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify'
 import {Code, Em, Strong} from '../../mui'
 import {Typography, type TypographyProps} from '@mui/material'
 import {Link, LinkProps} from '../../next'
@@ -41,9 +41,7 @@ export default function RichHtml({
   const serialize = (node: Descendant): React.ReactNode => {
     if (Text.isText(node)) {
       // Sanitize the text content to ensure it's safe
-      // const cleanContent = DOMPurify.sanitize(node.text)
-      const cleanContent = node.text
-
+      const cleanContent = DOMPurify.sanitize(node.text)
       let textNode = <>{cleanContent}</>
 
       if (node.bold) {
@@ -182,8 +180,7 @@ export default function RichHtml({
         )
       case 'link':
         // Ensure URL is treated as a string and sanitize it
-        // const sanitizedUrl = DOMPurify.sanitize(node.url ?? '')
-        const sanitizedUrl = node.url ?? ''
+        const sanitizedUrl = DOMPurify.sanitize(node.url ?? '')
         return (
           <Link variant="inherit" href={sanitizedUrl} {...props}>
             {children}
