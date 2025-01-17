@@ -1,5 +1,3 @@
-'use client'
-
 import React, {useMemo} from 'react'
 import {Box, BoxProps, useMediaQuery, useTheme} from '@mui/material'
 

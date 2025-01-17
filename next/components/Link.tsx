@@ -1,8 +1,7 @@
-'use client'
 // See https://github.com/mui/material-ui/tree/master/examples/material-next-ts and https://mui.com/material-ui/guides/routing/#next-js for more info
 import React, {forwardRef} from 'react'
 import clsx from 'clsx'
-import {usePathname} from 'next/navigation'
+import {useRouter} from 'next/router'
 import NextLink, {LinkProps as NextLinkProps} from 'next/link'
 import MuiLink, {LinkProps as MuiLinkProps} from '@mui/material/Link'
 import {styled} from '@mui/material/styles'
@@ -107,7 +106,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       ...other
     } = props
 
-    const pathname = usePathname()
+    const {pathname} = useRouter()
     const hrefPath = typeof href === 'string' ? href : href.pathname
     const className = clsx(classNameProps, {
       [activeClassName]: pathname === hrefPath && activeClassName

@@ -1,5 +1,3 @@
-'use client'
-
 import {Box} from '@mui/material'
 import FadeOut, {FadeOutProps} from './FadeOut'
 import useIntersectionAnimation, {

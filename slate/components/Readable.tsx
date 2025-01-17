@@ -1,5 +1,3 @@
-'use client'
-
 import React, {useCallback, useEffect, useMemo} from 'react'
 import {createEditor, type Descendant, Transforms, Node} from 'slate'
 import {Slate, Editable, withReact} from 'slate-react'

@@ -1,5 +1,3 @@
-'use client'
-
 import FadeIn, {type FadeInProps} from './FadeIn'
 import {Box} from '@mui/material'
 import useIntersectionAnimation, {

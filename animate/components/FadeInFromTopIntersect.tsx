@@ -1,5 +1,3 @@
-'use client'
-
 import {Box} from '@mui/material'
 import FadeInFromTop, {type FadeInFromTopProps} from './FadeInFromTop'
 import useIntersectionAnimation, {
