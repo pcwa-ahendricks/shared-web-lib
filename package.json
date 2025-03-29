@@ -27,7 +27,7 @@
     "@mui/material": "^7",
     "react": "^19",
     "react-dom": "^19",
-    "typescript": "^5.0.0"
+    "typescript": "^5"
   },
   "packageManager": "yarn@4.8.0"
 }
