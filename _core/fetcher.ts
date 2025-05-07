@@ -27,6 +27,29 @@ const fetcher = <T>(...args: FetchParameters) =>
   })
 
 /**
+ * A generic fetcher function that performs a fetch request with timeout support and returns the JSON-parsed response.
+ *
+ * This function uses `fetchWithTimeout` under the hood to apply a timeout to the request. It behaves similarly to the standard `fetcher`,
+ * throwing the response if `res.ok` is false, and otherwise returning the parsed JSON result.
+ *
+ * @template T - The expected type of the JSON response.
+ * @param {...FetchParameters} args - The parameters to pass to the `fetchWithTimeout` function.
+ * @returns {Promise<T>} A promise that resolves to the JSON-parsed response of type `T`.
+ *
+ * @throws {Response} If the response is not successful (`res.ok` is `false`), the function throws the response.
+ *
+ * @example
+ * fetcherWithTimeout<User>('/api/user', { timeout: 5000 }).then(user => console.log(user));
+ */
+const fetcherWithTimeout = <T>(...args: FetchParameters) =>
+  fetchWithTimeout(...args).then((res) => {
+    if (!res.ok) {
+      throw res
+    }
+    return res.json() as Promise<T>
+  })
+
+/**
  * A function that fetches data from multiple URLs concurrently and returns the JSON-parsed responses.
  *
  * This function takes an array of URLs and performs fetch requests to each of them concurrently using `Promise.all`.
@@ -142,11 +165,51 @@ const textFetcherWithBypass = async (
   return res.text()
 }
 
+/**
+ * Performs a fetch request with a configurable timeout.
+ *
+ * This function wraps the native fetch API and adds timeout support. If the request does not complete
+ * within the specified timeout duration, it will be aborted and an error with a status of 408 will be thrown.
+ *
+ * @param {RequestInfo | URL} resource - The URL or request object to fetch.
+ * @param {RequestInit & { timeout?: number }} [options={}] - Optional fetch options including a timeout in milliseconds.
+ * @returns {Promise<Response>} - A promise that resolves to the fetch response, or rejects with a timeout error.
+ *
+ * @example
+ * fetchWithTimeout('/api/data', { timeout: 5000 })
+ *   .then(response => response.json())
+ *   .then(data => console.log(data))
+ *   .catch(err => console.error(err));
+ */
+function fetchWithTimeout(
+  resource: RequestInfo | URL,
+  options: RequestInit & {timeout?: number} = {}
+): Promise<Response> {
+  const {timeout = 10000, ...rest} = options
+  const url = typeof resource === 'string' ? resource : resource.toString()
+
+  return Promise.race([
+    fetch(url, rest),
+    new Promise<Response>((_, reject) =>
+      setTimeout(() => {
+        const error = new Error('Request timed out')
+        // @ts-ignore
+        error.code = 'ETIMEOUT'
+        // @ts-ignore
+        error.status = 408
+        reject(error)
+      }, timeout)
+    )
+  ])
+}
+
 export {
   fetcher,
   fetcher as default,
   textFetcher,
   multiFetcher,
   fetcherWithBypass,
-  textFetcherWithBypass
+  textFetcherWithBypass,
+  fetchWithTimeout,
+  fetcherWithTimeout
 }
