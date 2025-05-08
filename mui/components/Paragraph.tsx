@@ -21,7 +21,7 @@ const Paragraph = ({children, sx, ...rest}: TypographyProps) => {
       component="p"
       variant="inherit"
       sx={{
-        marginBottom: '1rem',
+        marginBottom: '0.9rem',
         lineHeight: 1.6,
         ...sx
       }}
