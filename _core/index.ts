@@ -6,8 +6,7 @@ export {
   multiFetcher,
   fetcherWithBypass,
   textFetcherWithBypass,
-  fetchWithTimeout,
-  fetcherWithTimeout
+  fetchWithTimeout
 } from './fetcher'
 export {default as fileExtension} from './fileExtension'
 export {default as getInitials} from './getInitials'
