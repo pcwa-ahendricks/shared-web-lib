@@ -166,10 +166,24 @@ const textFetcherWithBypass = async (
 }
 
 /**
+ * Custom error type for signaling that a fetch request has timed out.
+ * Includes a status code (408) and error code ('ETIMEOUT') for consistency.
+ */
+class TimeoutError extends Error {
+  code = 'ETIMEOUT'
+  status = 408
+
+  constructor(message = 'Request timed out') {
+    super(message)
+    this.name = 'TimeoutError'
+  }
+}
+
+/**
  * Performs a fetch request with a configurable timeout.
  *
- * This function wraps the native fetch API and adds timeout support. If the request does not complete
- * within the specified timeout duration, it will be aborted and an error with a status of 408 will be thrown.
+ * This function wraps the native fetch API and adds timeout support using AbortController.
+ * If the request does not complete within the specified timeout duration, it will be aborted and a `TimeoutError` (status 408, code 'ETIMEOUT') will be thrown.
  *
  * @param {RequestInfo | URL} resource - The URL or request object to fetch.
  * @param {RequestInit & { timeout?: number }} [options={}] - Optional fetch options including a timeout in milliseconds.
@@ -186,21 +200,20 @@ function fetchWithTimeout(
   options: RequestInit & {timeout?: number} = {}
 ): Promise<Response> {
   const {timeout = 10000, ...rest} = options
-  const url = typeof resource === 'string' ? resource : resource.toString()
+  const controller = new AbortController()
+  const id = setTimeout(() => controller.abort(), timeout)
 
-  return Promise.race([
-    fetch(url, rest),
-    new Promise<Response>((_, reject) =>
-      setTimeout(() => {
-        const error = new Error('Request timed out')
-        // @ts-ignore
-        error.code = 'ETIMEOUT'
-        // @ts-ignore
-        error.status = 408
-        reject(error)
-      }, timeout)
-    )
-  ])
+  return fetch(resource, {
+    ...rest,
+    signal: controller.signal
+  })
+    .finally(() => clearTimeout(id))
+    .catch((err) => {
+      if (err.name === 'AbortError') {
+        throw new TimeoutError()
+      }
+      throw err
+    })
 }
 
 export {
