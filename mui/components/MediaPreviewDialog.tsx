@@ -17,6 +17,7 @@ import DeleteIcon from '@mui/icons-material/CloseRounded'
 import Image, {type ImageProps} from 'next/image'
 import {useWindowSize} from 'react-use'
 import imgixUrlLoader from '../../next/imgixUrlLoader'
+import {type TransitionProps} from '@mui/material/transitions'
 
 export type MediaPreviewDialogProps = {
   name: string
@@ -31,6 +32,15 @@ export type MediaPreviewDialogProps = {
   dialogWidth?: BoxProps['width']
   factorWidth?: number
 } & Partial<DialogProps>
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Zoom ref={ref} {...props} />
+})
 
 /**
  * MediaPreviewDialog component provides a modal dialog to preview media content such as images.
@@ -93,15 +103,21 @@ const MediaPreviewDialog = ({
           style={{
             width: '100%',
             height: 'auto',
-            objectFit: 'contain'
+            objectFit: 'contain',
+            display: 'block'
           }}
         />
       ) : (
         // eslint-disable-next-line  @next/next/no-img-element
         <img
           key={key}
-          style={{display: 'block'}} // remove bottom margin resulting from "inline-block"
-          object-fit="contain"
+          // remove bottom margin resulting from "inline-block"
+          style={{
+            width: '100%',
+            height: 'auto',
+            objectFit: 'contain',
+            display: 'block'
+          }}
           // data-sizes="auto"
           // data-src={url}
           src={url} // IE fix - src attribute may be required for displaying img.
@@ -142,14 +158,18 @@ const MediaPreviewDialog = ({
       onClose={onCloseProp}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      TransitionComponent={Zoom}
-      PaperProps={{
-        square: true,
-        sx: {
-          overflow: 'visible',
-          overflowY: 'visible',
-          overflowX: 'visible'
+      slotProps={{
+        paper: {
+          square: true,
+          sx: {
+            overflow: 'visible',
+            overflowY: 'visible',
+            overflowX: 'visible'
+          }
         }
+      }}
+      slots={{
+        transition: Transition
       }}
       {...rest}
     >
@@ -168,18 +188,16 @@ const MediaPreviewDialog = ({
         </Fab>
         <DialogContent
           sx={{
-            '.root': {
-              margin: 0,
-              padding: 0,
-              overflowX: 'hidden'
-            }
+            margin: 0,
+            padding: 0,
+            overflowX: 'hidden'
           }}
         >
           <Box width={dialogWidth} maxWidth="100%">
             <Box sx={{backgroundColor: theme.palette.common.white}}>
               {imgEl}
             </Box>
-            {children ? <Box>{children}</Box> : null}
+            {children}
           </Box>
         </DialogContent>
         <CondDialogActions />
