@@ -5,8 +5,7 @@ import {
   Popper,
   Typography as Type,
   useMediaQuery,
-  useTheme,
-  Theme
+  useTheme
 } from '@mui/material'
 import MediaPreviewDialog, {
   type MediaPreviewDialogProps
@@ -71,7 +70,7 @@ const MediaDialogOnClick = ({
   showPopper = true,
   ...rest
 }: MediaDialogOnClickProps) => {
-  const theme = useTheme<Theme>()
+  const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
 
   // Div element helps with Popper positioning.
