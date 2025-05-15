@@ -195,7 +195,7 @@ const MediaPreviewDialog = ({
             <Box sx={{backgroundColor: theme.palette.common.white}}>
               {imgEl}
             </Box>
-            {children ? <Box>{children}</Box> : null}
+            {children}
           </Box>
         </DialogContent>
         <CondDialogActions />
