@@ -1,16 +1,19 @@
-// See https://github.com/mui/material-ui/tree/master/examples/material-next-ts and https://mui.com/material-ui/guides/routing/#next-js for more info
-import React, {forwardRef} from 'react'
+/**
+ * A custom Link component for use with MUI and Next.js.
+ * It wraps the Next.js Link with MUI's Link styling and adds logic for
+ * distinguishing between internal and external links.
+ * See https://github.com/mui/material-ui/blob/v7.1.0/examples/material-ui-nextjs-pages-router-ts/src/Link.tsx
+ * and https://mui.com/material-ui/guides/routing/#next-js for more info.
+ */
+import * as React from 'react'
 import clsx from 'clsx'
 import {useRouter} from 'next/router'
-import NextLink, {LinkProps as NextLinkProps} from 'next/link'
-import MuiLink, {LinkProps as MuiLinkProps} from '@mui/material/Link'
-import {styled} from '@mui/material/styles'
-
-// Add support for the sx prop for consistency with the other branches.
-const Anchor = styled('a')({})
+import NextLink, {type LinkProps as NextLinkProps} from 'next/link'
+import MuiLink, {type LinkProps as MuiLinkProps} from '@mui/material/Link'
 
 /**
- * Props for the NextLinkComposed component, combining props from both Next.js Link and HTML anchor elements.
+ * Props for NextLinkComposed, a wrapper around Next.js Link
+ * that forwards refs and supports anchor tag props.
  */
 export interface NextLinkComposedProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
@@ -23,47 +26,36 @@ export interface NextLinkComposedProps
 }
 
 /**
- * A custom component that combines Next.js Link and MUI's styled anchor for consistent behavior and styling.
+ * A ref-forwarding component that renders a Next.js `Link` using an `<a>` element.
  *
- * @param {NextLinkComposedProps} props - The props for the component.
- * @param {React.Ref<HTMLAnchorElement>} ref - The ref to be forwarded to the anchor element.
- * @returns {JSX.Element} The rendered NextLinkComposed component.
+ * @param props - Props to control navigation and anchor behavior.
+ * @param props.to - The destination URL or path.
+ * @param props.linkAs - Optional alias for dynamic routes.
+ * @param props.target - Optional target attribute for the anchor.
+ * @param props.rel - Optional rel attribute for the anchor.
+ * @returns A standard anchor element wrapped in Next.js `Link`.
  */
-export const NextLinkComposed = forwardRef<
+export const NextLinkComposed = React.forwardRef<
   HTMLAnchorElement,
   NextLinkComposedProps
 >(function NextLinkComposed(props, ref) {
-  const {
-    to,
-    linkAs,
-    replace,
-    scroll,
-    shallow,
-    prefetch,
-    legacyBehavior = true,
-    locale,
-    ...other
-  } = props
+  const {to, linkAs, target, rel, ...other} = props
 
   return (
     <NextLink
       href={to}
-      prefetch={prefetch}
       as={linkAs}
-      replace={replace}
-      scroll={scroll}
-      shallow={shallow}
-      passHref
-      locale={locale}
-      legacyBehavior={legacyBehavior}
-    >
-      <Anchor ref={ref} {...other} />
-    </NextLink>
+      ref={ref}
+      target={target}
+      rel={rel}
+      {...other}
+    />
   )
 })
 
 /**
- * Props for the Link component, combining Next.js Link props, MUI Link props, and additional custom props.
+ * Props for the custom Link component combining Next.js and MUI link behavior.
+ * Supports styling, active class detection, and external link fallback.
  */
 export type LinkProps = {
   activeClassName?: string
@@ -71,85 +63,69 @@ export type LinkProps = {
   href: NextLinkProps['href']
   linkAs?: NextLinkProps['as'] // Useful when the as prop is shallow by styled().
   noLinkStyle?: boolean
-  // added (AZH)
-  externalProps?: React.AnchorHTMLAttributes<HTMLAnchorElement>
-  nonExternalProps?: Partial<NextLinkProps>
+  target?: string
+  rel?: string
 } & Omit<NextLinkComposedProps, 'to' | 'linkAs' | 'href'> &
   Omit<MuiLinkProps, 'href'>
 
 /**
- * A styled version of the Next.js Link component that integrates with MUI and handles both internal and external links. See
- * https://nextjs.org/docs/api-reference/next/link for more info.
+ * A custom Link component that integrates MUI and Next.js behavior.
  *
- * @param {LinkProps} props - The props for the Link component.
- * @param {React.Ref<HTMLAnchorElement>} ref - The ref to be forwarded to the anchor element.
- * @returns {JSX.Element} The rendered Link component.
+ * @component
+ * @param props - The props for the Link component.
+ * @param props.href - The destination URL or path.
+ * @param props.noLinkStyle - If true, omits MUI's styling and returns a plain Next.js link.
+ * @param props.activeClassName - CSS class to apply when the link matches the current route.
+ * @param props.target - Specifies where to open the linked document.
+ * @param props.rel - Specifies the relationship between the current document and the linked document.
+ * @returns A styled MUI link or a plain anchor based on whether the link is internal or external.
  */
-const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   function Link(props, ref) {
     const {
       activeClassName = 'active',
       as,
       className: classNameProps,
       href,
-      legacyBehavior,
       linkAs: linkAsProp,
-      locale,
       noLinkStyle,
-      prefetch,
-      replace,
-      role, // Link don't have roles.
-      scroll,
-      shallow,
-      externalProps = {target: '_blank', rel: 'noopener noreferrer'},
-      nonExternalProps,
+      target,
+      rel,
       ...other
     } = props
 
-    const {pathname} = useRouter()
-    const hrefPath = typeof href === 'string' ? href : href.pathname
+    const {pathname: routerPathname} = useRouter()
+    const pathname = typeof href === 'string' ? href : href?.pathname
+
     const className = clsx(classNameProps, {
-      [activeClassName]: pathname === hrefPath && activeClassName
+      [activeClassName]: routerPathname === pathname && activeClassName
     })
+
+    const linkAs = linkAsProp || as || (href as string)
+    const nextjsProps = {
+      to: href,
+      linkAs,
+      target,
+      rel
+    }
 
     const isExternal =
       typeof href === 'string' &&
-      (href.indexOf('http') === 0 || href.indexOf('mailto:') === 0)
+      (href.startsWith('http://') ||
+        href.startsWith('https://') ||
+        href.startsWith('mailto:'))
 
     if (isExternal) {
-      if (noLinkStyle) {
-        return (
-          <Anchor
-            className={className}
-            href={href}
-            ref={ref}
-            {...externalProps}
-            {...other}
-          />
-        )
-      }
-
       return (
         <MuiLink
           className={className}
           href={href}
           ref={ref}
-          {...externalProps}
+          target={target || '_blank'}
+          rel={rel || 'noopener noreferrer'}
           {...other}
         />
       )
-    }
-
-    const linkAs = linkAsProp || as
-    const nextjsProps = {
-      to: href,
-      linkAs,
-      replace,
-      scroll,
-      shallow,
-      prefetch,
-      legacyBehavior,
-      locale
     }
 
     if (noLinkStyle) {
@@ -157,7 +133,6 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         <NextLinkComposed
           className={className}
           ref={ref}
-          {...nonExternalProps}
           {...nextjsProps}
           {...other}
         />
@@ -169,7 +144,6 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         component={NextLinkComposed}
         className={className}
         ref={ref}
-        {...nonExternalProps}
         {...nextjsProps}
         {...other}
       />
