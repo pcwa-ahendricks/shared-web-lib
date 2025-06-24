@@ -40,7 +40,7 @@ const fetcher = <T>(...args: ExtendedFetchParameters) =>
  * Fetches data from multiple URLs concurrently and returns the JSON‑parsed responses.
  *
  * @template T  The expected type of each JSON response.
- * @param {string[]} urls  **Array** of URLs to fetch.
+ * @param {readonly string[]} urls  An array of URLs to fetch.
  * @returns {Promise<T[]>} Resolves to an array of JSON‑parsed responses.
  *
  * @example
@@ -48,7 +48,7 @@ const fetcher = <T>(...args: ExtendedFetchParameters) =>
  *   console.log(users) // [user1, user2]
  * })
  */
-const multiFetcher = <T>(urls: string[]) => {
+const multiFetcher = <T>(urls: readonly string[]) => {
   return Promise.all(urls.map((url) => fetcher<T>(url)))
 }
 
