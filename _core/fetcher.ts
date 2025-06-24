@@ -37,20 +37,18 @@ const fetcher = <T>(...args: ExtendedFetchParameters) =>
   })
 
 /**
- * A function that fetches data from multiple URLs concurrently and returns the JSON-parsed responses.
+ * Fetches data from multiple URLs concurrently and returns the JSON‑parsed responses.
  *
- * This function takes an array of URLs and performs fetch requests to each of them concurrently using `Promise.all`.
- * Each fetch supports optional `timeout` and `retry` options via `ExtendedFetchParameters`.
- * It returns a promise that resolves to an array of JSON-parsed responses.
- *
- * @template T - The expected type of the JSON response for each URL.
- * @param {...string[]} urls - The URLs to fetch data from.
- * @returns {Promise<T[]>} A promise that resolves to an array of JSON-parsed responses of type `T`.
+ * @template T  The expected type of each JSON response.
+ * @param {string[]} urls  **Array** of URLs to fetch.
+ * @returns {Promise<T[]>} Resolves to an array of JSON‑parsed responses.
  *
  * @example
- * multiFetcher<User>('/api/user1', '/api/user2').then(users => console.log(users));
+ * multiFetcher<User>(['/api/user1', '/api/user2']).then((users) => {
+ *   console.log(users) // [user1, user2]
+ * })
  */
-const multiFetcher = <T>(...urls: string[]) => {
+const multiFetcher = <T>(urls: string[]) => {
   return Promise.all(urls.map((url) => fetcher<T>(url)))
 }
 
