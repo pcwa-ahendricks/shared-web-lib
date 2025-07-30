@@ -9,7 +9,8 @@ import {
   Zoom,
   Box,
   BoxProps,
-  useTheme
+  useTheme,
+  Typography
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/CloseRounded'
 import Image, {type ImageProps} from 'next/image'
@@ -29,6 +30,7 @@ export type MediaPreviewDialogProps = {
   native?: boolean
   dialogWidth?: BoxProps['width']
   factorWidth?: number
+  caption?: string
 } & Partial<DialogProps>
 
 const Transition = React.forwardRef(function Transition(
@@ -59,6 +61,7 @@ const Transition = React.forwardRef(function Transition(
  * @param {boolean} [props.native=false] - If true, uses a native <img> tag instead of the Next.js Image component.
  * @param {BoxProps['width']} [props.dialogWidth] - Custom width for the dialog box.
  * @param {number} [props.factorWidth] - Factor width for responsive image sizing (between 0-1).
+ * @param {string} [props.caption] - Optional caption text to display overlaid in the bottom-right corner of the image. Background adapts to light or dark mode.
  * @returns {JSX.Element} The MediaPreviewDialog component.
  */
 const MediaPreviewDialog = ({
@@ -73,6 +76,7 @@ const MediaPreviewDialog = ({
   showActions = false,
   open = false,
   native = false,
+  caption,
   children,
   ...rest
 }: MediaPreviewDialogProps) => {
@@ -192,8 +196,33 @@ const MediaPreviewDialog = ({
           }}
         >
           <Box width={dialogWidth} maxWidth="100%">
-            <Box sx={{backgroundColor: theme.palette.common.white}}>
+            <Box
+              sx={{
+                position: 'relative',
+                backgroundColor: theme.palette.common.white
+              }}
+            >
               {imgEl}
+              {caption && (
+                <Box
+                  position="absolute"
+                  bottom={8}
+                  right={8}
+                  bgcolor={
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(0, 0, 0, 0.6)'
+                      : 'rgba(255, 255, 255, 0.6)'
+                  }
+                  color={theme.palette.text.primary}
+                  px={1.5}
+                  py={0.5}
+                  borderRadius={1}
+                  zIndex={2}
+                  fontSize="0.85rem"
+                >
+                  <Typography sx={{fontSize: 'inherit'}}>{caption}</Typography>
+                </Box>
+              )}
             </Box>
             {children}
           </Box>
