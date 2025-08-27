@@ -1,12 +1,12 @@
 import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
-export type SlideInFwdLeftProps = Omit<AnimateProps, 'name' | 'easingFunc'>
+export type SlideInFwdRightProps = Omit<AnimateProps, 'name' | 'easingFunc'>
 
-const SlideInFwdLeft = ({children, ...rest}: SlideInFwdLeftProps) => {
+const SlideInFwdRight = ({children, ...rest}: SlideInFwdRightProps) => {
   return (
     <Animate
-      name="slide-in-fwd-left"
+      name="slide-in-fwd-right"
       easingFunc="cubic-bezier(0.250, 0.460, 0.450, 0.940)"
       duration={400}
       animate3d
@@ -17,4 +17,4 @@ const SlideInFwdLeft = ({children, ...rest}: SlideInFwdLeftProps) => {
   )
 }
 
-export default SlideInFwdLeft
+export default SlideInFwdRight

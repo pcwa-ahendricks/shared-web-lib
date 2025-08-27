@@ -200,6 +200,33 @@
 
 /**
  * ----------------------------------------
+ * animation slide-in-fwd-right
+ * ----------------------------------------
+ */
+@keyframes slide-in-fwd-right {
+  0% {
+    transform: translateZ(-1400px) translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateZ(0) translateX(0);
+    opacity: 1;
+  }
+}
+/* translate3d version  */
+@keyframes slide-in-fwd-right-3d {
+  0% {
+    transform: translate3d(1000px, 0, -1400px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+/**
+ * ----------------------------------------
  * animation wobble-ver-left
  * ----------------------------------------
  */
