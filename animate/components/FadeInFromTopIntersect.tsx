@@ -6,6 +6,7 @@ import useIntersectionAnimation, {
 import useInitialAnimationTransparency from '../hooks/useInitialAnimationTransparency'
 import {useScrollDirection} from '../../react-use'
 import FadeInFromBottom from './FadeInFromBottom'
+import {useEffect} from 'react'
 
 export interface FadeInFromTopIntersectProps
   extends FadeInFromTopProps,
@@ -16,6 +17,7 @@ export interface FadeInFromTopIntersectProps
   alwaysAnimate?: boolean
   noDelayOnIntersected?: boolean | number
   reverseOnScrollUp?: boolean
+  noAnimateBeforeScroll?: boolean
 }
 
 const FadeInFromTopIntersect = ({
@@ -28,6 +30,7 @@ const FadeInFromTopIntersect = ({
   noDelayOnIntersected = false,
   delay: delayParam,
   reverseOnScrollUp = true,
+  noAnimateBeforeScroll = false,
   ...props
 }: FadeInFromTopIntersectProps) => {
   const {ref, shouldAnimate, delay, animateDoneHandler, previouslyAnimated} =
@@ -47,6 +50,24 @@ const FadeInFromTopIntersect = ({
   })
 
   const scrollDirection = useScrollDirection()
+
+  const suppress =
+    noAnimateBeforeScroll && scrollDirection === null && shouldAnimate
+
+  useEffect(() => {
+    if (suppress) {
+      // When suppressed; mark as done so it won't animate later.
+      animateDoneHandler()
+    }
+  }, [suppress, animateDoneHandler])
+
+  if (suppress) {
+    return (
+      <Box ref={ref} sx={{display: 'inherit'}}>
+        {children}
+      </Box>
+    )
+  }
 
   if (reverseOnScrollUp && scrollDirection === 'up') {
     return (
