@@ -1,4 +1,3 @@
-import React from 'react'
 import {Typography as Type, type TypographyProps} from '@mui/material'
 
 /**

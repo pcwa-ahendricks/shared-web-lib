@@ -1,4 +1,3 @@
-import React from 'react'
 import {Descendant, Text} from 'slate'
 import xss from 'xss'
 import {Typography, TypographyProps} from '@mui/material'
