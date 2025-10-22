@@ -1,3 +1,4 @@
+import React from 'react'
 import {Descendant, Text} from 'slate'
 import xss from 'xss'
 import {Code, Em, Strong} from '../../mui'
