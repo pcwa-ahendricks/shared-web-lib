@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useCallback, useState, AnimationEvent} from 'react'
+import {useCallback, useState, AnimationEvent} from 'react'
 import {Box, type BoxProps} from '@mui/material'
 
 /**
