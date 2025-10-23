@@ -1,4 +1,3 @@
-import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
 export type FadeInProps = Omit<AnimateProps, 'name' | 'easingFunc'>

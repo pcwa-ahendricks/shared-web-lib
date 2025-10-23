@@ -1,4 +1,3 @@
-import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
 export type TextFocusInProps = Omit<AnimateProps, 'name' | 'easingFunc'>

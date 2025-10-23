@@ -1,4 +1,3 @@
-import React from 'react'
 import Animate, {AnimateProps} from './Animate'
 
 export type SlideInFwdRightProps = Omit<AnimateProps, 'name' | 'easingFunc'>

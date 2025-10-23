@@ -1,4 +1,3 @@
-import React from 'react'
 import {Box, BoxProps} from '@mui/material'
 import useMatchesIe from '../hooks/useMatchesIe'
 
@@ -9,13 +8,11 @@ import useMatchesIe from '../hooks/useMatchesIe'
  *
  * @param {BoxProps} props - The props that are passed down to the MUI Box component.
  * @param {string} [props.display='block'] - The CSS display value to use when the browser matches IE.
- * @param {string} [props.className] - Additional class name to apply to the Box component.
  * @param {React.ReactNode} props.children - The children elements to be rendered inside the Box component.
  * @returns {JSX.Element} - A MUI Box component that is only visible in Internet Explorer.
  */
 export default function IeOnly({
   display: displayProp = 'block',
-  className,
   children,
   ...props
 }: BoxProps) {

@@ -1,4 +1,3 @@
-import React from 'react'
 import {Box, type BoxProps} from '@mui/material'
 
 /**

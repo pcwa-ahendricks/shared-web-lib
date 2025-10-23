@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo} from 'react'
+import {useCallback, useEffect, useMemo} from 'react'
 import {createEditor, type Descendant, Transforms, Node} from 'slate'
 import {Slate, Editable, withReact} from 'slate-react'
 import {Box} from '@mui/material'
