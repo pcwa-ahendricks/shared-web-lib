@@ -70,8 +70,13 @@ export default class LocalDate extends TZDate {
     if (args.length === 0) {
       super(new Date(), LOCAL_TIMEZONE)
     } else if (typeof args[0] === 'string') {
+      // Normalize date-only strings so they default to local midnight
+      const str = args[0]
+      const normalized = /^\d{4}-\d{2}-\d{2}$/.test(str)
+        ? `${str}T00:00:00`
+        : str
       // Handle case when the first argument is a date string
-      super(args[0], LOCAL_TIMEZONE)
+      super(normalized, LOCAL_TIMEZONE)
     } else if (args[0] instanceof Date) {
       // Handle case when the first argument is a Date object
       super(args[0], LOCAL_TIMEZONE)
