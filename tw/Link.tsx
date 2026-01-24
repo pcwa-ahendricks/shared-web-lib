@@ -8,6 +8,7 @@ import {cn} from './utils'
  */
 type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   asChild?: boolean
+  underline?: 'always' | 'hover' | 'none'
 }
 
 /**
@@ -17,6 +18,14 @@ type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
  *
  * By default, renders a styled `<a>` element.
  *
+ * Underline behavior can be configured with `underline`:
+ * - `"always"` (default): underlined at rest
+ * - `"hover"`: only underlined on hover (keyboard focus is still underlined)
+ * - `"none"`: no underline at rest or hover (keyboard focus is still underlined)
+ *
+ * Note: we always show an underline on `:focus-visible` to provide a clear
+ * keyboard focus indicator.
+ *
  * For Next.js client-side navigation, use `asChild` with `next/link`
  * to avoid nested anchors and keep styling centralized:
  *
@@ -24,10 +33,8 @@ type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
  * import NextLink from 'next/link'
  * import Link from '@/share/tw/Link'
  *
- * <Link asChild>
- *   <NextLink href="/purpose-and-powers">
- *     Purpose & Powers
- *   </NextLink>
+ * <Link asChild underline="hover">
+ *   <NextLink href="/purpose-and-powers">Purpose & Powers</NextLink>
  * </Link>
  * ```
  *
@@ -37,14 +44,19 @@ type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
  * Use `className` to extend or override styles.
  */
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({asChild = false, className, ...props}, ref) => {
+  ({asChild = false, underline = 'always', className, ...props}, ref) => {
     const Comp = asChild ? Slot : 'a'
 
     return (
       <Comp
         ref={ref}
         className={cn(
-          'underline decoration-current decoration-1 underline-offset-4 opacity-90 hover:decoration-[1.5px] hover:opacity-100 focus-visible:opacity-100',
+          'decoration-current decoration-1 underline-offset-4 opacity-90 ' +
+            'hover:decoration-[1.5px] hover:opacity-100 ' +
+            'focus-visible:underline focus-visible:decoration-[1.5px] focus-visible:opacity-100',
+          underline === 'always' && 'underline',
+          underline === 'hover' && 'no-underline hover:underline',
+          underline === 'none' && 'no-underline',
           className
         )}
         {...props}
