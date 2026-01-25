@@ -1,4 +1,4 @@
-import {cn} from './utils'
+import {cn} from '../../lib/utils'
 
 /**
  * Props for the Paragraph component.

@@ -1,6 +1,6 @@
 import {forwardRef} from 'react'
 import {Slot} from '@radix-ui/react-slot'
-import {cn} from './utils'
+import {cn} from '../../lib/utils'
 
 /**
  * Props for the Link component.
