@@ -232,7 +232,12 @@ export default function ImageDialog({
             )}
           >
             {showToolbar && (
-              <div className="pointer-events-none absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100">
+              <div
+                className={cn(
+                  'pointer-events-none absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100',
+                  'rounded-lg shadow-xl ring-1 ring-foreground/10' // Emphasize toolbar visibility (rounded-* should match button styles)
+                )}
+              >
                 <ButtonGroup aria-label="Media controls">
                   <DialogClose asChild>
                     <Button
