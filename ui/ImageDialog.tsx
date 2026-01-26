@@ -7,11 +7,13 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogOverlay,
   DialogTitle,
   DialogTrigger
 } from '../../components/ui/dialog'
+import {Button} from '../../components/ui/button'
+import {ButtonGroup} from '../../components/ui/button-group'
 import {cn} from '../../lib/utils'
+import {IconDownload, IconX} from '@tabler/icons-react'
 
 export type ImageDialogSize = 'sm' | 'base' | 'lg' | 'xl' | 'fit'
 
@@ -58,6 +60,15 @@ export type ImageDialogProps = {
 
   /** Close the dialog when the image is double-clicked / double-tapped. */
   closeOnDoubleTap?: boolean
+
+  /** Show a small toolbar with icon buttons (e.g., download, close). */
+  showToolbar?: boolean
+
+  /** Optional explicit URL to use for downloading the image. */
+  downloadHref?: string
+
+  /** Optional filename to suggest when downloading the image. */
+  downloadFilename?: string
 }
 
 const widthClasses: Record<ImageDialogSize, string> = {
@@ -82,7 +93,7 @@ const widthClasses: Record<ImageDialogSize, string> = {
  * Key behaviors:
  * - Accepts any trigger via `trigger` (uses `asChild`).
  * - Renders an accessible title/description (visually hidden if not provided).
- * - Uses `size` presets to control DialogContent width (and removes shadcn's default max-width via `!max-w-none`).
+ * - Uses `size` presets to control DialogContent width (and removes shadcn's default max-width via `max-w-none`).
  * - Default click-outside-to-close: clicking outside the image closes the dialog.
  *   (We keep the image area pointer-interactive while allowing the rest of the content area to act like an overlay.)
  */
@@ -96,7 +107,10 @@ export default function ImageDialog({
   open,
   onOpenChange,
   size = 'base',
-  closeOnDoubleTap = false
+  closeOnDoubleTap = false,
+  showToolbar = false,
+  downloadHref = undefined,
+  downloadFilename = undefined
 }: ImageDialogProps) {
   const isControlled = open !== undefined
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
@@ -115,15 +129,63 @@ export default function ImageDialog({
   const resolvedTitle = title ?? 'Image preview'
   const resolvedDescription = description ?? resolvedTitle
 
+  const handleDownload = useCallback(() => {
+    const source = downloadHref ?? getImgSrc()
+
+    if (!source) return
+
+    const u = new URL(source, window.location.href)
+
+    // Detect Imgix URLs (e.g. *.imgix.net)
+    const isImgix = u.hostname.endsWith('imgix.net')
+
+    if (isImgix) {
+      // Strip Imgix transforms
+      u.search = ''
+
+      // Suggest filename
+      const filename =
+        downloadFilename ??
+        decodeURIComponent(u.pathname.split('/').pop() || 'image')
+
+      // Imgix-specific download query param
+      u.searchParams.set('dl', filename)
+
+      // Navigate to trigger download (Imgix will force attachment via headers)
+      window.location.href = u.toString()
+      return
+    }
+
+    // Non-Imgix: fall back to opening the image in a new tab.
+    // (Some browsers ignore the `download` attribute for cross-origin URLs.)
+    if (downloadFilename) {
+      const a = document.createElement('a')
+      a.href = source
+      a.download = downloadFilename
+      a.rel = 'noreferrer'
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+    } else {
+      window.open(source, '_blank', 'noopener,noreferrer')
+    }
+
+    function getImgSrc() {
+      const img = imageContainerRef.current?.querySelector(
+        'img'
+      ) as HTMLImageElement | null
+      return img?.currentSrc || img?.getAttribute('src') || null
+    }
+  }, [downloadHref, downloadFilename])
+
   return (
     <Dialog open={effectiveOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
-      <DialogOverlay className="bg-black/65" />
-
       <DialogContent
+        showCloseButton={false}
         className={cn(
-          'border-none bg-transparent [&>button]:hidden shadow-none ring-0 outline-none p-0',
+          'border-none bg-transparent shadow-none ring-0 outline-none p-0',
           widthClasses[size],
           contentClassName
         )}
@@ -144,30 +206,58 @@ export default function ImageDialog({
           onPointerDown={(e) => {
             const imageEl = imageContainerRef.current
             if (!imageEl) return
-            // Close when the user clicks anywhere in the dialog body that is NOT the image container.
-            if (!imageEl.contains(e.target as Node)) {
+
+            const target = e.target as Node
+
+            /*
+            Close dialog when the user clicks anywhere in the dialog body that is NOT the image container. This can be tested by making the browser
+            window short and tall clicking to the left or right of the image.
+            */
+            if (!imageEl.contains(target)) {
               handleOpenChange(false)
             }
           }}
         >
           <div
             ref={imageContainerRef}
-            className={cn(
-              '[&>img]:mx-auto [&>img]:max-h-[94dvh] [&>img]:w-auto [&>img]:max-w-full [&>img]:object-contain',
-              closeOnDoubleTap && 'cursor-pointer',
-              size === 'fit' && '[&>img]:max-h-[100dvh]'
-            )}
             onDoubleClick={() => {
               if (closeOnDoubleTap) handleOpenChange(false)
             }}
+            className={cn(
+              'relative group select-none',
+              '[&>img]:mx-auto [&>img]:max-h-[94dvh] [&>img]:w-auto [&>img]:max-w-full [&>img]:object-contain',
+              showToolbar && 'cursor-default',
+              closeOnDoubleTap && !showToolbar && 'cursor-pointer',
+              size === 'fit' && '[&>img]:max-h-[100dvh]'
+            )}
           >
+            {showToolbar && (
+              <div className="absolute left-1/2 bottom-3 z-10 flex -translate-x-1/2 items-center gap-1 opacity-0 pointer-events-none transition-opacity group-hover:opacity-100 group-hover:pointer-events-auto">
+                <ButtonGroup aria-label="Media controls">
+                  <DialogClose asChild>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      aria-label="Close image dialog"
+                    >
+                      <IconX /> Close
+                    </Button>
+                  </DialogClose>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    aria-label="Download image"
+                    onClick={handleDownload}
+                  >
+                    <IconDownload /> Download
+                  </Button>
+                </ButtonGroup>
+              </div>
+            )}
+
             {children}
           </div>
         </div>
-
-        {/* If you ever want an explicit close control in the body, you can render one via children,
-            or wrap an element with <DialogClose asChild> */}
-        <DialogClose className="sr-only">Close</DialogClose>
       </DialogContent>
     </Dialog>
   )
