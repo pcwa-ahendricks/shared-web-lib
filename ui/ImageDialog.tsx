@@ -57,19 +57,18 @@ export type ImageDialogProps = {
   size?: ImageDialogSize
 }
 
-const mobileVw = 96
-const smVw = 94
-const baseVw = 92
-const smConstraint = 720
-const baseConstraint = 900
-const lgConstraint = 1200
-const xlConstraint = 1600
 const widthClasses: Record<ImageDialogSize, string> = {
-  sm: `!max-w-none w-[min(${mobileVw}vw,${smConstraint}px)] sm:w-[min(${smVw}vw,${smConstraint}px)] md:w-[min(${baseVw}vw,${smConstraint}px)]`,
-  base: `!max-w-none w-[min(${mobileVw}vw,${baseConstraint}px)] sm:w-[min(${smVw}vw,${baseConstraint}px)] md:w-[min(${baseVw}vw,${baseConstraint}px)]`,
-  lg: `!max-w-none w-[min(${mobileVw}vw,${lgConstraint}px)] sm:w-[min(${smVw}vw,${lgConstraint}px)] md:w-[min(${baseVw}vw,${lgConstraint}px)]`,
-  xl: `!max-w-none w-[min(${mobileVw}vw,${xlConstraint}px)] sm:w-[min(${smVw}vw,${xlConstraint}px)] md:w-[min(${baseVw}vw,${xlConstraint}px)]`,
-  fit: '!max-w-none w-[100vw]'
+  // IMPORTANT: These must be *static strings* so Tailwind can generate the
+  // arbitrary-value utilities. If these are built from template strings at
+  // runtime, Tailwind won't see them and the dialog falls back to `w-full`.
+  //
+  // The upstream DialogContent includes `w-full` and `sm:max-w-md`, so we
+  // override BOTH width and max-width.
+  sm: 'max-w-none sm:max-w-none w-[min(96vw,720px)] sm:w-[min(94vw,720px)] md:w-[min(92vw,720px)]',
+  base: 'max-w-none sm:max-w-none w-[min(96vw,900px)] sm:w-[min(94vw,900px)] md:w-[min(92vw,900px)]',
+  lg: 'max-w-none sm:max-w-none w-[min(96vw,1200px)] sm:w-[min(94vw,1200px)] md:w-[min(92vw,1200px)]',
+  xl: 'max-w-none sm:max-w-none w-[min(96vw,1600px)] sm:w-[min(94vw,1600px)] md:w-[min(92vw,1600px)]',
+  fit: 'max-w-none sm:max-w-none w-[100vw]'
 }
 
 /**
