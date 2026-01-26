@@ -55,6 +55,9 @@ export type ImageDialogProps = {
 
   /** Preset dialog width. Defaults to 'base'. */
   size?: ImageDialogSize
+
+  /** Close the dialog when the image is double-clicked / double-tapped. */
+  closeOnDoubleTap?: boolean
 }
 
 const widthClasses: Record<ImageDialogSize, string> = {
@@ -92,7 +95,8 @@ export default function ImageDialog({
   bodyClassName,
   open,
   onOpenChange,
-  size = 'base'
+  size = 'base',
+  closeOnDoubleTap = false
 }: ImageDialogProps) {
   const isControlled = open !== undefined
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
@@ -150,8 +154,12 @@ export default function ImageDialog({
             ref={imageContainerRef}
             className={cn(
               '[&>img]:mx-auto [&>img]:max-h-[94dvh] [&>img]:w-auto [&>img]:max-w-full [&>img]:object-contain',
+              closeOnDoubleTap && 'cursor-pointer',
               size === 'fit' && '[&>img]:max-h-[100dvh]'
             )}
+            onDoubleClick={() => {
+              if (closeOnDoubleTap) handleOpenChange(false)
+            }}
           >
             {children}
           </div>
