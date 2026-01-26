@@ -30,8 +30,8 @@ export type ImageTriggerProps = {
 
   /**
    * Controls the hover/focus scrim strength.
-   * - "subtle" (default): bg-black/15
-   * - "normal": bg-black/25
+   * - "subtle": bg-black/15
+   * - "normal" (default): bg-black/25
    * - "none": no scrim
    */
   scrim?: 'subtle' | 'normal' | 'none'
@@ -74,12 +74,12 @@ export type ImageTriggerProps = {
  *
  * Example:
  * ```tsx
- * <ImageTrigger aria-label="Open Middle Fork Recreation Map" onClick={openDialog}>
+ * <ImageTrigger aria-label="Open Middle Fork American River Recreation Map" onClick={openDialog}>
  *   <Image
  *     loader={imgixUrlLoader}
  *     width={2016}
  *     height={1296}
- *     alt="Middle Fork Recreation Map"
+ *     alt="Middle Fork American River Recreation Map"
  *     src="https://…"
  *     sizes={`(max-width: ${bp.sm}px) 100vw, 65vw`}
  *     className="block h-auto w-full"
@@ -109,7 +109,7 @@ export default function ImageTrigger({
     <button
       type="button"
       className={cn(
-        'group block w-full focus:outline-none',
+        'group block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
         zoomCursor && 'cursor-zoom-in',
         className
       )}
@@ -117,8 +117,7 @@ export default function ImageTrigger({
     >
       <div
         className={cn(
-          'overflow-hidden transition-shadow',
-          'group-hover:shadow-md group-focus-visible:shadow-md',
+          'overflow-hidden transition-shadow group-hover:shadow-md group-focus-visible:shadow-md',
           thumbClassName
         )}
       >
@@ -140,8 +139,8 @@ export default function ImageTrigger({
                 <IconSearch
                   aria-hidden="true"
                   className={cn(
-                    iconClassName,
-                    'opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100'
+                    'opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100',
+                    iconClassName
                   )}
                 />
               )}
