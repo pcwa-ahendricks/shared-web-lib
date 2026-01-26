@@ -15,6 +15,7 @@ type ParagraphProps = React.HTMLAttributes<HTMLParagraphElement>
  * Defaults:
  * - margin-bottom: 0.9rem
  * - line-height: relaxed (≈ 1.6)
+ * - font-size: base (1rem / 16px)
  *
  * Use `className` to extend or override styles.
  *
@@ -31,7 +32,10 @@ type ParagraphProps = React.HTMLAttributes<HTMLParagraphElement>
  */
 function Paragraph({className, ...props}: ParagraphProps) {
   return (
-    <p className={cn('mb-[0.9rem] leading-relaxed', className)} {...props} />
+    <p
+      className={cn('mb-[0.9rem] text-base leading-relaxed', className)}
+      {...props}
+    />
   )
 }
 
