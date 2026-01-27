@@ -234,8 +234,14 @@ export default function ImageDialog({
             {showToolbar && (
               <div
                 className={cn(
-                  'pointer-events-none absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100',
-                  'rounded-lg shadow-xl ring-1 ring-foreground/10' // Emphasize toolbar visibility (rounded-* should match button styles)
+                  'pointer-events-none absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 group-hover:pointer-events-auto',
+                  'rounded-lg shadow-xl ring-1 ring-foreground/10', // Emphasize toolbar visibility (rounded-* should match button styles)
+                  'opacity-100 motion-reduce:opacity-100', // Base state
+                  // Using tw-animate-css for hover animations (I don't think this works with clear base state of opacity-0 above)
+                  // 'motion-safe:group-hover:animate-in motion-safe:group-hover:fade-in motion-safe:group-hover:fill-mode-both motion-safe:group-hover:duration-200 motion-safe:group-hover:ease-out',
+                  // 'motion-safe:group-[&:not(:hover)]:animate-out motion-safe:group-[&:not(:hover)]:fade-out motion-safe:group-[&:not(:hover)]:fill-mode-both motion-safe:group-[&:not(:hover)]:ease-out motion-safe:group-[&:not(:hover)]:duration-120'
+                  'motion-safe:group-hover:animate-mista-fade-in motion-safe:group-[&:not(:hover)]:animate-mista-fade-out', // Use animista presets
+                  'motion-safe:group-hover:duration-200 motion-safe:group-[&:not(:hover)]:duration-150' // Override animation durations using tw-animate-css utilities
                 )}
               >
                 <ButtonGroup aria-label="Media controls">
