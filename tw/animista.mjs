@@ -1,4 +1,4 @@
-export const animista = {
+const animista = {
   animation: {
     'mista-fade-in':
       'mista-fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both', // https://animista.net/play/entrances/fade-in
@@ -30,3 +30,5 @@ export const animista = {
     }
   }
 }
+
+export default animista
