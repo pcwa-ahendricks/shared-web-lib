@@ -14,7 +14,11 @@ const animista = {
     'mista-rotate-90-cw':
       'mista-rotate-90-cw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both', // https://animista.net/play/basic/rotate-90/rotate-90-cw
     'mista-rotate-90-ccw':
-      'mista-rotate-90-ccw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both' // https://animista.net/play/basic/rotate-90/rotate-90-ccw
+      'mista-rotate-90-ccw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both', // https://animista.net/play/basic/rotate-90/rotate-90-ccw
+    'mista-rotate-180-cw':
+      'mista-rotate-180-cw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both', // Custom 180 CW degree rotation
+    'mista-rotate-180-ccw':
+      'mista-rotate-180-ccw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both' // Custom 180 CCW degree rotation
   },
   keyframes: {
     // https://animista.net/play/entrances/fade-in
@@ -98,6 +102,24 @@ const animista = {
       },
       '100%': {
         transform: 'rotate(-90deg)'
+      }
+    },
+    // Custom 180 CW degree rotation
+    'mista-rotate-180-cw': {
+      '0%': {
+        transform: 'rotate(0deg)'
+      },
+      '100%': {
+        transform: 'rotate(180deg)'
+      }
+    },
+    // Custom 180 CCW degree rotation
+    'mista-rotate-180-ccw': {
+      '0%': {
+        transform: 'rotate(0deg)'
+      },
+      '100%': {
+        transform: 'rotate(-180deg)'
       }
     }
   }
