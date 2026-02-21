@@ -10,7 +10,11 @@ const animista = {
     'mista-text-focus-in':
       'mista-text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both', // https://animista.net/play/text/focus-in
     'mista-shake-bl':
-      'mista-shake-bl 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both' // https://animista.net/play/attention/shake/shake-bl
+      'mista-shake-bl 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both', // https://animista.net/play/attention/shake/shake-bl
+    'mista-rotate-90-cw':
+      'mista-rotate-90-cw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both', // https://animista.net/play/basic/rotate-90/rotate-90-cw
+    'mista-rotate-90-ccw':
+      'mista-rotate-90-ccw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both' // https://animista.net/play/basic/rotate-90/rotate-90-ccw
   },
   keyframes: {
     // https://animista.net/play/entrances/fade-in
@@ -76,6 +80,24 @@ const animista = {
       },
       '90%': {
         transform: 'rotate(2deg)'
+      }
+    },
+    // https://animista.net/play/basic/rotate-90/rotate-90-cw
+    'mista-rotate-90-cw': {
+      '0%': {
+        transform: 'rotate(0deg)'
+      },
+      '100%': {
+        transform: 'rotate(90deg)'
+      }
+    },
+    // https://animista.net/play/basic/rotate-90/rotate-90-ccw
+    'mista-rotate-90-ccw': {
+      '0%': {
+        transform: 'rotate(0deg)'
+      },
+      '100%': {
+        transform: 'rotate(-90deg)'
       }
     }
   }
