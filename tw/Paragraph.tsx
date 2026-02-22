@@ -31,7 +31,7 @@ type ParagraphProps = React.HTMLAttributes<HTMLParagraphElement>
  */
 function Paragraph({className, ...props}: ParagraphProps) {
   return (
-    <p className={cn('mb-[0.9rem]  leading-relaxed', className)} {...props} />
+    <p className={cn('mb-[0.9rem] leading-relaxed', className)} {...props} />
   )
 }
 
