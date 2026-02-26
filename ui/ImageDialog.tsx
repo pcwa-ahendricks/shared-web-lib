@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogPortal,
   DialogTitle,
   DialogTrigger
 } from '../../components/ui/dialog'
@@ -198,6 +199,34 @@ export default function ImageDialog({
           </DialogDescription>
         </DialogHeader>
 
+        {showToolbar && (
+          <DialogPortal>
+            <div className="pointer-events-none fixed right-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] left-0 z-50 flex justify-center bg-transparent px-4">
+              <div className="bg-popover/90 border-border pointer-events-auto rounded-lg border shadow-xl backdrop-blur">
+                <ButtonGroup aria-label="Media controls">
+                  <DialogClose asChild>
+                    <Button
+                      variant="outline"
+                      aria-label="Close image dialog"
+                      size="sm"
+                    >
+                      <IconX /> Close
+                    </Button>
+                  </DialogClose>
+                  <Button
+                    variant="outline"
+                    aria-label="Download image"
+                    onClick={handleDownload}
+                    size="sm"
+                  >
+                    <IconDownload /> Download
+                  </Button>
+                </ButtonGroup>
+              </div>
+            </div>
+          </DialogPortal>
+        )}
+
         <div
           className={cn(
             'flex h-full w-full justify-center overflow-auto',
@@ -210,8 +239,7 @@ export default function ImageDialog({
             const target = e.target as Node
 
             /*
-            Close dialog when the user clicks anywhere in the dialog body that is NOT the image container. This can be tested by making the browser
-            window short and tall clicking to the left or right of the image.
+            Close dialog when the user clicks anywhere in the dialog body that is NOT the image container.
             */
             if (!imageEl.contains(target)) {
               handleOpenChange(false)
@@ -231,41 +259,6 @@ export default function ImageDialog({
               size === 'fit' && '[&>img]:max-h-[100dvh]'
             )}
           >
-            {showToolbar && (
-              <div
-                className={cn(
-                  'pointer-events-none absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 group-hover:pointer-events-auto',
-                  'rounded-lg shadow-xl ring-1 ring-foreground/10', // Emphasize toolbar visibility (rounded-* should match button styles)
-                  'opacity-100 motion-reduce:opacity-100', // Base state
-                  // Using tw-animate-css for hover animations (I don't think this works with clear base state of opacity-0 above)
-                  // 'motion-safe:group-hover:animate-in motion-safe:group-hover:fade-in motion-safe:group-hover:fill-mode-both motion-safe:group-hover:duration-200 motion-safe:group-hover:ease-out',
-                  // 'motion-safe:group-[&:not(:hover)]:animate-out motion-safe:group-[&:not(:hover)]:fade-out motion-safe:group-[&:not(:hover)]:fill-mode-both motion-safe:group-[&:not(:hover)]:ease-out motion-safe:group-[&:not(:hover)]:duration-120'
-                  'motion-safe:group-hover:animate-mista-fade-in motion-safe:group-[&:not(:hover)]:animate-mista-fade-out', // Use animista presets
-                  'motion-safe:group-hover:duration-200 motion-safe:group-[&:not(:hover)]:duration-150' // Override animation durations using tw-animate-css utilities
-                )}
-              >
-                <ButtonGroup aria-label="Media controls">
-                  <DialogClose asChild>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      aria-label="Close image dialog"
-                    >
-                      <IconX /> Close
-                    </Button>
-                  </DialogClose>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    aria-label="Download image"
-                    onClick={handleDownload}
-                  >
-                    <IconDownload /> Download
-                  </Button>
-                </ButtonGroup>
-              </div>
-            )}
-
             {children}
           </div>
         </div>
