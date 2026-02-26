@@ -81,7 +81,7 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
         ref={ref}
         type={type}
         className={cn(
-          'group block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          'group block w-full focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50',
           zoomCursor && 'cursor-zoom-in',
           className
         )}
