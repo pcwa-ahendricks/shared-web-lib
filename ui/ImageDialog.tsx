@@ -200,7 +200,7 @@ export default function ImageDialog({
         </DialogHeader>
 
         {showToolbar && (
-          <DialogPortal>
+          <DialogPortal forceMount>
             <div className="pointer-events-none fixed right-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] left-0 z-50 flex justify-center bg-transparent px-4">
               <div className="bg-popover/90 border-border pointer-events-auto rounded-lg border shadow-xl backdrop-blur">
                 <ButtonGroup aria-label="Media controls">
