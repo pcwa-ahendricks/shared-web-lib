@@ -1,6 +1,6 @@
 'use client'
 
-import {type ComponentPropsWithoutRef, type ReactNode} from 'react'
+import {forwardRef, type ComponentPropsWithoutRef, type ReactNode} from 'react'
 import {cn} from '../../lib/utils'
 import {IconSearch} from '@tabler/icons-react'
 
@@ -53,101 +53,78 @@ export type ImageTriggerProps = {
   iconClassName?: string
 } & Omit<ComponentPropsWithoutRef<'button'>, 'children' | 'className'>
 
-/**
- * ImageTrigger
- *
- * A reusable “fancy image trigger” wrapper that provides the same UX pattern you used
- * on the Home page map thumbnail:
- *
- * - clickable button wrapper
- * - `group` hover/focus-visible affordances
- * - subtle shadow on hover/focus
- * - optional dark scrim overlay
- * - optional centered icon overlay
- *
- * Designed to wrap a Next.js <Image /> (or any media) as `children`.
- *
- * Accessibility:
- * This component renders a <button>. You should provide either:
- * - aria-label, or
- * - visible text within `children`
- *
- * Example:
- * ```tsx
- * <ImageTrigger aria-label="Open Middle Fork American River Recreation Map" onClick={openDialog}>
- *   <Image
- *     loader={imgixUrlLoader}
- *     width={2016}
- *     height={1296}
- *     alt="Middle Fork American River Recreation Map"
- *     src="https://…"
- *     sizes={`(max-width: ${bp.sm}px) 100vw, 65vw`}
- *     className="block h-auto w-full"
- *   />
- * </ImageTrigger>
- * ```
- */
-export default function ImageTrigger({
-  children,
-  className,
-  thumbClassName,
-  zoomCursor = true,
-  scrim = 'normal',
-  showIcon = true,
-  icon,
-  iconClassName = 'h-12 w-12 text-white/95',
-  ...rest
-}: ImageTriggerProps) {
-  const scrimClass =
-    scrim === 'none'
-      ? ''
-      : scrim === 'subtle'
-        ? 'group-hover:bg-black/15 group-focus-visible:bg-black/15'
-        : 'group-hover:bg-black/25 group-focus-visible:bg-black/25'
+const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
+  (
+    {
+      children,
+      className,
+      thumbClassName,
+      zoomCursor = true,
+      scrim = 'normal',
+      showIcon = true,
+      icon,
+      iconClassName = 'h-12 w-12 text-white/95',
+      type = 'button',
+      ...rest
+    },
+    ref
+  ) => {
+    const scrimClass =
+      scrim === 'none'
+        ? ''
+        : scrim === 'subtle'
+          ? 'group-hover:bg-black/15 group-focus-visible:bg-black/15'
+          : 'group-hover:bg-black/25 group-focus-visible:bg-black/25'
 
-  return (
-    <button
-      type="button"
-      className={cn(
-        'group block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-        zoomCursor && 'cursor-zoom-in',
-        className
-      )}
-      {...rest}
-    >
-      <div
+    return (
+      <button
+        ref={ref}
+        type={type}
         className={cn(
-          'overflow-hidden transition-shadow group-hover:shadow-md group-focus-visible:shadow-md',
-          thumbClassName
+          'group block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          zoomCursor && 'cursor-zoom-in',
+          className
         )}
+        {...rest}
       >
-        <div className="relative">
-          {children}
+        <div
+          className={cn(
+            'overflow-hidden transition-shadow group-hover:shadow-md group-focus-visible:shadow-md',
+            thumbClassName
+          )}
+        >
+          <div className="relative">
+            {children}
 
-          {scrim !== 'none' ? (
-            <div
-              className={cn(
-                'pointer-events-none absolute inset-0 z-10 bg-black/0 transition-colors duration-150',
-                scrimClass
-              )}
-            />
-          ) : null}
+            {scrim !== 'none' ? (
+              <div
+                className={cn(
+                  'pointer-events-none absolute inset-0 z-10 bg-black/0 transition-colors duration-150',
+                  scrimClass
+                )}
+              />
+            ) : null}
 
-          {showIcon ? (
-            <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-              {icon ?? (
-                <IconSearch
-                  aria-hidden="true"
-                  className={cn(
-                    'opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100',
-                    iconClassName
-                  )}
-                />
-              )}
-            </div>
-          ) : null}
+            {showIcon ? (
+              <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
+                {icon ?? (
+                  <IconSearch
+                    aria-hidden="true"
+                    className={cn(
+                      'opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100',
+                      iconClassName
+                    )}
+                  />
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
-      </div>
-    </button>
-  )
-}
+      </button>
+    )
+  }
+)
+
+ImageTrigger.displayName = 'ImageTrigger'
+
+export default ImageTrigger
