@@ -3,7 +3,7 @@ import {Descendant, Text} from 'slate'
 import xss from 'xss'
 import {Code, Em, Strong} from '../../mui'
 import {Typography, type TypographyProps} from '@mui/material'
-import {Link, LinkProps} from '../../next'
+import {Link, LinkProps} from '../../mui'
 
 /**
  * Renders rich HTML content from Slate.js `Descendant` nodes.
