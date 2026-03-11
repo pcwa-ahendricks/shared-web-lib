@@ -52,7 +52,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         ref={ref}
         className={cn(
           'decoration-current decoration-1 underline-offset-4 opacity-90 ' +
-            'hover:decoration-[1.5px] hover:opacity-100 ' +
+            'transition-colors hover:decoration-[1.5px] hover:opacity-100 ' +
             'focus-visible:underline focus-visible:decoration-[1.5px] focus-visible:opacity-100',
           underline === 'always' && 'underline',
           // tighten hover underline styles for better UX
