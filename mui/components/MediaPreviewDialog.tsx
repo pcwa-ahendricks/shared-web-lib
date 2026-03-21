@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/CloseRounded'
 import Image, {type ImageProps} from 'next/image'
-import {useWindowSize} from 'react-use'
+import {useWindowSize} from '../../hooks'
 import imgixUrlLoader from '../../next/imgixUrlLoader'
 import {type TransitionProps} from '@mui/material/transitions'
 

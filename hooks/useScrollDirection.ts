@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react'
-import {useWindowScroll} from 'react-use'
+import {useState, useEffect, useRef} from 'react'
+import useWindowScroll from './useWindowScroll'
 
 /**
  * Represents the direction of scroll.
@@ -19,16 +19,16 @@ export type ScrollDirection = 'up' | 'down' | null
 const useScrollDirection = (): ScrollDirection => {
   const {y: scrollY} = useWindowScroll()
   const [scrollDirection, setScrollDirection] = useState<ScrollDirection>(null)
-  const [lastScrollY, setLastScrollY] = useState(scrollY)
+  const lastScrollY = useRef(scrollY)
 
   useEffect(() => {
-    if (scrollY > lastScrollY) {
+    if (scrollY > lastScrollY.current) {
       setScrollDirection('down')
-    } else if (scrollY < lastScrollY) {
+    } else if (scrollY < lastScrollY.current) {
       setScrollDirection('up')
     }
-    setLastScrollY(scrollY)
-  }, [scrollY, lastScrollY])
+    lastScrollY.current = scrollY
+  }, [scrollY])
 
   return scrollDirection
 }

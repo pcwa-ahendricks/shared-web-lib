@@ -4,7 +4,7 @@ import useIntersectionAnimation, {
   type IntersectionAnimationProps
 } from '../hooks/useIntersectAnimation'
 import useInitialAnimationTransparency from '../hooks/useInitialAnimationTransparency'
-import {useScrollDirection} from '../../react-use'
+import {useScrollDirection} from '../../hooks'
 import FadeInFromBottom from './FadeInFromBottom'
 
 export interface FadeInFromTopIntersectProps

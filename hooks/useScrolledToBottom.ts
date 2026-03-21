@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
-import {useWindowScroll, useWindowSize} from 'react-use'
+import useWindowScroll from './useWindowScroll'
+import useWindowSize from './useWindowSize'
 
 /**
  * Custom hook that detects if the user has scrolled to the bottom of the page,

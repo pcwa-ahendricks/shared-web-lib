@@ -1,5 +1,4 @@
 import {useEffect, useState, useRef, type RefObject} from 'react'
-import {useIntersection} from 'react-use'
 
 /**
  * Custom hook to detect when a target element, typically placed at the bottom of a scrollable container,
@@ -24,13 +23,30 @@ const useScrolledToBottomRef = <T extends HTMLElement>(): [
   const [isBottom, setIsBottom] = useState(false)
   const ref = useRef<T>(null) as RefObject<T>
 
-  const intersection = useIntersection(ref, {
-    root: ref.current?.parentElement || null
-  })
-
   useEffect(() => {
-    setIsBottom(!!intersection?.isIntersecting)
-  }, [intersection])
+    const node = ref.current
+    const root = node?.parentElement
+
+    if (!node || !root || typeof IntersectionObserver === 'undefined') {
+      setIsBottom(false)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsBottom(entry.isIntersecting)
+      },
+      {
+        root
+      }
+    )
+
+    observer.observe(node)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
 
   return [ref, isBottom]
 }

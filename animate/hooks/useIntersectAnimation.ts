@@ -6,9 +6,8 @@ import {
   useState,
   type RefObject
 } from 'react'
-import {useIntersection} from 'react-use'
 import {AnimateContext, setAnimateDone} from '../components/AnimateContext'
-import {useScrollDirection} from '../../react-use'
+import {useIntersection, useScrollDirection} from '../../hooks'
 
 export interface IntersectionAnimationProps {
   animateKey: string
