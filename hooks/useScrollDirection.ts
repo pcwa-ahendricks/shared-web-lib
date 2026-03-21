@@ -1,5 +1,5 @@
-import {useState, useEffect, useRef} from 'react'
-import useWindowScroll from './useWindowScroll'
+import {useEffect, useRef, useState} from 'react'
+import {useEventListener} from 'usehooks-ts'
 
 /**
  * Represents the direction of scroll.
@@ -17,18 +17,33 @@ export type ScrollDirection = 'up' | 'down' | null
  * console.log(scrollDirection) // 'up', 'down', or null
  */
 const useScrollDirection = (): ScrollDirection => {
-  const {y: scrollY} = useWindowScroll()
   const [scrollDirection, setScrollDirection] = useState<ScrollDirection>(null)
-  const lastScrollY = useRef(scrollY)
+  const lastScrollY = useRef(0)
 
   useEffect(() => {
-    if (scrollY > lastScrollY.current) {
-      setScrollDirection('down')
-    } else if (scrollY < lastScrollY.current) {
-      setScrollDirection('up')
+    if (typeof window === 'undefined') {
+      return
     }
-    lastScrollY.current = scrollY
-  }, [scrollY])
+
+    lastScrollY.current = window.scrollY
+  }, [])
+
+  useEventListener(
+    'scroll',
+    () => {
+      const scrollY = window.scrollY
+
+      if (scrollY > lastScrollY.current) {
+        setScrollDirection('down')
+      } else if (scrollY < lastScrollY.current) {
+        setScrollDirection('up')
+      }
+
+      lastScrollY.current = scrollY
+    },
+    undefined,
+    {passive: true}
+  )
 
   return scrollDirection
 }

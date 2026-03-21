@@ -1,6 +1,5 @@
-import {useState, useEffect} from 'react'
-import useWindowScroll from './useWindowScroll'
-import useWindowSize from './useWindowSize'
+import {useCallback, useEffect, useState} from 'react'
+import {useEventListener, useWindowSize} from 'usehooks-ts'
 
 /**
  * Custom hook that detects if the user has scrolled to the bottom of the page,
@@ -20,15 +19,26 @@ import useWindowSize from './useWindowSize'
  */
 const useScrolledToBottom = (tolerance: number = 5): boolean => {
   const [isBottom, setIsBottom] = useState(false)
-  const {y: scrollY} = useWindowScroll()
   const {height: windowHeight} = useWindowSize()
 
-  useEffect(() => {
+  const updateIsBottom = useCallback(() => {
+    if (typeof window === 'undefined') {
+      setIsBottom(false)
+      return
+    }
+
     const scrolledToBottom =
-      windowHeight + scrollY >=
+      windowHeight + window.scrollY >=
       document.documentElement.scrollHeight - tolerance
+
     setIsBottom(scrolledToBottom)
-  }, [scrollY, windowHeight, tolerance])
+  }, [tolerance, windowHeight])
+
+  useEffect(() => {
+    updateIsBottom()
+  }, [updateIsBottom])
+
+  useEventListener('scroll', updateIsBottom, undefined, {passive: true})
 
   return isBottom
 }

@@ -2,12 +2,12 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState,
-  type RefObject
+  type RefCallback
 } from 'react'
+import {useIntersectionObserver} from 'usehooks-ts'
 import {AnimateContext, setAnimateDone} from '../components/AnimateContext'
-import {useIntersection, useScrollDirection} from '../../hooks'
+import {useScrollDirection} from '../../hooks'
 
 export interface IntersectionAnimationProps {
   animateKey: string
@@ -42,11 +42,9 @@ const useIntersectionAnimation = ({
     }
   }, [dispatch, animateKey, alwaysAnimate])
 
-  const ref = useRef<HTMLElement>(null)
   const [intersected, setIntersected] = useState(false)
   const [adjustedDelay, setAdjustedDelay] = useState(delay)
-  // Cast the ref to RefObject<HTMLElement> when passing it to useIntersection
-  const intersection = useIntersection(ref as RefObject<HTMLElement>, {
+  const {entry, ref} = useIntersectionObserver({
     root,
     rootMargin
   })
@@ -55,7 +53,7 @@ const useIntersectionAnimation = ({
   const hasScrolled = !!scrollDirection
 
   useEffect(() => {
-    const isIntersecting = intersection?.isIntersecting
+    const isIntersecting = entry?.isIntersecting
 
     // Only trigger animation if intersecting and not previously animated
     if (isIntersecting && !intersected) {
@@ -69,7 +67,7 @@ const useIntersectionAnimation = ({
         setAdjustedDelay(calcDelay)
       }
     }
-  }, [intersection, intersected, noDelayOnIntersected, delay, hasScrolled])
+  }, [entry, intersected, noDelayOnIntersected, delay, hasScrolled])
 
   // only animate if the following is true:
   // The animate prop is true (the default for all components)
@@ -77,7 +75,7 @@ const useIntersectionAnimation = ({
     animate && (alwaysAnimate || !previouslyAnimated) && intersected
 
   return {
-    ref,
+    ref: ref as RefCallback<HTMLElement>,
     shouldAnimate,
     delay: adjustedDelay,
     animateDoneHandler,
