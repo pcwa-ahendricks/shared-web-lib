@@ -89,6 +89,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       href,
       linkAs: linkAsProp,
       noLinkStyle,
+      scroll,
       target,
       rel,
       ...other
@@ -105,6 +106,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     const nextjsProps = {
       to: href,
       linkAs,
+      scroll,
       target,
       rel
     }
