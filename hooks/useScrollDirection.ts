@@ -1,3 +1,5 @@
+'use client'
+
 import {useEffect, useRef, useState} from 'react'
 import {useEventListener} from 'usehooks-ts'
 
