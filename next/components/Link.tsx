@@ -31,6 +31,7 @@ export interface NextLinkComposedProps
  * @param props - Props to control navigation and anchor behavior.
  * @param props.to - The destination URL or path.
  * @param props.linkAs - Optional alias for dynamic routes.
+ * @param props.scroll - Controls whether Next.js scrolls to the top on navigation.
  * @param props.target - Optional target attribute for the anchor.
  * @param props.rel - Optional rel attribute for the anchor.
  * @returns A standard anchor element wrapped in Next.js `Link`.
@@ -55,7 +56,8 @@ export const NextLinkComposed = React.forwardRef<
 
 /**
  * Props for the custom Link component combining Next.js and MUI link behavior.
- * Supports styling, active class detection, and external link fallback.
+ * Supports styling, active class detection, internal Next.js navigation props,
+ * and external link fallback.
  */
 export type LinkProps = {
   activeClassName?: string
@@ -76,6 +78,7 @@ export type LinkProps = {
  * @param props.href - The destination URL or path.
  * @param props.noLinkStyle - If true, omits MUI's styling and returns a plain Next.js link.
  * @param props.activeClassName - CSS class to apply when the link matches the current route.
+ * @param props.scroll - Controls Next.js scroll restoration for internal navigation only.
  * @param props.target - Specifies where to open the linked document.
  * @param props.rel - Specifies the relationship between the current document and the linked document.
  * @returns A styled MUI link or a plain anchor based on whether the link is internal or external.
