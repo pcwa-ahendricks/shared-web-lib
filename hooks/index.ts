@@ -1,3 +1,5 @@
 export {default as useScrollDirection} from './useScrollDirection'
 export {default as useScrolledToBottom} from './useScrolledToBottom'
 export {default as useScrolledToBottomRef} from './useScrolledToBottomRef'
+export {default as useElementSize} from './useElementSize'
+export {default as useSupportsTouch} from './useSupportsTouch'
