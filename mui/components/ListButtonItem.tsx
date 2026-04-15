@@ -1,8 +1,26 @@
-import {ListItem, ListItemButton, type ListItemButtonProps} from '@mui/material'
+import type {ElementType, JSX} from 'react'
+import {
+  ListItem,
+  ListItemButton,
+  type ListItemButtonProps
+} from '@mui/material'
 
-export default function ListButtonItem(props: ListItemButtonProps) {
+type ListButtonItemProps<
+  RootComponent extends ElementType = 'div',
+  AdditionalProps = {}
+> = ListItemButtonProps<RootComponent, AdditionalProps> & {
+  disablePadding?: boolean
+}
+
+export default function ListButtonItem<
+  RootComponent extends ElementType = 'div',
+  AdditionalProps = {}
+>({
+  disablePadding = true,
+  ...props
+}: ListButtonItemProps<RootComponent, AdditionalProps>): JSX.Element {
   return (
-    <ListItem disablePadding>
+    <ListItem disablePadding={disablePadding}>
       <ListItemButton {...props} />
     </ListItem>
   )
