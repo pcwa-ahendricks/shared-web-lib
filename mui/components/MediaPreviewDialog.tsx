@@ -16,7 +16,7 @@ import {
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/CloseRounded'
 import Image, {type ImageProps} from 'next/image'
-import {useWindowSize} from 'react-use'
+import {useWindowSize} from 'usehooks-ts'
 import imgixUrlLoader from '../../next/imgixUrlLoader'
 import {type TransitionProps} from '@mui/material/transitions'
 
@@ -85,7 +85,7 @@ const MediaPreviewDialog = ({
   const theme = useTheme()
   const {width: ww, height: wh} = useWindowSize()
   const factor = factorWidth ? factorWidth * 100 : 86
-  const isPortraitWindow = ww <= wh
+  const isPortraitWindow = (ww ?? 0) <= (wh ?? 0)
   const imageAspectRatio =
     typeof width === 'number' && typeof height === 'number'
       ? width / height
