@@ -1,0 +1,3 @@
+@utility decoration-faint {
+  text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
+}
