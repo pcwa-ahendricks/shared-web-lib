@@ -4,7 +4,7 @@ import {useEffect, type ReactNode} from 'react'
 import {useAnimateOnce} from '../hooks/useAnimateOnce'
 
 /**
- * Props for InView.
+ * Props for Wow.
  */
 interface Props {
   children: ReactNode
@@ -32,7 +32,7 @@ interface Props {
 }
 
 /**
- * InView
+ * Wow
  *
  * A wrapper that triggers a Tailwind CSS animation when the element scrolls into view.
  * Pass the animation class via `className` — the component handles intersection detection,
@@ -43,21 +43,21 @@ interface Props {
  *
  * @example
  * // Entrance animation — hidden until scrolled into view
- * <InView
+ * <Wow
  *   className="motion-safe:animate-mista-slide-in-left"
  *   animateKey="hero-section"
  *   rootMargin="-100px"
  * >
  *   <h2>About the Project</h2>
- * </InView>
+ * </Wow>
  *
  * @example
  * // Attention animation — always visible, shakes on intersection
- * <InView type="attention" className="motion-safe:animate-mista-shake-bottom">
+ * <Wow type="attention" className="motion-safe:animate-mista-shake-bottom">
  *   <button>Click me</button>
- * </InView>
+ * </Wow>
  */
-export default function InView({
+export default function Wow({
   children,
   className,
   rootMargin = '0px',
