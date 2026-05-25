@@ -21,7 +21,15 @@ const animista = {
     'mista-rotate-180-cw':
       'mista-rotate-180-cw var(--tw-animation-duration, var(--tw-duration, 0.4s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)', // Custom 180 CW degree rotation
     'mista-rotate-180-ccw':
-      'mista-rotate-180-ccw var(--tw-animation-duration, var(--tw-duration, 0.4s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)' // Custom 180 CCW degree rotation
+      'mista-rotate-180-ccw var(--tw-animation-duration, var(--tw-duration, 0.4s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)', // Custom 180 CCW degree rotation
+    'mista-slide-in-fwd-left':
+      'mista-slide-in-fwd-left var(--tw-animation-duration, var(--tw-duration, 0.4s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)', // https://animista.net/play/entrances/slide-in-fwd/slide-in-fwd-left
+    'mista-slide-in-fwd-right':
+      'mista-slide-in-fwd-right var(--tw-animation-duration, var(--tw-duration, 0.4s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)', // https://animista.net/play/entrances/slide-in-fwd/slide-in-fwd-right
+    'mista-slide-in-elliptic-left-fwd':
+      'mista-slide-in-elliptic-left-fwd var(--tw-animation-duration, var(--tw-duration, 0.7s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)', // https://animista.net/play/entrances/slide-in-elliptic/slide-in-elliptic-left-fwd
+    'mista-wobble-ver-left':
+      'mista-wobble-ver-left var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, cubic-bezier(0.455, 0.030, 0.515, 0.955)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)' // https://animista.net/play/attention/wobble/wobble-ver-left
   },
   keyframes: {
     // https://animista.net/play/entrances/fade-in
@@ -146,6 +154,53 @@ const animista = {
       '100%': {
         transform: 'rotate(-180deg)'
       }
+    },
+    // https://animista.net/play/entrances/slide-in-fwd/slide-in-fwd-left
+    'mista-slide-in-fwd-left': {
+      '0%': {
+        transform: 'translateZ(-1400px) translateX(-1000px)',
+        opacity: '0'
+      },
+      '100%': {
+        transform: 'translateZ(0) translateX(0)',
+        opacity: '1'
+      }
+    },
+    // https://animista.net/play/entrances/slide-in-fwd/slide-in-fwd-right
+    'mista-slide-in-fwd-right': {
+      '0%': {
+        transform: 'translateZ(-1400px) translateX(1000px)',
+        opacity: '0'
+      },
+      '100%': {
+        transform: 'translateZ(0) translateX(0)',
+        opacity: '1'
+      }
+    },
+    // https://animista.net/play/entrances/slide-in-elliptic/slide-in-elliptic-left-fwd
+    'mista-slide-in-elliptic-left-fwd': {
+      '0%': {
+        transform: 'translateX(-800px) rotateY(30deg) scale(0)',
+        transformOrigin: '-100% 50%',
+        opacity: '0'
+      },
+      '100%': {
+        transform: 'translateX(0) rotateY(0) scale(1)',
+        transformOrigin: '1800px 50%',
+        opacity: '1'
+      }
+    },
+    // https://animista.net/play/attention/wobble/wobble-ver-left
+    'mista-wobble-ver-left': {
+      '0%, 100%': {
+        transform: 'translateY(0) rotate(0)',
+        transformOrigin: '50% 50%'
+      },
+      '15%': {transform: 'translateY(-30px) rotate(-6deg)'},
+      '30%': {transform: 'translateY(15px) rotate(6deg)'},
+      '45%': {transform: 'translateY(-15px) rotate(-3.6deg)'},
+      '60%': {transform: 'translateY(9px) rotate(2.4deg)'},
+      '75%': {transform: 'translateY(-6px) rotate(-1.2deg)'}
     }
   }
 }
