@@ -4,7 +4,7 @@ import {useEffect, type ReactNode} from 'react'
 import {useAnimateOnce} from '../hooks/useAnimateOnce'
 
 /**
- * Props for AnimateOnIntersect.
+ * Props for InView.
  */
 interface Props {
   children: ReactNode
@@ -19,15 +19,20 @@ interface Props {
    */
   type?: 'entrance' | 'attention'
   /**
-   * Optional stable key used to persist "already seen" state in sessionStorage across Next.js page navigations.
-   * When provided, the animation only plays once per browser session even if the user navigates away and returns.
-   * Must be unique per animation instance on the page.
+   * When `true` (default), the animation plays once and does not repeat on re-entry.
+   * When `false`, the animation replays every time the element enters the viewport.
+   */
+  once?: boolean
+  /**
+   * Optional stable key used to persist "already seen" state across Next.js page visits.
+   * Only meaningful when `once` is `true`. Must be unique per animation instance on the page.
+   * Do not generate dynamically (e.g. with nanoid) — must be stable across renders and page visits.
    */
   animateKey?: string
 }
 
 /**
- * AnimateOnIntersect
+ * InView
  *
  * A wrapper that triggers a Tailwind CSS animation when the element scrolls into view.
  * Pass the animation class via `className` — the component handles intersection detection,
@@ -38,39 +43,42 @@ interface Props {
  *
  * @example
  * // Entrance animation — hidden until scrolled into view
- * <AnimateOnIntersect
+ * <InView
  *   className="motion-safe:animate-mista-slide-in-left"
  *   animateKey="hero-section"
  *   rootMargin="-100px"
  * >
  *   <h2>About the Project</h2>
- * </AnimateOnIntersect>
+ * </InView>
  *
  * @example
  * // Attention animation — always visible, shakes on intersection
- * <AnimateOnIntersect type="attention" className="motion-safe:animate-mista-shake-bottom">
+ * <InView type="attention" className="motion-safe:animate-mista-shake-bottom">
  *   <button>Click me</button>
- * </AnimateOnIntersect>
+ * </InView>
  */
-export default function AnimateOnIntersect({
+export default function InView({
   children,
   className,
   rootMargin = '0px',
   type = 'entrance',
+  once = true,
   animateKey
 }: Props) {
-  const {alreadySeen, markSeen} = useAnimateOnce(animateKey)
+  const {alreadySeen, markSeen} = useAnimateOnce(once ? animateKey : undefined)
 
   const {isIntersecting, ref} = useIntersectionObserver({
     rootMargin,
-    freezeOnceVisible: true
+    freezeOnceVisible: once
   })
 
   useEffect(() => {
     if (isIntersecting && !alreadySeen) markSeen()
   }, [isIntersecting, alreadySeen, markSeen])
 
-  const shouldAnimate = isIntersecting && !alreadySeen
+  const shouldAnimate = once
+    ? isIntersecting && !alreadySeen
+    : isIntersecting
 
   return (
     <div
