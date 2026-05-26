@@ -3,7 +3,7 @@ const animista = {
     'mista-fade-in':
       'mista-fade-in var(--tw-animation-duration, var(--tw-duration, 1.2s)) var(--tw-ease, cubic-bezier(0.390, 0.575, 0.565, 1.000)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)', // https://animista.net/play/entrances/fade-in
     'mista-fade-out':
-      'mista-fade-out var(--tw-animation-duration, var(--tw-duration, 1s)) var(--tw-ease, ease-out) var(--tw-animation-fill-mode, both)', // https://animista.net/play/exits/fade-out
+      'mista-fade-out var(--tw-animation-duration, var(--tw-duration, 1s)) var(--tw-ease, ease-out) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)', // https://animista.net/play/exits/fade-out
     'mista-scale-in-center':
       'mista-scale-in-center var(--tw-animation-duration, var(--tw-duration, 0.5s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)', // https://animista.net/play/entrances/scale-in/scale-in-center
     'mista-slide-in-left':
