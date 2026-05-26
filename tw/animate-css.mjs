@@ -2,7 +2,7 @@
 
 const animateCss = {
   animation: {
-    'css-tada': 'css-tada var(--tw-animation-duration, var(--tw-duration, 1s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)'
+    'css-tada': 'css-tada var(--tw-animation-duration, var(--tw-duration, 1s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, none)'
   },
   keyframes: {
     'css-tada': {

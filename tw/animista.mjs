@@ -29,7 +29,7 @@ const animista = {
     'mista-slide-in-elliptic-left-fwd':
       'mista-slide-in-elliptic-left-fwd var(--tw-animation-duration, var(--tw-duration, 0.7s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)', // https://animista.net/play/entrances/slide-in-elliptic/slide-in-elliptic-left-fwd
     'mista-wobble-ver-left':
-      'mista-wobble-ver-left var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, cubic-bezier(0.455, 0.030, 0.515, 0.955)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)' // https://animista.net/play/attention/wobble/wobble-ver-left
+      'mista-wobble-ver-left var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)' // https://animista.net/play/attention/wobble/wobble-ver-left
   },
   keyframes: {
     // https://animista.net/play/entrances/fade-in
