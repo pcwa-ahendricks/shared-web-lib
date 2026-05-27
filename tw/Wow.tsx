@@ -80,6 +80,13 @@ export default function Wow({
     ? isIntersecting && !alreadySeen
     : isIntersecting
 
+  // Visibility state machine for entrance animations:
+  //   waiting  (not yet in view):  shouldAnimate=false, alreadySeen=false → opacity-0
+  //   animating (in view, first):  shouldAnimate=true,  alreadySeen=false → className
+  //   done     (after markSeen):   shouldAnimate=false, alreadySeen=true  → visible, no class
+  //   returning (seen in session): shouldAnimate=false, alreadySeen=true  → visible, no class
+  // `!alreadySeen` is what prevents opacity-0 from re-applying after the animation completes,
+  // since shouldAnimate goes false in both "waiting" and "done" states.
   return (
     <div
       ref={ref}
