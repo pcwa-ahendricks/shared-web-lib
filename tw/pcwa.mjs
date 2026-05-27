@@ -1,15 +1,15 @@
 const pcwa = {
   animation: {
     'pcwa-fade-in-from-top':
-      'pcwa-fade-in-from-top var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, forwards)',
+      'pcwa-fade-in-from-top var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) forwards',
     'pcwa-fade-in-from-bottom':
-      'pcwa-fade-in-from-bottom var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, forwards)',
+      'pcwa-fade-in-from-bottom var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) forwards',
     'pcwa-fade-out-from-top':
-      'pcwa-fade-out-from-top var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, forwards)',
+      'pcwa-fade-out-from-top var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) forwards',
     'pcwa-fade-out-from-bottom':
-      'pcwa-fade-out-from-bottom var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, forwards)',
+      'pcwa-fade-out-from-bottom var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) forwards',
     'pcwa-text-focus-in-opaque':
-      'pcwa-text-focus-in-opaque var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, cubic-bezier(0.550, 0.085, 0.680, 0.530)) var(--tw-animation-delay, 0s) var(--tw-animation-fill-mode, both)'
+      'pcwa-text-focus-in-opaque var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, cubic-bezier(0.550, 0.085, 0.680, 0.530)) var(--tw-animation-delay, 0s) both'
   },
   keyframes: {
     'pcwa-fade-in-from-top': {
