@@ -13,11 +13,14 @@ interface Props {
   /** IntersectionObserver root margin. Use negative values (e.g. `"-100px"`) to trigger after the element is fully visible. */
   rootMargin?: string
   /**
-   * Controls visibility behavior before the animation triggers.
-   * - `entrance` (default): element is hidden until intersected, then animates in. Use for slide-in, fade-in, scale-in, etc.
-   * - `attention`: element is always visible; animation is triggered on intersection. Use for shake, tada, etc.
+   * Controls visibility behavior before and after the animation.
+   * - `entrance` (default): hidden until intersected, then animates in. Use for slide-in, fade-in, scale-in.
+   * - `attention`: always visible; animation triggered on intersection. Use for shake, wobble, bounce.
+   * - `exit`: always visible initially, animates out on intersection, then stays hidden on return visits.
+   *   Requires `animateKey` and `fill-mode-forwards` on the animation class so the element
+   *   stays hidden within the same session visit.
    */
-  type?: 'entrance' | 'attention'
+  type?: 'entrance' | 'attention' | 'exit'
   /**
    * When `true` (default), the animation plays once and does not repeat on re-entry.
    * When `false`, the animation replays every time the element enters the viewport.
@@ -80,13 +83,17 @@ export default function Wow({
     ? isIntersecting && !alreadySeen
     : isIntersecting
 
-  // Visibility state machine for entrance animations:
-  //   waiting  (not yet in view):  shouldAnimate=false, alreadySeen=false → opacity-0
-  //   animating (in view, first):  shouldAnimate=true,  alreadySeen=false → className
-  //   done     (after markSeen):   shouldAnimate=false, alreadySeen=true  → visible, no class
-  //   returning (seen in session): shouldAnimate=false, alreadySeen=true  → visible, no class
-  // `!alreadySeen` is what prevents opacity-0 from re-applying after the animation completes,
-  // since shouldAnimate goes false in both "waiting" and "done" states.
+  // Visibility state machine:
+  //
+  // entrance:  waiting  → opacity-0  (shouldAnimate=false, alreadySeen=false)
+  //            animating → className  (shouldAnimate=true)
+  //            done/return → visible  (alreadySeen=true suppresses opacity-0)
+  //
+  // exit:      waiting/animating → visible  (no pre-hiding)
+  //            animating → className  (shouldAnimate=true; add fill-mode-forwards so CSS holds opacity-0)
+  //            return → opacity-0  (alreadySeen=true at mount on subsequent visits)
+  //
+  // attention: always visible; className applied only while shouldAnimate=true
   return (
     <div
       ref={ref}
@@ -95,6 +102,7 @@ export default function Wow({
           !shouldAnimate &&
           !alreadySeen &&
           'opacity-0 motion-reduce:opacity-100',
+        type === 'exit' && alreadySeen && 'opacity-0 motion-reduce:opacity-100',
         shouldAnimate && className
       )}
     >
