@@ -24,7 +24,11 @@ const HEADING_LEVELS: Record<string, CustomElement['level']> = {
   h6: 'six'
 }
 
-function deserializeNode(node: Node, marks: Marks = {}): Descendant[] {
+export interface RichPasteOptions {
+  stripLinks?: boolean
+}
+
+function deserializeNode(node: Node, marks: Marks = {}, options: RichPasteOptions = {}): Descendant[] {
   if (node.nodeType === Node.TEXT_NODE) {
     const text = node.textContent || ''
     if (!text) return []
@@ -51,7 +55,7 @@ function deserializeNode(node: Node, marks: Marks = {}): Descendant[] {
   }
 
   const children = Array.from(el.childNodes).flatMap(child =>
-    deserializeNode(child, currentMarks)
+    deserializeNode(child, currentMarks, options)
   )
   const safeChildren = children.length > 0 ? children : [{text: ''} as CustomText]
 
@@ -72,6 +76,7 @@ function deserializeNode(node: Node, marks: Marks = {}): Descendant[] {
     case 'li':
       return [{type: 'list-item', children: safeChildren} as CustomElement]
     case 'a':
+      if (options.stripLinks) return children
       return [{type: 'link', url: el.getAttribute('href') || '', children: safeChildren} as CustomElement]
     default:
       // Inline/transparent elements (span, strong, em, body, etc.) — pass children through
@@ -92,7 +97,7 @@ function normalizeFragment(nodes: Descendant[]): Descendant[] {
   })
 }
 
-export function withRichPaste(editor: Editor): Editor {
+export function withRichPaste(editor: Editor, options: RichPasteOptions = {}): Editor {
   const {insertData} = editor
 
   editor.insertData = (data: DataTransfer) => {
@@ -100,7 +105,7 @@ export function withRichPaste(editor: Editor): Editor {
 
     if (html) {
       const doc = new DOMParser().parseFromString(html, 'text/html')
-      const fragment = normalizeFragment(deserializeNode(doc.body))
+      const fragment = normalizeFragment(deserializeNode(doc.body, {}, options))
 
       if (fragment.length > 0) {
         Transforms.insertFragment(editor, fragment)
