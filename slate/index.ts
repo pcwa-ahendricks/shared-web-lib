@@ -1,5 +1,6 @@
 export {default as slateValueToPlainText} from './slateValueToPlainText'
 export {withRichPaste} from './withRichPaste'
+export {withStripLinks} from './withStripLinks'
 export {default as useSlateChangeHandler} from './hooks/useSlateChangeHandler'
 export {default as useSlateDebouncedChangeHandler} from './hooks/useSlateDebouncedChangeHandler'
 export {type useSlateDebouncedChangeHandlerProps} from './hooks/useSlateDebouncedChangeHandler'
