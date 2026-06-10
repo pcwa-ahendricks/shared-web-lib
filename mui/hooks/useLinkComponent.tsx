@@ -1,3 +1,5 @@
+'use client'
+
 import Link, {LinkProps} from '../components/Link'
 import {forwardRef, useMemo} from 'react'
 

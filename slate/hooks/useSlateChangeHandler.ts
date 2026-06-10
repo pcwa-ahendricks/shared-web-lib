@@ -1,3 +1,5 @@
+'use client'
+
 import {useCallback} from 'react'
 import {type Descendant, type BaseEditor} from 'slate'
 import {type ReactEditor} from 'slate-react'
