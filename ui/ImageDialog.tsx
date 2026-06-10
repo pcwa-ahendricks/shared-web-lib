@@ -13,7 +13,7 @@ import {
 } from '../../components/ui/dialog'
 import {Button} from '../../components/ui/button'
 import {ButtonGroup} from '../../components/ui/button-group'
-import {cn} from '../../lib/utils'
+import {cn} from '../_core'
 import {IconDownload, IconX} from '@tabler/icons-react'
 
 export type ImageDialogSize = 'sm' | 'base' | 'lg' | 'xl' | 'fit'

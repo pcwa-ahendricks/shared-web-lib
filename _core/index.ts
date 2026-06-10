@@ -1,4 +1,5 @@
 export {default as containsAny} from './containsAny'
+export {default as cn} from './cn'
 export {default as dLog} from './dLog'
 export {
   default as fetcher,
