@@ -1,5 +1,3 @@
-'use client'
-
 import {forwardRef, type ComponentPropsWithoutRef, type ReactNode} from 'react'
 import {cn} from '../_core'
 import {IconSearch} from '@tabler/icons-react'
