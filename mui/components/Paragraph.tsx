@@ -1,4 +1,5 @@
 import {Typography, type TypographyProps} from '@mui/material'
+import {mergeSx} from '../utils'
 
 /**
  * `Paragraph` is a React component that renders its children as a paragraph
@@ -19,11 +20,7 @@ const Paragraph = ({children, sx, ...rest}: TypographyProps) => {
     <Typography
       component="p"
       variant="inherit"
-      sx={{
-        marginBottom: '0.9rem',
-        lineHeight: 1.6,
-        ...sx
-      }}
+      sx={mergeSx({marginBottom: '0.9rem', lineHeight: 1.6}, sx)}
       {...rest}
     >
       {children}
