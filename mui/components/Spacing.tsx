@@ -1,7 +1,8 @@
 'use client'
 
 import {useMemo} from 'react'
-import {Box, BoxProps, useMediaQuery, useTheme} from '@mui/material'
+import {Box, type BoxProps, useMediaQuery, useTheme} from '@mui/material'
+import {mergeSx} from '../utils'
 
 type Props = {
   size?: 'medium' | 'x-small' | 'small' | 'large' | 'x-large'
@@ -54,7 +55,7 @@ export default function Spacing({
   const responsiveSpacing = isXS ? spacing * 0.75 : spacing
 
   return (
-    <Box my={responsiveSpacing} {...rest}>
+    <Box sx={mergeSx({my: responsiveSpacing}, rest.sx)} {...rest}>
       {children}
     </Box>
   )

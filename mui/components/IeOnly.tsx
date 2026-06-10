@@ -14,12 +14,14 @@ import useMatchesIe from '../hooks/useMatchesIe'
  * @param {React.ReactNode} props.children - The children elements to be rendered inside the Box component.
  * @returns {JSX.Element} - A MUI Box component that is only visible in Internet Explorer.
  */
+type IeOnlyProps = BoxProps & {display?: string}
+
 export default function IeOnly({
   display: displayProp = 'block',
   className,
   children,
   ...props
-}: BoxProps) {
+}: IeOnlyProps) {
   const matchesIe = useMatchesIe()
   return (
     <Box

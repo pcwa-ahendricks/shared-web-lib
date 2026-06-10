@@ -111,7 +111,7 @@ const MediaDialogOnClick = ({
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
         onClick={imageClickHandler}
-        position="relative"
+        sx={{position: 'relative'}}
       >
         <div
           ref={popperAnchorEl}

@@ -22,3 +22,4 @@ export {default as useLinkComponent} from './hooks/useLinkComponent'
 export {default as Link, type LinkProps} from './components/Link'
 
 export type {GridSizes, MediaBreakpoints} from './types'
+export {mergeSx} from './utils'

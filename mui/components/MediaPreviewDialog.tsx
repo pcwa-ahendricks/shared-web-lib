@@ -10,7 +10,6 @@ import {
   DialogProps,
   Zoom,
   Box,
-  BoxProps,
   useTheme,
   Typography
 } from '@mui/material'
@@ -30,7 +29,7 @@ export type MediaPreviewDialogProps = {
   width?: ImageProps['width']
   height?: ImageProps['height']
   native?: boolean
-  dialogWidth?: BoxProps['width']
+  dialogWidth?: React.CSSProperties['width']
   factorWidth?: number
   caption?: string
 } & Partial<DialogProps>
@@ -197,7 +196,7 @@ const MediaPreviewDialog = ({
             overflowX: 'hidden'
           }}
         >
-          <Box width={dialogWidth} maxWidth="100%">
+          <Box sx={{width: dialogWidth, maxWidth: '100%'}}>
             <Box
               sx={{
                 position: 'relative',
@@ -207,20 +206,21 @@ const MediaPreviewDialog = ({
               {imgEl}
               {caption && (
                 <Box
-                  position="absolute"
-                  bottom={8}
-                  right={8}
-                  bgcolor={
-                    theme.palette.mode === 'dark'
-                      ? 'rgba(0, 0, 0, 0.6)'
-                      : 'rgba(255, 255, 255, 0.6)'
-                  }
-                  color={theme.palette.text.primary}
-                  px={1.5}
-                  py={0.5}
-                  borderRadius={1}
-                  zIndex={2}
-                  fontSize="0.85rem"
+                  sx={{
+                    position: 'absolute',
+                    bottom: 8,
+                    right: 8,
+                    bgcolor:
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(0, 0, 0, 0.6)'
+                        : 'rgba(255, 255, 255, 0.6)',
+                    color: theme.palette.text.primary,
+                    px: 1.5,
+                    py: 0.5,
+                    borderRadius: 1,
+                    zIndex: 2,
+                    fontSize: '0.85rem'
+                  }}
                 >
                   <Typography sx={{fontSize: 'inherit'}}>{caption}</Typography>
                 </Box>
