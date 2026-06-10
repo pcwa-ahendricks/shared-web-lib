@@ -16,7 +16,8 @@ import MuiLink, {type LinkProps as MuiLinkProps} from '@mui/material/Link'
  * that forwards refs and supports anchor tag props.
  */
 export interface NextLinkComposedProps
-  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
+  extends
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
     Omit<
       NextLinkProps,
       'href' | 'as' | 'passHref' | 'onMouseEnter' | 'onClick' | 'onTouchStart'
