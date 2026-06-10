@@ -3,6 +3,7 @@ import {
   Box,
   Fade,
   Popper,
+  styled,
   Typography as Type,
   useMediaQuery,
   useTheme
@@ -10,7 +11,6 @@ import {
 import MediaPreviewDialog, {
   type MediaPreviewDialogProps
 } from './MediaPreviewDialog'
-import {styled} from '@mui/system'
 
 export type MediaDialogOnClickProps = {
   mediaName: string
@@ -109,7 +109,7 @@ const MediaDialogOnClick = ({
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
         onClick={imageClickHandler}
-        position="relative"
+        sx={{position: 'relative'}}
       >
         <div
           ref={popperAnchorEl}

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Descendant, Text} from 'slate'
 import xss from 'xss'
-import {Link} from '../../next'
+import {Link} from '../../mui'
 
 function serialize(node: Descendant): React.ReactNode {
   if (Text.isText(node)) {

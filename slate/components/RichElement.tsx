@@ -1,6 +1,6 @@
 import {SxProps, Theme, Typography} from '@mui/material'
 import type {CustomRenderElementProps} from '../../slate/types'
-import {Link} from '../../next'
+import {Link} from '../../mui'
 
 /**
  * `RichElement` is a React component that renders Slate.js elements using Material-UI's `Typography` component.
