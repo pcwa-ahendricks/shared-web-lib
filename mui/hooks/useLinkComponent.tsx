@@ -1,5 +1,5 @@
 import Link, {LinkProps} from '../components/Link'
-import {forwardRef, useMemo} from 'react'
+import {forwardRef, useMemo, useRef} from 'react'
 
 /**
  * A custom hook that returns a memoized `Link` component with default and custom props.
@@ -23,6 +23,15 @@ export default function useLinkComponent(
 ) {
   // default noLinkStyle prop to true
   const {noLinkStyle = true, ...rest} = props || {}
+
+  // Use a ref to hold the latest `rest` so the memoized component always reads
+  // the current value without needing to recreate on every render. Without this,
+  // destructuring `rest` from `props` creates a new object reference each call,
+  // causing useMemo to always invalidate and return a new component type — which
+  // in MUI v9 Tabs triggers infinite indicator recalculation loops.
+  const restRef = useRef(rest)
+  restRef.current = rest
+
   const LinkComponent = useMemo(
     () =>
       forwardRef<HTMLAnchorElement, Omit<LinkProps, 'ref'>>(
@@ -31,13 +40,14 @@ export default function useLinkComponent(
             <Link
               noLinkStyle={noLinkStyle}
               ref={ref}
-              {...rest}
+              {...restRef.current}
               {...forwardRefProps}
             />
           )
         }
       ),
-    [rest, noLinkStyle]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [noLinkStyle]
   )
 
   return LinkComponent
