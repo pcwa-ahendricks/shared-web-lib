@@ -203,11 +203,11 @@ export default function ImageDialog({
         </DialogHeader>
 
         {/* relative wrapper keeps the toolbar inside the focus trap without
-            disturbing DialogContent’s fixed centering */}
+            disturbing DialogContent's fixed centering */}
         <div className="relative">
           <div
             className={cn(
-              ‘flex h-full w-full justify-center overflow-auto’,
+              'flex h-full w-full justify-center overflow-auto',
               bodyClassName
             )}
             onClick={(e) => {
@@ -225,11 +225,11 @@ export default function ImageDialog({
                 if (closeOnDoubleTap) handleOpenChange(false)
               }}
               className={cn(
-                ‘relative group select-none’,
-                ‘[&>img]:mx-auto [&>img]:max-h-[94dvh] [&>img]:w-auto [&>img]:max-w-full [&>img]:object-contain’,
-                showToolbar && ‘cursor-default’,
-                closeOnDoubleTap && !showToolbar && ‘cursor-pointer’,
-                size === ‘fit’ && ‘[&>img]:max-h-[100dvh]’
+                'relative group select-none',
+                '[&>img]:mx-auto [&>img]:max-h-[94dvh] [&>img]:w-auto [&>img]:max-w-full [&>img]:object-contain',
+                showToolbar && 'cursor-default',
+                closeOnDoubleTap && !showToolbar && 'cursor-pointer',
+                size === 'fit' && '[&>img]:max-h-[100dvh]'
               )}
             >
               {children}
