@@ -63,7 +63,7 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
       scrim = 'normal',
       showIcon = true,
       icon,
-      iconClassName = 'h-12 w-12 text-white/95',
+      iconClassName = 'h-8 w-8 text-white/95',
       type = 'button',
       ...rest
     },
@@ -94,7 +94,9 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
           )}
         >
           <div className="relative">
-            {children}
+            <div className="transition-transform duration-300 ease-in-out group-hover:scale-105 group-focus-visible:scale-105">
+              {children}
+            </div>
 
             {scrim !== 'none' ? (
               <div
