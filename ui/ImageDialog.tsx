@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogPortal,
   DialogTitle,
   DialogTrigger
 } from '../../components/ui/dialog'
@@ -57,7 +56,7 @@ export type ImageDialogProps = {
   /** Preset dialog width. Defaults to 'base'. */
   size?: ImageDialogSize
 
-  /** Close the dialog when the image is double-clicked / double-tapped. */
+  /** Close the dialog when the image is double-clicked / double-tapped. Defaults to true. */
   closeOnDoubleTap?: boolean
 
   /** Show a small toolbar with icon buttons (e.g., download, close). */
@@ -91,10 +90,14 @@ const widthClasses: Record<ImageDialogSize, string> = {
  *
  * Key behaviors:
  * - Accepts any trigger via `trigger` (uses `asChild`).
- * - Renders an accessible title/description (visually hidden if not provided).
+ * - Renders an accessible title (visually hidden if not provided). Description
+ *   is only rendered when explicitly passed to avoid screen readers reading the
+ *   title twice.
  * - Uses `size` presets to control DialogContent width (and removes shadcn's default max-width via `max-w-none`).
- * - Default click-outside-to-close: clicking outside the image closes the dialog.
- *   (We keep the image area pointer-interactive while allowing the rest of the content area to act like an overlay.)
+ * - Click outside the image (on the backdrop area within the dialog) closes it.
+ * - Double-tap/double-click to close is on by default (`closeOnDoubleTap`).
+ * - Optional toolbar (download + close) renders inside the dialog so it stays
+ *   within Radix's focus trap.
  */
 export default function ImageDialog({
   trigger,
@@ -106,10 +109,10 @@ export default function ImageDialog({
   open,
   onOpenChange,
   size = 'base',
-  closeOnDoubleTap = false,
+  closeOnDoubleTap = true,
   showToolbar = false,
-  downloadHref = undefined,
-  downloadFilename = undefined
+  downloadHref,
+  downloadFilename
 }: ImageDialogProps) {
   const isControlled = open !== undefined
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
@@ -126,7 +129,6 @@ export default function ImageDialog({
   const imageContainerRef = useRef<HTMLDivElement | null>(null)
 
   const resolvedTitle = title ?? 'Image preview'
-  const resolvedDescription = description ?? resolvedTitle
 
   const handleDownload = useCallback(() => {
     const source = downloadHref ?? getImgSrc()
@@ -189,17 +191,51 @@ export default function ImageDialog({
           contentClassName
         )}
       >
-        {/* Keep a title and description for screen readers even when you don’t want visible chrome */}
         <DialogHeader className="sr-only">
           <DialogTitle className="sr-only">{resolvedTitle}</DialogTitle>
-          <DialogDescription className="sr-only">
-            {resolvedDescription}
-          </DialogDescription>
+          {description && (
+            <DialogDescription className="sr-only">
+              {description}
+            </DialogDescription>
+          )}
         </DialogHeader>
 
-        {showToolbar && (
-          <DialogPortal>
-            <div className="pointer-events-none fixed right-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] left-0 z-50 flex justify-center bg-transparent px-4">
+        {/* relative wrapper keeps the toolbar inside the focus trap without
+            disturbing DialogContent's fixed centering */}
+        <div className="relative">
+          <div
+            className={cn(
+              'flex h-full w-full justify-center overflow-auto',
+              bodyClassName
+            )}
+            onClick={(e) => {
+              const imageEl = imageContainerRef.current
+              if (!imageEl) return
+              const target = e.target as Node
+              if (!imageEl.contains(target)) {
+                handleOpenChange(false)
+              }
+            }}
+          >
+            <div
+              ref={imageContainerRef}
+              onDoubleClick={() => {
+                if (closeOnDoubleTap) handleOpenChange(false)
+              }}
+              className={cn(
+                'relative group select-none',
+                '[&>img]:mx-auto [&>img]:max-h-[94dvh] [&>img]:w-auto [&>img]:max-w-full [&>img]:object-contain',
+                showToolbar && 'cursor-default',
+                closeOnDoubleTap && !showToolbar && 'cursor-pointer',
+                size === 'fit' && '[&>img]:max-h-[100dvh]'
+              )}
+            >
+              {children}
+            </div>
+          </div>
+
+          {showToolbar && (
+            <div className="pointer-events-none absolute right-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] left-0 z-10 flex justify-center px-4">
               <div className="bg-popover/90 border-border pointer-events-auto rounded-lg border shadow-xl backdrop-blur">
                 <ButtonGroup aria-label="Media controls">
                   <DialogClose asChild>
@@ -222,43 +258,7 @@ export default function ImageDialog({
                 </ButtonGroup>
               </div>
             </div>
-          </DialogPortal>
-        )}
-
-        <div
-          className={cn(
-            'flex h-full w-full justify-center overflow-auto',
-            bodyClassName
           )}
-          onPointerDown={(e) => {
-            const imageEl = imageContainerRef.current
-            if (!imageEl) return
-
-            const target = e.target as Node
-
-            /*
-            Close dialog when the user clicks anywhere in the dialog body that is NOT the image container.
-            */
-            if (!imageEl.contains(target)) {
-              handleOpenChange(false)
-            }
-          }}
-        >
-          <div
-            ref={imageContainerRef}
-            onDoubleClick={() => {
-              if (closeOnDoubleTap) handleOpenChange(false)
-            }}
-            className={cn(
-              'relative group select-none',
-              '[&>img]:mx-auto [&>img]:max-h-[94dvh] [&>img]:w-auto [&>img]:max-w-full [&>img]:object-contain',
-              showToolbar && 'cursor-default',
-              closeOnDoubleTap && !showToolbar && 'cursor-pointer',
-              size === 'fit' && '[&>img]:max-h-[100dvh]'
-            )}
-          >
-            {children}
-          </div>
         </div>
       </DialogContent>
     </Dialog>
