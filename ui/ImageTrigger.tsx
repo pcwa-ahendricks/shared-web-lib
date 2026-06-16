@@ -89,11 +89,12 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
       >
         <div
           className={cn(
-            'overflow-hidden transition-shadow group-hover:shadow-md group-focus-visible:shadow-md',
+            'transition-shadow duration-300 group-hover:shadow-lg group-focus-visible:shadow-lg',
             thumbClassName
           )}
         >
-          <div className="relative">
+          <div className="overflow-hidden">
+            <div className="relative">
             <div className="transition-transform duration-300 ease-in-out group-hover:scale-105 group-focus-visible:scale-105">
               {children}
             </div>
@@ -120,6 +121,7 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
                 )}
               </div>
             ) : null}
+            </div>
           </div>
         </div>
       </button>
