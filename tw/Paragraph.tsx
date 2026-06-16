@@ -13,7 +13,7 @@ type ParagraphProps = React.HTMLAttributes<HTMLParagraphElement>
  * Provides consistent spacing and readable line-height by default.
  *
  * Defaults:
- * - margin-bottom: 0.9rem
+ * - margin-bottom: 0.9em (scales with font size)
  * - line-height: relaxed (≈ 1.6)
  *
  * Use `className` to extend or override styles.
@@ -31,7 +31,7 @@ type ParagraphProps = React.HTMLAttributes<HTMLParagraphElement>
  */
 function Paragraph({className, ...props}: ParagraphProps) {
   return (
-    <p className={cn('mb-[0.9rem] leading-relaxed', className)} {...props} />
+    <p className={cn('mb-[0.9em] leading-relaxed', className)} {...props} />
   )
 }
 
