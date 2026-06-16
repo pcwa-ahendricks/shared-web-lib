@@ -1,4 +1,5 @@
-import {type ReactNode, useCallback, useRef, useState} from 'react'
+import {type ReactNode, Children, isValidElement, useCallback, useRef, useState} from 'react'
+import {imgixPreloadUrl} from '../../share/next'
 import {
   Dialog,
   DialogClose,
@@ -67,6 +68,26 @@ export type ImageDialogProps = {
 
   /** Optional filename to suggest when downloading the image. */
   downloadFilename?: string
+
+  /** Optional caption overlaid at the bottom of the image. */
+  caption?: string
+
+  /**
+   * Optional className applied to the caption element.
+   * Use this to override text color, background, size, etc. when the image
+   * colors make the default white-on-dark-scrim hard to read.
+   */
+  captionClassName?: string
+
+  /**
+   * Optional URL to preload on hover/focus so the full-res image is already
+   * in the browser cache when the dialog opens.
+   *
+   * Tip: pass `imgixUrlLoader({ src, width: 1200, quality: 75 })` — or use
+   * `window.innerWidth` at hover time by passing a function:
+   *   preloadSrc={() => imgixUrlLoader({ src, width: window.innerWidth, quality: 75 })}
+   */
+  preloadSrc?: string | (() => string)
 }
 
 const widthClasses: Record<ImageDialogSize, string> = {
@@ -112,7 +133,10 @@ export default function ImageDialog({
   closeOnDoubleTap = true,
   showToolbar = false,
   downloadHref,
-  downloadFilename
+  downloadFilename,
+  caption,
+  captionClassName,
+  preloadSrc
 }: ImageDialogProps) {
   const isControlled = open !== undefined
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
@@ -126,7 +150,36 @@ export default function ImageDialog({
     [isControlled, onOpenChange]
   )
 
-  const imageContainerRef = useRef<HTMLDivElement | null>(null)
+  const imageContainerRef = useRef<HTMLElement | null>(null)
+  const preloadedRef = useRef(false)
+
+  // Extract src from the children React element so call sites don't need to
+  // repeat the URL as a separate prop.
+  const autoSrc = (() => {
+    let src: string | undefined
+    Children.forEach(children, (child) => {
+      if (!src && isValidElement(child) && typeof (child.props as {src?: string}).src === 'string') {
+        src = (child.props as {src: string}).src
+      }
+    })
+    return src
+  })()
+
+  const handlePreload = useCallback(() => {
+    if (preloadedRef.current) return
+    try {
+      const url =
+        typeof preloadSrc === 'function' ? preloadSrc()
+        : preloadSrc
+        ?? (autoSrc ? imgixPreloadUrl(autoSrc) : undefined)
+      if (!url) return
+      preloadedRef.current = true
+      const img = new window.Image()
+      img.src = url
+    } catch {
+      // non-imgix or invalid src — skip preload silently
+    }
+  }, [preloadSrc, autoSrc])
 
   const resolvedTitle = title ?? 'Image preview'
 
@@ -181,7 +234,9 @@ export default function ImageDialog({
 
   return (
     <Dialog open={effectiveOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogTrigger asChild onPointerEnter={handlePreload}>
+        {trigger}
+      </DialogTrigger>
 
       <DialogContent
         showCloseButton={false}
@@ -217,21 +272,31 @@ export default function ImageDialog({
               }
             }}
           >
-            <div
+            <figure
               ref={imageContainerRef}
               onDoubleClick={() => {
                 if (closeOnDoubleTap) handleOpenChange(false)
               }}
               className={cn(
                 'relative group select-none',
-                '[&>img]:mx-auto [&>img]:max-h-[94dvh] [&>img]:w-auto [&>img]:max-w-full [&>img]:object-contain',
+                '[&_img]:mx-auto [&_img]:max-h-[94dvh] [&_img]:w-auto [&_img]:max-w-full [&_img]:object-contain',
                 showToolbar && 'cursor-default',
                 closeOnDoubleTap && !showToolbar && 'cursor-pointer',
-                size === 'fit' && '[&>img]:max-h-[100dvh]'
+                size === 'fit' && '[&_img]:max-h-[100dvh]'
               )}
             >
               {children}
-            </div>
+              {caption && (
+                <figcaption
+                  className={cn(
+                    'absolute right-2 bottom-2 px-2 py-0.5 text-xs text-white bg-black/50 rounded',
+                    captionClassName
+                  )}
+                >
+                  {caption}
+                </figcaption>
+              )}
+            </figure>
           </div>
 
           {showToolbar && (
