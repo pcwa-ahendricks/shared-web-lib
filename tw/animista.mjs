@@ -8,6 +8,10 @@ const animista = {
       'mista-scale-in-center var(--tw-animation-duration, var(--tw-duration, 0.5s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) both', // https://animista.net/play/entrances/scale-in/scale-in-center
     'mista-slide-in-left':
       'mista-slide-in-left var(--tw-animation-duration, var(--tw-duration, 0.5s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) both', // https://animista.net/play/entrances/slide-in/slide-in-left
+    'mista-slide-in-right':
+      'mista-slide-in-right var(--tw-animation-duration, var(--tw-duration, 0.5s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) both', // https://animista.net/play/entrances/slide-in/slide-in-right
+    'mista-slide-in-bottom':
+      'mista-slide-in-bottom var(--tw-animation-duration, var(--tw-duration, 0.5s)) var(--tw-ease, cubic-bezier(0.250, 0.460, 0.450, 0.940)) var(--tw-animation-delay, 0s) both', // https://animista.net/play/entrances/slide-in/slide-in-bottom
     'mista-text-focus-in':
       'mista-text-focus-in var(--tw-animation-duration, var(--tw-duration, 1s)) var(--tw-ease, cubic-bezier(0.550, 0.085, 0.680, 0.530)) var(--tw-animation-delay, 0s) both', // https://animista.net/play/text/focus-in
     'mista-shake-bl':
@@ -61,6 +65,28 @@ const animista = {
       },
       '100%': {
         transform: 'translateX(0)',
+        opacity: '1'
+      }
+    },
+    // https://animista.net/play/entrances/slide-in/slide-in-right
+    'mista-slide-in-right': {
+      '0%': {
+        transform: 'translateX(1000px)',
+        opacity: '0'
+      },
+      '100%': {
+        transform: 'translateX(0)',
+        opacity: '1'
+      }
+    },
+    // https://animista.net/play/entrances/slide-in/slide-in-bottom
+    'mista-slide-in-bottom': {
+      '0%': {
+        transform: 'translateY(1000px)',
+        opacity: '0'
+      },
+      '100%': {
+        transform: 'translateY(0)',
         opacity: '1'
       }
     },
