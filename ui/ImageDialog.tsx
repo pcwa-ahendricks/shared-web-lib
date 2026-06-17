@@ -266,10 +266,12 @@ export default function ImageDialog({
               bodyClassName
             )}
             onClick={(e) => {
-              const imageEl = imageContainerRef.current
-              if (!imageEl) return
+              const figure = imageContainerRef.current
+              if (!figure) return
               const target = e.target as Node
-              if (!imageEl.contains(target)) {
+              // Close when clicking the figure background (beside the image)
+              // or the body wrapper (above/below the figure)
+              if (target === figure || target === e.currentTarget) {
                 handleOpenChange(false)
               }
             }}
@@ -280,7 +282,7 @@ export default function ImageDialog({
                 if (closeOnDoubleTap) handleOpenChange(false)
               }}
               className={cn(
-                'relative group select-none',
+                'relative group select-none w-full',
                 '[&_img]:mx-auto [&_img]:max-h-[94dvh] [&_img]:w-auto [&_img]:max-w-full [&_img]:object-contain',
                 showToolbar && 'cursor-default',
                 closeOnDoubleTap && !showToolbar && 'cursor-pointer',
