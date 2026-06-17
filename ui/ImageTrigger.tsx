@@ -68,7 +68,7 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
       scrim = 'normal',
       showIcon = true,
       icon,
-      iconClassName = 'h-8 w-8 text-white/90',
+      iconClassName = 'h-8 w-8 text-white/92',
       iconStrokeWidth = 2,
       type = 'button',
       ...rest
