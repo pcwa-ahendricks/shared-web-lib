@@ -9,12 +9,7 @@ export {default as Span} from './components/Span'
 export {default as SeoOnly} from './components/SeoOnly'
 export {default as SrOnly} from './components/SrOnly'
 export {default as Nav} from './components/Nav'
-export {default as MediaPreviewDialog} from './components/MediaPreviewDialog'
 export {default as Paragraph, P} from './components/Paragraph'
-export {
-  default as MediaDialogOnClick,
-  type MediaDialogOnClickProps
-} from './components/MediaDialogOnClick'
 export {default as useLinkComponent} from './hooks/useLinkComponent'
 export {default as Link, type LinkProps} from './components/Link'
 
