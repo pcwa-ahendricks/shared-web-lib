@@ -51,6 +51,11 @@ export type ImageTriggerProps = {
    * Optional icon className (size/color). Only used for the default icon.
    */
   iconClassName?: string
+
+  /**
+   * Stroke width for the default icon. Defaults to 2 (Tabler default).
+   */
+  iconStrokeWidth?: number
 } & Omit<ComponentPropsWithoutRef<'button'>, 'children' | 'className'>
 
 const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
@@ -63,7 +68,8 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
       scrim = 'normal',
       showIcon = true,
       icon,
-      iconClassName = 'h-8 w-8 text-white/95',
+      iconClassName = 'h-8 w-8 text-white/90',
+      iconStrokeWidth = 2,
       type = 'button',
       ...rest
     },
@@ -113,8 +119,9 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
                 {icon ?? (
                   <IconSearch
                     aria-hidden="true"
+                    strokeWidth={iconStrokeWidth}
                     className={cn(
-                      'opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100',
+                      'opacity-0 transition-opacity duration-350 group-hover:opacity-100 group-focus-visible:opacity-100',
                       iconClassName
                     )}
                   />
