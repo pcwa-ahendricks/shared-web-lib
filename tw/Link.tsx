@@ -1,13 +1,8 @@
-import {forwardRef} from 'react'
-import {Slot} from '@radix-ui/react-slot'
+import {mergeProps} from '@base-ui/react/merge-props'
+import {useRender} from '@base-ui/react/use-render'
 import {cn} from '../_core'
 
-/**
- * Props for the Link component.
- * Extends standard HTML <a> attributes and allows Tailwind class overrides.
- */
-type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-  asChild?: boolean
+type LinkProps = useRender.ComponentProps<'a'> & {
   underline?: 'always' | 'hover' | 'none'
 }
 
@@ -26,15 +21,15 @@ type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
  * Note: we always show an underline on `:focus-visible` to provide a clear
  * keyboard focus indicator.
  *
- * For Next.js client-side navigation, use `asChild` with `next/link`
+ * For Next.js client-side navigation, use `render` with `next/link`
  * to avoid nested anchors and keep styling centralized:
  *
  * ```tsx
  * import NextLink from 'next/link'
  * import Link from '@/share/tw/Link'
  *
- * <Link asChild underline="hover">
- *   <NextLink href="/purpose-and-powers">Purpose & Powers</NextLink>
+ * <Link render={<NextLink href="/purpose-and-powers" />} underline="hover">
+ *   Purpose & Powers
  * </Link>
  * ```
  *
@@ -43,30 +38,27 @@ type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
  *
  * Use `className` to extend or override styles.
  */
-const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({asChild = false, underline = 'always', className, ...props}, ref) => {
-    const Comp = asChild ? Slot : 'a'
-
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
+function Link({underline = 'always', className, render, ...props}: LinkProps) {
+  return useRender({
+    defaultTagName: 'a',
+    props: mergeProps<'a'>(
+      {
+        className: cn(
           'decoration-faint decoration-1 underline-offset-4 opacity-90 ' +
             'transition-colors hover:decoration-[1.5px] hover:opacity-100 ' +
             'focus-visible:underline focus-visible:decoration-[1.5px] focus-visible:opacity-100',
           underline === 'always' && 'underline',
-          // tighten hover underline styles for better UX
           underline === 'hover' &&
             'no-underline hover:underline hover:underline-offset-3 focus-visible:underline-offset-3',
           underline === 'none' && 'no-underline',
           className
-        )}
-        {...props}
-      />
-    )
-  }
-)
-Link.displayName = 'Link'
+        ),
+      },
+      props
+    ),
+    render,
+  })
+}
 
 const A = Link
 
