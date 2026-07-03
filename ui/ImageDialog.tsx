@@ -109,7 +109,7 @@ const widthClasses: Record<ImageDialogSize, string> = {
 /**
  * ImageDialog
  *
- * A shadcn/ui (Radix) dialog wrapper for image/lightbox-style previews.
+ * A shadcn/ui (Base UI) dialog wrapper for image/lightbox-style previews.
  *
  * Key behaviors:
  * - Accepts any trigger via `trigger` (passed as the `render` prop to DialogTrigger).
@@ -120,7 +120,7 @@ const widthClasses: Record<ImageDialogSize, string> = {
  * - Click outside the image (on the backdrop area within the dialog) closes it.
  * - Double-tap/double-click to close is on by default (`closeOnDoubleTap`).
  * - Optional toolbar (download + close) renders inside the dialog so it stays
- *   within Radix's focus trap.
+ *   within Base UI's focus trap.
  */
 export default function ImageDialog({
   trigger,
@@ -187,7 +187,7 @@ export default function ImageDialog({
 
   // Close when clicking the figure background (beside the image) or the
   // body wrapper (above/below the figure). Mouse-only shortcut for an
-  // action (close) that's already fully keyboard-accessible via Radix's
+  // action (close) that's already fully keyboard-accessible via Base UI's
   // native Escape handling.
   const handleBodyClick = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
@@ -277,7 +277,7 @@ export default function ImageDialog({
         {/* relative wrapper keeps the toolbar inside the focus trap without
             disturbing DialogContent's fixed centering */}
         <div className="relative">
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- mouse-only shortcut for an action (close) that's already fully keyboard-accessible via Radix's native Escape handling */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- mouse-only shortcut for an action (close) that's already fully keyboard-accessible via Base UI's native Escape handling */}
           <div
             className={cn(
               'flex h-full w-full justify-center overflow-auto',

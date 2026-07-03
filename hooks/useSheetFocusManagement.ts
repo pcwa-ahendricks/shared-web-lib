@@ -3,8 +3,8 @@
 import {useCallback, useRef} from 'react'
 
 /**
- * Focus management contract for Radix-backed sheet/dialog UIs whose open and
- * close behavior should differ between pointer and keyboard interaction.
+ * Focus management contract for Base UI-backed sheet/dialog UIs whose open
+ * and close behavior should differ between pointer and keyboard interaction.
  */
 type UseSheetFocusManagementResult<T extends HTMLElement> = {
   /**
@@ -27,22 +27,22 @@ type UseSheetFocusManagementResult<T extends HTMLElement> = {
   handleKeyboardInteraction: () => void
 
   /**
-   * Wire into Radix `onOpenAutoFocus`.
+   * Wire into Base UI's `onOpenAutoFocus`.
    */
   handleSheetOpenAutoFocus: (event: Event) => void
 
   /**
-   * Wire into Radix `onCloseAutoFocus`.
+   * Wire into Base UI's `onCloseAutoFocus`.
    */
   handleSheetCloseAutoFocus: (event: Event) => void
 }
 
 /**
- * Manages Radix sheet auto-focus in a way that preserves keyboard accessibility
- * without showing unwanted focus styles for touch/pointer users.
+ * Manages Base UI sheet auto-focus in a way that preserves keyboard
+ * accessibility without showing unwanted focus styles for touch/pointer users.
  *
  * Why this exists:
- * Radix's default sheet/dialog behavior restores and redirects focus for
+ * Base UI's default sheet/dialog behavior restores and redirects focus for
  * accessibility, which is correct in principle. On touch devices, especially
  * iOS Safari, that can also produce noisy visual states such as:
  * - a focus ring on the first sheet link immediately after opening
@@ -52,7 +52,7 @@ type UseSheetFocusManagementResult<T extends HTMLElement> = {
  * strategy:
  * - Keyboard interaction: move focus to the first meaningful control on open
  *   and allow normal focus restoration on close.
- * - Pointer interaction: suppress Radix's visible autofocus on open and
+ * - Pointer interaction: suppress Base UI's visible autofocus on open and
  *   suppress trigger refocus on close.
  */
 const useSheetFocusManagement = <
@@ -84,9 +84,9 @@ const useSheetFocusManagement = <
   const handleSheetCloseAutoFocus = useCallback((event: Event) => {
     if (shouldRestoreFocusRef.current) return
 
-    // When a pointer interaction closes the sheet, prevent Radix from sending
-    // focus back to the trigger. Blurring the active element avoids a lingering
-    // iOS/Safari outline during route transitions.
+    // When a pointer interaction closes the sheet, prevent Base UI from
+    // sending focus back to the trigger. Blurring the active element avoids a
+    // lingering iOS/Safari outline during route transitions.
     event.preventDefault()
 
     if (document.activeElement instanceof HTMLElement) {
