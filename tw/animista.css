@@ -1,0 +1,329 @@
+/*
+Animista animation presets (https://animista.net) as Tailwind v4 theme tokens.
+CSS port of animista.mjs (legacy JS config version) — usable as `animate-mista-*`
+utilities. Keyframes live inside @theme so unused ones are tree-shaken from the
+build along with their animation token.
+*/
+
+@theme {
+  /* https://animista.net/play/entrances/fade-in */
+  --animate-mista-fade-in: mista-fade-in
+    var(--tw-animation-duration, var(--tw-duration, 1.2s))
+    var(--tw-ease, cubic-bezier(0.39, 0.575, 0.565, 1))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-fade-in {
+    0% {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* https://animista.net/play/exits/fade-out */
+  --animate-mista-fade-out: mista-fade-out
+    var(--tw-animation-duration, var(--tw-duration, 1s)) var(--tw-ease, ease-out)
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-fade-out {
+    0% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  /* https://animista.net/play/entrances/scale-in/scale-in-center */
+  --animate-mista-scale-in-center: mista-scale-in-center
+    var(--tw-animation-duration, var(--tw-duration, 0.5s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-scale-in-center {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* https://animista.net/play/entrances/slide-in/slide-in-left */
+  --animate-mista-slide-in-left: mista-slide-in-left
+    var(--tw-animation-duration, var(--tw-duration, 0.5s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-slide-in-left {
+    0% {
+      transform: translateX(-1000px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /* https://animista.net/play/entrances/slide-in/slide-in-right */
+  --animate-mista-slide-in-right: mista-slide-in-right
+    var(--tw-animation-duration, var(--tw-duration, 0.5s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-slide-in-right {
+    0% {
+      transform: translateX(1000px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /* https://animista.net/play/entrances/slide-in/slide-in-bottom */
+  --animate-mista-slide-in-bottom: mista-slide-in-bottom
+    var(--tw-animation-duration, var(--tw-duration, 0.5s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-slide-in-bottom {
+    0% {
+      transform: translateY(1000px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* https://animista.net/play/text/focus-in */
+  --animate-mista-text-focus-in: mista-text-focus-in
+    var(--tw-animation-duration, var(--tw-duration, 1s))
+    var(--tw-ease, cubic-bezier(0.55, 0.085, 0.68, 0.53))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-text-focus-in {
+    0% {
+      filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }
+
+  /* https://animista.net/play/attention/shake/shake-bl */
+  --animate-mista-shake-bl: mista-shake-bl
+    var(--tw-animation-duration, var(--tw-duration, 0.8s))
+    var(--tw-ease, cubic-bezier(0.455, 0.03, 0.515, 0.955))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-shake-bl {
+    0%,
+    100% {
+      transform: rotate(0deg);
+      transform-origin: 0 100%;
+    }
+    10% {
+      transform: rotate(2deg);
+    }
+    20%,
+    40%,
+    60% {
+      transform: rotate(-4deg);
+    }
+    30%,
+    50%,
+    70% {
+      transform: rotate(4deg);
+    }
+    80% {
+      transform: rotate(-2deg);
+    }
+    90% {
+      transform: rotate(2deg);
+    }
+  }
+
+  /* https://animista.net/play/attention/shake/shake-bottom */
+  --animate-mista-shake-bottom: mista-shake-bottom
+    var(--tw-animation-duration, var(--tw-duration, 0.8s))
+    var(--tw-ease, cubic-bezier(0.455, 0.03, 0.515, 0.955))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-shake-bottom {
+    0%,
+    100% {
+      transform: rotate(0deg);
+      transform-origin: 50% 100%;
+    }
+    10% {
+      transform: rotate(2deg);
+    }
+    20%,
+    40%,
+    60% {
+      transform: rotate(-4deg);
+    }
+    30%,
+    50%,
+    70% {
+      transform: rotate(4deg);
+    }
+    80% {
+      transform: rotate(-2deg);
+    }
+    90% {
+      transform: rotate(2deg);
+    }
+  }
+
+  /* https://animista.net/play/basic/rotate-90/rotate-90-cw */
+  --animate-mista-rotate-90-cw: mista-rotate-90-cw
+    var(--tw-animation-duration, var(--tw-duration, 0.4s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-rotate-90-cw {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* https://animista.net/play/basic/rotate-90/rotate-90-ccw */
+  --animate-mista-rotate-90-ccw: mista-rotate-90-ccw
+    var(--tw-animation-duration, var(--tw-duration, 0.4s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-rotate-90-ccw {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-90deg);
+    }
+  }
+
+  /* Custom 180 CW degree rotation */
+  --animate-mista-rotate-180-cw: mista-rotate-180-cw
+    var(--tw-animation-duration, var(--tw-duration, 0.4s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-rotate-180-cw {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(180deg);
+    }
+  }
+
+  /* Custom 180 CCW degree rotation */
+  --animate-mista-rotate-180-ccw: mista-rotate-180-ccw
+    var(--tw-animation-duration, var(--tw-duration, 0.4s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-rotate-180-ccw {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-180deg);
+    }
+  }
+
+  /* https://animista.net/play/entrances/slide-in-fwd/slide-in-fwd-left */
+  --animate-mista-slide-in-fwd-left: mista-slide-in-fwd-left
+    var(--tw-animation-duration, var(--tw-duration, 0.4s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-slide-in-fwd-left {
+    0% {
+      transform: translateZ(-1400px) translateX(-1000px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateZ(0) translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /* https://animista.net/play/entrances/slide-in-fwd/slide-in-fwd-right */
+  --animate-mista-slide-in-fwd-right: mista-slide-in-fwd-right
+    var(--tw-animation-duration, var(--tw-duration, 0.4s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-slide-in-fwd-right {
+    0% {
+      transform: translateZ(-1400px) translateX(1000px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateZ(0) translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /* https://animista.net/play/entrances/slide-in-elliptic/slide-in-elliptic-left-fwd */
+  --animate-mista-slide-in-elliptic-left-fwd: mista-slide-in-elliptic-left-fwd
+    var(--tw-animation-duration, var(--tw-duration, 0.7s))
+    var(--tw-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94))
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-slide-in-elliptic-left-fwd {
+    0% {
+      transform: translateX(-800px) rotateY(30deg) scale(0);
+      transform-origin: -100% 50%;
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0) rotateY(0) scale(1);
+      transform-origin: 1800px 50%;
+      opacity: 1;
+    }
+  }
+
+  /* https://animista.net/play/attention/wobble/wobble-ver-left */
+  --animate-mista-wobble-ver-left: mista-wobble-ver-left
+    var(--tw-animation-duration, var(--tw-duration, 0.8s)) var(--tw-ease, ease)
+    var(--tw-animation-delay, 0s) both;
+
+  @keyframes mista-wobble-ver-left {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0);
+      transform-origin: 50% 50%;
+    }
+    15% {
+      transform: translateY(-30px) rotate(-6deg);
+    }
+    30% {
+      transform: translateY(15px) rotate(6deg);
+    }
+    45% {
+      transform: translateY(-15px) rotate(-3.6deg);
+    }
+    60% {
+      transform: translateY(9px) rotate(2.4deg);
+    }
+    75% {
+      transform: translateY(-6px) rotate(-1.2deg);
+    }
+  }
+}
