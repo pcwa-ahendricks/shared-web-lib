@@ -1,6 +1,6 @@
 'use client'
 
-import {type ReactNode, Children, isValidElement, useCallback, useRef, useState} from 'react'
+import {type ReactNode, type MouseEvent, Children, isValidElement, useCallback, useRef, useState} from 'react'
 import imgixPreloadUrl from '../next/imgixPreloadUrl'
 import {
   Dialog,
@@ -185,6 +185,22 @@ export default function ImageDialog({
 
   const resolvedTitle = title ?? 'Image preview'
 
+  // Close when clicking the figure background (beside the image) or the
+  // body wrapper (above/below the figure). Mouse-only shortcut for an
+  // action (close) that's already fully keyboard-accessible via Radix's
+  // native Escape handling.
+  const handleBodyClick = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      const figure = imageContainerRef.current
+      if (!figure) return
+      const target = e.target as Node
+      if (target === figure || target === e.currentTarget) {
+        handleOpenChange(false)
+      }
+    },
+    [handleOpenChange]
+  )
+
   const handleDownload = useCallback(() => {
     const source = downloadHref ?? getImgSrc()
 
@@ -260,21 +276,13 @@ export default function ImageDialog({
         {/* relative wrapper keeps the toolbar inside the focus trap without
             disturbing DialogContent's fixed centering */}
         <div className="relative">
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- mouse-only shortcut for an action (close) that's already fully keyboard-accessible via Radix's native Escape handling */}
           <div
             className={cn(
               'flex h-full w-full justify-center overflow-auto',
               bodyClassName
             )}
-            onClick={(e) => {
-              const figure = imageContainerRef.current
-              if (!figure) return
-              const target = e.target as Node
-              // Close when clicking the figure background (beside the image)
-              // or the body wrapper (above/below the figure)
-              if (target === figure || target === e.currentTarget) {
-                handleOpenChange(false)
-              }
-            }}
+            onClick={handleBodyClick}
           >
             <figure
               ref={imageContainerRef}

@@ -1,7 +1,6 @@
 'use client'
 
-import {useCallback, useEffect, useState} from 'react'
-import {useEventListener, useWindowSize} from 'usehooks-ts'
+import {useCallback, useSyncExternalStore} from 'react'
 
 /**
  * Custom hook that detects if the user has scrolled to the bottom of the page,
@@ -13,36 +12,30 @@ import {useEventListener, useWindowSize} from 'usehooks-ts'
  * @example
  * const isBottom = useScrolledToBottom();
  *
- * useEffect(() => {
- *   if (isBottom) {
- *     console.log("User has reached the bottom of the page!");
- *   }
- * }, [isBottom]);
+ * if (isBottom) {
+ *   console.log("User has reached the bottom of the page!");
+ * }
  */
 const useScrolledToBottom = (tolerance: number = 5): boolean => {
-  const [isBottom, setIsBottom] = useState(false)
-  const {height: windowHeight} = useWindowSize()
-
-  const updateIsBottom = useCallback(() => {
-    if (typeof window === 'undefined') {
-      setIsBottom(false)
-      return
+  const subscribe = useCallback((onChange: () => void) => {
+    window.addEventListener('scroll', onChange, {passive: true})
+    window.addEventListener('resize', onChange, {passive: true})
+    return () => {
+      window.removeEventListener('scroll', onChange)
+      window.removeEventListener('resize', onChange)
     }
+  }, [])
 
-    const scrolledToBottom =
-      windowHeight + window.scrollY >=
-      document.documentElement.scrollHeight - tolerance
+  const getSnapshot = useCallback(
+    () =>
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - tolerance,
+    [tolerance]
+  )
 
-    setIsBottom(scrolledToBottom)
-  }, [tolerance, windowHeight])
+  const getServerSnapshot = useCallback(() => false, [])
 
-  useEffect(() => {
-    updateIsBottom()
-  }, [updateIsBottom])
-
-  useEventListener('scroll', updateIsBottom, undefined, {passive: true})
-
-  return isBottom
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }
 
 export default useScrolledToBottom

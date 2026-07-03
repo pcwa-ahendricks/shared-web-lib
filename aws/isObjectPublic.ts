@@ -39,9 +39,9 @@ export default async function isObjectPublic(
     await s3Client.send(command)
     // If the request succeeds, the object is public
     return true
-  } catch (error: any) {
+  } catch (error) {
     if (
-      error?.name &&
+      error instanceof Error &&
       (error.name === 'Forbidden' || error.name === 'AccessDenied')
     ) {
       // If access is forbidden, the object is private
