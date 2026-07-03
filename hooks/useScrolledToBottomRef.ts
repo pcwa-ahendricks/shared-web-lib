@@ -30,7 +30,6 @@ const useScrolledToBottomRef = <T extends HTMLElement>(): [
     const root = node?.parentElement
 
     if (!node || !root || typeof IntersectionObserver === 'undefined') {
-      setIsBottom(false)
       return
     }
 
