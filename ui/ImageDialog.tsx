@@ -1,6 +1,6 @@
 'use client'
 
-import {type ReactNode, type MouseEvent, Children, isValidElement, useCallback, useRef, useState} from 'react'
+import {type ReactNode, type ReactElement, type MouseEvent, Children, isValidElement, useCallback, useRef, useState} from 'react'
 import imgixPreloadUrl from '../next/imgixPreloadUrl'
 import {
   Dialog,
@@ -112,7 +112,7 @@ const widthClasses: Record<ImageDialogSize, string> = {
  * A shadcn/ui (Radix) dialog wrapper for image/lightbox-style previews.
  *
  * Key behaviors:
- * - Accepts any trigger via `trigger` (uses `asChild`).
+ * - Accepts any trigger via `trigger` (passed as the `render` prop to DialogTrigger).
  * - Renders an accessible title (visually hidden if not provided). Description
  *   is only rendered when explicitly passed to avoid screen readers reading the
  *   title twice.
@@ -252,9 +252,10 @@ export default function ImageDialog({
 
   return (
     <Dialog open={effectiveOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild onPointerEnter={handlePreload}>
-        {trigger}
-      </DialogTrigger>
+      <DialogTrigger
+        render={trigger as ReactElement}
+        onPointerEnter={handlePreload}
+      />
 
       <DialogContent
         showCloseButton={false}
@@ -315,14 +316,16 @@ export default function ImageDialog({
             <div className="pointer-events-none absolute right-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] left-0 z-10 flex justify-center px-4">
               <div className="bg-popover/90 border-border pointer-events-auto rounded-lg border shadow-xl backdrop-blur">
                 <ButtonGroup aria-label="Media controls">
-                  <DialogClose asChild>
-                    <Button
-                      variant="outline"
-                      aria-label="Close image dialog"
-                      size="sm"
-                    >
-                      <IconX /> Close
-                    </Button>
+                  <DialogClose
+                    render={
+                      <Button
+                        variant="outline"
+                        aria-label="Close image dialog"
+                        size="sm"
+                      />
+                    }
+                  >
+                    <IconX /> Close
                   </DialogClose>
                   <Button
                     variant="outline"
