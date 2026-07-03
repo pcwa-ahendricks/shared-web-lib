@@ -25,7 +25,7 @@
  * //   'vegetable' => [{ category: 'vegetable', name: 'carrot' }]
  * // }
  */
-const groupBy = <T, U>(list: T[], keyGetter: (param: T) => any) => {
+const groupBy = <T, U>(list: T[], keyGetter: (param: T) => U) => {
   const map = new Map<U, T[]>()
   list.forEach((item) => {
     const key = keyGetter(item)

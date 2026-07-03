@@ -9,6 +9,7 @@ type PreparedHeaders = Partial<{
 }>
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- matches lib.dom.d.ts's own `Body.json(): Promise<any>`; the response shape is unknowable until a caller supplies ResponseType
   function fetch<ResponseType = any>(
     input: RequestInfo | URL,
     init?: TypedRequestInit

@@ -133,7 +133,7 @@ export default async function getS3Media({
             // console.log(`Metadata for ${object.Key}:`, headResponse.Metadata)
             return {...object, metadata: headResponse.Metadata}
           } catch (error) {
-            console.error(`Failed to fetch metadata for: ${object.Key}`)
+            console.error(`Failed to fetch metadata for: ${object.Key}`, error)
             // Return the object without any metadata
             return {...object, metadata: {}}
           }
