@@ -280,7 +280,7 @@ export default function ImageDialog({
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- mouse-only shortcut for an action (close) that's already fully keyboard-accessible via Base UI's native Escape handling */}
           <div
             className={cn(
-              'flex h-full w-full justify-center overflow-auto',
+              'flex size-full justify-center overflow-auto',
               bodyClassName
             )}
             onClick={handleBodyClick}
@@ -313,7 +313,7 @@ export default function ImageDialog({
           </div>
 
           {showToolbar && (
-            <div className="pointer-events-none absolute right-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] left-0 z-10 flex justify-center px-4">
+            <div className="pointer-events-none absolute inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-10 flex justify-center px-4">
               <div className="bg-popover/90 border-border pointer-events-auto rounded-lg border shadow-xl backdrop-blur">
                 <ButtonGroup aria-label="Media controls">
                   <DialogClose
