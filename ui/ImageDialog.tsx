@@ -13,8 +13,7 @@ import {
 } from '../../components/ui/dialog'
 import {Button} from '../../components/ui/button'
 import {ButtonGroup} from '../../components/ui/button-group'
-import {cn} from '../_core'
-import {IconDownload, IconX} from '@tabler/icons-react'
+import {cn} from '../_classnames'
 
 export type ImageDialogSize = 'sm' | 'base' | 'lg' | 'xl' | 'fit'
 
@@ -64,6 +63,21 @@ export type ImageDialogProps = {
 
   /** Show a small toolbar with icon buttons (e.g., download, close). */
   showToolbar?: boolean
+
+  /**
+   * Icon for the toolbar's close button, from your app's icon library. This
+   * library ships no icons of its own. Optional — the button is labelled
+   * "Close", so omitting this just gives a text-only button. Only used when
+   * `showToolbar` is true.
+   */
+  closeIcon?: ReactNode
+
+  /**
+   * Icon for the toolbar's download button, from your app's icon library.
+   * Optional for the same reason as `closeIcon`. Only used when `showToolbar`
+   * is true.
+   */
+  downloadIcon?: ReactNode
 
   /** Optional explicit URL to use for downloading the image. */
   downloadHref?: string
@@ -134,6 +148,8 @@ export default function ImageDialog({
   size = 'base',
   closeOnDoubleTap = true,
   showToolbar = false,
+  closeIcon,
+  downloadIcon,
   downloadHref,
   downloadFilename,
   caption,
@@ -325,7 +341,7 @@ export default function ImageDialog({
                       />
                     }
                   >
-                    <IconX /> Close
+                    {closeIcon} Close
                   </DialogClose>
                   <Button
                     variant="outline"
@@ -333,7 +349,7 @@ export default function ImageDialog({
                     onClick={handleDownload}
                     size="sm"
                   >
-                    <IconDownload /> Download
+                    {downloadIcon} Download
                   </Button>
                 </ButtonGroup>
               </div>

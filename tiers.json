@@ -1,0 +1,96 @@
+{
+  "$comment": [
+    "Dependency contract for this library. It is consumed as source (never installed),",
+    "so a consuming app must provide every package a tier imports. This file states",
+    "what each tier needs so that requirement is checkable instead of tribal knowledge.",
+    "",
+    "  deps     npm packages the tier imports directly.",
+    "  requires other tiers it imports, resolved transitively by the checker.",
+    "  shadcn   components the tier expects at <app>/src/components/ui/<name>.tsx.",
+    "",
+    "Baseline assumed of every consumer and therefore not listed: react, react-dom,",
+    "typescript, and Node builtins. Apps opt into tiers, and exclude the rest from",
+    "their tsconfig; keep this file in step with the imports it describes."
+  ],
+  "tiers": {
+    "_core": {
+      "description": "Framework-free, dependency-free utilities. Safe in any app.",
+      "requires": [],
+      "deps": [],
+      "shadcn": []
+    },
+    "_classnames": {
+      "description": "Tailwind class merger. Split from _core so that tier stays Tailwind-free, and kept out of tw so ui and slate can merge classes without inheriting Base UI.",
+      "requires": [],
+      "deps": ["clsx", "tailwind-merge"],
+      "shadcn": []
+    },
+    "hooks": {
+      "description": "React hooks. No UI-library coupling.",
+      "requires": [],
+      "deps": ["usehooks-ts"],
+      "shadcn": []
+    },
+    "next": {
+      "description": "Next.js helpers, chiefly imgix image loaders.",
+      "requires": [],
+      "deps": ["next"],
+      "shadcn": []
+    },
+    "date-fns": {
+      "description": "Date and timezone helpers.",
+      "requires": [],
+      "deps": ["@date-fns/tz"],
+      "shadcn": []
+    },
+    "tw": {
+      "description": "Tailwind/Base UI primitives and stylesheets.",
+      "requires": ["_classnames", "hooks"],
+      "deps": ["@base-ui/react", "next", "usehooks-ts"],
+      "shadcn": []
+    },
+    "ui": {
+      "description": "shadcn-based components. Renders against the app's own shadcn copies.",
+      "requires": ["_classnames", "next"],
+      "deps": [],
+      "shadcn": ["button", "button-group", "dialog"]
+    },
+    "mui": {
+      "description": "MUI components. Mutually exclusive with tw/ui in practice.",
+      "requires": ["_core"],
+      "deps": ["@mui/material", "@mui/system", "clsx", "next"],
+      "shadcn": []
+    },
+    "mui-pages": {
+      "description": "Pages Router variants of the mui tier.",
+      "requires": ["mui"],
+      "deps": [],
+      "shadcn": []
+    },
+    "slate": {
+      "description": "Slate rich-text editor. Pulls MUI in via its toolbar.",
+      "requires": ["_classnames", "mui", "types"],
+      "deps": [
+        "@mui/icons-material",
+        "@mui/material",
+        "slate",
+        "slate-react",
+        "use-debounce",
+        "xss"
+      ],
+      "shadcn": []
+    },
+    "types": {
+      "description": "Ambient declarations. Circular with slate by design.",
+      "requires": ["slate"],
+      "deps": ["slate", "slate-history", "slate-react"],
+      "shadcn": []
+    },
+    "aws": {
+      "description": "S3 helpers. Server-only.",
+      "requires": ["_core", "date-fns"],
+      "deps": ["@aws-sdk/client-s3", "date-fns", "filenamify"],
+      "shadcn": []
+    }
+  }
+}

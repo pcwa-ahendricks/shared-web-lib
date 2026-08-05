@@ -1,8 +1,7 @@
 'use client'
 
 import {forwardRef, type ComponentPropsWithoutRef, type ReactNode} from 'react'
-import {cn} from '../_core'
-import {IconSearch} from '@tabler/icons-react'
+import {cn} from '../_classnames'
 
 export type ImageTriggerProps = {
   /**
@@ -37,25 +36,16 @@ export type ImageTriggerProps = {
   scrim?: 'subtle' | 'normal' | 'none'
 
   /**
-   * If true (default), shows a centered search icon on hover/focus.
+   * Icon revealed at center on hover/focus, typically a magnifier to suggest
+   * "click to enlarge". Required: this library ships no icons of its own, so the
+   * app supplies one from whichever library it uses.
+   *
+   * Pass `null` for no icon — the zoom cursor and scrim still signal the
+   * affordance. Supply your own size and color (e.g.
+   * `<SearchIcon className="h-8 w-8 text-white/92" />`); the hover/focus reveal
+   * is applied by the wrapper.
    */
-  showIcon?: boolean
-
-  /**
-   * Optional override for the icon element. Use this if you want a different icon.
-   * If omitted, a Tabler IconSearch is used.
-   */
-  icon?: ReactNode
-
-  /**
-   * Optional icon className (size/color). Only used for the default icon.
-   */
-  iconClassName?: string
-
-  /**
-   * Stroke width for the default icon. Defaults to 2 (Tabler default).
-   */
-  iconStrokeWidth?: number
+  icon: ReactNode
 } & Omit<ComponentPropsWithoutRef<'button'>, 'children' | 'className'>
 
 const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
@@ -66,10 +56,7 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
       thumbClassName,
       zoomCursor = true,
       scrim = 'normal',
-      showIcon = true,
       icon,
-      iconClassName = 'h-8 w-8 text-white/92',
-      iconStrokeWidth = 2,
       type = 'button',
       ...rest
     },
@@ -114,18 +101,19 @@ const ImageTrigger = forwardRef<HTMLButtonElement, ImageTriggerProps>(
               />
             ) : null}
 
-            {showIcon ? (
+            {icon ? (
               <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-                {icon ?? (
-                  <IconSearch
-                    aria-hidden="true"
-                    strokeWidth={iconStrokeWidth}
-                    className={cn(
-                      'opacity-0 transition-opacity duration-350 group-hover:opacity-100 group-focus-visible:opacity-100',
-                      iconClassName
-                    )}
-                  />
-                )}
+                {/* The hover/focus reveal lives on this wrapper so the app's
+                    icon only has to supply its own size and color. `aria-hidden`
+                    is here rather than on the icon because the icon comes from
+                    the app: this guarantees it stays decorative regardless of
+                    whether the app's icon library sets the attribute itself. */}
+                <span
+                  aria-hidden="true"
+                  className="opacity-0 transition-opacity duration-350 group-hover:opacity-100 group-focus-visible:opacity-100"
+                >
+                  {icon}
+                </span>
               </div>
             ) : null}
             </div>

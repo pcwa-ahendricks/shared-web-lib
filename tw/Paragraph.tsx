@@ -1,4 +1,4 @@
-import {cn} from '../_core'
+import {cn} from '../_classnames'
 
 /**
  * Props for the Paragraph component.

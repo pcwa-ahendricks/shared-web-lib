@@ -2,7 +2,7 @@ import React from 'react'
 import {Descendant, Text} from 'slate'
 import xss from 'xss'
 import {Link} from '../../mui'
-import {cn} from '../../_core'
+import {cn} from '../../_classnames'
 
 type ElementKey =
   | 'paragraph'

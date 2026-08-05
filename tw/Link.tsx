@@ -1,6 +1,6 @@
 import {mergeProps} from '@base-ui/react/merge-props'
 import {useRender} from '@base-ui/react/use-render'
-import {cn} from '../_core'
+import {cn} from '../_classnames'
 
 type LinkProps = useRender.ComponentProps<'a'> & {
   underline?: 'always' | 'hover' | 'none'

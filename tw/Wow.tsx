@@ -1,6 +1,6 @@
 'use client'
 
-import {cn} from '../_core'
+import {cn} from '../_classnames'
 import {useIntersectionObserver} from 'usehooks-ts'
 import {useEffect, type ReactNode} from 'react'
 import {useAnimateOnce} from '../hooks/useAnimateOnce'
