@@ -33,8 +33,18 @@ to the top of a file listing and carries no enforced meaning.
 
 **`tiers.json` is the source of truth** for what each tier needs — npm packages,
 other tiers, and shadcn components. The lists live there rather than in this table
-so there is only one place to keep current. Apps validate themselves against it
-with `check-share-tiers.mjs`; see the consuming app's `check-share` script.
+so there is only one place to keep current.
+
+Apps validate themselves against it with `scripts/check-tiers.mjs`, which ships
+here rather than being copied into each app so a fix lands once and travels with
+the contract. Wire it up from the app root:
+
+```json
+"check-share": "node src/share/scripts/check-tiers.mjs"
+```
+
+It reads the app's `package.json`, `tsconfig.json`, and the `shareTiers` array in
+its `vendor-components.json`.
 
 `ui` is the one tier that reaches _upward_ into the consuming app, importing its
 `src/components/ui/*` shadcn copies. That is deliberate — shadcn components are
