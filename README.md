@@ -43,8 +43,10 @@ the contract. Wire it up from the app root:
 "check-share": "node src/share/scripts/check-tiers.mjs"
 ```
 
-It reads the app's `package.json`, `tsconfig.json`, and the `shareTiers` array in
-its `vendor-components.json`.
+It reads the app's `package.json` and `tsconfig.json`, plus a `shareTiers` array
+declaring which tiers the app opts into. Put that array in `vendor-components.json`
+if the app vendors shadcn components, otherwise in `package.json` — an app that
+doesn't use shadcn shouldn't need a manifest just to declare tiers.
 
 `ui` is the one tier that reaches _upward_ into the consuming app, importing its
 `src/components/ui/*` shadcn copies. That is deliberate — shadcn components are

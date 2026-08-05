@@ -7,7 +7,8 @@
  * dependencies for the app — every package a tier imports has to be in the
  * app's own package.json, and every shadcn component a tier renders against has
  * to be vendored there. This checks both, and flags drift between the tiers an
- * app declares in vendor-components.json and the ones it actually imports.
+ * app declares and the ones it actually imports. Declare them in a "shareTiers"
+ * array, in vendor-components.json if the app has one, otherwise package.json.
  *
  * It ships here rather than being copied into each app so that a fix lands once
  * and travels with the contract it validates. Run it from the app root, where
@@ -191,12 +192,27 @@ function main() {
   }
 
   const {tiers} = readJson(TIERS_FILE)
+  const pkg = readJson(path.join(cwd, 'package.json'))
   const manifest = existsSync(MANIFEST_FILE) ? readJson(MANIFEST_FILE) : {}
-  const declared = manifest.shareTiers ?? []
 
-  if (!Array.isArray(manifest.shareTiers)) {
+  // Apps that vendor shadcn components already keep a manifest, so shareTiers
+  // lives alongside it. Apps that don't shouldn't need a phantom
+  // vendor-components.json just to declare tiers, so package.json also works.
+  const declaredIn = Array.isArray(manifest.shareTiers)
+    ? 'vendor-components.json'
+    : Array.isArray(pkg.shareTiers)
+      ? 'package.json'
+      : null
+  const declared =
+    declaredIn === 'vendor-components.json'
+      ? manifest.shareTiers
+      : declaredIn === 'package.json'
+        ? pkg.shareTiers
+        : []
+
+  if (!declaredIn) {
     warn(
-      'vendor-components.json has no "shareTiers" array — declare the tiers this app opts into so drift is detectable.'
+      'No "shareTiers" array in vendor-components.json or package.json — declare the tiers this app opts into so drift is detectable.'
     )
   }
 
@@ -206,7 +222,7 @@ function main() {
   for (const tier of declared) {
     if (!tiers[tier]) {
       fail(
-        `Unknown tier "${tier}" declared in vendor-components.json. Not defined in tiers.json.`
+        `Unknown tier "${tier}" declared in ${declaredIn}. Not defined in tiers.json.`
       )
     }
   }
@@ -220,7 +236,7 @@ function main() {
   for (const tier of used.keys()) {
     if (tiers[tier] && !declared.includes(tier)) {
       fail(
-        `Tier "${tier}" is imported but not declared in vendor-components.json "shareTiers" (used by ${[...used.get(tier)].join(', ')}).`
+        `Tier "${tier}" is imported but not declared in ${declaredIn ?? 'vendor-components.json / package.json'} "shareTiers" (used by ${[...used.get(tier)].join(', ')}).`
       )
     }
   }
@@ -246,7 +262,6 @@ function main() {
   )
 
   // Every package an active tier imports must be resolvable from this app.
-  const pkg = readJson(path.join(cwd, 'package.json'))
   const available = new Set([
     ...Object.keys(pkg.dependencies ?? {}),
     ...Object.keys(pkg.devDependencies ?? {})

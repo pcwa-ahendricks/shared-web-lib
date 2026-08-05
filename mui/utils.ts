@@ -1,4 +1,5 @@
-import type {SxProps} from '@mui/system'
+// Re-exported by @mui/material, so consumers need not also install @mui/system.
+import type {SxProps} from '@mui/material'
 
 type PureSx<T extends object> = Exclude<SxProps<T>, ReadonlyArray<unknown>>
 type SxAsArray<T extends object> = Array<PureSx<T>>

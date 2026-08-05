@@ -58,7 +58,7 @@
     "mui": {
       "description": "MUI components. Mutually exclusive with tw/ui in practice.",
       "requires": ["_core"],
-      "deps": ["@mui/material", "@mui/system", "clsx", "next"],
+      "deps": ["@mui/material", "clsx", "next"],
       "shadcn": []
     },
     "mui-pages": {
