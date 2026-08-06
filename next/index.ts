@@ -1,4 +1,5 @@
 export {default as awsImgixLoader} from './awsImgixLoader'
 export {default as imgixUrlLoader} from './imgixUrlLoader'
 export {default as imgixPreloadUrl} from './imgixPreloadUrl'
+export {default as imgixPlaceholderUrl} from './imgixPlaceholderUrl'
 export {default as resolveHref} from './resolveHref'
