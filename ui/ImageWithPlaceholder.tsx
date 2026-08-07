@@ -1,8 +1,8 @@
 'use client'
 
-import {useState} from 'react'
 import Image, {type ImageProps} from 'next/image'
 import ImagePlaceholder from './ImagePlaceholder'
+import useImageLoaded from '../hooks/useImageLoaded'
 import {cn} from '../_classnames'
 
 export type ImageWithPlaceholderProps = ImageProps & {
@@ -32,7 +32,9 @@ export default function ImageWithPlaceholder({
   src,
   ...rest
 }: ImageWithPlaceholderProps) {
-  const [loaded, setLoaded] = useState(false)
+  const {ref, loaded, instant, onLoad: markLoaded} = useImageLoaded(
+    typeof src === 'string' ? src : undefined
+  )
 
   return (
     // overflow-hidden clips the placeholder, which is scaled up slightly so its
@@ -44,11 +46,13 @@ export default function ImageWithPlaceholder({
         src={typeof src === 'string' ? src : ''}
         width={placeholderWidth}
         loaded={loaded}
+        instant={instant}
       />
       <Image
+        ref={ref}
         src={src}
         onLoad={(e) => {
-          setLoaded(true)
+          markLoaded()
           onLoad?.(e)
         }}
         {...rest}

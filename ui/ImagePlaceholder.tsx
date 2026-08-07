@@ -19,6 +19,11 @@ export type ImagePlaceholderProps = {
    * too, so there is no complete() special case to handle.
    */
   loaded: boolean
+  /**
+   * Skip the fade. Set when the image was already cached, so returning to a
+   * page doesn't replay a blur for an image that was never missing.
+   */
+  instant?: boolean
   className?: string
 }
 
@@ -49,6 +54,7 @@ export default function ImagePlaceholder({
   src,
   width,
   loaded,
+  instant,
   className
 }: ImagePlaceholderProps) {
   const url = imgixPlaceholderUrl(src, width)
@@ -64,6 +70,7 @@ export default function ImagePlaceholder({
       className={cn(
         'pointer-events-none absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat blur-lg transition-opacity duration-300',
         loaded && 'opacity-0',
+        instant && 'transition-none',
         className
       )}
       style={{backgroundImage: `url("${url}")`}}
