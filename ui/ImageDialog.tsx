@@ -120,6 +120,18 @@ const widthClasses: Record<ImageDialogSize, string> = {
   fit: 'max-w-none sm:max-w-none w-[100vw]'
 }
 
+// The px cap baked into each `widthClasses` entry above, in CSS pixels. Keep
+// in sync with it by hand — needed so the hover-preload fallback below can
+// warm the same URL the dialog's <Image> will actually request; `fit` has no
+// cap since that preset is genuinely 100vw.
+const sizeMaxWidth: Record<ImageDialogSize, number | undefined> = {
+  sm: 720,
+  base: 900,
+  lg: 1200,
+  xl: 1600,
+  fit: undefined
+}
+
 /**
  * ImageDialog
  *
@@ -189,7 +201,7 @@ export default function ImageDialog({
       const url =
         typeof preloadSrc === 'function' ? preloadSrc()
         : preloadSrc
-        ?? (autoSrc ? imgixPreloadUrl(autoSrc) : undefined)
+        ?? (autoSrc ? imgixPreloadUrl(autoSrc, 75, sizeMaxWidth[size]) : undefined)
       if (!url) return
       preloadedRef.current = true
       const img = new window.Image()
@@ -197,7 +209,7 @@ export default function ImageDialog({
     } catch {
       // non-imgix or invalid src — skip preload silently
     }
-  }, [preloadSrc, autoSrc])
+  }, [preloadSrc, autoSrc, size])
 
   const resolvedTitle = title ?? 'Image preview'
 
