@@ -51,12 +51,6 @@ export default function ImageWithPlaceholder({
       <Image
         ref={ref}
         src={src}
-        // next/image defaults to decoding="async", which lets the browser skip
-        // painting in the current frame. Safari honors that literally, so a
-        // cached image blinks in — the placeholder is already gone, so the gap
-        // shows as an empty box. Decode synchronously when we know it's cached;
-        // it is already in memory, so there is nothing to block on.
-        decoding={instant ? 'sync' : undefined}
         onLoad={(e) => {
           markLoaded()
           onLoad?.(e)
