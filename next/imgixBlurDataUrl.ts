@@ -31,6 +31,9 @@ export default async function imgixBlurDataUrl(
   timeoutMs = 5000
 ): Promise<string | null> {
   const url = imgixPlaceholderUrl(src, width)
+  if (!url) {
+    return null
+  }
   try {
     const res = await fetch(url, {signal: AbortSignal.timeout(timeoutMs)})
     if (!res.ok) {

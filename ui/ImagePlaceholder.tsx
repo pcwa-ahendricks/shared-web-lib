@@ -11,6 +11,14 @@ export type ImagePlaceholderProps = {
   src: string
   /** Width of the fetched placeholder in px. Larger = more color detail. */
   width?: number
+  /**
+   * Whether the image above has finished loading. Required, not optional: a
+   * placeholder that is never told it can leave is a permanent layer, which
+   * only looks hidden while the image happens to be opaque and exactly
+   * covering. Wire it to next/image's onLoad — that fires for cached images
+   * too, so there is no complete() special case to handle.
+   */
+  loaded: boolean
   className?: string
 }
 
@@ -40,18 +48,25 @@ export type ImagePlaceholderProps = {
 export default function ImagePlaceholder({
   src,
   width,
+  loaded,
   className
 }: ImagePlaceholderProps) {
+  const url = imgixPlaceholderUrl(src, width)
+
+  if (!url) {
+    return null
+  }
   return (
     <div
       aria-hidden
       // scale-110 keeps the blur from feathering transparent edges inward —
       // the same trick Next's own blur placeholder uses
       className={cn(
-        'absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat blur-lg',
+        'pointer-events-none absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat blur-lg transition-opacity duration-300',
+        loaded && 'opacity-0',
         className
       )}
-      style={{backgroundImage: `url("${imgixPlaceholderUrl(src, width)}")`}}
+      style={{backgroundImage: `url("${url}")`}}
     />
   )
 }

@@ -28,8 +28,19 @@
  *     <Image fill className="object-cover" ... />
  *   </div>
  */
-export default function imgixPlaceholderUrl(src: string, width = 24): string {
-  const {origin, pathname, searchParams} = new URL(src)
+export default function imgixPlaceholderUrl(
+  src: string,
+  width = 24
+): string | null {
+  let parsed: URL
+  try {
+    parsed = new URL(src)
+  } catch {
+    // Relative or malformed src. A placeholder is decorative, so degrade to
+    // none rather than throwing and taking the whole page down.
+    return null
+  }
+  const {origin, pathname, searchParams} = parsed
 
   // Drop any sizing/format params already on the URL so ours win
   searchParams.delete('w')
