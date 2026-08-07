@@ -35,7 +35,7 @@ export type ImagePlaceholderProps = {
  *
  * Deliberately does NOT wrap next/image — pass image props to next/image
  * directly. Wrapping it means forwarding its entire API forever, which is what
- * made ImageFancier/ImageBlur hard to change.
+ * made HoverZoomImage (nee ImageFancier)/ImageBlur hard to change.
  *
  * The parent must be `relative` and should be `overflow-hidden`; the image goes
  * after it so it paints on top:
