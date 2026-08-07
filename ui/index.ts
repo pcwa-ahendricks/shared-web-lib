@@ -4,3 +4,7 @@ export {
   default as ImagePlaceholder,
   type ImagePlaceholderProps
 } from './ImagePlaceholder'
+export {
+  default as ImageWithPlaceholder,
+  type ImageWithPlaceholderProps
+} from './ImageWithPlaceholder'
