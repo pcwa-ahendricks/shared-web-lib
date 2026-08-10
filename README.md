@@ -29,6 +29,7 @@ to the top of a file listing and carries no enforced meaning.
 | `mui`, `mui-pages` | MUI components. App Router and Pages Router variants.         |
 | `slate`            | Slate rich-text editor. Pulls MUI in via its toolbar.         |
 | `aws`              | S3 helpers. Reads AWS credentials from env — server-side use. |
+| `blob`             | Vercel Blob helpers — server-side use.                        |
 | `types`            | Ambient declarations.                                         |
 
 **`tiers.json` is the source of truth** for what each tier needs — npm packages,

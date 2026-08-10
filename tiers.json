@@ -91,6 +91,12 @@
       "requires": ["_core", "date-fns"],
       "deps": ["@aws-sdk/client-s3", "date-fns", "filenamify"],
       "shadcn": []
+    },
+    "blob": {
+      "description": "Vercel Blob helpers. Server-only.",
+      "requires": ["date-fns"],
+      "deps": ["@vercel/blob", "date-fns"],
+      "shadcn": []
     }
   }
 }
