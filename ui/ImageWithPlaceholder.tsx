@@ -30,6 +30,7 @@ export default function ImageWithPlaceholder({
   placeholderWidth,
   onLoad,
   src,
+  alt,
   ...rest
 }: ImageWithPlaceholderProps) {
   const {ref, loaded, instant, onLoad: markLoaded} = useImageLoaded(
@@ -51,6 +52,7 @@ export default function ImageWithPlaceholder({
       <Image
         ref={ref}
         src={src}
+        alt={alt}
         onLoad={(e) => {
           markLoaded()
           onLoad?.(e)
