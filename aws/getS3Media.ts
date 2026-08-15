@@ -19,8 +19,8 @@ import {
   cdnEndpoint
 } from './options'
 import type {AwsObjectExt} from './types'
-import isImgixInputMimeType from '../_core/isImgixInputMimeType'
-import fileExtension from '../_core/fileExtension'
+import isImgixInputMimeType from '../core/isImgixInputMimeType'
+import fileExtension from '../core/fileExtension'
 import {LocalDate, localTz} from '../date-fns'
 
 export interface getS3MediaParams {

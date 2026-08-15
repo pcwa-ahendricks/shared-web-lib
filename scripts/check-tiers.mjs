@@ -133,8 +133,8 @@ function collectSourceFiles() {
  * depth of relative reach into the submodule.
  *
  * The captured path segment is not always a tier name. Some apps map the share
- * alias with a `_core` fallback, so an import of a bare utility name resolves to
- * `_core/<name>.ts`. Resolve against the filesystem the way TypeScript would,
+ * alias with a `core` fallback, so an import of a bare utility name resolves to
+ * `core/<name>.ts`. Resolve against the filesystem the way TypeScript would,
  * rather than assuming segment === tier.
  *
  * Note this is a textual scan, so a path written in a comment or string counts
@@ -149,9 +149,9 @@ function detectUsedTiers(files, tiers) {
   const resolveTier = (segment) => {
     if (tiers[segment]) return segment
     const isCoreFile = ['.ts', '.tsx'].some((ext) =>
-      existsSync(path.join(shareAbs, '_core', `${segment}${ext}`))
+      existsSync(path.join(shareAbs, 'core', `${segment}${ext}`))
     )
-    return isCoreFile && tiers._core ? '_core' : null
+    return isCoreFile && tiers.core ? 'core' : null
   }
 
   for (const file of files) {
@@ -229,7 +229,7 @@ function main() {
 
   for (const [segment, importers] of unresolved) {
     fail(
-      `Import of "share/${segment}" matches no tier and no _core file (used by ${[...importers].join(', ')}).`
+      `Import of "share/${segment}" matches no tier and no core file (used by ${[...importers].join(', ')}).`
     )
   }
 

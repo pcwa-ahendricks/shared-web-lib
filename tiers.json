@@ -13,14 +13,14 @@
     "their tsconfig; keep this file in step with the imports it describes."
   ],
   "tiers": {
-    "_core": {
+    "core": {
       "description": "Framework-free, dependency-free utilities. Safe in any app.",
       "requires": [],
       "deps": [],
       "shadcn": []
     },
     "_classnames": {
-      "description": "Tailwind class merger. Split from _core so that tier stays Tailwind-free, and kept out of tw so ui and slate can merge classes without inheriting Base UI.",
+      "description": "Tailwind class merger. Split from core so that tier stays Tailwind-free, and kept out of tw so ui and slate can merge classes without inheriting Base UI.",
       "requires": [],
       "deps": ["clsx", "tailwind-merge"],
       "shadcn": []
@@ -57,7 +57,7 @@
     },
     "mui": {
       "description": "MUI components. Mutually exclusive with tw/ui in practice.",
-      "requires": ["_core"],
+      "requires": ["core"],
       "deps": ["@mui/material", "clsx", "next"],
       "shadcn": []
     },
@@ -88,7 +88,7 @@
     },
     "aws": {
       "description": "S3 helpers. Server-only.",
-      "requires": ["_core", "date-fns"],
+      "requires": ["core", "date-fns"],
       "deps": ["@aws-sdk/client-s3", "date-fns", "filenamify"],
       "shadcn": []
     },

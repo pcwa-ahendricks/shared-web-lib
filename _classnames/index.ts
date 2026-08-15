@@ -4,8 +4,8 @@ import {twMerge} from 'tailwind-merge'
 /**
  * Tailwind-aware class merger.
  *
- * This is its own tier rather than part of `_core` because `tailwind-merge`
- * couples it to Tailwind, and `_core` is meant to be safe in any app. It is also
+ * This is its own tier rather than part of `core` because `tailwind-merge`
+ * couples it to Tailwind, and `core` is meant to be safe in any app. It is also
  * not part of `tw` so that `ui` and `slate` can use it without inheriting
  * `tw`'s Base UI dependency.
  *

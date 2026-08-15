@@ -1,4 +1,4 @@
-import preciseFloat from '../_core/preciseFloat'
+import preciseFloat from '../core/preciseFloat'
 import {GridSizes, MediaBreakpoints} from './types'
 
 const defaultBreakpoints: MediaBreakpoints = {

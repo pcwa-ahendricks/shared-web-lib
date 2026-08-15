@@ -14,12 +14,23 @@ it can be checked instead of remembered.
 
 Each top-level directory is a tier. Apps opt into the ones they use and exclude
 the rest from their `tsconfig.json`, so an MUI app never type-checks the Tailwind
-tiers and vice versa. The `_` prefix is cosmetic — it sorts the foundational tiers
-to the top of a file listing and carries no enforced meaning.
+tiers and vice versa.
+
+A leading `_` marks a tier apps are not meant to import. `_classnames` exists so
+shared components can merge classes without depending on the app's shadcn `cn` —
+app code has its own, and the two must not cross (see below). Such a tier only
+ever appears in another tier's `requires`, never in an app's `shareTiers`.
+
+Always import through the tier — `@/share/core`, never a root barrel. There is
+deliberately no `index.ts` here: `check-tiers.mjs` detects tier usage by scanning
+for `share/<tier>` in import paths, so a root re-export would be invisible to it.
+Worse than undetected, it inverts the advice — a tier used only through a barrel
+reports as "declared but never imported", and following that would delete the
+declaration for a tier that is very much in use.
 
 | Tier               | Purpose                                                       |
 | ------------------ | ------------------------------------------------------------- |
-| `_core`            | Framework-free utilities. No dependencies at all.             |
+| `core`             | Framework-free utilities. No dependencies at all.             |
 | `_classnames`      | Tailwind class merger (`cn`).                                 |
 | `hooks`            | React hooks.                                                  |
 | `next`             | Next.js helpers, chiefly imgix image loaders.                 |
@@ -123,4 +134,4 @@ wrapper and import from that, instead of repeating them at every call site.
 3. Run the app's `check-share` to confirm the contract still holds.
 
 Don't introduce a cross-tier import that drags a UI library somewhere it doesn't
-belong — `_core` and `hooks` must never reach into `mui`, `tw`, or `ui`.
+belong — `core` and `hooks` must never reach into `mui`, `tw`, or `ui`.
