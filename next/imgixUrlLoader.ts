@@ -52,7 +52,17 @@ const imgixUrlLoader: ImageLoader = ({src, width, quality}) => {
     return src
   }
 
-  const {origin, pathname, searchParams} = new URL(src)
+  const {origin, pathname, searchParams, hostname} = new URL(src)
+
+  // Only imgix understands the params below. Appending them to some other host
+  // does not fail loudly -- the host just ignores the query string and serves
+  // the full-size original at every srcSet width, so an unoptimised multi-MB
+  // image ships while the markup claims to be responsive. Hand those back
+  // untouched instead. Apps serving imgix from a custom domain rather than
+  // *.imgix.net need to widen this check.
+  if (!hostname.endsWith('.imgix.net')) {
+    return src
+  }
 
   // Drop any that came in on the source URL so the values below win.
   searchParams.delete('w')
