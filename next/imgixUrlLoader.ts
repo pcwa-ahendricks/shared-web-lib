@@ -5,27 +5,33 @@ import {ImageLoader} from 'next/image'
 /**
  * The `next/image` loader for imgix-backed sources.
  *
- * Wire it up once, app-wide, in next.config.js:
+ * Pass it per image:
  *
- * ```js
- * images: {
- *   loader: 'custom',
- *   loaderFile: './src/share/next/imgixUrlLoader.ts'
- * }
+ * ```tsx
+ * import {imgixUrlLoader} from '@/share/next'
+ *
+ * <Image loader={imgixUrlLoader} src={imgixUrl} alt="" width={400} height={300} />
  * ```
  *
- * Prefer that over `<Image loader={imgixUrlLoader} />`. A loader is a function,
- * and functions cannot cross the RSC boundary, so the per-call form forces
- * `'use client'` onto every component that renders an image. `loaderFile` is
- * resolved by the bundler, so Server Components keep working untouched.
+ * This works from Server Components. The `'use client'` directive above is
+ * what makes that true: it turns the export into a client reference, which is
+ * serializable across the RSC boundary, so a Server Component can pass it as a
+ * prop without becoming a Client Component itself. (A plain, undirectivized
+ * function could not — that is the rule this file is deliberately sidestepping,
+ * and the reason a wrapper component is not needed.)
  *
- * Why bypass Next's optimizer at all: imgix is already a CDN with on-the-fly
- * transforms. On the default loader, requests go to `/_next/image?url=<imgix
- * url>`, so the platform fetches an image imgix has already transformed,
- * decodes it, and re-encodes it — an extra hop and a second optimizer for no
- * benefit, billed as a source image. With this loader the transform is imgix's
- * alone, and `images.remotePatterns` becomes unnecessary since the built-in
- * optimizer never runs.
+ * It can also be wired app-wide via `images.loader: 'custom'` +
+ * `images.loaderFile` in next.config.js, which drops the prop everywhere and
+ * makes `remotePatterns` moot. That is fewer characters but much more implicit:
+ * every image silently changes behaviour from one config line, and a reader at
+ * the call site has no clue imgix is involved. Prefer the explicit prop unless
+ * an app has so many images that the repetition genuinely hurts.
+ *
+ * Why bother instead of the built-in optimizer: imgix is already a CDN with
+ * on-the-fly transforms. On the default loader, requests go to
+ * `/_next/image?url=<imgix url>`, so the platform fetches an image imgix has
+ * already transformed, decodes it, and re-encodes it — an extra hop and a
+ * second optimizer for no benefit, billed as a source image.
  *
  * `auto=compress` is worth having and is easy to leave off: measured on a
  * 1200px-wide PNG banner, `auto=format` alone returned 130,181 bytes while
