@@ -32,9 +32,9 @@
     "xss": "^1.0.15"
   },
   "peerDependencies": {
-    "@mui/icons-material": "^7",
-    "@mui/material": "^7",
-    "next": "^15",
+    "@mui/icons-material": "^9",
+    "@mui/material": "^9",
+    "next": "^16",
     "react": "^19",
     "react-dom": "^19"
   },
