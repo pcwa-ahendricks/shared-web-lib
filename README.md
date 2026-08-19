@@ -135,3 +135,103 @@ wrapper and import from that, instead of repeating them at every call site.
 
 Don't introduce a cross-tier import that drags a UI library somewhere it doesn't
 belong — `core` and `hooks` must never reach into `mui`, `tw`, or `ui`.
+
+## Commit Messages
+
+Use plain [Conventional Commits](https://www.conventionalcommits.org/):
+
+```text
+type: short summary
+
+Optional body explaining the why, wrapped at about 72 characters.
+
+Trailer-Key: value
+```
+
+Examples:
+
+```text
+fix: forward ref through ImageTrigger
+docs: record why cn is duplicated per app
+refactor: simplify useScrolledToBottomRef
+deps: upgrade next and react
+feat!: require an explicit icon prop on ImageTrigger
+```
+
+Quick guidelines:
+
+- Use a short imperative summary, like "add", "correct", "update", or "remove".
+- Keep the first line concise. Around 50 to 72 characters is a good target.
+- Skip the period at the end of the first line.
+- Add a longer body below the first line when the "why" is not obvious.
+- Mark a breaking change with `!` after the type, or a `BREAKING CHANGE:` trailer.
+
+Breaking changes matter more here than in a normal package. Consuming apps track
+this repo as a submodule pinned to a commit, so a rename or a prop that becomes
+required lands the moment an app runs `git submodule update --remote`. Say so in
+the subject.
+
+### Crediting whoever asked
+
+When someone else requested a change, record it as a git _trailer_ at the end of
+the message rather than in the subject line:
+
+```text
+feat: add a downloadIcon prop to ImageDialog
+
+Requested-by: Nicole Reid <nreid@pcwa.net>
+```
+
+Trailers are `Key: value` lines in a block at the very end, separated from the
+body by one blank line, with no blank lines between them. Git parses them
+natively, so unlike an `(N. Reid)` suffix they are queryable:
+
+```shell
+# who asked for what
+git log --format='%h %s%n    %(trailers:key=Requested-by,valueonly)'
+
+# every change a given person requested
+git log --grep='Requested-by:.*Reid'
+```
+
+Which trailer to use:
+
+| Trailer           | When to use it                                          |
+| ----------------- | ------------------------------------------------------- |
+| `Requested-by:`   | They asked for this change                              |
+| `Reported-by:`    | They reported the bug being fixed                       |
+| `Suggested-by:`   | They floated the idea rather than requesting it         |
+| `Co-authored-by:` | They helped write it — GitHub credits them as an author |
+
+Use full names, with an email address when you know it. Do not reach for
+`Co-authored-by:` for someone who only requested a change; GitHub renders it as
+authorship. Self-initiated work needs no trailer at all — git already records
+the author.
+
+There is not one universal list of commit prefixes used everywhere, but these are the most common and safest ones to use:
+
+| Prefix      | When to use it                                                             |
+| ----------- | -------------------------------------------------------------------------- |
+| `feat:`     | A new feature or new user-visible behavior                                 |
+| `fix:`      | A bug fix, regression fix, or broken behavior correction                   |
+| `docs:`     | README, guides, comments, or documentation-only changes                    |
+| `style:`    | Formatting or stylistic cleanup with no behavior change                    |
+| `refactor:` | Code restructuring with no intended behavior change                        |
+| `perf:`     | A change mainly intended to improve performance                            |
+| `test:`     | Adding or updating tests without changing production behavior              |
+| `build:`    | Build tooling, dependency packaging, or bundler/config changes             |
+| `ci:`       | GitHub Actions, Vercel, or other CI/CD workflow changes                    |
+| `chore:`    | Maintenance work that does not fit the other categories                    |
+| `revert:`   | Reverting an earlier commit                                                |
+| `deps:`     | Dependency upgrades or package version bumps                               |
+| `security:` | Security-related fixes or hardening                                        |
+| `migrate:`  | Porting a component or hook to a new library or API                        |
+| `wip:`      | Work in progress; useful locally, but usually best cleaned up before merge |
+
+If you are not sure which one to pick, this shortcut usually works:
+
+- New thing: `feat:`
+- Broken thing: `fix:`
+- Cleanup without behavior change: `refactor:`
+- Documentation only: `docs:`
+- Tooling or maintenance: `chore:` or `deps:`
